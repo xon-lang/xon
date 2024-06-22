@@ -3,9 +3,9 @@ import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/integer/integer-node';
-import {TokenNode} from '../../token/token-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
+import {IntegerNode} from '../../../lexical/token/integer/integer-node';
+import {TokenNode} from '../../../lexical/token/token-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
 

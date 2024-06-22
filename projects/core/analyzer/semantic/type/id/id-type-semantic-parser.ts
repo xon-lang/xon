@@ -3,7 +3,7 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {OBJECT_OPEN} from '../../../lexical/lexical-config';
 import {$Node, Node, is} from '../../../syntax/node';
 import {InvokeNode} from '../../../syntax/node/invoke/invoke-node';
-import {IdNode} from '../../../syntax/token/id/id-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic';

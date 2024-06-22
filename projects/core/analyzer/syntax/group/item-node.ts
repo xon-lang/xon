@@ -6,7 +6,7 @@ import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {StatementNode} from '../statement/statement-node';
-import {CommaNode} from '../token/comma/comma-node';
+import {CommaNode} from '../../lexical/token/comma/comma-node';
 
 export type ItemNode = SyntaxNode<$Node.ITEM> & {
   index: Integer;

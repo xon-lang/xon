@@ -1,7 +1,7 @@
 import {String2} from '../../../../../../lib/types';
 import {TextRange} from '../../../../../util/resource/text/text-range';
 import {$Node} from '../../../../syntax/node';
-import {TokenNode, tokenNode} from '../../../../syntax/token/token-node';
+import {TokenNode, tokenNode} from '../../../../lexical/token/token-node';
 
 export type DescriptionDocumentationNode = TokenNode<$Node.DESCRIPTION_DOCUMENTATION>;
 

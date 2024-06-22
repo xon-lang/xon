@@ -2,8 +2,8 @@ import {Integer, nothing} from '../../../../../lib/types';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {IdNode} from '../../token/id/id-node';
-import {OperatorNode} from '../../token/operator/operator-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
+import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {memberNode} from './member-node';
 
 export function memberNodeParse(operators: String[]): SyntaxParseFn {

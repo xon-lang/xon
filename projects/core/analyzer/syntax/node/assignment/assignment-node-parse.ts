@@ -3,8 +3,8 @@ import {ASSIGN} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {IdNode} from '../../token/id/id-node';
-import {OperatorNode} from '../../token/operator/operator-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
+import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {prefixNode} from '../prefix/prefix-node';
 import {assignmentNode} from './assignment-node';
 

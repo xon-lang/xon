@@ -2,7 +2,7 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {IntegerNode} from '../../../lexical/token/integer/integer-node';
 import {AssignmentNode} from './assignment-node';
 
 test('a = 1', () => {

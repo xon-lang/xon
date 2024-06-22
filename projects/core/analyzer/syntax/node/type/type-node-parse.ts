@@ -3,7 +3,7 @@ import {TYPE} from '../../../lexical/lexical-config';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {OperatorNode} from '../../token/operator/operator-node';
+import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {typeNode} from './type-node';
 
 function typeNodeParse(): SyntaxParseFn {

@@ -6,9 +6,9 @@ import {SyntaxParserConfig} from '../../../syntax-parser-config';
 import {groupNode} from '../../../syntax/group/group-node';
 import {ItemNode, itemNode} from '../../../syntax/group/item-node';
 import {$Node, is} from '../../../syntax/node';
-import {CloseNode} from '../../../syntax/token/close/close-node';
-import {CommaNode} from '../../../syntax/token/comma/comma-node';
-import {openNode} from '../../../syntax/token/open/open-node';
+import {CloseNode} from '../../../lexical/token/close/close-node';
+import {CommaNode} from '../../../lexical/token/comma/comma-node';
+import {openNode} from '../../../lexical/token/open/open-node';
 import {DocumentationNode} from './documentation-node';
 
 export function documentationNodeParse(context: SyntaxContext, index: Integer): DocumentationNode | Nothing {

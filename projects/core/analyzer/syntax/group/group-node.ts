@@ -5,8 +5,8 @@ import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, ExpressionNode} from '../node';
 import {SyntaxNode} from '../node/syntax-node';
-import {CloseNode} from '../token/close/close-node';
-import {OpenNode} from '../token/open/open-node';
+import {CloseNode} from '../../lexical/token/close/close-node';
+import {OpenNode} from '../../lexical/token/open/open-node';
 import {ItemNode} from './item-node';
 
 export type $Group = $Node.GROUP | $Node.ARRAY | $Node.OBJECT;

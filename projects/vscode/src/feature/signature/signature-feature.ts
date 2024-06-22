@@ -12,6 +12,9 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
+import {CommaNode} from '../../../../core/analyzer/lexical/token/comma/comma-node';
+import {IdNode} from '../../../../core/analyzer/lexical/token/id/id-node';
+import {OpenNode} from '../../../../core/analyzer/lexical/token/open/open-node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
@@ -19,9 +22,6 @@ import {IdValueSemantic} from '../../../../core/analyzer/semantic/value/id/id-va
 import {ItemNode} from '../../../../core/analyzer/syntax/group/item-node';
 import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/analyzer/syntax/node';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
-import {CommaNode} from '../../../../core/analyzer/syntax/token/comma/comma-node';
-import {IdNode} from '../../../../core/analyzer/syntax/token/id/id-node';
-import {OpenNode} from '../../../../core/analyzer/syntax/token/open/open-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';

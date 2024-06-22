@@ -1,9 +1,9 @@
 import {Array2, Nothing} from '../../../../../lib/types';
 import {$Node} from '../../../syntax/node';
 import {SyntaxNode, syntaxNode} from '../../../syntax/node/syntax-node';
-import {CloseNode} from '../../../syntax/token/close/close-node';
-import {OpenNode} from '../../../syntax/token/open/open-node';
-import { HiddenNode } from '../../../syntax/token/token-node';
+import {CloseNode} from '../../../lexical/token/close/close-node';
+import {OpenNode} from '../../../lexical/token/open/open-node';
+import { HiddenNode } from '../../../lexical/token/token-node';
 import {DocumentationItemNode} from '../documentation-item/documentation-item-node';
 import {DescriptionDocumentationNode} from '../token/description/description-documentation-node';
 

@@ -2,9 +2,9 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {CharNode} from '../../token/char/char-node';
-import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {CharNode} from '../../../lexical/token/char/char-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
+import {IntegerNode} from '../../../lexical/token/integer/integer-node';
 import {DeclarationNode} from './declaration-node';
 
 test('model A', () => {

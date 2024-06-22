@@ -3,8 +3,8 @@ import {TextPosition} from '../../util/resource/text/text-position';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {TextResourcePosition, textResourcePosition} from '../../util/resource/text/text-resource-position';
 import {TokenParseFn} from '../syntax-parser';
-import {TokenNode} from '../syntax/token/token-node';
-import {unknownNodeParse} from '../syntax/token/unknown/unknown-node-parse';
+import {TokenNode} from './token/token-node';
+import {unknownNodeParse} from './token/unknown/unknown-node-parse';
 
 export interface LexicalAnalyzer {
   tokenParsers: Array2<TokenParseFn>;

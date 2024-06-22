@@ -2,7 +2,7 @@ import {Boolean2, Integer, nothing} from '../../../../../lib/types';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {OperatorNode} from '../../token/operator/operator-node';
+import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {prefixNode} from './prefix-node';
 
 export function prefixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {

@@ -11,8 +11,6 @@ import {
   TextDocument,
 } from 'vscode';
 
-import {KeywordType} from '../../../../core/analyzer/syntax/token/operator/operator-node';
-import {Number2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 
 const selector = {language: LANGUAGE_NAME, scheme: 'file'};
@@ -47,13 +45,13 @@ class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
   }
 }
 
-function getKeywordTokenType(keywordType: KeywordType): (typeof tokenTypes)[Number2] {
-  switch (keywordType) {
-    case KeywordType.MODIFIER:
-      return 'keyword_modifier';
-    case KeywordType.CONTROL:
-      return 'keyword_control';
-    case KeywordType.OPERATOR:
-      return 'keyword_operator';
-  }
-}
+// function getKeywordTokenType(keywordType: KeywordType): (typeof tokenTypes)[Number2] {
+//   switch (keywordType) {
+//     case KeywordType.MODIFIER:
+//       return 'keyword_modifier';
+//     case KeywordType.CONTROL:
+//       return 'keyword_control';
+//     case KeywordType.OPERATOR:
+//       return 'keyword_operator';
+//   }
+// }

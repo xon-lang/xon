@@ -3,8 +3,8 @@ import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
-import {OperatorNode} from '../../token/operator/operator-node';
-import {StringNode} from '../../token/string/string-node';
+import {OperatorNode} from '../../../lexical/token/operator/operator-node';
+import {StringNode} from '../../../lexical/token/string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type ImportNode = SyntaxNode<$Node.IMPORT> &

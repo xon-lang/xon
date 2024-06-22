@@ -3,8 +3,8 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {GroupNode} from '../../group/group-node';
 import {$Node} from '../../node';
-import {IdNode} from '../../token/id/id-node';
-import {IntegerNode} from '../../token/integer/integer-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
+import {IntegerNode} from '../../../lexical/token/integer/integer-node';
 import {MemberNode} from '../member/member-node';
 import {InvokeNode} from './invoke-node';
 

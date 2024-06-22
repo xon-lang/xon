@@ -2,7 +2,7 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
-import {IdNode} from '../../../syntax/token/id/id-node';
+import {IdNode} from '../../../lexical/token/id/id-node';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticParse} from '../../semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';

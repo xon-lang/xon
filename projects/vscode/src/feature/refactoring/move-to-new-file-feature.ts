@@ -17,8 +17,8 @@ import {
 } from 'vscode';
 
 import {dirname} from 'path';
+import {IdNode} from '../../../../core/analyzer/lexical/token/id/id-node';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';
-import {IdNode} from '../../../../core/analyzer/syntax/token/id/id-node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
 import {LANGUAGE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';

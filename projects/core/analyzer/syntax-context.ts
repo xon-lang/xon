@@ -3,10 +3,10 @@ import {FormatterManager, createFormatterManager} from '../formatter/formatter-m
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextResource} from '../util/resource/text/text-resource';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
+import {TokenNode} from './lexical/token/token-node';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
 import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
-import {TokenNode} from './syntax/token/token-node';
 
 type ContextAttributes = 'resource' | 'statements' | 'issueManager' | 'formatterManager';
 

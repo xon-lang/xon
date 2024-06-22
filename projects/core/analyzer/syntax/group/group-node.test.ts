@@ -4,7 +4,7 @@ import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../syntax-parser';
 import {$Node, is} from '../node';
 import {InfixNode} from '../node/infix/infix-node';
-import {IntegerNode} from '../token/integer/integer-node';
+import {IntegerNode} from '../../lexical/token/integer/integer-node';
 import {ArrayNode, GroupNode, ObjectNode} from './group-node';
 
 test('empty closed', () => {
