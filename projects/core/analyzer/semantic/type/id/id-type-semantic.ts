@@ -2,7 +2,7 @@ import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../node/semantic-node';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -13,7 +13,7 @@ export interface IdTypeSemantic extends TypeSemantic {
 }
 
 export function idTypeSemantic(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   reference: TextResourceRange,
   declaration: DeclarationSemantic,
   generics: Array2<TypeSemantic | Nothing> | Nothing,
@@ -62,7 +62,7 @@ export function idTypeSemantic(
 }
 
 export function getDeclarationAttributes(
-  _context: SemanticContext,
+  _context: SemanticAnalyzerContext,
   declaration: DeclarationSemantic,
 ): Record<String2, Array2<TypeSemantic>> {
   const attributes: Record<String2, Array2<TypeSemantic>> = {};

@@ -1,10 +1,10 @@
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {DeclarationNode} from '../../syntax/node/declaration/declaration-node';
-import {SemanticContext} from '../semantic-context';
+import {SemanticAnalyzerContext} from '../semantic-analyzer-context';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
 export function declarationShallowParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
   if (!node.id) {

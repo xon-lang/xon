@@ -6,12 +6,15 @@ import {InfixNode} from '../../../../syntax/node/infix/infix-node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../node/semantic-node';
-import {SemanticContext} from '../../../semantic-context';
+import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic, rangeTypeSemantic} from './range-type-semantic';
 
-export function rangeTypeSemanticTryParse(context: SemanticContext, node: Node): RangeTypeSemantic | Nothing {
+export function rangeTypeSemanticTryParse(
+  context: SemanticAnalyzerContext,
+  node: Node,
+): RangeTypeSemantic | Nothing {
   if (!is<InfixNode>(node, $Node.INFIX) || node.operator.text !== RANGE) {
     return nothing;
   }

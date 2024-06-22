@@ -1,6 +1,6 @@
 import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {$Node, ExpressionNode, Node, is} from '../../syntax/node';
-import {SemanticContext} from '../semantic-context';
+import {SemanticAnalyzerContext} from '../semantic-analyzer-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
 import {declarationTypeSemanticTryParse} from './id/id-type-semantic-parser';
@@ -13,7 +13,7 @@ import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser'
 import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
 
-type TypeSemanticTryParseFn = (context: SemanticContext, node: Node) => TypeSemantic | Nothing;
+type TypeSemanticTryParseFn = (context: SemanticAnalyzerContext, node: Node) => TypeSemantic | Nothing;
 
 const parsers: Array2<TypeSemanticTryParseFn> = [
   integerTypeSemanticTryParse,
@@ -28,7 +28,10 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   notTypeSemanticTryParse,
 ];
 
-export function typeSemanticParse(context: SemanticContext, node: Node | Nothing): TypeSemantic | Nothing {
+export function typeSemanticParse(
+  context: SemanticAnalyzerContext,
+  node: Node | Nothing,
+): TypeSemantic | Nothing {
   if (!is<ExpressionNode>(node, $Node.EXPRESSION)) {
     return nothing;
   }

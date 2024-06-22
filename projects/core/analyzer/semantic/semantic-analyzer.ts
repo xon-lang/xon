@@ -2,7 +2,7 @@ import {nothing} from '../../../lib/types';
 import {SyntaxResult} from '../syntax-context';
 import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
 import {DEFAULT_SEMANTIC_CONFIG, SemanticAnalyzerConfig} from './semantic-analyzer-config';
-import {SemanticContext, semanticContext} from './semantic-context';
+import {SemanticAnalyzerContext, semanticContext} from './semantic-analyzer-context';
 import {
   declarationManagerFromImportString,
   syntaxImportsParse,
@@ -12,7 +12,7 @@ import {syntaxValuesParse} from './value/value-semantic-parser';
 export function semanticParse(
   syntax: SyntaxResult,
   config?: Partial<SemanticAnalyzerConfig>,
-): SemanticContext {
+): SemanticAnalyzerContext {
   const semanticConfig: SemanticAnalyzerConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
   const imports =
     semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];

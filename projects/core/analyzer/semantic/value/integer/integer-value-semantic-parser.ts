@@ -1,11 +1,11 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {Node} from '../../../syntax/node';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {integerTypeSemanticTryParse} from '../../type/integer/integer-type-semantic-parser';
 import {IntegerValueSemantic, integerValueSemantic} from './integer-value-semantic';
 
 export function integerValueSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): IntegerValueSemantic | Nothing {
   const type = integerTypeSemanticTryParse(context, node);

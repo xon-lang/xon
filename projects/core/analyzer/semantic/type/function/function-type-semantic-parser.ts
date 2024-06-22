@@ -7,12 +7,12 @@ import {
 } from '../../../syntax/node/declaration/declaration-node';
 import {LambdaNode} from '../../../syntax/node/lambda/lambda-node';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 
 export function functionTypeSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): FunctionTypeSemantic | Nothing {
   if (

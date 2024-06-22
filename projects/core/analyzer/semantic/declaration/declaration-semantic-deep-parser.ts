@@ -6,14 +6,14 @@ import {
   getDeclarationGenerics,
 } from '../../syntax/node/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../node/semantic-node';
-import {SemanticContext} from '../semantic-context';
+import {SemanticAnalyzerContext} from '../semantic-analyzer-context';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationsParse} from './declaration-semantic-parser';
 
 export function declarationDeepParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
   const semantic = node.id?.semantic;
@@ -34,7 +34,7 @@ export function declarationDeepParse(
 }
 
 function genericsParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
@@ -61,7 +61,11 @@ function genericsParse(
 //   declaration.parameters = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
 // }
 
-function typeParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): void {
+function typeParse(
+  context: SemanticAnalyzerContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): void {
   if (!node.type?.value) {
     return;
   }
@@ -75,7 +79,11 @@ function typeParse(context: SemanticContext, declaration: DeclarationSemantic, n
   }
 }
 
-function valueParse(context: SemanticContext, declaration: DeclarationSemantic, node: DeclarationNode): void {
+function valueParse(
+  context: SemanticAnalyzerContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): void {
   if (!node.assign?.value) {
     return;
   }
@@ -93,7 +101,7 @@ function valueParse(context: SemanticContext, declaration: DeclarationSemantic, 
 }
 
 function attributesParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {

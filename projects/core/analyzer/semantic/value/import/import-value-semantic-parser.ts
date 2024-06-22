@@ -8,12 +8,12 @@ import {$Node, Node, is} from '../../../syntax/node';
 import {ImportNode} from '../../../syntax/node/import/import-node';
 import {DeclarationManager} from '../../declaration-manager';
 import {semanticParse} from '../../semantic-analyzer';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../lib');
 
-export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResult) {
+export function syntaxImportsParse(context: SemanticAnalyzerContext, syntax: SyntaxResult) {
   for (const statement of syntax.statements) {
     if (is<ImportNode>(statement.value, $Node.IMPORT)) {
       importValueSemanticTryParse(context, statement.value);
@@ -22,7 +22,7 @@ export function syntaxImportsParse(context: SemanticContext, syntax: SyntaxResul
 }
 
 export function importValueSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): ImportValueSemantic | Nothing {
   if (!is<ImportNode>(node, $Node.IMPORT)) {

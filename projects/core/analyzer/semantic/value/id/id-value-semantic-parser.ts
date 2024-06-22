@@ -3,11 +3,14 @@ import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {$Node, Node, is} from '../../../syntax/node';
 import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 
-export function idValueSemanticTryParse(context: SemanticContext, node: Node): IdValueSemantic | Nothing {
+export function idValueSemanticTryParse(
+  context: SemanticAnalyzerContext,
+  node: Node,
+): IdValueSemantic | Nothing {
   if (!is<IdNode>(node, $Node.ID)) {
     return nothing;
   }

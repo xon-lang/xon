@@ -4,11 +4,14 @@ import {ArrayNode} from '../../../syntax/group/group-node';
 import {$Node, Node, is} from '../../../syntax/node';
 import {DeclarationKind} from '../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {ArrayTypeSemantic, integerTypeSemantic} from './array-type-semantic';
 
-export function arrayTypeSemanticTryParse(context: SemanticContext, node: Node): ArrayTypeSemantic | Nothing {
+export function arrayTypeSemanticTryParse(
+  context: SemanticAnalyzerContext,
+  node: Node,
+): ArrayTypeSemantic | Nothing {
   if (!is<ArrayNode>(node, $Node.ARRAY)) {
     return nothing;
   }

@@ -4,11 +4,11 @@ import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {$Node, Node, is} from '../../../syntax/node';
 import {DeclarationKind} from '../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {IntegerTypeSemantic, integerTypeSemantic} from './integer-type-semantic';
 
 export function integerTypeSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): IntegerTypeSemantic | Nothing {
   if (!is<IntegerNode>(node, $Node.INTEGER)) {

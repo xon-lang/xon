@@ -1,11 +1,11 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {Node} from '../../../syntax/node';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {stringTypeSemanticTryParse} from '../../type/string/string-type-semantic-parser';
 import {StringValueSemantic, stringValueSemantic} from './string-value-semantic';
 
 export function stringValueSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): StringValueSemantic | Nothing {
   const type = stringTypeSemanticTryParse(context, node);

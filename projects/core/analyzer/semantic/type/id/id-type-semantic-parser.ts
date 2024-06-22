@@ -7,12 +7,12 @@ import {InvokeNode} from '../../../syntax/node/invoke/invoke-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../node/semantic-node';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
 export function declarationTypeSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): IdTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
@@ -26,7 +26,7 @@ export function declarationTypeSemanticTryParse(
   return nothing;
 }
 
-function idParse(context: SemanticContext, node: IdNode): IdTypeSemantic | Nothing {
+function idParse(context: SemanticAnalyzerContext, node: IdNode): IdTypeSemantic | Nothing {
   const declaration = context.declarationManager.single(DeclarationKind.TYPE, node.text, nothing, nothing);
 
   if (!declaration) {
@@ -47,7 +47,7 @@ function idParse(context: SemanticContext, node: IdNode): IdTypeSemantic | Nothi
   return nothing;
 }
 
-function invokeParse(context: SemanticContext, node: InvokeNode): IdTypeSemantic | Nothing {
+function invokeParse(context: SemanticAnalyzerContext, node: InvokeNode): IdTypeSemantic | Nothing {
   if (node.group.open.text !== OBJECT_OPEN) {
     context.issueManager.addError(node.group.open.range, ISSUE_MESSAGE.notImplemented());
 

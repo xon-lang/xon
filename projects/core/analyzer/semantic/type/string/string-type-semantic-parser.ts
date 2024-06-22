@@ -4,11 +4,11 @@ import {StringNode} from '../../../lexical/node/string/string-node';
 import {$Node, Node, is} from '../../../syntax/node';
 import {DeclarationKind} from '../../declaration-manager';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {StringTypeSemantic, stringTypeSemantic} from './string-type-semantic';
 
 export function stringTypeSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): StringTypeSemantic | Nothing {
   if (!is<StringNode>(node, $Node.STRING)) {

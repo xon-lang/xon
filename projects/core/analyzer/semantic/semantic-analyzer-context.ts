@@ -6,24 +6,24 @@ import {Node} from '../syntax/node';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 import {SemanticAnalyzerConfig} from './semantic-analyzer-config';
 
-export interface SemanticContext {
-  parent: SemanticContext | Nothing;
+export interface SemanticAnalyzerContext {
+  parent: SemanticAnalyzerContext | Nothing;
   config: SemanticAnalyzerConfig;
   resource: TextResource;
   issueManager: IssueManager;
   declarationManager: DeclarationManager;
 
-  createChildContext: () => SemanticContext;
+  createChildContext: () => SemanticAnalyzerContext;
   createReference: (node: Node) => TextResourceRange;
 }
 
 export function semanticContext(
-  parent: SemanticContext | Nothing,
+  parent: SemanticAnalyzerContext | Nothing,
   resource: TextResource,
   issueManager: IssueManager,
   imports: Array2<DeclarationManager> | Nothing,
   config: SemanticAnalyzerConfig,
-): SemanticContext {
+): SemanticAnalyzerContext {
   const declarationManager = createDeclarationManager(
     // issueManager,
     parent?.declarationManager,
@@ -38,7 +38,7 @@ export function semanticContext(
     issueManager,
     declarationManager,
 
-    createChildContext(): SemanticContext {
+    createChildContext(): SemanticAnalyzerContext {
       return semanticContext(this, this.resource, this.issueManager, nothing, this.config);
     },
 

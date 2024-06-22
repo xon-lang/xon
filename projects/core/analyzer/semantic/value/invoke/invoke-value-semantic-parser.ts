@@ -1,12 +1,12 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {$Node, Node, is} from '../../../syntax/node';
 import {InvokeNode} from '../../../syntax/node/invoke/invoke-node';
-import {SemanticContext} from '../../semantic-context';
+import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {valueSemanticParse} from '../value-semantic-parser';
 import {InvokeValueSemantic, invokeValueSemantic} from './invoke-value-semantic';
 
 export function invokeValueSemanticTryParse(
-  context: SemanticContext,
+  context: SemanticAnalyzerContext,
   node: Node,
 ): InvokeValueSemantic | Nothing {
   if (!is<InvokeNode>(node, $Node.INVOKE)) {
