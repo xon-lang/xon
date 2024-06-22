@@ -3,7 +3,7 @@ import {TextResourcePosition} from '../../../../util/resource/text/text-resource
 import {AT} from '../../lexical-config';
 import {DocumentationLabelNode, documentationLabelNode} from './documentation-label-node';
 
-export function labelDocumentationNodeParse(cursor: TextResourcePosition): DocumentationLabelNode | Nothing {
+export function documentationLabelNodeParse(cursor: TextResourcePosition): DocumentationLabelNode | Nothing {
   if (!cursor.checkTextAtPosition(AT)) {
     return nothing;
   }
