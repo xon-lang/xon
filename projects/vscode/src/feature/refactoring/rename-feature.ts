@@ -17,7 +17,7 @@ import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
 } from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
-import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/semantic/semantic-node';
+import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/value/value-semantic';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';

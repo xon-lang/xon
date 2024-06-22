@@ -1,8 +1,8 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
+import {$Semantic, semanticIs} from '../../node/semantic-node';
 import {SemanticContext} from '../../semantic-context';
-import {$Semantic, semanticIs} from '../../semantic-node';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 

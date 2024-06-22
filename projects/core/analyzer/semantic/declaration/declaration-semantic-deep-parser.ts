@@ -5,8 +5,8 @@ import {
   getDeclarationAttributes,
   getDeclarationGenerics,
 } from '../../syntax/node/declaration/declaration-node';
+import {$Semantic, semanticIs} from '../node/semantic-node';
 import {SemanticContext} from '../semantic-context';
-import {$Semantic, semanticIs} from '../semantic-node';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';

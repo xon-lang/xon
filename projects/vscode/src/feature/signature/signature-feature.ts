@@ -16,7 +16,7 @@ import {CommaNode} from '../../../../core/analyzer/lexical/node/comma/comma-node
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {OpenNode} from '../../../../core/analyzer/lexical/node/open/open-node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
-import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic-node';
+import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {IdValueSemantic} from '../../../../core/analyzer/semantic/value/id/id-value-semantic';
 import {ItemNode} from '../../../../core/analyzer/syntax/group/item-node';

@@ -3,7 +3,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-analyzer';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {$Semantic, semanticParse} from '../../semantic-node';
+import {$Semantic, semanticParse} from '../../node/semantic-node';
 import {StringTypeSemantic} from '../../type/string/string-type-semantic';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 

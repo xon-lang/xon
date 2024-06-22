@@ -7,8 +7,8 @@ import {SyntaxResult} from '../../../syntax-context';
 import {$Node, Node, is} from '../../../syntax/node';
 import {ImportNode} from '../../../syntax/node/import/import-node';
 import {DeclarationManager} from '../../declaration-manager';
+import {semanticParse} from '../../node/semantic-node';
 import {SemanticContext} from '../../semantic-context';
-import {semanticParse} from '../../semantic-node';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../lib');

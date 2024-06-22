@@ -1,5 +1,5 @@
 import {Array2, Boolean2, String2} from '../../../../lib/types';
-import {SemanticNode} from '../semantic-node';
+import {SemanticNode} from '../node/semantic-node';
 
 export interface TypeSemantic extends SemanticNode {
   attributes(): Record<String2, Array2<TypeSemantic>>;

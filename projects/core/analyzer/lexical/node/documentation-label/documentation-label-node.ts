@@ -1,6 +1,6 @@
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {SemanticNode} from '../../../semantic/semantic-node';
+import {SemanticNode} from '../../../semantic/node/semantic-node';
 import {$Node} from '../../../syntax/node';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 

@@ -1,7 +1,7 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../lib/types';
 import {TextResourceRange} from '../../../util/resource/text/text-resource-reference';
 import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../lexical/lexical-analyzer-config';
-import {$Semantic, SemanticNode, semanticIs} from '../semantic-node';
+import {$Semantic, SemanticNode, semanticIs} from '../node/semantic-node';
 import {TypeSemantic} from '../type/type-semantic';
 import {ValueSemantic} from '../value/value-semantic';
 

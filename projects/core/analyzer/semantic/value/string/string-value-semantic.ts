@@ -1,5 +1,5 @@
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
-import {$Semantic} from '../../semantic-node';
+import {$Semantic} from '../../node/semantic-node';
 import {StringTypeSemantic} from '../../type/string/string-type-semantic';
 import {ValueSemantic} from '../value-semantic';
 

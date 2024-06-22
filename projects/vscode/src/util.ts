@@ -1,5 +1,5 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
-import {semanticParse} from '../../core/analyzer/semantic/semantic-node';
+import {semanticParse} from '../../core/analyzer/semantic/node/semantic-node';
 import {syntaxParse} from '../../core/analyzer/syntax-analyzer';
 import {SyntaxResult} from '../../core/analyzer/syntax-context';
 import {$Node, Node, is} from '../../core/analyzer/syntax/node';

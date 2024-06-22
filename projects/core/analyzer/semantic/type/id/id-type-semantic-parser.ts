@@ -6,8 +6,8 @@ import {$Node, Node, is} from '../../../syntax/node';
 import {InvokeNode} from '../../../syntax/node/invoke/invoke-node';
 import {DeclarationKind} from '../../declaration-manager';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
+import {$Semantic, semanticIs} from '../../node/semantic-node';
 import {SemanticContext} from '../../semantic-context';
-import {$Semantic, semanticIs} from '../../semantic-node';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 

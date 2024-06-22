@@ -1,14 +1,14 @@
-import {Nothing, nothing} from '../../../lib/types';
-import {TextResourceRange} from '../../util/resource/text/text-resource-reference';
-import {SyntaxResult} from '../syntax-context';
-import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
-import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from './semantic-config';
-import {SemanticContext, semanticContext} from './semantic-context';
+import {Nothing, nothing} from '../../../../lib/types';
+import {TextResourceRange} from '../../../util/resource/text/text-resource-reference';
+import {SyntaxResult} from '../../syntax-context';
+import {syntaxDeclarationsParse} from '../declaration/declaration-semantic-parser';
+import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from '../semantic-config';
+import {SemanticContext, semanticContext} from '../semantic-context';
 import {
   declarationManagerFromImportString,
   syntaxImportsParse,
-} from './value/import/import-value-semantic-parser';
-import {syntaxValuesParse} from './value/value-semantic-parser';
+} from '../value/import/import-value-semantic-parser';
+import {syntaxValuesParse} from '../value/value-semantic-parser';
 
 export interface SemanticNode<T extends $Semantic = $Semantic> {
   $: T;

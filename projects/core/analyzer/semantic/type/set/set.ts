@@ -1,5 +1,5 @@
 import {Boolean2} from '../../../../../lib/types';
-import {$Semantic, SemanticNode, semanticIs} from '../../semantic-node';
+import {$Semantic, SemanticNode, semanticIs} from '../../node/semantic-node';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 import {ComplementTypeSemantic} from './complement/complement-type-semantic';
