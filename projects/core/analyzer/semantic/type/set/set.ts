@@ -1,5 +1,5 @@
 import {Boolean2} from '../../../../../lib/types';
-import {$Semantic, Semantic, semanticIs} from '../../semantic';
+import {$Semantic, SemanticNode, semanticIs} from '../../semantic-node';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 import {ComplementTypeSemantic} from './complement/complement-type-semantic';
@@ -40,6 +40,6 @@ export function isInSet(type: TypeSemantic, setType: TypeSemantic): Boolean2 {
   return type.is(setType);
 }
 
-export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
+export function isSetOperatorTypeSemantic(semantic: SemanticNode): Boolean2 {
   return semantic.$.endsWith('_SET_TYPE');
 }

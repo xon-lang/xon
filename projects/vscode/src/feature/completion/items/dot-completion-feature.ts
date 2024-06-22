@@ -10,7 +10,7 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$Semantic, Semantic, semanticIs} from '../../../../../core/analyzer/semantic/semantic';
+import {$Semantic, SemanticNode, semanticIs} from '../../../../../core/analyzer/semantic/semantic-node';
 import {IdTypeSemantic} from '../../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semantic/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/analyzer/semantic/value/value-semantic';
@@ -41,7 +41,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
   }
 }
 
-function getAttributes(semantic: Semantic): Record<String2, Array2<TypeSemantic>> | Nothing {
+function getAttributes(semantic: SemanticNode): Record<String2, Array2<TypeSemantic>> | Nothing {
   if (isTypeSemantic(semantic)) {
     return semantic.attributes();
   }

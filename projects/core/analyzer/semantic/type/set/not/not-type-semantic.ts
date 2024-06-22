@@ -1,6 +1,6 @@
 import {Array2, Boolean2, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-reference';
-import {$Semantic} from '../../../semantic';
+import {$Semantic} from '../../../semantic-node';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface NotTypeSemantic extends TypeSemantic {

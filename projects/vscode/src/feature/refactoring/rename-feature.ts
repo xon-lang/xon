@@ -17,7 +17,7 @@ import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
 } from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
-import {$Semantic, Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic';
+import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/semantic/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/value/value-semantic';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';
@@ -77,7 +77,7 @@ class LanguageRenameProvider implements RenameProvider {
   }
 }
 
-function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
+function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
   if (isTypeDeclarationSemantic(semantic)) {
     return semantic;
   }

@@ -10,7 +10,7 @@ import {
 } from './value/import/import-value-semantic-parser';
 import {syntaxValuesParse} from './value/value-semantic-parser';
 
-export interface Semantic<T extends $Semantic = $Semantic> {
+export interface SemanticNode<T extends $Semantic = $Semantic> {
   $: T;
   reference: TextResourceRange;
 }
@@ -39,7 +39,7 @@ export enum $Semantic {
   IMPORT_VALUE = 'IMPORT_VALUE',
 }
 
-export function semanticIs<T extends Semantic = Semantic>(
+export function semanticIs<T extends SemanticNode = SemanticNode>(
   semantic: {$: $Semantic} | Nothing,
   type: $Semantic,
 ): semantic is T {

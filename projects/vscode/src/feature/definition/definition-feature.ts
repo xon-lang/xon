@@ -11,7 +11,7 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
-import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic';
+import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/analyzer/semantic/type/string/string-type-semantic';

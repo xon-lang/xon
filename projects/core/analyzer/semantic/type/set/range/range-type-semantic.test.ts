@@ -3,8 +3,8 @@ import {textResourceFrom} from '../../../../../util/resource/text/text-resource'
 import {syntaxParse} from '../../../../syntax-analyzer';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {$Semantic, semanticParse} from '../../../semantic';
 import {TEST_SEMANTIC_CONFIG} from '../../../semantic-config';
+import {$Semantic, semanticParse} from '../../../semantic-node';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic} from './range-type-semantic';

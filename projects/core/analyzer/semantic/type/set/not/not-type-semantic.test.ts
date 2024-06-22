@@ -4,7 +4,7 @@ import {syntaxParse} from '../../../../syntax-analyzer';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {$Semantic, semanticParse} from '../../../semantic';
+import {$Semantic, semanticParse} from '../../../semantic-node';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';

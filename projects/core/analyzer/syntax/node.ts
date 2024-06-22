@@ -1,7 +1,7 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
 import {TextRange} from '../../util/resource/text/text-range';
 import {OperatorNode} from '../lexical/node/operator/operator-node';
-import {Semantic} from '../semantic/semantic';
+import {SemanticNode} from '../semantic/semantic-node';
 import {Group} from './group/group-node';
 
 export type Node<T extends $Node = $Node> = {
@@ -12,7 +12,7 @@ export type Node<T extends $Node = $Node> = {
 };
 
 export type ExpressionNode = Node & {
-  semantic?: Semantic | Nothing;
+  semantic?: SemanticNode | Nothing;
 };
 
 export enum $Node {
@@ -77,7 +77,7 @@ export function isNonOperatorExpression(node: Node): node is ExpressionNode {
   return is<ExpressionNode>(node, $Node.EXPRESSION) && !is<OperatorNode>(node, $Node.OPERATOR);
 }
 
-export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: Semantic} {
+export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: SemanticNode} {
   return is<ExpressionNode>(node, $Node.EXPRESSION) && !!node.semantic;
 }
 

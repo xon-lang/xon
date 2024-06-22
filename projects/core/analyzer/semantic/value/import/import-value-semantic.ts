@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {Resource} from '../../../../util/resource/resource';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
-import {$Semantic} from '../../semantic';
+import {$Semantic} from '../../semantic-node';
 import {ValueSemantic} from '../value-semantic';
 
 export type ImportValueSemantic = ValueSemantic<$Semantic.IMPORT_VALUE> & {
