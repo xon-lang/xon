@@ -2,10 +2,10 @@ import {Array2, Nothing} from '../../../lib/types';
 import {TextPosition} from '../../util/resource/text/text-position';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {TextResourcePosition, textResourcePosition} from '../../util/resource/text/text-resource-position';
-import {TokenNode} from './node/token-node';
+import {LexicalNode} from './node/lexical-node';
 import {unknownNodeParse} from './node/unknown/unknown-node-parse';
 
-export type LexicalNodeParseFn = (cursor: TextResourcePosition) => TokenNode | Nothing;
+export type LexicalNodeParseFn = (cursor: TextResourcePosition) => LexicalNode | Nothing;
 
 export interface LexicalAnalyzer {
   parsers: Array2<LexicalNodeParseFn>;
@@ -13,7 +13,7 @@ export interface LexicalAnalyzer {
   startPosition: TextPosition;
   cursor: TextResourcePosition;
 
-  nextNode(): TokenNode;
+  nextNode(): LexicalNode;
 }
 
 export function createLexicalAnalyzer(
@@ -27,7 +27,7 @@ export function createLexicalAnalyzer(
     startPosition,
     cursor: textResourcePosition(resource, startPosition),
 
-    nextNode(): TokenNode {
+    nextNode(): LexicalNode {
       const node = this.parsers.findMap((lexer) => lexer(this.cursor)) ?? unknownNodeParse(this.cursor);
       this.cursor.position = node.range.stop;
 

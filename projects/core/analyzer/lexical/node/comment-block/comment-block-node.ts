@@ -1,11 +1,11 @@
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-config';
 import {$Node} from '../../../syntax/node';
-import {HiddenNode, TokenNode, tokenNode} from '../token-node';
+import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-config';
+import {HiddenNode, LexicalNode, tokenNode} from '../lexical-node';
 
 // todo add separate parser for documentation (e.g. @param, @return, ...)
-export type CommentBlockNode = TokenNode<$Node.COMMENT_BLOCK> &
+export type CommentBlockNode = LexicalNode<$Node.COMMENT_BLOCK> &
   HiddenNode & {
     value: String2;
   };

@@ -2,7 +2,7 @@ import {Array2, Nothing} from '../../../../lib/types';
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
-import {HiddenNode} from '../../lexical/node/token-node';
+import {HiddenNode} from '../../lexical/node/lexical-node';
 import {$Node} from '../node';
 import {SyntaxNode, syntaxNode} from '../node/syntax-node';
 import {DocumentationItemNode} from './documentation-item-node';

@@ -2,9 +2,9 @@ import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {Semantic} from '../../../semantic/semantic';
 import {$Node} from '../../../syntax/node';
-import {TokenNode, tokenNode} from '../token-node';
+import {LexicalNode, tokenNode} from '../lexical-node';
 
-export type DocumentationLabelNode = TokenNode<$Node.DOCUMENTATION_LABEL> & {
+export type DocumentationLabelNode = LexicalNode<$Node.DOCUMENTATION_LABEL> & {
   semantic?: Semantic | Nothing;
 };
 

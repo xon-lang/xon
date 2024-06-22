@@ -1,10 +1,10 @@
 import {Char, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {CHAR_QUOTE} from '../../lexical-config';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {TokenNode, tokenNode} from '../token-node';
+import {CHAR_QUOTE} from '../../lexical-config';
+import {LexicalNode, tokenNode} from '../lexical-node';
 
-export type CharNode = TokenNode<$Node.CHAR> &
+export type CharNode = LexicalNode<$Node.CHAR> &
   ExpressionNode & {
     value: Char;
   };

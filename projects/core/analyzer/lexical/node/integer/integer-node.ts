@@ -1,9 +1,9 @@
 import {Integer, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {TokenNode, tokenNode} from '../token-node';
+import {LexicalNode, tokenNode} from '../lexical-node';
 
-export type IntegerNode = TokenNode<$Node.INTEGER> &
+export type IntegerNode = LexicalNode<$Node.INTEGER> &
   ExpressionNode & {
     value: Integer;
   };

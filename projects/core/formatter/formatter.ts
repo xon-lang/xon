@@ -1,7 +1,7 @@
 import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
 import {NL} from '../analyzer/lexical/lexical-config';
+import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
-import {TokenNode} from '../analyzer/lexical/node/token-node';
 import {WhitespaceNode} from '../analyzer/lexical/node/whitespace/whitespace-node';
 import {SyntaxContext} from '../analyzer/syntax-context';
 import {$Node, Node, is} from '../analyzer/syntax/node';
@@ -150,7 +150,7 @@ export function formatRemainingContextHiddenNodes(context: SyntaxContext): void 
 
 export function formatHiddenNodes(
   context: SyntaxContext,
-  hiddenNodes: Array2<TokenNode>,
+  hiddenNodes: Array2<LexicalNode>,
   isNoFirstChildNode: Boolean2,
 ): String2 {
   const splittedByNl = hiddenNodes
@@ -178,7 +178,7 @@ function formatNlNode(context: SyntaxContext, node: NlNode | Nothing): String2 {
   return NL.repeat(Math.min(nlCount, context.config.formatting.maxNewLines));
 }
 
-function isSameContent(resource: TextResource, hiddenNodes: Array2<TokenNode>, text: String2): Boolean2 {
+function isSameContent(resource: TextResource, hiddenNodes: Array2<LexicalNode>, text: String2): Boolean2 {
   if (hiddenNodes.length === 0) {
     return text.length === 0;
   }

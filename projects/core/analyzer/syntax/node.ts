@@ -1,7 +1,7 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
 import {TextRange} from '../../util/resource/text/text-range';
+import {LexicalNode} from '../lexical/node/lexical-node';
 import {OperatorNode} from '../lexical/node/operator/operator-node';
-import {TokenNode} from '../lexical/node/token-node';
 import {Semantic} from '../semantic/semantic';
 import {Group} from './group/group-node';
 
@@ -9,7 +9,7 @@ export type Node<T extends $Node = $Node> = {
   $: T;
   range: TextRange;
   parent?: Node | Nothing;
-  hiddenNodes?: Array2<TokenNode> | Nothing;
+  hiddenNodes?: Array2<LexicalNode> | Nothing;
 };
 
 export type ExpressionNode = Node & {

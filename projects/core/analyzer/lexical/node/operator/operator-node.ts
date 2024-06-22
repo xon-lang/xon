@@ -1,8 +1,8 @@
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-config';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {TokenNode, tokenNode} from '../token-node';
+import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-config';
+import {LexicalNode, tokenNode} from '../lexical-node';
 
 export enum KeywordType {
   OPERATOR = 'OPERATOR',
@@ -10,7 +10,7 @@ export enum KeywordType {
   CONTROL = 'CONTROL',
 }
 
-export type OperatorNode = TokenNode<$Node.OPERATOR> &
+export type OperatorNode = LexicalNode<$Node.OPERATOR> &
   ExpressionNode & {
     keywordType: KeywordType | Nothing;
   };

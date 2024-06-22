@@ -2,7 +2,7 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../../syntax/node';
-import {TokenNode} from '../token-node';
+import {LexicalNode} from '../lexical-node';
 import {WhitespaceNode} from './whitespace-node';
 
 test('whitespace', () => {
@@ -15,5 +15,5 @@ test('whitespace', () => {
   expect(statements.length).toBe(0);
   expect(syntax.syntaxContext.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($Node.WHITESPACE);
-  expect((node as TokenNode).text).toBe('    ');
+  expect((node as LexicalNode).text).toBe('    ');
 });

@@ -5,9 +5,9 @@ import {DeclarationSemantic} from '../../../semantic/declaration/declaration-sem
 import {IdTypeSemantic} from '../../../semantic/type/id/id-type-semantic';
 import {IdValueSemantic} from '../../../semantic/value/id/id-value-semantic';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {TokenNode, tokenNode} from '../token-node';
+import {LexicalNode, tokenNode} from '../lexical-node';
 
-export type IdNode = TokenNode<$Node.ID> &
+export type IdNode = LexicalNode<$Node.ID> &
   ExpressionNode & {
     semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | Nothing;
   };

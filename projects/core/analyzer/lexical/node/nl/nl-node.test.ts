@@ -1,10 +1,10 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {NL} from '../../lexical-config';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../../syntax/node';
+import {NL} from '../../lexical-config';
 import {IdNode} from '../id/id-node';
-import {TokenNode} from '../token-node';
+import {LexicalNode} from '../lexical-node';
 import {NlNode} from './nl-node';
 
 test('lf nl', () => {
@@ -24,9 +24,9 @@ test('several', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node0 = statements[0].hiddenNodes?.at(0) as TokenNode;
-  const node1 = statements[0].hiddenNodes?.at(1) as TokenNode;
-  const node2 = statements[0].hiddenNodes?.at(2) as TokenNode;
+  const node0 = statements[0].hiddenNodes?.at(0) as LexicalNode;
+  const node1 = statements[0].hiddenNodes?.at(1) as LexicalNode;
+  const node2 = statements[0].hiddenNodes?.at(2) as LexicalNode;
 
   expect(statements.length).toBe(1);
   expect(statements[0].value.$).toBe($Node.ID);

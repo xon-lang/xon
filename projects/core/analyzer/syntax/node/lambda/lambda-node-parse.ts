@@ -1,8 +1,8 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
+import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {TokenNode} from '../../../lexical/node/token-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
@@ -35,7 +35,7 @@ function getLambdaParts(context: SyntaxContext):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
-      genericsHiddenNodes?: Array2<TokenNode> | Nothing;
+      genericsHiddenNodes?: Array2<LexicalNode> | Nothing;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
       type?: TypeNode | Nothing;
@@ -109,7 +109,7 @@ function getGenericsParameters(
   context: SyntaxContext,
   node: Node,
 ): {
-  genericsHiddenNodes?: Array2<TokenNode> | Nothing;
+  genericsHiddenNodes?: Array2<LexicalNode> | Nothing;
   generics?: Group | Nothing;
   parameters?: Group | Nothing;
 } {

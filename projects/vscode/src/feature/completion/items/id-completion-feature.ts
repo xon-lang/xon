@@ -10,7 +10,7 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {TokenNode} from '../../../../../core/analyzer/lexical/node/token-node';
+import {LexicalNode} from '../../../../../core/analyzer/lexical/node/lexical-node';
 import {$Node, is} from '../../../../../core/analyzer/syntax/node';
 import {Array2} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
@@ -27,7 +27,7 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     const syntax = getDocumentSyntax(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
 
-    if (is<TokenNode>(node, $Node.TOKEN)) {
+    if (is<LexicalNode>(node, $Node.TOKEN)) {
       const item = new CompletionItem(node.text, CompletionItemKind.Property);
     }
 

@@ -8,9 +8,9 @@ import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/te
 import {TextResource} from '../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from './lexical/code-lexical-analyzer';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
+import {HiddenNode} from './lexical/node/lexical-node';
 import {NlNode} from './lexical/node/nl/nl-node';
 import {OpenNode} from './lexical/node/open/open-node';
-import {HiddenNode} from './lexical/node/token-node';
 import {UnknownNode} from './lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './lexical/node/whitespace/whitespace-node';
 import {putStatementNode} from './put-statement-node';
