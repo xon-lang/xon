@@ -5,20 +5,20 @@ import {HiddenNode} from '../../../lexical/node/token-node';
 import {$Node} from '../../../syntax/node';
 import {SyntaxNode, syntaxNode} from '../../../syntax/node/syntax-node';
 import {DocumentationItemNode} from '../documentation-item/documentation-item-node';
-import {DescriptionDocumentationNode} from '../token/description/description-documentation-node';
+import {DocumentationDescriptionNode} from '../token/documentation-description/documentation-description-node';
 
 export type DocumentationNode = SyntaxNode<$Node.DOCUMENTATION> &
   HiddenNode & {
     // todo should we use Open and Close nodes here ???
     open: OpenNode;
-    description?: DescriptionDocumentationNode | Nothing;
+    description?: DocumentationDescriptionNode | Nothing;
     items?: Array2<DocumentationItemNode> | Nothing;
     close?: CloseNode | Nothing;
   };
 
 export function documentationNode(
   open: OpenNode,
-  description?: DescriptionDocumentationNode | Nothing,
+  description?: DocumentationDescriptionNode | Nothing,
   items?: Array2<DocumentationItemNode> | Nothing,
   close?: CloseNode | Nothing,
 ): DocumentationNode {

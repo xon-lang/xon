@@ -4,10 +4,10 @@ import {TokenNode, tokenNode} from '../../../../lexical/node/token-node';
 import {Semantic} from '../../../../semantic/semantic';
 import {$Node} from '../../../../syntax/node';
 
-export type LabelDocumentationNode = TokenNode<$Node.LABEL_DOCUMENTATION> & {
+export type DocumentationLabelNode = TokenNode<$Node.DOCUMENTATION_LABEL> & {
   semantic?: Semantic | Nothing;
 };
 
-export function labelDocumentationNode(range: TextRange, text: String2): LabelDocumentationNode {
-  return tokenNode({$: $Node.LABEL_DOCUMENTATION, range, text});
+export function documentationLabelNode(range: TextRange, text: String2): DocumentationLabelNode {
+  return tokenNode({$: $Node.DOCUMENTATION_LABEL, range, text});
 }
