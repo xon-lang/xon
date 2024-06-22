@@ -1,6 +1,6 @@
-import {Nothing, nothing} from '../../../../../../lib/types';
-import {TextResourcePosition} from '../../../../../util/resource/text/text-resource-position';
-import {AT, DOCUMENTATION_CLOSE} from '../../../../lexical/lexical-config';
+import {Nothing, nothing} from '../../../../../lib/types';
+import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {AT, DOCUMENTATION_CLOSE} from '../../lexical-config';
 import {DocumentationDescriptionNode, documentationDescriptionNode} from './documentation-description-node';
 
 export function documentationDescriptionNodeParse(
