@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Nothing, nothing} from '../../lib/types';
+import {Boolean2, Nothing, nothing} from '../../lib/types';
 import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
 import {FormatterManager} from '../formatter/formatter-manager';
 import {IssueManager} from '../issue/issue-manager';
@@ -6,52 +6,18 @@ import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {TextResourcePosition} from '../util/resource/text/text-resource-position';
-import {LexicalAnalyzer, createLexicalAnalyzer} from './lexical/lexical-analyzer';
-import {charNodeParse} from './lexical/node/char/char-node-parse';
-import {closeNodeParse} from './lexical/node/close/close-node-parse';
-import {commaNodeParse} from './lexical/node/comma/comma-node-parse';
-import {commentBlockNodeParse} from './lexical/node/comment-block/comment-block-node-parse';
-import {commentLineNodeParse} from './lexical/node/comment-line/comment-line-node-parse';
-import {idNodeParse} from './lexical/node/id/id-node-parse';
-import {integerNodeParse} from './lexical/node/integer/integer-node-parse';
-import {joiningNodeParse} from './lexical/node/joining/joining-node-parse';
+import {codeLexicalAnalyzer} from './lexical/code-lexical-analyzer';
+import {LexicalAnalyzer} from './lexical/lexical-analyzer';
 import {NlNode} from './lexical/node/nl/nl-node';
-import {nlNodeParse} from './lexical/node/nl/nl-node-parse';
 import {OpenNode} from './lexical/node/open/open-node';
-import {openNodeParse} from './lexical/node/open/open-node-parse';
-import {operatorNodeParse} from './lexical/node/operator/operator-node-parse';
-import {stringNodeParse} from './lexical/node/string/string-node-parse';
-import {HiddenNode, TokenNode} from './lexical/node/token-node';
+import {HiddenNode} from './lexical/node/token-node';
 import {UnknownNode} from './lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './lexical/node/whitespace/whitespace-node';
-import {whitespaceNodeParse} from './lexical/node/whitespace/whitespace-node-parse';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {SyntaxParserConfig} from './syntax-parser-config';
 import {groupNodeParse} from './syntax/group/group-node-parse';
 import {$Node, Node, is} from './syntax/node';
-
-export type TokenParseResult = TokenNode | Nothing;
-export type TokenParseFn = (cursor: TextResourcePosition) => TokenParseResult;
-
-const tokenParsers: Array2<TokenParseFn> = [
-  openNodeParse,
-  closeNodeParse,
-  commaNodeParse,
-
-  commentLineNodeParse,
-  commentBlockNodeParse,
-  whitespaceNodeParse,
-  nlNodeParse,
-  joiningNodeParse,
-
-  integerNodeParse,
-  charNodeParse,
-  stringNodeParse,
-  operatorNodeParse,
-  idNodeParse,
-];
 
 export function syntaxParse(
   resource: TextResource,
@@ -63,7 +29,7 @@ export function syntaxParse(
   lexer?: LexicalAnalyzer | Nothing,
 ): SyntaxResult {
   const position = startPosition ?? zeroPosition();
-  const lexerInner = lexer ?? createLexicalAnalyzer(tokenParsers, resource, position);
+  const lexerInner = lexer ?? codeLexicalAnalyzer(resource, position);
   const context = syntaxContext(resource, lexerInner, issueManager, formatterManager, config);
   let statementIndent: TextRange = rangeFromPosition(position);
 
