@@ -17,7 +17,6 @@
     "noImplicitReturns": false,
     "noImplicitThis": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "projects/vscode/dist",
     "skipLibCheck": true,

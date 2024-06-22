@@ -33,8 +33,8 @@ export function syntaxParse(
   const context = syntaxContext(resource, lexerInner, issueManager, formatterManager, config);
   let statementIndent: TextRange = rangeFromPosition(position);
 
-  while (lexerInner.cursor.position.index < context.resource.data.length) {
-    let node: Node = lexerInner.nextNode();
+  for (const iterableNode of lexerInner) {
+    let node: Node = iterableNode;
 
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
       context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
@@ -45,7 +45,7 @@ export function syntaxParse(
     }
 
     // if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
-    //   node = docpar(context, node);
+    //   node = documentationNodeParse(context, node);
     // }
 
     if (breakOnNodeFn && breakOnNodeFn(node)) {
