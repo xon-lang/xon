@@ -7,7 +7,7 @@ export function closeNodeParse(cursor: TextResourcePosition): CloseNode | Nothin
   // todo create separate tokens for each lexemes
   const closesLexemes = [GROUP_CLOSE, ARRAY_CLOSE, OBJECT_CLOSE];
 
-  if (!closesLexemes.some((x) => cursor.checkTextAtPosition(x))) {
+  if (!closesLexemes.some((x) => cursor.checkTextAtIndex(x))) {
     return nothing;
   }
 

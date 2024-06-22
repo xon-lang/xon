@@ -6,7 +6,7 @@ import {LexicalNode} from '../lexical-node';
 import {operatorNode} from './operator-node';
 
 export function operatorNodeParse(cursor: TextResourcePosition): LexicalNode | Nothing {
-  const text = OPERATORS_SORTED.last((x) => cursor.checkTextAtPosition(x));
+  const text = OPERATORS_SORTED.last((x) => cursor.checkTextAtIndex(x));
 
   if (!text) {
     return nothing;

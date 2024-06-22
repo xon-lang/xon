@@ -4,7 +4,7 @@ import {AT} from '../../lexical-analyzer-config';
 import {DocumentationLabelNode, documentationLabelNode} from './documentation-label-node';
 
 export function documentationLabelNodeParse(cursor: TextResourcePosition): DocumentationLabelNode | Nothing {
-  if (!cursor.checkTextAtPosition(AT)) {
+  if (!cursor.checkTextAtIndex(AT)) {
     return nothing;
   }
 

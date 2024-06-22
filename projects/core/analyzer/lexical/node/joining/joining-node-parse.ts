@@ -4,7 +4,7 @@ import {JOINING, NL, SPACE} from '../../lexical-analyzer-config';
 import {JoiningNode, joiningNode} from './joining-node';
 
 export function joiningNodeParse(cursor: TextResourcePosition): JoiningNode | Nothing {
-  if (!cursor.checkTextAtPosition(JOINING)) {
+  if (!cursor.checkTextAtIndex(JOINING)) {
     return nothing;
   }
 

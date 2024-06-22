@@ -5,7 +5,7 @@ import {$Node} from '../node';
 import {DocumentationNode} from './documentation-node';
 
 test('documentation', () => {
-  const text = '=== abc\n\n\n def===';
+  const text = '===a===';
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
@@ -16,5 +16,5 @@ test('documentation', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($Node.DOCUMENTATION);
-  expect(node.description?.text).toBe('abc\n\n\n def');
+  expect(node.description?.text).toBe('a');
 });

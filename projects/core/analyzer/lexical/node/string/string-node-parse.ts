@@ -4,7 +4,7 @@ import {STRING_QUOTE} from '../../lexical-analyzer-config';
 import {StringNode, stringNode} from './string-node';
 
 export function stringNodeParse(cursor: TextResourcePosition): StringNode | Nothing {
-  if (!cursor.checkTextAtPosition(STRING_QUOTE)) {
+  if (!cursor.checkTextAtIndex(STRING_QUOTE)) {
     return nothing;
   }
 

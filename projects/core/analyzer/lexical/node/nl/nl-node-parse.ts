@@ -4,7 +4,7 @@ import {NL, SPACE} from '../../lexical-analyzer-config';
 import {NlNode, nlNode} from './nl-node';
 
 export function nlNodeParse(cursor: TextResourcePosition): NlNode | Nothing {
-  if (!cursor.checkTextAtPosition(NL)) {
+  if (!cursor.checkTextAtIndex(NL)) {
     return nothing;
   }
 

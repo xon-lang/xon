@@ -7,7 +7,7 @@ export function documentationDescriptionNodeParse(
   cursor: TextResourcePosition,
 ): DocumentationDescriptionNode | Nothing {
   const text = cursor.resource.data.takeWhile(
-    (x) => x !== AT && !cursor.checkTextAtPosition(DOCUMENTATION_CLOSE),
+    (x, i) => x !== AT && !cursor.checkTextAtIndex(DOCUMENTATION_CLOSE, i),
     cursor.position.index,
   );
 

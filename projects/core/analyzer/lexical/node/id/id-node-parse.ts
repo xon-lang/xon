@@ -4,7 +4,7 @@ import {UNDERSCORE} from '../../lexical-analyzer-config';
 import {IdNode, idNode} from './id-node';
 
 export function idNodeParse(cursor: TextResourcePosition): IdNode | Nothing {
-  if (!cursor.checkTextAtPosition(UNDERSCORE) && !cursor.resource.data.isLetter(cursor.position.index)) {
+  if (!cursor.checkTextAtIndex(UNDERSCORE) && !cursor.resource.data.isLetter(cursor.position.index)) {
     return nothing;
   }
 

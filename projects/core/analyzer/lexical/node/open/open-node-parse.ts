@@ -7,7 +7,7 @@ export function openNodeParse(cursor: TextResourcePosition): OpenNode | Nothing 
   // todo create separate tokens for each lexemes
   const opensLexemes = [GROUP_OPEN, ARRAY_OPEN, OBJECT_OPEN];
 
-  if (!opensLexemes.some((x) => cursor.checkTextAtPosition(x))) {
+  if (!opensLexemes.some((x) => cursor.checkTextAtIndex(x))) {
     return nothing;
   }
 

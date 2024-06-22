@@ -4,7 +4,7 @@ import {COMMA} from '../../lexical-analyzer-config';
 import {CommaNode, commaNode} from './comma-node';
 
 export function commaNodeParse(cursor: TextResourcePosition): CommaNode | Nothing {
-  if (!cursor.checkTextAtPosition(COMMA)) {
+  if (!cursor.checkTextAtIndex(COMMA)) {
     return nothing;
   }
 

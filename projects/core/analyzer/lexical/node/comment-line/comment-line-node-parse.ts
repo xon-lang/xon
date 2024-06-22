@@ -4,7 +4,7 @@ import {COMMENT_LINE, NL} from '../../lexical-analyzer-config';
 import {CommentLineNode, commentLineNode} from './comment-line-node';
 
 export function commentLineNodeParse(cursor: TextResourcePosition): CommentLineNode | Nothing {
-  if (!cursor.checkTextAtPosition(COMMENT_LINE)) {
+  if (!cursor.checkTextAtIndex(COMMENT_LINE)) {
     return nothing;
   }
 

@@ -1,4 +1,4 @@
-import {Boolean2, Integer, String2} from '../../../../lib/types';
+import {Boolean2, Integer, Nothing, String2} from '../../../../lib/types';
 import {NL} from '../../../analyzer/lexical/lexical-analyzer-config';
 import {TextPosition, textPosition} from './text-position';
 import {TextRange, textRange} from './text-range';
@@ -10,7 +10,8 @@ export interface TextResourcePosition {
 
   getRange(length: Integer): TextRange;
   getRangeWithNL(length: Integer): TextRange;
-  checkTextAtPosition(text: String2): Boolean2;
+  checkTextAtIndex(text: String2): Boolean2;
+  checkTextAtIndex(text: String2, index?: Integer | Nothing): Boolean2;
 }
 
 export function textResourcePosition(
@@ -51,8 +52,8 @@ export function textResourcePosition(
       );
     },
 
-    checkTextAtPosition(text: String2): Boolean2 {
-      return this.resource.data.take(text.length, this.position.index) === text;
+    checkTextAtIndex(text: String2, index?: Integer): Boolean2 {
+      return this.resource.data.take(text.length, index ?? this.position.index) === text;
     },
   };
 }

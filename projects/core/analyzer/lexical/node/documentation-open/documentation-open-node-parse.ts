@@ -4,7 +4,7 @@ import {DOCUMENTATION_OPEN} from '../../lexical-analyzer-config';
 import {documentationOpenNode, DocumentationOpenNode} from './documentation-open-node';
 
 export function documentationOpenNodeParse(cursor: TextResourcePosition): DocumentationOpenNode | Nothing {
-  if (!cursor.checkTextAtPosition(DOCUMENTATION_OPEN)) {
+  if (!cursor.checkTextAtIndex(DOCUMENTATION_OPEN)) {
     return nothing;
   }
 

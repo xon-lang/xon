@@ -4,7 +4,7 @@ import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-analyzer-co
 import {CommentBlockNode, commentBlockNode} from './comment-block-node';
 
 export function commentBlockNodeParse(cursor: TextResourcePosition): CommentBlockNode | Nothing {
-  if (!cursor.checkTextAtPosition(COMMENT_BLOCK_OPEN)) {
+  if (!cursor.checkTextAtIndex(COMMENT_BLOCK_OPEN)) {
     return nothing;
   }
 

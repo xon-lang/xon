@@ -4,7 +4,7 @@ import {SPACE} from '../../lexical-analyzer-config';
 import {WhitespaceNode, whitespaceNode} from './whitespace-node';
 
 export function whitespaceNodeParse(cursor: TextResourcePosition): WhitespaceNode | Nothing {
-  if (!cursor.checkTextAtPosition(SPACE)) {
+  if (!cursor.checkTextAtIndex(SPACE)) {
     return nothing;
   }
 

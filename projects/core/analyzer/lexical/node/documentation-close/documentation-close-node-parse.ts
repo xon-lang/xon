@@ -4,7 +4,7 @@ import {DOCUMENTATION_CLOSE} from '../../lexical-analyzer-config';
 import {DocumentationCloseNode, documentationCloseNode} from './documentation-close-node';
 
 export function documentationCloseNodeParse(cursor: TextResourcePosition): DocumentationCloseNode | Nothing {
-  if (!cursor.checkTextAtPosition(DOCUMENTATION_CLOSE)) {
+  if (!cursor.checkTextAtIndex(DOCUMENTATION_CLOSE)) {
     return nothing;
   }
 
