@@ -1,56 +1,44 @@
-import {Array2, Nothing, nothing} from '../../../../lib/types';
-import {CloseNode} from '../../lexical/node/close/close-node';
-import {CommaNode} from '../../lexical/node/comma/comma-node';
+import {Nothing, nothing} from '../../../../lib/types';
+import {documentationLexicalAnalyzer} from '../../lexical/documentation-lexical-analyzer.1';
+import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
+import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
+import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
-import {syntaxParse} from '../../syntax-analyzer';
-import {SyntaxParserConfig} from '../../syntax-analyzer-config';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, is} from '../node';
-import {DocumentationNode} from './documentation-node';
+import {documentationItemNode, DocumentationItemNode} from './documentation-item-node';
+import {documentationNode, DocumentationNode} from './documentation-node';
 
-export function documentationNodeParse(context: SyntaxContext, openNode: DocumentationOpenNode): DocumentationNode {
-  const items: Array2<ItemNode> = [];
+export function documentationNodeParse(
+  context: SyntaxContext,
+  openNode: DocumentationOpenNode,
+): DocumentationNode {
+  const lexer = documentationLexicalAnalyzer(context.resource, context.lexer.cursor.position);
 
-  const config: SyntaxParserConfig = {
-    ...context.config,
-    formatting: {
-      ...context.config.formatting,
-      insertFinalNewline: false,
-    },
-  };
+  let description: DocumentationDescriptionNode | Nothing = nothing;
+  const items: DocumentationItemNode[] = [];
 
-  let itemIndex = 0;
-  let commaNode: CommaNode | Nothing = nothing;
-
-  while (context.lexer.cursor.position.index < context.resource.data.length) {
-    const {syntaxContext: itemContext} = syntaxParse(
-      context.resource,
-      context.lexer.cursor.position,
-      context.issueManager,
-      context.formatterManager,
-      (node) =>
-        is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),
-      config,
-      context.lexer,
-    );
-
-    if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
-      const item = itemNode(context, itemIndex, commaNode, itemContext.statements);
-      items.push(item);
-      commaNode = itemContext.breakNode;
-    }
-
-    if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
-      if (items.length > 0 || itemContext.statements.length > 0) {
-        const item = itemNode(context, itemIndex, commaNode, itemContext.statements);
-        items.push(item);
+  for (const node of lexer) {
+    if (is<DocumentationDescriptionNode>(node, $Node.DOCUMENTATION_DESCRIPTION)) {
+      if (items.length === 0) {
+        description = node;
+      } else {
+        items.last()!.description = node;
       }
 
-      return groupNode(context, $, openNode, items, itemContext.breakNode);
+      continue;
     }
 
-    itemIndex += 1;
+    if (is<DocumentationLabelNode>(node, $Node.DOCUMENTATION_LABEL)) {
+      items.push(documentationItemNode(node));
+
+      continue;
+    }
+
+    if (is<DocumentationCloseNode>(node, $Node.DOCUMENTATION_CLOSE)) {
+      return documentationNode(openNode, description, items, node);
+    }
   }
 
-  return groupNode(context, $, openNode, items, nothing);
+  return documentationNode(openNode, description, items);
 }

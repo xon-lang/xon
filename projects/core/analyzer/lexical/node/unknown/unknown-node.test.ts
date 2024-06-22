@@ -3,6 +3,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../../syntax/node';
 import {IntegerNode} from '../integer/integer-node';
+import {LexicalNode} from '../lexical-node';
 import {UnknownNode} from './unknown-node';
 
 test('unknown 1', () => {
@@ -18,7 +19,8 @@ test('unknown 1', () => {
   expect(node0.text).toBe('123');
 
   expect(node1.hiddenNodes?.length).toBe(1);
-  expect(node1.hiddenNodes?.at(0)?.text).toBe(' ');
+  // todo fix  'as LexicalNode'
+  expect((node1.hiddenNodes?.at(0) as LexicalNode)?.text).toBe(' ');
   expect(node1.text).toBe('§');
 });
 

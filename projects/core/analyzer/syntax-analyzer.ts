@@ -8,7 +8,7 @@ import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/te
 import {TextResource} from '../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from './lexical/code-lexical-analyzer';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
-import {HiddenNode} from './lexical/node/lexical-node';
+import {DocumentationOpenNode} from './lexical/node/documentation-open/documentation-open-node';
 import {NlNode} from './lexical/node/nl/nl-node';
 import {OpenNode} from './lexical/node/open/open-node';
 import {UnknownNode} from './lexical/node/unknown/unknown-node';
@@ -16,8 +16,9 @@ import {WhitespaceNode} from './lexical/node/whitespace/whitespace-node';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxParserConfig} from './syntax-analyzer-config';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
+import {documentationNodeParse} from './syntax/documentation/documentation-node-parse';
 import {groupNodeParse} from './syntax/group/group-node-parse';
-import {$Node, Node, is} from './syntax/node';
+import {$Node, Node, is, isHiddenNode} from './syntax/node';
 
 export function syntaxParse(
   resource: TextResource,
@@ -42,11 +43,13 @@ export function syntaxParse(
 
     if (is<OpenNode>(node, $Node.OPEN)) {
       node = groupNodeParse(context, node);
+      lexerInner.cursor.position = node.range.stop;
     }
 
-    // if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
-    //   node = documentationNodeParse(context, node);
-    // }
+    if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
+      node = documentationNodeParse(context, node);
+      lexerInner.cursor.position = node.range.stop;
+    }
 
     if (breakOnNodeFn && breakOnNodeFn(node)) {
       context.breakNode = node;
@@ -59,7 +62,7 @@ export function syntaxParse(
       }
     }
 
-    if (is<HiddenNode>(node, $Node.HIDDEN)) {
+    if (isHiddenNode(node)) {
       if (is<NlNode>(node, $Node.NL)) {
         if (context.nodes.length > 0) {
           putStatementNode(context, statementIndent);

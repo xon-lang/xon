@@ -1,6 +1,7 @@
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../node';
@@ -44,7 +45,7 @@ test('hidden nodes', () => {
 
   expect(node.value.hiddenNodes?.length).toBe(1);
   expect(node.value.hiddenNodes?.at(0)?.$).toBe($Node.WHITESPACE);
-  expect(node.value.hiddenNodes?.at(0)?.text).toBe('    ');
+  expect((node.value.hiddenNodes?.at(0) as LexicalNode)?.text).toBe('    ');
 
   expect(evaluate(node)).toBe(-1);
 });

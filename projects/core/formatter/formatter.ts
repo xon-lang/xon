@@ -94,7 +94,10 @@ export function formatStatementNode(context: SyntaxContext, statement: Statement
   const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
   const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is<WhitespaceNode>(x, $Node.WHITESPACE));
   const text =
-    indentText + nonWhitespaceNodes.map((x) => x.text).join(' ') + (nonWhitespaceNodes.length > 0 ? ' ' : '');
+    // todo fix  'as LexicalNode'
+    indentText +
+    nonWhitespaceNodes.map((x) => (x as LexicalNode).text).join(' ') +
+    (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
   if (isSameContent(context.resource, afterIndentHiddenNodes, text)) {
     return;
@@ -150,7 +153,7 @@ export function formatRemainingContextHiddenNodes(context: SyntaxContext): void 
 
 export function formatHiddenNodes(
   context: SyntaxContext,
-  hiddenNodes: Array2<LexicalNode>,
+  hiddenNodes: Array2<Node>,
   isNoFirstChildNode: Boolean2,
 ): String2 {
   const splittedByNl = hiddenNodes
@@ -158,7 +161,8 @@ export function formatHiddenNodes(
     .splitBy<NlNode>((x) => is<NlNode>(x, $Node.NL));
 
   const text = splittedByNl
-    .map((x) => formatNlNode(context, x.splitter) + x.items.map((z) => z.text).join(' '))
+    // todo fix  'as LexicalNode'
+    .map((x) => formatNlNode(context, x.splitter) + x.items.map((z) => (z as LexicalNode).text).join(' '))
     .join('');
 
   if (text.length > 0 && isNoFirstChildNode) {
@@ -178,7 +182,7 @@ function formatNlNode(context: SyntaxContext, node: NlNode | Nothing): String2 {
   return NL.repeat(Math.min(nlCount, context.config.formatting.maxNewLines));
 }
 
-function isSameContent(resource: TextResource, hiddenNodes: Array2<LexicalNode>, text: String2): Boolean2 {
+function isSameContent(resource: TextResource, hiddenNodes: Array2<Node>, text: String2): Boolean2 {
   if (hiddenNodes.length === 0) {
     return text.length === 0;
   }

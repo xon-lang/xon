@@ -2,7 +2,8 @@ import {Anything, String2} from '../../../../lib/types';
 import {$Node, Node} from '../../syntax/node';
 
 // todo move isHidden property to Node ???
-export type HiddenNode = LexicalNode;
+// or remove entirely HiddenNode type
+export interface HiddenNode {}
 
 export type LexicalNode<T extends $Node = $Node> = Node<T> & {
   text: String2;

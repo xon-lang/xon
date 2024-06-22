@@ -1,7 +1,6 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
-import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
@@ -45,9 +44,9 @@ function getDeclarationParts(context: SyntaxContext):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
-      modifierHiddenNodes?: Array2<LexicalNode> | Nothing;
+      modifierHiddenNodes?: Array2<Node> | Nothing;
       modifier?: OperatorNode | Nothing;
-      idHiddenNodes?: Array2<LexicalNode> | Nothing;
+      idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
@@ -126,9 +125,9 @@ function getHeader(
   node: Node | Nothing,
 ):
   | {
-      modifierHiddenNodes?: Array2<LexicalNode> | Nothing;
+      modifierHiddenNodes?: Array2<Node> | Nothing;
       modifier?: OperatorNode | Nothing;
-      idHiddenNodes?: Array2<LexicalNode> | Nothing;
+      idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;
@@ -152,7 +151,7 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
-      idHiddenNodes?: Array2<LexicalNode> | Nothing;
+      idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
       generics?: Group | Nothing;
       parameters?: Group | Nothing;

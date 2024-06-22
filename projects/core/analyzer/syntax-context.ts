@@ -3,7 +3,6 @@ import {FormatterManager, createFormatterManager} from '../formatter/formatter-m
 import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextResource} from '../util/resource/text/text-resource';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
-import {LexicalNode} from './lexical/node/lexical-node';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-analyzer-config';
 import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
@@ -17,7 +16,7 @@ export type SyntaxResult = Pick<SyntaxContext, ContextAttributes> & {
 export interface SyntaxContext {
   resource: TextResource;
   lexer: LexicalAnalyzer;
-  hiddenNodes: Array2<LexicalNode>;
+  hiddenNodes: Array2<Node>;
   breakNode: Node | Nothing;
   parentStatement: StatementNode | Nothing;
   nodes: Array2<Node>;

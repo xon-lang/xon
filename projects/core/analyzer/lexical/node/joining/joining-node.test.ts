@@ -5,6 +5,7 @@ import {$Node} from '../../../syntax/node';
 import {MemberNode} from '../../../syntax/node/member/member-node';
 import {JOINING} from '../../lexical-analyzer-config';
 import {IdNode} from '../id/id-node';
+import {LexicalNode} from '../lexical-node';
 import {OperatorNode} from '../operator/operator-node';
 
 test('no space', () => {
@@ -48,7 +49,8 @@ test('with new line', () => {
   expect(node.instance?.$).toBe($Node.ID);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  expect(node.operator.hiddenNodes?.at(0)?.text).toBe(JOINING + '   \n');
+  // todo fix  'as LexicalNode'
+  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text).toBe(JOINING + '   \n');
   expect(node.id?.$).toBe($Node.ID);
   expect((node.id as IdNode).text).toBe('def');
 });
