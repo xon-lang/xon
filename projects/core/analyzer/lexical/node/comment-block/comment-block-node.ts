@@ -2,7 +2,7 @@ import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {$Node} from '../../../syntax/node';
 import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-config';
-import {HiddenNode, LexicalNode, tokenNode} from '../lexical-node';
+import {HiddenNode, LexicalNode, lexicalNode} from '../lexical-node';
 
 // todo add separate parser for documentation (e.g. @param, @return, ...)
 export type CommentBlockNode = LexicalNode<$Node.COMMENT_BLOCK> &
@@ -20,5 +20,5 @@ export function commentBlockNode(range: TextRange, text: String2): CommentBlockN
     value = text.slice(COMMENT_BLOCK_OPEN.length);
   }
 
-  return tokenNode({$: $Node.COMMENT_BLOCK, range, text, value});
+  return lexicalNode({$: $Node.COMMENT_BLOCK, range, text, value});
 }

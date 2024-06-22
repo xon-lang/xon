@@ -8,6 +8,6 @@ export type LexicalNode<T extends $Node = $Node> = Node<T> & {
   text: String2;
 };
 
-export function tokenNode<T extends LexicalNode & Record<String2, Anything>>(params: T): T {
+export function lexicalNode<T extends LexicalNode & Record<String2, Anything>>(params: T): T {
   return params;
 }

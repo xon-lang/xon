@@ -5,7 +5,7 @@ import {DeclarationSemantic} from '../../../semantic/declaration/declaration-sem
 import {IdTypeSemantic} from '../../../semantic/type/id/id-type-semantic';
 import {IdValueSemantic} from '../../../semantic/value/id/id-value-semantic';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {LexicalNode, tokenNode} from '../lexical-node';
+import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type IdNode = LexicalNode<$Node.ID> &
   ExpressionNode & {
@@ -13,5 +13,5 @@ export type IdNode = LexicalNode<$Node.ID> &
   };
 
 export function idNode(range: TextRange, text: String2): IdNode {
-  return tokenNode({$: $Node.ID, range, text});
+  return lexicalNode({$: $Node.ID, range, text});
 }
