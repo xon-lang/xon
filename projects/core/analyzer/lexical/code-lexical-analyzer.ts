@@ -7,6 +7,7 @@ import {closeNodeParse} from './node/close/close-node-parse';
 import {commaNodeParse} from './node/comma/comma-node-parse';
 import {commentBlockNodeParse} from './node/comment-block/comment-block-node-parse';
 import {commentLineNodeParse} from './node/comment-line/comment-line-node-parse';
+import {documentationOpenNodeParse} from './node/documentation-open/documentation-open-node-parse';
 import {idNodeParse} from './node/id/id-node-parse';
 import {integerNodeParse} from './node/integer/integer-node-parse';
 import {joiningNodeParse} from './node/joining/joining-node-parse';
@@ -30,6 +31,8 @@ const parsers: Array2<LexicalNodeParseFn> = [
   integerNodeParse,
   charNodeParse,
   stringNodeParse,
+  // todo should we add 'documentationOpenNodeParse' in codeAnalyzer instead of documentationAnalyzer ???
+  documentationOpenNodeParse,
   operatorNodeParse,
   idNodeParse,
 ];
