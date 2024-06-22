@@ -8,8 +8,8 @@ export function documentationOpenNodeParse(cursor: TextResourcePosition): Docume
     return nothing;
   }
 
-  const text = cursor.resource.data[cursor.position.index];
-  const range = cursor.getRange(1);
+  const text = DOCUMENTATION_OPEN;
+  const range = cursor.getRange(DOCUMENTATION_OPEN.length);
 
   return documentationOpenNode(range, text);
 }

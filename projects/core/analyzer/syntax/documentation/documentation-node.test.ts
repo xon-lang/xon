@@ -18,3 +18,18 @@ test('documentation', () => {
   expect(node.$).toBe($Node.DOCUMENTATION);
   expect(node.description?.text).toBe('a');
 });
+
+test('documentation 2', () => {
+  const text = '=== abc\n\n\n def===';
+  const source = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(source);
+  const statements = syntax.statements;
+  const hiddenNodes = syntax.syntaxContext.hiddenNodes;
+
+  expect(statements.length).toBe(0);
+  expect(hiddenNodes.length).toBe(1);
+
+  const node = hiddenNodes[0] as DocumentationNode;
+  expect(node.$).toBe($Node.DOCUMENTATION);
+  expect(node.description?.text).toBe(' abc\n\n\n def');
+});

@@ -8,8 +8,8 @@ export function documentationCloseNodeParse(cursor: TextResourcePosition): Docum
     return nothing;
   }
 
-  const text = cursor.resource.data[cursor.position.index];
-  const range = cursor.getRange(1);
+  const text = DOCUMENTATION_CLOSE;
+  const range = cursor.getRange(DOCUMENTATION_CLOSE.length);
 
   return documentationCloseNode(range, text);
 }
