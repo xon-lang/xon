@@ -1,5 +1,5 @@
 import {Integer, nothing} from '../../../../../lib/types';
-import {ASSIGN} from '../../../lexical/lexical-config';
+import {ASSIGN} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';

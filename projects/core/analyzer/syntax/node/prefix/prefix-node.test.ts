@@ -2,7 +2,7 @@ import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {syntaxParse} from '../../../syntax-parser';
+import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../node';
 import {PrefixNode} from './prefix-node';
 

@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {ARRAY_CLOSE, GROUP_CLOSE, OBJECT_CLOSE} from '../../lexical-config';
+import {ARRAY_CLOSE, GROUP_CLOSE, OBJECT_CLOSE} from '../../lexical-analyzer-config';
 import {CloseNode, closeNode} from './close-node';
 
 export function closeNodeParse(cursor: TextResourcePosition): CloseNode | Nothing {

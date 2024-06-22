@@ -1,6 +1,6 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../syntax-parser';
+import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../../syntax/node';
 import {LexicalNode} from '../lexical-node';
 import {WhitespaceNode} from './whitespace-node';

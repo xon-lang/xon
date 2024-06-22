@@ -1,5 +1,5 @@
 import {Integer, nothing} from '../../../../../lib/types';
-import {TYPE} from '../../../lexical/lexical-config';
+import {TYPE} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';

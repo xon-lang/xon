@@ -1,6 +1,6 @@
 import {nothing} from '../../../../lib/types';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../syntax-parser';
+import {syntaxParse} from '../../syntax-analyzer';
 import {$Semantic, semanticParse} from '../semantic';
 import {IdTypeSemantic} from '../type/id/id-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';

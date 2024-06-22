@@ -1,6 +1,6 @@
 import {String2, nothing} from '../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../../syntax-parser';
+import {syntaxParse} from '../../../../syntax-analyzer';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';

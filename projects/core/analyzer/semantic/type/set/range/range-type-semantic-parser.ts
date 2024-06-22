@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
-import {RANGE} from '../../../../lexical/lexical-config';
+import {RANGE} from '../../../../lexical/lexical-analyzer-config';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {InfixNode} from '../../../../syntax/node/infix/infix-node';
 import {DeclarationKind} from '../../../declaration-manager';

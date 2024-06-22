@@ -1,7 +1,7 @@
 import {Char, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {CHAR_QUOTE} from '../../lexical-config';
+import {CHAR_QUOTE} from '../../lexical-analyzer-config';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type CharNode = LexicalNode<$Node.CHAR> &

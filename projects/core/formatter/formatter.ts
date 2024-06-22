@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
-import {NL} from '../analyzer/lexical/lexical-config';
+import {NL} from '../analyzer/lexical/lexical-analyzer-config';
 import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
 import {WhitespaceNode} from '../analyzer/lexical/node/whitespace/whitespace-node';

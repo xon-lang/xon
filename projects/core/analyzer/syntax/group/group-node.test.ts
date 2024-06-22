@@ -2,7 +2,7 @@ import {nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {IntegerNode} from '../../lexical/node/integer/integer-node';
-import {syntaxParse} from '../../syntax-parser';
+import {syntaxParse} from '../../syntax-analyzer';
 import {$Node, is} from '../node';
 import {InfixNode} from '../node/infix/infix-node';
 import {ArrayNode, GroupNode, ObjectNode} from './group-node';

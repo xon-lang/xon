@@ -1,7 +1,7 @@
 import {nothing} from '../../../../lib/types';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {CharNode} from '../../lexical/node/char/char-node';
-import {syntaxParse} from '../../syntax-parser';
+import {syntaxParse} from '../../syntax-analyzer';
 import {$Node} from '../node';
 
 test('a', () => {

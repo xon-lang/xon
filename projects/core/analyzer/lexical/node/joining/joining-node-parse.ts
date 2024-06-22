@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {JOINING, NL, SPACE} from '../../lexical-config';
+import {JOINING, NL, SPACE} from '../../lexical-analyzer-config';
 import {JoiningNode, joiningNode} from './joining-node';
 
 export function joiningNodeParse(cursor: TextResourcePosition): JoiningNode | Nothing {

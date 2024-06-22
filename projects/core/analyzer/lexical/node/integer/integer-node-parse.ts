@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {UNDERSCORE} from '../../lexical-config';
+import {UNDERSCORE} from '../../lexical-analyzer-config';
 import {IntegerNode, integerNode} from './integer-node';
 
 export function integerNodeParse(cursor: TextResourcePosition): IntegerNode | Nothing {

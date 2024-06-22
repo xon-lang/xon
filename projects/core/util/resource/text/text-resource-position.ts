@@ -1,5 +1,5 @@
 import {Boolean2, Integer, String2} from '../../../../lib/types';
-import {NL} from '../../../analyzer/lexical/lexical-config';
+import {NL} from '../../../analyzer/lexical/lexical-analyzer-config';
 import {TextPosition, textPosition} from './text-position';
 import {TextRange, textRange} from './text-range';
 import {TextResource} from './text-resource';

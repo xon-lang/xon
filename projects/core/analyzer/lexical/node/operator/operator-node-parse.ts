@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {OPERATORS_SORTED} from '../../lexical-config';
+import {OPERATORS_SORTED} from '../../lexical-analyzer-config';
 import {idNodeParse} from '../id/id-node-parse';
 import {LexicalNode} from '../lexical-node';
 import {operatorNode} from './operator-node';

@@ -1,11 +1,17 @@
 import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
-import {ARRAY_CLOSE, ARRAY_OPEN, GROUP_CLOSE, OBJECT_CLOSE, OBJECT_OPEN} from '../../lexical/lexical-config';
+import {
+  ARRAY_CLOSE,
+  ARRAY_OPEN,
+  GROUP_CLOSE,
+  OBJECT_CLOSE,
+  OBJECT_OPEN,
+} from '../../lexical/lexical-analyzer-config';
 import {CloseNode} from '../../lexical/node/close/close-node';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
+import {syntaxParse} from '../../syntax-analyzer';
+import {SyntaxParserConfig} from '../../syntax-analyzer-config';
 import {SyntaxContext} from '../../syntax-context';
-import {syntaxParse} from '../../syntax-parser';
-import {SyntaxParserConfig} from '../../syntax-parser-config';
 import {$Node, is} from '../node';
 import {$Group, Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';

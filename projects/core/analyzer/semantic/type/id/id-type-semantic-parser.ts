@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
-import {OBJECT_OPEN} from '../../../lexical/lexical-config';
+import {OBJECT_OPEN} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {$Node, Node, is} from '../../../syntax/node';
 import {InvokeNode} from '../../../syntax/node/invoke/invoke-node';

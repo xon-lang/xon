@@ -1,7 +1,7 @@
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {$Node, ExpressionNode} from '../../../syntax/node';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-config';
+import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-analyzer-config';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export enum KeywordType {

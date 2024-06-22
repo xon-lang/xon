@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {CHAR_QUOTE} from '../../lexical-config';
+import {CHAR_QUOTE} from '../../lexical-analyzer-config';
 import {CharNode, charNode} from './char-node';
 
 export function charNodeParse(cursor: TextResourcePosition): CharNode | Nothing {

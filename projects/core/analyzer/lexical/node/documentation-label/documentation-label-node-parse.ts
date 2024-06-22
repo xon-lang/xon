@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {AT} from '../../lexical-config';
+import {AT} from '../../lexical-analyzer-config';
 import {DocumentationLabelNode, documentationLabelNode} from './documentation-label-node';
 
 export function documentationLabelNodeParse(cursor: TextResourcePosition): DocumentationLabelNode | Nothing {

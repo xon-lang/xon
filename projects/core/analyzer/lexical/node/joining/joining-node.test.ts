@@ -1,9 +1,9 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {JOINING} from '../../lexical-config';
-import {syntaxParse} from '../../../syntax-parser';
+import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../../syntax/node';
 import {MemberNode} from '../../../syntax/node/member/member-node';
+import {JOINING} from '../../lexical-analyzer-config';
 import {IdNode} from '../id/id-node';
 import {OperatorNode} from '../operator/operator-node';
 

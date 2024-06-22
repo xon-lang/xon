@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {COMMENT_LINE, NL} from '../../lexical-config';
+import {COMMENT_LINE, NL} from '../../lexical-analyzer-config';
 import {CommentLineNode, commentLineNode} from './comment-line-node';
 
 export function commentLineNodeParse(cursor: TextResourcePosition): CommentLineNode | Nothing {

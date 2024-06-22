@@ -1,7 +1,7 @@
 import {nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../syntax-parser';
+import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../../syntax/node';
 import {IdNode} from './id-node';
 

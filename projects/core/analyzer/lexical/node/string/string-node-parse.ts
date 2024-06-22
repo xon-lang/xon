@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {STRING_QUOTE} from '../../lexical-config';
+import {STRING_QUOTE} from '../../lexical-analyzer-config';
 import {StringNode, stringNode} from './string-node';
 
 export function stringNodeParse(cursor: TextResourcePosition): StringNode | Nothing {

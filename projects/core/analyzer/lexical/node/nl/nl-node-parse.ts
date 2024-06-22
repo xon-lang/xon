@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {NL, SPACE} from '../../lexical-config';
+import {NL, SPACE} from '../../lexical-analyzer-config';
 import {NlNode, nlNode} from './nl-node';
 
 export function nlNodeParse(cursor: TextResourcePosition): NlNode | Nothing {

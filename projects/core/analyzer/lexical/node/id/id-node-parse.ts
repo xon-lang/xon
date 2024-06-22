@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {UNDERSCORE} from '../../lexical-config';
+import {UNDERSCORE} from '../../lexical-analyzer-config';
 import {IdNode, idNode} from './id-node';
 
 export function idNodeParse(cursor: TextResourcePosition): IdNode | Nothing {

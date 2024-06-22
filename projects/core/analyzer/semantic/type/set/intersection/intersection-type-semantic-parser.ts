@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {INTERSECTION} from '../../../../lexical/lexical-config';
+import {INTERSECTION} from '../../../../lexical/lexical-analyzer-config';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {InfixNode} from '../../../../syntax/node/infix/infix-node';
 import {SemanticContext} from '../../../semantic-context';

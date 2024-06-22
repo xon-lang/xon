@@ -4,7 +4,7 @@ import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextResource} from '../util/resource/text/text-resource';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
 import {LexicalNode} from './lexical/node/lexical-node';
-import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-parser-config';
+import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-analyzer-config';
 import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
 

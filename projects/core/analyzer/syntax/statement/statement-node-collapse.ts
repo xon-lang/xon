@@ -26,7 +26,7 @@ import {
   RANGE,
   REST,
   UNION,
-} from '../../lexical/lexical-config';
+} from '../../lexical/lexical-analyzer-config';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node, is} from '../node';
 import {assignmentNodeParse} from '../node/assignment/assignment-node-parse';

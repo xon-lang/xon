@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
-import {ARRAY_OPEN, GROUP_OPEN, OBJECT_OPEN} from '../../lexical-config';
+import {ARRAY_OPEN, GROUP_OPEN, OBJECT_OPEN} from '../../lexical-analyzer-config';
 import {OpenNode, openNode} from './open-node';
 
 export function openNodeParse(cursor: TextResourcePosition): OpenNode | Nothing {

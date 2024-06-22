@@ -14,8 +14,8 @@ import {OpenNode} from './lexical/node/open/open-node';
 import {UnknownNode} from './lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './lexical/node/whitespace/whitespace-node';
 import {putStatementNode} from './put-statement-node';
+import {SyntaxParserConfig} from './syntax-analyzer-config';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
-import {SyntaxParserConfig} from './syntax-parser-config';
 import {groupNodeParse} from './syntax/group/group-node-parse';
 import {$Node, Node, is} from './syntax/node';
 

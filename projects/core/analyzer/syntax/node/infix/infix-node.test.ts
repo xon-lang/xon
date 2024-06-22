@@ -4,7 +4,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
-import {syntaxParse} from '../../../syntax-parser';
+import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
