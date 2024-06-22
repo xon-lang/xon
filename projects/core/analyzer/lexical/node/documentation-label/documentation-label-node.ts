@@ -5,9 +5,12 @@ import {$Node} from '../../../syntax/node';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type DocumentationLabelNode = LexicalNode<$Node.DOCUMENTATION_LABEL> & {
+  name: String2;
   semantic?: Semantic | Nothing;
 };
 
 export function documentationLabelNode(range: TextRange, text: String2): DocumentationLabelNode {
-  return lexicalNode({$: $Node.DOCUMENTATION_LABEL, range, text});
+  const name = text.slice(1);
+
+  return lexicalNode({$: $Node.DOCUMENTATION_LABEL, range, text, name});
 }
