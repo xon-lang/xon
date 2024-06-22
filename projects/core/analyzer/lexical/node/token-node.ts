@@ -1,6 +1,7 @@
 import {Anything, String2} from '../../../../lib/types';
 import {$Node, Node} from '../../syntax/node';
 
+// todo move isHidden property to Node ???
 export type HiddenNode = TokenNode;
 
 export type TokenNode<T extends $Node = $Node> = Node<T> & {

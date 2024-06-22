@@ -44,6 +44,10 @@ export function syntaxParse(
       node = groupNodeParse(context, node);
     }
 
+    // if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
+    //   node = docpar(context, node);
+    // }
+
     if (breakOnNodeFn && breakOnNodeFn(node)) {
       context.breakNode = node;
 
