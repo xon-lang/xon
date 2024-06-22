@@ -1,7 +1,7 @@
 import {String2} from '../../../../../../lib/types';
 import {TextRange} from '../../../../../util/resource/text/text-range';
+import {TokenNode, tokenNode} from '../../../../lexical/node/token-node';
 import {$Node} from '../../../../syntax/node';
-import {TokenNode, tokenNode} from '../../../../lexical/token/token-node';
 
 export type OpenDocumentationNode = TokenNode<$Node.OPEN_DOCUMENTATION>;
 

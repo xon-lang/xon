@@ -12,7 +12,7 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
-import {IdNode} from '../../../../core/analyzer/lexical/token/id/id-node';
+import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,

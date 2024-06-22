@@ -1,10 +1,10 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
+import {IdNode} from '../../../lexical/node/id/id-node';
+import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
 import {$Node, is} from '../../node';
-import {IdNode} from '../../../lexical/token/id/id-node';
-import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {AssignNode} from '../assign/assign-node';
 import {LambdaNode} from '../lambda/lambda-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';

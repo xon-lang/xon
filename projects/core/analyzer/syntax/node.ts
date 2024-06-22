@@ -1,9 +1,9 @@
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
 import {TextRange} from '../../util/resource/text/text-range';
+import {OperatorNode} from '../lexical/node/operator/operator-node';
+import {TokenNode} from '../lexical/node/token-node';
 import {Semantic} from '../semantic/semantic';
 import {Group} from './group/group-node';
-import {OperatorNode} from '../lexical/token/operator/operator-node';
-import {TokenNode} from '../lexical/token/token-node';
 
 export type Node<T extends $Node = $Node> = {
   $: T;

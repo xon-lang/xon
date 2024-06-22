@@ -12,9 +12,9 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {CommaNode} from '../../../../core/analyzer/lexical/token/comma/comma-node';
-import {IdNode} from '../../../../core/analyzer/lexical/token/id/id-node';
-import {OpenNode} from '../../../../core/analyzer/lexical/token/open/open-node';
+import {CommaNode} from '../../../../core/analyzer/lexical/node/comma/comma-node';
+import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
+import {OpenNode} from '../../../../core/analyzer/lexical/node/open/open-node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/semantic';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';

@@ -10,7 +10,7 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {TokenNode} from '../../../../../core/analyzer/lexical/token/token-node';
+import {TokenNode} from '../../../../../core/analyzer/lexical/node/token-node';
 import {$Node, is} from '../../../../../core/analyzer/syntax/node';
 import {Array2} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';

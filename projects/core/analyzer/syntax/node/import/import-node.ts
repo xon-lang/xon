@@ -1,10 +1,10 @@
 import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {OperatorNode} from '../../../lexical/node/operator/operator-node';
+import {StringNode} from '../../../lexical/node/string/string-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
-import {OperatorNode} from '../../../lexical/token/operator/operator-node';
-import {StringNode} from '../../../lexical/token/string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type ImportNode = SyntaxNode<$Node.IMPORT> &

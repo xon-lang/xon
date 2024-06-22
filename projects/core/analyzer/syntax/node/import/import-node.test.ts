@@ -1,8 +1,8 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {StringNode} from '../../../lexical/node/string/string-node';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {StringNode} from '../../../lexical/token/string/string-node';
 import {ImportNode} from './import-node';
 
 test('import string', () => {

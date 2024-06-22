@@ -1,11 +1,11 @@
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {IdNode} from '../../../lexical/node/id/id-node';
+import {IntegerNode} from '../../../lexical/node/integer/integer-node';
+import {TokenNode} from '../../../lexical/node/token-node';
 import {syntaxParse} from '../../../syntax-parser';
 import {$Node} from '../../node';
-import {IdNode} from '../../../lexical/token/id/id-node';
-import {IntegerNode} from '../../../lexical/token/integer/integer-node';
-import {TokenNode} from '../../../lexical/token/token-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
 

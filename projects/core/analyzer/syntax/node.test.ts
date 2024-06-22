@@ -3,8 +3,8 @@ import {textResourceFrom} from '../../util/resource/text/text-resource';
 import {syntaxParse} from '../syntax-parser';
 import {$Node} from './node';
 // import {AssignNode} from './syntax/assign/assign-node';
+import {IntegerNode} from '../lexical/node/integer/integer-node';
 import {InfixNode} from './node/infix/infix-node';
-import {IntegerNode} from '../lexical/token/integer/integer-node';
 
 test('comma', () => {
   const text = '1';

@@ -2,11 +2,11 @@ import {Array2, Nothing} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
+import {CloseNode} from '../../lexical/node/close/close-node';
+import {OpenNode} from '../../lexical/node/open/open-node';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, ExpressionNode} from '../node';
 import {SyntaxNode} from '../node/syntax-node';
-import {CloseNode} from '../../lexical/token/close/close-node';
-import {OpenNode} from '../../lexical/token/open/open-node';
 import {ItemNode} from './item-node';
 
 export type $Group = $Node.GROUP | $Node.ARRAY | $Node.OBJECT;

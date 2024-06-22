@@ -1,8 +1,8 @@
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-config';
+import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode} from '../../node';
-import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type PrefixNode = SyntaxNode<$Node.PREFIX> &

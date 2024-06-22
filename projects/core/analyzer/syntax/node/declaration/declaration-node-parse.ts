@@ -1,12 +1,12 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/lexical-config';
+import {IdNode} from '../../../lexical/node/id/id-node';
+import {OperatorNode} from '../../../lexical/node/operator/operator-node';
+import {TokenNode} from '../../../lexical/node/token-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {IdNode} from '../../../lexical/token/id/id-node';
-import {OperatorNode} from '../../../lexical/token/operator/operator-node';
-import {TokenNode} from '../../../lexical/token/token-node';
 import {AssignNode, assignNode} from '../assign/assign-node';
 import {InvokeNode} from '../invoke/invoke-node';
 import {PrefixNode} from '../prefix/prefix-node';

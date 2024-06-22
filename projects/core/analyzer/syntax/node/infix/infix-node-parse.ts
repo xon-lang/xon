@@ -1,8 +1,8 @@
 import {Boolean2, Integer, nothing} from '../../../../../lib/types';
+import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {infixNode} from './infix-node';
 
 export function infixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {

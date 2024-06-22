@@ -1,11 +1,11 @@
 import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
 import {NL} from '../analyzer/lexical/lexical-config';
+import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
+import {TokenNode} from '../analyzer/lexical/node/token-node';
+import {WhitespaceNode} from '../analyzer/lexical/node/whitespace/whitespace-node';
 import {SyntaxContext} from '../analyzer/syntax-context';
 import {$Node, Node, is} from '../analyzer/syntax/node';
 import {StatementNode} from '../analyzer/syntax/statement/statement-node';
-import {NlNode} from '../analyzer/lexical/token/nl/nl-node';
-import {TokenNode} from '../analyzer/lexical/token/token-node';
-import {WhitespaceNode} from '../analyzer/lexical/token/whitespace/whitespace-node';
 import {TextRange, cloneRange, rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 

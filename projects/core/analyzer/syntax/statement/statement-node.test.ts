@@ -1,8 +1,8 @@
 import {nothing} from '../../../../lib/types';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
+import {CharNode} from '../../lexical/node/char/char-node';
 import {syntaxParse} from '../../syntax-parser';
 import {$Node} from '../node';
-import {CharNode} from '../../lexical/token/char/char-node';
 
 test('a', () => {
   const text = "   \n    \n  ---comment ---'a'";

@@ -1,10 +1,10 @@
 import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {IdNode} from '../../../lexical/node/id/id-node';
+import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
 import {$Node, ExpressionNode, Node} from '../../node';
-import {IdNode} from '../../../lexical/token/id/id-node';
-import {OperatorNode} from '../../../lexical/token/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type MemberNode = SyntaxNode<$Node.MEMBER> &

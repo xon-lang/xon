@@ -1,8 +1,8 @@
 import {Anything, Nothing, Something, String2, nothing} from '../../lib/types';
-import {CharNode} from '../analyzer/lexical/token/char/char-node';
-import {IdNode} from '../analyzer/lexical/token/id/id-node';
-import {IntegerNode} from '../analyzer/lexical/token/integer/integer-node';
-import {StringNode} from '../analyzer/lexical/token/string/string-node';
+import {CharNode} from '../analyzer/lexical/node/char/char-node';
+import {IdNode} from '../analyzer/lexical/node/id/id-node';
+import {IntegerNode} from '../analyzer/lexical/node/integer/integer-node';
+import {StringNode} from '../analyzer/lexical/node/string/string-node';
 import {GroupNode} from '../analyzer/syntax/group/group-node';
 import {$Node, Node, is} from '../analyzer/syntax/node';
 import {InfixNode} from '../analyzer/syntax/node/infix/infix-node';
