@@ -1,6 +1,6 @@
 import {Array2, String2} from '../../../lib/types';
 
-export interface SemanticConfig {
+export interface SemanticAnalyzerConfig {
   defaultImports: Array2<String2>;
   literalTypeNames: {
     integerTypeName: String2;
@@ -10,7 +10,7 @@ export interface SemanticConfig {
   };
 }
 
-export const DEFAULT_SEMANTIC_CONFIG: SemanticConfig = {
+export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   defaultImports: [],
   literalTypeNames: {
     integerTypeName: 'Integer',
@@ -20,7 +20,7 @@ export const DEFAULT_SEMANTIC_CONFIG: SemanticConfig = {
   },
 };
 
-export const TEST_SEMANTIC_CONFIG: SemanticConfig = {
+export const TEST_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   ...DEFAULT_SEMANTIC_CONFIG,
   defaultImports: ['xon/core'],
 };

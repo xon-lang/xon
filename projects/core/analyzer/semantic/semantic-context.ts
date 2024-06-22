@@ -4,11 +4,11 @@ import {TextResource, textResourceFrom} from '../../util/resource/text/text-reso
 import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-reference';
 import {Node} from '../syntax/node';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
-import {SemanticConfig} from './semantic-config';
+import {SemanticAnalyzerConfig} from './semantic-analyzer-config';
 
 export interface SemanticContext {
   parent: SemanticContext | Nothing;
-  config: SemanticConfig;
+  config: SemanticAnalyzerConfig;
   resource: TextResource;
   issueManager: IssueManager;
   declarationManager: DeclarationManager;
@@ -22,7 +22,7 @@ export function semanticContext(
   resource: TextResource,
   issueManager: IssueManager,
   imports: Array2<DeclarationManager> | Nothing,
-  config: SemanticConfig,
+  config: SemanticAnalyzerConfig,
 ): SemanticContext {
   const declarationManager = createDeclarationManager(
     // issueManager,

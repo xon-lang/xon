@@ -7,7 +7,7 @@ import {SyntaxResult} from '../../../syntax-context';
 import {$Node, Node, is} from '../../../syntax/node';
 import {ImportNode} from '../../../syntax/node/import/import-node';
 import {DeclarationManager} from '../../declaration-manager';
-import {semanticParse} from '../../node/semantic-node';
+import {semanticParse} from '../../semantic-analyzer';
 import {SemanticContext} from '../../semantic-context';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 

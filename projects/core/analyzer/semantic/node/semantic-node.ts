@@ -1,20 +1,12 @@
-import {Nothing, nothing} from '../../../../lib/types';
+import {Nothing} from '../../../../lib/types';
 import {TextResourceRange} from '../../../util/resource/text/text-resource-reference';
-import {SyntaxResult} from '../../syntax-context';
-import {syntaxDeclarationsParse} from '../declaration/declaration-semantic-parser';
-import {DEFAULT_SEMANTIC_CONFIG, SemanticConfig} from '../semantic-config';
-import {SemanticContext, semanticContext} from '../semantic-context';
-import {
-  declarationManagerFromImportString,
-  syntaxImportsParse,
-} from '../value/import/import-value-semantic-parser';
-import {syntaxValuesParse} from '../value/value-semantic-parser';
 
 export interface SemanticNode<T extends $Semantic = $Semantic> {
   $: T;
   reference: TextResourceRange;
 }
 
+// todo move to Node
 export enum $Semantic {
   DECLARATION = 'DECLARATION',
 
@@ -39,22 +31,10 @@ export enum $Semantic {
   IMPORT_VALUE = 'IMPORT_VALUE',
 }
 
+// use Node 'is' function
 export function semanticIs<T extends SemanticNode = SemanticNode>(
   semantic: {$: $Semantic} | Nothing,
   type: $Semantic,
 ): semantic is T {
   return semantic?.$ === type;
-}
-
-export function semanticParse(syntax: SyntaxResult, config?: Partial<SemanticConfig>): SemanticContext {
-  const semanticConfig: SemanticConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
-  const imports =
-    semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
-  const context = semanticContext(nothing, syntax.resource, syntax.issueManager, imports, semanticConfig);
-
-  syntaxImportsParse(context, syntax);
-  syntaxDeclarationsParse(context, syntax);
-  syntaxValuesParse(context, syntax);
-
-  return context;
 }
