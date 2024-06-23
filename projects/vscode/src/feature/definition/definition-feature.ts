@@ -92,7 +92,7 @@ function navigateToReference(
 function navigateToLocation(
   highlightingRange: TextRange,
   location: String2,
-  sourceRange: TextRange | Nothing,
+  sourceRange?: TextRange | Nothing,
 ): ProviderResult<LocationLink[]> {
   const uri = Uri.parse(location);
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());

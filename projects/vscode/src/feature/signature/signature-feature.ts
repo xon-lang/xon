@@ -54,8 +54,8 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
 
       if (declaration) {
         const signatureHelp = new SignatureHelp();
-        const documentation = declaration.documentation?.setPadding(0) ?? '';
-        const signature = new SignatureInformation('fff(p1, p2)', documentation);
+        const description = declaration.documentation?.description?.text?.setPadding(0) ?? '';
+        const signature = new SignatureInformation('fff(p1, p2)', description);
 
         signatureHelp.activeSignature = 0;
         signatureHelp.activeParameter = invokeParameterIndex.parameterIndex;

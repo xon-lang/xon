@@ -12,6 +12,8 @@ import {configureSignatureFeature} from './feature/signature/signature-feature';
 
 export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel(LANGUAGE_NAME.toUpperCase());
+  channel.appendLine('Initialized');
+  channel.show();
 
   configureDiagnosticFeature(context, channel);
   configureFormattingFeature(context, channel);
@@ -22,5 +24,6 @@ export function activate(context: ExtensionContext) {
   configureRenameFeature(context, channel);
   configureMoveToNewFileFeature(context, channel);
   configureSignatureFeature(context, channel);
+
   // configureTranslatorFeature(context, channel);
 }
