@@ -1,9 +1,11 @@
-import {Array2, Nothing, nothing} from '../../../../lib/types';
+import {Nothing, nothing, String2} from '../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {DocumentationNode} from '../../syntax/documentation/documentation-node';
 import {
   DeclarationNode,
   getDeclarationAttributes,
   getDeclarationGenerics,
+  getDeclarationParameters,
 } from '../../syntax/node/declaration/declaration-node';
 import {$Semantic, semanticIs} from '../node/semantic-node';
 import {SemanticAnalyzerContext} from '../semantic-analyzer-context';
@@ -25,7 +27,7 @@ export function declarationDeepParse(
   const childContext = context.createChildContext();
 
   genericsParse(childContext, semantic, node);
-  //   parametersParse(childContext, semantic, node);
+  parametersParse(childContext, semantic, node);
   typeParse(childContext, semantic, node);
   valueParse(childContext, semantic, node);
   attributesParse(childContext, semantic, node);
@@ -43,23 +45,33 @@ function genericsParse(
   }
 
   const syntaxGenerics = getDeclarationGenerics(node);
-  // todo remove this hack 'as Array2<DeclarationSemantic>'
-  declaration.generics = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
+  declaration.generics = declarationsParse(context, syntaxGenerics);
+
+  if (node.documentation) {
+    for (const parameter of declaration.generics.filter((x) => !!x)) {
+      parameter.documentation = getParameterDocumentation(node.documentation, parameter.name);
+    }
+  }
 }
 
-// function parametersParse(
-//   context: SemanticContext,
-//   declaration: DeclarationSemantic,
-//   node: DeclarationNode,
-// ): void {
-//   if (!node.parameters) {
-//     return;
-//   }
+function parametersParse(
+  context: SemanticAnalyzerContext,
+  declaration: DeclarationSemantic,
+  node: DeclarationNode,
+): void {
+  if (!node.parameters) {
+    return;
+  }
 
-//   const syntaxGenerics = getDeclarationGenerics(node);
-//   // todo remove this hack 'as Array2<DeclarationSemantic>'
-//   declaration.parameters = declarationsParse(context, syntaxGenerics) as Array2<DeclarationSemantic>;
-// }
+  const syntaxParameters = getDeclarationParameters(node);
+  declaration.parameters = declarationsParse(context, syntaxParameters);
+
+  if (node.documentation) {
+    for (const parameter of declaration.parameters.filter((x) => !!x)) {
+      parameter.documentation = getParameterDocumentation(node.documentation, parameter.name);
+    }
+  }
+}
 
 function typeParse(
   context: SemanticAnalyzerContext,
@@ -129,4 +141,8 @@ function attributesParse(
   }
 
   declaration.attributes = attributes;
+}
+
+function getParameterDocumentation(documentation: DocumentationNode, name: String2): String2 | Nothing {
+  return documentation.items?.find((x) => x.label.name === name)?.description?.text;
 }

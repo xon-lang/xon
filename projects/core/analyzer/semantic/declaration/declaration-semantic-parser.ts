@@ -27,7 +27,6 @@ export function declarationsParse(
     }
 
     declarationDeepParse(context, node);
-    declarationDeepParse(context, node);
   }
 
   return declarations;
