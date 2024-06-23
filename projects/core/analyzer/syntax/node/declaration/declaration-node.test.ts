@@ -180,8 +180,6 @@ test('lambda type', () => {
   expect(node.type?.value.$).toBe($Node.LAMBDA);
 });
 
-
-
 test('declaration documentation', () => {
   const text = `
 ===
@@ -195,6 +193,8 @@ model A`;
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($Node.DECLARATION);
+  expect(node.documentation?.description?.text).toBe('\n  Some description\n');
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
+  expect(node.id.range.start.line).toBe(4);
 });
