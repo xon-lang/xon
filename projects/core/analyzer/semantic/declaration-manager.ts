@@ -3,8 +3,8 @@ import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
   isValueDeclarationSemantic,
-} from './declaration/declaration-semantic';
-import {TypeSemantic} from './type/type-semantic';
+} from './node/declaration/declaration-semantic';
+import {TypeSemantic} from './node/type/type-semantic';
 
 export enum DeclarationKind {
   TYPE = 'TYPE',

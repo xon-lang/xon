@@ -10,13 +10,13 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {DeclarationSemantic} from '../../../../core/analyzer/semantic/declaration/declaration-semantic';
+import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {$Semantic, SemanticNode, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
-import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
-import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/type/integer/integer-type-semantic';
-import {StringTypeSemantic} from '../../../../core/analyzer/semantic/type/string/string-type-semantic';
-import {TypeSemantic, isTypeSemantic} from '../../../../core/analyzer/semantic/type/type-semantic';
-import {ValueSemantic} from '../../../../core/analyzer/semantic/value/value-semantic';
+import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
+import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
+import {StringTypeSemantic} from '../../../../core/analyzer/semantic/node/type/string/string-type-semantic';
+import {TypeSemantic, isTypeSemantic} from '../../../../core/analyzer/semantic/node/type/type-semantic';
+import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {hasSemantic} from '../../../../core/analyzer/syntax/node';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';

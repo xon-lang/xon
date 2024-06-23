@@ -1,13 +1,13 @@
 import {nothing} from '../../../lib/types';
 import {SyntaxResult} from '../syntax-context';
-import {syntaxDeclarationsParse} from './declaration/declaration-semantic-parser';
-import {DEFAULT_SEMANTIC_CONFIG, SemanticAnalyzerConfig} from './semantic-analyzer-config';
-import {SemanticAnalyzerContext, semanticContext} from './semantic-analyzer-context';
+import {syntaxDeclarationsParse} from './node/declaration/declaration-semantic-parser';
 import {
   declarationManagerFromImportString,
   syntaxImportsParse,
-} from './value/import/import-value-semantic-parser';
-import {syntaxValuesParse} from './value/value-semantic-parser';
+} from './node/value/import/import-value-semantic-parser';
+import {syntaxValuesParse} from './node/value/value-semantic-parser';
+import {DEFAULT_SEMANTIC_CONFIG, SemanticAnalyzerConfig} from './semantic-analyzer-config';
+import {SemanticAnalyzerContext, semanticContext} from './semantic-analyzer-context';
 
 export function semanticParse(
   syntax: SyntaxResult,

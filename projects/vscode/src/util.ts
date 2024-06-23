@@ -1,8 +1,8 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
 import {$Semantic, semanticIs} from '../../core/analyzer/semantic/node/semantic-node';
+import {IdTypeSemantic} from '../../core/analyzer/semantic/node/type/id/id-type-semantic';
+import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic';
 import {semanticParse} from '../../core/analyzer/semantic/semantic-analyzer';
-import {IdTypeSemantic} from '../../core/analyzer/semantic/type/id/id-type-semantic';
-import {TypeSemantic} from '../../core/analyzer/semantic/type/type-semantic';
 import {syntaxParse} from '../../core/analyzer/syntax-analyzer';
 import {SyntaxResult} from '../../core/analyzer/syntax-context';
 import {$Node, Node, is} from '../../core/analyzer/syntax/node';

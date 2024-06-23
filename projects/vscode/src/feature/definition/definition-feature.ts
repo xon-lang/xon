@@ -12,11 +12,11 @@ import {
   Uri,
 } from 'vscode';
 import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
-import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
-import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/type/integer/integer-type-semantic';
-import {StringTypeSemantic} from '../../../../core/analyzer/semantic/type/string/string-type-semantic';
-import {ImportValueSemantic} from '../../../../core/analyzer/semantic/value/import/import-value-semantic';
-import {ValueSemantic} from '../../../../core/analyzer/semantic/value/value-semantic';
+import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
+import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
+import {StringTypeSemantic} from '../../../../core/analyzer/semantic/node/type/string/string-type-semantic';
+import {ImportValueSemantic} from '../../../../core/analyzer/semantic/node/value/import/import-value-semantic';
+import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {hasSemantic} from '../../../../core/analyzer/syntax/node';
 import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
