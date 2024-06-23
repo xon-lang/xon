@@ -1,5 +1,8 @@
-import {Nothing, String2, nothing} from '../../../../lib/types';
+import {Nothing, nothing} from '../../../../lib/types';
+import {DocumentationNode} from '../../syntax/documentation/documentation-node';
+import {$Node, is} from '../../syntax/node';
 import {DeclarationNode} from '../../syntax/node/declaration/declaration-node';
+import {StatementNode} from '../../syntax/statement/statement-node';
 import {SemanticAnalyzerContext} from '../semantic-analyzer-context';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
@@ -23,13 +26,12 @@ export function declarationShallowParse(
   return declaration;
 }
 
-export function getDocumentation(_node: DeclarationNode): String2 | Nothing {
-  return '';
-  // if (is<StatementNode>(node.parent, $Node.STATEMENT)) {
-  //   return node.parent.hiddenNodes?.last<DocumentationNode>((x): x is DocumentationNode =>
-  //     is<DocumentationNode>(x, $Node.COMMENT_BLOCK),
-  //   )?.value;
-  // }
+export function getDocumentation(node: DeclarationNode): DocumentationNode | Nothing {
+  if (is<StatementNode>(node.parent, $Node.STATEMENT)) {
+    return node.parent.hiddenNodes?.last<DocumentationNode>((x) =>
+      is<DocumentationNode>(x, $Node.DOCUMENTATION),
+    );
+  }
 
-  // return nothing;
+  return nothing;
 }

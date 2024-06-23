@@ -1,12 +1,13 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../lib/types';
 import {TextResourceRange} from '../../../util/resource/text/text-resource-reference';
 import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../lexical/lexical-analyzer-config';
+import {DocumentationNode} from '../../syntax/documentation/documentation-node';
 import {$Semantic, SemanticNode, semanticIs} from '../node/semantic-node';
 import {TypeSemantic} from '../type/type-semantic';
 import {ValueSemantic} from '../value/value-semantic';
 
 export interface DeclarationSemantic extends SemanticNode<$Semantic.DECLARATION> {
-  documentation?: String2 | Nothing;
+  documentation?: DocumentationNode | Nothing;
   usages: Array2<TextResourceRange>;
   modifier?: String2 | Nothing;
   name: String2;
@@ -21,7 +22,7 @@ export interface DeclarationSemantic extends SemanticNode<$Semantic.DECLARATION>
 
 export function declarationSemantic(
   reference: TextResourceRange,
-  documentation: String2 | Nothing,
+  documentation: DocumentationNode | Nothing,
   modifier: String2 | Nothing,
   name: String2,
 ): DeclarationSemantic {
