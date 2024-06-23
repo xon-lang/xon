@@ -21,7 +21,7 @@ import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/sem
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/value/value-semantic';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';
-import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-reference';
+import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';

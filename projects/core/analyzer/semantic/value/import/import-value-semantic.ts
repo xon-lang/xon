@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {Resource} from '../../../../util/resource/resource';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {$Semantic} from '../../node/semantic-node';
 import {ValueSemantic} from '../value-semantic';
 

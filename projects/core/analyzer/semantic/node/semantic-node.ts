@@ -1,5 +1,5 @@
 import {Nothing} from '../../../../lib/types';
-import {TextResourceRange} from '../../../util/resource/text/text-resource-reference';
+import {TextResourceRange} from '../../../util/resource/text/text-resource-range';
 
 export interface SemanticNode<T extends $Semantic = $Semantic> {
   $: T;

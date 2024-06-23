@@ -1,4 +1,4 @@
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {$Semantic} from '../../node/semantic-node';
 import {IntegerTypeSemantic} from '../../type/integer/integer-type-semantic';
 import {ValueSemantic} from '../value-semantic';

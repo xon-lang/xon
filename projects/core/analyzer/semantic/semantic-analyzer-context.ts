@@ -1,7 +1,7 @@
 import {Array2, Nothing, nothing} from '../../../lib/types';
 import {IssueManager} from '../../issue/issue-manager';
 import {TextResource, textResourceFrom} from '../../util/resource/text/text-resource';
-import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-reference';
+import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-range';
 import {Node} from '../syntax/node';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 import {SemanticAnalyzerConfig} from './semantic-analyzer-config';

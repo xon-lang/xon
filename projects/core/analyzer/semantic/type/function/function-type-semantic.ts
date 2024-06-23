@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-reference';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../node/semantic-node';
 import {isInSet, isSetOperatorTypeSemantic} from '../set/set';

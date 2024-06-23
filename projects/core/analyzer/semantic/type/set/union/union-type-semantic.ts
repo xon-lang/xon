@@ -1,5 +1,5 @@
 import {Array2, Boolean2, String2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-reference';
+import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {$Semantic} from '../../../node/semantic-node';
 import {TypeSemantic} from '../../type-semantic';
 
