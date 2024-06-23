@@ -21,7 +21,7 @@ export function itemNode(
   comma: CommaNode | Nothing,
   statements: StatementNode[],
 ): ItemNode {
-  const children = comma ? [...statements, comma] : [...statements];
+  const children = comma ? [comma, ...statements] : [...statements];
 
   const node: ItemNode = {
     $: $Node.ITEM,
