@@ -1,8 +1,5 @@
 import {Nothing, nothing} from '../../../../lib/types';
-import {DocumentationNode} from '../../syntax/documentation/documentation-node';
-import {$Node, is} from '../../syntax/node';
 import {DeclarationNode} from '../../syntax/node/declaration/declaration-node';
-import {StatementNode} from '../../syntax/statement/statement-node';
 import {SemanticAnalyzerContext} from '../semantic-analyzer-context';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
@@ -15,7 +12,8 @@ export function declarationShallowParse(
   }
 
   const reference = context.createReference(node.id);
-  const documentation = getDocumentation(node);
+  // todo replace with DocumentationSemantic
+  const documentation = node.documentation;
   const modifier = node.modifier?.text;
   const name = node.id.text;
   const declaration: DeclarationSemantic = declarationSemantic(reference, documentation, modifier, name);
@@ -24,14 +22,4 @@ export function declarationShallowParse(
   context.declarationManager.add(declaration);
 
   return declaration;
-}
-
-export function getDocumentation(node: DeclarationNode): DocumentationNode | Nothing {
-  if (is<StatementNode>(node.parent, $Node.STATEMENT)) {
-    return node.parent.hiddenNodes?.last<DocumentationNode>((x) =>
-      is<DocumentationNode>(x, $Node.DOCUMENTATION),
-    );
-  }
-
-  return nothing;
 }

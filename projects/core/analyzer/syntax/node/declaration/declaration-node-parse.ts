@@ -3,6 +3,7 @@ import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
+import {DocumentationNode} from '../../documentation/documentation-node';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
@@ -126,6 +127,7 @@ function getHeader(
 ):
   | {
       modifierHiddenNodes?: Array2<Node> | Nothing;
+      documentation?: DocumentationNode | Nothing;
       modifier?: OperatorNode | Nothing;
       idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
@@ -133,6 +135,10 @@ function getHeader(
       parameters?: Group | Nothing;
     }
   | Nothing {
+  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) =>
+    is<DocumentationNode>(x, $Node.DOCUMENTATION),
+  );
+
   if (is<PrefixNode>(node, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(node.operator.text)) {
     const underModifier = getUnderModifier(context, node.value);
 
@@ -140,10 +146,12 @@ function getHeader(
       return nothing;
     }
 
-    return {modifierHiddenNodes: node.hiddenNodes, modifier: node.operator, ...underModifier};
+    return {modifierHiddenNodes: node.hiddenNodes, documentation, modifier: node.operator, ...underModifier};
   }
 
-  return getUnderModifier(context, node);
+  const underModifier = getUnderModifier(context, node);
+
+  return underModifier ? {documentation, ...underModifier} : nothing;
 }
 
 function getUnderModifier(

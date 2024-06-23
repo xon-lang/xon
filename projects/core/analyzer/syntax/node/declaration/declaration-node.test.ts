@@ -179,3 +179,22 @@ test('lambda type', () => {
   expect(node.modifier?.text).toBe('const');
   expect(node.type?.value.$).toBe($Node.LAMBDA);
 });
+
+
+
+test('declaration documentation', () => {
+  const text = `
+===
+  Some description
+===
+model A`;
+  const resource = textResourceFrom(nothing, text);
+  const syntax = syntaxParse(resource);
+  const statements = syntax.statements;
+  const node = statements[0].value as DeclarationNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.modifier?.text).toBe('model');
+  expect(node.id?.text).toBe('A');
+});
