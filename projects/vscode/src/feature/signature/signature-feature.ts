@@ -53,21 +53,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
       if (declaration) {
-        const signatureHelp = new SignatureHelp();
-        const description = declaration.documentation?.description?.text?.setPadding(0) ?? '';
-        const signature = new SignatureInformation('fff(p1, p2)', description);
-
-        signatureHelp.activeSignature = 0;
-        signatureHelp.activeParameter = invokeParameterIndex.parameterIndex;
-
-        signature.parameters = [
-          new ParameterInformation('p1', 'param doc 1'),
-          new ParameterInformation('p2', 'param doc 2'),
-        ];
-
-        signatureHelp.signatures = [signature];
-
-        return signatureHelp;
+        return getSignatureHelp(declaration, invokeParameterIndex.parameterIndex);
       }
     }
 
@@ -108,7 +94,7 @@ function getInvokeNodeAndParameterIndex(
   return nothing;
 }
 
-export function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
+function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
   if (
     semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE) ||
     semanticIs<IdValueSemantic>(node.semantic, $Semantic.ID_VALUE)
@@ -121,4 +107,28 @@ export function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothin
   }
 
   return nothing;
+}
+
+function getSignatureHelp(declaration: DeclarationSemantic, parameterIndex: Integer): SignatureHelp {
+  const signatureHelp = new SignatureHelp();
+  const signature = getSignatureInformation(declaration);
+
+  signatureHelp.activeSignature = 0;
+  signatureHelp.activeParameter = parameterIndex;
+
+  signatureHelp.signatures = [signature];
+
+  return signatureHelp;
+}
+
+function getSignatureInformation(declaration: DeclarationSemantic): SignatureInformation {
+  const description = declaration.documentation?.description?.text?.setPadding(0)?.trim() ?? '';
+  const signature = new SignatureInformation('fff(p1, p2)', description);
+
+  signature.parameters = [
+    new ParameterInformation('p1', 'param doc 1'),
+    new ParameterInformation('p2', 'param doc 2'),
+  ];
+
+  return signature;
 }
