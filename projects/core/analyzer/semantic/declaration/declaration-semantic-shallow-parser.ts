@@ -13,7 +13,7 @@ export function declarationShallowParse(
 
   const reference = context.createReference(node.id);
   // todo replace with DocumentationSemantic
-  const documentation = node.documentation?.description?.text;
+  const documentation = node.documentation?.description?.text.setPadding(0).trim();
   const modifier = node.modifier?.text;
   const name = node.id.text;
   const declaration: DeclarationSemantic = declarationSemantic(reference, documentation, modifier, name);

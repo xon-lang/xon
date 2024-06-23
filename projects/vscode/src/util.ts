@@ -1,5 +1,8 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
+import {$Semantic, semanticIs} from '../../core/analyzer/semantic/node/semantic-node';
 import {semanticParse} from '../../core/analyzer/semantic/semantic-analyzer';
+import {IdTypeSemantic} from '../../core/analyzer/semantic/type/id/id-type-semantic';
+import {TypeSemantic} from '../../core/analyzer/semantic/type/type-semantic';
 import {syntaxParse} from '../../core/analyzer/syntax-analyzer';
 import {SyntaxResult} from '../../core/analyzer/syntax-context';
 import {$Node, Node, is} from '../../core/analyzer/syntax/node';
@@ -93,6 +96,18 @@ export function findStatementNodeByPosition(
     if (foundInBody) {
       return foundInBody;
     }
+  }
+
+  return nothing;
+}
+
+export function typeSemanticToString(type: TypeSemantic | Nothing): String2 | Nothing {
+  if (!type) {
+    return nothing;
+  }
+
+  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
+    return type.declaration.name;
   }
 
   return nothing;

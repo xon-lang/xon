@@ -1,6 +1,7 @@
 import {
   CancellationToken,
   ExtensionContext,
+  MarkdownString,
   OutputChannel,
   ParameterInformation,
   Position,
@@ -24,7 +25,7 @@ import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/analyz
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
+import {findNodeByPositionInSyntax, getDocumentSyntax, typeSemanticToString} from '../../util';
 
 export function configureSignatureFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -115,20 +116,29 @@ function getSignatureHelp(declaration: DeclarationSemantic, parameterIndex: Inte
 
   signatureHelp.activeSignature = 0;
   signatureHelp.activeParameter = parameterIndex;
-
   signatureHelp.signatures = [signature];
 
   return signatureHelp;
 }
 
 function getSignatureInformation(declaration: DeclarationSemantic): SignatureInformation {
-  const description = declaration.documentation?.description?.text?.setPadding(0)?.trim() ?? '';
-  const signature = new SignatureInformation('fff(p1, p2)', description);
+  const description = declaration.documentation?.setPadding(0)?.trim() ?? '';
+  const parametersNames =
+    declaration.parameters
+      ?.map((x) => `${x?.name ?? ''}: ${typeSemanticToString(x?.type) ?? ''}`)
+      ?.join(', ') ?? '';
+  const signature = new SignatureInformation(`${declaration.name}(${parametersNames})`, description);
 
-  signature.parameters = [
-    new ParameterInformation('p1', 'param doc 1'),
-    new ParameterInformation('p2', 'param doc 2'),
-  ];
+  signature.parameters = declaration.parameters?.map((x) => getParameterInformation(x)) ?? [];
 
   return signature;
+}
+
+function getParameterInformation(parameter: DeclarationSemantic | Nothing): ParameterInformation {
+  if (!parameter || !parameter.documentation) {
+    return new ParameterInformation(parameter?.name ?? '');
+  }
+
+  const documentation = new MarkdownString(`**${parameter.name}**: ${parameter.documentation}`);
+  return new ParameterInformation(parameter.name, documentation);
 }

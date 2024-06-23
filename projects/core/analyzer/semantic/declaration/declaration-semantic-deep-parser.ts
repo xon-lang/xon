@@ -144,5 +144,8 @@ function attributesParse(
 }
 
 function getParameterDocumentation(documentation: DocumentationNode, name: String2): String2 | Nothing {
-  return documentation.items?.find((x) => x.label.name === name)?.description?.text;
+  return documentation.items
+    ?.find((x) => x.label.name === name)
+    ?.description?.text.setPadding(0)
+    .trim();
 }
