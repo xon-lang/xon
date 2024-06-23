@@ -4,7 +4,7 @@ import {DeclarationSemantic} from '../declaration/declaration-semantic';
 import {$Semantic, SemanticNode} from '../semantic-node';
 
 export interface DocumentationLabelSemantic extends SemanticNode {
-  $: $Semantic.DOCUMENTATION;
+  $: $Semantic.DOCUMENTATION_LABEL;
   declaration: DeclarationSemantic;
 }
 
@@ -16,7 +16,7 @@ export function documentationLabelSemantic(
   declaration.usages.push(reference);
 
   return {
-    $: $Semantic.DOCUMENTATION,
+    $: $Semantic.DOCUMENTATION_LABEL,
     reference,
     declaration,
   };

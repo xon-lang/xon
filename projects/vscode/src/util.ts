@@ -62,12 +62,7 @@ export function findNodeByPosition(node: Node, position: Position): Node {
     return node;
   }
 
-  const child = node.children.find((x) => {
-    const start = convertPosition(x.range.start);
-    const stop = convertPosition(x.range.stop);
-
-    return position.isAfterOrEqual(start) && position.isBeforeOrEqual(stop);
-  });
+  const child = node.children.find((x) => convertRange(x.range).contains(position));
 
   if (!child) {
     return node;

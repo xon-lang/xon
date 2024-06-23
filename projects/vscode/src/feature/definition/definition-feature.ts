@@ -11,6 +11,8 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
+import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
+import {DocumentationLabelSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-label-semantic';
 import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
@@ -54,7 +56,15 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
+    if (semanticIs<DeclarationSemantic>(node.semantic, $Semantic.DECLARATION)) {
+      return navigateToUsages(node.range, node.semantic);
+    }
+
     if (semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE)) {
+      return navigateToReference(node.range, node.semantic.declaration.reference);
+    }
+
+    if (semanticIs<DocumentationLabelSemantic>(node.semantic, $Semantic.DOCUMENTATION_LABEL)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
@@ -78,19 +88,45 @@ class LanguageDefinitionProvider implements DefinitionProvider {
   }
 }
 
+function navigateToUsages(
+  originalRange: TextRange,
+  declaration: DeclarationSemantic,
+): ProviderResult<LocationLink[]> {
+  const links: LocationLink[] = [];
+
+  for (const usage of declaration.usages) {
+    if (!usage.resource.location) {
+      continue;
+    }
+
+    const uri = Uri.parse(usage.resource.location);
+    const range = convertRange(usage.range);
+
+    const link: LocationLink = {
+      targetUri: uri,
+      targetRange: range,
+      originSelectionRange: convertRange(originalRange),
+    };
+
+    links.push(link);
+  }
+
+  return links;
+}
+
 function navigateToReference(
-  highlightingRange: TextRange,
+  originalRange: TextRange,
   reference: TextResourceRange,
 ): ProviderResult<LocationLink[]> {
   if (!reference.resource.location) {
     return nothing;
   }
 
-  return navigateToLocation(highlightingRange, reference.resource.location, reference.range);
+  return navigateToLocation(originalRange, reference.resource.location, reference.range);
 }
 
 function navigateToLocation(
-  highlightingRange: TextRange,
+  originalRange: TextRange,
   location: String2,
   sourceRange?: TextRange | Nothing,
 ): ProviderResult<LocationLink[]> {
@@ -101,7 +137,7 @@ function navigateToLocation(
     {
       targetUri: uri,
       targetRange: range,
-      originSelectionRange: convertRange(highlightingRange),
+      originSelectionRange: convertRange(originalRange),
     },
   ];
 }
