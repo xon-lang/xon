@@ -11,6 +11,8 @@ export function idValueSemantic(
   reference: TextResourceRange,
   declaration: DeclarationSemantic,
 ): IdValueSemantic {
+  declaration.usages.push(reference);
+
   return {
     $: $Semantic.ID_VALUE,
     reference,
