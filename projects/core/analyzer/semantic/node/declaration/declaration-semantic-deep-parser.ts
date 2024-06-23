@@ -1,4 +1,4 @@
-import {Nothing, nothing, String2} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
 import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {DocumentationNode} from '../../../syntax/documentation/documentation-node';
 import {
@@ -7,8 +7,9 @@ import {
   getDeclarationGenerics,
   getDeclarationParameters,
 } from '../../../syntax/node/declaration/declaration-node';
-import {$Semantic, semanticIs} from '../semantic-node';
 import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
+import {documentationLabelSemantic} from '../documentation/documentation-label-semantic';
+import {$Semantic, semanticIs} from '../semantic-node';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
@@ -48,8 +49,8 @@ function genericsParse(
   declaration.generics = declarationsParse(context, syntaxGenerics);
 
   if (node.documentation) {
-    for (const parameter of declaration.generics.filter((x) => !!x)) {
-      parameter.documentation = getParameterDocumentation(node.documentation, parameter.name);
+    for (const generic of declaration.generics.filter((x) => !!x)) {
+      parameterDocumentationHandle(context, node.documentation, generic);
     }
   }
 }
@@ -68,7 +69,7 @@ function parametersParse(
 
   if (node.documentation) {
     for (const parameter of declaration.parameters.filter((x) => !!x)) {
-      parameter.documentation = getParameterDocumentation(node.documentation, parameter.name);
+      parameterDocumentationHandle(context, node.documentation, parameter);
     }
   }
 }
@@ -143,9 +144,20 @@ function attributesParse(
   declaration.attributes = attributes;
 }
 
-function getParameterDocumentation(documentation: DocumentationNode, name: String2): String2 | Nothing {
-  return documentation.items
-    ?.find((x) => x.label.name === name)
-    ?.description?.text.setPadding(0)
-    .trim();
+function parameterDocumentationHandle(
+  context: SemanticAnalyzerContext,
+  documentation: DocumentationNode,
+  parameter: DeclarationSemantic,
+): void {
+  const item = documentation.items?.find((x) => x.label.name === parameter.name);
+
+  if (!item) {
+    return;
+  }
+
+  const description = item.description?.text.setPadding(0).trim();
+  parameter.documentation = description;
+
+  const reference = context.createReference(item.label);
+  item.label.semantic = documentationLabelSemantic(context, reference, parameter);
 }
