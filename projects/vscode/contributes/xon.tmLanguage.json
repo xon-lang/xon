@@ -16,7 +16,13 @@
     {
       "name": "comment.block.documentation.xon",
       "begin": "===",
-      "end": "==="
+      "end": "===",
+      "patterns": [
+        {
+          "name": "storage.type.class.xon",
+          "match": "@\\b[a-zA-Z_][A-Za-z0-9_]*\\b"
+        }
+      ]
     },
     {
       "name": "constant.numeric.xon",

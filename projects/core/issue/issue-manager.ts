@@ -9,7 +9,9 @@ export interface IssueManager {
   resource: TextResource;
   issues: Array2<Issue>;
 
+  addIssue(node: TextRange, message: IssueMessage, level: IssueSeverity): Issue;
   addError(node: TextRange, message: IssueMessage): Issue;
+  addWarning(node: TextRange, message: IssueMessage): Issue;
   log(issue: Issue): void;
 }
 
@@ -18,9 +20,9 @@ export function createIssueManager(resource: TextResource, issues: Array2<Issue>
     resource,
     issues,
 
-    addError(range: TextRange, message: IssueMessage): Issue {
+    addIssue(range: TextRange, message: IssueMessage, level: IssueSeverity): Issue {
       const issue = {
-        level: IssueSeverity.ERROR,
+        level,
         range,
         message,
       };
@@ -29,6 +31,14 @@ export function createIssueManager(resource: TextResource, issues: Array2<Issue>
       this.log(issue);
 
       return issue;
+    },
+
+    addError(range: TextRange, message: IssueMessage): Issue {
+      return this.addIssue(range, message, IssueSeverity.ERROR);
+    },
+
+    addWarning(range: TextRange, message: IssueMessage): Issue {
+      return this.addIssue(range, message, IssueSeverity.WARNING);
     },
 
     log(issue: Issue): void {
