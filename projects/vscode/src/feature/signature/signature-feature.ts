@@ -127,7 +127,9 @@ function getSignatureInformation(declaration: DeclarationSemantic): SignatureInf
     declaration.parameters
       ?.map((x) => `${x?.name ?? ''}: ${typeSemanticToString(x?.type) ?? ''}`)
       ?.join(', ') ?? '';
-  const signature = new SignatureInformation(`${declaration.name}(${parametersNames})`, description);
+
+  const descriptionMarkdown = new MarkdownString(description);
+  const signature = new SignatureInformation(`${declaration.name}(${parametersNames})`, descriptionMarkdown);
 
   signature.parameters = declaration.parameters?.map((x) => getParameterInformation(x)) ?? [];
 
