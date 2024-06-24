@@ -1,5 +1,5 @@
 import {nothing} from '../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../syntax-analyzer';
 import {$Node} from '../../../syntax/node';
@@ -28,7 +28,11 @@ test('several id', () => {
   expect(node.text).toBe('abc');
   expect(node.$).toBe($Node.ID);
 
-  expect(syntax.issueManager.issues.length).toBe(2);
-  expect(syntax.issueManager.issues[0].message.actual).toBe(ISSUE_MESSAGE.unexpectedExpression().actual);
-  expect(syntax.issueManager.issues[1].message.actual).toBe(ISSUE_MESSAGE.unexpectedExpression().actual);
+  expect(syntax.diagnosticManager.diagnostics.length).toBe(2);
+  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(
+    DIAGNOSTIC_MESSAGE.unexpectedExpression().actual,
+  );
+  expect(syntax.diagnosticManager.diagnostics[1].message.actual).toBe(
+    DIAGNOSTIC_MESSAGE.unexpectedExpression().actual,
+  );
 });

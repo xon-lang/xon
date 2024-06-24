@@ -1,5 +1,5 @@
 import {nothing} from '../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {IntegerNode} from '../../lexical/node/integer/integer-node';
 import {syntaxParse} from '../../syntax-analyzer';
@@ -33,12 +33,12 @@ test('validate close pair', () => {
   expect(is(node.open, $Node.OPEN)).toBe(true);
   expect(node.close).toBe(nothing);
   expect(node.items.length).toBe(0);
-  expect(syntax.issueManager.issues.length).toBe(1);
+  expect(syntax.diagnosticManager.diagnostics.length).toBe(1);
 
-  const issueMessage = ISSUE_MESSAGE.expectCloseToken(node.open.text);
+  const issueMessage = DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text);
 
-  expect(syntax.issueManager.issues[0].message.actual).toBe(issueMessage.actual);
-  expect(syntax.issueManager.issues[0].message.expect).toBe(issueMessage.expect);
+  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(issueMessage.actual);
+  expect(syntax.diagnosticManager.diagnostics[0].message.expect).toBe(issueMessage.expect);
 });
 
 test('a in group', () => {

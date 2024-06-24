@@ -9,10 +9,10 @@ import {
   window,
   workspace,
 } from 'vscode';
-import {Issue} from '../../../../core/issue/issue';
-import {IssueSeverity} from '../../../../core/issue/issue-level';
+import {AnalyzerDiagnostic} from '../../../../core/diagnostic/analyzer-diagnostic';
+import {AnalyzerDiagnosticSeverity} from '../../../../core/diagnostic/analyzer-diagnostic-severity';
+import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Array2} from '../../../../lib/types';
-import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
 
 export function configureDiagnosticFeature(context: ExtensionContext, channel: OutputChannel) {
@@ -25,7 +25,9 @@ export function configureDiagnosticFeature(context: ExtensionContext, channel: O
     (x) => x && checkDocument(x.document, diagnostics, channel),
   );
 
-  const onDidOpenTextDocument = workspace.onDidOpenTextDocument((x) => checkDocument(x, diagnostics, channel));
+  const onDidOpenTextDocument = workspace.onDidOpenTextDocument((x) =>
+    checkDocument(x, diagnostics, channel),
+  );
   const onDidChangeTextDocument = workspace.onDidChangeTextDocument((x) =>
     checkDocument(x.document, diagnostics, channel),
   );
@@ -45,15 +47,20 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
   const syntax = getDocumentSyntax(document, channel);
 
   diagnostics.clear();
-  diagnostics.set(document.uri, getDiagnostics(syntax.issueManager.issues));
+  diagnostics.set(document.uri, convertDiagnostic(syntax.diagnosticManager.diagnostics));
 }
 
-function getDiagnostics(issues: Array2<Issue>): Array2<Diagnostic> {
+function convertDiagnostic(analyzerDiagnostics: Array2<AnalyzerDiagnostic>): Array2<Diagnostic> {
   const diagnostics: Array2<Diagnostic> = [];
 
-  for (const issue of issues) {
-    const range = convertRange(issue.range);
-    const diagnostic = new Diagnostic(range, issue.message.actual, convertIssueLevel(issue.level));
+  for (const analyzerDiagnostic of analyzerDiagnostics) {
+    const range = convertRange(analyzerDiagnostic.range);
+
+    const diagnostic = new Diagnostic(
+      range,
+      analyzerDiagnostic.message.actual,
+      convertDiagnosticLevel(analyzerDiagnostic.severity),
+    );
 
     diagnostic.code = 123;
     diagnostics.push(diagnostic);
@@ -62,15 +69,15 @@ function getDiagnostics(issues: Array2<Issue>): Array2<Diagnostic> {
   return diagnostics;
 }
 
-function convertIssueLevel(level: IssueSeverity): DiagnosticSeverity {
-  switch (level) {
-    case IssueSeverity.ERROR:
+function convertDiagnosticLevel(severity: AnalyzerDiagnosticSeverity): DiagnosticSeverity {
+  switch (severity) {
+    case AnalyzerDiagnosticSeverity.ERROR:
       return DiagnosticSeverity.Error;
-    case IssueSeverity.WARNING:
+    case AnalyzerDiagnosticSeverity.WARNING:
       return DiagnosticSeverity.Warning;
-    case IssueSeverity.INFORMATION:
+    case AnalyzerDiagnosticSeverity.INFORMATION:
       return DiagnosticSeverity.Information;
-    case IssueSeverity.HINT:
+    case AnalyzerDiagnosticSeverity.HINT:
       return DiagnosticSeverity.Hint;
   }
 }

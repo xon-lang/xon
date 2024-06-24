@@ -1,6 +1,6 @@
 import {dirname, join, resolve} from 'path';
 import {Nothing, String2, nothing} from '../../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFromFilePath} from '../../../../../util/resource/text/text-resource';
 import {syntaxParse} from '../../../../syntax-analyzer';
 import {SyntaxResult} from '../../../../syntax-context';
@@ -37,7 +37,7 @@ export function importValueSemanticTryParse(
   const resource = textResourceFromFilePath(location);
 
   if (!resource) {
-    context.issueManager.addError(node.value.range, ISSUE_MESSAGE.cannotFindResource(location));
+    context.issueManager.addError(node.value.range, DIAGNOSTIC_MESSAGE.cannotFindResource(location));
 
     return;
   }

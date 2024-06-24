@@ -1,6 +1,6 @@
 import {Integer, Nothing} from '../../../../lib/types';
+import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {formatChildNode} from '../../../formatter/formatter';
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {SyntaxContext} from '../../syntax-context';
@@ -43,7 +43,7 @@ export function itemNode(
 
 function validate(context: SyntaxContext, node: ItemNode): void {
   if (!node.value) {
-    context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression());
+    context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression());
   }
 }
 

@@ -1,10 +1,10 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {IntegerNode} from '../../../../lexical/node/integer/integer-node';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {DeclarationKind} from '../../../declaration-manager';
-import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {IntegerTypeSemantic, integerTypeSemantic} from './integer-type-semantic';
 
 export function integerTypeSemanticTryParse(
@@ -25,7 +25,7 @@ export function integerTypeSemanticTryParse(
   if (!declaration || !isTypeDeclarationSemantic(declaration)) {
     context.issueManager.addError(
       node.range,
-      ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.integerTypeName),
+      DIAGNOSTIC_MESSAGE.declarationNotFound(context.config.literalTypeNames.integerTypeName),
     );
 
     return nothing;

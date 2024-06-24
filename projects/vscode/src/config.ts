@@ -1,8 +1,6 @@
 import {workspace} from 'vscode';
+import {LANGUAGE_NAME} from '../../core/xon-language';
 import {Boolean2} from '../../lib/types';
-
-export const LANGUAGE_NAME = 'xon';
-export const LANGUAGE_EXTENSION = 'xon';
 
 const workspace_config = () => workspace.getConfiguration(LANGUAGE_NAME);
 

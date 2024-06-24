@@ -1,11 +1,11 @@
 import {Nothing, String2, nothing} from '../../lib/types';
 
-export interface IssueMessage {
+export interface AnalyzerDiagnosticMessage {
   actual: String2;
   expect: String2 | Nothing;
 }
 
-export const ISSUE_MESSAGE = {
+export const DIAGNOSTIC_MESSAGE = {
   notImplemented: () => ({
     actual: 'Error not implemented',
     expect: 'Create a valid error message',
@@ -20,6 +20,7 @@ export const ISSUE_MESSAGE = {
     actual: 'Unexpected expression',
     expect: nothing,
   }),
+
   expectCloseToken: (open: String2) => ({
     actual: `Token '${open}' has no close pair`,
     expect: nothing,

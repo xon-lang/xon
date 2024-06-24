@@ -51,7 +51,7 @@ function groupNodeParseInner(
     const {syntaxContext: itemContext} = syntaxParse(
       context.resource,
       context.lexer.cursor.position,
-      context.issueManager,
+      context.diagnosticManager,
       context.formatterManager,
       (node) =>
         is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),

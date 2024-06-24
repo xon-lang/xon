@@ -1,8 +1,8 @@
 import {Boolean2, Nothing, nothing} from '../../lib/types';
+import {AnalyzerDiagnosticManager} from '../diagnostic/analyzer-diagnostic-manager';
+import {DIAGNOSTIC_MESSAGE} from '../diagnostic/analyzer-diagnostic-message';
 import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
 import {FormatterManager} from '../formatter/formatter-manager';
-import {IssueManager} from '../issue/issue-manager';
-import {ISSUE_MESSAGE} from '../issue/issue-message';
 import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
@@ -23,7 +23,7 @@ import {$Node, Node, is, isHiddenNode} from './syntax/node';
 export function syntaxParse(
   resource: TextResource,
   startPosition?: TextPosition | Nothing,
-  issueManager?: IssueManager | Nothing,
+  issueManager?: AnalyzerDiagnosticManager | Nothing,
   formatterManager?: FormatterManager | Nothing,
   breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing,
   config?: SyntaxParserConfig | Nothing,
@@ -38,7 +38,7 @@ export function syntaxParse(
     let node: Node = iterableNode;
 
     if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      context.issueManager.addError(node.range, ISSUE_MESSAGE.unknownSymbol());
+      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
     }
 
     if (is<OpenNode>(node, $Node.OPEN)) {

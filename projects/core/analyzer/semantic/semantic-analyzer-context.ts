@@ -1,5 +1,5 @@
 import {Array2, Nothing, nothing} from '../../../lib/types';
-import {IssueManager} from '../../issue/issue-manager';
+import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
 import {TextResource, textResourceFrom} from '../../util/resource/text/text-resource';
 import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-range';
 import {Node} from '../syntax/node';
@@ -10,7 +10,7 @@ export interface SemanticAnalyzerContext {
   parent: SemanticAnalyzerContext | Nothing;
   config: SemanticAnalyzerConfig;
   resource: TextResource;
-  issueManager: IssueManager;
+  issueManager: AnalyzerDiagnosticManager;
   declarationManager: DeclarationManager;
 
   createChildContext: () => SemanticAnalyzerContext;
@@ -20,7 +20,7 @@ export interface SemanticAnalyzerContext {
 export function semanticContext(
   parent: SemanticAnalyzerContext | Nothing,
   resource: TextResource,
-  issueManager: IssueManager,
+  issueManager: AnalyzerDiagnosticManager,
   imports: Array2<DeclarationManager> | Nothing,
   config: SemanticAnalyzerConfig,
 ): SemanticAnalyzerContext {

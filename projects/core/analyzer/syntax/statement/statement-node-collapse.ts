@@ -1,5 +1,5 @@
 import {Array2, Integer, Nothing, nothing} from '../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,
@@ -98,13 +98,13 @@ function validate(context: SyntaxContext, node: Node): void {
 
   if (isTypeDeclarationNode(parentDeclaration)) {
     if (parentDeclaration.assign?.value) {
-      context.issueManager.addError(node.range, ISSUE_MESSAGE.shouldNotBeBody());
+      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldNotBeBody());
 
       return;
     }
 
     if (!is<DeclarationNode>(node, $Node.DECLARATION)) {
-      context.issueManager.addError(node.range, ISSUE_MESSAGE.shouldBeDeclarationStatement());
+      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldBeDeclarationStatement());
 
       return;
     }

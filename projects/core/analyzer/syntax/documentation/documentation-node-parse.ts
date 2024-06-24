@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {documentationLexicalAnalyzer} from '../../lexical/documentation-lexical-analyzer.1';
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
@@ -32,7 +32,10 @@ export function documentationNodeParse(
 
     if (is<DocumentationLabelNode>(node, $Node.DOCUMENTATION_LABEL)) {
       if (items.some((x) => x.id.text === node.name)) {
-        context.issueManager.addWarning(node.range, ISSUE_MESSAGE.documentationLabelAlreadyExists(node.text));
+        context.diagnosticManager.addWarning(
+          node.range,
+          DIAGNOSTIC_MESSAGE.documentationLabelAlreadyExists(node.text),
+        );
       }
 
       items.push(documentationItemNode(node));

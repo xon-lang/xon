@@ -1,6 +1,6 @@
 import {Nothing} from '../../../../../lib/types';
+import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {formatChildNode} from '../../../../formatter/formatter';
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {SyntaxContext} from '../../../syntax-context';
@@ -30,7 +30,7 @@ export function memberNode(
 
 function validate(context: SyntaxContext, node: MemberNode): void {
   if (!node.id) {
-    context.issueManager.addError(node.operator.range, ISSUE_MESSAGE.shouldBeMemberName());
+    context.diagnosticManager.addError(node.operator.range, DIAGNOSTIC_MESSAGE.shouldBeMemberName());
   }
 }
 

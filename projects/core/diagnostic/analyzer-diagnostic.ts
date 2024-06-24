@@ -1,24 +1,17 @@
 import {String2} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {IssueSeverity} from './issue-level';
-import {IssueMessage} from './issue-message';
+import {AnalyzerDiagnosticMessage} from './analyzer-diagnostic-message';
+import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
+import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
-export interface Issue {
-  level: IssueSeverity;
+export interface AnalyzerDiagnostic {
+  severity: AnalyzerDiagnosticSeverity;
   range: TextRange;
-  message: IssueMessage;
+  message: AnalyzerDiagnosticMessage;
+  tags: AnalyzerDiagnosticTag[];
 }
 
-export function createErrorIssue(range: TextRange, message: IssueMessage): Issue {
-  return {
-    level: IssueSeverity.ERROR,
-    range,
-    message,
-  };
-}
-
-const redBright = (x: String2): String2 => colorText(x, Color.FG_RED);
 const cyan = (x: String2): String2 => colorText(x, Color.FG_CYAN);
 const gray = (x: String2): String2 => colorText(x, Color.FG_GRAY);
 const red = (x: String2): String2 => colorText(x, Color.FG_RED);
@@ -55,8 +48,11 @@ enum Color {
   BG_GRAY = '\x1b[100m',
 }
 
-export function formatIssue(resource: TextResource, {range, message}: Issue): String2 {
-  const msg = redBright(message.actual);
+export function formatAnalyzerDiagnostic(
+  resource: TextResource,
+  {range, message}: AnalyzerDiagnostic,
+): String2 {
+  const msg = red(message.actual);
   const lineText = resource.data.split('\n')[range.start.line];
   const nodeText = resource.getRangeText(range);
   const location = cyan(resource.location ?? '<code>');
@@ -64,7 +60,8 @@ export function formatIssue(resource: TextResource, {range, message}: Issue): St
   const column = cyan(`:${range.start.column + 1}`);
   const lineNumberBeforeGrayed = `${range.start.line + 1} | `;
   const lineNumber = gray(lineNumberBeforeGrayed);
-  const caret = ' '.repeat(range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
+  const caret =
+    ' '.repeat(range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
 
   return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
 }

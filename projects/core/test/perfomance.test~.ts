@@ -13,7 +13,7 @@ test('performance', () => {
   }
 
   const syntax = syntaxParse(resource);
-  expect(syntax.issueManager.issues.length).toBe(0);
+  expect(syntax.diagnosticManager.diagnostics.length).toBe(0);
 
   const {min, max, avg} = performanceIterations(1000, () => syntaxParse(resource));
 

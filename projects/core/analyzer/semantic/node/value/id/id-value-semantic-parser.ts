@@ -1,9 +1,9 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {$Node, Node, is} from '../../../../syntax/node';
-import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 
@@ -27,7 +27,7 @@ export function idValueSemanticTryParse(
   }
 
   if (isTypeDeclarationSemantic(declaration)) {
-    context.issueManager.addError(node.range, ISSUE_MESSAGE.notImplemented());
+    context.issueManager.addError(node.range, DIAGNOSTIC_MESSAGE.notImplemented());
   }
 
   return nothing;

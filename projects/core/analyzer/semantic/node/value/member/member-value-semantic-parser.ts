@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {MemberNode} from '../../../../syntax/node/member/member-node';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
@@ -25,7 +25,7 @@ export function memberValueSemanticTryParse(
 
     if (attributes) {
       if (attributes.length > 1) {
-        context.issueManager.addError(node.id.range, ISSUE_MESSAGE.notImplemented());
+        context.issueManager.addError(node.id.range, DIAGNOSTIC_MESSAGE.notImplemented());
       } else {
         memberType = attributes.first();
       }

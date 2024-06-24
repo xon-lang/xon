@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {DocumentationNode} from '../../../syntax/documentation/documentation-node';
 import {
   DeclarationNode,
@@ -88,7 +88,7 @@ function typeParse(
   if (type) {
     declaration.type = type;
   } else {
-    context.issueManager.addError(node.type.range, ISSUE_MESSAGE.cannotResolveType());
+    context.issueManager.addError(node.type.range, DIAGNOSTIC_MESSAGE.cannotResolveType());
   }
 }
 
@@ -109,7 +109,7 @@ function valueParse(
       declaration.type = value.type;
     }
   } else if (!value?.type || !value.type.is(declaration.type)) {
-    context.issueManager.addError(node.assign.value.range, ISSUE_MESSAGE.wrongType());
+    context.issueManager.addError(node.assign.value.range, DIAGNOSTIC_MESSAGE.wrongType());
   }
 }
 

@@ -32,7 +32,7 @@ test('unknown 2', () => {
   const node = statements[0].value as UnknownNode;
 
   expect(statements.length).toBe(1);
-  expect(syntax.issueManager.issues.length).toBe(5);
-  expect(resource.getRangeText(syntax.issueManager.issues[0].range)).toBe('º');
+  expect(syntax.diagnosticManager.diagnostics.length).toBe(5);
+  expect(resource.getRangeText(syntax.diagnosticManager.diagnostics[0].range)).toBe('º');
   expect(node.text).toBe('º');
 });

@@ -1,10 +1,10 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {StringNode} from '../../../../lexical/node/string/string-node';
 import {$Node, Node, is} from '../../../../syntax/node';
 import {DeclarationKind} from '../../../declaration-manager';
-import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {StringTypeSemantic, stringTypeSemantic} from './string-type-semantic';
 
 export function stringTypeSemanticTryParse(
@@ -25,7 +25,7 @@ export function stringTypeSemanticTryParse(
   if (!declaration || !isTypeDeclarationSemantic(declaration)) {
     context.issueManager.addError(
       node.range,
-      ISSUE_MESSAGE.declarationNotFound(context.config.literalTypeNames.stringTypeName),
+      DIAGNOSTIC_MESSAGE.declarationNotFound(context.config.literalTypeNames.stringTypeName),
     );
 
     return nothing;

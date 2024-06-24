@@ -16,7 +16,13 @@ export function semanticParse(
   const semanticConfig: SemanticAnalyzerConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
   const imports =
     semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
-  const context = semanticContext(nothing, syntax.resource, syntax.issueManager, imports, semanticConfig);
+  const context = semanticContext(
+    nothing,
+    syntax.resource,
+    syntax.diagnosticManager,
+    imports,
+    semanticConfig,
+  );
 
   syntaxImportsParse(context, syntax);
   syntaxDeclarationsParse(context, syntax);

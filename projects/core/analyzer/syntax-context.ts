@@ -1,13 +1,13 @@
 import {Array2, Nothing, nothing} from '../../lib/types';
+import {AnalyzerDiagnosticManager, createDiagnosticManager} from '../diagnostic/analyzer-diagnostic-manager';
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
-import {IssueManager, createIssueManager} from '../issue/issue-manager';
 import {TextResource} from '../util/resource/text/text-resource';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-analyzer-config';
 import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
 
-type ContextAttributes = 'resource' | 'statements' | 'issueManager' | 'formatterManager';
+type ContextAttributes = 'resource' | 'statements' | 'diagnosticManager' | 'formatterManager';
 
 export type SyntaxResult = Pick<SyntaxContext, ContextAttributes> & {
   syntaxContext: SyntaxContext;
@@ -22,7 +22,7 @@ export interface SyntaxContext {
   nodes: Array2<Node>;
   lastStatement: StatementNode | Nothing;
   statements: Array2<StatementNode>;
-  issueManager: IssueManager;
+  diagnosticManager: AnalyzerDiagnosticManager;
   formatterManager: FormatterManager;
   config: SyntaxParserConfig;
 }
@@ -30,7 +30,7 @@ export interface SyntaxContext {
 export function syntaxContext(
   resource: TextResource,
   lexer: LexicalAnalyzer,
-  issueManager: IssueManager | Nothing,
+  issueManager: AnalyzerDiagnosticManager | Nothing,
   formatterManager: FormatterManager | Nothing,
   config: SyntaxParserConfig | Nothing,
 ): SyntaxContext {
@@ -43,7 +43,7 @@ export function syntaxContext(
     lastStatement: nothing,
     breakNode: nothing,
     statements: [],
-    issueManager: issueManager ?? createIssueManager(resource),
+    diagnosticManager: issueManager ?? createDiagnosticManager(resource),
     formatterManager: formatterManager ?? createFormatterManager(resource),
     config: config ?? DEFAULT_SYNTAX_PARSER_CONFIG,
   };

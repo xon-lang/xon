@@ -1,6 +1,6 @@
 import {Nothing} from '../../../../../lib/types';
+import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {formatChildNode} from '../../../../formatter/formatter';
-import {ISSUE_MESSAGE} from '../../../../issue/issue-message';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {StringNode} from '../../../lexical/node/string/string-node';
 import {SyntaxContext} from '../../../syntax-context';
@@ -28,7 +28,7 @@ export function importNode(
 
 function validate(context: SyntaxContext, node: ImportNode): void {
   if (!node.value) {
-    context.issueManager.addError(node.range, ISSUE_MESSAGE.importValueShouldBeString());
+    context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.importValueShouldBeString());
   }
 }
 

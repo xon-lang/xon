@@ -1,5 +1,5 @@
 import {ExtensionContext, window} from 'vscode';
-import {LANGUAGE_NAME} from './config';
+import {LANGUAGE_NAME} from '../../core/xon-language';
 import {configureCompletionFeature} from './feature/completion/completion-feature';
 import {configureDefinitionFeature} from './feature/definition/definition-feature';
 import {configureDiagnosticFeature} from './feature/diagnostic/diagnostic-feature';

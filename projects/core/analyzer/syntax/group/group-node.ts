@@ -1,5 +1,5 @@
 import {Array2, Nothing} from '../../../../lib/types';
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
+import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CloseNode} from '../../lexical/node/close/close-node';
@@ -48,6 +48,6 @@ export function groupNode(
 
 function validate(context: SyntaxContext, node: GroupNode): void {
   if (!node.close) {
-    context.issueManager.addError(node.open.range, ISSUE_MESSAGE.expectCloseToken(node.open.text));
+    context.diagnosticManager.addError(node.open.range, DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text));
   }
 }

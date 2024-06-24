@@ -20,8 +20,9 @@ import {dirname} from 'path';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
+import {FILE_EXTENSION, LANGUAGE_NAME} from '../../../../core/xon-language';
 import {nothing} from '../../../../lib/types';
-import {LANGUAGE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
+import {WORKSPACE_CONFIG} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
@@ -48,7 +49,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
 
     const dir = dirname(document.uri.fsPath);
     const caseFn = getCaseFnByName(WORKSPACE_CONFIG.newFileNameCase()) ?? kebabCase;
-    const fileName = caseFn(node.text) + '.' + LANGUAGE_EXTENSION;
+    const fileName = caseFn(node.text) + '.' + FILE_EXTENSION;
     const action = new CodeAction(`Move to a new file: './${fileName}'`, CodeActionKind.RefactorMove);
     action.edit = new WorkspaceEdit();
     const path = Uri.joinPath(Uri.parse(dir), fileName);

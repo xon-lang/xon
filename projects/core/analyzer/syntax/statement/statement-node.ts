@@ -1,6 +1,6 @@
 import {Array2, Integer, Nothing} from '../../../../lib/types';
+import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {formatStatementNode} from '../../../formatter/formatter';
-import {ISSUE_MESSAGE} from '../../../issue/issue-message';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {SyntaxContext} from '../../syntax-context';
 import {$Node, Node} from '../node';
@@ -56,7 +56,9 @@ export function constructStatementNode(context: SyntaxContext, indent: TextRange
 
   context.nodes
     .slice(1)
-    .forEach((node) => context.issueManager.addError(node.range, ISSUE_MESSAGE.unexpectedExpression()));
+    .forEach((node) =>
+      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression()),
+    );
 
   return statementNode(context, context.nodes, indent);
 }
