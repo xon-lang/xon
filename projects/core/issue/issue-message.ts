@@ -105,4 +105,9 @@ export const ISSUE_MESSAGE = {
     actual: `Should not be body`,
     expect: nothing,
   }),
+
+  documentationLabelAlreadyExists: (name: String2) => ({
+    actual: `Documentation label '${name}' already exists`,
+    expect: nothing,
+  }),
 };

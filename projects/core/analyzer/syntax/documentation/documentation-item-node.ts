@@ -42,5 +42,5 @@ function idFromLabel(label: DocumentationLabelNode): IdNode {
   const idStart = textPosition(labelStart.index + AT.length, labelStart.line, labelStart.column + AT.length);
   const idRange = textRange(idStart, label.range.stop);
 
-  return idNode(idRange, label.text.slice(AT.length));
+  return idNode(idRange, label.name);
 }
