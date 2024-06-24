@@ -1,8 +1,11 @@
-import {Nothing, String2, nothing} from '../../lib/types';
+import {Integer, Nothing, String2, nothing} from '../../lib/types';
+import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
 export interface AnalyzerDiagnosticMessage {
   actual: String2;
   expect: String2 | Nothing;
+  code?: Integer | Nothing;
+  tags?: AnalyzerDiagnosticTag[] | Nothing;
 }
 
 export const DIAGNOSTIC_MESSAGE = {
@@ -110,5 +113,6 @@ export const DIAGNOSTIC_MESSAGE = {
   documentationLabelAlreadyExists: (name: String2) => ({
     actual: `Documentation label '${name}' already exists`,
     expect: nothing,
+    tags: [AnalyzerDiagnosticTag.UNNECESSARY],
   }),
 };

@@ -1,4 +1,4 @@
-import {String2} from '../../lib/types';
+import {Integer, Nothing, String2} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {AnalyzerDiagnosticMessage} from './analyzer-diagnostic-message';
@@ -9,7 +9,8 @@ export interface AnalyzerDiagnostic {
   severity: AnalyzerDiagnosticSeverity;
   range: TextRange;
   message: AnalyzerDiagnosticMessage;
-  tags: AnalyzerDiagnosticTag[];
+  code?: Integer | Nothing;
+  tags?: AnalyzerDiagnosticTag[] | Nothing;
 }
 
 const cyan = (x: String2): String2 => colorText(x, Color.FG_CYAN);

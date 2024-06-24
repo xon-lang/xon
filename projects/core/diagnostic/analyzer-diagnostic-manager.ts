@@ -4,7 +4,6 @@ import {TextResource} from '../util/resource/text/text-resource';
 import {AnalyzerDiagnostic, formatAnalyzerDiagnostic} from './analyzer-diagnostic';
 import {AnalyzerDiagnosticMessage} from './analyzer-diagnostic-message';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
-import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
 export interface AnalyzerDiagnosticManager {
   resource: TextResource;
@@ -14,20 +13,11 @@ export interface AnalyzerDiagnosticManager {
     level: AnalyzerDiagnosticSeverity,
     range: TextRange,
     message: AnalyzerDiagnosticMessage,
-    tags: AnalyzerDiagnosticTag[],
   ): AnalyzerDiagnostic;
 
-  addError(
-    range: TextRange,
-    message: AnalyzerDiagnosticMessage,
-    tags?: AnalyzerDiagnosticTag[],
-  ): AnalyzerDiagnostic;
+  addError(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic;
 
-  addWarning(
-    range: TextRange,
-    message: AnalyzerDiagnosticMessage,
-    tags?: AnalyzerDiagnosticTag[],
-  ): AnalyzerDiagnostic;
+  addWarning(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic;
   log(issue: AnalyzerDiagnostic): void;
 }
 
@@ -43,13 +33,13 @@ export function createDiagnosticManager(
       severity: AnalyzerDiagnosticSeverity,
       range: TextRange,
       message: AnalyzerDiagnosticMessage,
-      tags: AnalyzerDiagnosticTag[],
     ): AnalyzerDiagnostic {
       const issue: AnalyzerDiagnostic = {
         severity,
         range,
         message,
-        tags,
+        code: message.code,
+        tags: message.tags,
       };
 
       this.diagnostics.push(issue);
@@ -58,20 +48,12 @@ export function createDiagnosticManager(
       return issue;
     },
 
-    addError(
-      range: TextRange,
-      message: AnalyzerDiagnosticMessage,
-      tags: AnalyzerDiagnosticTag[] = [],
-    ): AnalyzerDiagnostic {
-      return this.addDiagnostic(AnalyzerDiagnosticSeverity.ERROR, range, message, tags ?? []);
+    addError(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic {
+      return this.addDiagnostic(AnalyzerDiagnosticSeverity.ERROR, range, message);
     },
 
-    addWarning(
-      range: TextRange,
-      message: AnalyzerDiagnosticMessage,
-      tags: AnalyzerDiagnosticTag[] = [],
-    ): AnalyzerDiagnostic {
-      return this.addDiagnostic(AnalyzerDiagnosticSeverity.ERROR, range, message, tags);
+    addWarning(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic {
+      return this.addDiagnostic(AnalyzerDiagnosticSeverity.WARNING, range, message);
     },
 
     log(issue: AnalyzerDiagnostic): void {

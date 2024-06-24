@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
+import {Array2, Nothing, nothing} from '../../../../lib/types';
+import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {documentationLexicalAnalyzer} from '../../lexical/documentation-lexical-analyzer.1';
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
@@ -17,36 +17,32 @@ export function documentationNodeParse(
   const lexer = documentationLexicalAnalyzer(context.resource, context.lexer.cursor.position);
 
   let description: DocumentationDescriptionNode | Nothing = nothing;
-  const items: DocumentationItemNode[] = [];
+  const items: Array2<DocumentationItemNode> = [];
 
   for (const node of lexer) {
     if (is<DocumentationDescriptionNode>(node, $Node.DOCUMENTATION_DESCRIPTION)) {
       if (items.length === 0) {
         description = node;
       } else {
-        items.last()!.description = node;
+        const lastItem = items.last()!;
+        lastItem.description = node;
+        lastItem.children.push(node);
+        lastItem.range = rangeFromNodes(lastItem.children);
       }
 
       continue;
     }
 
     if (is<DocumentationLabelNode>(node, $Node.DOCUMENTATION_LABEL)) {
-      if (items.some((x) => x.id.text === node.name)) {
-        context.diagnosticManager.addWarning(
-          node.range,
-          DIAGNOSTIC_MESSAGE.documentationLabelAlreadyExists(node.text),
-        );
-      }
-
       items.push(documentationItemNode(node));
 
       continue;
     }
 
     if (is<DocumentationCloseNode>(node, $Node.DOCUMENTATION_CLOSE)) {
-      return documentationNode(openNode, description, items, node);
+      return documentationNode(context, openNode, description, items, node);
     }
   }
 
-  return documentationNode(openNode, description, items);
+  return documentationNode(context, openNode, description, items);
 }

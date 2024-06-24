@@ -2,6 +2,7 @@ import {
   Diagnostic,
   DiagnosticCollection,
   DiagnosticSeverity,
+  DiagnosticTag,
   ExtensionContext,
   languages,
   OutputChannel,
@@ -11,6 +12,7 @@ import {
 } from 'vscode';
 import {AnalyzerDiagnostic} from '../../../../core/diagnostic/analyzer-diagnostic';
 import {AnalyzerDiagnosticSeverity} from '../../../../core/diagnostic/analyzer-diagnostic-severity';
+import {AnalyzerDiagnosticTag} from '../../../../core/diagnostic/analyzer-diagnostic-tag';
 import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Array2} from '../../../../lib/types';
 import {convertRange, getDocumentSyntax} from '../../util';
@@ -62,7 +64,14 @@ function convertDiagnostic(analyzerDiagnostics: Array2<AnalyzerDiagnostic>): Arr
       convertDiagnosticLevel(analyzerDiagnostic.severity),
     );
 
-    diagnostic.code = 123;
+    if (analyzerDiagnostic.code) {
+      diagnostic.code = analyzerDiagnostic.code;
+    }
+
+    if (analyzerDiagnostic.tags) {
+      diagnostic.tags = analyzerDiagnostic.tags.map(convertDiagnosticTag);
+    }
+
     diagnostics.push(diagnostic);
   }
 
@@ -79,5 +88,14 @@ function convertDiagnosticLevel(severity: AnalyzerDiagnosticSeverity): Diagnosti
       return DiagnosticSeverity.Information;
     case AnalyzerDiagnosticSeverity.HINT:
       return DiagnosticSeverity.Hint;
+  }
+}
+
+function convertDiagnosticTag(tag: AnalyzerDiagnosticTag): DiagnosticTag {
+  switch (tag) {
+    case AnalyzerDiagnosticTag.UNNECESSARY:
+      return DiagnosticTag.Unnecessary;
+    case AnalyzerDiagnosticTag.DEPRECATED:
+      return DiagnosticTag.Deprecated;
   }
 }

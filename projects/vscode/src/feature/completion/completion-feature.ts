@@ -1,5 +1,5 @@
 import {ExtensionContext, languages, OutputChannel} from 'vscode';
-import {LANGUAGE_NAME} from '../../config';
+import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {DotCompletionItemProvider} from './items/dot-completion-feature';
 import {IdCompletionItemProvider} from './items/id-completion-feature';
 
