@@ -17,6 +17,7 @@ import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
 } from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
+import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-id-semantic';
 import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
@@ -80,6 +81,10 @@ function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
 
   if (isTypeDeclarationSemantic(semantic)) {
     return semantic;
+  }
+
+  if (semanticIs<DocumentationIdSemantic>(semantic, $Semantic.DOCUMENTATION_ID)) {
+    return semantic.declaration;
   }
 
   if (semanticIs<IdTypeSemantic>(semantic, $Semantic.ID_TYPE)) {
