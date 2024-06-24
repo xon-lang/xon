@@ -50,10 +50,10 @@ test('documentation labels', () => {
   expect(node.items?.length).toBe(2);
 
   expect(node.items?.at(0)?.label.text).toBe('@in');
-  expect(node.items?.at(0)?.label.name).toBe('in');
+  expect(node.items?.at(0)?.id.text).toBe('in');
   expect(node.items?.at(0)?.description?.text).toBe(' a1 b2 c 3     ');
 
   expect(node.items?.at(1)?.label.text).toBe('@return');
-  expect(node.items?.at(1)?.label.name).toBe('return');
+  expect(node.items?.at(1)?.id.text).toBe('return');
   expect(node.items?.at(1)?.description?.text).toBe(' _123 _ ');
 });

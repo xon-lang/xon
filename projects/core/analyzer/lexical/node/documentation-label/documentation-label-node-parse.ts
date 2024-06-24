@@ -13,6 +13,10 @@ export function documentationLabelNodeParse(cursor: TextResourcePosition): Docum
     cursor.position.index,
   );
 
+  if (text.length <= AT.length) {
+    return nothing;
+  }
+
   const range = cursor.getRange(text.length);
 
   return documentationLabelNode(range, text);

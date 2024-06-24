@@ -3,20 +3,20 @@ import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
 import {$Semantic, SemanticNode} from '../semantic-node';
 
-export interface DocumentationLabelSemantic extends SemanticNode {
-  $: $Semantic.DOCUMENTATION_LABEL;
+export interface DocumentationIdSemantic extends SemanticNode {
+  $: $Semantic.DOCUMENTATION_ID;
   declaration: DeclarationSemantic;
 }
 
-export function documentationLabelSemantic(
+export function documentationIdSemantic(
   context: SemanticAnalyzerContext,
   reference: TextResourceRange,
   declaration: DeclarationSemantic,
-): DocumentationLabelSemantic {
+): DocumentationIdSemantic {
   declaration.usages.push(reference);
 
   return {
-    $: $Semantic.DOCUMENTATION_LABEL,
+    $: $Semantic.DOCUMENTATION_ID,
     reference,
     declaration,
   };

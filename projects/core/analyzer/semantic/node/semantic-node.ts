@@ -8,7 +8,7 @@ export interface SemanticNode<T extends $Semantic = $Semantic> {
 
 // todo move to Node
 export enum $Semantic {
-  DOCUMENTATION_LABEL = 'DOCUMENTATION_LABEL',
+  DOCUMENTATION_ID = 'DOCUMENTATION_ID',
   DECLARATION = 'DECLARATION',
 
   TYPE = 'TYPE',

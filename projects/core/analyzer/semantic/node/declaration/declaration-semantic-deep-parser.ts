@@ -8,7 +8,7 @@ import {
   getDeclarationParameters,
 } from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
-import {documentationLabelSemantic} from '../documentation/documentation-label-semantic';
+import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
 import {$Semantic, semanticIs} from '../semantic-node';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
@@ -149,7 +149,7 @@ function parameterDocumentationHandle(
   documentation: DocumentationNode,
   parameter: DeclarationSemantic,
 ): void {
-  const item = documentation.items?.find((x) => x.label.name === parameter.name);
+  const item = documentation.items?.find((x) => x.id?.text === parameter.name);
 
   if (!item) {
     return;
@@ -158,6 +158,6 @@ function parameterDocumentationHandle(
   const description = item.description?.text.setPadding(0).trim();
   parameter.documentation = description;
 
-  const reference = context.createReference(item.label);
-  item.label.semantic = documentationLabelSemantic(context, reference, parameter);
+  const reference = context.createReference(item.id);
+  item.id.semantic = documentationIdSemantic(context, reference, parameter);
 }
