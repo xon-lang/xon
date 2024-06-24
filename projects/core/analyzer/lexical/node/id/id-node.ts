@@ -8,6 +8,7 @@ import {$Node, ExpressionNode} from '../../../syntax/node';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type IdNode = LexicalNode<$Node.ID> &
+  // todo remove 'ExpressionNode' from here
   ExpressionNode & {
     semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | Nothing;
   };

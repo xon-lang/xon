@@ -50,15 +50,11 @@ class LanguageRenameProvider implements RenameProvider {
 
     const declaration = getDeclaration(node.semantic);
 
-    if (declaration) {
-      const workspace = new WorkspaceEdit();
-      const oldName = declaration.name;
-      renameDeclarationAndUsages(workspace, declaration, oldName, newName);
-
-      return workspace;
+    if (!declaration) {
+      return nothing;
     }
 
-    return nothing;
+    return renameDeclarationAndUsages(declaration, declaration.name, newName);
   }
 
   prepareRename?(
@@ -78,6 +74,10 @@ class LanguageRenameProvider implements RenameProvider {
 }
 
 function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
+  if (semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
+    return semantic;
+  }
+
   if (isTypeDeclarationSemantic(semantic)) {
     return semantic;
   }
@@ -95,14 +95,21 @@ function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
 }
 
 function renameDeclarationAndUsages(
-  workspace: WorkspaceEdit,
   declaration: DeclarationSemantic,
   oldName: String2,
   newName: String2,
-): void {
+): WorkspaceEdit | Nothing {
+  if (declaration.usages.length === 0) {
+    return nothing;
+  }
+
+  const workspace = new WorkspaceEdit();
+
   for (const reference of declaration.usages) {
     renameWithWorkspace(workspace, reference, oldName, newName);
   }
+
+  return workspace;
 }
 
 function renameWithWorkspace(

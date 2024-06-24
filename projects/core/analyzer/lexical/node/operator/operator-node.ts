@@ -10,13 +10,13 @@ export enum KeywordType {
   CONTROL = 'CONTROL',
 }
 
-export type OperatorNode = LexicalNode<$Node.OPERATOR> &
-  ExpressionNode & {
-    keywordType: KeywordType | Nothing;
-  };
+export type OperatorNode = LexicalNode<$Node.OPERATOR> & ExpressionNode;
+// & {
+//   keywordType: KeywordType | Nothing;
+// };
 
 export function operatorNode(range: TextRange, text: String2): OperatorNode {
-  return lexicalNode({$: $Node.OPERATOR, range, text, keywordType: getKeywordType(text)});
+  return lexicalNode({$: $Node.OPERATOR, range, text}); //, keywordType: getKeywordType(text)
 }
 
 function getKeywordType(text: String2): KeywordType | Nothing {
