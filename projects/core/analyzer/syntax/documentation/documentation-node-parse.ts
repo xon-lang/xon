@@ -32,7 +32,7 @@ export function documentationNodeParse(
 
     if (is<DocumentationLabelNode>(node, $Node.DOCUMENTATION_LABEL)) {
       if (items.some((x) => x.id.text === node.name)) {
-        context.issueManager.addError(node.range, ISSUE_MESSAGE.documentationLabelAlreadyExists(node.text));
+        context.issueManager.addWarning(node.range, ISSUE_MESSAGE.documentationLabelAlreadyExists(node.text));
       }
 
       items.push(documentationItemNode(node));
