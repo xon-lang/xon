@@ -12,7 +12,7 @@ import {
   Uri,
 } from 'vscode';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {DocumentationLabelSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-label-semantic';
+import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-id-semantic';
 import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
@@ -64,7 +64,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
-    if (semanticIs<DocumentationLabelSemantic>(node.semantic, $Semantic.DOCUMENTATION_LABEL)) {
+    if (semanticIs<DocumentationIdSemantic>(node.semantic, $Semantic.DOCUMENTATION_ID)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
