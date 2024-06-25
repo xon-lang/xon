@@ -24,6 +24,15 @@ export function activate(context: ExtensionContext) {
   configureRenameFeature(context, channel);
   configureMoveToNewFileFeature(context, channel);
   configureSignatureFeature(context, channel);
-
   // configureTranslatorFeature(context, channel);
+
+  // todo registerTypeDefinitionProvider
+  // todo registerImplementationProvider
+  // todo registerReferenceProvider
+  // todo registerDocumentSymbolProvider
+  // todo registerCodeLensProvider
+  // todo registerDocumentLinkProvider ???
+  // todo registerColorProvider ???
+  // todo registerOnTypeFormattingEditProvider ???
+  // todo registerFoldingRangeProvider ???
 }

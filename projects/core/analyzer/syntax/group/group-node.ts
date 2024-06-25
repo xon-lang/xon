@@ -50,4 +50,17 @@ function validate(context: SyntaxContext, node: GroupNode): void {
   if (!node.close) {
     context.diagnosticManager.addError(node.open.range, DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text));
   }
+
+  // if(node.items.length>1 && !node.items[0].value){
+  //   context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression());
+  // }
+
+  for (const item of node.items.slice(0, -1)) {
+    if (!item.value) {
+      context.diagnosticManager.addError(
+        (item.comma ?? node.open).range,
+        DIAGNOSTIC_MESSAGE.unexpectedExpression(),
+      );
+    }
+  }
 }

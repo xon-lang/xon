@@ -1,5 +1,4 @@
 import {Integer, Nothing} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {formatChildNode} from '../../../formatter/formatter';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
@@ -35,16 +34,9 @@ export function itemNode(
 
   children.forEach((x) => (x.parent = node));
 
-  validate(context, node);
   format(context, node);
 
   return node;
-}
-
-function validate(context: SyntaxContext, node: ItemNode): void {
-  if (!node.value) {
-    context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression());
-  }
 }
 
 function format(context: SyntaxContext, node: ItemNode): void {
