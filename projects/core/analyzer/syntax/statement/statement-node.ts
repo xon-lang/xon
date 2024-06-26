@@ -2,8 +2,8 @@ import {Array2, Integer, Nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {formatStatementNode} from '../../../formatter/formatter';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
+import {$Node, Node} from '../../node';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, Node} from '../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {statementNodeCollapse} from './statement-node-collapse';
 

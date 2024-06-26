@@ -1,6 +1,6 @@
 import {Integer, nothing} from '../../../../../lib/types';
+import {isGroupNode, isNonOperatorExpression, nodeFindMap} from '../../../node';
 import {SyntaxContext} from '../../../syntax-context';
-import {isGroupNode, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {invokeNode} from './invoke-node';
 

@@ -13,6 +13,7 @@ import {
 } from 'vscode';
 
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
+import {$Node, is} from '../../../../core/analyzer/node';
 import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
@@ -21,7 +22,6 @@ import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/d
 import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
-import {$Node, is} from '../../../../core/analyzer/syntax/node';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';

@@ -3,8 +3,8 @@ import {CharNode} from '../analyzer/lexical/node/char/char-node';
 import {IdNode} from '../analyzer/lexical/node/id/id-node';
 import {IntegerNode} from '../analyzer/lexical/node/integer/integer-node';
 import {StringNode} from '../analyzer/lexical/node/string/string-node';
+import {$Node, Node, is} from '../analyzer/node';
 import {GroupNode} from '../analyzer/syntax/group/group-node';
-import {$Node, Node, is} from '../analyzer/syntax/node';
 import {InfixNode} from '../analyzer/syntax/node/infix/infix-node';
 import {PrefixNode} from '../analyzer/syntax/node/prefix/prefix-node';
 

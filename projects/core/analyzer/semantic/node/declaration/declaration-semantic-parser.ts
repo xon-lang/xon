@@ -1,6 +1,6 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
+import {$Node, is} from '../../../node';
 import {SyntaxResult} from '../../../syntax-context';
-import {$Node, is} from '../../../syntax/node';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {DeclarationSemantic} from './declaration-semantic';

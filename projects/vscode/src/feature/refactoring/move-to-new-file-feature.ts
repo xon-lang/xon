@@ -18,7 +18,7 @@ import {
 
 import {dirname} from 'path';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
-import {$Node, is} from '../../../../core/analyzer/syntax/node';
+import {$Node, is} from '../../../../core/analyzer/node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
 import {FILE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';

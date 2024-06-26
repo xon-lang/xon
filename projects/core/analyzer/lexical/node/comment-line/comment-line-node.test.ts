@@ -1,7 +1,7 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {$Node} from '../../../node';
 import {syntaxParse} from '../../../syntax-analyzer';
-import {$Node} from '../../../syntax/node';
 import {CommentLineNode} from './comment-line-node';
 
 test('line comment', () => {

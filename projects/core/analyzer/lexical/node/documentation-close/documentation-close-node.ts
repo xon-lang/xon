@@ -1,6 +1,6 @@
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node} from '../../../syntax/node';
+import {$Node} from '../../../node';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type DocumentationCloseNode = LexicalNode<$Node.DOCUMENTATION_CLOSE>;

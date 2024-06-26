@@ -13,12 +13,12 @@ import {NlNode} from './lexical/node/nl/nl-node';
 import {OpenNode} from './lexical/node/open/open-node';
 import {UnknownNode} from './lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './lexical/node/whitespace/whitespace-node';
+import {$Node, Node, is, isHiddenNode} from './node';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxParserConfig} from './syntax-analyzer-config';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 import {documentationNodeParse} from './syntax/documentation/documentation-node-parse';
 import {groupNodeParse} from './syntax/group/group-node-parse';
-import {$Node, Node, is, isHiddenNode} from './syntax/node';
 
 export function syntaxParse(
   resource: TextResource,

@@ -1,7 +1,7 @@
 import {Nothing, nothing} from '../../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../../diagnostic/analyzer-diagnostic-message';
 import {RANGE} from '../../../../../lexical/lexical-analyzer-config';
-import {$Node, Node, is} from '../../../../../syntax/node';
+import {$Node, Node, is} from '../../../../../node';
 import {InfixNode} from '../../../../../syntax/node/infix/infix-node';
 import {DeclarationKind} from '../../../../declaration-manager';
 import {SemanticAnalyzerContext} from '../../../../semantic-analyzer-context';

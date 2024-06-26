@@ -1,13 +1,13 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {$Node, Node, is} from '../../../../syntax/node';
+import {$Node, Node, is} from '../../../../node';
 import {
   DeclarationNode,
   getDeclarationGenerics,
   getDeclarationParameters,
 } from '../../../../syntax/node/declaration/declaration-node';
 import {LambdaNode} from '../../../../syntax/node/lambda/lambda-node';
-import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 

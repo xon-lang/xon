@@ -11,7 +11,7 @@ import {
   TextDocument,
 } from 'vscode';
 import {LexicalNode} from '../../../../../core/analyzer/lexical/node/lexical-node';
-import {$Node, is} from '../../../../../core/analyzer/syntax/node';
+import {$Node, is} from '../../../../../core/analyzer/node';
 import {Array2} from '../../../../../lib/types';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
 

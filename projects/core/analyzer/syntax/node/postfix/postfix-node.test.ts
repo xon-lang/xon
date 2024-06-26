@@ -1,8 +1,8 @@
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {$Node} from '../../../node';
 import {syntaxParse} from '../../../syntax-analyzer';
-import {$Node} from '../../node';
 import {PostfixNode} from './postfix-node';
 
 test('after integer', () => {

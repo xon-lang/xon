@@ -2,7 +2,7 @@ import {Array2, Nothing, nothing} from '../../../lib/types';
 import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
 import {TextResource, textResourceFrom} from '../../util/resource/text/text-resource';
 import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-range';
-import {Node} from '../syntax/node';
+import {Node} from '../node';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 import {SemanticAnalyzerConfig} from './semantic-analyzer-config';
 

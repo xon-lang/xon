@@ -4,8 +4,8 @@ import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CloseNode} from '../../lexical/node/close/close-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
+import {$Node, ExpressionNode} from '../../node';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, ExpressionNode} from '../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {ItemNode} from './item-node';
 

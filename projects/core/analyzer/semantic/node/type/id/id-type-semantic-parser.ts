@@ -2,7 +2,7 @@ import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {OBJECT_OPEN} from '../../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../../lexical/node/id/id-node';
-import {$Node, Node, is} from '../../../../syntax/node';
+import {$Node, Node, is} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';

@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
-import {$Node, Node, is} from '../../../../syntax/node';
+import {$Node, Node, is} from '../../../../node';
 import {MemberNode} from '../../../../syntax/node/member/member-node';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
 import {TypeSemantic} from '../../type/type-semantic';

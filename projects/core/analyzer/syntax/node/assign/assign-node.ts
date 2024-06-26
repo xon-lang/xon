@@ -1,8 +1,8 @@
 import {Nothing} from '../../../../../lib/types';
 import {formatChildNode} from '../../../../formatter/formatter';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
+import {$Node, ExpressionNode} from '../../../node';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, ExpressionNode} from '../../node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type AssignNode = SyntaxNode<$Node.ASSIGN> & {

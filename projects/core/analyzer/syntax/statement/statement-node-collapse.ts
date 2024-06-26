@@ -27,8 +27,8 @@ import {
   REST,
   UNION,
 } from '../../lexical/lexical-analyzer-config';
+import {$Node, Node, is} from '../../node';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, Node, is} from '../node';
 import {assignmentNodeParse} from '../node/assignment/assignment-node-parse';
 import {DeclarationNode} from '../node/declaration/declaration-node';
 import {declarationNodeParse, isTypeDeclarationNode} from '../node/declaration/declaration-node-parse';

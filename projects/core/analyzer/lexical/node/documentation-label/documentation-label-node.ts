@@ -1,6 +1,6 @@
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node} from '../../../syntax/node';
+import {$Node} from '../../../node';
 import {AT} from '../../lexical-analyzer-config';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 

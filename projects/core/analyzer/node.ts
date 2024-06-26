@@ -1,8 +1,8 @@
-import {Array2, Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
-import {TextRange} from '../../util/resource/text/text-range';
-import {OperatorNode} from '../lexical/node/operator/operator-node';
-import {SemanticNode} from '../semantic/node/semantic-node';
-import {Group} from './group/group-node';
+import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/types';
+import {TextRange} from '../util/resource/text/text-range';
+import {OperatorNode} from './lexical/node/operator/operator-node';
+import {SemanticNode} from './semantic/node/semantic-node';
+import {Group} from './syntax/group/group-node';
 
 export type Node<T extends $Node = $Node> = {
   $: T;

@@ -1,7 +1,7 @@
 import {Boolean2, Integer, nothing} from '../../../../../lib/types';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
+import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../../node';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {prefixNode} from './prefix-node';
 

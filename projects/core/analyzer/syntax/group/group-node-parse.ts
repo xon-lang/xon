@@ -9,10 +9,10 @@ import {
 import {CloseNode} from '../../lexical/node/close/close-node';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
+import {$Node, is} from '../../node';
 import {syntaxParse} from '../../syntax-analyzer';
 import {SyntaxParserConfig} from '../../syntax-analyzer-config';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, is} from '../node';
 import {$Group, Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 

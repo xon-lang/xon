@@ -2,8 +2,8 @@ import {Integer, Nothing} from '../../../../lib/types';
 import {formatChildNode} from '../../../formatter/formatter';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
+import {$Node, Node} from '../../node';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, Node} from '../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {StatementNode} from '../statement/statement-node';
 

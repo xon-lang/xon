@@ -2,8 +2,8 @@ import {Integer, nothing} from '../../../../../lib/types';
 import {IMPORT} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {StringNode} from '../../../lexical/node/string/string-node';
+import {$Node, is, nodeFindMap} from '../../../node';
 import {SyntaxContext} from '../../../syntax-context';
-import {$Node, is, nodeFindMap} from '../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {importNode} from './import-node';
 

@@ -1,6 +1,6 @@
 import {Nothing, nothing} from '../../../../../../../lib/types';
 import {COMPLEMENT} from '../../../../../lexical/lexical-analyzer-config';
-import {$Node, Node, is} from '../../../../../syntax/node';
+import {$Node, Node, is} from '../../../../../node';
 import {InfixNode} from '../../../../../syntax/node/infix/infix-node';
 import {SemanticAnalyzerContext} from '../../../../semantic-analyzer-context';
 import {typeSemanticParse} from '../../type-semantic-parser';

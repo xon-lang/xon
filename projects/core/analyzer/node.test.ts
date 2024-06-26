@@ -1,9 +1,9 @@
-import {nothing} from '../../../lib/types';
-import {textResourceFrom} from '../../util/resource/text/text-resource';
-import {IntegerNode} from '../lexical/node/integer/integer-node';
-import {syntaxParse} from '../syntax-analyzer';
+import {nothing} from '../../lib/types';
+import {textResourceFrom} from '../util/resource/text/text-resource';
+import {IntegerNode} from './lexical/node/integer/integer-node';
 import {$Node} from './node';
-import {InfixNode} from './node/infix/infix-node';
+import {syntaxParse} from './syntax-analyzer';
+import {InfixNode} from './syntax/node/infix/infix-node';
 
 test('comma', () => {
   const text = '1';

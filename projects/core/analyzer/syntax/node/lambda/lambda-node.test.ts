@@ -2,8 +2,8 @@ import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
+import {$Node} from '../../../node';
 import {syntaxParse} from '../../../syntax-analyzer';
-import {$Node} from '../../node';
 import {DeclarationNode} from '../declaration/declaration-node';
 import {LambdaNode} from './lambda-node';
 

@@ -5,8 +5,8 @@ import {DocumentationCloseNode} from '../../lexical/node/documentation-close/doc
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
+import {$Node, is} from '../../node';
 import {SyntaxContext} from '../../syntax-context';
-import {$Node, is} from '../node';
 import {documentationItemNode, DocumentationItemNode} from './documentation-item-node';
 import {documentationNode, DocumentationNode} from './documentation-node';
 

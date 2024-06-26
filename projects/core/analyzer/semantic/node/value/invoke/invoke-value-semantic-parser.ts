@@ -1,5 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {$Node, Node, is} from '../../../../syntax/node';
+import {$Node, Node, is} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
 import {valueSemanticParse} from '../value-semantic-parser';

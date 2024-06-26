@@ -1,8 +1,8 @@
 import {nothing} from '../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {$Node} from '../../../node';
 import {syntaxParse} from '../../../syntax-analyzer';
-import {$Node} from '../../../syntax/node';
 import {IdNode} from './id-node';
 
 test('single id', () => {

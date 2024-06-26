@@ -3,8 +3,8 @@ import {AnalyzerDiagnosticManager, createDiagnosticManager} from '../diagnostic/
 import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
 import {TextResource} from '../util/resource/text/text-resource';
 import {LexicalAnalyzer} from './lexical/lexical-analyzer';
+import {Node} from './node';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-analyzer-config';
-import {Node} from './syntax/node';
 import {StatementNode} from './syntax/statement/statement-node';
 
 type ContextAttributes = 'resource' | 'statements' | 'diagnosticManager' | 'formatterManager';

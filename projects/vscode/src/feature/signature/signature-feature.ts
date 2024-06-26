@@ -16,12 +16,12 @@ import {
 import {CommaNode} from '../../../../core/analyzer/lexical/node/comma/comma-node';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {OpenNode} from '../../../../core/analyzer/lexical/node/open/open-node';
+import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {IdValueSemantic} from '../../../../core/analyzer/semantic/node/value/id/id-value-semantic';
 import {ItemNode} from '../../../../core/analyzer/syntax/group/item-node';
-import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/analyzer/syntax/node';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';

@@ -6,7 +6,7 @@ import {DocumentationDescriptionNode} from '../../lexical/node/documentation-des
 import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
 import {idNode, IdNode} from '../../lexical/node/id/id-node';
 import {operatorNode, OperatorNode} from '../../lexical/node/operator/operator-node';
-import {$Node} from '../node';
+import {$Node} from '../../node';
 import {SyntaxNode, syntaxNode} from '../node/syntax-node';
 
 export type DocumentationItemNode = SyntaxNode<$Node.DOCUMENTATION_ITEM> & {

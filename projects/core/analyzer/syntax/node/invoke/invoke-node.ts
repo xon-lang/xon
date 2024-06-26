@@ -1,7 +1,7 @@
 import {formatChildNode} from '../../../../formatter/formatter';
+import {$Node, ExpressionNode} from '../../../node';
 import {SyntaxContext} from '../../../syntax-context';
 import {Group} from '../../group/group-node';
-import {$Node, ExpressionNode} from '../../node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InvokeNode = SyntaxNode<$Node.INVOKE> &

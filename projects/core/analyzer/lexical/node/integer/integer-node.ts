@@ -1,6 +1,6 @@
 import {Integer, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node, ExpressionNode} from '../../../syntax/node';
+import {$Node, ExpressionNode} from '../../../node';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type IntegerNode = LexicalNode<$Node.INTEGER> &
