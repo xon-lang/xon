@@ -1,11 +1,14 @@
-import {Array2, Nothing, nothing} from '../../lib/types';
-import {AnalyzerDiagnosticManager, createDiagnosticManager} from '../diagnostic/analyzer-diagnostic-manager';
-import {FormatterManager, createFormatterManager} from '../formatter/formatter-manager';
-import {TextResource} from '../util/resource/text/text-resource';
-import {LexicalAnalyzer} from './lexical/lexical-analyzer';
-import {Node} from './node';
+import {Array2, Nothing, nothing} from '../../../lib/types';
+import {
+  AnalyzerDiagnosticManager,
+  createDiagnosticManager,
+} from '../../diagnostic/analyzer-diagnostic-manager';
+import {FormatterManager, createFormatterManager} from '../../formatter/formatter-manager';
+import {TextResource} from '../../util/resource/text/text-resource';
+import {LexicalAnalyzer} from '../lexical/lexical-analyzer';
+import {Node} from '../node';
+import {StatementNode} from './statement/statement-node';
 import {DEFAULT_SYNTAX_PARSER_CONFIG, SyntaxParserConfig} from './syntax-analyzer-config';
-import {StatementNode} from './syntax/statement/statement-node';
 
 type ContextAttributes = 'resource' | 'statements' | 'diagnosticManager' | 'formatterManager';
 

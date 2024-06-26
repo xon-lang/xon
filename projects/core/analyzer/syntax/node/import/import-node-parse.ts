@@ -3,8 +3,8 @@ import {IMPORT} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {StringNode} from '../../../lexical/node/string/string-node';
 import {$Node, is, nodeFindMap} from '../../../node';
-import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
+import {SyntaxContext} from '../../syntax-context';
 import {importNode} from './import-node';
 
 export function importNodeParse(): SyntaxParseFn {

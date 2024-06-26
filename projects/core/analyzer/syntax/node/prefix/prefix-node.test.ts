@@ -4,7 +4,7 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax-analyzer';
+import {syntaxParse} from '../../syntax-analyzer';
 import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {

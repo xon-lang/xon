@@ -5,7 +5,7 @@ import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax-analyzer';
+import {syntaxParse} from '../../syntax-analyzer';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
 

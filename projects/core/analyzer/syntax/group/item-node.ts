@@ -3,9 +3,9 @@ import {formatChildNode} from '../../../formatter/formatter';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {$Node, Node} from '../../node';
-import {SyntaxContext} from '../../syntax-context';
 import {SyntaxNode} from '../node/syntax-node';
 import {StatementNode} from '../statement/statement-node';
+import {SyntaxContext} from '../syntax-context';
 
 export type ItemNode = SyntaxNode<$Node.ITEM> & {
   index: Integer;

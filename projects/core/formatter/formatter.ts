@@ -4,8 +4,8 @@ import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
 import {WhitespaceNode} from '../analyzer/lexical/node/whitespace/whitespace-node';
 import {$Node, Node, is} from '../analyzer/node';
-import {SyntaxContext} from '../analyzer/syntax-context';
 import {StatementNode} from '../analyzer/syntax/statement/statement-node';
+import {SyntaxContext} from '../analyzer/syntax/syntax-context';
 import {TextRange, cloneRange, rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 

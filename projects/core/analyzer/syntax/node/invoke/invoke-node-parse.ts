@@ -1,7 +1,7 @@
 import {Integer, nothing} from '../../../../../lib/types';
 import {isGroupNode, isNonOperatorExpression, nodeFindMap} from '../../../node';
-import {SyntaxContext} from '../../../syntax-context';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
+import {SyntaxContext} from '../../syntax-context';
 import {invokeNode} from './invoke-node';
 
 export function invokeNodeParse(): SyntaxParseFn {

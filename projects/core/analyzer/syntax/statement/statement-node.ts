@@ -3,8 +3,8 @@ import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-messag
 import {formatStatementNode} from '../../../formatter/formatter';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../../node';
-import {SyntaxContext} from '../../syntax-context';
 import {SyntaxNode} from '../node/syntax-node';
+import {SyntaxContext} from '../syntax-context';
 import {statementNodeCollapse} from './statement-node-collapse';
 
 export type StatementNode = SyntaxNode<$Node.STATEMENT> & {

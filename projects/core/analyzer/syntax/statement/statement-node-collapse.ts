@@ -28,7 +28,6 @@ import {
   UNION,
 } from '../../lexical/lexical-analyzer-config';
 import {$Node, Node, is} from '../../node';
-import {SyntaxContext} from '../../syntax-context';
 import {assignmentNodeParse} from '../node/assignment/assignment-node-parse';
 import {DeclarationNode} from '../node/declaration/declaration-node';
 import {declarationNodeParse, isTypeDeclarationNode} from '../node/declaration/declaration-node-parse';
@@ -40,6 +39,7 @@ import {memberNodeParse} from '../node/member/member-node-parse';
 import {postfixNodeParse} from '../node/postfix/postfix-node-parse';
 import {prefixNodeParse} from '../node/prefix/prefix-node-parse';
 import {SyntaxNode} from '../node/syntax-node';
+import {SyntaxContext} from '../syntax-context';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;

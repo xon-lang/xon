@@ -1,24 +1,24 @@
-import {Boolean2, Nothing, nothing} from '../../lib/types';
-import {AnalyzerDiagnosticManager} from '../diagnostic/analyzer-diagnostic-manager';
-import {DIAGNOSTIC_MESSAGE} from '../diagnostic/analyzer-diagnostic-message';
-import {formatRemainingContextHiddenNodes} from '../formatter/formatter';
-import {FormatterManager} from '../formatter/formatter-manager';
-import {TextPosition, zeroPosition} from '../util/resource/text/text-position';
-import {TextRange, cloneRange, rangeFromPosition} from '../util/resource/text/text-range';
-import {TextResource} from '../util/resource/text/text-resource';
-import {codeLexicalAnalyzer} from './lexical/code-lexical-analyzer';
-import {LexicalAnalyzer} from './lexical/lexical-analyzer';
-import {DocumentationOpenNode} from './lexical/node/documentation-open/documentation-open-node';
-import {NlNode} from './lexical/node/nl/nl-node';
-import {OpenNode} from './lexical/node/open/open-node';
-import {UnknownNode} from './lexical/node/unknown/unknown-node';
-import {WhitespaceNode} from './lexical/node/whitespace/whitespace-node';
-import {$Node, Node, is, isHiddenNode} from './node';
+import {Boolean2, Nothing, nothing} from '../../../lib/types';
+import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
+import {DIAGNOSTIC_MESSAGE} from '../../diagnostic/analyzer-diagnostic-message';
+import {formatRemainingContextHiddenNodes} from '../../formatter/formatter';
+import {FormatterManager} from '../../formatter/formatter-manager';
+import {TextPosition, zeroPosition} from '../../util/resource/text/text-position';
+import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text/text-range';
+import {TextResource} from '../../util/resource/text/text-resource';
+import {codeLexicalAnalyzer} from '../lexical/code-lexical-analyzer';
+import {LexicalAnalyzer} from '../lexical/lexical-analyzer';
+import {DocumentationOpenNode} from '../lexical/node/documentation-open/documentation-open-node';
+import {NlNode} from '../lexical/node/nl/nl-node';
+import {OpenNode} from '../lexical/node/open/open-node';
+import {UnknownNode} from '../lexical/node/unknown/unknown-node';
+import {WhitespaceNode} from '../lexical/node/whitespace/whitespace-node';
+import {$Node, Node, is, isHiddenNode} from '../node';
+import {documentationNodeParse} from './documentation/documentation-node-parse';
+import {groupNodeParse} from './group/group-node-parse';
 import {putStatementNode} from './put-statement-node';
 import {SyntaxParserConfig} from './syntax-analyzer-config';
 import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
-import {documentationNodeParse} from './syntax/documentation/documentation-node-parse';
-import {groupNodeParse} from './syntax/group/group-node-parse';
 
 export function syntaxParse(
   resource: TextResource,

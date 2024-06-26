@@ -2,7 +2,7 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {StringNode} from '../../../lexical/node/string/string-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax-analyzer';
+import {syntaxParse} from '../../syntax-analyzer';
 import {ImportNode} from './import-node';
 
 test('import string', () => {

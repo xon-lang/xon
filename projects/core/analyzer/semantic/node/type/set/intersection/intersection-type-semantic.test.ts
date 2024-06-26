@@ -1,11 +1,11 @@
 import {String2, nothing} from '../../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../../../syntax-analyzer';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
+import {syntaxParse} from '../../../../../syntax/syntax-analyzer';
 import {DeclarationKind} from '../../../../declaration-manager';
+import {semanticParse} from '../../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic} from '../../../semantic-node';
-import {semanticParse} from '../../../../semantic-analyzer';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';

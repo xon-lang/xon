@@ -5,8 +5,8 @@ import {DocumentationDescriptionNode} from '../../lexical/node/documentation-des
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
 import {HiddenNode} from '../../lexical/node/lexical-node';
 import {$Node} from '../../node';
-import {SyntaxContext} from '../../syntax-context';
 import {SyntaxNode, syntaxNode} from '../node/syntax-node';
+import {SyntaxContext} from '../syntax-context';
 import {DocumentationItemNode} from './documentation-item-node';
 
 export type DocumentationNode = SyntaxNode<$Node.DOCUMENTATION> &

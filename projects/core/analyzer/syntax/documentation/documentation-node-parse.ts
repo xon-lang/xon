@@ -6,7 +6,7 @@ import {DocumentationDescriptionNode} from '../../lexical/node/documentation-des
 import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
 import {$Node, is} from '../../node';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxContext} from '../syntax-context';
 import {documentationItemNode, DocumentationItemNode} from './documentation-item-node';
 import {documentationNode, DocumentationNode} from './documentation-node';
 

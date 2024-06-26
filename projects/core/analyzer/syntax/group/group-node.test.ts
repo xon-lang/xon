@@ -3,8 +3,8 @@ import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-messag
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {IntegerNode} from '../../lexical/node/integer/integer-node';
 import {$Node, is} from '../../node';
-import {syntaxParse} from '../../syntax-analyzer';
 import {InfixNode} from '../node/infix/infix-node';
+import {syntaxParse} from '../syntax-analyzer';
 import {ArrayNode, GroupNode, ObjectNode} from './group-node';
 
 test('empty closed', () => {

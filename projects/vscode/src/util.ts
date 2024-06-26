@@ -4,10 +4,10 @@ import {$Semantic, semanticIs} from '../../core/analyzer/semantic/node/semantic-
 import {IdTypeSemantic} from '../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic';
 import {semanticParse} from '../../core/analyzer/semantic/semantic-analyzer';
-import {syntaxParse} from '../../core/analyzer/syntax-analyzer';
-import {SyntaxResult} from '../../core/analyzer/syntax-context';
 import {SyntaxNode} from '../../core/analyzer/syntax/node/syntax-node';
 import {StatementNode} from '../../core/analyzer/syntax/statement/statement-node';
+import {syntaxParse} from '../../core/analyzer/syntax/syntax-analyzer';
+import {SyntaxResult} from '../../core/analyzer/syntax/syntax-context';
 import {TextPosition} from '../../core/util/resource/text/text-position';
 import {TextRange} from '../../core/util/resource/text/text-range';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';

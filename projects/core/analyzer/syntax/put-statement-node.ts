@@ -1,7 +1,7 @@
-import {Nothing, nothing} from '../../lib/types';
-import {TextRange} from '../util/resource/text/text-range';
+import {Nothing, nothing} from '../../../lib/types';
+import {TextRange} from '../../util/resource/text/text-range';
+import {StatementNode, constructStatementNode} from './statement/statement-node';
 import {SyntaxContext} from './syntax-context';
-import {StatementNode, constructStatementNode} from './syntax/statement/statement-node';
 
 export function putStatementNode(context: SyntaxContext, indent: TextRange): void {
   context.parentStatement = getParent(context, indent);

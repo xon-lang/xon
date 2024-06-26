@@ -1,5 +1,5 @@
 import {nothing} from '../../../lib/types';
-import {SyntaxResult} from '../syntax-context';
+import {SyntaxResult} from '../syntax/syntax-context';
 import {syntaxDeclarationsParse} from './node/declaration/declaration-semantic-parser';
 import {
   declarationManagerFromImportString,

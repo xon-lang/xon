@@ -1,7 +1,7 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax-analyzer';
+import {syntaxParse} from '../../../syntax/syntax-analyzer';
 import {CommentBlockNode} from './comment-block-node';
 
 test('block comment', () => {

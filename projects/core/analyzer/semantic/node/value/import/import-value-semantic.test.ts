@@ -1,10 +1,10 @@
 import {nothing} from '../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
-import {syntaxParse} from '../../../../syntax-analyzer';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
+import {syntaxParse} from '../../../../syntax/syntax-analyzer';
+import {semanticParse} from '../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../semantic-node';
-import {semanticParse} from '../../../semantic-analyzer';
 import {StringTypeSemantic} from '../../type/string/string-type-semantic';
 import {typeSemanticParse} from '../../type/type-semantic-parser';
 

@@ -3,10 +3,10 @@ import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../../node';
-import {SyntaxContext} from '../../../syntax-context';
 import {DocumentationNode} from '../../documentation/documentation-node';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
+import {SyntaxContext} from '../../syntax-context';
 import {AssignNode, assignNode} from '../assign/assign-node';
 import {InvokeNode} from '../invoke/invoke-node';
 import {PrefixNode} from '../prefix/prefix-node';

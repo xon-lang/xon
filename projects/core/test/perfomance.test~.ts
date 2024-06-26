@@ -1,7 +1,7 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {Anything, String2} from '../../lib/types';
-import {syntaxParse} from '../analyzer/syntax-analyzer';
+import {syntaxParse} from '../analyzer/syntax/syntax-analyzer';
 import {performanceIterations} from '../util/performance';
 import {textResourceFromFilePath} from '../util/resource/text/text-resource';
 

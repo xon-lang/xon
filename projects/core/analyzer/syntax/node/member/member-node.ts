@@ -4,7 +4,7 @@ import {formatChildNode} from '../../../../formatter/formatter';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode, Node} from '../../../node';
-import {SyntaxContext} from '../../../syntax-context';
+import {SyntaxContext} from '../../syntax-context';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type MemberNode = SyntaxNode<$Node.MEMBER> &
