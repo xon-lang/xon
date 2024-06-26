@@ -18,8 +18,8 @@ import {StringTypeSemantic} from '../../../../core/analyzer/semantic/node/type/s
 import {TypeSemantic, isTypeSemantic} from '../../../../core/analyzer/semantic/node/type/type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {hasSemantic} from '../../../../core/analyzer/syntax/node';
-import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Nothing, String2, nothing} from '../../../../lib/types';
+import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {

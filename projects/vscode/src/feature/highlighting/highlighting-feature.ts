@@ -10,7 +10,7 @@ import {
   SemanticTokensLegend,
   TextDocument,
 } from 'vscode';
-import {LANGUAGE_NAME} from '../../../../core/xon-language';
+import {LANGUAGE_NAME} from '../../config';
 
 const selector = {language: LANGUAGE_NAME, scheme: 'file'};
 const tokenTypes = ['keyword_modifier', 'keyword_control', 'keyword_operator'];

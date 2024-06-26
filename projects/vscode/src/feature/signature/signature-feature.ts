@@ -23,8 +23,8 @@ import {IdValueSemantic} from '../../../../core/analyzer/semantic/node/value/id/
 import {ItemNode} from '../../../../core/analyzer/syntax/group/item-node';
 import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/analyzer/syntax/node';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
-import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
+import {LANGUAGE_NAME} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax, typeSemanticToString} from '../../util';
 
 export function configureSignatureFeature(context: ExtensionContext, channel: OutputChannel) {

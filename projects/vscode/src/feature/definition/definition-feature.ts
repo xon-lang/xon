@@ -22,8 +22,8 @@ import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value
 import {hasSemantic} from '../../../../core/analyzer/syntax/node';
 import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
-import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Nothing, nothing, String2} from '../../../../lib/types';
+import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {

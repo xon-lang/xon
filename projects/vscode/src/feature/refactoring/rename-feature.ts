@@ -23,8 +23,8 @@ import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
-import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Nothing, nothing, String2} from '../../../../lib/types';
+import {LANGUAGE_NAME} from '../../config';
 import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {

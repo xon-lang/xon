@@ -1,9 +1,8 @@
 import {nothing} from '../../../lib/types';
 import {textResourceFrom} from '../../util/resource/text/text-resource';
+import {IntegerNode} from '../lexical/node/integer/integer-node';
 import {syntaxParse} from '../syntax-analyzer';
 import {$Node} from './node';
-// import {AssignNode} from './syntax/assign/assign-node';
-import {IntegerNode} from '../lexical/node/integer/integer-node';
 import {InfixNode} from './node/infix/infix-node';
 
 test('comma', () => {

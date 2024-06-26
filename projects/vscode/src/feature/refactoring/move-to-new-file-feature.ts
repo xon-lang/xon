@@ -20,9 +20,8 @@ import {dirname} from 'path';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {$Node, is} from '../../../../core/analyzer/syntax/node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
-import {FILE_EXTENSION, LANGUAGE_NAME} from '../../../../core/xon-language';
 import {nothing} from '../../../../lib/types';
-import {WORKSPACE_CONFIG} from '../../config';
+import {FILE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
 import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {

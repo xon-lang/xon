@@ -13,8 +13,8 @@ import {
 } from 'vscode';
 
 import {Formatter} from '../../../../core/formatter/formatter';
-import {LANGUAGE_NAME} from '../../../../core/xon-language';
 import {Array2} from '../../../../lib/types';
+import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
 
 export function configureFormattingFeature(context: ExtensionContext, channel: OutputChannel) {
