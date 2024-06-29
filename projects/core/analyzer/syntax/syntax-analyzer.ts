@@ -3,7 +3,7 @@ import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-ma
 import {DIAGNOSTIC_MESSAGE} from '../../diagnostic/analyzer-diagnostic-message';
 import {formatRemainingContextHiddenNodes} from '../../formatter/formatter';
 import {FormatterManager} from '../../formatter/formatter-manager';
-import {TextPosition, zeroPosition} from '../../util/resource/text/text-position';
+import {zeroPosition} from '../../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from '../lexical/code-lexical-analyzer';
@@ -22,17 +22,15 @@ import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
 
 export function syntaxParse(
   resource: TextResource,
-  startPosition?: TextPosition | Nothing,
   issueManager?: AnalyzerDiagnosticManager | Nothing,
   formatterManager?: FormatterManager | Nothing,
   breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing,
   config?: SyntaxParserConfig | Nothing,
   lexer?: LexicalAnalyzer | Nothing,
 ): SyntaxResult {
-  const position = startPosition ?? zeroPosition();
-  const lexerInner = lexer ?? codeLexicalAnalyzer(resource, position);
+  const lexerInner = lexer ?? codeLexicalAnalyzer(resource, zeroPosition());
   const context = syntaxContext(resource, lexerInner, issueManager, formatterManager, config);
-  let statementIndent: TextRange = rangeFromPosition(position);
+  let statementIndent: TextRange = rangeFromPosition(lexerInner.cursor.position);
 
   for (const iterableNode of lexerInner) {
     let node: Node = iterableNode;

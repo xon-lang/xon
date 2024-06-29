@@ -50,7 +50,6 @@ function groupNodeParseInner(
   while (context.lexer.cursor.position.index < context.resource.data.length) {
     const {syntaxContext: itemContext} = syntaxParse(
       context.resource,
-      context.lexer.cursor.position,
       context.diagnosticManager,
       context.formatterManager,
       (node) =>
