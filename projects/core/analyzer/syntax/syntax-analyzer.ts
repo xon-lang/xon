@@ -40,14 +40,14 @@ export type SyntaxAnalyzer = {
 
 export function createSyntaxAnalyzer(
   lexicalAnalyzer: LexicalAnalyzer,
-  config?: SyntaxAnalyzerConfig | Nothing,
+  analyzerConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
 ): SyntaxAnalyzer {
-  const analyzerConfig = config ?? DEFAULT_SYNTAX_ANALYZER_CONFIG;
+  const config = {...DEFAULT_SYNTAX_ANALYZER_CONFIG, ...analyzerConfig};
   const diagnosticManager = createDiagnosticManager(lexicalAnalyzer.resource);
-  const formatterManager = createFormatterManager(lexicalAnalyzer.resource, analyzerConfig.formatting);
+  const formatterManager = createFormatterManager(lexicalAnalyzer.resource, config.formatting);
 
   const analyzer: SyntaxAnalyzer = {
-    config: analyzerConfig,
+    config,
     resource: lexicalAnalyzer.resource,
     lexicalAnalyzer,
     diagnosticManager,
@@ -164,9 +164,12 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
   return nothing;
 }
 
-export function syntaxFromResource(resource: TextResource): SyntaxAnalyzer {
+export function syntaxFromResource(
+  resource: TextResource,
+  syntaxConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
+): SyntaxAnalyzer {
   const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
-  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
+  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer, syntaxConfig);
 
   return syntaxAnalyzer;
 }

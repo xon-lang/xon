@@ -1,10 +1,11 @@
-import {Array2, nothing} from '../../../lib/types';
+import {Array2, Nothing, nothing} from '../../../lib/types';
 import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-range';
 import {Node} from '../node';
 import {StatementNode} from '../syntax/statement/statement-node';
-import {SyntaxAnalyzer} from '../syntax/syntax-analyzer';
+import {SyntaxAnalyzer, syntaxFromResource} from '../syntax/syntax-analyzer';
+import {SyntaxAnalyzerConfig} from '../syntax/syntax-analyzer-config';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
 import {syntaxDeclarationsParse} from './node/declaration/declaration-semantic-parser';
 import {
@@ -29,7 +30,7 @@ export type SemanticAnalyzer = {
 
 export function createSemanticAnalyzer(
   syntaxAnalyzer: SyntaxAnalyzer,
-  semanticConfig?: Partial<SemanticAnalyzerConfig>,
+  semanticConfig?: Partial<SemanticAnalyzerConfig> | Nothing,
 ): SemanticAnalyzer {
   const config = {...DEFAULT_SEMANTIC_CONFIG, ...semanticConfig};
 
@@ -66,4 +67,15 @@ export function createSemanticAnalyzer(
   syntaxValuesParse(semantic);
 
   return semantic;
+}
+
+export function semanticFromResource(
+  resource: TextResource,
+  syntaxConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
+  semanticConfig?: Partial<SemanticAnalyzerConfig> | Nothing,
+): SemanticAnalyzer {
+  const syntaxAnalyzer = syntaxFromResource(resource, syntaxConfig);
+  const semanticAnalyzer = createSemanticAnalyzer(syntaxAnalyzer, semanticConfig);
+
+  return semanticAnalyzer;
 }
