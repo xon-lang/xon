@@ -39,10 +39,16 @@ import {memberNodeParse} from '../node/member/member-node-parse';
 import {postfixNodeParse} from '../node/postfix/postfix-node-parse';
 import {prefixNodeParse} from '../node/prefix/prefix-node-parse';
 import {SyntaxNode} from '../node/syntax-node';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
+import {StatementNode} from './statement-node';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
-export type SyntaxParseFn = (context: SyntaxContext, startIndex: Integer) => SyntaxParseResult;
+export type SyntaxParseFn = (
+  analyzer: SyntaxAnalyzer,
+  nodes: Array2<Node>,
+  startIndex: Integer,
+  parentStatement: StatementNode | Nothing,
+) => SyntaxParseResult;
 
 const parsers: Array2<{min: Integer; parse: SyntaxParseFn}> = [
   {min: 2, parse: importNodeParse()},
@@ -66,45 +72,49 @@ const parsers: Array2<{min: Integer; parse: SyntaxParseFn}> = [
   {min: 3, parse: assignmentNodeParse()},
 ];
 
-export function statementNodeCollapse(context: SyntaxContext): void {
-  if (context.nodes.length === 0) {
+export function statementNodeCollapse(
+  analyzer: SyntaxAnalyzer,
+  parentStatement: StatementNode | Nothing,
+  nodes: Node[],
+): void {
+  if (nodes.length === 0) {
     return;
   }
 
   let result: SyntaxParseResult = nothing;
 
   for (const {min, parse} of parsers) {
-    if (context.nodes.length < min) {
+    if (nodes.length < min) {
       continue;
     }
 
     let index = 0;
 
-    while ((result = parse(context, index))) {
-      context.nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
+    while ((result = parse(analyzer, nodes, index, parentStatement))) {
+      nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
       index = result.index + 1;
 
-      validate(context, result.node);
+      validate(analyzer, parentStatement, result.node);
 
-      if (index >= context.nodes.length || context.nodes.length < min) {
+      if (index >= nodes.length || nodes.length < min) {
         break;
       }
     }
   }
 }
 
-function validate(context: SyntaxContext, node: Node): void {
-  const parentDeclaration = context.parentStatement?.value;
+function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Nothing, node: Node): void {
+  const parentDeclaration = parentStatement?.value;
 
   if (isTypeDeclarationNode(parentDeclaration)) {
     if (parentDeclaration.assign?.value) {
-      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldNotBeBody());
+      analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldNotBeBody());
 
       return;
     }
 
     if (!is<DeclarationNode>(node, $Node.DECLARATION)) {
-      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldBeDeclarationStatement());
+      analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldBeDeclarationStatement());
 
       return;
     }

@@ -10,10 +10,10 @@ test('whitespace', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const node = syntax.syntaxContext.hiddenNodes[0] as WhitespaceNode;
+  const node = syntax.hiddenNodes[0] as WhitespaceNode;
 
   expect(statements.length).toBe(0);
-  expect(syntax.syntaxContext.hiddenNodes.length).toBe(1);
+  expect(syntax.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($Node.WHITESPACE);
   expect((node as LexicalNode).text).toBe('    ');
 });

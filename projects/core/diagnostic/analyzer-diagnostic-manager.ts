@@ -34,7 +34,7 @@ export function createDiagnosticManager(
       range: TextRange,
       message: AnalyzerDiagnosticMessage,
     ): AnalyzerDiagnostic {
-      const issue: AnalyzerDiagnostic = {
+      const diagnostic: AnalyzerDiagnostic = {
         severity,
         range,
         message,
@@ -42,10 +42,10 @@ export function createDiagnosticManager(
         tags: message.tags,
       };
 
-      this.diagnostics.push(issue);
-      this.log(issue);
+      this.diagnostics.push(diagnostic);
+      // this.log(diagnostic);
 
-      return issue;
+      return diagnostic;
     },
 
     addError(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic {

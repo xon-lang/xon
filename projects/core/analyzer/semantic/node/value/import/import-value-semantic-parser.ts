@@ -1,11 +1,13 @@
 import {dirname, join, resolve} from 'path';
-import {Nothing, String2, nothing} from '../../../../../../lib/types';
+import {Array2, Nothing, String2, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
+import {zeroPosition} from '../../../../../util/resource/text/text-position';
 import {textResourceFromFilePath} from '../../../../../util/resource/text/text-resource';
+import {codeLexicalAnalyzer} from '../../../../lexical/code-lexical-analyzer';
 import {$Node, Node, is} from '../../../../node';
 import {ImportNode} from '../../../../syntax/node/import/import-node';
-import {syntaxParse} from '../../../../syntax/syntax-analyzer';
-import {SyntaxResult} from '../../../../syntax/syntax-context';
+import {StatementNode} from '../../../../syntax/statement/statement-node';
+import {createSyntaxAnalyzer} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
 import {semanticParse} from '../../../semantic-analyzer';
 import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
@@ -13,8 +15,8 @@ import {ImportValueSemantic, importValueSemantic} from './import-value-semantic'
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');
 
-export function syntaxImportsParse(context: SemanticAnalyzerContext, syntax: SyntaxResult) {
-  for (const statement of syntax.statements) {
+export function syntaxImportsParse(context: SemanticAnalyzerContext, statements: Array2<StatementNode>) {
+  for (const statement of statements) {
     if (is<ImportNode>(statement.value, $Node.IMPORT)) {
       importValueSemanticTryParse(context, statement.value);
     }
@@ -42,8 +44,10 @@ export function importValueSemanticTryParse(
     return;
   }
 
-  const syntax = syntaxParse(resource);
-  const {declarationManager} = semanticParse(syntax);
+  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
+  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
+
+  const {declarationManager} = semanticParse(syntaxAnalyzer);
 
   if (!context.declarationManager.imports) {
     context.declarationManager.imports = [];
@@ -62,8 +66,9 @@ export function declarationManagerFromImportString(importString: String2): Decla
     return nothing;
   }
 
-  const syntax = syntaxParse(resource);
-  const {declarationManager} = semanticParse(syntax);
+  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
+  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
+  const {declarationManager} = semanticParse(syntaxAnalyzer);
 
   return declarationManager;
 }

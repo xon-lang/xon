@@ -1,13 +1,9 @@
-import {Boolean2, Integer} from '../../../lib/types';
+import {DEFAULT_FORMATTER_CONFIG, FormatterConfig} from '../../formatter/formatter-config';
 
-export interface SyntaxParserConfig {
-  formatting: {
-    insertFinalNewline: Boolean2;
-    maxNewLines: Integer;
-    indentSpaceLength: Integer;
-  };
+export interface SyntaxAnalyzerConfig {
+  formatting: FormatterConfig;
 }
 
-export const DEFAULT_SYNTAX_PARSER_CONFIG: SyntaxParserConfig = {
-  formatting: {insertFinalNewline: true, maxNewLines: 2, indentSpaceLength: 2},
+export const DEFAULT_SYNTAX_ANALYZER_CONFIG: SyntaxAnalyzerConfig = {
+  formatting: DEFAULT_FORMATTER_CONFIG,
 };

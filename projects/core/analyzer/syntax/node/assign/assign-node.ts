@@ -1,8 +1,7 @@
 import {Nothing} from '../../../../../lib/types';
-import {formatChildNode} from '../../../../formatter/formatter';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode} from '../../../node';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type AssignNode = SyntaxNode<$Node.ASSIGN> & {
@@ -12,17 +11,17 @@ export type AssignNode = SyntaxNode<$Node.ASSIGN> & {
 };
 
 export function assignNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   operator: OperatorNode,
   value: ExpressionNode,
 ): AssignNode {
   const node = syntaxNode($Node.ASSIGN, {operator, value});
 
-  format(context, node);
+  format(analyzer, node);
 
   return node;
 }
 
-function format(context: SyntaxContext, node: AssignNode): void {
-  formatChildNode(context, node.value, true);
+function format(analyzer: SyntaxAnalyzer, node: AssignNode): void {
+  analyzer.formatterManager.formatChildNode(node.value, true);
 }

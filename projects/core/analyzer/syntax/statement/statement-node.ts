@@ -1,10 +1,9 @@
-import {Array2, Integer, Nothing} from '../../../../lib/types';
+import {Array2, Boolean2, Integer, Nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
-import {formatStatementNode} from '../../../formatter/formatter';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {$Node, Node} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {statementNodeCollapse} from './statement-node-collapse';
 
 export type StatementNode = SyntaxNode<$Node.STATEMENT> & {
@@ -17,9 +16,11 @@ export type StatementNode = SyntaxNode<$Node.STATEMENT> & {
 };
 
 export function statementNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
+  parentStatement: StatementNode | Nothing,
   children: Array2<Node>,
   indent: TextRange,
+  isFirstStatement: Boolean2,
 ): StatementNode {
   const statement: StatementNode = {
     $: $Node.STATEMENT,
@@ -27,8 +28,8 @@ export function statementNode(
     hiddenNodes: children[0].hiddenNodes,
     children,
     indent,
-    indentLevel: (context.parentStatement?.indentLevel ?? -1) + 1,
-    parent: context.parentStatement,
+    indentLevel: (parentStatement?.indentLevel ?? -1) + 1,
+    parent: parentStatement,
     value: children[0],
     body: [],
   };
@@ -36,29 +37,29 @@ export function statementNode(
   children[0].hiddenNodes = [];
   children.forEach((x) => (x.parent = statement));
 
-  if (context.parentStatement) {
-    context.parentStatement.body.push(statement);
-  } else {
-    context.statements.push(statement);
-  }
-
-  format(context, statement);
+  format(analyzer, statement, isFirstStatement);
 
   return statement;
 }
 
-export function format(context: SyntaxContext, node: StatementNode) {
-  formatStatementNode(context, node);
+export function format(analyzer: SyntaxAnalyzer, node: StatementNode, isFirstStatement: Boolean2): void {
+  analyzer.formatterManager.formatStatementNode(node, isFirstStatement);
 }
 
-export function constructStatementNode(context: SyntaxContext, indent: TextRange): StatementNode {
-  statementNodeCollapse(context);
+export function constructStatementNode(
+  analyzer: SyntaxAnalyzer,
+  parentStatement: StatementNode | Nothing,
+  nodes: Array2<Node>,
+  indent: TextRange,
+  isFirstStatement: Boolean2,
+): StatementNode {
+  statementNodeCollapse(analyzer, parentStatement, nodes);
 
-  context.nodes
+  nodes
     .slice(1)
     .forEach((node) =>
-      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression()),
+      analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression()),
     );
 
-  return statementNode(context, context.nodes, indent);
+  return statementNode(analyzer, parentStatement, nodes, indent, isFirstStatement);
 }

@@ -1,11 +1,11 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
-import {formatChildNode} from '../../../../formatter/formatter';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, is} from '../../../node';
 import {DocumentationNode} from '../../documentation/documentation-node';
 import {Group} from '../../group/group-node';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
+
 import {AssignNode} from '../assign/assign-node';
 import {LambdaNode} from '../lambda/lambda-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
@@ -23,7 +23,7 @@ export type DeclarationNode = SyntaxNode<$Node.DECLARATION> & {
 };
 
 export function declarationNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   documentation: DocumentationNode | Nothing,
   modifier: OperatorNode | Nothing,
   id: IdNode,
@@ -42,27 +42,27 @@ export function declarationNode(
     assign,
   });
 
-  format(context, node);
+  format(analyzer, node);
 
   return node;
 }
 
-function format(context: SyntaxContext, node: DeclarationNode): void {
+function format(analyzer: SyntaxAnalyzer, node: DeclarationNode): void {
   if (node.type) {
-    formatChildNode(context, node.type, false);
+    analyzer.formatterManager.formatChildNode(node.type, false);
   }
 
   if (node.assign) {
-    formatChildNode(context, node.assign, true);
+    analyzer.formatterManager.formatChildNode(node.assign, true);
   }
 }
 
 export function partialToDeclaration(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   params: Partial<DeclarationNode> & {id: IdNode},
 ): DeclarationNode {
   return declarationNode(
-    context,
+    analyzer,
     params.documentation,
     params.modifier,
     params.id,

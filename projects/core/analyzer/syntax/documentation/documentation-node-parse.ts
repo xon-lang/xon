@@ -6,15 +6,18 @@ import {DocumentationDescriptionNode} from '../../lexical/node/documentation-des
 import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
 import {$Node, is} from '../../node';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {documentationItemNode, DocumentationItemNode} from './documentation-item-node';
 import {documentationNode, DocumentationNode} from './documentation-node';
 
 export function documentationNodeParse(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   openNode: DocumentationOpenNode,
 ): DocumentationNode {
-  const lexer = documentationLexicalAnalyzer(context.resource, context.lexer.cursor.position);
+  const lexer = documentationLexicalAnalyzer(
+    analyzer.lexicalAnalyzer.resource,
+    analyzer.lexicalAnalyzer.cursor.position,
+  );
 
   let description: DocumentationDescriptionNode | Nothing = nothing;
   const items: Array2<DocumentationItemNode> = [];
@@ -40,9 +43,9 @@ export function documentationNodeParse(
     }
 
     if (is<DocumentationCloseNode>(node, $Node.DOCUMENTATION_CLOSE)) {
-      return documentationNode(context, openNode, description, items, node);
+      return documentationNode(analyzer, openNode, description, items, node);
     }
   }
 
-  return documentationNode(context, openNode, description, items);
+  return documentationNode(analyzer, openNode, description, items);
 }

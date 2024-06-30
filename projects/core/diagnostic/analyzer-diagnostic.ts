@@ -5,6 +5,7 @@ import {AnalyzerDiagnosticMessage} from './analyzer-diagnostic-message';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
 import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
+// todo rename 'AnalyzerDiagnostic' to 'Diagnostic'
 export interface AnalyzerDiagnostic {
   severity: AnalyzerDiagnosticSeverity;
   range: TextRange;

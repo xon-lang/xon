@@ -5,7 +5,7 @@ import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../../node';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {AssignNode, assignNode} from '../assign/assign-node';
 import {partialToDeclaration} from '../declaration/declaration-node';
 import {InvokeNode} from '../invoke/invoke-node';
@@ -13,8 +13,8 @@ import {TypeNode, typeNode} from '../type/type-node';
 import {lambdaNode} from './lambda-node';
 
 export function lambdaNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext) => {
-    const parts = getLambdaParts(context);
+  return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>) => {
+    const parts = getLambdaParts(analyzer, nodes);
 
     if (!parts || !parts.parameters) {
       return nothing;
@@ -24,13 +24,16 @@ export function lambdaNodeParse(): SyntaxParseFn {
       parts.generics.hiddenNodes = parts.genericsHiddenNodes;
     }
 
-    const node = lambdaNode(context, parts.generics, parts.parameters, parts.type, parts.assign);
+    const node = lambdaNode(analyzer, parts.generics, parts.parameters, parts.type, parts.assign);
 
     return {node, index: parts.spliceIndex, deleteCount: parts.deleteCount};
   };
 }
 
-function getLambdaParts(context: SyntaxContext):
+function getLambdaParts(
+  analyzer: SyntaxAnalyzer,
+  nodes: Array2<Node>,
+):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
@@ -41,7 +44,7 @@ function getLambdaParts(context: SyntaxContext):
       assign?: AssignNode | Nothing;
     }
   | Nothing {
-  const typeOperatorFound = nodeFindMap(context.nodes, 0, false, (node, index, nodes) => {
+  const typeOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
       is<OperatorNode>(node, $Node.OPERATOR) &&
       node.text === TYPE &&
@@ -58,18 +61,18 @@ function getLambdaParts(context: SyntaxContext):
   });
 
   if (typeOperatorFound) {
-    const header = getGenericsParameters(context, context.nodes[typeOperatorFound.index - 1]);
-    const typeValue = context.nodes[typeOperatorFound.index + 1] as ExpressionNode;
-    const assignOperator = context.nodes[typeOperatorFound.index + 2];
-    const assignValue = context.nodes[typeOperatorFound.index + 3];
-    const type = typeNode(context, typeOperatorFound.node, typeValue);
+    const header = getGenericsParameters(analyzer, nodes[typeOperatorFound.index - 1]);
+    const typeValue = nodes[typeOperatorFound.index + 1] as ExpressionNode;
+    const assignOperator = nodes[typeOperatorFound.index + 2];
+    const assignValue = nodes[typeOperatorFound.index + 3];
+    const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (
       is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
       assignOperator.text === ASSIGN &&
       isNonOperatorExpression(assignValue)
     ) {
-      const assign = assignNode(context, assignOperator, assignValue);
+      const assign = assignNode(analyzer, assignOperator, assignValue);
 
       return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
     }
@@ -77,7 +80,7 @@ function getLambdaParts(context: SyntaxContext):
     return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
-  const assignOperatorFound = nodeFindMap(context.nodes, 0, false, (node, index, nodes) => {
+  const assignOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
       is<OperatorNode>(node, $Node.OPERATOR) &&
       node.text === ASSIGN &&
@@ -94,9 +97,9 @@ function getLambdaParts(context: SyntaxContext):
   });
 
   if (assignOperatorFound) {
-    const header = getGenericsParameters(context, context.nodes[assignOperatorFound.index - 1]);
-    const assignValue = context.nodes[assignOperatorFound.index + 1] as ExpressionNode;
-    const assign = assignNode(context, assignOperatorFound.node, assignValue);
+    const header = getGenericsParameters(analyzer, nodes[assignOperatorFound.index - 1]);
+    const assignValue = nodes[assignOperatorFound.index + 1] as ExpressionNode;
+    const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
   }
@@ -105,7 +108,7 @@ function getLambdaParts(context: SyntaxContext):
 }
 
 function getGenericsParameters(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   node: Node,
 ): {
   genericsHiddenNodes?: Array2<Node> | Nothing;
@@ -113,14 +116,14 @@ function getGenericsParameters(
   parameters?: Group | Nothing;
 } {
   if (is<GroupNode>(node, $Node.GROUP)) {
-    parseDeclarations(context, node);
+    parseDeclarations(analyzer, node);
 
     return {parameters: node};
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE) && is<ObjectNode>(node.instance, $Node.OBJECT)) {
-    parseDeclarations(context, node.instance);
-    parseDeclarations(context, node.group);
+    parseDeclarations(analyzer, node.instance);
+    parseDeclarations(analyzer, node.group);
 
     return {genericsHiddenNodes: node.hiddenNodes, generics: node.instance, parameters: node.group};
   }
@@ -128,10 +131,10 @@ function getGenericsParameters(
   return {};
 }
 
-function parseDeclarations(context: SyntaxContext, group: Group): void {
+function parseDeclarations(analyzer: SyntaxAnalyzer, group: Group): void {
   for (const item of group.items) {
     if (is<IdNode>(item.value, $Node.ID)) {
-      item.value = partialToDeclaration(context, {id: item.value});
+      item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }
 }

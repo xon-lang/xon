@@ -1,8 +1,7 @@
-import {formatChildNode} from '../../../../formatter/formatter';
 import {RANGE} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode} from '../../../node';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InfixNode = SyntaxNode<$Node.INFIX> &
@@ -13,20 +12,20 @@ export type InfixNode = SyntaxNode<$Node.INFIX> &
   };
 
 export function infixNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   left: ExpressionNode,
   operator: OperatorNode,
   right: ExpressionNode,
 ): InfixNode {
   const node = syntaxNode($Node.INFIX, {left, operator, right});
 
-  format(context, node);
+  format(analyzer, node);
 
   return node;
 }
 
-function format(context: SyntaxContext, node: InfixNode): void {
+function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {
   const keepSingleWhitespace = node.operator.text !== RANGE;
-  formatChildNode(context, node.operator, keepSingleWhitespace);
-  formatChildNode(context, node.right, keepSingleWhitespace);
+  analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
+  analyzer.formatterManager.formatChildNode(node.right, keepSingleWhitespace);
 }

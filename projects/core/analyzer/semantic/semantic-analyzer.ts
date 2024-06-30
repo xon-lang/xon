@@ -1,5 +1,5 @@
 import {nothing} from '../../../lib/types';
-import {SyntaxResult} from '../syntax/syntax-context';
+import {SyntaxAnalyzer, syntaxParse} from '../syntax/syntax-analyzer';
 import {syntaxDeclarationsParse} from './node/declaration/declaration-semantic-parser';
 import {
   declarationManagerFromImportString,
@@ -10,7 +10,7 @@ import {DEFAULT_SEMANTIC_CONFIG, SemanticAnalyzerConfig} from './semantic-analyz
 import {SemanticAnalyzerContext, semanticContext} from './semantic-analyzer-context';
 
 export function semanticParse(
-  syntax: SyntaxResult,
+  syntaxAnalyzer: SyntaxAnalyzer | ReturnType<typeof syntaxParse>,
   config?: Partial<SemanticAnalyzerConfig>,
 ): SemanticAnalyzerContext {
   const semanticConfig: SemanticAnalyzerConfig = {...DEFAULT_SEMANTIC_CONFIG, ...config};
@@ -18,15 +18,18 @@ export function semanticParse(
     semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
   const context = semanticContext(
     nothing,
-    syntax.resource,
-    syntax.diagnosticManager,
+    syntaxAnalyzer.lexicalAnalyzer.resource,
+    syntaxAnalyzer.diagnosticManager,
     imports,
     semanticConfig,
   );
 
-  syntaxImportsParse(context, syntax);
-  syntaxDeclarationsParse(context, syntax);
-  syntaxValuesParse(context, syntax);
+  const statements =
+    'statements' in syntaxAnalyzer ? syntaxAnalyzer.statements : syntaxAnalyzer.parseStatements().statements;
+
+  syntaxImportsParse(context, statements);
+  syntaxDeclarationsParse(context, statements);
+  syntaxValuesParse(context, statements);
 
   return context;
 }

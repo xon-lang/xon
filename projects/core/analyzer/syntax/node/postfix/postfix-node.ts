@@ -1,7 +1,6 @@
-import {formatChildNode} from '../../../../formatter/formatter';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode} from '../../../node';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type PostfixNode = SyntaxNode<$Node.POSTFIX> &
@@ -11,18 +10,18 @@ export type PostfixNode = SyntaxNode<$Node.POSTFIX> &
   };
 
 export function postfixNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   value: ExpressionNode,
   operator: OperatorNode,
 ): PostfixNode {
   const node = syntaxNode($Node.POSTFIX, {value, operator});
 
-  format(context, node);
+  format(analyzer, node);
 
   return node;
 }
 
-function format(context: SyntaxContext, node: PostfixNode): void {
+function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {
   const keepSingleWhitespace = node.operator.text.some((x) => x.isLetter(0));
-  formatChildNode(context, node.operator, keepSingleWhitespace);
+  analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
 }

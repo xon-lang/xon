@@ -1,11 +1,10 @@
 import {Integer, Nothing} from '../../../../lib/types';
-import {formatChildNode} from '../../../formatter/formatter';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {$Node, Node} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {StatementNode} from '../statement/statement-node';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
 
 export type ItemNode = SyntaxNode<$Node.ITEM> & {
   index: Integer;
@@ -15,7 +14,7 @@ export type ItemNode = SyntaxNode<$Node.ITEM> & {
 };
 
 export function itemNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   index: Integer,
   comma: CommaNode | Nothing,
   statements: StatementNode[],
@@ -34,13 +33,13 @@ export function itemNode(
 
   children.forEach((x) => (x.parent = node));
 
-  format(context, node);
+  format(analyzer, node);
 
   return node;
 }
 
-function format(context: SyntaxContext, node: ItemNode): void {
+function format(analyzer: SyntaxAnalyzer, node: ItemNode): void {
   if (node.comma) {
-    formatChildNode(context, node.comma, false);
+    analyzer.formatterManager.formatChildNode(node.comma, false);
   }
 }

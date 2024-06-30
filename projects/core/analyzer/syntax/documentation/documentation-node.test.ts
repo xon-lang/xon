@@ -9,7 +9,7 @@ test('documentation', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const hiddenNodes = syntax.syntaxContext.hiddenNodes;
+  const hiddenNodes = syntax.hiddenNodes;
 
   expect(statements.length).toBe(0);
   expect(hiddenNodes.length).toBe(1);
@@ -24,7 +24,7 @@ test('documentation 2', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const hiddenNodes = syntax.syntaxContext.hiddenNodes;
+  const hiddenNodes = syntax.hiddenNodes;
 
   expect(statements.length).toBe(0);
   expect(hiddenNodes.length).toBe(1);
@@ -39,7 +39,7 @@ test('documentation labels', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const hiddenNodes = syntax.syntaxContext.hiddenNodes;
+  const hiddenNodes = syntax.hiddenNodes;
 
   expect(statements.length).toBe(0);
   expect(hiddenNodes.length).toBe(1);
@@ -63,7 +63,7 @@ test('documentation operator id', () => {
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
   const statements = syntax.statements;
-  const hiddenNodes = syntax.syntaxContext.hiddenNodes;
+  const hiddenNodes = syntax.hiddenNodes;
 
   expect(statements.length).toBe(0);
   expect(hiddenNodes.length).toBe(1);

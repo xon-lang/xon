@@ -6,7 +6,7 @@ import {DocumentationOpenNode} from '../../lexical/node/documentation-open/docum
 import {HiddenNode} from '../../lexical/node/lexical-node';
 import {$Node} from '../../node';
 import {SyntaxNode, syntaxNode} from '../node/syntax-node';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {DocumentationItemNode} from './documentation-item-node';
 
 export type DocumentationNode = SyntaxNode<$Node.DOCUMENTATION> &
@@ -19,7 +19,7 @@ export type DocumentationNode = SyntaxNode<$Node.DOCUMENTATION> &
   };
 
 export function documentationNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   open: DocumentationOpenNode,
   description: DocumentationDescriptionNode | Nothing,
   items: Array2<DocumentationItemNode>,
@@ -27,19 +27,19 @@ export function documentationNode(
 ): DocumentationNode {
   const node = syntaxNode($Node.DOCUMENTATION, {open, description, items, close});
 
-  validate(context, node);
+  validate(analyzer, node);
 
   return node;
 }
 
-export function validate(context: SyntaxContext, node: DocumentationNode) {
+export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
   const unnecessaryLabels: Array2<String2> = [];
 
   for (const item of node.items) {
     const name = item.id.text;
 
     if (unnecessaryLabels.includes(name)) {
-      context.diagnosticManager.addWarning(
+      analyzer.diagnosticManager.addWarning(
         item.range,
         DIAGNOSTIC_MESSAGE.documentationLabelAlreadyExists(name),
       );

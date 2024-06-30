@@ -10,36 +10,35 @@ import {CloseNode} from '../../lexical/node/close/close-node';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
 import {$Node, is} from '../../node';
-import {syntaxParse} from '../syntax-analyzer';
-import {SyntaxParserConfig} from '../syntax-analyzer-config';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
+import {SyntaxAnalyzerConfig} from '../syntax-analyzer-config';
 import {$Group, Group, groupNode} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
-export function groupNodeParse(context: SyntaxContext, openNode: OpenNode): Group {
+export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Group {
   if (openNode.text === ARRAY_OPEN) {
-    return groupNodeParseInner(context, $Node.ARRAY, openNode, ARRAY_CLOSE);
+    return groupNodeParseInner(analyzer, $Node.ARRAY, openNode, ARRAY_CLOSE);
   }
 
   if (openNode.text === OBJECT_OPEN) {
-    return groupNodeParseInner(context, $Node.OBJECT, openNode, OBJECT_CLOSE);
+    return groupNodeParseInner(analyzer, $Node.OBJECT, openNode, OBJECT_CLOSE);
   }
 
-  return groupNodeParseInner(context, $Node.GROUP, openNode, GROUP_CLOSE);
+  return groupNodeParseInner(analyzer, $Node.GROUP, openNode, GROUP_CLOSE);
 }
 
 function groupNodeParseInner(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   $: $Group,
   openNode: OpenNode,
   closeText: String2,
 ): Group {
   const items: Array2<ItemNode> = [];
 
-  const config: SyntaxParserConfig = {
-    ...context.config,
+  const config: SyntaxAnalyzerConfig = {
+    ...analyzer.config,
     formatting: {
-      ...context.config.formatting,
+      ...analyzer.config.formatting,
       insertFinalNewline: false,
     },
   };
@@ -47,34 +46,29 @@ function groupNodeParseInner(
   let itemIndex = 0;
   let commaNode: CommaNode | Nothing = nothing;
 
-  while (context.lexer.cursor.position.index < context.resource.data.length) {
-    const {syntaxContext: itemContext} = syntaxParse(
-      context.resource,
-      context.diagnosticManager,
-      context.formatterManager,
+  while (analyzer.lexicalAnalyzer.cursor.position.index < analyzer.lexicalAnalyzer.resource.data.length) {
+    const {breakNode, statements} = analyzer.parseStatements(
       (node) =>
         is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),
-      config,
-      context.lexer,
     );
 
-    if (is<CommaNode>(itemContext.breakNode, $Node.COMMA)) {
-      const item = itemNode(context, itemIndex, commaNode, itemContext.statements);
+    if (is<CommaNode>(breakNode, $Node.COMMA)) {
+      const item = itemNode(analyzer, itemIndex, commaNode, statements);
       items.push(item);
-      commaNode = itemContext.breakNode;
+      commaNode = breakNode;
     }
 
-    if (is<CloseNode>(itemContext.breakNode, $Node.CLOSE)) {
-      if (items.length > 0 || itemContext.statements.length > 0) {
-        const item = itemNode(context, itemIndex, commaNode, itemContext.statements);
+    if (is<CloseNode>(breakNode, $Node.CLOSE)) {
+      if (items.length > 0 || statements.length > 0) {
+        const item = itemNode(analyzer, itemIndex, commaNode, statements);
         items.push(item);
       }
 
-      return groupNode(context, $, openNode, items, itemContext.breakNode);
+      return groupNode(analyzer, $, openNode, items, breakNode);
     }
 
     itemIndex += 1;
   }
 
-  return groupNode(context, $, openNode, items, nothing);
+  return groupNode(analyzer, $, openNode, items, nothing);
 }

@@ -1,8 +1,10 @@
-import {Boolean2, Nothing, nothing} from '../../../lib/types';
-import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
+import {Array2, Boolean2, Nothing, nothing} from '../../../lib/types';
+import {
+  AnalyzerDiagnosticManager,
+  createDiagnosticManager,
+} from '../../diagnostic/analyzer-diagnostic-manager';
 import {DIAGNOSTIC_MESSAGE} from '../../diagnostic/analyzer-diagnostic-message';
-import {formatRemainingContextHiddenNodes} from '../../formatter/formatter';
-import {FormatterManager} from '../../formatter/formatter-manager';
+import {FormatterManager, createFormatterManager} from '../../formatter/formatter-manager';
 import {zeroPosition} from '../../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
@@ -17,101 +19,148 @@ import {$Node, Node, is, isHiddenNode} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
 import {putStatementNode} from './put-statement-node';
-import {SyntaxParserConfig} from './syntax-analyzer-config';
-import {SyntaxContext, SyntaxResult, syntaxContext} from './syntax-context';
+import {StatementNode} from './statement/statement-node';
+import {DEFAULT_SYNTAX_ANALYZER_CONFIG, SyntaxAnalyzerConfig} from './syntax-analyzer-config';
 
-export function syntaxParse(
-  resource: TextResource,
-  issueManager?: AnalyzerDiagnosticManager | Nothing,
-  formatterManager?: FormatterManager | Nothing,
-  breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing,
-  config?: SyntaxParserConfig | Nothing,
-  lexer?: LexicalAnalyzer | Nothing,
-): SyntaxResult {
-  const lexerInner = lexer ?? codeLexicalAnalyzer(resource, zeroPosition());
-  const context = syntaxContext(resource, lexerInner, issueManager, formatterManager, config);
-  let statementIndent: TextRange = rangeFromPosition(lexerInner.cursor.position);
+export type SyntaxAnalyzer = {
+  lexicalAnalyzer: LexicalAnalyzer;
+  diagnosticManager: AnalyzerDiagnosticManager;
+  formatterManager: FormatterManager;
+  config: SyntaxAnalyzerConfig;
+  // todo remove it
 
-  for (const iterableNode of lexerInner) {
-    let node: Node = iterableNode;
+  parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
+    statements: StatementNode[];
+    breakNode?: Node | Nothing;
+    hiddenNodes: Array2<Node>;
+  };
+};
 
-    if (is<UnknownNode>(node, $Node.UNKNOWN)) {
-      context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
-    }
-
-    if (is<OpenNode>(node, $Node.OPEN)) {
-      node = groupNodeParse(context, node);
-      lexerInner.cursor.position = node.range.stop;
-    }
-
-    if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
-      node = documentationNodeParse(context, node);
-      lexerInner.cursor.position = node.range.stop;
-    }
-
-    if (breakOnNodeFn && breakOnNodeFn(node)) {
-      context.breakNode = node;
-
-      break;
-    }
-
-    if (context.nodes.length === 0) {
-      if (is<WhitespaceNode>(node, $Node.WHITESPACE)) {
-      }
-    }
-
-    if (isHiddenNode(node)) {
-      if (is<NlNode>(node, $Node.NL)) {
-        if (context.nodes.length > 0) {
-          putStatementNode(context, statementIndent);
-          context.nodes = [];
-        }
-      }
-
-      context.hiddenNodes.push(node);
-
-      continue;
-    }
-
-    statementIndent = getStatementIndent(context) ?? statementIndent;
-
-    node.hiddenNodes = context.hiddenNodes;
-    context.hiddenNodes = [];
-    context.nodes.push(node);
-  }
-
-  if (context.nodes.length > 0) {
-    putStatementNode(context, statementIndent);
-  }
-
-  formatRemainingContextHiddenNodes(context);
+export function createSyntaxAnalyzer(
+  lexicalAnalyzer: LexicalAnalyzer,
+  config?: SyntaxAnalyzerConfig | Nothing,
+): SyntaxAnalyzer {
+  const analyzerConfig = config ?? DEFAULT_SYNTAX_ANALYZER_CONFIG;
+  const diagnosticManager = createDiagnosticManager(lexicalAnalyzer.resource);
+  const formatterManager = createFormatterManager(lexicalAnalyzer.resource, analyzerConfig.formatting);
 
   return {
-    ...context,
-    syntaxContext: context,
+    config: analyzerConfig,
+    lexicalAnalyzer,
+    diagnosticManager,
+    formatterManager,
+
+    parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
+      statements: StatementNode[];
+      breakNode?: Node | Nothing;
+      hiddenNodes: Array2<Node>;
+    } {
+      let hiddenNodes: Array2<Node> = [];
+      let lastStatement: StatementNode | Nothing = nothing;
+      let statements: Array2<StatementNode> = [];
+      let statementIndent: TextRange = rangeFromPosition(lexicalAnalyzer.cursor.position);
+      let breakNode: Node | Nothing = nothing;
+      let nodes: Array2<Node> = [];
+
+      const handleStatement = () => {
+        if (nodes.length === 0) {
+          return;
+        }
+
+        lastStatement = putStatementNode(this, nodes, statements, lastStatement, statementIndent);
+        nodes = [];
+      };
+
+      for (const iterableNode of lexicalAnalyzer) {
+        let node: Node = iterableNode;
+
+        if (is<UnknownNode>(node, $Node.UNKNOWN)) {
+          this.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
+        }
+
+        if (is<OpenNode>(node, $Node.OPEN)) {
+          node = groupNodeParse(this, node);
+          lexicalAnalyzer.cursor.position = node.range.stop;
+        }
+
+        if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
+          node = documentationNodeParse(this, node);
+          lexicalAnalyzer.cursor.position = node.range.stop;
+        }
+
+        if (breakOnNodeFn && breakOnNodeFn(node)) {
+          breakNode = node;
+
+          break;
+        }
+
+        if (nodes.length === 0) {
+          if (is<WhitespaceNode>(node, $Node.WHITESPACE)) {
+          }
+        }
+
+        if (isHiddenNode(node)) {
+          if (is<NlNode>(node, $Node.NL)) {
+            handleStatement();
+          }
+
+          hiddenNodes.push(node);
+
+          continue;
+        }
+
+        statementIndent = getStatementIndent(nodes, hiddenNodes) ?? statementIndent;
+
+        node.hiddenNodes = hiddenNodes;
+        hiddenNodes = [];
+        nodes.push(node);
+      }
+
+      handleStatement();
+
+      this.formatterManager.formatRemainingHiddenNodes(statements, lastStatement, hiddenNodes);
+
+      return {
+        statements,
+        breakNode,
+        hiddenNodes,
+      };
+    },
   };
 }
 
-export function getStatementIndent(context: SyntaxContext): TextRange | Nothing {
-  if (context.nodes.length !== 0 || context.hiddenNodes.length === 0) {
+function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): TextRange | Nothing {
+  if (nodes.length !== 0 || hiddenNodes.length === 0) {
     return nothing;
   }
 
-  const lastNlIndex = context.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
 
   if (lastNlIndex >= 0) {
-    const whiteSpaceNode = context.hiddenNodes[lastNlIndex + 1];
+    const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
     if (is<WhitespaceNode>(whiteSpaceNode, $Node.WHITESPACE)) {
       return cloneRange(whiteSpaceNode.range);
     }
 
-    return rangeFromPosition(context.hiddenNodes[lastNlIndex].range.stop);
+    return rangeFromPosition(hiddenNodes[lastNlIndex].range.stop);
   }
 
-  if (is<WhitespaceNode>(context.hiddenNodes[0], $Node.WHITESPACE)) {
-    return cloneRange(context.hiddenNodes[0].range);
+  if (is<WhitespaceNode>(hiddenNodes[0], $Node.WHITESPACE)) {
+    return cloneRange(hiddenNodes[0].range);
   }
 
   return nothing;
+}
+
+// todo remove 'syntaxParse'
+export function syntaxParse(resource: TextResource) {
+  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
+  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
+  const result = syntaxAnalyzer.parseStatements();
+
+  return {
+    ...result,
+    ...syntaxAnalyzer,
+  };
 }

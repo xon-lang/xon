@@ -3,12 +3,12 @@ import {TYPE} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {typeNode} from './type-node';
 
 function typeNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
-    return nodeFindMap(context.nodes, startIndex, false, (node, index, nodes) => {
+  return (analyzer: SyntaxAnalyzer, startIndex: Integer) => {
+    return nodeFindMap(analyzer.nodes, startIndex, false, (node, index, nodes) => {
       if (
         !is<OperatorNode>(node, $Node.OPERATOR) ||
         node.text !== TYPE ||
@@ -23,7 +23,7 @@ function typeNodeParse(): SyntaxParseFn {
         return nothing;
       }
 
-      return {node: typeNode(context, node, value), index: index};
+      return {node: typeNode(analyzer, node, value), index: index};
     });
   };
 }

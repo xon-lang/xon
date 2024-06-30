@@ -1,14 +1,17 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {$Node, is} from '../../../node';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
-import {SyntaxResult} from '../../../syntax/syntax-context';
+import {StatementNode} from '../../../syntax/statement/statement-node';
 import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationDeepParse} from './declaration-semantic-deep-parser';
 import {declarationShallowParse} from './declaration-semantic-shallow-parser';
 
-export function syntaxDeclarationsParse(context: SemanticAnalyzerContext, syntax: SyntaxResult): void {
-  const declarationNodes = syntax.statements.filterMap((x) =>
+export function syntaxDeclarationsParse(
+  context: SemanticAnalyzerContext,
+  statements: Array2<StatementNode>,
+): void {
+  const declarationNodes = statements.filterMap((x) =>
     is<DeclarationNode>(x.value, $Node.DECLARATION) ? x.value : nothing,
   );
 

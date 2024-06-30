@@ -5,8 +5,9 @@ import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../../node';
 import {DocumentationNode} from '../../documentation/documentation-node';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
+import {StatementNode} from '../../statement/statement-node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {AssignNode, assignNode} from '../assign/assign-node';
 import {InvokeNode} from '../invoke/invoke-node';
 import {PrefixNode} from '../prefix/prefix-node';
@@ -14,12 +15,17 @@ import {TypeNode, typeNode} from '../type/type-node';
 import {DeclarationNode, partialToDeclaration} from './declaration-node';
 
 export function declarationNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext) => {
-    if (is<DeclarationNode>(context.nodes[0], $Node.DECLARATION)) {
+  return (
+    analyzer: SyntaxAnalyzer,
+    nodes: Array2<Node>,
+    _startIndex: Integer,
+    parentStatement: StatementNode | Nothing,
+  ) => {
+    if (is<DeclarationNode>(nodes[0], $Node.DECLARATION)) {
       return nothing;
     }
 
-    const parts = getDeclarationParts(context);
+    const parts = getDeclarationParts(analyzer, nodes, parentStatement);
 
     if (!parts) {
       return nothing;
@@ -36,12 +42,16 @@ export function declarationNodeParse(): SyntaxParseFn {
     return {
       index: parts.spliceIndex,
       deleteCount: parts.deleteCount,
-      node: partialToDeclaration(context, parts),
+      node: partialToDeclaration(analyzer, parts),
     };
   };
 }
 
-function getDeclarationParts(context: SyntaxContext):
+function getDeclarationParts(
+  analyzer: SyntaxAnalyzer,
+  nodes: Array2<Node>,
+  parentStatement: StatementNode | Nothing,
+):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
@@ -55,13 +65,13 @@ function getDeclarationParts(context: SyntaxContext):
       assign?: AssignNode | Nothing;
     }
   | Nothing {
-  const header = getHeader(context, context.nodes[0]);
+  const header = getHeader(analyzer, nodes[0]);
 
   if (!header) {
     return nothing;
   }
 
-  const typeOperatorFound = nodeFindMap(context.nodes, 0, true, (node, index, nodes) => {
+  const typeOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
       is<OperatorNode>(node, $Node.OPERATOR) &&
@@ -75,18 +85,18 @@ function getDeclarationParts(context: SyntaxContext):
   });
 
   if (typeOperatorFound) {
-    const typeValue = context.nodes[typeOperatorFound.index + 1] as ExpressionNode;
-    const assignOperator = context.nodes[typeOperatorFound.index + 2];
-    const assignValue = context.nodes[typeOperatorFound.index + 3];
+    const typeValue = nodes[typeOperatorFound.index + 1] as ExpressionNode;
+    const assignOperator = nodes[typeOperatorFound.index + 2];
+    const assignValue = nodes[typeOperatorFound.index + 3];
 
-    const type = typeNode(context, typeOperatorFound.node, typeValue);
+    const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (
       is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
       assignOperator.text === ASSIGN &&
       isNonOperatorExpression(assignValue)
     ) {
-      const assign = assignNode(context, assignOperator, assignValue);
+      const assign = assignNode(analyzer, assignOperator, assignValue);
 
       return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
     }
@@ -94,11 +104,11 @@ function getDeclarationParts(context: SyntaxContext):
     return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 3, ...header, type};
   }
 
-  if (!header.modifier && !isTypeDeclarationNode(context.parentStatement?.value)) {
+  if (!header.modifier && !isTypeDeclarationNode(parentStatement?.value)) {
     return nothing;
   }
 
-  const assignOperatorFound = nodeFindMap(context.nodes, 0, true, (node, index, nodes) => {
+  const assignOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
       is<OperatorNode>(node, $Node.OPERATOR) &&
@@ -112,8 +122,8 @@ function getDeclarationParts(context: SyntaxContext):
   });
 
   if (assignOperatorFound) {
-    const assignValue = context.nodes[assignOperatorFound.index + 1] as ExpressionNode;
-    const assign = assignNode(context, assignOperatorFound.node, assignValue);
+    const assignValue = nodes[assignOperatorFound.index + 1] as ExpressionNode;
+    const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
   }
@@ -122,7 +132,7 @@ function getDeclarationParts(context: SyntaxContext):
 }
 
 function getHeader(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   node: Node | Nothing,
 ):
   | {
@@ -140,7 +150,7 @@ function getHeader(
   );
 
   if (is<PrefixNode>(node, $Node.PREFIX) && MODIFIER_KEYWORDS.includes(node.operator.text)) {
-    const underModifier = getUnderModifier(context, node.value);
+    const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {
       return nothing;
@@ -149,13 +159,13 @@ function getHeader(
     return {modifierHiddenNodes: node.hiddenNodes, documentation, modifier: node.operator, ...underModifier};
   }
 
-  const underModifier = getUnderModifier(context, node);
+  const underModifier = getUnderModifier(analyzer, node);
 
   return underModifier ? {documentation, ...underModifier} : nothing;
 }
 
 function getUnderModifier(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   node: Node | Nothing,
 ):
   | {
@@ -180,8 +190,8 @@ function getUnderModifier(
       is<IdNode>(node.instance.instance, $Node.ID) &&
       is<ObjectNode>(node.instance.group, $Node.OBJECT)
     ) {
-      parseDeclarations(context, node.instance.group);
-      parseDeclarations(context, node.group);
+      parseDeclarations(analyzer, node.instance.group);
+      parseDeclarations(analyzer, node.group);
 
       return {
         idHiddenNodes: node.hiddenNodes,
@@ -192,7 +202,7 @@ function getUnderModifier(
     }
 
     if (is<IdNode>(node.instance, $Node.ID)) {
-      parseDeclarations(context, node.group);
+      parseDeclarations(analyzer, node.group);
 
       if (is<ObjectNode>(node.group, $Node.OBJECT)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
@@ -207,10 +217,10 @@ function getUnderModifier(
   return nothing;
 }
 
-function parseDeclarations(context: SyntaxContext, group: Group): void {
+function parseDeclarations(analyzer: SyntaxAnalyzer, group: Group): void {
   for (const item of group.items) {
     if (is<IdNode>(item.value, $Node.ID)) {
-      item.value = partialToDeclaration(context, {id: item.value});
+      item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }
 }

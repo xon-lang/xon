@@ -1,14 +1,13 @@
 // import {Integer, nothing} from '../../../../../lib/types';
 // import {ASSIGN} from '../../../parser-config';
-// import {SyntaxContext} from '../../../syntax-context';
 // import {$Node, is, isNonOperatorExpression, nodeFindMap} from '../../node';
 // import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 // import {OperatorNode} from '../../token/operator/operator-node';
 // import {assignNode} from './assign-node';
 
 // function assignNodeParse(): SyntaxParseFn {
-//   return (context: SyntaxContext, startIndex: Integer) => {
-//     return nodeFindMap(context.nodes, startIndex, false, (node, index, nodes) => {
+//   return (analyzer: SyntaxAnalyzer, startIndex: Integer) => {
+//     return nodeFindMap(analyzer.nodes, startIndex, false, (node, index, nodes) => {
 //       if (
 //         !is<OperatorNode>(node, $Node.OPERATOR) ||
 //         node.text !== ASSIGN ||
@@ -23,7 +22,7 @@
 //         return nothing;
 //       }
 
-//       return {node: assignNode(context, node, value), index: index};
+//       return {node: assignNode(analyzer, node, value), index: index};
 //     });
 //   };
 // }

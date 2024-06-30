@@ -1,12 +1,12 @@
-import {Integer, nothing} from '../../../../../lib/types';
-import {isGroupNode, isNonOperatorExpression, nodeFindMap} from '../../../node';
+import {Array2, Integer, nothing} from '../../../../../lib/types';
+import {isGroupNode, isNonOperatorExpression, Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {invokeNode} from './invoke-node';
 
 export function invokeNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
-    return nodeFindMap(context.nodes, startIndex, true, (node, index, nodes) => {
+  return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
+    return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
       if (index === 0 || !isGroupNode(node)) {
         return nothing;
       }
@@ -17,7 +17,7 @@ export function invokeNodeParse(): SyntaxParseFn {
         return nothing;
       }
 
-      return {node: invokeNode(context, instance, node), index: index - 1};
+      return {node: invokeNode(analyzer, instance, node), index: index - 1};
     });
   };
 }

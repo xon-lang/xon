@@ -208,7 +208,7 @@ test('debug 1', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ARRAY)).toBe(true);
+  expect(node.$).toBe($Node.ARRAY);
   expect(node.items.length).toBe(3);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[2]?.value as IntegerNode).text).toBe('2');

@@ -1,4 +1,5 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
+import {codeLexicalAnalyzer} from '../../core/analyzer/lexical/code-lexical-analyzer';
 import {$Node, Node, is} from '../../core/analyzer/node';
 import {$Semantic, semanticIs} from '../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../core/analyzer/semantic/node/type/id/id-type-semantic';
@@ -6,9 +7,8 @@ import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic
 import {semanticParse} from '../../core/analyzer/semantic/semantic-analyzer';
 import {SyntaxNode} from '../../core/analyzer/syntax/node/syntax-node';
 import {StatementNode} from '../../core/analyzer/syntax/statement/statement-node';
-import {syntaxParse} from '../../core/analyzer/syntax/syntax-analyzer';
-import {SyntaxResult} from '../../core/analyzer/syntax/syntax-context';
-import {TextPosition} from '../../core/util/resource/text/text-position';
+import {SyntaxAnalyzer, createSyntaxAnalyzer} from '../../core/analyzer/syntax/syntax-analyzer';
+import {TextPosition, zeroPosition} from '../../core/util/resource/text/text-position';
 import {TextRange} from '../../core/util/resource/text/text-range';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
 import {Array2, Nothing, String2, nothing} from '../../lib/types';
@@ -24,9 +24,9 @@ export function convertPosition(position: TextPosition): Position {
   return new Position(position.line, position.column);
 }
 
-const cachedSyntax: Record<String2, SyntaxResult> = {};
+const cachedSyntax: Record<String2, SyntaxAnalyzer> = {};
 
-export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxResult {
+export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxAnalyzer {
   const text = document.getText();
   // const hash = createHash('sha256').update(text, 'utf8').digest('hex');
   // const foundSyntax = cachedSyntax[hash];
@@ -38,16 +38,17 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   // todo should be const location = document.uri.toString();
   const location = document.uri.fsPath;
   const resource = textResourceFrom(location, text);
-  const syntax = syntaxParse(resource);
+  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
+  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
-  semanticParse(syntax);
+  semanticParse(syntaxAnalyzer);
   // cachedSyntax[hash] = syntax;
 
-  return syntax;
+  return syntaxAnalyzer;
 }
 
-export function findNodeByPositionInSyntax(syntax: SyntaxResult, position: Position): Node | Nothing {
+export function findNodeByPositionInSyntax(syntax: SyntaxAnalyzer, position: Position): Node | Nothing {
   const statement = findStatementNodeByPosition(syntax.statements, position);
 
   if (!statement) {

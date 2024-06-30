@@ -1,6 +1,6 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {$Node, ExpressionNode, Node, is} from '../../../node';
-import {SyntaxResult} from '../../../syntax/syntax-context';
+import {StatementNode} from '../../../syntax/statement/statement-node';
 import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
 import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
@@ -19,8 +19,8 @@ export const parsers: Array2<ValueSemanticTryParseFn> = [
   invokeValueSemanticTryParse,
 ];
 
-export function syntaxValuesParse(context: SemanticAnalyzerContext, syntax: SyntaxResult) {
-  for (const statement of syntax.statements) {
+export function syntaxValuesParse(context: SemanticAnalyzerContext, statements: Array2<StatementNode>) {
+  for (const statement of statements) {
     for (const node of statement.children) {
       valueSemanticParse(context, node);
     }

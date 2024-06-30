@@ -1,15 +1,15 @@
-import {Integer, nothing} from '../../../../../lib/types';
+import {Array2, Integer, nothing} from '../../../../../lib/types';
 import {IMPORT} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {StringNode} from '../../../lexical/node/string/string-node';
-import {$Node, is, nodeFindMap} from '../../../node';
+import {$Node, is, Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {importNode} from './import-node';
 
 export function importNodeParse(): SyntaxParseFn {
-  return (context: SyntaxContext, startIndex: Integer) => {
-    return nodeFindMap(context.nodes, startIndex, false, (node, index, nodes) => {
+  return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
+    return nodeFindMap(nodes, startIndex, false, (node, index, nodes) => {
       if (!is<OperatorNode>(node, $Node.OPERATOR) || node.text !== IMPORT) {
         return nothing;
       }
@@ -17,10 +17,10 @@ export function importNodeParse(): SyntaxParseFn {
       const value = nodes[index + 1];
 
       if (!is<StringNode>(value, $Node.STRING)) {
-        return {node: importNode(context, node, nothing), index};
+        return {node: importNode(analyzer, node, nothing), index};
       }
 
-      return {node: importNode(context, node, value), index};
+      return {node: importNode(analyzer, node, value), index};
     });
   };
 }

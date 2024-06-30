@@ -1,8 +1,7 @@
 import {Nothing} from '../../../../../lib/types';
-import {formatChildNode} from '../../../../formatter/formatter';
 import {$Node, ExpressionNode} from '../../../node';
 import {Group} from '../../group/group-node';
-import {SyntaxContext} from '../../syntax-context';
+import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
@@ -16,7 +15,7 @@ export type LambdaNode = SyntaxNode<$Node.LAMBDA> &
   };
 
 export function lambdaNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   generics: Group | Nothing,
   parameters: Group,
   type: TypeNode | Nothing,
@@ -29,17 +28,17 @@ export function lambdaNode(
     assign,
   });
 
-  format(context, node);
+  format(analyzer, node);
 
   return node;
 }
 
-function format(context: SyntaxContext, node: LambdaNode): void {
+function format(analyzer: SyntaxAnalyzer, node: LambdaNode): void {
   if (node.type) {
-    formatChildNode(context, node.type, false);
+    analyzer.formatterManager.formatChildNode(node.type, false);
   }
 
   if (node.assign) {
-    formatChildNode(context, node.assign, true);
+    analyzer.formatterManager.formatChildNode(node.assign, true);
   }
 }

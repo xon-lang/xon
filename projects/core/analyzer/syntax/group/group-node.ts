@@ -6,7 +6,7 @@ import {CloseNode} from '../../lexical/node/close/close-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
 import {$Node, ExpressionNode} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
-import {SyntaxContext} from '../syntax-context';
+import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {ItemNode} from './item-node';
 
 export type $Group = $Node.GROUP | $Node.ARRAY | $Node.OBJECT;
@@ -22,7 +22,7 @@ export type GroupNode = SyntaxNode<$Node.GROUP | $Node.ARRAY | $Node.OBJECT> &
   };
 
 export function groupNode(
-  context: SyntaxContext,
+  analyzer: SyntaxAnalyzer,
   $: $Group,
   open: OpenNode,
   items: Array2<ItemNode>,
@@ -41,14 +41,14 @@ export function groupNode(
 
   children.forEach((x) => (x.parent = node));
 
-  validate(context, node);
+  validate(analyzer, node);
 
   return node;
 }
 
-function validate(context: SyntaxContext, node: GroupNode): void {
+function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {
   if (!node.close) {
-    context.diagnosticManager.addError(node.open.range, DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text));
+    analyzer.diagnosticManager.addError(node.open.range, DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text));
   }
 
   // if(node.items.length>1 && !node.items[0].value){
@@ -57,7 +57,7 @@ function validate(context: SyntaxContext, node: GroupNode): void {
 
   for (const item of node.items.slice(0, -1)) {
     if (!item.value) {
-      context.diagnosticManager.addError(
+      analyzer.diagnosticManager.addError(
         (item.comma ?? node.open).range,
         DIAGNOSTIC_MESSAGE.unexpectedExpression(),
       );

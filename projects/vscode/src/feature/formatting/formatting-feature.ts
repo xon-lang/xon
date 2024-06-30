@@ -12,7 +12,7 @@ import {
   TextEdit,
 } from 'vscode';
 
-import {Formatter} from '../../../../core/formatter/formatter';
+import {FormatterItem} from '../../../../core/formatter/formatter';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSyntax} from '../../util';
@@ -87,6 +87,6 @@ function getDocumentFormatters(document: TextDocument, channel: OutputChannel): 
   return edits;
 }
 
-function convertFormatter(formatter: Formatter): TextEdit {
+function convertFormatter(formatter: FormatterItem): TextEdit {
   return TextEdit.replace(convertRange(formatter.range), formatter.text);
 }

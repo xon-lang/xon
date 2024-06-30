@@ -1,23 +1,42 @@
-import {Nothing, nothing} from '../../../lib/types';
+import {Array2, Nothing, nothing} from '../../../lib/types';
 import {TextRange} from '../../util/resource/text/text-range';
+import {Node} from '../node';
 import {StatementNode, constructStatementNode} from './statement/statement-node';
-import {SyntaxContext} from './syntax-context';
+import {SyntaxAnalyzer} from './syntax-analyzer';
 
-export function putStatementNode(context: SyntaxContext, indent: TextRange): void {
-  context.parentStatement = getParent(context, indent);
-  context.lastStatement = constructStatementNode(context, indent);
+export function putStatementNode(
+  analyzer: SyntaxAnalyzer,
+  nodes: Array2<Node>,
+  statements: Array2<StatementNode>,
+  lastStatement: StatementNode | Nothing,
+  indent: TextRange,
+): StatementNode {
+  const parentStatement = getParentStatement(lastStatement, indent);
+  const isFirstStatement = statements.length === 0;
+  const statement = constructStatementNode(analyzer, parentStatement, nodes, indent, isFirstStatement);
+
+  if (parentStatement) {
+    parentStatement.body.push(statement);
+  } else {
+    statements.push(statement);
+  }
+
+  return statement;
 }
 
-function getParent(context: SyntaxContext, indent: TextRange): StatementNode | Nothing {
-  if (!context.lastStatement) {
+function getParentStatement(
+  lastStatement: StatementNode | Nothing,
+  indent: TextRange,
+): StatementNode | Nothing {
+  if (!lastStatement) {
     return nothing;
   }
 
-  if (indent.stop.column > context.lastStatement.indent.stop.column) {
-    return context.lastStatement;
+  if (indent.stop.column > lastStatement.indent.stop.column) {
+    return lastStatement;
   }
 
-  return findParentStatementWithLessIndent(context.lastStatement, indent);
+  return findParentStatementWithLessIndent(lastStatement, indent);
 }
 
 function findParentStatementWithLessIndent(
