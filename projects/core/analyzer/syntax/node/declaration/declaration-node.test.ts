@@ -4,13 +4,13 @@ import {CharNode} from '../../../lexical/node/char/char-node';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {DeclarationNode} from './declaration-node';
 
 test('model A', () => {
   const text = 'model A';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -23,7 +23,7 @@ test('model A', () => {
 test('model A: B', () => {
   const text = 'model A: B';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -38,7 +38,7 @@ test('model A: B', () => {
 test('with generics extends b', () => {
   const text = 'model A{T: Array = String, U}: B';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -59,7 +59,7 @@ test('with generics extends b', () => {
 test('with parameters extends b', () => {
   const text = "model A(a: Integer = 123, b: Boolean, c = 'C'): B";
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -92,7 +92,7 @@ test('with parameters extends b', () => {
 test('with generics and parameters extends b', () => {
   const text = "model A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -139,7 +139,7 @@ test('has attributes', () => {
   f{T, U, V}(a, b, c: Char, d = 2) = a + b + d
   `;
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -154,7 +154,7 @@ test('has attributes', () => {
 test('model string with base class', () => {
   const text = 'model Array\nmodel String: Array';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[1].value as DeclarationNode;
 
@@ -168,7 +168,7 @@ test('model string with base class', () => {
 test('lambda type', () => {
   const text = 'const a: (x: Integer): Integer';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 
@@ -187,7 +187,7 @@ test('declaration documentation', () => {
 ===
 model A`;
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
 

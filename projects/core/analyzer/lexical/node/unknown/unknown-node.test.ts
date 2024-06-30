@@ -1,7 +1,7 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {IntegerNode} from '../integer/integer-node';
 import {LexicalNode} from '../lexical-node';
 import {UnknownNode} from './unknown-node';
@@ -9,7 +9,7 @@ import {UnknownNode} from './unknown-node';
 test('unknown 1', () => {
   const text = '123 §•∞•456';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node0 = statements[0].value as IntegerNode;
   const node1 = statements[0].children[1] as UnknownNode;
@@ -27,7 +27,7 @@ test('unknown 1', () => {
 test('unknown 2', () => {
   const text = 'ºª¶';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as UnknownNode;
 

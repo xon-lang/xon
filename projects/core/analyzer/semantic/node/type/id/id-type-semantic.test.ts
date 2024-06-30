@@ -2,7 +2,7 @@ import {nothing} from '../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
-import {syntaxParse} from '../../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../semantic-node';
@@ -16,7 +16,7 @@ test('a is integer', () => {
     const a: Integer
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
@@ -43,7 +43,7 @@ test('a is array', () => {
     const a: Array{3}
   `;
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);

@@ -2,13 +2,13 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {StringNode} from '../../../lexical/node/string/string-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {ImportNode} from './import-node';
 
 test('import string', () => {
   const text = 'import "xon/core"';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ImportNode;
 
@@ -22,7 +22,7 @@ test('import string', () => {
 test('import integer', () => {
   const text = 'import 1';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ImportNode;
 

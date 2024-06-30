@@ -2,12 +2,12 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {$Node} from '../../../node';
 import {GroupNode} from '../../../syntax/group/group-node';
-import {syntaxParse} from '../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 
 test('open paren', () => {
   const text = '(';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as GroupNode;
 
@@ -21,7 +21,7 @@ test('open paren', () => {
 test('open bracket', () => {
   const text = '[';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as GroupNode;
 
@@ -35,7 +35,7 @@ test('open bracket', () => {
 test('open brace', () => {
   const text = '{';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as GroupNode;
 

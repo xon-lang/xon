@@ -1,7 +1,7 @@
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {NL} from '../../lexical-analyzer-config';
 import {IdNode} from '../id/id-node';
 import {LexicalNode} from '../lexical-node';
@@ -10,7 +10,7 @@ import {NlNode} from './nl-node';
 test('lf nl', () => {
   const text = '\n';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = syntax.hiddenNodes[0] as NlNode;
 
@@ -22,7 +22,7 @@ test('lf nl', () => {
 test('several', () => {
   const text = '  \n    \n   abc';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node0 = statements[0].hiddenNodes?.at(0) as LexicalNode;
   const node1 = statements[0].hiddenNodes?.at(1) as LexicalNode;

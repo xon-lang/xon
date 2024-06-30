@@ -4,14 +4,14 @@ import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {$Node} from '../../../node';
 import {GroupNode} from '../../group/group-node';
-import {syntaxParse} from '../../syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {MemberNode} from '../member/member-node';
 import {InvokeNode} from './invoke-node';
 
 test('method call', () => {
   const text = "f(3, 'str')";
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
 
@@ -30,7 +30,7 @@ test('method on several lines', () => {
         'str', 123, 
     415]`;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
 
@@ -47,7 +47,7 @@ test('method on several lines', () => {
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
 
@@ -65,7 +65,7 @@ test('can call with type parameter', () => {
 test('object method', () => {
   const text = '{a, b}.call()';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
 
@@ -85,7 +85,7 @@ test('object method', () => {
 test('generics', () => {
   const text = 'Animal{T}';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
 

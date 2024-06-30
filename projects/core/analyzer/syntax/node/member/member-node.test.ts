@@ -2,13 +2,13 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {MemberNode} from './member-node';
 
 test('member with id instance', () => {
   const text = 'abc.def';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as MemberNode;
 
@@ -27,7 +27,7 @@ test('member with id instance', () => {
 test('member without id', () => {
   const text = 'abc.';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as MemberNode;
 

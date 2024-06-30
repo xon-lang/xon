@@ -4,13 +4,13 @@ import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {IntegerNode} from '../../lexical/node/integer/integer-node';
 import {$Node, is} from '../../node';
 import {InfixNode} from '../node/infix/infix-node';
-import {syntaxParse} from '../syntax-analyzer';
+import {syntaxFromResource} from '../syntax-analyzer';
 import {ArrayNode, GroupNode, ObjectNode} from './group-node';
 
 test('empty closed', () => {
   const text = '()';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as GroupNode;
 
@@ -24,7 +24,7 @@ test('empty closed', () => {
 test('validate close pair', () => {
   const text = '(';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as GroupNode;
 
@@ -44,7 +44,7 @@ test('validate close pair', () => {
 test('a in group', () => {
   const text = '(a)';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as GroupNode;
 
@@ -55,7 +55,7 @@ test('a in group', () => {
 test('empty object', () => {
   const text = '{}';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ObjectNode;
 
@@ -67,7 +67,7 @@ test('empty object', () => {
 test('single item', () => {
   const text = '[123 456]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -80,7 +80,7 @@ test('single item', () => {
 test('single comma', () => {
   const text = '[,]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -94,7 +94,7 @@ test('single comma', () => {
 test('empty not closed', () => {
   const text = '[';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -108,7 +108,7 @@ test('empty not closed', () => {
 test('inner group', () => {
   const text = '[()]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -124,7 +124,7 @@ test('inner group', () => {
 test('inner empty group', () => {
   const text = '[[[]]]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -144,7 +144,7 @@ test('inner empty group', () => {
 test('two integers no comma and ws at the end', () => {
   const text = '[1, 2]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -158,7 +158,7 @@ test('two integers no comma and ws at the end', () => {
 test('two integers and comma no ws at the end', () => {
   const text = '[1, 2,]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -172,7 +172,7 @@ test('two integers and comma no ws at the end', () => {
 test('two integers and comma and ws', () => {
   const text = '[1, 2, ]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -189,7 +189,7 @@ test('array on several lines', () => {
                 3,
      4,    6+6]`;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -203,7 +203,7 @@ test('array on several lines', () => {
 test('debug 1', () => {
   const text = '[1, , 2 ]';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ArrayNode;
 
@@ -217,7 +217,7 @@ test('debug 1', () => {
 test('empty object', () => {
   const text = '{}';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ObjectNode;
 

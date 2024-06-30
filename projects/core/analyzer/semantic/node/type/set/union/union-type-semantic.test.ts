@@ -1,7 +1,7 @@
 import {String2, nothing} from '../../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {syntaxParse} from '../../../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {DeclarationKind} from '../../../../declaration-manager';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
@@ -19,7 +19,7 @@ test('a is integer or float', () => {
     const a: Integer | Float
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
@@ -51,7 +51,7 @@ test('1 check type', () => {
     const b: Integer | Float
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   const aConst = syntax.statements[3].value as DeclarationNode;
@@ -76,7 +76,7 @@ test('2 check type', () => {
     const c: String
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   const getConst = (name: String2) =>

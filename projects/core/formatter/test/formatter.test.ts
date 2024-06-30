@@ -1,7 +1,7 @@
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {String2} from '../../../lib/types';
-import {syntaxParse} from '../../analyzer/syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../analyzer/syntax/syntax-analyzer';
 import {textResourceFromFilePath} from '../../util/resource/text/text-resource';
 
 test('01', () => testFormatter('1'));
@@ -27,7 +27,7 @@ function testFormatter(index: String2) {
     return;
   }
 
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
 
   const formattedText = syntax.formatterManager.getFormattedText();
   writeFileSync(join(dirPath, 'formatted.xon'), formattedText);

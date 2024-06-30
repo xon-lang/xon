@@ -3,14 +3,14 @@ import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {DeclarationNode} from '../declaration/declaration-node';
 import {LambdaNode} from './lambda-node';
 
 test('function with no parameters', () => {
   const text = '(): Integer';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
 
@@ -24,7 +24,7 @@ test('function with no parameters', () => {
 test('function with generic', () => {
   const text = '{T}(): T';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
 
@@ -39,7 +39,7 @@ test('function with generic', () => {
 test('function with generic and parameter', () => {
   const text = '{T}(a: T): T';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
 
@@ -56,7 +56,7 @@ test('function with generic and parameter', () => {
 test('has argument and value', () => {
   const text = '(x) = x + 42';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
 
@@ -75,7 +75,7 @@ test('has argument and value', () => {
 test('two parameter', () => {
   const text = '(a, b) = a+b';
   const resource = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(resource);
+  const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
 

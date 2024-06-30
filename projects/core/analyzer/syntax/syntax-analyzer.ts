@@ -164,8 +164,7 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
   return nothing;
 }
 
-// todo remove 'syntaxParse'
-export function syntaxParse(resource: TextResource) {
+export function syntaxFromResource(resource: TextResource): SyntaxAnalyzer {
   const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
   const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
 

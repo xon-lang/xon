@@ -1,7 +1,7 @@
 import {nothing} from '../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
-import {syntaxParse} from '../../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../semantic-analyzer-config';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -14,7 +14,7 @@ test('a is integer', () => {
     const a: 123
   `;
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);

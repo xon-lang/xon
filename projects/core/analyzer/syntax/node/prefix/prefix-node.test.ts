@@ -4,13 +4,13 @@ import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {
   const text = '-1';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as PrefixNode;
 
@@ -23,7 +23,7 @@ test('negative integer', () => {
 test('infix modifier', () => {
   const text = 'infix';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as OperatorNode;
 
@@ -35,7 +35,7 @@ test('infix modifier', () => {
 test('hidden nodes', () => {
   const text = '-    1\n';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as PrefixNode;
 

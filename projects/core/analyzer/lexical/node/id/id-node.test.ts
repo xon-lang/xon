@@ -2,13 +2,13 @@ import {nothing} from '../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {$Node} from '../../../node';
-import {syntaxParse} from '../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {IdNode} from './id-node';
 
 test('single id', () => {
   const text = 'abc';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as IdNode;
 
@@ -20,7 +20,7 @@ test('single id', () => {
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as IdNode;
 

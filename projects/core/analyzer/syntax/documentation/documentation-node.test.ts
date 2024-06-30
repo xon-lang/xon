@@ -1,13 +1,13 @@
 import {nothing} from '../../../../lib/types';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {$Node} from '../../node';
-import {syntaxParse} from '../syntax-analyzer';
+import {syntaxFromResource} from '../syntax-analyzer';
 import {DocumentationNode} from './documentation-node';
 
 test('documentation', () => {
   const text = '===a===';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
@@ -22,7 +22,7 @@ test('documentation', () => {
 test('documentation 2', () => {
   const text = '=== abc\n\n\n def==';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
@@ -37,7 +37,7 @@ test('documentation 2', () => {
 test('documentation labels', () => {
   const text = '=== abc\n\n\n def @in a1 b2 c 3     @return _123 _ ===';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
@@ -61,7 +61,7 @@ test('documentation labels', () => {
 test('documentation operator id', () => {
   const text = '===@abc desc===';
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 

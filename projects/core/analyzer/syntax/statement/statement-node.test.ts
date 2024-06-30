@@ -2,12 +2,12 @@ import {nothing} from '../../../../lib/types';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {CharNode} from '../../lexical/node/char/char-node';
 import {$Node} from '../../node';
-import {syntaxParse} from '../syntax-analyzer';
+import {syntaxFromResource} from '../syntax-analyzer';
 
 test('a', () => {
   const text = "   \n    \n  ---comment ---'a'";
   const source = textResourceFrom(nothing, text);
-  const syntax = syntaxParse(source);
+  const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const statement = statements[0];
 

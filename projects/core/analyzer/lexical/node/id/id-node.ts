@@ -9,7 +9,6 @@ import {IdValueSemantic} from '../../../semantic/node/value/id/id-value-semantic
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type IdNode = LexicalNode<$Node.ID> &
-  // todo remove 'ExpressionNode' from here
   ExpressionNode & {
     semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | DocumentationIdSemantic | Nothing;
   };
