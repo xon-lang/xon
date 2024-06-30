@@ -15,7 +15,7 @@ import {AnalyzerDiagnosticSeverity} from '../../../../core/diagnostic/analyzer-d
 import {AnalyzerDiagnosticTag} from '../../../../core/diagnostic/analyzer-diagnostic-tag';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, getDocumentSyntax} from '../../util';
+import {convertRange, getDocumentSemantic} from '../../util';
 
 export function configureDiagnosticFeature(context: ExtensionContext, channel: OutputChannel) {
   const diagnostics = languages.createDiagnosticCollection(LANGUAGE_NAME);
@@ -46,7 +46,7 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
     return;
   }
 
-  const syntax = getDocumentSyntax(document, channel);
+  const syntax = getDocumentSemantic(document, channel);
 
   diagnostics.clear();
   diagnostics.set(document.uri, convertDiagnostic(syntax.diagnosticManager.diagnostics));

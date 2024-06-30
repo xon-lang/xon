@@ -2,7 +2,7 @@ import {nothing} from '../../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {syntaxParse} from '../../../../../syntax/syntax-analyzer';
-import {semanticParse} from '../../../../semantic-analyzer';
+import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../semantic-analyzer-config';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {$Semantic} from '../../../semantic-node';
@@ -16,7 +16,7 @@ test('a is range', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
-  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);

@@ -24,7 +24,7 @@ import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-ran
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
+import {convertRange, findNodeByPositionInSyntax, getDocumentSemantic} from '../../util';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -40,7 +40,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     position: Position,
     token: CancellationToken,
   ): ProviderResult<DefinitionLink[]> {
-    const syntax = getDocumentSyntax(document, this.channel);
+    const syntax = getDocumentSemantic(document, this.channel);
 
     const node = findNodeByPositionInSyntax(syntax, position);
 

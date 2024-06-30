@@ -15,7 +15,7 @@ import {
 import {FormatterItem} from '../../../../core/formatter/formatter';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, getDocumentSyntax} from '../../util';
+import {convertRange, getDocumentSemantic} from '../../util';
 
 export function configureFormattingFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -73,7 +73,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
   }
 
   provideDocumentFormattingEdits(document: TextDocument): ProviderResult<Array2<TextEdit>> {
-    const syntax = getDocumentSyntax(document, this.channel);
+    const syntax = getDocumentSemantic(document, this.channel);
     const edits = syntax.formatterManager.formatters.map(convertFormatter);
 
     return edits;
@@ -81,7 +81,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
 }
 
 function getDocumentFormatters(document: TextDocument, channel: OutputChannel): Array2<TextEdit> {
-  const syntax = getDocumentSyntax(document, channel);
+  const syntax = getDocumentSemantic(document, channel);
   const edits = syntax.formatterManager.formatters.map(convertFormatter);
 
   return edits;

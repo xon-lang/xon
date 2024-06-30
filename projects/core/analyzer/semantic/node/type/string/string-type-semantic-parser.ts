@@ -3,35 +3,35 @@ import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-
 import {StringNode} from '../../../../lexical/node/string/string-node';
 import {$Node, Node, is} from '../../../../node';
 import {DeclarationKind} from '../../../declaration-manager';
-import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {StringTypeSemantic, stringTypeSemantic} from './string-type-semantic';
 
 export function stringTypeSemanticTryParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node,
 ): StringTypeSemantic | Nothing {
   if (!is<StringNode>(node, $Node.STRING)) {
     return nothing;
   }
 
-  const declaration = context.declarationManager.single(
+  const declaration = analyzer.declarationManager.single(
     DeclarationKind.TYPE,
-    context.config.literalTypeNames.stringTypeName,
+    analyzer.config.literalTypeNames.stringTypeName,
     nothing,
     nothing,
   );
 
   if (!declaration || !isTypeDeclarationSemantic(declaration)) {
-    context.issueManager.addError(
+    analyzer.diagnosticManager.addError(
       node.range,
-      DIAGNOSTIC_MESSAGE.declarationNotFound(context.config.literalTypeNames.stringTypeName),
+      DIAGNOSTIC_MESSAGE.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
     );
 
     return nothing;
   }
 
-  const reference = context.createReference(node);
+  const reference = analyzer.createReference(node);
   const semantic = stringTypeSemantic(reference, declaration, node.value);
 
   return semantic;

@@ -3,35 +3,35 @@ import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-
 import {IntegerNode} from '../../../../lexical/node/integer/integer-node';
 import {$Node, Node, is} from '../../../../node';
 import {DeclarationKind} from '../../../declaration-manager';
-import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {IntegerTypeSemantic, integerTypeSemantic} from './integer-type-semantic';
 
 export function integerTypeSemanticTryParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node,
 ): IntegerTypeSemantic | Nothing {
   if (!is<IntegerNode>(node, $Node.INTEGER)) {
     return nothing;
   }
 
-  const declaration = context.declarationManager.single(
+  const declaration = analyzer.declarationManager.single(
     DeclarationKind.TYPE,
-    context.config.literalTypeNames.integerTypeName,
+    analyzer.config.literalTypeNames.integerTypeName,
     nothing,
     nothing,
   );
 
   if (!declaration || !isTypeDeclarationSemantic(declaration)) {
-    context.issueManager.addError(
+    analyzer.diagnosticManager.addError(
       node.range,
-      DIAGNOSTIC_MESSAGE.declarationNotFound(context.config.literalTypeNames.integerTypeName),
+      DIAGNOSTIC_MESSAGE.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
 
     return nothing;
   }
 
-  const reference = context.createReference(node);
+  const reference = analyzer.createReference(node);
   const semantic = integerTypeSemantic(reference, declaration, node.value);
 
   return semantic;

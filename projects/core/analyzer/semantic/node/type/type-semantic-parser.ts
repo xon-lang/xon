@@ -1,5 +1,6 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {$Node, ExpressionNode, Node, is} from '../../../node';
+import { SemanticAnalyzer } from '../../semantic-analyzer';
 import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
@@ -13,7 +14,7 @@ import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser'
 import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
 
-type TypeSemanticTryParseFn = (context: SemanticAnalyzerContext, node: Node) => TypeSemantic | Nothing;
+type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
 const parsers: Array2<TypeSemanticTryParseFn> = [
   integerTypeSemanticTryParse,
@@ -29,14 +30,14 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
 ];
 
 export function typeSemanticParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node | Nothing,
 ): TypeSemantic | Nothing {
   if (!is<ExpressionNode>(node, $Node.EXPRESSION)) {
     return nothing;
   }
 
-  const semantic = parsers.findMap((parse) => parse(context, node));
+  const semantic = parsers.findMap((parse) => parse(analyzer, node));
   node.semantic = semantic;
 
   return semantic;

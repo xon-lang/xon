@@ -3,7 +3,7 @@ import {textResourceFrom} from '../../../../../util/resource/text/text-resource'
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {syntaxParse} from '../../../../syntax/syntax-analyzer';
-import {semanticParse} from '../../../semantic-analyzer';
+import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../semantic-node';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
@@ -17,7 +17,7 @@ test('a is integer', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
-  const semantic = semanticParse(syntax);
+  const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);
@@ -44,7 +44,7 @@ test('a is array', () => {
   `;
   const resource = textResourceFrom(nothing, text);
   const syntax = syntaxParse(resource);
-  const semantic = semanticParse(syntax);
+  const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);

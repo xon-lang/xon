@@ -7,7 +7,7 @@ import {
   getDeclarationGenerics,
   getDeclarationParameters,
 } from '../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
 import {$Semantic, semanticIs} from '../semantic-node';
 import {typeSemanticParse} from '../type/type-semantic-parser';
@@ -16,7 +16,7 @@ import {DeclarationSemantic} from './declaration-semantic';
 import {declarationsParse} from './declaration-semantic-parser';
 
 export function declarationDeepParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
   const semantic = node.id?.semantic;
@@ -25,19 +25,21 @@ export function declarationDeepParse(
     return nothing;
   }
 
-  const childContext = context.createChildContext();
+  analyzer.pushDeclarationScope();
 
-  genericsParse(childContext, semantic, node);
-  parametersParse(childContext, semantic, node);
-  typeParse(childContext, semantic, node);
-  valueParse(childContext, semantic, node);
-  attributesParse(childContext, semantic, node);
+  genericsParse(analyzer, semantic, node);
+  parametersParse(analyzer, semantic, node);
+  typeParse(analyzer, semantic, node);
+  valueParse(analyzer, semantic, node);
+  attributesParse(analyzer, semantic, node);
+
+  analyzer.popDeclarationScope();
 
   return semantic;
 }
 
 function genericsParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
@@ -46,17 +48,17 @@ function genericsParse(
   }
 
   const syntaxGenerics = getDeclarationGenerics(node);
-  declaration.generics = declarationsParse(context, syntaxGenerics);
+  declaration.generics = declarationsParse(analyzer, syntaxGenerics);
 
   if (node.documentation) {
     for (const generic of declaration.generics.filter((x) => !!x)) {
-      parameterDocumentationHandle(context, node.documentation, generic);
+      parameterDocumentationHandle(analyzer, node.documentation, generic);
     }
   }
 }
 
 function parametersParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
@@ -65,17 +67,17 @@ function parametersParse(
   }
 
   const syntaxParameters = getDeclarationParameters(node);
-  declaration.parameters = declarationsParse(context, syntaxParameters);
+  declaration.parameters = declarationsParse(analyzer, syntaxParameters);
 
   if (node.documentation) {
     for (const parameter of declaration.parameters.filter((x) => !!x)) {
-      parameterDocumentationHandle(context, node.documentation, parameter);
+      parameterDocumentationHandle(analyzer, node.documentation, parameter);
     }
   }
 }
 
 function typeParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
@@ -83,17 +85,17 @@ function typeParse(
     return;
   }
 
-  const type = typeSemanticParse(context, node.type.value);
+  const type = typeSemanticParse(analyzer, node.type.value);
 
   if (type) {
     declaration.type = type;
   } else {
-    context.issueManager.addError(node.type.range, DIAGNOSTIC_MESSAGE.cannotResolveType());
+    analyzer.diagnosticManager.addError(node.type.range, DIAGNOSTIC_MESSAGE.cannotResolveType());
   }
 }
 
 function valueParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
@@ -102,19 +104,19 @@ function valueParse(
   }
 
   // todo depends on declaration kind (e.g. generic or const) ???
-  const value = valueSemanticParse(context, node.assign.value);
+  const value = valueSemanticParse(analyzer, node.assign.value);
 
   if (!declaration.type) {
     if (value?.type) {
       declaration.type = value.type;
     }
   } else if (!value?.type || !value.type.is(declaration.type)) {
-    context.issueManager.addError(node.assign.value.range, DIAGNOSTIC_MESSAGE.wrongType());
+    analyzer.diagnosticManager.addError(node.assign.value.range, DIAGNOSTIC_MESSAGE.wrongType());
   }
 }
 
 function attributesParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
@@ -124,7 +126,7 @@ function attributesParse(
     return;
   }
 
-  const declarations = declarationsParse(context, syntaxAttributes);
+  const declarations = declarationsParse(analyzer, syntaxAttributes);
   const attributes: DeclarationSemantic['attributes'] = {};
 
   for (const declaration of declarations) {
@@ -145,7 +147,7 @@ function attributesParse(
 }
 
 function parameterDocumentationHandle(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   documentation: DocumentationNode,
   parameter: DeclarationSemantic,
 ): void {
@@ -158,6 +160,6 @@ function parameterDocumentationHandle(
   const description = item.description?.text.setPadding(0).trim();
   parameter.documentation = description;
 
-  const reference = context.createReference(item.id);
-  item.id.semantic = documentationIdSemantic(context, reference, parameter);
+  const reference = analyzer.createReference(item.id);
+  item.id.semantic = documentationIdSemantic(analyzer, reference, parameter);
 }

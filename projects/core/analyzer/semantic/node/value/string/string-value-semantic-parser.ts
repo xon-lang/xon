@@ -1,18 +1,18 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {stringTypeSemanticTryParse} from '../../type/string/string-type-semantic-parser';
 import {StringValueSemantic, stringValueSemantic} from './string-value-semantic';
 
 export function stringValueSemanticTryParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node,
 ): StringValueSemantic | Nothing {
-  const type = stringTypeSemanticTryParse(context, node);
+  const type = stringTypeSemanticTryParse(analyzer, node);
 
   if (!type) {
     return nothing;
   }
 
-  return stringValueSemantic(context.createReference(node), type);
+  return stringValueSemantic(analyzer.createReference(node), type);
 }

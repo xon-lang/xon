@@ -1,17 +1,17 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {DeclarationSemantic, declarationSemantic} from './declaration-semantic';
 
 export function declarationShallowParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: DeclarationNode,
 ): DeclarationSemantic | Nothing {
   if (!node.id) {
     return nothing;
   }
 
-  const reference = context.createReference(node.id);
+  const reference = analyzer.createReference(node.id);
   // todo replace with DocumentationSemantic
   const documentation = node.documentation?.description?.text.setPadding(0).trim();
   const modifier = node.modifier?.text;
@@ -19,7 +19,7 @@ export function declarationShallowParse(
   const declaration: DeclarationSemantic = declarationSemantic(reference, documentation, modifier, name);
 
   node.id.semantic = declaration;
-  context.declarationManager.add(declaration);
+  analyzer.declarationManager.add(declaration);
 
   return declaration;
 }

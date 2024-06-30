@@ -24,10 +24,12 @@ import {DEFAULT_SYNTAX_ANALYZER_CONFIG, SyntaxAnalyzerConfig} from './syntax-ana
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;
+  resource: TextResource;
   diagnosticManager: AnalyzerDiagnosticManager;
   formatterManager: FormatterManager;
   config: SyntaxAnalyzerConfig;
-  // todo remove it
+  statements: StatementNode[];
+  hiddenNodes: Array2<Node>;
 
   parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
     statements: StatementNode[];
@@ -44,11 +46,14 @@ export function createSyntaxAnalyzer(
   const diagnosticManager = createDiagnosticManager(lexicalAnalyzer.resource);
   const formatterManager = createFormatterManager(lexicalAnalyzer.resource, analyzerConfig.formatting);
 
-  return {
+  const analyzer: SyntaxAnalyzer = {
     config: analyzerConfig,
+    resource: lexicalAnalyzer.resource,
     lexicalAnalyzer,
     diagnosticManager,
     formatterManager,
+    statements: [],
+    hiddenNodes: [],
 
     parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
       statements: StatementNode[];
@@ -127,6 +132,12 @@ export function createSyntaxAnalyzer(
       };
     },
   };
+
+  const result = analyzer.parseStatements();
+  analyzer.statements = result.statements;
+  analyzer.hiddenNodes = result.hiddenNodes;
+
+  return analyzer;
 }
 
 function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): TextRange | Nothing {
@@ -157,10 +168,6 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
 export function syntaxParse(resource: TextResource) {
   const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
   const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
-  const result = syntaxAnalyzer.parseStatements();
 
-  return {
-    ...result,
-    ...syntaxAnalyzer,
-  };
+  return syntaxAnalyzer;
 }

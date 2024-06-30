@@ -11,6 +11,7 @@ export interface LexicalAnalyzer extends IterableIterator<LexicalNode> {
   parsers: Array2<LexicalNodeParseFn>;
   resource: TextResource;
   startPosition: TextPosition;
+  // todo remove it
   cursor: TextResourcePosition;
 
   next(): IteratorResult<LexicalNode>;

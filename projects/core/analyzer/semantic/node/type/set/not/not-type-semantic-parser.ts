@@ -2,22 +2,19 @@ import {Nothing, nothing} from '../../../../../../../lib/types';
 import {NOT} from '../../../../../lexical/lexical-analyzer-config';
 import {$Node, Node, is} from '../../../../../node';
 import {PrefixNode} from '../../../../../syntax/node/prefix/prefix-node';
-import {SemanticAnalyzerContext} from '../../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {NotTypeSemantic, notTypeSemantic} from './not-type-semantic';
 
-export function notTypeSemanticTryParse(
-  context: SemanticAnalyzerContext,
-  node: Node,
-): NotTypeSemantic | Nothing {
+export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): NotTypeSemantic | Nothing {
   if (is<PrefixNode>(node, $Node.PREFIX) && node.operator.text === NOT) {
-    const value = typeSemanticParse(context, node.value);
+    const value = typeSemanticParse(analyzer, node.value);
 
     if (!value) {
       return nothing;
     }
 
-    const reference = context.createReference(node);
+    const reference = analyzer.createReference(node);
     const semantic = notTypeSemantic(reference, value);
 
     return semantic;

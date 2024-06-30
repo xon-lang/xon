@@ -2,7 +2,7 @@ import {nothing} from '../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {syntaxParse} from '../../../../syntax/syntax-analyzer';
-import {semanticParse} from '../../../semantic-analyzer';
+import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../semantic-analyzer-config';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic} from '../../semantic-node';
@@ -15,7 +15,7 @@ test('a is string value', () => {
   `;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
-  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);
@@ -38,7 +38,7 @@ test('a is string literal', () => {
     const a: "abc`;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
-  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].value as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
 
@@ -51,7 +51,7 @@ test('a is empty string 1', () => {
     const a: "`;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
-  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].value as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
 
@@ -64,7 +64,7 @@ test('a is empty string 2', () => {
     const a: ""`;
   const source = textResourceFrom(nothing, text);
   const syntax = syntaxParse(source);
-  const semantic = semanticParse(syntax, TEST_SEMANTIC_CONFIG);
+  const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].value as DeclarationNode;
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
 

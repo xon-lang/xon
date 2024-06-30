@@ -13,7 +13,7 @@ import {
 import {LexicalNode} from '../../../../../core/analyzer/lexical/node/lexical-node';
 import {$Node, is} from '../../../../../core/analyzer/node';
 import {Array2} from '../../../../../lib/types';
-import {findNodeByPositionInSyntax, getDocumentSyntax} from '../../../util';
+import {findNodeByPositionInSyntax, getDocumentSemantic} from '../../../util';
 
 export class IdCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
@@ -24,7 +24,7 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     _token: CancellationToken,
     _context: CompletionContext,
   ): ProviderResult<Array2<CompletionItem> | CompletionList<CompletionItem>> {
-    const syntax = getDocumentSyntax(document, this.channel);
+    const syntax = getDocumentSemantic(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
 
     if (is<LexicalNode>(node, $Node.TOKEN)) {

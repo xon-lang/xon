@@ -22,7 +22,6 @@ export interface DeclarationManager {
   all(): Array2<DeclarationSemantic>;
 
   single(
-    // reference: SourceReference,
     kind: DeclarationKind | Nothing,
     name: String2,
     generics: Array2<TypeSemantic | Nothing> | Nothing,
@@ -31,10 +30,8 @@ export interface DeclarationManager {
 }
 
 export function createDeclarationManager(
-  // issueManager: IssueManager,
-  parent?: DeclarationManager,
+  parent?: DeclarationManager | Nothing,
   imports?: Array2<DeclarationManager> | Nothing,
-  // config?: SemanticConfig | Nothing,
 ): DeclarationManager {
   return {
     imports,

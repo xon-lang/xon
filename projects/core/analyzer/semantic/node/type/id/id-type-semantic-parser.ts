@@ -5,59 +5,59 @@ import {IdNode} from '../../../../lexical/node/id/id-node';
 import {$Node, Node, is} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
 import {DeclarationKind} from '../../../declaration-manager';
-import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {$Semantic, semanticIs} from '../../semantic-node';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
 export function declarationTypeSemanticTryParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node,
 ): IdTypeSemantic | Nothing {
   if (is<IdNode>(node, $Node.ID)) {
-    return idParse(context, node);
+    return idParse(analyzer, node);
   }
 
   if (is<InvokeNode>(node, $Node.INVOKE) && is<IdNode>(node.instance, $Node.ID)) {
-    return invokeParse(context, node);
+    return invokeParse(analyzer, node);
   }
 
   return nothing;
 }
 
-function idParse(context: SemanticAnalyzerContext, node: IdNode): IdTypeSemantic | Nothing {
-  const declaration = context.declarationManager.single(DeclarationKind.TYPE, node.text, nothing, nothing);
+function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Nothing {
+  const declaration = analyzer.declarationManager.single(DeclarationKind.TYPE, node.text, nothing, nothing);
 
   if (!declaration) {
-    context.issueManager.addError(node.range, DIAGNOSTIC_MESSAGE.cannotResolveType());
+    analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.cannotResolveType());
 
     return nothing;
   }
 
   if (semanticIs<DeclarationSemantic>(declaration, $Semantic.DECLARATION)) {
-    const reference = context.createReference(node);
-    const semantic = idTypeSemantic(context, reference, declaration, nothing);
+    const reference = analyzer.createReference(node);
+    const semantic = idTypeSemantic(analyzer, reference, declaration, nothing);
 
     return semantic;
   }
 
-  context.issueManager.addError(node.range, DIAGNOSTIC_MESSAGE.cannotBeUsedAsAType());
+  analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.cannotBeUsedAsAType());
 
   return nothing;
 }
 
-function invokeParse(context: SemanticAnalyzerContext, node: InvokeNode): IdTypeSemantic | Nothing {
+function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemantic | Nothing {
   if (node.group.open.text !== OBJECT_OPEN) {
-    context.issueManager.addError(node.group.open.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addError(node.group.open.range, DIAGNOSTIC_MESSAGE.notImplemented());
 
     return nothing;
   }
 
-  const generics = node.group.items.map((x) => typeSemanticParse(context, x.value));
+  const generics = node.group.items.map((x) => typeSemanticParse(analyzer, x.value));
 
   if (is<IdNode>(node.instance, $Node.ID)) {
-    const declaration = context.declarationManager.single(
+    const declaration = analyzer.declarationManager.single(
       DeclarationKind.TYPE,
       node.instance.text,
       generics,
@@ -69,8 +69,8 @@ function invokeParse(context: SemanticAnalyzerContext, node: InvokeNode): IdType
     }
 
     if (isTypeDeclarationSemantic(declaration)) {
-      const reference = context.createReference(node);
-      const semantic = idTypeSemantic(context, reference, declaration, generics);
+      const reference = analyzer.createReference(node);
+      const semantic = idTypeSemantic(analyzer, reference, declaration, generics);
       // todo control when semantic attribute must be set
       node.instance.semantic = semantic;
 
@@ -79,7 +79,7 @@ function invokeParse(context: SemanticAnalyzerContext, node: InvokeNode): IdType
   }
 
   if (generics.length > 0) {
-    context.issueManager.addError(node.instance.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addError(node.instance.range, DIAGNOSTIC_MESSAGE.notImplemented());
   }
 
   return nothing;

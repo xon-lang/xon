@@ -4,7 +4,7 @@ import {$Node, Node, is} from '../../core/analyzer/node';
 import {$Semantic, semanticIs} from '../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic';
-import {semanticParse} from '../../core/analyzer/semantic/semantic-analyzer';
+import {SemanticAnalyzer, createSemanticAnalyzer} from '../../core/analyzer/semantic/semantic-analyzer';
 import {SyntaxNode} from '../../core/analyzer/syntax/node/syntax-node';
 import {StatementNode} from '../../core/analyzer/syntax/statement/statement-node';
 import {SyntaxAnalyzer, createSyntaxAnalyzer} from '../../core/analyzer/syntax/syntax-analyzer';
@@ -26,7 +26,7 @@ export function convertPosition(position: TextPosition): Position {
 
 const cachedSyntax: Record<String2, SyntaxAnalyzer> = {};
 
-export function getDocumentSyntax(document: TextDocument, channel: OutputChannel): SyntaxAnalyzer {
+export function getDocumentSemantic(document: TextDocument, channel: OutputChannel): SemanticAnalyzer {
   const text = document.getText();
   // const hash = createHash('sha256').update(text, 'utf8').digest('hex');
   // const foundSyntax = cachedSyntax[hash];
@@ -42,10 +42,10 @@ export function getDocumentSyntax(document: TextDocument, channel: OutputChannel
   const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
   // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
   // const semanticConfig = createSemanticConfig({corePath});
-  semanticParse(syntaxAnalyzer);
+  const semanticAnalyzer = createSemanticAnalyzer(syntaxAnalyzer);
   // cachedSyntax[hash] = syntax;
 
-  return syntaxAnalyzer;
+  return semanticAnalyzer;
 }
 
 export function findNodeByPositionInSyntax(syntax: SyntaxAnalyzer, position: Position): Node | Nothing {

@@ -1,18 +1,18 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {integerTypeSemanticTryParse} from '../../type/integer/integer-type-semantic-parser';
 import {IntegerValueSemantic, integerValueSemantic} from './integer-value-semantic';
 
 export function integerValueSemanticTryParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node,
 ): IntegerValueSemantic | Nothing {
-  const type = integerTypeSemanticTryParse(context, node);
+  const type = integerTypeSemanticTryParse(analyzer, node);
 
   if (!type) {
     return nothing;
   }
 
-  return integerValueSemantic(context.createReference(node), type);
+  return integerValueSemantic(analyzer.createReference(node), type);
 }

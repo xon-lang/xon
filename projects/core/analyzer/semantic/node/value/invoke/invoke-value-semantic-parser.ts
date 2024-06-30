@@ -1,20 +1,20 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {$Node, Node, is} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
-import {SemanticAnalyzerContext} from '../../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {valueSemanticParse} from '../value-semantic-parser';
 import {InvokeValueSemantic, invokeValueSemantic} from './invoke-value-semantic';
 
 export function invokeValueSemanticTryParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node,
 ): InvokeValueSemantic | Nothing {
   if (!is<InvokeNode>(node, $Node.INVOKE)) {
     return nothing;
   }
 
-  const instanceSemantic = valueSemanticParse(context, node.instance);
+  const instanceSemantic = valueSemanticParse(analyzer, node.instance);
   node.instance.semantic = instanceSemantic;
 
-  return invokeValueSemantic(context.createReference(node), instanceSemantic?.type);
+  return invokeValueSemantic(analyzer.createReference(node), instanceSemantic?.type);
 }

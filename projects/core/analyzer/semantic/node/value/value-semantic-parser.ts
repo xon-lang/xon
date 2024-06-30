@@ -1,7 +1,6 @@
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {$Node, ExpressionNode, Node, is} from '../../../node';
-import {StatementNode} from '../../../syntax/statement/statement-node';
-import {SemanticAnalyzerContext} from '../../semantic-analyzer-context';
+import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
 import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
 import {invokeValueSemanticTryParse} from './invoke/invoke-value-semantic-parser';
@@ -9,7 +8,7 @@ import {memberValueSemanticTryParse} from './member/member-value-semantic-parser
 import {stringValueSemanticTryParse} from './string/string-value-semantic-parser';
 import {ValueSemantic} from './value-semantic';
 
-type ValueSemanticTryParseFn = (context: SemanticAnalyzerContext, node: Node) => ValueSemantic | Nothing;
+type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => ValueSemantic | Nothing;
 
 export const parsers: Array2<ValueSemanticTryParseFn> = [
   integerValueSemanticTryParse,
@@ -19,23 +18,23 @@ export const parsers: Array2<ValueSemanticTryParseFn> = [
   invokeValueSemanticTryParse,
 ];
 
-export function syntaxValuesParse(context: SemanticAnalyzerContext, statements: Array2<StatementNode>) {
-  for (const statement of statements) {
+export function syntaxValuesParse(analyzer: SemanticAnalyzer) {
+  for (const statement of analyzer.statements) {
     for (const node of statement.children) {
-      valueSemanticParse(context, node);
+      valueSemanticParse(analyzer, node);
     }
   }
 }
 
 export function valueSemanticParse(
-  context: SemanticAnalyzerContext,
+  analyzer: SemanticAnalyzer,
   node: Node | Nothing,
 ): ValueSemantic | Nothing {
   if (!is<ExpressionNode>(node, $Node.EXPRESSION)) {
     return nothing;
   }
 
-  const semantic = parsers.findMap((parse) => parse(context, node));
+  const semantic = parsers.findMap((parse) => parse(analyzer, node));
 
   if (!semantic) {
     return nothing;

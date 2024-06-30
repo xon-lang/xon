@@ -25,7 +25,7 @@ import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, findNodeByPositionInSyntax, getDocumentSyntax} from '../../util';
+import {convertRange, findNodeByPositionInSyntax, getDocumentSemantic} from '../../util';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -42,7 +42,7 @@ class LanguageRenameProvider implements RenameProvider {
     newName: String2,
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
-    const syntax = getDocumentSyntax(document, this.channel);
+    const syntax = getDocumentSemantic(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID) || !node.semantic) {
@@ -63,7 +63,7 @@ class LanguageRenameProvider implements RenameProvider {
     position: Position,
     token: CancellationToken,
   ): ProviderResult<Range | {range: Range; placeholder: String2}> {
-    const syntax = getDocumentSyntax(document, this.channel);
+    const syntax = getDocumentSemantic(document, this.channel);
     const node = findNodeByPositionInSyntax(syntax, position);
 
     if (!is<IdNode>(node, $Node.ID)) {
