@@ -63,7 +63,7 @@ export function createSyntaxAnalyzer(
       let hiddenNodes: Array2<Node> = [];
       let lastStatement: StatementNode | Nothing = nothing;
       let statements: Array2<StatementNode> = [];
-      let statementIndent: TextRange = rangeFromPosition(lexicalAnalyzer.cursor.position);
+      let statementIndent: TextRange = rangeFromPosition(lexicalAnalyzer.position);
       let breakNode: Node | Nothing = nothing;
       let nodes: Array2<Node> = [];
 
@@ -85,12 +85,12 @@ export function createSyntaxAnalyzer(
 
         if (is<OpenNode>(node, $Node.OPEN)) {
           node = groupNodeParse(this, node);
-          lexicalAnalyzer.cursor.position = node.range.stop;
+          lexicalAnalyzer.position = node.range.stop;
         }
 
         if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
           node = documentationNodeParse(this, node);
-          lexicalAnalyzer.cursor.position = node.range.stop;
+          lexicalAnalyzer.position = node.range.stop;
         }
 
         if (breakOnNodeFn && breakOnNodeFn(node)) {

@@ -1,22 +1,22 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {NL, SPACE} from '../../lexical-analyzer-config';
 import {NlNode, nlNode} from './nl-node';
 
-export function nlNodeParse(cursor: TextResourcePosition): NlNode | Nothing {
-  if (!cursor.checkTextAtIndex(NL)) {
+export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
+  if (!analyzer.checkTextAtIndex(NL)) {
     return nothing;
   }
 
-  const textWithIndents = cursor.resource.data.takeWhile(
+  const textWithIndents = analyzer.resource.data.takeWhile(
     (x) => x === NL || x === SPACE,
-    cursor.position.index,
+    analyzer.position.index,
   );
 
   const lastNlIndex = textWithIndents.lastIndexOf(NL);
 
   const text = textWithIndents.slice(0, lastNlIndex + 1);
-  const range = cursor.getRangeWithNL(text.length);
+  const range = analyzer.getRangeWithNL(text.length);
 
   return nlNode(range, text);
 }

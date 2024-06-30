@@ -1,15 +1,15 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {DOCUMENTATION_OPEN} from '../../lexical-analyzer-config';
 import {documentationOpenNode, DocumentationOpenNode} from './documentation-open-node';
 
-export function documentationOpenNodeParse(cursor: TextResourcePosition): DocumentationOpenNode | Nothing {
-  if (!cursor.checkTextAtIndex(DOCUMENTATION_OPEN)) {
+export function documentationOpenNodeParse(analyzer: LexicalAnalyzer): DocumentationOpenNode | Nothing {
+  if (!analyzer.checkTextAtIndex(DOCUMENTATION_OPEN)) {
     return nothing;
   }
 
   const text = DOCUMENTATION_OPEN;
-  const range = cursor.getRange(DOCUMENTATION_OPEN.length);
+  const range = analyzer.getRange(DOCUMENTATION_OPEN.length);
 
   return documentationOpenNode(range, text);
 }

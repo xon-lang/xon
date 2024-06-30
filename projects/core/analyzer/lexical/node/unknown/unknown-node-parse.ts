@@ -1,9 +1,9 @@
-import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {UnknownNode, unknownNode} from './unknown-node';
 
-export function unknownNodeParse(cursor: TextResourcePosition): UnknownNode {
-  const text = cursor.resource.data[cursor.position.index];
-  const range = cursor.getRange(1);
+export function unknownNodeParse(analyzer: LexicalAnalyzer): UnknownNode {
+  const text = analyzer.resource.data[analyzer.position.index];
+  const range = analyzer.getRange(1);
 
   return unknownNode(range, text);
 }

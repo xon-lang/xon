@@ -1,18 +1,21 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {STRING_QUOTE} from '../../lexical-analyzer-config';
 import {StringNode, stringNode} from './string-node';
 
-export function stringNodeParse(cursor: TextResourcePosition): StringNode | Nothing {
-  if (!cursor.checkTextAtIndex(STRING_QUOTE)) {
+export function stringNodeParse(analyzer: LexicalAnalyzer): StringNode | Nothing {
+  if (!analyzer.checkTextAtIndex(STRING_QUOTE)) {
     return nothing;
   }
 
-  const stopIndex = cursor.resource.data.indexOf(STRING_QUOTE, cursor.position.index + STRING_QUOTE.length);
-  const endSlice = stopIndex < 0 ? cursor.resource.data.length : stopIndex + STRING_QUOTE.length;
+  const stopIndex = analyzer.resource.data.indexOf(
+    STRING_QUOTE,
+    analyzer.position.index + STRING_QUOTE.length,
+  );
+  const endSlice = stopIndex < 0 ? analyzer.resource.data.length : stopIndex + STRING_QUOTE.length;
 
-  const text = cursor.resource.data.slice(cursor.position.index, endSlice);
-  const range = cursor.getRangeWithNL(text.length);
+  const text = analyzer.resource.data.slice(analyzer.position.index, endSlice);
+  const range = analyzer.getRangeWithNL(text.length);
 
   return stringNode(range, text);
 }

@@ -1,23 +1,23 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {AT} from '../../lexical-analyzer-config';
 import {DocumentationLabelNode, documentationLabelNode} from './documentation-label-node';
 
-export function documentationLabelNodeParse(cursor: TextResourcePosition): DocumentationLabelNode | Nothing {
-  if (!cursor.checkTextAtIndex(AT)) {
+export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): DocumentationLabelNode | Nothing {
+  if (!analyzer.checkTextAtIndex(AT)) {
     return nothing;
   }
 
-  const text = cursor.resource.data.takeWhile(
-    (x, i) => x === AT || cursor.resource.data.isLetterOrDigit(i),
-    cursor.position.index,
+  const text = analyzer.resource.data.takeWhile(
+    (x, i) => x === AT || analyzer.resource.data.isLetterOrDigit(i),
+    analyzer.position.index,
   );
 
   if (text.length <= AT.length) {
     return nothing;
   }
 
-  const range = cursor.getRange(text.length);
+  const range = analyzer.getRange(text.length);
 
   return documentationLabelNode(range, text);
 }

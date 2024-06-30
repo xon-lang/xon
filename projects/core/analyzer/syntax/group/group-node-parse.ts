@@ -46,7 +46,7 @@ function groupNodeParseInner(
   let itemIndex = 0;
   let commaNode: CommaNode | Nothing = nothing;
 
-  while (analyzer.lexicalAnalyzer.cursor.position.index < analyzer.lexicalAnalyzer.resource.data.length) {
+  while (analyzer.lexicalAnalyzer.position.index < analyzer.lexicalAnalyzer.resource.data.length) {
     const {breakNode, statements} = analyzer.parseStatements(
       (node) =>
         is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),

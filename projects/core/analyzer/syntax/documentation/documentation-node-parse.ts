@@ -16,7 +16,7 @@ export function documentationNodeParse(
 ): DocumentationNode {
   const lexer = documentationLexicalAnalyzer(
     analyzer.lexicalAnalyzer.resource,
-    analyzer.lexicalAnalyzer.cursor.position,
+    analyzer.lexicalAnalyzer.position,
   );
 
   let description: DocumentationDescriptionNode | Nothing = nothing;

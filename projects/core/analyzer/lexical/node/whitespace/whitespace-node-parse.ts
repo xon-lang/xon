@@ -1,15 +1,15 @@
 import {Nothing, nothing} from '../../../../../lib/types';
-import {TextResourcePosition} from '../../../../util/resource/text/text-resource-position';
+import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {SPACE} from '../../lexical-analyzer-config';
 import {WhitespaceNode, whitespaceNode} from './whitespace-node';
 
-export function whitespaceNodeParse(cursor: TextResourcePosition): WhitespaceNode | Nothing {
-  if (!cursor.checkTextAtIndex(SPACE)) {
+export function whitespaceNodeParse(analyzer: LexicalAnalyzer): WhitespaceNode | Nothing {
+  if (!analyzer.checkTextAtIndex(SPACE)) {
     return nothing;
   }
 
-  const text = cursor.resource.data.takeWhile((x) => x === SPACE, cursor.position.index);
-  const range = cursor.getRange(text.length);
+  const text = analyzer.resource.data.takeWhile((x) => x === SPACE, analyzer.position.index);
+  const range = analyzer.getRange(text.length);
 
   return whitespaceNode(range, text);
 }
