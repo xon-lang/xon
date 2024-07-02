@@ -17,7 +17,7 @@ import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semanti
 import {ValueSemantic} from '../../../../../core/analyzer/semantic/node/value/value-semantic';
 import {MemberNode} from '../../../../../core/analyzer/syntax/node/member/member-node';
 import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
-import {findNodeByPositionInSyntax, getDocumentSemantic} from '../../../util';
+import {convertVscodePosition, getDocumentSemantic} from '../../../util';
 
 export class DotCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
@@ -28,8 +28,8 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     _token: CancellationToken,
     _context: CompletionContext,
   ): ProviderResult<Array2<CompletionItem> | CompletionList<CompletionItem>> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const node = findNodeByPositionInSyntax(syntax, position);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
     if (is<MemberNode>(node?.parent, $Node.MEMBER) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);

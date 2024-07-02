@@ -1,17 +1,12 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
-import {codeLexicalAnalyzer} from '../../core/analyzer/lexical/code-lexical-analyzer';
-import {$Node, Node, is} from '../../core/analyzer/node';
 import {$Semantic, semanticIs} from '../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic';
-import {SemanticAnalyzer, createSemanticAnalyzer} from '../../core/analyzer/semantic/semantic-analyzer';
-import {SyntaxNode} from '../../core/analyzer/syntax/node/syntax-node';
-import {StatementNode} from '../../core/analyzer/syntax/statement/statement-node';
-import {SyntaxAnalyzer, createSyntaxAnalyzer} from '../../core/analyzer/syntax/syntax-analyzer';
-import {TextPosition, zeroPosition} from '../../core/util/resource/text/text-position';
-import {TextRange} from '../../core/util/resource/text/text-range';
+import {SemanticAnalyzer, semanticFromResource} from '../../core/analyzer/semantic/semantic-analyzer';
+import {textPosition, TextPosition} from '../../core/util/resource/text/text-position';
+import {textRange, TextRange} from '../../core/util/resource/text/text-range';
 import {textResourceFrom} from '../../core/util/resource/text/text-resource';
-import {Array2, Nothing, String2, nothing} from '../../lib/types';
+import {Nothing, nothing, String2} from '../../lib/types';
 
 export function convertRange(range: TextRange): Range {
   const start = convertPosition(range.start);
@@ -24,77 +19,25 @@ export function convertPosition(position: TextPosition): Position {
   return new Position(position.line, position.column);
 }
 
-const cachedSyntax: Record<String2, SyntaxAnalyzer> = {};
+export function convertVscodeRange(document: TextDocument, range: Range): TextRange {
+  const start = convertVscodePosition(document, range.start);
+  const stop = convertVscodePosition(document, range.end);
+
+  return textRange(start, stop);
+}
+
+export function convertVscodePosition(document: TextDocument, position: Position): TextPosition {
+  const index = document.offsetAt(position);
+
+  return textPosition(index, position.line, position.character);
+}
 
 export function getDocumentSemantic(document: TextDocument, channel: OutputChannel): SemanticAnalyzer {
   const text = document.getText();
-  // const hash = createHash('sha256').update(text, 'utf8').digest('hex');
-  // const foundSyntax = cachedSyntax[hash];
-
-  // if (foundSyntax) {
-  //   return foundSyntax;
-  // }
-
-  // todo should be const location = document.uri.toString();
   const location = document.uri.fsPath;
   const resource = textResourceFrom(location, text);
-  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
-  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
-  // const corePath = join(__dirname, '/core/lib/@xon/core/test-core.xon');
-  // const semanticConfig = createSemanticConfig({corePath});
-  const semanticAnalyzer = createSemanticAnalyzer(syntaxAnalyzer);
-  // cachedSyntax[hash] = syntax;
 
-  return semanticAnalyzer;
-}
-
-export function findNodeByPositionInSyntax(syntax: SyntaxAnalyzer, position: Position): Node | Nothing {
-  const statement = findStatementNodeByPosition(syntax.statements, position);
-
-  if (!statement) {
-    return nothing;
-  }
-
-  return findNodeByPosition(statement, position);
-}
-
-export function findNodeByPosition(node: Node, position: Position): Node {
-  if (!is<SyntaxNode>(node, $Node.SYNTAX)) {
-    return node;
-  }
-
-  const child = node.children.find((x) => convertRange(x.range).contains(position));
-
-  if (!child) {
-    return node;
-  }
-
-  return findNodeByPosition(child, position);
-}
-
-// todo move function to core and optimize (use body last statement for range checking)
-export function findStatementNodeByPosition(
-  statements: Array2<StatementNode>,
-  position: Position,
-): StatementNode | Nothing {
-  if (statements.length === 0) return nothing;
-
-  for (const statement of statements) {
-    const start = convertPosition(statement.range.start);
-    const stop = convertPosition(statement.range.stop);
-
-    if (position.isAfterOrEqual(start) && position.isBeforeOrEqual(stop)) {
-      return statement;
-    }
-
-    const foundInBody = findStatementNodeByPosition(statement.body, position);
-
-    if (foundInBody) {
-      return foundInBody;
-    }
-  }
-
-  return nothing;
+  return semanticFromResource(resource);
 }
 
 export function typeSemanticToString(type: TypeSemantic | Nothing): String2 | Nothing {

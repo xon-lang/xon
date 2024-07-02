@@ -25,7 +25,7 @@ import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, findNodeByPositionInSyntax, getDocumentSemantic} from '../../util';
+import {convertRange, convertVscodePosition, getDocumentSemantic} from '../../util';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -42,8 +42,8 @@ class LanguageRenameProvider implements RenameProvider {
     newName: String2,
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const node = findNodeByPositionInSyntax(syntax, position);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
     if (!is<IdNode>(node, $Node.ID) || !node.semantic) {
       return nothing;
@@ -63,8 +63,8 @@ class LanguageRenameProvider implements RenameProvider {
     position: Position,
     token: CancellationToken,
   ): ProviderResult<Range | {range: Range; placeholder: String2}> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const node = findNodeByPositionInSyntax(syntax, position);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
     if (!is<IdNode>(node, $Node.ID)) {
       throw new Error('You cannot rename this element');

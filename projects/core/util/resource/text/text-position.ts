@@ -1,6 +1,8 @@
+import {$} from '../../../$';
 import {Integer} from '../../../../lib/types';
 
 export interface TextPosition {
+  $: $.TextPosition;
   index: Integer;
   line: Integer;
   column: Integer;
@@ -8,6 +10,7 @@ export interface TextPosition {
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
   return {
+    $: $.TextPosition,
     index,
     line,
     column,
@@ -15,17 +18,9 @@ export function textPosition(index: Integer, line: Integer, column: Integer): Te
 }
 
 export function clonePosition(position: TextPosition): TextPosition {
-  return {
-    index: position.index,
-    line: position.line,
-    column: position.column,
-  };
+  return textPosition(position.index, position.line, position.column);
 }
 
 export function zeroPosition(): TextPosition {
-  return {
-    index: 0,
-    line: 0,
-    column: 0,
-  };
+  return textPosition(0, 0, 0);
 }

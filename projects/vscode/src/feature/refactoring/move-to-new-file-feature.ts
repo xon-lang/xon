@@ -22,7 +22,7 @@ import {$Node, is} from '../../../../core/analyzer/node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
 import {FILE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
-import {findNodeByPositionInSyntax, getDocumentSemantic} from '../../util';
+import {convertVscodePosition, getDocumentSemantic} from '../../util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -39,8 +39,8 @@ class MoveToNewFileProvider implements CodeActionProvider {
     context: CodeActionContext,
     token: CancellationToken,
   ): ProviderResult<(CodeAction | Command)[]> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const node = findNodeByPositionInSyntax(syntax, range.start);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, range.start));
 
     if (!is<IdNode>(node, $Node.ID)) {
       return nothing;

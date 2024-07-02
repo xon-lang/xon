@@ -25,7 +25,7 @@ import {ItemNode} from '../../../../core/analyzer/syntax/group/item-node';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {findNodeByPositionInSyntax, getDocumentSemantic, typeSemanticToString} from '../../util';
+import {convertVscodePosition, getDocumentSemantic, typeSemanticToString} from '../../util';
 
 export function configureSignatureFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -42,8 +42,8 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     token: CancellationToken,
     context: SignatureHelpContext,
   ): ProviderResult<SignatureHelp> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const nodeAtPosition = findNodeByPositionInSyntax(syntax, position);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const nodeAtPosition = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
     const invokeParameterIndex = getInvokeNodeAndParameterIndex(nodeAtPosition);
 
     if (!hasSemantic(invokeParameterIndex?.invokeNode)) {

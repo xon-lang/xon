@@ -33,7 +33,7 @@ export function textResourceRange(
     },
 
     getText(): String2 {
-      return this.resource.getRangeText(this.range);
+      return this.resource.getText(this.range);
     },
   };
 }

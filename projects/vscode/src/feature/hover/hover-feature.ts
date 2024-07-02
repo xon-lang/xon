@@ -20,7 +20,7 @@ import {TypeSemantic, isTypeSemantic} from '../../../../core/analyzer/semantic/n
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, findNodeByPositionInSyntax, getDocumentSemantic} from '../../util';
+import {convertRange, convertVscodePosition, getDocumentSemantic} from '../../util';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -32,8 +32,8 @@ class LanguageHoverProvider implements HoverProvider {
   constructor(private channel: OutputChannel) {}
 
   provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const node = findNodeByPositionInSyntax(syntax, position);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
     if (!hasSemantic(node)) {
       return nothing;

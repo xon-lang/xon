@@ -12,7 +12,7 @@ import {
   TextEdit,
 } from 'vscode';
 
-import {FormatterItem} from '../../../../core/formatter/formatter';
+import {FormatterItem} from '../../../../core/formatter/formatter-item';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, getDocumentSemantic} from '../../util';
@@ -73,16 +73,16 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
   }
 
   provideDocumentFormattingEdits(document: TextDocument): ProviderResult<Array2<TextEdit>> {
-    const syntax = getDocumentSemantic(document, this.channel);
-    const edits = syntax.formatterManager.formatters.map(convertFormatter);
+    const semantic = getDocumentSemantic(document, this.channel);
+    const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 
     return edits;
   }
 }
 
 function getDocumentFormatters(document: TextDocument, channel: OutputChannel): Array2<TextEdit> {
-  const syntax = getDocumentSemantic(document, channel);
-  const edits = syntax.formatterManager.formatters.map(convertFormatter);
+  const semantic = getDocumentSemantic(document, channel);
+  const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 
   return edits;
 }

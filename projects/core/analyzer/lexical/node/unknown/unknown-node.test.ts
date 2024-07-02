@@ -33,6 +33,6 @@ test('unknown 2', () => {
 
   expect(statements.length).toBe(1);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(5);
-  expect(resource.getRangeText(syntax.diagnosticManager.diagnostics[0].range)).toBe('º');
+  expect(resource.getText(syntax.diagnosticManager.diagnostics[0].range)).toBe('º');
   expect(node.text).toBe('º');
 });

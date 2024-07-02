@@ -56,7 +56,7 @@ export function formatAnalyzerDiagnostic(
 ): String2 {
   const msg = red(message.actual);
   const lineText = resource.data.split('\n')[range.start.line];
-  const nodeText = resource.getRangeText(range);
+  const nodeText = resource.getText(range);
   const location = cyan(resource.location ?? '<code>');
   const line = cyan(`:${range.start.line + 1}`);
   const column = cyan(`:${range.start.column + 1}`);

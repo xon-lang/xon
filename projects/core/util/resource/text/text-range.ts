@@ -1,24 +1,36 @@
-import {Array2} from '../../../../lib/types';
+import {$, is2} from '../../../$';
+import {Array2, Boolean2} from '../../../../lib/types';
 import {Node} from '../../../analyzer/node';
 import {TextPosition, clonePosition, zeroPosition} from './text-position';
 
 export interface TextRange {
+  $: $.TextRange;
   start: TextPosition;
   stop: TextPosition;
+
+  contains(position: TextPosition): Boolean2;
+  contains(range: TextRange): Boolean2;
+  contains(positionOrRange: TextPosition | TextRange): Boolean2;
 }
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {
+    $: $.TextRange,
     start,
     stop,
+
+    contains(positionOrRange: TextPosition | TextRange): Boolean2 {
+      if (is2<TextPosition>(positionOrRange, $.TextPosition)) {
+        return this.start.index >= positionOrRange.index && this.stop.index <= positionOrRange.index;
+      }
+
+      return this.start.index >= positionOrRange.start.index && this.stop.index <= positionOrRange.stop.index;
+    },
   };
 }
 
 export function cloneRange(range: TextRange): TextRange {
-  return {
-    start: clonePosition(range.start),
-    stop: clonePosition(range.stop),
-  };
+  return textRange(clonePosition(range.start), clonePosition(range.stop));
 }
 
 export function rangeFromNodes(nodes: Array2<Node>): TextRange {
@@ -29,22 +41,13 @@ export function rangeFromNodes(nodes: Array2<Node>): TextRange {
     return zeroRange();
   }
 
-  return {
-    start: clonePosition(startNode.range.start),
-    stop: clonePosition(stopNode.range.stop),
-  };
+  return textRange(clonePosition(startNode.range.start), clonePosition(stopNode.range.stop));
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {
-  return {
-    start: clonePosition(position),
-    stop: clonePosition(position),
-  };
+  return textRange(clonePosition(position), clonePosition(position));
 }
 
 export function zeroRange(): TextRange {
-  return {
-    start: zeroPosition(),
-    stop: zeroPosition(),
-  };
+  return textRange(zeroPosition(), zeroPosition());
 }

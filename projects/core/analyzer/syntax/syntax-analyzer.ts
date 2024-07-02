@@ -5,7 +5,7 @@ import {
 } from '../../diagnostic/analyzer-diagnostic-manager';
 import {DIAGNOSTIC_MESSAGE} from '../../diagnostic/analyzer-diagnostic-message';
 import {FormatterManager, createFormatterManager} from '../../formatter/formatter-manager';
-import {zeroPosition} from '../../util/resource/text/text-position';
+import {TextPosition, zeroPosition} from '../../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from '../lexical/code-lexical-analyzer';
@@ -18,6 +18,7 @@ import {WhitespaceNode} from '../lexical/node/whitespace/whitespace-node';
 import {$Node, Node, is, isHiddenNode} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
+import {SyntaxNode} from './node/syntax-node';
 import {putStatementNode} from './put-statement-node';
 import {StatementNode} from './statement/statement-node';
 import {DEFAULT_SYNTAX_ANALYZER_CONFIG, SyntaxAnalyzerConfig} from './syntax-analyzer-config';
@@ -36,6 +37,15 @@ export type SyntaxAnalyzer = {
     breakNode?: Node | Nothing;
     hiddenNodes: Array2<Node>;
   };
+
+  findStatementNode(
+    statements: Array2<StatementNode>,
+    positionOrRange: TextPosition | TextRange,
+  ): StatementNode | Nothing;
+
+  findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing;
+
+  findNode(positionOrRange: TextPosition | TextRange): Node | Nothing;
 };
 
 export function createSyntaxAnalyzer(
@@ -130,6 +140,51 @@ export function createSyntaxAnalyzer(
         breakNode,
         hiddenNodes,
       };
+    },
+
+    findStatementNode(
+      statements: Array2<StatementNode>,
+      positionOrRange: TextPosition | TextRange,
+    ): StatementNode | Nothing {
+      if (statements.length === 0) return nothing;
+
+      for (const statement of statements) {
+        if (statement.range.contains(positionOrRange)) {
+          return statement;
+        }
+
+        const foundInBody = this.findStatementNode(statement.body, positionOrRange);
+
+        if (foundInBody) {
+          return foundInBody;
+        }
+      }
+
+      return nothing;
+    },
+
+    findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing {
+      const child = children.find((x) => x.range.contains(positionOrRange));
+
+      if (!child) {
+        return nothing;
+      }
+
+      if (!is<SyntaxNode>(child, $Node.SYNTAX)) {
+        return child;
+      }
+
+      return this.findNodeInChildren(child.children, positionOrRange);
+    },
+
+    findNode(positionOrRange: TextPosition | TextRange): Node | Nothing {
+      const statement = this.findStatementNode(this.statements, positionOrRange);
+
+      if (!statement) {
+        return nothing;
+      }
+
+      return this.findNodeInChildren(statement.children, positionOrRange);
     },
   };
 
