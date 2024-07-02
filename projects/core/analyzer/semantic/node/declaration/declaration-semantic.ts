@@ -32,7 +32,7 @@ export function declarationSemantic(
     documentation,
     modifier,
     name,
-    usages: [reference],
+    usages: [],
 
     eq(other: DeclarationSemantic): Boolean2 {
       return this.reference.positionEquals(other.reference);

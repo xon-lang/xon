@@ -13,8 +13,6 @@ export function documentationIdSemantic(
   reference: TextResourceRange,
   declaration: DeclarationSemantic,
 ): DocumentationIdSemantic {
-  declaration.usages.push(reference);
-
   return {
     $: $Semantic.DOCUMENTATION_ID,
     reference,
