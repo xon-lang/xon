@@ -21,10 +21,10 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
       if (is2<TextPosition>(positionOrRange, $.TextPosition)) {
-        return this.start.index >= positionOrRange.index && this.stop.index <= positionOrRange.index;
+        return positionOrRange.index >= this.start.index && positionOrRange.index <= this.stop.index;
       }
 
-      return this.start.index >= positionOrRange.start.index && this.stop.index <= positionOrRange.stop.index;
+      return positionOrRange.start.index >= this.start.index && positionOrRange.stop.index <= this.stop.index;
     },
   };
 }

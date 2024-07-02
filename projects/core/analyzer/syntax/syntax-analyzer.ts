@@ -146,7 +146,9 @@ export function createSyntaxAnalyzer(
       statements: Array2<StatementNode>,
       positionOrRange: TextPosition | TextRange,
     ): StatementNode | Nothing {
-      if (statements.length === 0) return nothing;
+      if (statements.length === 0) {
+        return nothing;
+      }
 
       for (const statement of statements) {
         if (statement.range.contains(positionOrRange)) {
