@@ -87,7 +87,7 @@ export enum $ {
   TextRange = ' TextRange ',
 }
 
-export function is<T extends {$?: $} = Node>(node: {$?: $} | Nothing, type: $): node is T {
+export function is<T extends {$: $} = Node>(node: {$: $} | Nothing, type: $): node is T {
   if (!node?.$) {
     return false;
   }
