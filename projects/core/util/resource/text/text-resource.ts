@@ -1,10 +1,11 @@
 import {readFileSync, statSync} from 'fs';
+import {$} from '../../../$';
 import {Boolean2, Nothing, String2, nothing} from '../../../../lib/types';
-import {$Resource, Resource} from '../resource';
+import {Resource} from '../resource';
 import {TextRange} from './text-range';
 
 export interface TextResource extends Resource {
-  $: $Resource.TEXT;
+  $: $.TextResource;
   data: String2;
 
   eq(other: Resource): Boolean2;
@@ -13,7 +14,7 @@ export interface TextResource extends Resource {
 
 export function textResourceFrom(location: String2 | Nothing, data: String2): TextResource {
   return {
-    $: $Resource.TEXT,
+    $: $.TextResource,
     location,
     data,
 

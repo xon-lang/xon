@@ -58,8 +58,10 @@ import {PrefixNode} from './analyzer/syntax/node/prefix/prefix-node';
 import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
 import {StatementNode} from './analyzer/syntax/statement/statement-node';
+import {Resource} from './util/resource/resource';
 import {TextPosition} from './util/resource/text/text-position';
 import {TextRange} from './util/resource/text/text-range';
+import {TextResource} from './util/resource/text/text-resource';
 
 export enum $ {
   // node
@@ -140,6 +142,9 @@ export enum $ {
 
   TextPosition = ' TextPosition ',
   TextRange = ' TextRange ',
+
+  Resource = ' Resource ',
+  TextResource = ' TextResource ' + $.Resource,
 }
 
 type TypeMap = {
@@ -213,6 +218,9 @@ type TypeMap = {
 
   [$.TextPosition]: TextPosition;
   [$.TextRange]: TextRange;
+
+  [$.Resource]: Resource;
+  [$.TextResource]: TextResource;
 };
 
 export type $Model<T extends $ = $> = {
