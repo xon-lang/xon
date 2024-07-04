@@ -1,4 +1,4 @@
-import {$Node, is, isSetOperatorTypeSemantic} from '../../../../../$';
+import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -7,7 +7,7 @@ import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface IdTypeSemantic extends TypeSemantic {
-  $: $Node.IdType;
+  $: $.IdType;
   declaration: DeclarationSemantic;
   generics: Array2<TypeSemantic | Nothing> | Nothing;
 }
@@ -19,7 +19,7 @@ export function idTypeSemantic(
   generics: Array2<TypeSemantic | Nothing> | Nothing,
 ): IdTypeSemantic {
   const semantic: IdTypeSemantic = {
-    $: $Node.IdType,
+    $: $.IdType,
     reference,
     declaration,
     generics,
@@ -41,7 +41,7 @@ export function idTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (isTypeDeclarationSemantic(this.declaration) && is<IdTypeSemantic>(other, $Node.IdType)) {
+      if (isTypeDeclarationSemantic(this.declaration) && is<IdTypeSemantic>(other, $.IdType)) {
         return this.declaration.eq(other.declaration);
       }
 

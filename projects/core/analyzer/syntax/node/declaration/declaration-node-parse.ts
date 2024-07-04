@@ -1,4 +1,4 @@
-import {$Node, is, isNonOperatorExpression} from '../../../../$';
+import {$, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
@@ -22,7 +22,7 @@ export function declarationNodeParse(): SyntaxParseFn {
     _startIndex: Integer,
     parentStatement: StatementNode | Nothing,
   ) => {
-    if (is<DeclarationNode>(nodes[0], $Node.DeclarationNode)) {
+    if (is<DeclarationNode>(nodes[0], $.DeclarationNode)) {
       return nothing;
     }
 
@@ -75,7 +75,7 @@ function getDeclarationParts(
   const typeOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is<OperatorNode>(node, $Node.OperatorNode) &&
+      is<OperatorNode>(node, $.OperatorNode) &&
       node.text === TYPE &&
       isNonOperatorExpression(nodes[index + 1])
     ) {
@@ -93,7 +93,7 @@ function getDeclarationParts(
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (
-      is<OperatorNode>(assignOperator, $Node.OperatorNode) &&
+      is<OperatorNode>(assignOperator, $.OperatorNode) &&
       assignOperator.text === ASSIGN &&
       isNonOperatorExpression(assignValue)
     ) {
@@ -112,7 +112,7 @@ function getDeclarationParts(
   const assignOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is<OperatorNode>(node, $Node.OperatorNode) &&
+      is<OperatorNode>(node, $.OperatorNode) &&
       node.text === ASSIGN &&
       isNonOperatorExpression(nodes[index + 1])
     ) {
@@ -147,10 +147,10 @@ function getHeader(
     }
   | Nothing {
   const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) =>
-    is<DocumentationNode>(x, $Node.DocumentationNode),
+    is<DocumentationNode>(x, $.DocumentationNode),
   );
 
-  if (is<PrefixNode>(node, $Node.PrefixNode) && MODIFIER_KEYWORDS.includes(node.operator.text)) {
+  if (is<PrefixNode>(node, $.PrefixNode) && MODIFIER_KEYWORDS.includes(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {
@@ -180,16 +180,16 @@ function getUnderModifier(
     return nothing;
   }
 
-  if (is<IdNode>(node, $Node.IdNode)) {
+  if (is<IdNode>(node, $.IdNode)) {
     return {idHiddenNodes: node.hiddenNodes, id: node};
   }
 
-  if (is<InvokeNode>(node, $Node.InvokeNode)) {
+  if (is<InvokeNode>(node, $.InvokeNode)) {
     if (
-      is<InvokeNode>(node.instance, $Node.InvokeNode) &&
-      is<GroupNode>(node.group, $Node.GroupNode) &&
-      is<IdNode>(node.instance.instance, $Node.IdNode) &&
-      is<ObjectNode>(node.instance.group, $Node.ObjectNode)
+      is<InvokeNode>(node.instance, $.InvokeNode) &&
+      is<GroupNode>(node.group, $.GroupNode) &&
+      is<IdNode>(node.instance.instance, $.IdNode) &&
+      is<ObjectNode>(node.instance.group, $.ObjectNode)
     ) {
       parseDeclarations(analyzer, node.instance.group);
       parseDeclarations(analyzer, node.group);
@@ -202,14 +202,14 @@ function getUnderModifier(
       };
     }
 
-    if (is<IdNode>(node.instance, $Node.IdNode)) {
+    if (is<IdNode>(node.instance, $.IdNode)) {
       parseDeclarations(analyzer, node.group);
 
-      if (is<ObjectNode>(node.group, $Node.ObjectNode)) {
+      if (is<ObjectNode>(node.group, $.ObjectNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
-      if (is<GroupNode>(node.group, $Node.GroupNode)) {
+      if (is<GroupNode>(node.group, $.GroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
@@ -220,7 +220,7 @@ function getUnderModifier(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: Group): void {
   for (const item of group.items) {
-    if (is<IdNode>(item.value, $Node.IdNode)) {
+    if (is<IdNode>(item.value, $.IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }
@@ -228,7 +228,7 @@ function parseDeclarations(analyzer: SyntaxAnalyzer, group: Group): void {
 
 export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
   if (
-    is<DeclarationNode>(declarationNode, $Node.DeclarationNode) &&
+    is<DeclarationNode>(declarationNode, $.DeclarationNode) &&
     declarationNode.modifier?.text &&
     TYPE_MODIFIERS.includes(declarationNode.modifier.text)
   ) {

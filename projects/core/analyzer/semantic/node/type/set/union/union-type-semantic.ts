@@ -1,10 +1,10 @@
-import {$Node} from '../../../../../../$';
+import {$} from '../../../../../../$';
 import {Array2, Boolean2, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface UnionTypeSemantic extends TypeSemantic {
-  $: $Node.UnionTypeSemantic;
+  $: $.UnionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
 }
@@ -15,7 +15,7 @@ export function unionTypeSemantic(
   right: TypeSemantic,
 ): UnionTypeSemantic {
   const semantic: UnionTypeSemantic = {
-    $: $Node.UnionTypeSemantic,
+    $: $.UnionTypeSemantic,
     reference,
     left,
     right,

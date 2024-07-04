@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Nothing} from '../../../../lib/types';
 import {textPosition} from '../../../util/resource/text/text-position';
 import {textRange} from '../../../util/resource/text/text-range';
@@ -9,7 +9,7 @@ import {idNode, IdNode} from '../../lexical/node/id/id-node';
 import {operatorNode, OperatorNode} from '../../lexical/node/operator/operator-node';
 import {SyntaxNode, syntaxNode} from '../node/syntax-node';
 
-export type DocumentationItemNode = SyntaxNode<$Node.DocumentationItemNode> & {
+export type DocumentationItemNode = SyntaxNode<$.DocumentationItemNode> & {
   operator: OperatorNode;
   id: IdNode;
   description?: DocumentationDescriptionNode | Nothing;
@@ -22,7 +22,7 @@ export function documentationItemNode(
   const id = idFromLabel(label);
   const operator = operatorFromLabel(label);
 
-  return syntaxNode($Node.DocumentationItemNode, {operator, id, description});
+  return syntaxNode($.DocumentationItemNode, {operator, id, description});
 }
 
 function operatorFromLabel(label: DocumentationLabelNode): OperatorNode {

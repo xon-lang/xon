@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../$';
+import {$, is} from '../../../$';
 import {Array2, Integer, Nothing, nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {
@@ -114,7 +114,7 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
       return;
     }
 
-    if (!is<DeclarationNode>(node, $Node.DeclarationNode)) {
+    if (!is<DeclarationNode>(node, $.DeclarationNode)) {
       analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldBeDeclarationStatement());
 
       return;

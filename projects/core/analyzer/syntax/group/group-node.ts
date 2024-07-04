@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Array2, Nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import '../../../util/extension';
@@ -10,12 +10,12 @@ import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {ItemNode} from './item-node';
 
-export type $Group = $Node.GroupNode | $Node.ArrayNode | $Node.ObjectNode;
+export type $Group = $.GroupNode | $.ArrayNode | $.ObjectNode;
 export type Group = GroupNode | ArrayNode | ObjectNode;
 export type ArrayNode = GroupNode;
 export type ObjectNode = GroupNode;
 
-export type GroupNode = SyntaxNode<$Node.GroupNode | $Node.ArrayNode | $Node.ObjectNode> &
+export type GroupNode = SyntaxNode<$.GroupNode | $.ArrayNode | $.ObjectNode> &
   ExpressionNode & {
     open: OpenNode;
     items: Array2<ItemNode>;

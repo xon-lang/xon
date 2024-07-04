@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -14,6 +14,6 @@ test('whitespace', () => {
 
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
-  expect(node.$).toBe($Node.WhitespaceNode);
+  expect(node.$).toBe($.WhitespaceNode);
   expect((node as LexicalNode).text).toBe('    ');
 });

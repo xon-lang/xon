@@ -1,4 +1,4 @@
-import {$Node, is, isSetOperatorTypeSemantic} from '../../../../../$';
+import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -6,7 +6,7 @@ import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {
-  $: $Node.ArrayTypeSemantic;
+  $: $.ArrayTypeSemantic;
   declaration: DeclarationSemantic;
   items: (TypeSemantic | Nothing)[];
 }
@@ -17,7 +17,7 @@ export function integerTypeSemantic(
   items: ArrayTypeSemantic['items'],
 ): ArrayTypeSemantic {
   const semantic: ArrayTypeSemantic = {
-    $: $Node.ArrayTypeSemantic,
+    $: $.ArrayTypeSemantic,
     reference,
     declaration,
     items,
@@ -39,7 +39,7 @@ export function integerTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is<ArrayTypeSemantic>(other, $Node.IntegerTypeSemantic)) {
+      if (is<ArrayTypeSemantic>(other, $.IntegerTypeSemantic)) {
         return this.items === other.items;
       }
 

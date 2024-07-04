@@ -1,9 +1,9 @@
-import {$Node} from '../$';
+import {$} from '../$';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {SemanticNode} from './semantic/node/semantic-node';
 
-export type Node<T extends $Node = $Node> = {
+export type Node<T extends $ = $> = {
   $: T;
   range: TextRange;
   parent?: Node | Nothing;

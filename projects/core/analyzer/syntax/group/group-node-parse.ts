@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../$';
+import {$, is} from '../../../$';
 import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {
   ARRAY_CLOSE,
@@ -17,19 +17,19 @@ import {ItemNode, itemNode} from './item-node';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Group {
   if (openNode.text === ARRAY_OPEN) {
-    return groupNodeParseInner(analyzer, $Node.ArrayNode, openNode, ARRAY_CLOSE);
+    return groupNodeParseInner(analyzer, $.ArrayNode, openNode, ARRAY_CLOSE);
   }
 
   if (openNode.text === OBJECT_OPEN) {
-    return groupNodeParseInner(analyzer, $Node.ObjectNode, openNode, OBJECT_CLOSE);
+    return groupNodeParseInner(analyzer, $.ObjectNode, openNode, OBJECT_CLOSE);
   }
 
-  return groupNodeParseInner(analyzer, $Node.GroupNode, openNode, GROUP_CLOSE);
+  return groupNodeParseInner(analyzer, $.GroupNode, openNode, GROUP_CLOSE);
 }
 
 function groupNodeParseInner(
   analyzer: SyntaxAnalyzer,
-  $: $Group,
+  groupType: $Group,
   openNode: OpenNode,
   closeText: String2,
 ): Group {
@@ -49,27 +49,26 @@ function groupNodeParseInner(
   while (analyzer.lexicalAnalyzer.position.index < analyzer.lexicalAnalyzer.resource.data.length) {
     const {breakNode, statements} = analyzer.parseStatements(
       (node) =>
-        is<CommaNode>(node, $Node.CommaNode) ||
-        (is<CloseNode>(node, $Node.CloseNode) && node.text === closeText),
+        is<CommaNode>(node, $.CommaNode) || (is<CloseNode>(node, $.CloseNode) && node.text === closeText),
     );
 
-    if (is<CommaNode>(breakNode, $Node.CommaNode)) {
+    if (is<CommaNode>(breakNode, $.CommaNode)) {
       const item = itemNode(analyzer, itemIndex, commaNode, statements);
       items.push(item);
       commaNode = breakNode;
     }
 
-    if (is<CloseNode>(breakNode, $Node.CloseNode)) {
+    if (is<CloseNode>(breakNode, $.CloseNode)) {
       if (items.length > 0 || statements.length > 0) {
         const item = itemNode(analyzer, itemIndex, commaNode, statements);
         items.push(item);
       }
 
-      return groupNode(analyzer, $, openNode, items, breakNode);
+      return groupNode(analyzer, groupType, openNode, items, breakNode);
     }
 
     itemIndex += 1;
   }
 
-  return groupNode(analyzer, $, openNode, items, nothing);
+  return groupNode(analyzer, groupType, openNode, items, nothing);
 }

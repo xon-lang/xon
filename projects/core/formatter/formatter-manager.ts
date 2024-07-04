@@ -1,4 +1,4 @@
-import {$Node, is} from '../$';
+import {$, is} from '../$';
 import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
 import {NL} from '../analyzer/lexical/lexical-analyzer-config';
 import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
@@ -67,7 +67,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      if (node.hiddenNodes.length === 1 && is<WhitespaceNode>(node.hiddenNodes[0], $Node.WhitespaceNode)) {
+      if (node.hiddenNodes.length === 1 && is<WhitespaceNode>(node.hiddenNodes[0], $.WhitespaceNode)) {
         const whitespace = node.hiddenNodes[0];
 
         if (!keepSingleSpace) {
@@ -108,7 +108,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NlNode));
+      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is<NlNode>(x, $.NlNode));
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
@@ -133,7 +133,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       const indentText = ' '.repeat(this.config.indentSpaceLength * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
       const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
-        (x) => !is<WhitespaceNode>(x, $Node.WhitespaceNode),
+        (x) => !is<WhitespaceNode>(x, $.WhitespaceNode),
       );
       const text =
         // todo fix  'as LexicalNode'
@@ -197,8 +197,8 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
     formatHiddenNodes(hiddenNodes: Array2<Node>, isNoFirstChildNode: Boolean2): String2 {
       const splittedByNl = hiddenNodes
-        .filter((x) => !is<WhitespaceNode>(x, $Node.WhitespaceNode))
-        .splitBy<NlNode>((x) => is<NlNode>(x, $Node.NlNode));
+        .filter((x) => !is<WhitespaceNode>(x, $.WhitespaceNode))
+        .splitBy<NlNode>((x) => is<NlNode>(x, $.NlNode));
 
       const text = splittedByNl
         // todo fix  'as LexicalNode'

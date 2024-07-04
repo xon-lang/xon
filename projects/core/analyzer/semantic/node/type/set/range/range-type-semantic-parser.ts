@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../../$';
+import {$, is} from '../../../../../../$';
 import {Nothing, nothing} from '../../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../../diagnostic/analyzer-diagnostic-message';
 import {RANGE} from '../../../../../lexical/lexical-analyzer-config';
@@ -15,7 +15,7 @@ export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): RangeTypeSemantic | Nothing {
-  if (!is<InfixNode>(node, $Node.InfixNode) || node.operator.text !== RANGE) {
+  if (!is<InfixNode>(node, $.InfixNode) || node.operator.text !== RANGE) {
     return nothing;
   }
 
@@ -47,11 +47,11 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  if (!is<IntegerTypeSemantic>(from, $Node.IntegerTypeSemantic)) {
+  if (!is<IntegerTypeSemantic>(from, $.IntegerTypeSemantic)) {
     analyzer.diagnosticManager.addError(node.left.range, DIAGNOSTIC_MESSAGE.notImplemented());
   }
 
-  if (!is<IntegerTypeSemantic>(to, $Node.IntegerTypeSemantic)) {
+  if (!is<IntegerTypeSemantic>(to, $.IntegerTypeSemantic)) {
     analyzer.diagnosticManager.addError(node.right.range, DIAGNOSTIC_MESSAGE.notImplemented());
   }
 

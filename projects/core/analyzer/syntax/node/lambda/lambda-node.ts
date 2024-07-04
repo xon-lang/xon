@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
 import {ExpressionNode} from '../../../node';
 import {Group} from '../../group/group-node';
@@ -7,7 +7,7 @@ import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
-export type LambdaNode = SyntaxNode<$Node.LambdaNode> &
+export type LambdaNode = SyntaxNode<$.LambdaNode> &
   ExpressionNode & {
     generics: Group | Nothing;
     parameters: Group;
@@ -22,7 +22,7 @@ export function lambdaNode(
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): LambdaNode {
-  const node = syntaxNode($Node.LambdaNode, {
+  const node = syntaxNode($.LambdaNode, {
     generics,
     parameters,
     type,

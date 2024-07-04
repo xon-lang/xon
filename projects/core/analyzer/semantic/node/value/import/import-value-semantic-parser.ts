@@ -1,5 +1,5 @@
 import {dirname, join, resolve} from 'path';
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, String2, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {zeroPosition} from '../../../../../util/resource/text/text-position';
@@ -16,7 +16,7 @@ const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');
 
 export function syntaxImportsParse(analyzer: SemanticAnalyzer) {
   for (const statement of analyzer.statements) {
-    if (is<ImportNode>(statement.value, $Node.Node)) {
+    if (is<ImportNode>(statement.value, $.Node)) {
       importValueSemanticTryParse(analyzer, statement.value);
     }
   }
@@ -26,7 +26,7 @@ export function importValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ImportValueSemantic | Nothing {
-  if (!is<ImportNode>(node, $Node.Node)) {
+  if (!is<ImportNode>(node, $.Node)) {
     return nothing;
   }
 

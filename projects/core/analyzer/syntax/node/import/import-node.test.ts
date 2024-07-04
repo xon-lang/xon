@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {StringNode} from '../../../lexical/node/string/string-node';
@@ -13,9 +13,9 @@ test('import string', () => {
   const node = statements[0].value as ImportNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ImportNode);
+  expect(node.$).toBe($.ImportNode);
   expect(node.operator.text).toBe('import');
-  expect(node.value?.$).toBe($Node.StringNode);
+  expect(node.value?.$).toBe($.StringNode);
   expect((node.value as StringNode).value).toBe('xon/core');
 });
 
@@ -27,7 +27,7 @@ test('import integer', () => {
   const node = statements[0].value as ImportNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ImportNode);
+  expect(node.$).toBe($.ImportNode);
   expect(node.operator.text).toBe('import');
   expect(node.value).toBeFalsy();
 });

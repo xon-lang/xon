@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {StringNode} from '../../../../lexical/node/string/string-node';
@@ -12,7 +12,7 @@ export function stringTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): StringTypeSemantic | Nothing {
-  if (!is<StringNode>(node, $Node.StringNode)) {
+  if (!is<StringNode>(node, $.StringNode)) {
     return nothing;
   }
 

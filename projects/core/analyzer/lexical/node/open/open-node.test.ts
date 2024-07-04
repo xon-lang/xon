@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {GroupNode} from '../../../syntax/group/group-node';
@@ -12,8 +12,8 @@ test('open paren', () => {
   const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.GroupNode);
-  expect(node.open.$).toBe($Node.OpenNode);
+  expect(node.$).toBe($.GroupNode);
+  expect(node.open.$).toBe($.OpenNode);
   expect(node.open.text).toBe('(');
   expect(node.close).toBe(nothing);
 });
@@ -26,8 +26,8 @@ test('open bracket', () => {
   const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ArrayNode);
-  expect(node.open.$).toBe($Node.OpenNode);
+  expect(node.$).toBe($.ArrayNode);
+  expect(node.open.$).toBe($.OpenNode);
   expect(node.open.text).toBe('[');
   expect(node.close).toBe(nothing);
 });
@@ -40,8 +40,8 @@ test('open brace', () => {
   const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ObjectNode);
-  expect((node as GroupNode).open.$).toBe($Node.OpenNode);
+  expect(node.$).toBe($.ObjectNode);
+  expect((node as GroupNode).open.$).toBe($.OpenNode);
   expect((node as GroupNode).open.text).toBe('{');
   expect((node as GroupNode).close).toBe(nothing);
 });

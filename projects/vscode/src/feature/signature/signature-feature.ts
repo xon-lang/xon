@@ -13,7 +13,7 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {$Node, hasSemantic, is, isGroupNode} from '../../../../core/$';
+import {$, hasSemantic, is, isGroupNode} from '../../../../core/$';
 import {CommaNode} from '../../../../core/analyzer/lexical/node/comma/comma-node';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {OpenNode} from '../../../../core/analyzer/lexical/node/open/open-node';
@@ -50,7 +50,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
       return nothing;
     }
 
-    if (is<IdNode>(invokeParameterIndex.invokeNode.instance, $Node.IdNode)) {
+    if (is<IdNode>(invokeParameterIndex.invokeNode.instance, $.IdNode)) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
       if (declaration) {
@@ -69,11 +69,8 @@ function getInvokeNodeAndParameterIndex(
     return nothing;
   }
 
-  if (is<OpenNode>(nodeAtPosition, $Node.OpenNode)) {
-    if (
-      isGroupNode(nodeAtPosition.parent) &&
-      is<InvokeNode>(nodeAtPosition.parent.parent, $Node.InvokeNode)
-    ) {
+  if (is<OpenNode>(nodeAtPosition, $.OpenNode)) {
+    if (isGroupNode(nodeAtPosition.parent) && is<InvokeNode>(nodeAtPosition.parent.parent, $.InvokeNode)) {
       return {
         invokeNode: nodeAtPosition.parent.parent,
         parameterIndex: 0,
@@ -81,12 +78,12 @@ function getInvokeNodeAndParameterIndex(
     }
   }
 
-  if (is<CommaNode>(nodeAtPosition, $Node.CommaNode)) {
+  if (is<CommaNode>(nodeAtPosition, $.CommaNode)) {
     // todo fix complexity of 'parent.parent.parent...'
     if (
-      is<ItemNode>(nodeAtPosition.parent, $Node.ItemNode) &&
+      is<ItemNode>(nodeAtPosition.parent, $.ItemNode) &&
       isGroupNode(nodeAtPosition.parent.parent) &&
-      is<InvokeNode>(nodeAtPosition.parent.parent.parent, $Node.InvokeNode)
+      is<InvokeNode>(nodeAtPosition.parent.parent.parent, $.InvokeNode)
     ) {
       return {
         invokeNode: nodeAtPosition.parent.parent.parent,
@@ -99,14 +96,11 @@ function getInvokeNodeAndParameterIndex(
 }
 
 function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
-  if (
-    is<IdTypeSemantic>(node.semantic, $Node.IdType) ||
-    is<IdValueSemantic>(node.semantic, $Node.IdValueSemantic)
-  ) {
+  if (is<IdTypeSemantic>(node.semantic, $.IdType) || is<IdValueSemantic>(node.semantic, $.IdValueSemantic)) {
     return node.semantic.declaration;
   }
 
-  if (is<DeclarationSemantic>(node.semantic, $Node.DeclarationSemantic)) {
+  if (is<DeclarationSemantic>(node.semantic, $.DeclarationSemantic)) {
     return node.semantic;
   }
 

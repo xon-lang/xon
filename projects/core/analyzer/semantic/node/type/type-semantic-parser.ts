@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../$';
+import {$, is} from '../../../../$';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {ExpressionNode, Node} from '../../../node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
@@ -30,7 +30,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
 ];
 
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node | Nothing): TypeSemantic | Nothing {
-  if (!is<ExpressionNode>(node, $Node.ExpressionNode)) {
+  if (!is<ExpressionNode>(node, $.ExpressionNode)) {
     return nothing;
   }
 

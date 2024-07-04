@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Integer, Nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
@@ -7,7 +7,7 @@ import {SyntaxNode} from '../node/syntax-node';
 import {StatementNode} from '../statement/statement-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 
-export type ItemNode = SyntaxNode<$Node.ItemNode> & {
+export type ItemNode = SyntaxNode<$.ItemNode> & {
   index: Integer;
   value: Node | Nothing;
   comma: CommaNode | Nothing;
@@ -23,7 +23,7 @@ export function itemNode(
   const children = comma ? [comma, ...statements] : [...statements];
 
   const node: ItemNode = {
-    $: $Node.ItemNode,
+    $: $.ItemNode,
     range: rangeFromNodes(children),
     children,
     index,

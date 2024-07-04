@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Array2, Nothing, String2} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
@@ -9,7 +9,7 @@ import {SyntaxNode, syntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {DocumentationItemNode} from './documentation-item-node';
 
-export type DocumentationNode = SyntaxNode<$Node.DocumentationNode> &
+export type DocumentationNode = SyntaxNode<$.DocumentationNode> &
   HiddenNode & {
     // todo should we use Open and Close nodes here ???
     open: DocumentationOpenNode;
@@ -25,7 +25,7 @@ export function documentationNode(
   items: Array2<DocumentationItemNode>,
   close?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
-  const node = syntaxNode($Node.DocumentationNode, {open, description, items, close});
+  const node = syntaxNode($.DocumentationNode, {open, description, items, close});
 
   validate(analyzer, node);
 

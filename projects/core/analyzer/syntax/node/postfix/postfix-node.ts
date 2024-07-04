@@ -1,10 +1,10 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type PostfixNode = SyntaxNode<$Node.PostfixNode> &
+export type PostfixNode = SyntaxNode<$.PostfixNode> &
   ExpressionNode & {
     value: ExpressionNode;
     operator: OperatorNode;
@@ -15,7 +15,7 @@ export function postfixNode(
   value: ExpressionNode,
   operator: OperatorNode,
 ): PostfixNode {
-  const node = syntaxNode($Node.PostfixNode, {value, operator});
+  const node = syntaxNode($.PostfixNode, {value, operator});
 
   format(analyzer, node);
 

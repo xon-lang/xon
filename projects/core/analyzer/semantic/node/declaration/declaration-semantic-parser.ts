@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../$';
+import {$, is} from '../../../../$';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
@@ -8,7 +8,7 @@ import {declarationShallowParse} from './declaration-semantic-shallow-parser';
 
 export function syntaxDeclarationsParse(analyzer: SemanticAnalyzer): void {
   const declarationNodes = analyzer.statements.filterMap((x) =>
-    is<DeclarationNode>(x.value, $Node.DeclarationNode) ? x.value : nothing,
+    is<DeclarationNode>(x.value, $.DeclarationNode) ? x.value : nothing,
   );
 
   declarationsParse(analyzer, declarationNodes);

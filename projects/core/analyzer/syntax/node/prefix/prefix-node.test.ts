@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
@@ -15,7 +15,7 @@ test('negative integer', () => {
   const node = statements[0].value as PrefixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.PrefixNode);
+  expect(node.$).toBe($.PrefixNode);
   expect(node.operator.text).toBe('-');
   expect(evaluate(node)).toBe(-1);
 });
@@ -28,7 +28,7 @@ test('infix modifier', () => {
   const node = statements[0].value as OperatorNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.OperatorNode);
+  expect(node.$).toBe($.OperatorNode);
   expect(node.text).toBe('infix');
 });
 
@@ -40,11 +40,11 @@ test('hidden nodes', () => {
   const node = statements[0].value as PrefixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.PrefixNode);
+  expect(node.$).toBe($.PrefixNode);
   expect(node.operator.text).toBe('-');
 
   expect(node.value.hiddenNodes?.length).toBe(1);
-  expect(node.value.hiddenNodes?.at(0)?.$).toBe($Node.WhitespaceNode);
+  expect(node.value.hiddenNodes?.at(0)?.$).toBe($.WhitespaceNode);
   expect((node.value.hiddenNodes?.at(0) as LexicalNode)?.text).toBe('    ');
 
   expect(evaluate(node)).toBe(-1);

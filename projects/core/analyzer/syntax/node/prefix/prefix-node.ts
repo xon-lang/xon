@@ -1,11 +1,11 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type PrefixNode = SyntaxNode<$Node.PrefixNode> &
+export type PrefixNode = SyntaxNode<$.PrefixNode> &
   ExpressionNode & {
     operator: OperatorNode;
     value: ExpressionNode;
@@ -16,7 +16,7 @@ export function prefixNode(
   operator: OperatorNode,
   value: ExpressionNode,
 ): PrefixNode {
-  const node = syntaxNode($Node.PrefixNode, {operator, value});
+  const node = syntaxNode($.PrefixNode, {operator, value});
 
   format(analyzer, node);
 

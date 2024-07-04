@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {ExpressionNode} from '../../../node';
@@ -11,13 +11,13 @@ export enum KeywordType {
   CONTROL = 'CONTROL',
 }
 
-export type OperatorNode = LexicalNode<$Node.OperatorNode> & ExpressionNode;
+export type OperatorNode = LexicalNode<$.OperatorNode> & ExpressionNode;
 // & {
 //   keywordType: KeywordType | Nothing;
 // };
 
 export function operatorNode(range: TextRange, text: String2): OperatorNode {
-  return lexicalNode({$: $Node.OperatorNode, range, text}); //, keywordType: getKeywordType(text)
+  return lexicalNode({$: $.OperatorNode, range, text}); //, keywordType: getKeywordType(text)
 }
 
 function getKeywordType(text: String2): KeywordType | Nothing {

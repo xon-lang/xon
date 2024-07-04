@@ -1,4 +1,4 @@
-import {$Node, is, isHiddenNode} from '../../$';
+import {$, is, isHiddenNode} from '../../$';
 import {Array2, Boolean2, Nothing, nothing} from '../../../lib/types';
 import {
   AnalyzerDiagnosticManager,
@@ -90,16 +90,16 @@ export function createSyntaxAnalyzer(
       for (const iterableNode of lexicalAnalyzer) {
         let node: Node = iterableNode;
 
-        if (is<UnknownNode>(node, $Node.UnknownNode)) {
+        if (is<UnknownNode>(node, $.UnknownNode)) {
           this.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
         }
 
-        if (is<OpenNode>(node, $Node.OpenNode)) {
+        if (is<OpenNode>(node, $.OpenNode)) {
           node = groupNodeParse(this, node);
           lexicalAnalyzer.position = node.range.stop;
         }
 
-        if (is<DocumentationOpenNode>(node, $Node.DocumentationOpenNode)) {
+        if (is<DocumentationOpenNode>(node, $.DocumentationOpenNode)) {
           node = documentationNodeParse(this, node);
           lexicalAnalyzer.position = node.range.stop;
         }
@@ -111,12 +111,12 @@ export function createSyntaxAnalyzer(
         }
 
         if (nodes.length === 0) {
-          if (is<WhitespaceNode>(node, $Node.WhitespaceNode)) {
+          if (is<WhitespaceNode>(node, $.WhitespaceNode)) {
           }
         }
 
         if (isHiddenNode(node)) {
-          if (is<NlNode>(node, $Node.NlNode)) {
+          if (is<NlNode>(node, $.NlNode)) {
             handleStatement();
           }
 
@@ -173,7 +173,7 @@ export function createSyntaxAnalyzer(
         return nothing;
       }
 
-      if (!is<SyntaxNode>(child, $Node.SyntaxNode)) {
+      if (!is<SyntaxNode>(child, $.SyntaxNode)) {
         return child;
       }
 
@@ -203,19 +203,19 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
     return nothing;
   }
 
-  const lastNlIndex = hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NlNode));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is<NlNode>(x, $.NlNode));
 
   if (lastNlIndex >= 0) {
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
-    if (is<WhitespaceNode>(whiteSpaceNode, $Node.WhitespaceNode)) {
+    if (is<WhitespaceNode>(whiteSpaceNode, $.WhitespaceNode)) {
       return cloneRange(whiteSpaceNode.range);
     }
 
     return rangeFromPosition(hiddenNodes[lastNlIndex].range.stop);
   }
 
-  if (is<WhitespaceNode>(hiddenNodes[0], $Node.WhitespaceNode)) {
+  if (is<WhitespaceNode>(hiddenNodes[0], $.WhitespaceNode)) {
     return cloneRange(hiddenNodes[0].range);
   }
 

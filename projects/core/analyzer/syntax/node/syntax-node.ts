@@ -1,13 +1,13 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {Node} from '../../node';
 
-export type SyntaxNode<T extends $Node = $Node> = Node<T> & {
+export type SyntaxNode<T extends $ = $> = Node<T> & {
   children: Array2<Node>;
 };
 
-export function syntaxNode<T extends $Node, U extends Record<String2, Node | Array2<Node> | Nothing>>(
+export function syntaxNode<T extends $, U extends Record<String2, Node | Array2<Node> | Nothing>>(
   $: T,
   nodes: U,
 ): {$: T} & {children: Array2<Node>; range: TextRange; semantic: Nothing} & U {

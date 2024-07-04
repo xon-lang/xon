@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../$';
+import {$, is} from '../../../../$';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
@@ -11,7 +11,7 @@ import {LambdaNode} from '../lambda/lambda-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
-export type DeclarationNode = SyntaxNode<$Node.DeclarationNode> & {
+export type DeclarationNode = SyntaxNode<$.DeclarationNode> & {
   documentation: DocumentationNode | Nothing;
   modifier: OperatorNode | Nothing;
   id: IdNode;
@@ -32,7 +32,7 @@ export function declarationNode(
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): DeclarationNode {
-  const node = syntaxNode($Node.DeclarationNode, {
+  const node = syntaxNode($.DeclarationNode, {
     documentation,
     modifier,
     id,
@@ -89,7 +89,7 @@ export function getDeclarationGenerics(
   }
 
   return node.generics.items.map<DeclarationNode | Nothing>((x) => {
-    if (is<DeclarationNode>(x.value, $Node.DeclarationNode)) {
+    if (is<DeclarationNode>(x.value, $.DeclarationNode)) {
       return x.value;
     }
 
@@ -106,7 +106,7 @@ export function getDeclarationParameters(
   }
 
   return node.parameters.items.map<DeclarationNode | Nothing>((x) => {
-    if (is<DeclarationNode>(x.value, $Node.DeclarationNode)) {
+    if (is<DeclarationNode>(x.value, $.DeclarationNode)) {
       return x.value;
     }
 

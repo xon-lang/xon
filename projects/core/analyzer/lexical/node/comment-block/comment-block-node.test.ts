@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -13,6 +13,6 @@ test('block comment', () => {
 
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
-  expect(node.$).toBe($Node.CommentBlockNode);
+  expect(node.$).toBe($.CommentBlockNode);
   expect(node.text).toBe('--- abc\n\n\n def---');
 });

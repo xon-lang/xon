@@ -10,7 +10,7 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {$Node, hasSemantic, is} from '../../../../core/$';
+import {$, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
@@ -56,7 +56,7 @@ function getSemanticHoverText(semantic: SemanticNode): MarkdownString | Nothing 
     return getTypeMarkdown(semantic);
   }
 
-  if (is<ValueSemantic>(semantic, $Node.ValueSemantic) && semantic.type) {
+  if (is<ValueSemantic>(semantic, $.ValueSemantic) && semantic.type) {
     return getTypeMarkdown(semantic.type);
   }
 
@@ -74,17 +74,17 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (is<IdTypeSemantic>(type, $Node.IdType)) {
+  if (is<IdTypeSemantic>(type, $.IdType)) {
     return declarationToText(type.declaration);
   }
 
-  if (is<StringTypeSemantic>(type, $Node.StringTypeSemantic)) {
+  if (is<StringTypeSemantic>(type, $.StringTypeSemantic)) {
     const declaration = declarationToText(type.declaration);
 
     return `${declaration}("${type.value}")`;
   }
 
-  if (is<IntegerTypeSemantic>(type, $Node.IntegerTypeSemantic)) {
+  if (is<IntegerTypeSemantic>(type, $.IntegerTypeSemantic)) {
     const declaration = declarationToText(type.declaration);
 
     return `${declaration}(${type.value})`;

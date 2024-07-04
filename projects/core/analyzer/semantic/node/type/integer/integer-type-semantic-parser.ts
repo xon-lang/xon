@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {IntegerNode} from '../../../../lexical/node/integer/integer-node';
@@ -12,7 +12,7 @@ export function integerTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IntegerTypeSemantic | Nothing {
-  if (!is<IntegerNode>(node, $Node.IntegerNode)) {
+  if (!is<IntegerNode>(node, $.IntegerNode)) {
     return nothing;
   }
 

@@ -1,4 +1,4 @@
-import {$Node, isSetOperatorTypeSemantic} from '../../../../../$';
+import {$, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -6,7 +6,7 @@ import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface FunctionTypeSemantic extends TypeSemantic {
-  $: $Node.FunctionTypeSemantic;
+  $: $.FunctionTypeSemantic;
   generics: Array2<TypeSemantic | Nothing> | Nothing;
   parameters: Array2<DeclarationSemantic | Nothing>;
   result: TypeSemantic | Nothing;
@@ -19,7 +19,7 @@ export function functionTypeSemantic(
   result: TypeSemantic | Nothing,
 ): FunctionTypeSemantic {
   const semantic: FunctionTypeSemantic = {
-    $: $Node.FunctionTypeSemantic,
+    $: $.FunctionTypeSemantic,
     reference,
     generics,
     parameters,

@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -15,7 +15,7 @@ test('unknown 1', () => {
   const node1 = statements[0].children[1] as UnknownNode;
 
   expect(statements.length).toBe(1);
-  expect(node0.$).toBe($Node.IntegerNode);
+  expect(node0.$).toBe($.IntegerNode);
   expect(node0.text).toBe('123');
 
   expect(node1.hiddenNodes?.length).toBe(1);

@@ -1,4 +1,4 @@
-import {$Node, is, isSetOperatorTypeSemantic} from '../../../../../$';
+import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Integer, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -7,7 +7,7 @@ import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface IntegerTypeSemantic extends TypeSemantic {
-  $: $Node.IntegerTypeSemantic;
+  $: $.IntegerTypeSemantic;
   declaration: DeclarationSemantic;
   value: Integer;
 }
@@ -18,7 +18,7 @@ export function integerTypeSemantic(
   value: IntegerTypeSemantic['value'],
 ): IntegerTypeSemantic {
   const semantic: IntegerTypeSemantic = {
-    $: $Node.IntegerTypeSemantic,
+    $: $.IntegerTypeSemantic,
     reference,
     declaration,
     value,
@@ -32,7 +32,7 @@ export function integerTypeSemantic(
         return true;
       }
 
-      if (is<IdTypeSemantic>(other, $Node.IdType)) {
+      if (is<IdTypeSemantic>(other, $.IdType)) {
         return this.declaration.eq(other.declaration) || (this.declaration.type?.is(other) ?? false);
       }
 
@@ -40,7 +40,7 @@ export function integerTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is<IntegerTypeSemantic>(other, $Node.IntegerTypeSemantic)) {
+      if (is<IntegerTypeSemantic>(other, $.IntegerTypeSemantic)) {
         return this.value === other.value;
       }
 

@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
@@ -10,7 +10,7 @@ export function invokeValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): InvokeValueSemantic | Nothing {
-  if (!is<InvokeNode>(node, $Node.InvokeNode)) {
+  if (!is<InvokeNode>(node, $.InvokeNode)) {
     return nothing;
   }
 

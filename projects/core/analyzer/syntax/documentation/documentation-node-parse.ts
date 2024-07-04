@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../$';
+import {$, is} from '../../../$';
 import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {documentationLexicalAnalyzer} from '../../lexical/documentation-lexical-analyzer.1';
@@ -23,7 +23,7 @@ export function documentationNodeParse(
   const items: Array2<DocumentationItemNode> = [];
 
   for (const node of lexer) {
-    if (is<DocumentationDescriptionNode>(node, $Node.DocumentationDescriptionNode)) {
+    if (is<DocumentationDescriptionNode>(node, $.DocumentationDescriptionNode)) {
       if (items.length === 0) {
         description = node;
       } else {
@@ -36,13 +36,13 @@ export function documentationNodeParse(
       continue;
     }
 
-    if (is<DocumentationLabelNode>(node, $Node.DocumentationLabelNode)) {
+    if (is<DocumentationLabelNode>(node, $.DocumentationLabelNode)) {
       items.push(documentationItemNode(node));
 
       continue;
     }
 
-    if (is<DocumentationCloseNode>(node, $Node.DocumentationCloseNode)) {
+    if (is<DocumentationCloseNode>(node, $.DocumentationCloseNode)) {
       return documentationNode(analyzer, openNode, description, items, node);
     }
   }

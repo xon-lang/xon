@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {
@@ -17,7 +17,7 @@ export function functionTypeSemanticTryParse(
   node: Node,
 ): FunctionTypeSemantic | Nothing {
   if (
-    (!is<DeclarationNode>(node, $Node.DeclarationNode) && !is<LambdaNode>(node, $Node.LambdaNode)) ||
+    (!is<DeclarationNode>(node, $.DeclarationNode) && !is<LambdaNode>(node, $.LambdaNode)) ||
     !node.parameters
   ) {
     return nothing;

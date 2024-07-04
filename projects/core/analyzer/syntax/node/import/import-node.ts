@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
@@ -7,7 +7,7 @@ import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type ImportNode = SyntaxNode<$Node.ImportNode> &
+export type ImportNode = SyntaxNode<$.ImportNode> &
   ExpressionNode & {
     operator: OperatorNode;
     value: StringNode | Nothing;
@@ -18,7 +18,7 @@ export function importNode(
   operator: OperatorNode,
   value: StringNode | Nothing,
 ): ImportNode {
-  const node = syntaxNode($Node.ImportNode, {operator, value});
+  const node = syntaxNode($.ImportNode, {operator, value});
 
   validate(analyzer, node);
   format(analyzer, node);

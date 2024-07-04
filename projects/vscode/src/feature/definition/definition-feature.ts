@@ -11,7 +11,7 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
-import {$Node, hasSemantic, is} from '../../../../core/$';
+import {$, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-id-semantic';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
@@ -46,7 +46,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is<ImportValueSemantic>(node.semantic, $Node.ImportValueSemantic)) {
+    if (is<ImportValueSemantic>(node.semantic, $.ImportValueSemantic)) {
       if (node.semantic.resource?.location) {
         return navigateToLocation(node.range, node.semantic.resource.location);
       }
@@ -54,28 +54,28 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is<DeclarationSemantic>(node.semantic, $Node.DeclarationSemantic)) {
+    if (is<DeclarationSemantic>(node.semantic, $.DeclarationSemantic)) {
       return navigateToUsages(node.range, node.semantic);
     }
 
-    if (is<IdTypeSemantic>(node.semantic, $Node.IdType)) {
+    if (is<IdTypeSemantic>(node.semantic, $.IdType)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
-    if (is<DocumentationIdSemantic>(node.semantic, $Node.DocumentationIdSemantic)) {
+    if (is<DocumentationIdSemantic>(node.semantic, $.DocumentationIdSemantic)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
-    if (is<ValueSemantic>(node.semantic, $Node.ValueSemantic)) {
-      if (is<IdTypeSemantic>(node.semantic.type, $Node.IdType)) {
+    if (is<ValueSemantic>(node.semantic, $.ValueSemantic)) {
+      if (is<IdTypeSemantic>(node.semantic.type, $.IdType)) {
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 
-      if (is<IntegerTypeSemantic>(node.semantic.type, $Node.IntegerTypeSemantic)) {
+      if (is<IntegerTypeSemantic>(node.semantic.type, $.IntegerTypeSemantic)) {
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 
-      if (is<StringTypeSemantic>(node.semantic.type, $Node.StringTypeSemantic)) {
+      if (is<StringTypeSemantic>(node.semantic.type, $.StringTypeSemantic)) {
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 

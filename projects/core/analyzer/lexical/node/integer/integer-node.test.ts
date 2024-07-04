@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -12,7 +12,7 @@ test('integer', () => {
   const node = statements[0].value as IntegerNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.IntegerNode);
+  expect(node.$).toBe($.IntegerNode);
   expect(node.text).toBe('123');
 });
 
@@ -24,6 +24,6 @@ test('zero int number', () => {
   const node = statements[0].value as IntegerNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.IntegerNode);
+  expect(node.$).toBe($.IntegerNode);
   expect(node.text).toBe('0');
 });

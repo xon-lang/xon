@@ -6,88 +6,88 @@ import {Group} from './analyzer/syntax/group/group-node';
 import {TextPosition} from './util/resource/text/text-position';
 import {TextRange} from './util/resource/text/text-range';
 
-export enum $Node {
+export enum $ {
   // node
   Node = ' Node ',
-  LexicalNode = ' LexicalNode ' + $Node.Node,
-  HiddenNode = ' HiddenNode ' + $Node.Node,
-  SyntaxNode = ' SyntaxNode ' + $Node.Node,
-  ExpressionNode = ' ExpressionNode ' + $Node.Node,
+  LexicalNode = ' LexicalNode ' + $.Node,
+  HiddenNode = ' HiddenNode ' + $.Node,
+  SyntaxNode = ' SyntaxNode ' + $.Node,
+  ExpressionNode = ' ExpressionNode ' + $.Node,
 
-  DocumentationNode = ' DocumentationNode' + $Node.SyntaxNode + $Node.HiddenNode,
-  DocumentationItemNode = ' DocumentationItemNode ' + $Node.SyntaxNode,
-  DocumentationDescriptionNode = ' DocumentationDescriptionNode ' + $Node.LexicalNode,
-  DocumentationLabelNode = ' DocumentationLabelNode ' + $Node.LexicalNode,
-  DocumentationOpenNode = ' DocumentationOpenNode ' + $Node.LexicalNode,
-  DocumentationCloseNode = ' DocumentationCloseNode ' + $Node.LexicalNode,
+  DocumentationNode = ' DocumentationNode' + $.SyntaxNode + $.HiddenNode,
+  DocumentationItemNode = ' DocumentationItemNode ' + $.SyntaxNode,
+  DocumentationDescriptionNode = ' DocumentationDescriptionNode ' + $.LexicalNode,
+  DocumentationLabelNode = ' DocumentationLabelNode ' + $.LexicalNode,
+  DocumentationOpenNode = ' DocumentationOpenNode ' + $.LexicalNode,
+  DocumentationCloseNode = ' DocumentationCloseNode ' + $.LexicalNode,
 
-  CommentLineNode = ' CommentLineNode ' + $Node.LexicalNode + $Node.HiddenNode,
-  CommentBlockNode = ' CommentBlockNode ' + $Node.LexicalNode + $Node.HiddenNode,
-  WhitespaceNode = ' WhitespaceNode ' + $Node.LexicalNode + $Node.HiddenNode,
-  JoiningNode = ' JoiningNode ' + $Node.LexicalNode + $Node.HiddenNode,
-  NlNode = ' NlNode ' + $Node.LexicalNode + $Node.HiddenNode,
-  IntegerNode = ' IntegerNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  FloatNode = ' FloatNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  CharNode = ' CharNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  StringNode = ' StringNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  IdNode = ' IdNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  OperatorNode = ' OperatorNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  OpenNode = ' OpenNode ' + $Node.LexicalNode,
-  CloseNode = ' CloseNode ' + $Node.LexicalNode,
-  CommaNode = ' CommaNode ' + $Node.LexicalNode,
-  UnknownNode = ' UnknownNode ' + $Node.LexicalNode,
+  CommentLineNode = ' CommentLineNode ' + $.LexicalNode + $.HiddenNode,
+  CommentBlockNode = ' CommentBlockNode ' + $.LexicalNode + $.HiddenNode,
+  WhitespaceNode = ' WhitespaceNode ' + $.LexicalNode + $.HiddenNode,
+  JoiningNode = ' JoiningNode ' + $.LexicalNode + $.HiddenNode,
+  NlNode = ' NlNode ' + $.LexicalNode + $.HiddenNode,
+  IntegerNode = ' IntegerNode ' + $.ExpressionNode + $.LexicalNode,
+  FloatNode = ' FloatNode ' + $.ExpressionNode + $.LexicalNode,
+  CharNode = ' CharNode ' + $.ExpressionNode + $.LexicalNode,
+  StringNode = ' StringNode ' + $.ExpressionNode + $.LexicalNode,
+  IdNode = ' IdNode ' + $.ExpressionNode + $.LexicalNode,
+  OperatorNode = ' OperatorNode ' + $.ExpressionNode + $.LexicalNode,
+  OpenNode = ' OpenNode ' + $.LexicalNode,
+  CloseNode = ' CloseNode ' + $.LexicalNode,
+  CommaNode = ' CommaNode ' + $.LexicalNode,
+  UnknownNode = ' UnknownNode ' + $.LexicalNode,
 
-  ItemNode = ' ItemNode ' + $Node.LexicalNode,
-  ObjectNode = ' ObjectNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  ArrayNode = ' ArrayNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  GroupNode = ' GroupNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  DeclarationNode = ' DeclarationNode ' + $Node.LexicalNode,
-  LambdaNode = ' LambdaNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  GenericsNode = ' GenericsNode ' + $Node.LexicalNode,
-  ParametersNode = ' ParametersNode ' + $Node.LexicalNode,
-  ImportNode = ' ImportNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  AssignmentNode = ' AssignmentNode ' + $Node.LexicalNode,
-  MemberNode = ' MemberNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  InvokeNode = ' InvokeNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  InfixNode = ' InfixNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  PrefixNode = ' PrefixNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  PostfixNode = ' PostfixNode ' + $Node.ExpressionNode + $Node.LexicalNode,
-  AssignNode = ' AssignNode ' + $Node.LexicalNode,
-  TypeNode = ' TypeNode ' + $Node.LexicalNode,
-  StatementNode = ' StatementNode ' + $Node.LexicalNode,
+  ItemNode = ' ItemNode ' + $.LexicalNode,
+  ObjectNode = ' ObjectNode ' + $.ExpressionNode + $.LexicalNode,
+  ArrayNode = ' ArrayNode ' + $.ExpressionNode + $.LexicalNode,
+  GroupNode = ' GroupNode ' + $.ExpressionNode + $.LexicalNode,
+  DeclarationNode = ' DeclarationNode ' + $.LexicalNode,
+  LambdaNode = ' LambdaNode ' + $.ExpressionNode + $.LexicalNode,
+  GenericsNode = ' GenericsNode ' + $.LexicalNode,
+  ParametersNode = ' ParametersNode ' + $.LexicalNode,
+  ImportNode = ' ImportNode ' + $.ExpressionNode + $.LexicalNode,
+  AssignmentNode = ' AssignmentNode ' + $.LexicalNode,
+  MemberNode = ' MemberNode ' + $.ExpressionNode + $.LexicalNode,
+  InvokeNode = ' InvokeNode ' + $.ExpressionNode + $.LexicalNode,
+  InfixNode = ' InfixNode ' + $.ExpressionNode + $.LexicalNode,
+  PrefixNode = ' PrefixNode ' + $.ExpressionNode + $.LexicalNode,
+  PostfixNode = ' PostfixNode ' + $.ExpressionNode + $.LexicalNode,
+  AssignNode = ' AssignNode ' + $.LexicalNode,
+  TypeNode = ' TypeNode ' + $.LexicalNode,
+  StatementNode = ' StatementNode ' + $.LexicalNode,
 
   // semantic
   Semantic = ' Semantic ',
-  DocumentationIdSemantic = ' DocumentationIdSemantic ' + $Node.Semantic,
-  DeclarationSemantic = ' DeclarationSemantic ' + $Node.Semantic,
+  DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
+  DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
 
-  TypeSemantic = ' TypeSemantic ' + $Node.Semantic,
-  IdType = ' IdTypeSemantic ' + $Node.TypeSemantic,
-  IntegerTypeSemantic = ' IntegerTypeSemantic ' + $Node.TypeSemantic,
-  StringTypeSemantic = ' StringTypeSemantic ' + $Node.TypeSemantic,
-  ArrayTypeSemantic = ' ArrayTypeSemantic ' + $Node.TypeSemantic,
-  FunctionTypeSemantic = ' FunctionTypeSemantic ' + $Node.TypeSemantic,
+  TypeSemantic = ' TypeSemantic ' + $.Semantic,
+  IdType = ' IdTypeSemantic ' + $.TypeSemantic,
+  IntegerTypeSemantic = ' IntegerTypeSemantic ' + $.TypeSemantic,
+  StringTypeSemantic = ' StringTypeSemantic ' + $.TypeSemantic,
+  ArrayTypeSemantic = ' ArrayTypeSemantic ' + $.TypeSemantic,
+  FunctionTypeSemantic = ' FunctionTypeSemantic ' + $.TypeSemantic,
 
-  SetTypeSemantic = ' SetTypeSemantic ' + $Node.TypeSemantic,
-  RangeTypeSemantic = ' RangeTypeSemantic ' + $Node.SetTypeSemantic,
-  IntersectionTypeSemantic = ' IntersectionTypeSemantic ' + $Node.SetTypeSemantic,
-  UnionTypeSemantic = ' UnionTypeSemantic ' + $Node.SetTypeSemantic,
-  ComplementTypeSemantic = ' ComplementTypeSemantic ' + $Node.SetTypeSemantic,
-  NotTypeSemantic = ' NotTypeSemantic ' + $Node.SetTypeSemantic,
+  SetTypeSemantic = ' SetTypeSemantic ' + $.TypeSemantic,
+  RangeTypeSemantic = ' RangeTypeSemantic ' + $.SetTypeSemantic,
+  IntersectionTypeSemantic = ' IntersectionTypeSemantic ' + $.SetTypeSemantic,
+  UnionTypeSemantic = ' UnionTypeSemantic ' + $.SetTypeSemantic,
+  ComplementTypeSemantic = ' ComplementTypeSemantic ' + $.SetTypeSemantic,
+  NotTypeSemantic = ' NotTypeSemantic ' + $.SetTypeSemantic,
 
-  ValueSemantic = ' ValueSemantic ' + $Node.Semantic,
-  IdValueSemantic = ' IdValueSemantic ' + $Node.ValueSemantic,
-  InvokeValueSemantic = ' InvokeValueSemantic ' + $Node.ValueSemantic,
-  IntegerValueSemantic = ' IntegerValueSemantic ' + $Node.ValueSemantic,
-  StringValueSemantic = ' StringValueSemantic ' + $Node.ValueSemantic,
-  MemberValueSemantic = ' MemberValueSemantic ' + $Node.ValueSemantic,
-  ImportValueSemantic = ' ImportValueSemantic ' + $Node.ValueSemantic,
+  ValueSemantic = ' ValueSemantic ' + $.Semantic,
+  IdValueSemantic = ' IdValueSemantic ' + $.ValueSemantic,
+  InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
+  IntegerValueSemantic = ' IntegerValueSemantic ' + $.ValueSemantic,
+  StringValueSemantic = ' StringValueSemantic ' + $.ValueSemantic,
+  MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
+  ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
 
   TextPosition = ' TextPosition ',
   TextRange = ' TextRange ',
 }
 
-export function is<T extends {$?: $Node} = Node>(node: {$?: $Node} | Nothing, type: $Node): node is T {
+export function is<T extends {$?: $} = Node>(node: {$?: $} | Nothing, type: $): node is T {
   if (!node?.$) {
     return false;
   }
@@ -96,83 +96,83 @@ export function is<T extends {$?: $Node} = Node>(node: {$?: $Node} | Nothing, ty
 }
 
 type TypeMap = {
-  [$Node.Node]: TextPosition;
-  [$Node.LexicalNode]: TextPosition;
-  [$Node.HiddenNode]: TextPosition;
-  [$Node.SyntaxNode]: TextPosition;
-  [$Node.ExpressionNode]: TextPosition;
-  [$Node.DocumentationNode]: TextPosition;
-  [$Node.DocumentationItemNode]: TextPosition;
-  [$Node.DocumentationDescriptionNode]: TextPosition;
-  [$Node.DocumentationLabelNode]: TextPosition;
-  [$Node.DocumentationOpenNode]: TextPosition;
-  [$Node.DocumentationCloseNode]: TextPosition;
-  [$Node.CommentLineNode]: TextPosition;
-  [$Node.CommentBlockNode]: TextPosition;
-  [$Node.WhitespaceNode]: TextPosition;
-  [$Node.JoiningNode]: TextPosition;
-  [$Node.NlNode]: TextPosition;
-  [$Node.IntegerNode]: TextPosition;
-  [$Node.FloatNode]: TextPosition;
-  [$Node.CharNode]: TextPosition;
-  [$Node.StringNode]: TextPosition;
-  [$Node.IdNode]: TextPosition;
-  [$Node.OperatorNode]: TextPosition;
-  [$Node.OpenNode]: TextPosition;
-  [$Node.CloseNode]: TextPosition;
-  [$Node.CommaNode]: TextPosition;
-  [$Node.UnknownNode]: TextPosition;
-  [$Node.ItemNode]: TextPosition;
-  [$Node.ObjectNode]: TextPosition;
-  [$Node.ArrayNode]: TextPosition;
-  [$Node.GroupNode]: TextPosition;
-  [$Node.DeclarationNode]: TextPosition;
-  [$Node.LambdaNode]: TextPosition;
-  [$Node.GenericsNode]: TextPosition;
-  [$Node.ParametersNode]: TextPosition;
-  [$Node.ImportNode]: TextPosition;
-  [$Node.AssignmentNode]: TextPosition;
-  [$Node.MemberNode]: TextPosition;
-  [$Node.InvokeNode]: TextPosition;
-  [$Node.InfixNode]: TextPosition;
-  [$Node.PrefixNode]: TextPosition;
-  [$Node.PostfixNode]: TextPosition;
-  [$Node.AssignNode]: TextPosition;
-  [$Node.TypeNode]: TextPosition;
-  [$Node.StatementNode]: TextPosition;
+  [$.Node]: TextPosition;
+  [$.LexicalNode]: TextPosition;
+  [$.HiddenNode]: TextPosition;
+  [$.SyntaxNode]: TextPosition;
+  [$.ExpressionNode]: TextPosition;
+  [$.DocumentationNode]: TextPosition;
+  [$.DocumentationItemNode]: TextPosition;
+  [$.DocumentationDescriptionNode]: TextPosition;
+  [$.DocumentationLabelNode]: TextPosition;
+  [$.DocumentationOpenNode]: TextPosition;
+  [$.DocumentationCloseNode]: TextPosition;
+  [$.CommentLineNode]: TextPosition;
+  [$.CommentBlockNode]: TextPosition;
+  [$.WhitespaceNode]: TextPosition;
+  [$.JoiningNode]: TextPosition;
+  [$.NlNode]: TextPosition;
+  [$.IntegerNode]: TextPosition;
+  [$.FloatNode]: TextPosition;
+  [$.CharNode]: TextPosition;
+  [$.StringNode]: TextPosition;
+  [$.IdNode]: TextPosition;
+  [$.OperatorNode]: TextPosition;
+  [$.OpenNode]: TextPosition;
+  [$.CloseNode]: TextPosition;
+  [$.CommaNode]: TextPosition;
+  [$.UnknownNode]: TextPosition;
+  [$.ItemNode]: TextPosition;
+  [$.ObjectNode]: TextPosition;
+  [$.ArrayNode]: TextPosition;
+  [$.GroupNode]: TextPosition;
+  [$.DeclarationNode]: TextPosition;
+  [$.LambdaNode]: TextPosition;
+  [$.GenericsNode]: TextPosition;
+  [$.ParametersNode]: TextPosition;
+  [$.ImportNode]: TextPosition;
+  [$.AssignmentNode]: TextPosition;
+  [$.MemberNode]: TextPosition;
+  [$.InvokeNode]: TextPosition;
+  [$.InfixNode]: TextPosition;
+  [$.PrefixNode]: TextPosition;
+  [$.PostfixNode]: TextPosition;
+  [$.AssignNode]: TextPosition;
+  [$.TypeNode]: TextPosition;
+  [$.StatementNode]: TextPosition;
 
-  [$Node.Semantic]: TextPosition;
-  [$Node.DocumentationIdSemantic]: TextPosition;
-  [$Node.DeclarationSemantic]: TextPosition;
-  [$Node.TypeSemantic]: TextPosition;
-  [$Node.IdType]: TextPosition;
-  [$Node.IntegerTypeSemantic]: TextPosition;
-  [$Node.StringTypeSemantic]: TextPosition;
-  [$Node.ArrayTypeSemantic]: TextPosition;
-  [$Node.FunctionTypeSemantic]: TextPosition;
-  [$Node.SetTypeSemantic]: TextPosition;
-  [$Node.RangeTypeSemantic]: TextPosition;
-  [$Node.IntersectionTypeSemantic]: TextPosition;
-  [$Node.UnionTypeSemantic]: TextPosition;
-  [$Node.ComplementTypeSemantic]: TextPosition;
-  [$Node.NotTypeSemantic]: TextPosition;
-  [$Node.ValueSemantic]: TextPosition;
-  [$Node.IdValueSemantic]: TextPosition;
-  [$Node.InvokeValueSemantic]: TextPosition;
-  [$Node.IntegerValueSemantic]: TextPosition;
-  [$Node.StringValueSemantic]: TextPosition;
-  [$Node.MemberValueSemantic]: TextPosition;
-  [$Node.ImportValueSemantic]: TextPosition;
+  [$.Semantic]: TextPosition;
+  [$.DocumentationIdSemantic]: TextPosition;
+  [$.DeclarationSemantic]: TextPosition;
+  [$.TypeSemantic]: TextPosition;
+  [$.IdType]: TextPosition;
+  [$.IntegerTypeSemantic]: TextPosition;
+  [$.StringTypeSemantic]: TextPosition;
+  [$.ArrayTypeSemantic]: TextPosition;
+  [$.FunctionTypeSemantic]: TextPosition;
+  [$.SetTypeSemantic]: TextPosition;
+  [$.RangeTypeSemantic]: TextPosition;
+  [$.IntersectionTypeSemantic]: TextPosition;
+  [$.UnionTypeSemantic]: TextPosition;
+  [$.ComplementTypeSemantic]: TextPosition;
+  [$.NotTypeSemantic]: TextPosition;
+  [$.ValueSemantic]: TextPosition;
+  [$.IdValueSemantic]: TextPosition;
+  [$.InvokeValueSemantic]: TextPosition;
+  [$.IntegerValueSemantic]: TextPosition;
+  [$.StringValueSemantic]: TextPosition;
+  [$.MemberValueSemantic]: TextPosition;
+  [$.ImportValueSemantic]: TextPosition;
 
-  [$Node.TextPosition]: TextPosition;
-  [$Node.TextRange]: TextRange;
+  [$.TextPosition]: TextPosition;
+  [$.TextRange]: TextRange;
 };
 
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
-export function is2<T extends $Node>(value: {$: $Node}, $: T): value is TypeMap[T] {
+export function is2<T extends $>(value: {$: $}, $: T): value is TypeMap[T] {
   if (!value?.$) {
     return false;
   }
@@ -181,14 +181,14 @@ export function is2<T extends $Node>(value: {$: $Node}, $: T): value is TypeMap[
 }
 
 export function isSetOperatorTypeSemantic(semantic: SemanticNode): Boolean2 {
-  return semantic.$.includes($Node.SetTypeSemantic);
+  return semantic.$.includes($.SetTypeSemantic);
 }
 
 export function isHiddenNode(node: Node | Nothing): Boolean2 {
-  return is(node, $Node.HiddenNode);
+  return is(node, $.HiddenNode);
 }
 
-export const groups = [$Node.GroupNode, $Node.ArrayNode, $Node.ObjectNode];
+export const groups = [$.GroupNode, $.ArrayNode, $.ObjectNode];
 
 export function isGroupNode(node: Node | Nothing): node is Group {
   if (!node) {
@@ -199,7 +199,7 @@ export function isGroupNode(node: Node | Nothing): node is Group {
 }
 
 export function isNonOperatorExpression(node: Node): node is ExpressionNode {
-  return is<ExpressionNode>(node, $Node.ExpressionNode) && !is<OperatorNode>(node, $Node.OperatorNode);
+  return is<ExpressionNode>(node, $.ExpressionNode) && !is<OperatorNode>(node, $.OperatorNode);
 }
 
 export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: SemanticNode} {

@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Array2, Boolean2, Integer, Nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
@@ -7,7 +7,7 @@ import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {statementNodeCollapse} from './statement-node-collapse';
 
-export type StatementNode = SyntaxNode<$Node.StatementNode> & {
+export type StatementNode = SyntaxNode<$.StatementNode> & {
   parent: StatementNode | Nothing;
   indentLevel: Integer;
   indent: TextRange;
@@ -24,7 +24,7 @@ export function statementNode(
   isFirstStatement: Boolean2,
 ): StatementNode {
   const statement: StatementNode = {
-    $: $Node.StatementNode,
+    $: $.StatementNode,
     range: rangeFromNodes(children),
     hiddenNodes: children[0].hiddenNodes,
     children,

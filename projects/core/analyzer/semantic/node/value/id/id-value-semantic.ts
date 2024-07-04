@@ -1,9 +1,9 @@
-import {$Node} from '../../../../../$';
+import {$} from '../../../../../$';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {ValueSemantic} from '../value-semantic';
 
-export type IdValueSemantic = ValueSemantic<$Node.IdValueSemantic> & {
+export type IdValueSemantic = ValueSemantic<$.IdValueSemantic> & {
   declaration: DeclarationSemantic;
 };
 
@@ -14,7 +14,7 @@ export function idValueSemantic(
   declaration.usages.push(reference);
 
   return {
-    $: $Node.IdValueSemantic,
+    $: $.IdValueSemantic,
     reference,
     type: declaration.type,
     declaration,

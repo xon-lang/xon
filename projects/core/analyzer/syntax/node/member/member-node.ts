@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {IdNode} from '../../../lexical/node/id/id-node';
@@ -7,7 +7,7 @@ import {ExpressionNode, Node} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type MemberNode = SyntaxNode<$Node.MemberNode> &
+export type MemberNode = SyntaxNode<$.MemberNode> &
   ExpressionNode & {
     instance: ExpressionNode;
     operator: OperatorNode;
@@ -20,7 +20,7 @@ export function memberNode(
   operator: OperatorNode,
   id: IdNode | Nothing,
 ): MemberNode {
-  const node = syntaxNode($Node.MemberNode, {instance, operator, id});
+  const node = syntaxNode($.MemberNode, {instance, operator, id});
 
   validate(analyzer, node);
   format(analyzer, node);

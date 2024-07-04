@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -15,7 +15,7 @@ test('lf nl', () => {
   const node = syntax.hiddenNodes[0] as NlNode;
 
   expect(statements.length).toBe(0);
-  expect(node.$).toBe($Node.NlNode);
+  expect(node.$).toBe($.NlNode);
   expect(node.text).toBe(NL);
 });
 
@@ -29,7 +29,7 @@ test('several', () => {
   const node2 = statements[0].hiddenNodes?.at(2) as LexicalNode;
 
   expect(statements.length).toBe(1);
-  expect(statements[0].value.$).toBe($Node.IdNode);
+  expect(statements[0].value.$).toBe($.IdNode);
   expect((statements[0].value as IdNode).text).toBe('abc');
 
   expect(statements[0].hiddenNodes?.length).toBe(3);

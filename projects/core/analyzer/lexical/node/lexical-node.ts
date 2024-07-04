@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {Anything, String2} from '../../../../lib/types';
 import {Node} from '../../node';
 
@@ -6,7 +6,7 @@ import {Node} from '../../node';
 // or remove entirely HiddenNode type
 export interface HiddenNode {}
 
-export type LexicalNode<T extends $Node = $Node> = Node<T> & {
+export type LexicalNode<T extends $ = $> = Node<T> & {
   text: String2;
 };
 

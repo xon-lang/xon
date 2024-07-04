@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
@@ -13,7 +13,7 @@ test('a = 1', () => {
   const node = statements[0].value as AssignmentNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.AssignmentNode);
+  expect(node.$).toBe($.AssignmentNode);
   expect(node.id.text).toBe('a');
   expect(node.assign.operator.text).toBe('=');
   expect((node.assign.value as IntegerNode).value).toBe(1);

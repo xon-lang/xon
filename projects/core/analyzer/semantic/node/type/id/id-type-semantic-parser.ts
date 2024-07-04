@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {OBJECT_OPEN} from '../../../../lexical/lexical-analyzer-config';
@@ -15,11 +15,11 @@ export function declarationTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IdTypeSemantic | Nothing {
-  if (is<IdNode>(node, $Node.IdNode)) {
+  if (is<IdNode>(node, $.IdNode)) {
     return idParse(analyzer, node);
   }
 
-  if (is<InvokeNode>(node, $Node.InvokeNode) && is<IdNode>(node.instance, $Node.IdNode)) {
+  if (is<InvokeNode>(node, $.InvokeNode) && is<IdNode>(node.instance, $.IdNode)) {
     return invokeParse(analyzer, node);
   }
 
@@ -35,7 +35,7 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Not
     return nothing;
   }
 
-  if (is<DeclarationSemantic>(declaration, $Node.DeclarationSemantic)) {
+  if (is<DeclarationSemantic>(declaration, $.DeclarationSemantic)) {
     const reference = analyzer.createReference(node);
     const semantic = idTypeSemantic(analyzer, reference, declaration, nothing);
 
@@ -56,7 +56,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
 
   const generics = node.group.items.map((x) => typeSemanticParse(analyzer, x.value));
 
-  if (is<IdNode>(node.instance, $Node.IdNode)) {
+  if (is<IdNode>(node.instance, $.IdNode)) {
     const declaration = analyzer.declarationManager.single(
       DeclarationKind.TYPE,
       node.instance.text,

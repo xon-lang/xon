@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../../$';
+import {$, is} from '../../../../../../$';
 import {Nothing, nothing} from '../../../../../../../lib/types';
 import {INTERSECTION} from '../../../../../lexical/lexical-analyzer-config';
 import {Node} from '../../../../../node';
@@ -11,7 +11,7 @@ export function intersectionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IntersectionTypeSemantic | Nothing {
-  if (is<InfixNode>(node, $Node.InfixNode) && node.operator.text === INTERSECTION) {
+  if (is<InfixNode>(node, $.InfixNode) && node.operator.text === INTERSECTION) {
     const left = typeSemanticParse(analyzer, node.left);
     const right = typeSemanticParse(analyzer, node.right);
 

@@ -1,11 +1,11 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type AssignNode = SyntaxNode<$Node.AssignNode> & {
+export type AssignNode = SyntaxNode<$.AssignNode> & {
   semantic: Nothing;
   operator: OperatorNode;
   value: ExpressionNode;
@@ -16,7 +16,7 @@ export function assignNode(
   operator: OperatorNode,
   value: ExpressionNode,
 ): AssignNode {
-  const node = syntaxNode($Node.AssignNode, {operator, value});
+  const node = syntaxNode($.AssignNode, {operator, value});
 
   format(analyzer, node);
 

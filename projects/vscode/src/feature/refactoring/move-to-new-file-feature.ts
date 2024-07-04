@@ -17,7 +17,7 @@ import {
 } from 'vscode';
 
 import {dirname} from 'path';
-import {$Node, is} from '../../../../core/$';
+import {$, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
@@ -42,7 +42,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, range.start));
 
-    if (!is<IdNode>(node, $Node.IdNode)) {
+    if (!is<IdNode>(node, $.IdNode)) {
       return nothing;
     }
 

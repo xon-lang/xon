@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../../../$';
+import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {Node} from '../../../../node';
@@ -13,7 +13,7 @@ export function arrayTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ArrayTypeSemantic | Nothing {
-  if (!is<ArrayNode>(node, $Node.ArrayNode)) {
+  if (!is<ArrayNode>(node, $.ArrayNode)) {
     return nothing;
   }
 

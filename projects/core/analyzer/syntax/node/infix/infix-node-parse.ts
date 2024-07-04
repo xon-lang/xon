@@ -1,4 +1,4 @@
-import {$Node, is, isNonOperatorExpression} from '../../../../$';
+import {$, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Boolean2, Integer, nothing} from '../../../../../lib/types';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {Node, nodeFindMap} from '../../../node';
@@ -9,7 +9,7 @@ import {infixNode} from './infix-node';
 export function infixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
-      if (!is<OperatorNode>(node, $Node.OperatorNode) || !operators.includes(node.text)) {
+      if (!is<OperatorNode>(node, $.OperatorNode) || !operators.includes(node.text)) {
         return nothing;
       }
 

@@ -1,4 +1,4 @@
-import {$Node} from '../../../../../../$';
+import {$} from '../../../../../../$';
 import {String2, nothing} from '../../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
@@ -23,19 +23,19 @@ test('a is integer or float', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Node.DeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.DeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Node.DeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.DeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as NotTypeSemantic;
-  expect(typeSemantic.$).toBe($Node.NotTypeSemantic);
-  expect(typeSemantic.value.$).toBe($Node.IdType);
+  expect(typeSemantic.$).toBe($.NotTypeSemantic);
+  expect(typeSemantic.value.$).toBe($.IdType);
   expect((typeSemantic.value as IdTypeSemantic).declaration?.name).toBe('Integer');
 });
 
@@ -62,9 +62,9 @@ test('check type', () => {
   const bType = getConst('b');
   const cType = getConst('c');
 
-  expect(aType.$).toBe($Node.NotTypeSemantic);
-  expect(bType.$).toBe($Node.IdType);
-  expect(cType.$).toBe($Node.IdType);
+  expect(aType.$).toBe($.NotTypeSemantic);
+  expect(bType.$).toBe($.IdType);
+  expect(cType.$).toBe($.IdType);
 
   expect(bType.is(aType)).toBe(true);
   expect(cType.is(aType)).toBe(false);

@@ -12,7 +12,7 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
-import {$Node, is} from '../../../../core/$';
+import {$, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {
   DeclarationSemantic,
@@ -45,7 +45,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is<IdNode>(node, $Node.IdNode) || !node.semantic) {
+    if (!is<IdNode>(node, $.IdNode) || !node.semantic) {
       return nothing;
     }
 
@@ -66,7 +66,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is<IdNode>(node, $Node.IdNode)) {
+    if (!is<IdNode>(node, $.IdNode)) {
       throw new Error('You cannot rename this element');
     }
 
@@ -75,7 +75,7 @@ class LanguageRenameProvider implements RenameProvider {
 }
 
 function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
-  if (is<DeclarationSemantic>(semantic, $Node.DeclarationSemantic)) {
+  if (is<DeclarationSemantic>(semantic, $.DeclarationSemantic)) {
     return semantic;
   }
 
@@ -83,15 +83,15 @@ function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
     return semantic;
   }
 
-  if (is<DocumentationIdSemantic>(semantic, $Node.DocumentationIdSemantic)) {
+  if (is<DocumentationIdSemantic>(semantic, $.DocumentationIdSemantic)) {
     return semantic.declaration;
   }
 
-  if (is<IdTypeSemantic>(semantic, $Node.IdType)) {
+  if (is<IdTypeSemantic>(semantic, $.IdType)) {
     return semantic.declaration;
   }
 
-  if (is<ValueSemantic>(semantic, $Node.ValueSemantic) && is<IdTypeSemantic>(semantic.type, $Node.IdType)) {
+  if (is<ValueSemantic>(semantic, $.ValueSemantic) && is<IdTypeSemantic>(semantic.type, $.IdType)) {
     return semantic.type.declaration;
   }
 }

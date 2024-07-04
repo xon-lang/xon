@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -12,6 +12,6 @@ test('close paren', () => {
   const node = statements[0].value as CloseNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.CloseNode);
+  expect(node.$).toBe($.CloseNode);
   expect(node.text).toBe(')');
 });

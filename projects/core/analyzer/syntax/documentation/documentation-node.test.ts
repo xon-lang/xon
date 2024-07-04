@@ -1,4 +1,4 @@
-import {$Node} from '../../../$';
+import {$} from '../../../$';
 import {nothing} from '../../../../lib/types';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../syntax-analyzer';
@@ -15,7 +15,7 @@ test('documentation', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($Node.DocumentationNode);
+  expect(node.$).toBe($.DocumentationNode);
   expect(node.description?.text).toBe('a');
 });
 
@@ -30,7 +30,7 @@ test('documentation 2', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($Node.DocumentationNode);
+  expect(node.$).toBe($.DocumentationNode);
   expect(node.description?.text).toBe(' abc\n\n\n def==');
 });
 
@@ -45,7 +45,7 @@ test('documentation labels', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($Node.DocumentationNode);
+  expect(node.$).toBe($.DocumentationNode);
   expect(node.description?.text).toBe(' abc\n\n\n def ');
   expect(node.items?.length).toBe(2);
 
@@ -69,7 +69,7 @@ test('documentation operator id', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($Node.DocumentationNode);
+  expect(node.$).toBe($.DocumentationNode);
   expect(node.description).toBeFalsy();
   expect(node.items?.length).toBe(1);
 

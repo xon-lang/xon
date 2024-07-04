@@ -1,4 +1,4 @@
-import {$Node} from '../../../../$';
+import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
@@ -13,7 +13,7 @@ test('after integer', () => {
   const node = statements[0].value as PostfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.PostfixNode);
+  expect(node.$).toBe($.PostfixNode);
   expect(node.operator.text).toBe('!');
   expect(evaluate(node.value)).toBe(1);
 });

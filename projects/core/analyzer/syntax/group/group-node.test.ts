@@ -1,4 +1,4 @@
-import {$Node, is} from '../../../$';
+import {$, is} from '../../../$';
 import {nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFrom} from '../../../util/resource/text/text-resource';
@@ -15,9 +15,9 @@ test('empty closed', () => {
   const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.GroupNode)).toBe(true);
-  expect(is(node.open, $Node.OpenNode)).toBe(true);
-  expect(is(node.close, $Node.CloseNode)).toBe(true);
+  expect(is(node, $.GroupNode)).toBe(true);
+  expect(is(node.open, $.OpenNode)).toBe(true);
+  expect(is(node.close, $.CloseNode)).toBe(true);
   expect(node.items.length).toBe(0);
 });
 
@@ -29,8 +29,8 @@ test('validate close pair', () => {
   const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.GroupNode)).toBe(true);
-  expect(is(node.open, $Node.OpenNode)).toBe(true);
+  expect(is(node, $.GroupNode)).toBe(true);
+  expect(is(node.open, $.OpenNode)).toBe(true);
   expect(node.close).toBe(nothing);
   expect(node.items.length).toBe(0);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(1);
@@ -49,7 +49,7 @@ test('a in group', () => {
   const node = statements[0].value as GroupNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.GroupNode);
+  expect(node.$).toBe($.GroupNode);
 });
 
 test('empty object', () => {
@@ -60,7 +60,7 @@ test('empty object', () => {
   const node = statements[0].value as ObjectNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ObjectNode);
+  expect(node.$).toBe($.ObjectNode);
   expect(node.items.length).toBe(0);
 });
 
@@ -72,7 +72,7 @@ test('single item', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(1);
   expect((node.items[0]?.value as IntegerNode).text).toBe('123');
 });
@@ -86,9 +86,9 @@ test('single comma', () => {
 
   expect(statements.length).toBe(1);
   expect(node.items.length).toBe(2);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
-  expect(is(node.open, $Node.OpenNode)).toBe(true);
-  expect(is(node.close, $Node.CloseNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
+  expect(is(node.open, $.OpenNode)).toBe(true);
+  expect(is(node.close, $.CloseNode)).toBe(true);
 });
 
 test('empty not closed', () => {
@@ -99,8 +99,8 @@ test('empty not closed', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
-  expect(is(node.open, $Node.OpenNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
+  expect(is(node.open, $.OpenNode)).toBe(true);
   expect(node.close).toBe(nothing);
   expect(node.items.length).toBe(0);
 });
@@ -113,11 +113,11 @@ test('inner group', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(1);
 
   const innerGroup = node.items[0]?.value as GroupNode;
-  expect(is(innerGroup, $Node.GroupNode)).toBe(true);
+  expect(is(innerGroup, $.GroupNode)).toBe(true);
   expect(innerGroup.items.length).toBe(0);
 });
 
@@ -129,15 +129,15 @@ test('inner empty group', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(1);
 
   const innerGroup = node.items[0]?.value as GroupNode;
-  expect(is(innerGroup, $Node.ArrayNode)).toBe(true);
+  expect(is(innerGroup, $.ArrayNode)).toBe(true);
   expect(innerGroup.items.length).toBe(1);
 
   const innerInnerGroup = innerGroup.items[0]?.value as GroupNode;
-  expect(is(innerInnerGroup, $Node.ArrayNode)).toBe(true);
+  expect(is(innerInnerGroup, $.ArrayNode)).toBe(true);
   expect(innerInnerGroup.items.length).toBe(0);
 });
 
@@ -149,7 +149,7 @@ test('two integers no comma and ws at the end', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(2);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[1]?.value as IntegerNode).text).toBe('2');
@@ -163,7 +163,7 @@ test('two integers and comma no ws at the end', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(3);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[1]?.value as IntegerNode).text).toBe('2');
@@ -177,7 +177,7 @@ test('two integers and comma and ws', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(3);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[1]?.value as IntegerNode).text).toBe('2');
@@ -194,7 +194,7 @@ test('array on several lines', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node, $Node.ArrayNode)).toBe(true);
+  expect(is(node, $.ArrayNode)).toBe(true);
   expect(node.items.length).toBe(4);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[1]?.value as InfixNode).operator.text).toBe('+');
@@ -208,7 +208,7 @@ test('debug 1', () => {
   const node = statements[0].value as ArrayNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ArrayNode);
+  expect(node.$).toBe($.ArrayNode);
   expect(node.items.length).toBe(3);
   expect((node.items[0]?.value as IntegerNode).text).toBe('1');
   expect((node.items[2]?.value as IntegerNode).text).toBe('2');
@@ -222,7 +222,7 @@ test('empty object', () => {
   const node = statements[0].value as ObjectNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.ObjectNode);
+  expect(node.$).toBe($.ObjectNode);
   expect(node.items.length).toBe(0);
 });
 
