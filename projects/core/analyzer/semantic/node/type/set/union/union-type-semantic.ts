@@ -2,8 +2,9 @@ import {$} from '../../../../../../$';
 import {Array2, Boolean2, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {TypeSemantic} from '../../type-semantic';
+import {SetTypeSemantic} from '../set';
 
-export interface UnionTypeSemantic extends TypeSemantic {
+export interface UnionTypeSemantic extends SetTypeSemantic {
   $: $.UnionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;

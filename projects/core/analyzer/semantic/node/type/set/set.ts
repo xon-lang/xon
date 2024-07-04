@@ -8,6 +8,8 @@ import {NotTypeSemantic} from './not/not-type-semantic';
 import {RangeTypeSemantic} from './range/range-type-semantic';
 import {UnionTypeSemantic} from './union/union-type-semantic';
 
+export interface SetTypeSemantic extends TypeSemantic {}
+
 export function isInSet(type: TypeSemantic, setType: TypeSemantic): Boolean2 {
   if (is<IntersectionTypeSemantic>(setType, $.IntersectionTypeSemantic)) {
     return type.is(setType.left) && type.is(setType.right);

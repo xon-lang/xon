@@ -35,9 +35,9 @@ test('a is integer', () => {
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IntersectionTypeSemantic;
   expect(typeSemantic.$).toBe($.IntersectionTypeSemantic);
-  expect(typeSemantic.left.$).toBe($.IdType);
+  expect(typeSemantic.left.$).toBe($.IdTypeSemantic);
   expect((typeSemantic.left as IdTypeSemantic).declaration?.name).toBe('Integer');
-  expect(typeSemantic.right.$).toBe($.IdType);
+  expect(typeSemantic.right.$).toBe($.IdTypeSemantic);
   expect((typeSemantic.right as IdTypeSemantic).declaration?.name).toBe('Float');
 });
 
@@ -65,8 +65,8 @@ test('check type', () => {
   const cType = getConst('c');
 
   expect(aType.$).toBe($.IntersectionTypeSemantic);
-  expect(bType.$).toBe($.IdType);
-  expect(cType.$).toBe($.IdType);
+  expect(bType.$).toBe($.IdTypeSemantic);
+  expect(cType.$).toBe($.IdTypeSemantic);
 
   expect(bType.is(aType)).toBe(true);
   expect(cType.is(aType)).toBe(false);

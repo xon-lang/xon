@@ -40,7 +40,7 @@ test('declare b then a, a extends b', () => {
   expect(modelA.$).toBe($.DeclarationSemantic);
   expect(modelA.modifier).toBe('model');
   expect(modelA.name).toBe('A');
-  expect(modelA.type?.$).toBe($.IdType);
+  expect(modelA.type?.$).toBe($.IdTypeSemantic);
   expect((modelA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const modelB = semantic.declarationManager.declarations['B'][0] as DeclarationSemantic;
@@ -61,7 +61,7 @@ test('declare a then b, a extends b', () => {
   expect(modelA.$).toBe($.DeclarationSemantic);
   expect(modelA.modifier).toBe('model');
   expect(modelA.name).toBe('A');
-  expect(modelA.type?.$).toBe($.IdType);
+  expect(modelA.type?.$).toBe($.IdTypeSemantic);
   expect((modelA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const modelB = semantic.declarationManager.declarations['B'][0] as DeclarationSemantic;

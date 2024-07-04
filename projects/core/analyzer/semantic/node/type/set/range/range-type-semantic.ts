@@ -4,9 +4,9 @@ import {TextResourceRange} from '../../../../../../util/resource/text/text-resou
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {isInSet} from '../set';
+import {isInSet, SetTypeSemantic} from '../set';
 
-export interface RangeTypeSemantic extends TypeSemantic {
+export interface RangeTypeSemantic extends SetTypeSemantic {
   $: $.RangeTypeSemantic;
   declaration: DeclarationSemantic;
   from: TypeSemantic;

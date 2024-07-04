@@ -32,7 +32,7 @@ export function stringTypeSemantic(
         return true;
       }
 
-      if (is<IdTypeSemantic>(other, $.IdType)) {
+      if (is<IdTypeSemantic>(other, $.IdTypeSemantic)) {
         return this.declaration.eq(other.declaration) || (this.declaration.type?.is(other) ?? false);
       }
 

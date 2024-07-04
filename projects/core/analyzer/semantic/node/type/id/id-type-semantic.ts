@@ -7,7 +7,7 @@ import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface IdTypeSemantic extends TypeSemantic {
-  $: $.IdType;
+  $: $.IdTypeSemantic;
   declaration: DeclarationSemantic;
   generics: Array2<TypeSemantic | Nothing> | Nothing;
 }
@@ -19,7 +19,7 @@ export function idTypeSemantic(
   generics: Array2<TypeSemantic | Nothing> | Nothing,
 ): IdTypeSemantic {
   const semantic: IdTypeSemantic = {
-    $: $.IdType,
+    $: $.IdTypeSemantic,
     reference,
     declaration,
     generics,
@@ -41,7 +41,7 @@ export function idTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (isTypeDeclarationSemantic(this.declaration) && is<IdTypeSemantic>(other, $.IdType)) {
+      if (isTypeDeclarationSemantic(this.declaration) && is<IdTypeSemantic>(other, $.IdTypeSemantic)) {
         return this.declaration.eq(other.declaration);
       }
 

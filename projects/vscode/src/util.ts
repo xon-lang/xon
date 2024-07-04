@@ -45,7 +45,7 @@ export function typeSemanticToString(type: TypeSemantic | Nothing): String2 | No
     return nothing;
   }
 
-  if (is<IdTypeSemantic>(type, $.IdType)) {
+  if (is<IdTypeSemantic>(type, $.IdTypeSemantic)) {
     return type.declaration.name;
   }
 

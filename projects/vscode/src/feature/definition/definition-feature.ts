@@ -58,7 +58,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return navigateToUsages(node.range, node.semantic);
     }
 
-    if (is<IdTypeSemantic>(node.semantic, $.IdType)) {
+    if (is<IdTypeSemantic>(node.semantic, $.IdTypeSemantic)) {
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
@@ -67,7 +67,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     }
 
     if (is<ValueSemantic>(node.semantic, $.ValueSemantic)) {
-      if (is<IdTypeSemantic>(node.semantic.type, $.IdType)) {
+      if (is<IdTypeSemantic>(node.semantic.type, $.IdTypeSemantic)) {
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 

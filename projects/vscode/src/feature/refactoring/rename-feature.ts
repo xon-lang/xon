@@ -87,11 +87,11 @@ function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
     return semantic.declaration;
   }
 
-  if (is<IdTypeSemantic>(semantic, $.IdType)) {
+  if (is<IdTypeSemantic>(semantic, $.IdTypeSemantic)) {
     return semantic.declaration;
   }
 
-  if (is<ValueSemantic>(semantic, $.ValueSemantic) && is<IdTypeSemantic>(semantic.type, $.IdType)) {
+  if (is<ValueSemantic>(semantic, $.ValueSemantic) && is<IdTypeSemantic>(semantic.type, $.IdTypeSemantic)) {
     return semantic.type.declaration;
   }
 }

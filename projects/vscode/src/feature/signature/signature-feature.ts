@@ -96,7 +96,10 @@ function getInvokeNodeAndParameterIndex(
 }
 
 function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
-  if (is<IdTypeSemantic>(node.semantic, $.IdType) || is<IdValueSemantic>(node.semantic, $.IdValueSemantic)) {
+  if (
+    is<IdTypeSemantic>(node.semantic, $.IdTypeSemantic) ||
+    is<IdValueSemantic>(node.semantic, $.IdValueSemantic)
+  ) {
     return node.semantic.declaration;
   }
 

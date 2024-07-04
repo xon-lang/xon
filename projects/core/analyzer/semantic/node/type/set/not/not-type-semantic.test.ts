@@ -35,7 +35,7 @@ test('a is integer or float', () => {
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as NotTypeSemantic;
   expect(typeSemantic.$).toBe($.NotTypeSemantic);
-  expect(typeSemantic.value.$).toBe($.IdType);
+  expect(typeSemantic.value.$).toBe($.IdTypeSemantic);
   expect((typeSemantic.value as IdTypeSemantic).declaration?.name).toBe('Integer');
 });
 
@@ -63,8 +63,8 @@ test('check type', () => {
   const cType = getConst('c');
 
   expect(aType.$).toBe($.NotTypeSemantic);
-  expect(bType.$).toBe($.IdType);
-  expect(cType.$).toBe($.IdType);
+  expect(bType.$).toBe($.IdTypeSemantic);
+  expect(cType.$).toBe($.IdTypeSemantic);
 
   expect(bType.is(aType)).toBe(true);
   expect(cType.is(aType)).toBe(false);

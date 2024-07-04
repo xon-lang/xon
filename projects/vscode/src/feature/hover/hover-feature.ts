@@ -74,7 +74,7 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (is<IdTypeSemantic>(type, $.IdType)) {
+  if (is<IdTypeSemantic>(type, $.IdTypeSemantic)) {
     return declarationToText(type.declaration);
   }
 
