@@ -30,7 +30,7 @@ import {ComplementTypeSemantic} from './analyzer/semantic/node/type/set/compleme
 import {IntersectionTypeSemantic} from './analyzer/semantic/node/type/set/intersection/intersection-type-semantic';
 import {NotTypeSemantic} from './analyzer/semantic/node/type/set/not/not-type-semantic';
 import {RangeTypeSemantic} from './analyzer/semantic/node/type/set/range/range-type-semantic';
-import { SetTypeSemantic } from './analyzer/semantic/node/type/set/set';
+import {SetTypeSemantic} from './analyzer/semantic/node/type/set/set';
 import {UnionTypeSemantic} from './analyzer/semantic/node/type/set/union/union-type-semantic';
 import {StringTypeSemantic} from './analyzer/semantic/node/type/string/string-type-semantic';
 import {TypeSemantic} from './analyzer/semantic/node/type/type-semantic';
@@ -142,18 +142,6 @@ export enum $ {
   TextRange = ' TextRange ',
 }
 
-export type $Model<T extends $ = $> = {
-  $: T;
-};
-
-export function is<T extends $Model = Node>(node: $Model | Nothing, type: $): node is T {
-  if (!node?.$) {
-    return false;
-  }
-
-  return node.$.includes(type);
-}
-
 type TypeMap = {
   [$.Node]: Node;
   [$.LexicalNode]: LexicalNode;
@@ -227,24 +215,37 @@ type TypeMap = {
   [$.TextRange]: TextRange;
 };
 
+export type $Model<T extends $ = $> = {
+  $: T;
+};
+
+export function is<T extends $Model = Node>(model: $Model | Nothing, $: $): model is T {
+  if (!model?.$) {
+    return false;
+  }
+
+  return model.$.includes($);
+}
+
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
-export function is2<T extends $>(value: $Model, $: T): value is TypeMap[T] {
-  if (!value?.$) {
+export function is2<T extends $>(model: $Model | Nothing, $: T): model is TypeMap[T] {
+  if (!model?.$) {
     return false;
   }
 
-  return value.$ === $ || value.$.split(' ').includes($);
+  return model.$.includes($);
 }
 
 export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
   return semantic.$.includes($.SetTypeSemantic);
 }
 
+// todo inherit hidden node from node
 export function isHiddenNode(node: Node | Nothing): Boolean2 {
-  return is(node, $.HiddenNode);
+  return is2(node, $.HiddenNode);
 }
 
 export const groups = [$.GroupNode, $.ArrayNode, $.ObjectNode];
@@ -258,7 +259,7 @@ export function isGroupNode(node: Node | Nothing): node is Group {
 }
 
 export function isNonOperatorExpression(node: Node): node is ExpressionNode {
-  return is<ExpressionNode>(node, $.ExpressionNode) && !is<OperatorNode>(node, $.OperatorNode);
+  return is2(node, $.ExpressionNode) && !is2(node, $.OperatorNode);
 }
 
 export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: Semantic} {
