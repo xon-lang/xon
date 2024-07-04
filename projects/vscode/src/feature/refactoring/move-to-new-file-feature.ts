@@ -18,7 +18,6 @@ import {
 
 import {dirname} from 'path';
 import {$, is} from '../../../../core/$';
-import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
 import {FILE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
@@ -42,7 +41,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, range.start));
 
-    if (!is<IdNode>(node, $.IdNode)) {
+    if (!is(node, $.IdNode)) {
       return nothing;
     }
 

@@ -13,11 +13,7 @@ import {
 import {$, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {Semantic} from '../../../../core/analyzer/semantic/node/semantic-node';
-import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
-import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
-import {StringTypeSemantic} from '../../../../core/analyzer/semantic/node/type/string/string-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../core/analyzer/semantic/node/type/type-semantic';
-import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, convertVscodePosition, getDocumentSemantic} from '../../util';
@@ -56,7 +52,7 @@ function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
     return getTypeMarkdown(semantic);
   }
 
-  if (is<ValueSemantic>(semantic, $.ValueSemantic) && semantic.type) {
+  if (is(semantic, $.ValueSemantic) && semantic.type) {
     return getTypeMarkdown(semantic.type);
   }
 
@@ -74,17 +70,17 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (is<IdTypeSemantic>(type, $.IdTypeSemantic)) {
+  if (is(type, $.IdTypeSemantic)) {
     return declarationToText(type.declaration);
   }
 
-  if (is<StringTypeSemantic>(type, $.StringTypeSemantic)) {
+  if (is(type, $.StringTypeSemantic)) {
     const declaration = declarationToText(type.declaration);
 
     return `${declaration}("${type.value}")`;
   }
 
-  if (is<IntegerTypeSemantic>(type, $.IntegerTypeSemantic)) {
+  if (is(type, $.IntegerTypeSemantic)) {
     const declaration = declarationToText(type.declaration);
 
     return `${declaration}(${type.value})`;

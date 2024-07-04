@@ -3,11 +3,9 @@ import {Nothing, nothing} from '../../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../../diagnostic/analyzer-diagnostic-message';
 import {RANGE} from '../../../../../lexical/lexical-analyzer-config';
 import {Node} from '../../../../../node';
-import {InfixNode} from '../../../../../syntax/node/infix/infix-node';
 import {DeclarationKind} from '../../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic, rangeTypeSemantic} from './range-type-semantic';
 
@@ -15,7 +13,7 @@ export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): RangeTypeSemantic | Nothing {
-  if (!is<InfixNode>(node, $.InfixNode) || node.operator.text !== RANGE) {
+  if (!is(node, $.InfixNode) || node.operator.text !== RANGE) {
     return nothing;
   }
 
@@ -47,11 +45,11 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  if (!is<IntegerTypeSemantic>(from, $.IntegerTypeSemantic)) {
+  if (!is(from, $.IntegerTypeSemantic)) {
     analyzer.diagnosticManager.addError(node.left.range, DIAGNOSTIC_MESSAGE.notImplemented());
   }
 
-  if (!is<IntegerTypeSemantic>(to, $.IntegerTypeSemantic)) {
+  if (!is(to, $.IntegerTypeSemantic)) {
     analyzer.diagnosticManager.addError(node.right.range, DIAGNOSTIC_MESSAGE.notImplemented());
   }
 

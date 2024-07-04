@@ -1,6 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Boolean2, Integer, nothing} from '../../../../../lib/types';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
@@ -10,9 +9,9 @@ export function postfixNodeParse(operators: String[], isLeftRecursive: Boolean2)
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
-        !is<OperatorNode>(node, $.OperatorNode) ||
+        !is(node, $.OperatorNode) ||
         !operators.includes(node.text) ||
-        (index !== nodes.length - 1 && !is<OperatorNode>(nodes[index + 1], $.OperatorNode))
+        (index !== nodes.length - 1 && !is(nodes[index + 1], $.OperatorNode))
       ) {
         return nothing;
       }

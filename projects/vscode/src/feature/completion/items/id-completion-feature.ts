@@ -11,7 +11,6 @@ import {
   TextDocument,
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
-import {LexicalNode} from '../../../../../core/analyzer/lexical/node/lexical-node';
 import {Array2} from '../../../../../lib/types';
 import {convertVscodePosition, getDocumentSemantic} from '../../../util';
 
@@ -27,7 +26,7 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (is<LexicalNode>(node, $.LexicalNode)) {
+    if (is(node, $.LexicalNode)) {
       const item = new CompletionItem(node.text, CompletionItemKind.Property);
     }
 

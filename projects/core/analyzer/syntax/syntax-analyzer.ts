@@ -11,15 +11,9 @@ import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text
 import {TextResource} from '../../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from '../lexical/code-lexical-analyzer';
 import {LexicalAnalyzer} from '../lexical/lexical-analyzer';
-import {DocumentationOpenNode} from '../lexical/node/documentation-open/documentation-open-node';
-import {NlNode} from '../lexical/node/nl/nl-node';
-import {OpenNode} from '../lexical/node/open/open-node';
-import {UnknownNode} from '../lexical/node/unknown/unknown-node';
-import {WhitespaceNode} from '../lexical/node/whitespace/whitespace-node';
 import {Node} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
-import {SyntaxNode} from './node/syntax-node';
 import {putStatementNode} from './put-statement-node';
 import {StatementNode} from './statement/statement-node';
 import {DEFAULT_SYNTAX_ANALYZER_CONFIG, SyntaxAnalyzerConfig} from './syntax-analyzer-config';
@@ -90,16 +84,16 @@ export function createSyntaxAnalyzer(
       for (const iterableNode of lexicalAnalyzer) {
         let node: Node = iterableNode;
 
-        if (is<UnknownNode>(node, $.UnknownNode)) {
+        if (is(node, $.UnknownNode)) {
           this.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
         }
 
-        if (is<OpenNode>(node, $.OpenNode)) {
+        if (is(node, $.OpenNode)) {
           node = groupNodeParse(this, node);
           lexicalAnalyzer.position = node.range.stop;
         }
 
-        if (is<DocumentationOpenNode>(node, $.DocumentationOpenNode)) {
+        if (is(node, $.DocumentationOpenNode)) {
           node = documentationNodeParse(this, node);
           lexicalAnalyzer.position = node.range.stop;
         }
@@ -111,12 +105,12 @@ export function createSyntaxAnalyzer(
         }
 
         if (nodes.length === 0) {
-          if (is<WhitespaceNode>(node, $.WhitespaceNode)) {
+          if (is(node, $.WhitespaceNode)) {
           }
         }
 
         if (isHiddenNode(node)) {
-          if (is<NlNode>(node, $.NlNode)) {
+          if (is(node, $.NlNode)) {
             handleStatement();
           }
 
@@ -173,7 +167,7 @@ export function createSyntaxAnalyzer(
         return nothing;
       }
 
-      if (!is<SyntaxNode>(child, $.SyntaxNode)) {
+      if (!is(child, $.SyntaxNode)) {
         return child;
       }
 
@@ -203,19 +197,19 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
     return nothing;
   }
 
-  const lastNlIndex = hiddenNodes.lastIndex((x) => is<NlNode>(x, $.NlNode));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is(x, $.NlNode));
 
   if (lastNlIndex >= 0) {
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
-    if (is<WhitespaceNode>(whiteSpaceNode, $.WhitespaceNode)) {
+    if (is(whiteSpaceNode, $.WhitespaceNode)) {
       return cloneRange(whiteSpaceNode.range);
     }
 
     return rangeFromPosition(hiddenNodes[lastNlIndex].range.stop);
   }
 
-  if (is<WhitespaceNode>(hiddenNodes[0], $.WhitespaceNode)) {
+  if (is(hiddenNodes[0], $.WhitespaceNode)) {
     return cloneRange(hiddenNodes[0].range);
   }
 

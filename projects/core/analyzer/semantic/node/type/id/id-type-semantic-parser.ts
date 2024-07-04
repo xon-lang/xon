@@ -7,7 +7,7 @@ import {Node} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
+import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
@@ -15,11 +15,11 @@ export function declarationTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IdTypeSemantic | Nothing {
-  if (is<IdNode>(node, $.IdNode)) {
+  if (is(node, $.IdNode)) {
     return idParse(analyzer, node);
   }
 
-  if (is<InvokeNode>(node, $.InvokeNode) && is<IdNode>(node.instance, $.IdNode)) {
+  if (is(node, $.InvokeNode) && is(node.instance, $.IdNode)) {
     return invokeParse(analyzer, node);
   }
 
@@ -35,7 +35,7 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Not
     return nothing;
   }
 
-  if (is<DeclarationSemantic>(declaration, $.DeclarationSemantic)) {
+  if (is(declaration, $.DeclarationSemantic)) {
     const reference = analyzer.createReference(node);
     const semantic = idTypeSemantic(analyzer, reference, declaration, nothing);
 
@@ -56,7 +56,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
 
   const generics = node.group.items.map((x) => typeSemanticParse(analyzer, x.value));
 
-  if (is<IdNode>(node.instance, $.IdNode)) {
+  if (is(node.instance, $.IdNode)) {
     const declaration = analyzer.declarationManager.single(
       DeclarationKind.TYPE,
       node.instance.text,

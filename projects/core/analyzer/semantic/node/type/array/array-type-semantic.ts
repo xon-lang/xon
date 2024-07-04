@@ -39,7 +39,7 @@ export function integerTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is<ArrayTypeSemantic>(other, $.IntegerTypeSemantic)) {
+      if (is(other, $.ArrayTypeSemantic)) {
         return this.items === other.items;
       }
 

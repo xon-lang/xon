@@ -41,7 +41,7 @@ export function idTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (isTypeDeclarationSemantic(this.declaration) && is<IdTypeSemantic>(other, $.IdTypeSemantic)) {
+      if (isTypeDeclarationSemantic(this.declaration) && is(other, $.IdTypeSemantic)) {
         return this.declaration.eq(other.declaration);
       }
 

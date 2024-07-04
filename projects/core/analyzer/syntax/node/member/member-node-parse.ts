@@ -1,7 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Integer, nothing} from '../../../../../lib/types';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
@@ -10,7 +8,7 @@ import {memberNode} from './member-node';
 export function memberNodeParse(operators: String[]): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (!is<OperatorNode>(node, $.OperatorNode) || !operators.includes(node.text)) {
+      if (!is(node, $.OperatorNode) || !operators.includes(node.text)) {
         return nothing;
       }
 
@@ -21,7 +19,7 @@ export function memberNodeParse(operators: String[]): SyntaxParseFn {
       }
 
       const right = nodes[index + 1];
-      const id = is<IdNode>(right, $.IdNode) ? right : nothing;
+      const id = is(right, $.IdNode) ? right : nothing;
 
       return {node: memberNode(analyzer, instance, node, id), index: index - 1};
     });

@@ -1,8 +1,6 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Integer, nothing} from '../../../../../lib/types';
 import {ASSIGN} from '../../../lexical/lexical-analyzer-config';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
@@ -12,14 +10,14 @@ import {assignmentNode} from './assignment-node';
 export function assignmentNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (!is<OperatorNode>(node, $.OperatorNode) || node.text !== ASSIGN) {
+      if (!is(node, $.OperatorNode) || node.text !== ASSIGN) {
         return nothing;
       }
 
       const id = nodes[index - 1];
       const value = nodes[index + 1];
 
-      if (!is<IdNode>(id, $.IdNode) || !isNonOperatorExpression(value)) {
+      if (!is(id, $.IdNode) || !isNonOperatorExpression(value)) {
         return nothing;
       }
 

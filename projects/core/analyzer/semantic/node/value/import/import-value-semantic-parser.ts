@@ -6,7 +6,6 @@ import {zeroPosition} from '../../../../../util/resource/text/text-position';
 import {textResourceFromFilePath} from '../../../../../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from '../../../../lexical/code-lexical-analyzer';
 import {Node} from '../../../../node';
-import {ImportNode} from '../../../../syntax/node/import/import-node';
 import {createSyntaxAnalyzer} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
@@ -16,7 +15,7 @@ const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');
 
 export function syntaxImportsParse(analyzer: SemanticAnalyzer) {
   for (const statement of analyzer.statements) {
-    if (is<ImportNode>(statement.value, $.Node)) {
+    if (is(statement.value, $.Node)) {
       importValueSemanticTryParse(analyzer, statement.value);
     }
   }
@@ -26,7 +25,7 @@ export function importValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ImportValueSemantic | Nothing {
-  if (!is<ImportNode>(node, $.Node)) {
+  if (!is(node, $.ImportNode)) {
     return nothing;
   }
 

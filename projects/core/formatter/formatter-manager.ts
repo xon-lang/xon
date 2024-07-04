@@ -3,7 +3,6 @@ import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
 import {NL} from '../analyzer/lexical/lexical-analyzer-config';
 import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
-import {WhitespaceNode} from '../analyzer/lexical/node/whitespace/whitespace-node';
 import {Node} from '../analyzer/node';
 import {StatementNode} from '../analyzer/syntax/statement/statement-node';
 import {cloneRange, rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
@@ -67,7 +66,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      if (node.hiddenNodes.length === 1 && is<WhitespaceNode>(node.hiddenNodes[0], $.WhitespaceNode)) {
+      if (node.hiddenNodes.length === 1 && is(node.hiddenNodes[0], $.WhitespaceNode)) {
         const whitespace = node.hiddenNodes[0];
 
         if (!keepSingleSpace) {
@@ -108,7 +107,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is<NlNode>(x, $.NlNode));
+      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $.NlNode));
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
@@ -132,9 +131,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
       const indentText = ' '.repeat(this.config.indentSpaceLength * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
-      const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
-        (x) => !is<WhitespaceNode>(x, $.WhitespaceNode),
-      );
+      const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is(x, $.WhitespaceNode));
       const text =
         // todo fix  'as LexicalNode'
         indentText +
@@ -197,8 +194,8 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
     formatHiddenNodes(hiddenNodes: Array2<Node>, isNoFirstChildNode: Boolean2): String2 {
       const splittedByNl = hiddenNodes
-        .filter((x) => !is<WhitespaceNode>(x, $.WhitespaceNode))
-        .splitBy<NlNode>((x) => is<NlNode>(x, $.NlNode));
+        .filter((x) => !is(x, $.WhitespaceNode))
+        .splitBy<NlNode>((x) => is(x, $.NlNode));
 
       const text = splittedByNl
         // todo fix  'as LexicalNode'

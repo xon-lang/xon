@@ -7,7 +7,6 @@ import {
   OBJECT_CLOSE,
   OBJECT_OPEN,
 } from '../../lexical/lexical-analyzer-config';
-import {CloseNode} from '../../lexical/node/close/close-node';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
@@ -48,17 +47,16 @@ function groupNodeParseInner(
 
   while (analyzer.lexicalAnalyzer.position.index < analyzer.lexicalAnalyzer.resource.data.length) {
     const {breakNode, statements} = analyzer.parseStatements(
-      (node) =>
-        is<CommaNode>(node, $.CommaNode) || (is<CloseNode>(node, $.CloseNode) && node.text === closeText),
+      (node) => is(node, $.CommaNode) || (is(node, $.CloseNode) && node.text === closeText),
     );
 
-    if (is<CommaNode>(breakNode, $.CommaNode)) {
+    if (is(breakNode, $.CommaNode)) {
       const item = itemNode(analyzer, itemIndex, commaNode, statements);
       items.push(item);
       commaNode = breakNode;
     }
 
-    if (is<CloseNode>(breakNode, $.CloseNode)) {
+    if (is(breakNode, $.CloseNode)) {
       if (items.length > 0 || statements.length > 0) {
         const item = itemNode(analyzer, itemIndex, commaNode, statements);
         items.push(item);

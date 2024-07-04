@@ -1,7 +1,6 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
-import {IdNode} from '../../../../lexical/node/id/id-node';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -9,7 +8,7 @@ import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../decla
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 
 export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): IdValueSemantic | Nothing {
-  if (!is<IdNode>(node, $.IdNode)) {
+  if (!is(node, $.IdNode)) {
     return nothing;
   }
 

@@ -89,7 +89,7 @@ export function getDeclarationGenerics(
   }
 
   return node.generics.items.map<DeclarationNode | Nothing>((x) => {
-    if (is<DeclarationNode>(x.value, $.DeclarationNode)) {
+    if (is(x.value, $.DeclarationNode)) {
       return x.value;
     }
 
@@ -106,7 +106,7 @@ export function getDeclarationParameters(
   }
 
   return node.parameters.items.map<DeclarationNode | Nothing>((x) => {
-    if (is<DeclarationNode>(x.value, $.DeclarationNode)) {
+    if (is(x.value, $.DeclarationNode)) {
       return x.value;
     }
 

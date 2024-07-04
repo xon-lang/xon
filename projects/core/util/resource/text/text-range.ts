@@ -1,4 +1,4 @@
-import {$, $Model, is2} from '../../../$';
+import {$, $Model, is} from '../../../$';
 import {Array2, Boolean2} from '../../../../lib/types';
 import {Node} from '../../../analyzer/node';
 import {clonePosition, TextPosition, zeroPosition} from './text-position';
@@ -20,7 +20,7 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     stop,
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
-      if (is2(positionOrRange, $.TextPosition)) {
+      if (is(positionOrRange, $.TextPosition)) {
         return positionOrRange.index >= this.start.index && positionOrRange.index <= this.stop.index;
       }
 

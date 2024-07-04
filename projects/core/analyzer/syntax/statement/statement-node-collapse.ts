@@ -30,7 +30,6 @@ import {
 } from '../../lexical/lexical-analyzer-config';
 import {Node} from '../../node';
 import {assignmentNodeParse} from '../node/assignment/assignment-node-parse';
-import {DeclarationNode} from '../node/declaration/declaration-node';
 import {declarationNodeParse, isTypeDeclarationNode} from '../node/declaration/declaration-node-parse';
 import {importNodeParse} from '../node/import/import-node-parse';
 import {infixNodeParse} from '../node/infix/infix-node-parse';
@@ -114,7 +113,7 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
       return;
     }
 
-    if (!is<DeclarationNode>(node, $.DeclarationNode)) {
+    if (!is(node, $.DeclarationNode)) {
       analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldBeDeclarationStatement());
 
       return;

@@ -13,15 +13,11 @@ import {
 } from 'vscode';
 
 import {$, is} from '../../../../core/$';
-import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
 } from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-id-semantic';
 import {Semantic} from '../../../../core/analyzer/semantic/node/semantic-node';
-import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
-import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
@@ -45,7 +41,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is<IdNode>(node, $.IdNode) || !node.semantic) {
+    if (!is(node, $.IdNode) || !node.semantic) {
       return nothing;
     }
 
@@ -66,7 +62,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is<IdNode>(node, $.IdNode)) {
+    if (!is(node, $.IdNode)) {
       throw new Error('You cannot rename this element');
     }
 
@@ -75,7 +71,7 @@ class LanguageRenameProvider implements RenameProvider {
 }
 
 function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
-  if (is<DeclarationSemantic>(semantic, $.DeclarationSemantic)) {
+  if (is(semantic, $.DeclarationSemantic)) {
     return semantic;
   }
 
@@ -83,15 +79,15 @@ function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
     return semantic;
   }
 
-  if (is<DocumentationIdSemantic>(semantic, $.DocumentationIdSemantic)) {
+  if (is(semantic, $.DocumentationIdSemantic)) {
     return semantic.declaration;
   }
 
-  if (is<IdTypeSemantic>(semantic, $.IdTypeSemantic)) {
+  if (is(semantic, $.IdTypeSemantic)) {
     return semantic.declaration;
   }
 
-  if (is<ValueSemantic>(semantic, $.ValueSemantic) && is<IdTypeSemantic>(semantic.type, $.IdTypeSemantic)) {
+  if (is(semantic, $.ValueSemantic) && is(semantic.type, $.IdTypeSemantic)) {
     return semantic.type.declaration;
   }
 }

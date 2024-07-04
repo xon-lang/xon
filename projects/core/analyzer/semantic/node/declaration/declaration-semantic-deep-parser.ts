@@ -21,7 +21,7 @@ export function declarationDeepParse(
 ): DeclarationSemantic | Nothing {
   const semantic = node.id?.semantic;
 
-  if (!is<DeclarationSemantic>(semantic, $.DeclarationSemantic)) {
+  if (!is(semantic, $.DeclarationSemantic)) {
     return nothing;
   }
 
@@ -131,7 +131,7 @@ function attributesParse(
 
   for (const declaration of declarations) {
     // todo fix hack with semantic type checking
-    if (!declaration || !is<DeclarationSemantic>(declaration, $.DeclarationSemantic)) {
+    if (!declaration || !is(declaration, $.DeclarationSemantic)) {
       continue;
     }
 

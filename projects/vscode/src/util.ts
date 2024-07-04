@@ -1,6 +1,5 @@
 import {OutputChannel, Position, Range, TextDocument} from 'vscode';
 import {$, is} from '../../core/$';
-import {IdTypeSemantic} from '../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic';
 import {SemanticAnalyzer, semanticFromResource} from '../../core/analyzer/semantic/semantic-analyzer';
 import {textPosition, TextPosition} from '../../core/util/resource/text/text-position';
@@ -45,7 +44,7 @@ export function typeSemanticToString(type: TypeSemantic | Nothing): String2 | No
     return nothing;
   }
 
-  if (is<IdTypeSemantic>(type, $.IdTypeSemantic)) {
+  if (is(type, $.IdTypeSemantic)) {
     return type.declaration.name;
   }
 

@@ -219,19 +219,19 @@ export type $Model<T extends $ = $> = {
   $: T;
 };
 
-export function is<T extends $Model = Node>(model: $Model | Nothing, $: $): model is T {
-  if (!model?.$) {
-    return false;
-  }
+// export function is<T extends $Model = Node>(model: $Model | Nothing, $: $): model is T {
+//   if (!model?.$) {
+//     return false;
+//   }
 
-  return model.$.includes($);
-}
+//   return model.$.includes($);
+// }
 
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
-export function is2<T extends $>(model: $Model | Nothing, $: T): model is TypeMap[T] {
+export function is<T extends $>(model: $Model | Nothing, $: T): model is TypeMap[T] {
   if (!model?.$) {
     return false;
   }
@@ -245,7 +245,7 @@ export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
 
 // todo inherit hidden node from node
 export function isHiddenNode(node: Node | Nothing): Boolean2 {
-  return is2(node, $.HiddenNode);
+  return is(node, $.HiddenNode);
 }
 
 export const groups = [$.GroupNode, $.ArrayNode, $.ObjectNode];
@@ -259,7 +259,7 @@ export function isGroupNode(node: Node | Nothing): node is Group {
 }
 
 export function isNonOperatorExpression(node: Node): node is ExpressionNode {
-  return is2(node, $.ExpressionNode) && !is2(node, $.OperatorNode);
+  return is(node, $.ExpressionNode) && !is(node, $.OperatorNode);
 }
 
 export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: Semantic} {

@@ -8,7 +8,7 @@ import {declarationShallowParse} from './declaration-semantic-shallow-parser';
 
 export function syntaxDeclarationsParse(analyzer: SemanticAnalyzer): void {
   const declarationNodes = analyzer.statements.filterMap((x) =>
-    is<DeclarationNode>(x.value, $.DeclarationNode) ? x.value : nothing,
+    is(x.value, $.DeclarationNode) ? x.value : nothing,
   );
 
   declarationsParse(analyzer, declarationNodes);

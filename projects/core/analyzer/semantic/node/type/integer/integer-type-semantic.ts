@@ -2,7 +2,6 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Integer, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {IdTypeSemantic} from '../id/id-type-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -32,7 +31,7 @@ export function integerTypeSemantic(
         return true;
       }
 
-      if (is<IdTypeSemantic>(other, $.IdTypeSemantic)) {
+      if (is(other, $.IdTypeSemantic)) {
         return this.declaration.eq(other.declaration) || (this.declaration.type?.is(other) ?? false);
       }
 
@@ -40,7 +39,7 @@ export function integerTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is<IntegerTypeSemantic>(other, $.IntegerTypeSemantic)) {
+      if (is(other, $.IntegerTypeSemantic)) {
         return this.value === other.value;
       }
 

@@ -2,7 +2,6 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {isInSet, SetTypeSemantic} from '../set';
 
@@ -34,12 +33,12 @@ export function rangeTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (is<RangeTypeSemantic>(other, $.RangeTypeSemantic)) {
+      if (is(other, $.RangeTypeSemantic)) {
         if (
-          is<IntegerTypeSemantic>(this.from, $.IntegerTypeSemantic) &&
-          is<IntegerTypeSemantic>(other.from, $.IntegerTypeSemantic) &&
-          is<IntegerTypeSemantic>(this.to, $.IntegerTypeSemantic) &&
-          is<IntegerTypeSemantic>(other.to, $.IntegerTypeSemantic)
+          is(this.from, $.IntegerTypeSemantic) &&
+          is(other.from, $.IntegerTypeSemantic) &&
+          is(this.to, $.IntegerTypeSemantic) &&
+          is(other.to, $.IntegerTypeSemantic)
         )
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
       }
@@ -52,7 +51,7 @@ export function rangeTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is<RangeTypeSemantic>(other, $.IntegerTypeSemantic)) {
+      if (is(other, $.RangeTypeSemantic)) {
         return this.from === other.from && this.to === other.to && this.step === other.step;
       }
 

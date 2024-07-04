@@ -9,9 +9,9 @@
 //   return (analyzer: SyntaxAnalyzer, startIndex: Integer) => {
 //     return nodeFindMap(analyzer.nodes, startIndex, false, (node, index, nodes) => {
 //       if (
-//         !is<OperatorNode>(node, $Node.OPERATOR) ||
+//         !is(node, $Node.OPERATOR) ||
 //         node.text !== ASSIGN ||
-//         (index !== 0 && !is<OperatorNode>(nodes[index - 1], $Node.OPERATOR))
+//         (index !== 0 && !is(nodes[index - 1], $Node.OPERATOR))
 //       ) {
 //         return nothing;
 //       }

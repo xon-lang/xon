@@ -2,11 +2,9 @@ import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {
-  DeclarationNode,
   getDeclarationGenerics,
   getDeclarationParameters,
 } from '../../../../syntax/node/declaration/declaration-node';
-import {LambdaNode} from '../../../../syntax/node/lambda/lambda-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {typeSemanticParse} from '../type-semantic-parser';
@@ -16,10 +14,7 @@ export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): FunctionTypeSemantic | Nothing {
-  if (
-    (!is<DeclarationNode>(node, $.DeclarationNode) && !is<LambdaNode>(node, $.LambdaNode)) ||
-    !node.parameters
-  ) {
+  if ((!is(node, $.DeclarationNode) && !is(node, $.LambdaNode)) || !node.parameters) {
     return nothing;
   }
 
