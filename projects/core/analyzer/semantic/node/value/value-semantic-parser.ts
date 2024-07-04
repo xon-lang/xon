@@ -1,5 +1,6 @@
+import {$Node, is} from '../../../../$';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
-import {$Node, ExpressionNode, Node, is} from '../../../node';
+import {ExpressionNode, Node} from '../../../node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
 import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
@@ -30,7 +31,7 @@ export function valueSemanticParse(
   analyzer: SemanticAnalyzer,
   node: Node | Nothing,
 ): ValueSemantic | Nothing {
-  if (!is<ExpressionNode>(node, $Node.EXPRESSION)) {
+  if (!is<ExpressionNode>(node, $Node.ExpressionNode)) {
     return nothing;
   }
 

@@ -1,5 +1,6 @@
+import {$Node} from '../../../$';
 import {Anything, String2} from '../../../../lib/types';
-import {$Node, Node} from '../../node';
+import {Node} from '../../node';
 
 // todo move isHidden property to Node ???
 // or remove entirely HiddenNode type

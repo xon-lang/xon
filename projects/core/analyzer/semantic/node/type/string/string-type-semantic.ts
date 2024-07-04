@@ -1,13 +1,13 @@
+import {$Node, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {$Semantic, semanticIs} from '../../semantic-node';
 import {IdTypeSemantic} from '../id/id-type-semantic';
-import {isInSet, isSetOperatorTypeSemantic} from '../set/set';
+import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface StringTypeSemantic extends TypeSemantic {
-  $: $Semantic.STRING_TYPE;
+  $: $Node.StringTypeSemantic;
   declaration: DeclarationSemantic;
   value: String2;
 }
@@ -18,7 +18,7 @@ export function stringTypeSemantic(
   value: StringTypeSemantic['value'],
 ): StringTypeSemantic {
   const semantic: StringTypeSemantic = {
-    $: $Semantic.STRING_TYPE,
+    $: $Node.StringTypeSemantic,
     reference,
     declaration,
     value,
@@ -32,7 +32,7 @@ export function stringTypeSemantic(
         return true;
       }
 
-      if (semanticIs<IdTypeSemantic>(other, $Semantic.ID_TYPE)) {
+      if (is<IdTypeSemantic>(other, $Node.IdType)) {
         return this.declaration.eq(other.declaration) || (this.declaration.type?.is(other) ?? false);
       }
 
@@ -40,7 +40,7 @@ export function stringTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (semanticIs<StringTypeSemantic>(other, $Semantic.STRING_TYPE)) {
+      if (is<StringTypeSemantic>(other, $Node.StringTypeSemantic)) {
         return this.value === other.value;
       }
 

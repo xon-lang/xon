@@ -1,10 +1,11 @@
+import {$Node} from '../../../../$';
 import {RANGE} from '../../../lexical/lexical-analyzer-config';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {$Node, ExpressionNode} from '../../../node';
+import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type InfixNode = SyntaxNode<$Node.INFIX> &
+export type InfixNode = SyntaxNode<$Node.InfixNode> &
   ExpressionNode & {
     left: ExpressionNode;
     operator: OperatorNode;
@@ -17,7 +18,7 @@ export function infixNode(
   operator: OperatorNode,
   right: ExpressionNode,
 ): InfixNode {
-  const node = syntaxNode($Node.INFIX, {left, operator, right});
+  const node = syntaxNode($Node.InfixNode, {left, operator, right});
 
   format(analyzer, node);
 

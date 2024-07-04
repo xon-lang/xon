@@ -1,3 +1,4 @@
+import {$Node, is} from '../../../../$';
 import {Nothing, nothing} from '../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {DocumentationNode} from '../../../syntax/documentation/documentation-node';
@@ -9,7 +10,6 @@ import {
 } from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
-import {$Semantic, semanticIs} from '../semantic-node';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
@@ -21,7 +21,7 @@ export function declarationDeepParse(
 ): DeclarationSemantic | Nothing {
   const semantic = node.id?.semantic;
 
-  if (!semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
+  if (!is<DeclarationSemantic>(semantic, $Node.DeclarationSemantic)) {
     return nothing;
   }
 
@@ -131,7 +131,7 @@ function attributesParse(
 
   for (const declaration of declarations) {
     // todo fix hack with semantic type checking
-    if (!declaration || !semanticIs<DeclarationSemantic>(declaration, $Semantic.DECLARATION)) {
+    if (!declaration || !is<DeclarationSemantic>(declaration, $Node.DeclarationSemantic)) {
       continue;
     }
 

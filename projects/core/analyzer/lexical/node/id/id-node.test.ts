@@ -1,7 +1,7 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {$Node} from '../../../node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {IdNode} from './id-node';
 
@@ -14,7 +14,7 @@ test('single id', () => {
 
   expect(statements.length).toBe(1);
   expect(node.text).toBe('abc');
-  expect(node.$).toBe($Node.ID);
+  expect(node.$).toBe($Node.IdNode);
 });
 
 test('several id', () => {
@@ -26,7 +26,7 @@ test('several id', () => {
 
   expect(statements.length).toBe(1);
   expect(node.text).toBe('abc');
-  expect(node.$).toBe($Node.ID);
+  expect(node.$).toBe($Node.IdNode);
 
   expect(syntax.diagnosticManager.diagnostics.length).toBe(2);
   expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(

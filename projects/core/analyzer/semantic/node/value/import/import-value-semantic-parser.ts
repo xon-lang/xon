@@ -1,10 +1,11 @@
 import {dirname, join, resolve} from 'path';
+import {$Node, is} from '../../../../../$';
 import {Nothing, String2, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {zeroPosition} from '../../../../../util/resource/text/text-position';
 import {textResourceFromFilePath} from '../../../../../util/resource/text/text-resource';
 import {codeLexicalAnalyzer} from '../../../../lexical/code-lexical-analyzer';
-import {$Node, Node, is} from '../../../../node';
+import {Node} from '../../../../node';
 import {ImportNode} from '../../../../syntax/node/import/import-node';
 import {createSyntaxAnalyzer} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
@@ -15,7 +16,7 @@ const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');
 
 export function syntaxImportsParse(analyzer: SemanticAnalyzer) {
   for (const statement of analyzer.statements) {
-    if (is<ImportNode>(statement.value, $Node.IMPORT)) {
+    if (is<ImportNode>(statement.value, $Node.Node)) {
       importValueSemanticTryParse(analyzer, statement.value);
     }
   }
@@ -25,7 +26,7 @@ export function importValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ImportValueSemantic | Nothing {
-  if (!is<ImportNode>(node, $Node.IMPORT)) {
+  if (!is<ImportNode>(node, $Node.Node)) {
     return nothing;
   }
 

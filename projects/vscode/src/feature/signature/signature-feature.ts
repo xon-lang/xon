@@ -13,12 +13,12 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
+import {$Node, hasSemantic, is, isGroupNode} from '../../../../core/$';
 import {CommaNode} from '../../../../core/analyzer/lexical/node/comma/comma-node';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {OpenNode} from '../../../../core/analyzer/lexical/node/open/open-node';
-import {$Node, Node, hasSemantic, is, isGroupNode} from '../../../../core/analyzer/node';
+import {Node} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {$Semantic, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {IdValueSemantic} from '../../../../core/analyzer/semantic/node/value/id/id-value-semantic';
 import {ItemNode} from '../../../../core/analyzer/syntax/group/item-node';
@@ -50,7 +50,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
       return nothing;
     }
 
-    if (is<IdNode>(invokeParameterIndex.invokeNode.instance, $Node.ID)) {
+    if (is<IdNode>(invokeParameterIndex.invokeNode.instance, $Node.IdNode)) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
       if (declaration) {
@@ -69,8 +69,11 @@ function getInvokeNodeAndParameterIndex(
     return nothing;
   }
 
-  if (is<OpenNode>(nodeAtPosition, $Node.OPEN)) {
-    if (isGroupNode(nodeAtPosition.parent) && is<InvokeNode>(nodeAtPosition.parent.parent, $Node.INVOKE)) {
+  if (is<OpenNode>(nodeAtPosition, $Node.OpenNode)) {
+    if (
+      isGroupNode(nodeAtPosition.parent) &&
+      is<InvokeNode>(nodeAtPosition.parent.parent, $Node.InvokeNode)
+    ) {
       return {
         invokeNode: nodeAtPosition.parent.parent,
         parameterIndex: 0,
@@ -78,12 +81,12 @@ function getInvokeNodeAndParameterIndex(
     }
   }
 
-  if (is<CommaNode>(nodeAtPosition, $Node.COMMA)) {
+  if (is<CommaNode>(nodeAtPosition, $Node.CommaNode)) {
     // todo fix complexity of 'parent.parent.parent...'
     if (
-      is<ItemNode>(nodeAtPosition.parent, $Node.ITEM) &&
+      is<ItemNode>(nodeAtPosition.parent, $Node.ItemNode) &&
       isGroupNode(nodeAtPosition.parent.parent) &&
-      is<InvokeNode>(nodeAtPosition.parent.parent.parent, $Node.INVOKE)
+      is<InvokeNode>(nodeAtPosition.parent.parent.parent, $Node.InvokeNode)
     ) {
       return {
         invokeNode: nodeAtPosition.parent.parent.parent,
@@ -97,13 +100,13 @@ function getInvokeNodeAndParameterIndex(
 
 function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
   if (
-    semanticIs<IdTypeSemantic>(node.semantic, $Semantic.ID_TYPE) ||
-    semanticIs<IdValueSemantic>(node.semantic, $Semantic.ID_VALUE)
+    is<IdTypeSemantic>(node.semantic, $Node.IdType) ||
+    is<IdValueSemantic>(node.semantic, $Node.IdValueSemantic)
   ) {
     return node.semantic.declaration;
   }
 
-  if (semanticIs<DeclarationSemantic>(node.semantic, $Semantic.DECLARATION)) {
+  if (is<DeclarationSemantic>(node.semantic, $Node.DeclarationSemantic)) {
     return node.semantic;
   }
 

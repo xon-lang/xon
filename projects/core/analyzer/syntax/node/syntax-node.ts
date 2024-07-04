@@ -1,6 +1,7 @@
+import {$Node} from '../../../$';
 import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
-import {$Node, Node} from '../../node';
+import {Node} from '../../node';
 
 export type SyntaxNode<T extends $Node = $Node> = Node<T> & {
   children: Array2<Node>;

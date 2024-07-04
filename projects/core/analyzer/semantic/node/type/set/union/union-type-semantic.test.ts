@@ -1,3 +1,4 @@
+import {$Node} from '../../../../../../$';
 import {String2, nothing} from '../../../../../../../lib/types';
 import {textResourceFrom} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
@@ -5,7 +6,6 @@ import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {DeclarationKind} from '../../../../declaration-manager';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {$Semantic} from '../../../semantic-node';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
@@ -23,21 +23,21 @@ test('a is integer or float', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Semantic.DECLARATION);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($Node.DeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($Semantic.DECLARATION);
+  expect(constNode.id?.semantic?.$).toBe($Node.DeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as DeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as UnionTypeSemantic;
-  expect(typeSemantic.$).toBe($Semantic.UNION_TYPE);
-  expect(typeSemantic.left.$).toBe($Semantic.ID_TYPE);
+  expect(typeSemantic.$).toBe($Node.UnionTypeSemantic);
+  expect(typeSemantic.left.$).toBe($Node.IdType);
   expect((typeSemantic.left as IdTypeSemantic).declaration?.name).toBe('Integer');
-  expect(typeSemantic.right.$).toBe($Semantic.ID_TYPE);
+  expect(typeSemantic.right.$).toBe($Node.IdType);
   expect((typeSemantic.right as IdTypeSemantic).declaration?.name).toBe('Float');
 });
 
@@ -59,8 +59,8 @@ test('1 check type', () => {
 
   const aType = typeSemanticParse(semantic, aConst.type?.value) as TypeSemantic;
   const bType = typeSemanticParse(semantic, bConst.type?.value) as TypeSemantic;
-  expect(aType.$).toBe($Semantic.ID_TYPE);
-  expect(bType.$).toBe($Semantic.UNION_TYPE);
+  expect(aType.$).toBe($Node.IdType);
+  expect(bType.$).toBe($Node.UnionTypeSemantic);
   expect(aType.is(bType)).toBe(true);
 });
 
@@ -87,9 +87,9 @@ test('2 check type', () => {
   const bType = getConst('b');
   const cType = getConst('c');
 
-  expect(aType.$).toBe($Semantic.UNION_TYPE);
-  expect(bType.$).toBe($Semantic.ID_TYPE);
-  expect(cType.$).toBe($Semantic.ID_TYPE);
+  expect(aType.$).toBe($Node.UnionTypeSemantic);
+  expect(bType.$).toBe($Node.IdType);
+  expect(cType.$).toBe($Node.IdType);
 
   expect(bType.is(aType)).toBe(true);
   expect(cType.is(aType)).toBe(false);

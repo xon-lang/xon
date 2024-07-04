@@ -1,8 +1,8 @@
-import {$} from '../../../$';
+import {$, TypeKey} from '../../../$';
 import {Integer} from '../../../../lib/types';
 
 export interface TextPosition {
-  $: $.TextPosition;
+  $: TypeKey<TextPosition>;
   index: Integer;
   line: Integer;
   column: Integer;

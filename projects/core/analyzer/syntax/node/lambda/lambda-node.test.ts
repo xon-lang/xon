@@ -1,8 +1,8 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
-import {$Node} from '../../../node';
 import {syntaxFromResource} from '../../syntax-analyzer';
 import {DeclarationNode} from '../declaration/declaration-node';
 import {LambdaNode} from './lambda-node';
@@ -15,7 +15,7 @@ test('function with no parameters', () => {
   const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.$).toBe($Node.LambdaNode);
   expect(node.generics).toBeFalsy();
   expect(node.parameters?.items.length).toBe(0);
   expect((node.type?.value as IdNode).text).toBe('Integer');
@@ -29,7 +29,7 @@ test('function with generic', () => {
   const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.$).toBe($Node.LambdaNode);
   expect(node.generics?.items.length).toBe(1);
   expect((node.generics?.items[0].value as DeclarationNode).id.text).toBe('T');
   expect(node.parameters.items.length).toBe(0);
@@ -44,7 +44,7 @@ test('function with generic and parameter', () => {
   const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.$).toBe($Node.LambdaNode);
   expect(node.generics?.items.length).toBe(1);
   expect((node.generics?.items[0].value as DeclarationNode).id.text).toBe('T');
   expect(node.parameters.items.length).toBe(1);
@@ -61,7 +61,7 @@ test('has argument and value', () => {
   const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.$).toBe($Node.LambdaNode);
   expect(node.parameters?.items.length).toBe(1);
   expect((node.parameters?.items[0].value as DeclarationNode).id.text).toBe('x');
 
@@ -80,7 +80,7 @@ test('two parameter', () => {
   const node = statements[0].value as LambdaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.LAMBDA);
+  expect(node.$).toBe($Node.LambdaNode);
   expect(node.parameters?.items.length).toBe(2);
   expect((node.parameters?.items[0].value as DeclarationNode).id?.text).toBe('a');
   expect((node.parameters?.items[1].value as DeclarationNode).id?.text).toBe('b');

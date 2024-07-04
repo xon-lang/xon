@@ -1,13 +1,13 @@
+import {$Node, is, isSetOperatorTypeSemantic} from '../../../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
-import {$Semantic, semanticIs} from '../../../semantic-node';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {isInSet, isSetOperatorTypeSemantic} from '../set';
+import {isInSet} from '../set';
 
 export interface RangeTypeSemantic extends TypeSemantic {
-  $: $Semantic.RANGE_TYPE;
+  $: $Node.RangeTypeSemantic;
   declaration: DeclarationSemantic;
   from: TypeSemantic;
   to: TypeSemantic;
@@ -22,7 +22,7 @@ export function rangeTypeSemantic(
   step: RangeTypeSemantic['step'],
 ): RangeTypeSemantic {
   const semantic: RangeTypeSemantic = {
-    $: $Semantic.RANGE_TYPE,
+    $: $Node.RangeTypeSemantic,
     reference,
     declaration,
     from,
@@ -34,12 +34,12 @@ export function rangeTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (semanticIs<RangeTypeSemantic>(other, $Semantic.RANGE_TYPE)) {
+      if (is<RangeTypeSemantic>(other, $Node.RangeTypeSemantic)) {
         if (
-          semanticIs<IntegerTypeSemantic>(this.from, $Semantic.INTEGER_TYPE) &&
-          semanticIs<IntegerTypeSemantic>(other.from, $Semantic.INTEGER_TYPE) &&
-          semanticIs<IntegerTypeSemantic>(this.to, $Semantic.INTEGER_TYPE) &&
-          semanticIs<IntegerTypeSemantic>(other.to, $Semantic.INTEGER_TYPE)
+          is<IntegerTypeSemantic>(this.from, $Node.IntegerTypeSemantic) &&
+          is<IntegerTypeSemantic>(other.from, $Node.IntegerTypeSemantic) &&
+          is<IntegerTypeSemantic>(this.to, $Node.IntegerTypeSemantic) &&
+          is<IntegerTypeSemantic>(other.to, $Node.IntegerTypeSemantic)
         )
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
       }
@@ -52,7 +52,7 @@ export function rangeTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (semanticIs<RangeTypeSemantic>(other, $Semantic.INTEGER_TYPE)) {
+      if (is<RangeTypeSemantic>(other, $Node.IntegerTypeSemantic)) {
         return this.from === other.from && this.to === other.to && this.step === other.step;
       }
 

@@ -1,6 +1,7 @@
+import {$Node, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Boolean2, Integer, nothing} from '../../../../../lib/types';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {$Node, is, isNonOperatorExpression, Node, nodeFindMap} from '../../../node';
+import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {prefixNode} from './prefix-node';
@@ -9,9 +10,9 @@ export function prefixNodeParse(operators: String[], isLeftRecursive: Boolean2):
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
-        !is<OperatorNode>(node, $Node.OPERATOR) ||
+        !is<OperatorNode>(node, $Node.OperatorNode) ||
         !operators.includes(node.text) ||
-        (index !== 0 && !is<OperatorNode>(nodes[index - 1], $Node.OPERATOR))
+        (index !== 0 && !is<OperatorNode>(nodes[index - 1], $Node.OperatorNode))
       ) {
         return nothing;
       }

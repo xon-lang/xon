@@ -10,8 +10,8 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$Node, is} from '../../../../../core/analyzer/node';
-import {$Semantic, SemanticNode, semanticIs} from '../../../../../core/analyzer/semantic/node/semantic-node';
+import {$Node, is} from '../../../../../core/$';
+import {SemanticNode} from '../../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semantic/node/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/analyzer/semantic/node/value/value-semantic';
@@ -31,7 +31,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (is<MemberNode>(node?.parent, $Node.MEMBER) && node.parent.instance.semantic) {
+    if (is<MemberNode>(node?.parent, $Node.MemberNode) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);
       if (attributes) {
         return Object.entries(attributes).map(([name, types]) => createPropertyCompletionItem(name, types));
@@ -46,7 +46,7 @@ function getAttributes(semantic: SemanticNode): Record<String2, Array2<TypeSeman
     return semantic.attributes();
   }
 
-  if (semanticIs<ValueSemantic>(semantic, $Semantic.VALUE) && semantic.type) {
+  if (is<ValueSemantic>(semantic, $Node.ValueSemantic) && semantic.type) {
     return semantic.type.attributes();
   }
 
@@ -57,7 +57,7 @@ function createPropertyCompletionItem(name: String2, types: Array2<TypeSemantic>
   const item = new CompletionItem(name, CompletionItemKind.Property);
   const type = types.first();
 
-  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
+  if (is<IdTypeSemantic>(type, $Node.IdType)) {
     item.detail = type.declaration.name;
   }
 

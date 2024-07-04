@@ -12,14 +12,14 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
+import {$Node, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
-import {$Node, is} from '../../../../core/analyzer/node';
 import {
   DeclarationSemantic,
   isTypeDeclarationSemantic,
 } from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-id-semantic';
-import {$Semantic, semanticIs, SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
+import {SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
@@ -45,7 +45,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is<IdNode>(node, $Node.ID) || !node.semantic) {
+    if (!is<IdNode>(node, $Node.IdNode) || !node.semantic) {
       return nothing;
     }
 
@@ -66,7 +66,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is<IdNode>(node, $Node.ID)) {
+    if (!is<IdNode>(node, $Node.IdNode)) {
       throw new Error('You cannot rename this element');
     }
 
@@ -75,7 +75,7 @@ class LanguageRenameProvider implements RenameProvider {
 }
 
 function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
-  if (semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION)) {
+  if (is<DeclarationSemantic>(semantic, $Node.DeclarationSemantic)) {
     return semantic;
   }
 
@@ -83,18 +83,15 @@ function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
     return semantic;
   }
 
-  if (semanticIs<DocumentationIdSemantic>(semantic, $Semantic.DOCUMENTATION_ID)) {
+  if (is<DocumentationIdSemantic>(semantic, $Node.DocumentationIdSemantic)) {
     return semantic.declaration;
   }
 
-  if (semanticIs<IdTypeSemantic>(semantic, $Semantic.ID_TYPE)) {
+  if (is<IdTypeSemantic>(semantic, $Node.IdType)) {
     return semantic.declaration;
   }
 
-  if (
-    semanticIs<ValueSemantic>(semantic, $Semantic.VALUE) &&
-    semanticIs<IdTypeSemantic>(semantic.type, $Semantic.ID_TYPE)
-  ) {
+  if (is<ValueSemantic>(semantic, $Node.ValueSemantic) && is<IdTypeSemantic>(semantic.type, $Node.IdType)) {
     return semantic.type.declaration;
   }
 }

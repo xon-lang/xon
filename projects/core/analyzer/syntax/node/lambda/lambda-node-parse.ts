@@ -1,8 +1,9 @@
+import {$Node, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {$Node, ExpressionNode, Node, is, isNonOperatorExpression, nodeFindMap} from '../../../node';
+import {ExpressionNode, Node, nodeFindMap} from '../../../node';
 import {Group, GroupNode, ObjectNode} from '../../group/group-node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
@@ -46,13 +47,13 @@ function getLambdaParts(
   | Nothing {
   const typeOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
-      is<OperatorNode>(node, $Node.OPERATOR) &&
+      is<OperatorNode>(node, $Node.OperatorNode) &&
       node.text === TYPE &&
       isNonOperatorExpression(nodes[index + 1]) &&
-      (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
-        (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
-          is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
-          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP)))
+      (is<GroupNode>(nodes[index - 1], $Node.GroupNode) ||
+        (is<InvokeNode>(nodes[index - 1], $Node.InvokeNode) &&
+          is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.ObjectNode) &&
+          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GroupNode)))
     ) {
       return {node, index};
     }
@@ -68,7 +69,7 @@ function getLambdaParts(
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (
-      is<OperatorNode>(assignOperator, $Node.OPERATOR) &&
+      is<OperatorNode>(assignOperator, $Node.OperatorNode) &&
       assignOperator.text === ASSIGN &&
       isNonOperatorExpression(assignValue)
     ) {
@@ -82,13 +83,13 @@ function getLambdaParts(
 
   const assignOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
-      is<OperatorNode>(node, $Node.OPERATOR) &&
+      is<OperatorNode>(node, $Node.OperatorNode) &&
       node.text === ASSIGN &&
       isNonOperatorExpression(nodes[index + 1]) &&
-      (is<GroupNode>(nodes[index - 1], $Node.GROUP) ||
-        (is<InvokeNode>(nodes[index - 1], $Node.INVOKE) &&
-          is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.OBJECT) &&
-          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GROUP)))
+      (is<GroupNode>(nodes[index - 1], $Node.GroupNode) ||
+        (is<InvokeNode>(nodes[index - 1], $Node.InvokeNode) &&
+          is<ObjectNode>((nodes[index - 1] as InvokeNode).instance, $Node.ObjectNode) &&
+          is<GroupNode>((nodes[index - 1] as InvokeNode).group, $Node.GroupNode)))
     ) {
       return {node, index};
     }
@@ -115,13 +116,13 @@ function getGenericsParameters(
   generics?: Group | Nothing;
   parameters?: Group | Nothing;
 } {
-  if (is<GroupNode>(node, $Node.GROUP)) {
+  if (is<GroupNode>(node, $Node.GroupNode)) {
     parseDeclarations(analyzer, node);
 
     return {parameters: node};
   }
 
-  if (is<InvokeNode>(node, $Node.INVOKE) && is<ObjectNode>(node.instance, $Node.OBJECT)) {
+  if (is<InvokeNode>(node, $Node.InvokeNode) && is<ObjectNode>(node.instance, $Node.ObjectNode)) {
     parseDeclarations(analyzer, node.instance);
     parseDeclarations(analyzer, node.group);
 
@@ -133,7 +134,7 @@ function getGenericsParameters(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: Group): void {
   for (const item of group.items) {
-    if (is<IdNode>(item.value, $Node.ID)) {
+    if (is<IdNode>(item.value, $Node.IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }

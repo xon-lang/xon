@@ -10,8 +10,8 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
+import {$Node, is} from '../../../../../core/$';
 import {LexicalNode} from '../../../../../core/analyzer/lexical/node/lexical-node';
-import {$Node, is} from '../../../../../core/analyzer/node';
 import {Array2} from '../../../../../lib/types';
 import {convertVscodePosition, getDocumentSemantic} from '../../../util';
 
@@ -27,7 +27,7 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (is<LexicalNode>(node, $Node.TOKEN)) {
+    if (is<LexicalNode>(node, $Node.LexicalNode)) {
       const item = new CompletionItem(node.text, CompletionItemKind.Property);
     }
 

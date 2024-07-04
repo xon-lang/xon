@@ -1,16 +1,16 @@
+import {$Node} from '../../../../../../$';
 import {Array2, Boolean2, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
-import {$Semantic} from '../../../semantic-node';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface NotTypeSemantic extends TypeSemantic {
-  $: $Semantic.NOT_TYPE;
+  $: $Node.NotTypeSemantic;
   value: TypeSemantic;
 }
 
 export function notTypeSemantic(reference: TextResourceRange, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {
-    $: $Semantic.NOT_TYPE,
+    $: $Node.NotTypeSemantic,
     reference,
     value,
 

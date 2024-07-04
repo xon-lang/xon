@@ -1,3 +1,4 @@
+import {$Node, is, isHiddenNode} from '../../$';
 import {Array2, Boolean2, Nothing, nothing} from '../../../lib/types';
 import {
   AnalyzerDiagnosticManager,
@@ -15,7 +16,7 @@ import {NlNode} from '../lexical/node/nl/nl-node';
 import {OpenNode} from '../lexical/node/open/open-node';
 import {UnknownNode} from '../lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from '../lexical/node/whitespace/whitespace-node';
-import {$Node, Node, is, isHiddenNode} from '../node';
+import {Node} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
 import {SyntaxNode} from './node/syntax-node';
@@ -89,16 +90,16 @@ export function createSyntaxAnalyzer(
       for (const iterableNode of lexicalAnalyzer) {
         let node: Node = iterableNode;
 
-        if (is<UnknownNode>(node, $Node.UNKNOWN)) {
+        if (is<UnknownNode>(node, $Node.UnknownNode)) {
           this.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
         }
 
-        if (is<OpenNode>(node, $Node.OPEN)) {
+        if (is<OpenNode>(node, $Node.OpenNode)) {
           node = groupNodeParse(this, node);
           lexicalAnalyzer.position = node.range.stop;
         }
 
-        if (is<DocumentationOpenNode>(node, $Node.DOCUMENTATION_OPEN)) {
+        if (is<DocumentationOpenNode>(node, $Node.DocumentationOpenNode)) {
           node = documentationNodeParse(this, node);
           lexicalAnalyzer.position = node.range.stop;
         }
@@ -110,12 +111,12 @@ export function createSyntaxAnalyzer(
         }
 
         if (nodes.length === 0) {
-          if (is<WhitespaceNode>(node, $Node.WHITESPACE)) {
+          if (is<WhitespaceNode>(node, $Node.WhitespaceNode)) {
           }
         }
 
         if (isHiddenNode(node)) {
-          if (is<NlNode>(node, $Node.NL)) {
+          if (is<NlNode>(node, $Node.NlNode)) {
             handleStatement();
           }
 
@@ -172,7 +173,7 @@ export function createSyntaxAnalyzer(
         return nothing;
       }
 
-      if (!is<SyntaxNode>(child, $Node.SYNTAX)) {
+      if (!is<SyntaxNode>(child, $Node.SyntaxNode)) {
         return child;
       }
 
@@ -202,19 +203,19 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
     return nothing;
   }
 
-  const lastNlIndex = hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NL));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is<NlNode>(x, $Node.NlNode));
 
   if (lastNlIndex >= 0) {
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
-    if (is<WhitespaceNode>(whiteSpaceNode, $Node.WHITESPACE)) {
+    if (is<WhitespaceNode>(whiteSpaceNode, $Node.WhitespaceNode)) {
       return cloneRange(whiteSpaceNode.range);
     }
 
     return rangeFromPosition(hiddenNodes[lastNlIndex].range.stop);
   }
 
-  if (is<WhitespaceNode>(hiddenNodes[0], $Node.WHITESPACE)) {
+  if (is<WhitespaceNode>(hiddenNodes[0], $Node.WhitespaceNode)) {
     return cloneRange(hiddenNodes[0].range);
   }
 

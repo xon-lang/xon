@@ -1,5 +1,6 @@
+import {isGroupNode, isNonOperatorExpression} from '../../../../$';
 import {Array2, Integer, nothing} from '../../../../../lib/types';
-import {isGroupNode, isNonOperatorExpression, Node, nodeFindMap} from '../../../node';
+import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {invokeNode} from './invoke-node';

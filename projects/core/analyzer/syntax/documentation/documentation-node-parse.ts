@@ -1,3 +1,4 @@
+import {$Node, is} from '../../../$';
 import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {documentationLexicalAnalyzer} from '../../lexical/documentation-lexical-analyzer.1';
@@ -5,7 +6,6 @@ import {DocumentationCloseNode} from '../../lexical/node/documentation-close/doc
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
-import {$Node, is} from '../../node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {documentationItemNode, DocumentationItemNode} from './documentation-item-node';
 import {documentationNode, DocumentationNode} from './documentation-node';
@@ -23,7 +23,7 @@ export function documentationNodeParse(
   const items: Array2<DocumentationItemNode> = [];
 
   for (const node of lexer) {
-    if (is<DocumentationDescriptionNode>(node, $Node.DOCUMENTATION_DESCRIPTION)) {
+    if (is<DocumentationDescriptionNode>(node, $Node.DocumentationDescriptionNode)) {
       if (items.length === 0) {
         description = node;
       } else {
@@ -36,13 +36,13 @@ export function documentationNodeParse(
       continue;
     }
 
-    if (is<DocumentationLabelNode>(node, $Node.DOCUMENTATION_LABEL)) {
+    if (is<DocumentationLabelNode>(node, $Node.DocumentationLabelNode)) {
       items.push(documentationItemNode(node));
 
       continue;
     }
 
-    if (is<DocumentationCloseNode>(node, $Node.DOCUMENTATION_CLOSE)) {
+    if (is<DocumentationCloseNode>(node, $Node.DocumentationCloseNode)) {
       return documentationNode(analyzer, openNode, description, items, node);
     }
   }

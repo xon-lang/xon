@@ -1,3 +1,4 @@
+import {$Node, is} from '../../../$';
 import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
 import {
   ARRAY_CLOSE,
@@ -9,7 +10,6 @@ import {
 import {CloseNode} from '../../lexical/node/close/close-node';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
-import {$Node, is} from '../../node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {SyntaxAnalyzerConfig} from '../syntax-analyzer-config';
 import {$Group, Group, groupNode} from './group-node';
@@ -17,14 +17,14 @@ import {ItemNode, itemNode} from './item-node';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Group {
   if (openNode.text === ARRAY_OPEN) {
-    return groupNodeParseInner(analyzer, $Node.ARRAY, openNode, ARRAY_CLOSE);
+    return groupNodeParseInner(analyzer, $Node.ArrayNode, openNode, ARRAY_CLOSE);
   }
 
   if (openNode.text === OBJECT_OPEN) {
-    return groupNodeParseInner(analyzer, $Node.OBJECT, openNode, OBJECT_CLOSE);
+    return groupNodeParseInner(analyzer, $Node.ObjectNode, openNode, OBJECT_CLOSE);
   }
 
-  return groupNodeParseInner(analyzer, $Node.GROUP, openNode, GROUP_CLOSE);
+  return groupNodeParseInner(analyzer, $Node.GroupNode, openNode, GROUP_CLOSE);
 }
 
 function groupNodeParseInner(
@@ -49,16 +49,17 @@ function groupNodeParseInner(
   while (analyzer.lexicalAnalyzer.position.index < analyzer.lexicalAnalyzer.resource.data.length) {
     const {breakNode, statements} = analyzer.parseStatements(
       (node) =>
-        is<CommaNode>(node, $Node.COMMA) || (is<CloseNode>(node, $Node.CLOSE) && node.text === closeText),
+        is<CommaNode>(node, $Node.CommaNode) ||
+        (is<CloseNode>(node, $Node.CloseNode) && node.text === closeText),
     );
 
-    if (is<CommaNode>(breakNode, $Node.COMMA)) {
+    if (is<CommaNode>(breakNode, $Node.CommaNode)) {
       const item = itemNode(analyzer, itemIndex, commaNode, statements);
       items.push(item);
       commaNode = breakNode;
     }
 
-    if (is<CloseNode>(breakNode, $Node.CLOSE)) {
+    if (is<CloseNode>(breakNode, $Node.CloseNode)) {
       if (items.length > 0 || statements.length > 0) {
         const item = itemNode(analyzer, itemIndex, commaNode, statements);
         items.push(item);

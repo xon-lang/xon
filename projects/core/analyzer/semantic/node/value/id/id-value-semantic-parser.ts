@@ -1,14 +1,15 @@
+import {$Node, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {IdNode} from '../../../../lexical/node/id/id-node';
-import {$Node, Node, is} from '../../../../node';
+import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 
 export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): IdValueSemantic | Nothing {
-  if (!is<IdNode>(node, $Node.ID)) {
+  if (!is<IdNode>(node, $Node.IdNode)) {
     return nothing;
   }
 

@@ -1,10 +1,10 @@
+import {$Node} from '../../../../$';
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node} from '../../../node';
 import {HiddenNode, LexicalNode, lexicalNode} from '../lexical-node';
 
-export type WhitespaceNode = LexicalNode<$Node.WHITESPACE> & HiddenNode;
+export type WhitespaceNode = LexicalNode<$Node.WhitespaceNode> & HiddenNode;
 
 export function whitespaceNode(range: TextRange, text: String2): WhitespaceNode {
-  return lexicalNode({$: $Node.WHITESPACE, range, text});
+  return lexicalNode({$: $Node.WhitespaceNode, range, text});
 }

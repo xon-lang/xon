@@ -1,7 +1,7 @@
+import {$Node} from '../$';
 import {nothing} from '../../lib/types';
 import {textResourceFrom} from '../util/resource/text/text-resource';
 import {IntegerNode} from './lexical/node/integer/integer-node';
-import {$Node} from './node';
 import {InfixNode} from './syntax/node/infix/infix-node';
 import {syntaxFromResource} from './syntax/syntax-analyzer';
 
@@ -13,7 +13,7 @@ test('comma', () => {
   const node = statements[0].value as IntegerNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.INTEGER);
+  expect(node.$).toBe($Node.IntegerNode);
   expect(node.text).toBe('1');
 });
 
@@ -66,8 +66,8 @@ c`;
   const node1 = statements[1].value as InfixNode;
 
   expect(statements.length).toBe(2);
-  expect(node0.$).toBe($Node.ID);
-  expect(node1.$).toBe($Node.ID);
+  expect(node0.$).toBe($Node.IdNode);
+  expect(node1.$).toBe($Node.IdNode);
 });
 
 test('debug 4', () => {

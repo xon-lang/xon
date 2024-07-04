@@ -1,10 +1,10 @@
+import {$Node} from '../../../../../../$';
 import {Array2, Boolean2, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
-import {$Semantic} from '../../../semantic-node';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface IntersectionTypeSemantic extends TypeSemantic {
-  $: $Semantic.INTERSECTION_TYPE;
+  $: $Node.IntersectionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
 }
@@ -15,7 +15,7 @@ export function intersectionTypeSemantic(
   right: TypeSemantic,
 ): IntersectionTypeSemantic {
   const semantic: IntersectionTypeSemantic = {
-    $: $Semantic.INTERSECTION_TYPE,
+    $: $Node.IntersectionTypeSemantic,
     reference,
     left,
     right,

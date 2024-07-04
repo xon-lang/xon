@@ -1,10 +1,10 @@
+import {$Node} from '../../../../../../$';
 import {Array2, Boolean2, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
-import {$Semantic} from '../../../semantic-node';
 import {TypeSemantic} from '../../type-semantic';
 
 export interface ComplementTypeSemantic extends TypeSemantic {
-  $: $Semantic.COMPLEMENT_TYPE;
+  $: $Node.ComplementTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
 }
@@ -15,7 +15,7 @@ export function complementTypeSemantic(
   right: TypeSemantic,
 ): ComplementTypeSemantic {
   const semantic: ComplementTypeSemantic = {
-    $: $Semantic.COMPLEMENT_TYPE,
+    $: $Node.ComplementTypeSemantic,
     reference,
     left,
     right,

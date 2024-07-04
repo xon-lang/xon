@@ -1,6 +1,7 @@
+import {$Node, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
-import {$Node, Node, is} from '../../../../node';
+import {Node} from '../../../../node';
 import {MemberNode} from '../../../../syntax/node/member/member-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeSemantic} from '../../type/type-semantic';
@@ -11,7 +12,7 @@ export function memberValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): MemberValueSemantic | Nothing {
-  if (!is<MemberNode>(node, $Node.MEMBER)) {
+  if (!is<MemberNode>(node, $Node.MemberNode)) {
     return nothing;
   }
 

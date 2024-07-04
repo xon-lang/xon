@@ -1,6 +1,6 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {$Node} from '../../../node';
 import {MemberNode} from '../../../syntax/node/member/member-node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {JOINING} from '../../lexical-analyzer-config';
@@ -16,10 +16,10 @@ test('no space', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance?.$).toBe($Node.ID);
+  expect(node.instance?.$).toBe($Node.IdNode);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  expect(node.id?.$).toBe($Node.ID);
+  expect(node.id?.$).toBe($Node.IdNode);
   expect((node.id as IdNode).text).toBe('def');
 });
 
@@ -31,10 +31,10 @@ test('spaces', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance?.$).toBe($Node.ID);
+  expect(node.instance?.$).toBe($Node.IdNode);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  expect(node.id?.$).toBe($Node.ID);
+  expect(node.id?.$).toBe($Node.IdNode);
   expect((node.id as IdNode).text).toBe('def');
 });
 
@@ -46,11 +46,11 @@ test('with new line', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance?.$).toBe($Node.ID);
+  expect(node.instance?.$).toBe($Node.IdNode);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
   // todo fix  'as LexicalNode'
   expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text).toBe(JOINING + '   \n');
-  expect(node.id?.$).toBe($Node.ID);
+  expect(node.id?.$).toBe($Node.IdNode);
   expect((node.id as IdNode).text).toBe('def');
 });

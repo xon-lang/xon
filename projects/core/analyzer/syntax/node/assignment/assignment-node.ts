@@ -1,16 +1,16 @@
+import {$Node} from '../../../../$';
 import {IdNode} from '../../../lexical/node/id/id-node';
-import {$Node} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {PrefixNode} from '../prefix/prefix-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
-export type AssignmentNode = SyntaxNode<$Node.ASSIGNMENT> & {
+export type AssignmentNode = SyntaxNode<$Node.AssignmentNode> & {
   id: IdNode;
   assign: PrefixNode;
 };
 
 export function assignmentNode(analyzer: SyntaxAnalyzer, id: IdNode, assign: PrefixNode): AssignmentNode {
-  const node = syntaxNode($Node.ASSIGNMENT, {id, assign});
+  const node = syntaxNode($Node.AssignmentNode, {id, assign});
 
   format(analyzer, node);
 

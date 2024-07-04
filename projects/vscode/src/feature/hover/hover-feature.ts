@@ -10,9 +10,9 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {hasSemantic} from '../../../../core/analyzer/node';
+import {$Node, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {$Semantic, SemanticNode, semanticIs} from '../../../../core/analyzer/semantic/node/semantic-node';
+import {SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/analyzer/semantic/node/type/string/string-type-semantic';
@@ -56,7 +56,7 @@ function getSemanticHoverText(semantic: SemanticNode): MarkdownString | Nothing 
     return getTypeMarkdown(semantic);
   }
 
-  if (semanticIs<ValueSemantic>(semantic, $Semantic.VALUE) && semantic.type) {
+  if (is<ValueSemantic>(semantic, $Node.ValueSemantic) && semantic.type) {
     return getTypeMarkdown(semantic.type);
   }
 
@@ -74,17 +74,17 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
 }
 
 function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (semanticIs<IdTypeSemantic>(type, $Semantic.ID_TYPE)) {
+  if (is<IdTypeSemantic>(type, $Node.IdType)) {
     return declarationToText(type.declaration);
   }
 
-  if (semanticIs<StringTypeSemantic>(type, $Semantic.STRING_TYPE)) {
+  if (is<StringTypeSemantic>(type, $Node.StringTypeSemantic)) {
     const declaration = declarationToText(type.declaration);
 
     return `${declaration}("${type.value}")`;
   }
 
-  if (semanticIs<IntegerTypeSemantic>(type, $Semantic.INTEGER_TYPE)) {
+  if (is<IntegerTypeSemantic>(type, $Node.IntegerTypeSemantic)) {
     const declaration = declarationToText(type.declaration);
 
     return `${declaration}(${type.value})`;

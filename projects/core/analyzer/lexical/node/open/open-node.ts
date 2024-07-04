@@ -1,10 +1,10 @@
+import {$Node} from '../../../../$';
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node} from '../../../node';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
-export type OpenNode = LexicalNode<$Node.OPEN>;
+export type OpenNode = LexicalNode<$Node.OpenNode>;
 
 export function openNode(range: TextRange, text: String2): OpenNode {
-  return lexicalNode({$: $Node.OPEN, range, text});
+  return lexicalNode({$: $Node.OpenNode, range, text});
 }

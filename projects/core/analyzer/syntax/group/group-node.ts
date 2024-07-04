@@ -1,20 +1,21 @@
+import {$Node} from '../../../$';
 import {Array2, Nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CloseNode} from '../../lexical/node/close/close-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
-import {$Node, ExpressionNode} from '../../node';
+import {ExpressionNode} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {ItemNode} from './item-node';
 
-export type $Group = $Node.GROUP | $Node.ARRAY | $Node.OBJECT;
+export type $Group = $Node.GroupNode | $Node.ArrayNode | $Node.ObjectNode;
 export type Group = GroupNode | ArrayNode | ObjectNode;
 export type ArrayNode = GroupNode;
 export type ObjectNode = GroupNode;
 
-export type GroupNode = SyntaxNode<$Node.GROUP | $Node.ARRAY | $Node.OBJECT> &
+export type GroupNode = SyntaxNode<$Node.GroupNode | $Node.ArrayNode | $Node.ObjectNode> &
   ExpressionNode & {
     open: OpenNode;
     items: Array2<ItemNode>;

@@ -1,10 +1,11 @@
+import {$Node} from '../../../../$';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
-import {$Semantic, SemanticNode} from '../semantic-node';
+import {SemanticNode} from '../semantic-node';
 
 export interface DocumentationIdSemantic extends SemanticNode {
-  $: $Semantic.DOCUMENTATION_ID;
+  $: $Node.DocumentationIdSemantic;
   declaration: DeclarationSemantic;
 }
 
@@ -14,7 +15,7 @@ export function documentationIdSemantic(
   declaration: DeclarationSemantic,
 ): DocumentationIdSemantic {
   return {
-    $: $Semantic.DOCUMENTATION_ID,
+    $: $Node.DocumentationIdSemantic,
     reference,
     declaration,
   };

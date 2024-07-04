@@ -1,6 +1,6 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {$Node} from '../../../node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {CommaNode} from './comma-node';
 
@@ -12,6 +12,6 @@ test('comma', () => {
   const node = statements[0].value as CommaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.COMMA);
+  expect(node.$).toBe($Node.CommaNode);
   expect(node.text).toBe(',');
 });

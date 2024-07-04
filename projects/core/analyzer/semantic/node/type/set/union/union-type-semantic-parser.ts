@@ -1,6 +1,7 @@
+import {$Node, is} from '../../../../../../$';
 import {Nothing, nothing} from '../../../../../../../lib/types';
 import {UNION} from '../../../../../lexical/lexical-analyzer-config';
-import {$Node, Node, is} from '../../../../../node';
+import {Node} from '../../../../../node';
 import {InfixNode} from '../../../../../syntax/node/infix/infix-node';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {typeSemanticParse} from '../../type-semantic-parser';
@@ -10,7 +11,7 @@ export function unionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): UnionTypeSemantic | Nothing {
-  if (is<InfixNode>(node, $Node.INFIX) && node.operator.text === UNION) {
+  if (is<InfixNode>(node, $Node.InfixNode) && node.operator.text === UNION) {
     const left = typeSemanticParse(analyzer, node.left);
     const right = typeSemanticParse(analyzer, node.right);
 

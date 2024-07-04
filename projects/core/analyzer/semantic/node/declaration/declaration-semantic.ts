@@ -1,11 +1,12 @@
+import {$Node, is} from '../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../../lexical/lexical-analyzer-config';
-import {$Semantic, SemanticNode, semanticIs} from '../semantic-node';
+import {SemanticNode} from '../semantic-node';
 import {TypeSemantic} from '../type/type-semantic';
 import {ValueSemantic} from '../value/value-semantic';
 
-export interface DeclarationSemantic extends SemanticNode<$Semantic.DECLARATION> {
+export interface DeclarationSemantic extends SemanticNode<$Node.DeclarationSemantic> {
   documentation?: String2 | Nothing;
   // todo maybe 'usages' need to use 'TextResourcePosition' instead of 'TextResourceRange' ???
   usages: Array2<TextResourceRange>;
@@ -27,7 +28,7 @@ export function declarationSemantic(
   name: String2,
 ): DeclarationSemantic {
   return {
-    $: $Semantic.DECLARATION,
+    $: $Node.DeclarationSemantic,
     reference,
     documentation,
     modifier,
@@ -42,7 +43,7 @@ export function declarationSemantic(
 
 export function isTypeDeclarationSemantic(semantic: SemanticNode): semantic is DeclarationSemantic {
   return (
-    semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION) &&
+    is<DeclarationSemantic>(semantic, $Node.DeclarationSemantic) &&
     !!semantic.modifier &&
     TYPE_MODIFIERS.includes(semantic.modifier)
   );
@@ -50,7 +51,7 @@ export function isTypeDeclarationSemantic(semantic: SemanticNode): semantic is D
 
 export function isValueDeclarationSemantic(semantic: SemanticNode): semantic is DeclarationSemantic {
   return (
-    semanticIs<DeclarationSemantic>(semantic, $Semantic.DECLARATION) &&
+    is<DeclarationSemantic>(semantic, $Node.DeclarationSemantic) &&
     (!semantic.modifier || VALUE_MODIFIERS.includes(semantic.modifier))
   );
 }

@@ -1,6 +1,6 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {$Node} from '../../../node';
 import {InfixNode} from '../../../syntax/node/infix/infix-node';
 import {PostfixNode} from '../../../syntax/node/postfix/postfix-node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -15,7 +15,7 @@ test('single operator', () => {
 
   expect(statements.length).toBe(1);
   expect(node.text).toBe('!');
-  expect(node.$).toBe($Node.OPERATOR);
+  expect(node.$).toBe($Node.OperatorNode);
 });
 
 test('after integer', () => {
@@ -26,7 +26,7 @@ test('after integer', () => {
   const node = statements[0].value as PostfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.POSTFIX);
+  expect(node.$).toBe($Node.PostfixNode);
   expect(node.operator.text).toBe('!');
 });
 
@@ -38,6 +38,6 @@ test('x + x', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.INFIX);
+  expect(node.$).toBe($Node.InfixNode);
   expect(node.operator.text).toBe('is');
 });

@@ -1,16 +1,16 @@
+import {$Node} from '../../../../../$';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
-import {$Semantic} from '../../semantic-node';
 import {StringTypeSemantic} from '../../type/string/string-type-semantic';
 import {ValueSemantic} from '../value-semantic';
 
-export type StringValueSemantic = ValueSemantic<$Semantic.STRING_VALUE, StringTypeSemantic>;
+export type StringValueSemantic = ValueSemantic<$Node.StringValueSemantic, StringTypeSemantic>;
 
 export function stringValueSemantic(
   reference: TextResourceRange,
   type: StringTypeSemantic,
 ): StringValueSemantic {
   return {
-    $: $Semantic.STRING_VALUE,
+    $: $Node.StringValueSemantic,
     reference,
     type,
   };

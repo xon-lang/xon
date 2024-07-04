@@ -1,9 +1,10 @@
+import {$Node, is} from '../$';
 import {Anything, Nothing, Something, String2, nothing} from '../../lib/types';
 import {CharNode} from '../analyzer/lexical/node/char/char-node';
 import {IdNode} from '../analyzer/lexical/node/id/id-node';
 import {IntegerNode} from '../analyzer/lexical/node/integer/integer-node';
 import {StringNode} from '../analyzer/lexical/node/string/string-node';
-import {$Node, Node, is} from '../analyzer/node';
+import {Node} from '../analyzer/node';
 import {GroupNode} from '../analyzer/syntax/group/group-node';
 import {InfixNode} from '../analyzer/syntax/node/infix/infix-node';
 import {PrefixNode} from '../analyzer/syntax/node/prefix/prefix-node';
@@ -17,19 +18,19 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
     return nothing;
   }
 
-  if (is<GroupNode>(node, $Node.GROUP)) {
+  if (is<GroupNode>(node, $Node.GroupNode)) {
     return node.items.map((x) => evaluate(x.value ?? nothing));
   }
 
-  if (is<IntegerNode>(node, $Node.INTEGER)) {
+  if (is<IntegerNode>(node, $Node.IntegerNode)) {
     return node.value;
   }
 
-  if (is<StringNode>(node, $Node.STRING) || is<CharNode>(node, $Node.CHAR)) {
+  if (is<StringNode>(node, $Node.StringNode) || is<CharNode>(node, $Node.CharNode)) {
     return node.value;
   }
 
-  if (is<InfixNode>(node, $Node.INFIX)) {
+  if (is<InfixNode>(node, $Node.InfixNode)) {
     const a = evaluate(node.left, argsMap);
     const b = evaluate(node.right, argsMap);
     const operator = (node.operator.text === '^' && '**') || node.operator.text;
@@ -37,13 +38,13 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
 
-  if (is<PrefixNode>(node, $Node.PREFIX)) {
+  if (is<PrefixNode>(node, $Node.PrefixNode)) {
     const a = evaluate(node.value, argsMap);
 
     return eval(`${node.operator.text}${escapeToString(a)}`);
   }
 
-  if (is<IdNode>(node, $Node.ID)) {
+  if (is<IdNode>(node, $Node.IdNode)) {
     if (argsMap[node.text]) {
       return argsMap[node.text];
     }

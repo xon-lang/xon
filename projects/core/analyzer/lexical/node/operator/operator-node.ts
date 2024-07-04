@@ -1,6 +1,7 @@
+import {$Node} from '../../../../$';
 import {Nothing, String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {$Node, ExpressionNode} from '../../../node';
+import {ExpressionNode} from '../../../node';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-analyzer-config';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
@@ -10,13 +11,13 @@ export enum KeywordType {
   CONTROL = 'CONTROL',
 }
 
-export type OperatorNode = LexicalNode<$Node.OPERATOR> & ExpressionNode;
+export type OperatorNode = LexicalNode<$Node.OperatorNode> & ExpressionNode;
 // & {
 //   keywordType: KeywordType | Nothing;
 // };
 
 export function operatorNode(range: TextRange, text: String2): OperatorNode {
-  return lexicalNode({$: $Node.OPERATOR, range, text}); //, keywordType: getKeywordType(text)
+  return lexicalNode({$: $Node.OperatorNode, range, text}); //, keywordType: getKeywordType(text)
 }
 
 function getKeywordType(text: String2): KeywordType | Nothing {

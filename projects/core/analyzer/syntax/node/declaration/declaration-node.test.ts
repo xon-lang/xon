@@ -1,9 +1,9 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {CharNode} from '../../../lexical/node/char/char-node';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
-import {$Node} from '../../../node';
 import {syntaxFromResource} from '../../syntax-analyzer';
 import {DeclarationNode} from './declaration-node';
 
@@ -15,7 +15,7 @@ test('model A', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
 });
@@ -28,10 +28,10 @@ test('model A: B', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
-  expect(node.type?.$).toBe($Node.TYPE);
+  expect(node.type?.$).toBe($Node.TypeNode);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
@@ -43,16 +43,16 @@ test('with generics extends b', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
   expect(node.generics?.items.length).toBe(2);
   const generic = node.generics?.items.at(0)?.value as DeclarationNode;
-  expect(generic?.$).toBe($Node.DECLARATION);
+  expect(generic?.$).toBe($Node.DeclarationNode);
   expect(generic?.id?.text).toBe('T');
   expect((generic?.type?.value as IdNode)?.text).toBe('Array');
   expect((generic?.assign?.value as IdNode)?.text).toBe('String');
-  expect(node.type?.$).toBe($Node.TYPE);
+  expect(node.type?.$).toBe($Node.TypeNode);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
@@ -64,7 +64,7 @@ test('with parameters extends b', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
 
@@ -85,7 +85,7 @@ test('with parameters extends b', () => {
   expect(parameter2?.type).toBeFalsy();
   expect((parameter2?.assign?.value as CharNode)?.text).toBe("'C'");
 
-  expect(node.type?.value?.$).toBe($Node.ID);
+  expect(node.type?.value?.$).toBe($Node.IdNode);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
@@ -97,7 +97,7 @@ test('with generics and parameters extends b', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
 
@@ -125,7 +125,7 @@ test('with generics and parameters extends b', () => {
   expect(parameter2?.type).toBeFalsy();
   expect((parameter2?.assign?.value as CharNode)?.text).toBe("'C'");
 
-  expect(node.type?.value.$).toBe($Node.ID);
+  expect(node.type?.value.$).toBe($Node.IdNode);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
@@ -144,7 +144,7 @@ test('has attributes', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');
   expect(node.type).toBeFalsy();
@@ -159,9 +159,9 @@ test('model string with base class', () => {
   const node = statements[1].value as DeclarationNode;
 
   expect(statements.length).toBe(2);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
 
-  expect(node.modifier?.$).toBe($Node.OPERATOR);
+  expect(node.modifier?.$).toBe($Node.OperatorNode);
   expect(node.modifier?.text).toBe('model');
 });
 
@@ -173,11 +173,11 @@ test('lambda type', () => {
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
 
-  expect(node.modifier?.$).toBe($Node.OPERATOR);
+  expect(node.modifier?.$).toBe($Node.OperatorNode);
   expect(node.modifier?.text).toBe('const');
-  expect(node.type?.value.$).toBe($Node.LAMBDA);
+  expect(node.type?.value.$).toBe($Node.LambdaNode);
 });
 
 test('declaration documentation', () => {
@@ -192,7 +192,7 @@ model A`;
   const node = statements[0].value as DeclarationNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.DECLARATION);
+  expect(node.$).toBe($Node.DeclarationNode);
   expect(node.documentation?.description?.text).toBe('\n  Some description\n');
   expect(node.modifier?.text).toBe('model');
   expect(node.id?.text).toBe('A');

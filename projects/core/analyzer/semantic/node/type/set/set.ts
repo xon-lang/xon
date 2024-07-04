@@ -1,5 +1,5 @@
+import {$Node, is} from '../../../../../$';
 import {Boolean2} from '../../../../../../lib/types';
-import {$Semantic, SemanticNode, semanticIs} from '../../semantic-node';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 import {ComplementTypeSemantic} from './complement/complement-type-semantic';
@@ -9,27 +9,27 @@ import {RangeTypeSemantic} from './range/range-type-semantic';
 import {UnionTypeSemantic} from './union/union-type-semantic';
 
 export function isInSet(type: TypeSemantic, setType: TypeSemantic): Boolean2 {
-  if (semanticIs<IntersectionTypeSemantic>(setType, $Semantic.INTERSECTION_TYPE)) {
+  if (is<IntersectionTypeSemantic>(setType, $Node.IntersectionTypeSemantic)) {
     return type.is(setType.left) && type.is(setType.right);
   }
 
-  if (semanticIs<UnionTypeSemantic>(setType, $Semantic.UNION_TYPE)) {
+  if (is<UnionTypeSemantic>(setType, $Node.UnionTypeSemantic)) {
     return type.is(setType.left) || type.is(setType.right);
   }
 
-  if (semanticIs<ComplementTypeSemantic>(setType, $Semantic.COMPLEMENT_TYPE)) {
+  if (is<ComplementTypeSemantic>(setType, $Node.ComplementTypeSemantic)) {
     return type.is(setType.left) && !type.is(setType.right);
   }
 
-  if (semanticIs<NotTypeSemantic>(setType, $Semantic.NOT_TYPE)) {
+  if (is<NotTypeSemantic>(setType, $Node.NotTypeSemantic)) {
     return !type.is(setType.value);
   }
 
-  if (semanticIs<RangeTypeSemantic>(setType, $Semantic.RANGE_TYPE)) {
+  if (is<RangeTypeSemantic>(setType, $Node.RangeTypeSemantic)) {
     if (
-      semanticIs<IntegerTypeSemantic>(type, $Semantic.INTEGER_TYPE) &&
-      semanticIs<IntegerTypeSemantic>(setType.from, $Semantic.INTEGER_TYPE) &&
-      semanticIs<IntegerTypeSemantic>(setType.to, $Semantic.INTEGER_TYPE)
+      is<IntegerTypeSemantic>(type, $Node.IntegerTypeSemantic) &&
+      is<IntegerTypeSemantic>(setType.from, $Node.IntegerTypeSemantic) &&
+      is<IntegerTypeSemantic>(setType.to, $Node.IntegerTypeSemantic)
     ) {
       return type.value >= setType.from.value && type.value <= setType.to.value;
     }
@@ -38,8 +38,4 @@ export function isInSet(type: TypeSemantic, setType: TypeSemantic): Boolean2 {
   }
 
   return type.is(setType);
-}
-
-export function isSetOperatorTypeSemantic(semantic: SemanticNode): Boolean2 {
-  return semantic.$.endsWith('_SET_TYPE');
 }

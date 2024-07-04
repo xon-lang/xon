@@ -1,7 +1,7 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
-import {$Node} from '../../../node';
 import {syntaxFromResource} from '../../syntax-analyzer';
 import {MemberNode} from './member-node';
 
@@ -13,14 +13,14 @@ test('member with id instance', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.MEMBER);
+  expect(node.$).toBe($Node.MemberNode);
 
-  expect(node.instance.$).toBe($Node.ID);
+  expect(node.instance.$).toBe($Node.IdNode);
   expect((node.instance as LexicalNode).text).toBe('abc');
 
   expect(node.operator.text).toBe('.');
 
-  expect(node.id?.$).toBe($Node.ID);
+  expect(node.id?.$).toBe($Node.IdNode);
   expect(node.id?.text).toBe('def');
 });
 
@@ -32,9 +32,9 @@ test('member without id', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.MEMBER);
+  expect(node.$).toBe($Node.MemberNode);
 
-  expect(node.instance.$).toBe($Node.ID);
+  expect(node.instance.$).toBe($Node.IdNode);
   expect((node.instance as LexicalNode).text).toBe('abc');
 
   expect(node.operator.text).toBe('.');

@@ -1,6 +1,6 @@
+import {$Node} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {$Node} from '../../../node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {StringNode} from './string-node';
 
@@ -12,7 +12,7 @@ test('string', () => {
   const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.STRING);
+  expect(node.$).toBe($Node.StringNode);
   expect(node.text).toBe(text);
 });
 
@@ -24,7 +24,7 @@ test('multiline string', () => {
   const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.STRING);
+  expect(node.$).toBe($Node.StringNode);
   expect(node.text).toBe(text);
 });
 
@@ -36,7 +36,7 @@ test('empty string', () => {
   const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.STRING);
+  expect(node.$).toBe($Node.StringNode);
   expect(node.text).toBe(text);
 });
 
@@ -48,6 +48,6 @@ test('not closed', () => {
   const node = statements[0].value as StringNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($Node.STRING);
+  expect(node.$).toBe($Node.StringNode);
   expect(node.text).toBe('"abc');
 });
