@@ -87,7 +87,11 @@ export enum $ {
   TextRange = ' TextRange ',
 }
 
-export function is<T extends {$: $} = Node>(node: {$: $} | Nothing, type: $): node is T {
+export type $Model = {
+  $: $;
+};
+
+export function is<T extends $Model = Node>(node: $Model | Nothing, type: $): node is T {
   if (!node?.$) {
     return false;
   }
@@ -172,7 +176,7 @@ type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
-export function is2<T extends $>(value: {$: $}, $: T): value is TypeMap[T] {
+export function is2<T extends $>(value: $Model, $: T): value is TypeMap[T] {
   if (!value?.$) {
     return false;
   }
