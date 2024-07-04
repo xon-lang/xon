@@ -9,6 +9,7 @@ import {configureHoverFeature} from './feature/hover/hover-feature';
 import {configureMoveToNewFileFeature} from './feature/refactoring/move-to-new-file-feature';
 import {configureRenameFeature} from './feature/refactoring/rename-feature';
 import {configureSignatureFeature} from './feature/signature/signature-feature';
+import {configureTranslatorFeature} from './feature/translator/translator-feature';
 
 export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel(LANGUAGE_NAME.toUpperCase());
@@ -24,7 +25,8 @@ export function activate(context: ExtensionContext) {
   configureRenameFeature(context, channel);
   configureMoveToNewFileFeature(context, channel);
   configureSignatureFeature(context, channel);
-  // configureTranslatorFeature(context, channel);
+
+  configureTranslatorFeature(context, channel);
 
   // todo registerTypeDefinitionProvider
   // todo registerImplementationProvider

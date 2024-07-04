@@ -17,32 +17,37 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
       let translateOnSave = WORKSPACE_CONFIG.translOnSave();
 
       if (translateOnSave) {
-        saveTranslatedFile(document);
+        saveTranslatedFile(document, channel);
       }
     }),
   );
 
   context.subscriptions.push(
     commands.registerCommand('xon.translate-ts', () => {
+      const activeTextEditor = window.activeTextEditor;
       const document = window.activeTextEditor?.document;
 
       if (document) {
-        saveTranslatedFile(document);
+        saveTranslatedFile(document, channel);
       }
     }),
   );
 }
 
-function saveTranslatedFile(document: TextDocument) {
-  const uri = document.uri;
-  const resource = textResourceFrom(uri.toString(), document.getText());
-  const semanticAnalyzer = semanticFromResource(resource);
-  const translator = createTypescriptTranslator(semanticAnalyzer);
+function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
+  try {
+    const filepath = document.uri.fsPath;
+    const resource = textResourceFrom(filepath, document.getText());
+    const semanticAnalyzer = semanticFromResource(resource);
+    const translator = createTypescriptTranslator(semanticAnalyzer);
 
-  const dirname = path.dirname(uri.fsPath);
-  const filename = path.basename(uri.fsPath, '.xon') + '.ts';
-  const destinationPath = path.resolve(dirname, filename);
-  const result = translator.translate();
+    const dirname = path.dirname(filepath);
+    const filename = path.basename(filepath) + '.gen.ts';
+    const destinationPath = path.resolve(dirname, filename);
+    const result = translator.translate();
 
-  fs.writeFileSync(destinationPath, result);
+    fs.writeFileSync(destinationPath, result);
+  } catch (error: any) {
+    channel.appendLine(error?.toString());
+  }
 }
