@@ -4,6 +4,7 @@ import {ExpressionNode, Node} from './analyzer/node';
 import {SemanticNode} from './analyzer/semantic/node/semantic-node';
 import {Group} from './analyzer/syntax/group/group-node';
 import {TextPosition} from './util/resource/text/text-position';
+import {TextRange} from './util/resource/text/text-range';
 
 export enum $Node {
   // node
@@ -164,7 +165,7 @@ type TypeMap = {
   [$Node.ImportValueSemantic]: TextPosition;
 
   [$Node.TextPosition]: TextPosition;
-  [$Node.TextRange]: TextPosition;
+  [$Node.TextRange]: TextRange;
 };
 
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
