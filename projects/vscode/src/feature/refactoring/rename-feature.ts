@@ -19,7 +19,7 @@ import {
   isTypeDeclarationSemantic,
 } from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {DocumentationIdSemantic} from '../../../../core/analyzer/semantic/node/documentation/documentation-id-semantic';
-import {SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
+import {Semantic} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {ValueSemantic} from '../../../../core/analyzer/semantic/node/value/value-semantic';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
@@ -74,7 +74,7 @@ class LanguageRenameProvider implements RenameProvider {
   }
 }
 
-function getDeclaration(semantic: SemanticNode): DeclarationSemantic | Nothing {
+function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
   if (is<DeclarationSemantic>(semantic, $.DeclarationSemantic)) {
     return semantic;
   }

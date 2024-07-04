@@ -12,7 +12,7 @@ import {
 } from 'vscode';
 import {$, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {SemanticNode} from '../../../../core/analyzer/semantic/node/semantic-node';
+import {Semantic} from '../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from '../../../../core/analyzer/semantic/node/type/integer/integer-type-semantic';
 import {StringTypeSemantic} from '../../../../core/analyzer/semantic/node/type/string/string-type-semantic';
@@ -51,7 +51,7 @@ class LanguageHoverProvider implements HoverProvider {
   }
 }
 
-function getSemanticHoverText(semantic: SemanticNode): MarkdownString | Nothing {
+function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
   if (isTypeSemantic(semantic)) {
     return getTypeMarkdown(semantic);
   }

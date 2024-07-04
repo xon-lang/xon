@@ -11,7 +11,7 @@ import {
   TextDocument,
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
-import {SemanticNode} from '../../../../../core/analyzer/semantic/node/semantic-node';
+import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic-node';
 import {IdTypeSemantic} from '../../../../../core/analyzer/semantic/node/type/id/id-type-semantic';
 import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semantic/node/type/type-semantic';
 import {ValueSemantic} from '../../../../../core/analyzer/semantic/node/value/value-semantic';
@@ -41,7 +41,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
   }
 }
 
-function getAttributes(semantic: SemanticNode): Record<String2, Array2<TypeSemantic>> | Nothing {
+function getAttributes(semantic: Semantic): Record<String2, Array2<TypeSemantic>> | Nothing {
   if (isTypeSemantic(semantic)) {
     return semantic.attributes();
   }

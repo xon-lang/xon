@@ -1,7 +1,7 @@
 import {Boolean2, Nothing} from '../lib/types';
 import {OperatorNode} from './analyzer/lexical/node/operator/operator-node';
 import {ExpressionNode, Node} from './analyzer/node';
-import {SemanticNode} from './analyzer/semantic/node/semantic-node';
+import {Semantic} from './analyzer/semantic/node/semantic-node';
 import {Group} from './analyzer/syntax/group/group-node';
 import {TextPosition} from './util/resource/text/text-position';
 import {TextRange} from './util/resource/text/text-range';
@@ -87,8 +87,8 @@ export enum $ {
   TextRange = ' TextRange ',
 }
 
-export type $Model = {
-  $: $;
+export type $Model<T extends $ = $> = {
+  $: T;
 };
 
 export function is<T extends $Model = Node>(node: $Model | Nothing, type: $): node is T {
@@ -184,7 +184,7 @@ export function is2<T extends $>(value: $Model, $: T): value is TypeMap[T] {
   return value.$ === $ || value.$.split(' ').includes($);
 }
 
-export function isSetOperatorTypeSemantic(semantic: SemanticNode): Boolean2 {
+export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
   return semantic.$.includes($.SetTypeSemantic);
 }
 
@@ -206,7 +206,7 @@ export function isNonOperatorExpression(node: Node): node is ExpressionNode {
   return is<ExpressionNode>(node, $.ExpressionNode) && !is<OperatorNode>(node, $.OperatorNode);
 }
 
-export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: SemanticNode} {
+export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: Semantic} {
   if (!node) {
     return false;
   }

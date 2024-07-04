@@ -2,9 +2,9 @@ import {$} from '../../../../$';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {DeclarationSemantic} from '../declaration/declaration-semantic';
-import {SemanticNode} from '../semantic-node';
+import {Semantic} from '../semantic-node';
 
-export interface DocumentationIdSemantic extends SemanticNode {
+export interface DocumentationIdSemantic extends Semantic {
   $: $.DocumentationIdSemantic;
   declaration: DeclarationSemantic;
 }

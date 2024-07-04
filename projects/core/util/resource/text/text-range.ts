@@ -1,17 +1,17 @@
-import {$, is2, TypeKey} from '../../../$';
+import {$, $Model, is2} from '../../../$';
 import {Array2, Boolean2} from '../../../../lib/types';
 import {Node} from '../../../analyzer/node';
 import {clonePosition, TextPosition, zeroPosition} from './text-position';
 
-export interface TextRange {
-  $: TypeKey<TextRange>;
+export type TextRange = $Model & {
+  $: $.TextRange;
   start: TextPosition;
   stop: TextPosition;
 
   contains(position: TextPosition): Boolean2;
   contains(range: TextRange): Boolean2;
   contains(positionOrRange: TextPosition | TextRange): Boolean2;
-}
+};
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {
