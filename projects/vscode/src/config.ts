@@ -4,11 +4,11 @@ import {Boolean2} from '../../lib/types';
 export const LANGUAGE_NAME = 'xon';
 export const FILE_EXTENSION = 'xon';
 
-const workspace_config = () => workspace.getConfiguration(LANGUAGE_NAME);
+const workspaceConfig = () => workspace.getConfiguration(LANGUAGE_NAME);
 
 export const WORKSPACE_CONFIG = {
-  translOnSave: () => workspace_config().get<Boolean2>('translOnSave') ?? false,
-  newFileNameCase: () => workspace_config().get<StringCase>('newFileNameCase') ?? 'kebab',
+  translOnSave: () => workspaceConfig().get<Boolean2>('translOnSave') ?? false,
+  newFileNameCase: () => workspaceConfig().get<StringCase>('newFileNameCase') ?? 'kebab',
 };
 
 export const enum StringCase {

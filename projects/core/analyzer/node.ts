@@ -3,7 +3,8 @@ import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {Semantic} from './semantic/node/semantic-node';
 
-export type Node<T extends $ = $> = $Model<T> & {
+export type Node<T extends $ = $> = $Model & {
+  $: T
   range: TextRange;
   parent?: Node | Nothing;
   hiddenNodes?: Array2<Node> | Nothing;

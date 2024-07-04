@@ -1,7 +1,8 @@
 import {$, $Model} from '../../../$';
 import {Integer} from '../../../../lib/types';
 
-export type TextPosition = $Model<$.TextPosition> & {
+export type TextPosition = $Model & {
+  $: $.TextPosition;
   index: Integer;
   line: Integer;
   column: Integer;

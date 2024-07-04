@@ -58,6 +58,8 @@ import {PrefixNode} from './analyzer/syntax/node/prefix/prefix-node';
 import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
 import {StatementNode} from './analyzer/syntax/statement/statement-node';
+import {Translator} from './translator/typescript';
+import {TypescriptTranslator} from './translator/typescript/typescript-translator';
 import {Resource} from './util/resource/resource';
 import {TextPosition} from './util/resource/text/text-position';
 import {TextRange} from './util/resource/text/text-range';
@@ -145,6 +147,9 @@ export enum $ {
 
   Resource = ' Resource ',
   TextResource = ' TextResource ' + $.Resource,
+
+  Translator = ' Translator ',
+  TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
 }
 
 type TypeMap = {
@@ -221,10 +226,13 @@ type TypeMap = {
 
   [$.Resource]: Resource;
   [$.TextResource]: TextResource;
+
+  [$.Translator]: Translator;
+  [$.TypescriptTranslator]: TypescriptTranslator;
 };
 
-export type $Model<T extends $ = $> = {
-  $: T;
+export type $Model = {
+  $: $;
 };
 
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];

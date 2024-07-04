@@ -1,46 +1,48 @@
-// import {
-//   commands,
-//   ExtensionContext,
-//   OutputChannel,
-//   TextDocument,
-//   Uri,
-//   window,
-//   workspace,
-// } from 'vscode';
-// import { config } from '../config';
+import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
+import {semanticFromResource} from '../../../../core/analyzer/semantic/semantic-analyzer';
+import {createTypescriptTranslator} from '../../../../core/translator/typescript/typescript-translator';
+import {textResourceFrom} from '../../../../core/util/resource/text/text-resource';
+import {LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
 
-// export function configureTranslatorFeature(
-//   context: ExtensionContext,
-//   channel: OutputChannel
-// ) {
-//   context.subscriptions.push(
-//     workspace.onDidSaveTextDocument((document: TextDocument) => {
-//       if (document.languageId !== LANGUAGE_NAME) return;
-//       let translateOnSave = config().get<string>('translateOnSave');
-//       if (translateOnSave) {
-//         translateSourceToTypeScript(document.uri);
-//       }
-//     })
-//   );
+import * as fs from 'fs';
+import * as path from 'path';
 
-//   context.subscriptions.push(
-//     commands.registerCommand('xon.translate-ts', (a?: Uri) => {
-//       const uri = a || window.activeTextEditor?.document.uri;
-//       if (uri) {
-//         translateSourceToTypeScript(uri);
-//       }
-//     })
-//   );
-// }
+export function configureTranslatorFeature(context: ExtensionContext, channel: OutputChannel) {
+  context.subscriptions.push(
+    workspace.onDidSaveTextDocument((document: TextDocument) => {
+      if (document.languageId !== LANGUAGE_NAME) {
+        return;
+      }
 
-// function translateSourceToTypeScript(uri: Uri) {
-//   // const code = fs.readFileSync(uri.fsPath).toString();
-//   // const tree = getSourceTree(parse(code, uri.fsPath).source());
-//   // const translator = getSourceTranslator(tree);
-//   // const destinationPath = path.resolve(
-//   //   path.dirname(uri.fsPath),
-//   //   path.basename(uri.fsPath, '.xon') + '.ts'
-//   // );
-//   // const result = translator.toString();
-//   // fs.writeFileSync(destinationPath, result);
-// }
+      let translateOnSave = WORKSPACE_CONFIG.translOnSave();
+
+      if (translateOnSave) {
+        saveTranslatedFile(document);
+      }
+    }),
+  );
+
+  context.subscriptions.push(
+    commands.registerCommand('xon.translate-ts', () => {
+      const document = window.activeTextEditor?.document;
+
+      if (document) {
+        saveTranslatedFile(document);
+      }
+    }),
+  );
+}
+
+function saveTranslatedFile(document: TextDocument) {
+  const uri = document.uri;
+  const resource = textResourceFrom(uri.toString(), document.getText());
+  const semanticAnalyzer = semanticFromResource(resource);
+  const translator = createTypescriptTranslator(semanticAnalyzer);
+
+  const dirname = path.dirname(uri.fsPath);
+  const filename = path.basename(uri.fsPath, '.xon') + '.ts';
+  const destinationPath = path.resolve(dirname, filename);
+  const result = translator.translate();
+
+  fs.writeFileSync(destinationPath, result);
+}

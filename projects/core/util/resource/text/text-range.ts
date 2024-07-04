@@ -3,7 +3,8 @@ import {Array2, Boolean2} from '../../../../lib/types';
 import {Node} from '../../../analyzer/node';
 import {clonePosition, TextPosition, zeroPosition} from './text-position';
 
-export type TextRange = $Model<$.TextRange> & {
+export type TextRange = $Model & {
+  $: $.TextRange;
   start: TextPosition;
   stop: TextPosition;
 
