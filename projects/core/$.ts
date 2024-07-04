@@ -259,6 +259,5 @@ export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {sem
     return false;
   }
 
-  // todo fix it with more logic
-  return 'semantic' in node;
+  return 'semantic' in node && !!node.semantic;
 }
