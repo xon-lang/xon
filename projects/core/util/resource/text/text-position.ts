@@ -1,12 +1,11 @@
-import {$, TypeKey} from '../../../$';
+import {$, $Model} from '../../../$';
 import {Integer} from '../../../../lib/types';
 
-export interface TextPosition {
-  $: TypeKey<TextPosition>;
+export type TextPosition = $Model<$.TextPosition> & {
   index: Integer;
   line: Integer;
   column: Integer;
-}
+};
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
   return {

@@ -219,14 +219,6 @@ export type $Model<T extends $ = $> = {
   $: T;
 };
 
-// export function is<T extends $Model = Node>(model: $Model | Nothing, $: $): model is T {
-//   if (!model?.$) {
-//     return false;
-//   }
-
-//   return model.$.includes($);
-// }
-
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
