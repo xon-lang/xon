@@ -4,7 +4,6 @@ import {ExpressionNode, Node} from './analyzer/node';
 import {SemanticNode} from './analyzer/semantic/node/semantic-node';
 import {Group} from './analyzer/syntax/group/group-node';
 import {TextPosition} from './util/resource/text/text-position';
-import {TextRange} from './util/resource/text/text-range';
 
 export enum $Node {
   // node
@@ -82,6 +81,9 @@ export enum $Node {
   StringValueSemantic = ' StringValueSemantic ' + $Node.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $Node.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $Node.ValueSemantic,
+
+  TextPosition = ' TextPosition ',
+  TextRange = ' TextRange ',
 }
 
 export function is<T extends {$?: $Node} = Node>(node: {$?: $Node} | Nothing, type: $Node): node is T {
@@ -92,21 +94,84 @@ export function is<T extends {$?: $Node} = Node>(node: {$?: $Node} | Nothing, ty
   return node.$.includes(type);
 }
 
-export enum $ {
-  TextPosition = ' TextPosition ',
-  TextRange = ' TextRange ',
-}
-
 type TypeMap = {
-  [$.TextPosition]: TextPosition;
-  [$.TextRange]: TextRange;
+  [$Node.Node]: TextPosition;
+  [$Node.LexicalNode]: TextPosition;
+  [$Node.HiddenNode]: TextPosition;
+  [$Node.SyntaxNode]: TextPosition;
+  [$Node.ExpressionNode]: TextPosition;
+  [$Node.DocumentationNode]: TextPosition;
+  [$Node.DocumentationItemNode]: TextPosition;
+  [$Node.DocumentationDescriptionNode]: TextPosition;
+  [$Node.DocumentationLabelNode]: TextPosition;
+  [$Node.DocumentationOpenNode]: TextPosition;
+  [$Node.DocumentationCloseNode]: TextPosition;
+  [$Node.CommentLineNode]: TextPosition;
+  [$Node.CommentBlockNode]: TextPosition;
+  [$Node.WhitespaceNode]: TextPosition;
+  [$Node.JoiningNode]: TextPosition;
+  [$Node.NlNode]: TextPosition;
+  [$Node.IntegerNode]: TextPosition;
+  [$Node.FloatNode]: TextPosition;
+  [$Node.CharNode]: TextPosition;
+  [$Node.StringNode]: TextPosition;
+  [$Node.IdNode]: TextPosition;
+  [$Node.OperatorNode]: TextPosition;
+  [$Node.OpenNode]: TextPosition;
+  [$Node.CloseNode]: TextPosition;
+  [$Node.CommaNode]: TextPosition;
+  [$Node.UnknownNode]: TextPosition;
+  [$Node.ItemNode]: TextPosition;
+  [$Node.ObjectNode]: TextPosition;
+  [$Node.ArrayNode]: TextPosition;
+  [$Node.GroupNode]: TextPosition;
+  [$Node.DeclarationNode]: TextPosition;
+  [$Node.LambdaNode]: TextPosition;
+  [$Node.GenericsNode]: TextPosition;
+  [$Node.ParametersNode]: TextPosition;
+  [$Node.ImportNode]: TextPosition;
+  [$Node.AssignmentNode]: TextPosition;
+  [$Node.MemberNode]: TextPosition;
+  [$Node.InvokeNode]: TextPosition;
+  [$Node.InfixNode]: TextPosition;
+  [$Node.PrefixNode]: TextPosition;
+  [$Node.PostfixNode]: TextPosition;
+  [$Node.AssignNode]: TextPosition;
+  [$Node.TypeNode]: TextPosition;
+  [$Node.StatementNode]: TextPosition;
+
+  [$Node.Semantic]: TextPosition;
+  [$Node.DocumentationIdSemantic]: TextPosition;
+  [$Node.DeclarationSemantic]: TextPosition;
+  [$Node.TypeSemantic]: TextPosition;
+  [$Node.IdType]: TextPosition;
+  [$Node.IntegerTypeSemantic]: TextPosition;
+  [$Node.StringTypeSemantic]: TextPosition;
+  [$Node.ArrayTypeSemantic]: TextPosition;
+  [$Node.FunctionTypeSemantic]: TextPosition;
+  [$Node.SetTypeSemantic]: TextPosition;
+  [$Node.RangeTypeSemantic]: TextPosition;
+  [$Node.IntersectionTypeSemantic]: TextPosition;
+  [$Node.UnionTypeSemantic]: TextPosition;
+  [$Node.ComplementTypeSemantic]: TextPosition;
+  [$Node.NotTypeSemantic]: TextPosition;
+  [$Node.ValueSemantic]: TextPosition;
+  [$Node.IdValueSemantic]: TextPosition;
+  [$Node.InvokeValueSemantic]: TextPosition;
+  [$Node.IntegerValueSemantic]: TextPosition;
+  [$Node.StringValueSemantic]: TextPosition;
+  [$Node.MemberValueSemantic]: TextPosition;
+  [$Node.ImportValueSemantic]: TextPosition;
+
+  [$Node.TextPosition]: TextPosition;
+  [$Node.TextRange]: TextPosition;
 };
 
 type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
-export function is2<T extends $>(value: {$: $}, $: T): value is TypeMap[T] {
+export function is2<T extends $Node>(value: {$: $Node}, $: T): value is TypeMap[T] {
   if (!value?.$) {
     return false;
   }

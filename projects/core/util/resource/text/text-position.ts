@@ -1,4 +1,4 @@
-import {$, TypeKey} from '../../../$';
+import {$Node, TypeKey} from '../../../$';
 import {Integer} from '../../../../lib/types';
 
 export interface TextPosition {
@@ -10,7 +10,7 @@ export interface TextPosition {
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
   return {
-    $: $.TextPosition,
+    $: $Node.TextPosition,
     index,
     line,
     column,
