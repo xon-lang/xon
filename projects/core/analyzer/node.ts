@@ -4,9 +4,10 @@ import {TextRange} from '../util/resource/text/text-range';
 import {Semantic} from './semantic/node/semantic-node';
 
 export type Node<T extends $ = $> = $Model & {
-  $: T
+  $: T;
   range: TextRange;
   parent?: Node | Nothing;
+  isHidden?: Boolean2 | Nothing;
   hiddenNodes?: Array2<Node> | Nothing;
 };
 

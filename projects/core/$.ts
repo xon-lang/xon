@@ -11,7 +11,7 @@ import {DocumentationOpenNode} from './analyzer/lexical/node/documentation-open/
 import {IdNode} from './analyzer/lexical/node/id/id-node';
 import {IntegerNode} from './analyzer/lexical/node/integer/integer-node';
 import {JoiningNode} from './analyzer/lexical/node/joining/joining-node';
-import {HiddenNode, LexicalNode} from './analyzer/lexical/node/lexical-node';
+import {LexicalNode} from './analyzer/lexical/node/lexical-node';
 import {NlNode} from './analyzer/lexical/node/nl/nl-node';
 import {OpenNode} from './analyzer/lexical/node/open/open-node';
 import {OperatorNode} from './analyzer/lexical/node/operator/operator-node';
@@ -69,22 +69,21 @@ export enum $ {
   // node
   Node = ' Node ',
   LexicalNode = ' LexicalNode ' + $.Node,
-  HiddenNode = ' HiddenNode ' + $.Node,
   SyntaxNode = ' SyntaxNode ' + $.Node,
   ExpressionNode = ' ExpressionNode ' + $.Node,
 
-  DocumentationNode = ' DocumentationNode' + $.SyntaxNode + $.HiddenNode,
+  DocumentationNode = ' DocumentationNode' + $.SyntaxNode,
   DocumentationItemNode = ' DocumentationItemNode ' + $.SyntaxNode,
   DocumentationDescriptionNode = ' DocumentationDescriptionNode ' + $.LexicalNode,
   DocumentationLabelNode = ' DocumentationLabelNode ' + $.LexicalNode,
   DocumentationOpenNode = ' DocumentationOpenNode ' + $.LexicalNode,
   DocumentationCloseNode = ' DocumentationCloseNode ' + $.LexicalNode,
 
-  CommentLineNode = ' CommentLineNode ' + $.LexicalNode + $.HiddenNode,
-  CommentBlockNode = ' CommentBlockNode ' + $.LexicalNode + $.HiddenNode,
-  WhitespaceNode = ' WhitespaceNode ' + $.LexicalNode + $.HiddenNode,
-  JoiningNode = ' JoiningNode ' + $.LexicalNode + $.HiddenNode,
-  NlNode = ' NlNode ' + $.LexicalNode + $.HiddenNode,
+  CommentLineNode = ' CommentLineNode ' + $.LexicalNode,
+  CommentBlockNode = ' CommentBlockNode ' + $.LexicalNode,
+  WhitespaceNode = ' WhitespaceNode ' + $.LexicalNode,
+  JoiningNode = ' JoiningNode ' + $.LexicalNode,
+  NlNode = ' NlNode ' + $.LexicalNode,
   IntegerNode = ' IntegerNode ' + $.ExpressionNode + $.LexicalNode,
   // FloatNode = ' FloatNode ' + $.ExpressionNode + $.LexicalNode,
   CharNode = ' CharNode ' + $.ExpressionNode + $.LexicalNode,
@@ -152,10 +151,9 @@ export enum $ {
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
 }
 
-type TypeMap = {
+export type TypeMap = {
   [$.Node]: Node;
   [$.LexicalNode]: LexicalNode;
-  [$.HiddenNode]: HiddenNode;
   [$.SyntaxNode]: SyntaxNode;
   [$.ExpressionNode]: ExpressionNode;
   [$.DocumentationNode]: DocumentationNode;
@@ -251,9 +249,8 @@ export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
   return semantic.$.includes($.SetTypeSemantic);
 }
 
-// todo inherit hidden node from node
 export function isHiddenNode(node: Node | Nothing): Boolean2 {
-  return is(node, $.HiddenNode);
+  return !!node?.isHidden;
 }
 
 export const groups = [$.GroupNode, $.ArrayNode, $.ObjectNode];

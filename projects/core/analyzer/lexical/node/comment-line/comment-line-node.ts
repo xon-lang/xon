@@ -1,10 +1,10 @@
 import {$} from '../../../../$';
 import {String2} from '../../../../../lib/types';
 import {TextRange} from '../../../../util/resource/text/text-range';
-import {HiddenNode, LexicalNode, lexicalNode} from '../lexical-node';
+import {LexicalNode, lexicalNode} from '../lexical-node';
 
-export type CommentLineNode = LexicalNode<$.CommentLineNode> & HiddenNode;
+export type CommentLineNode = LexicalNode<$.CommentLineNode>;
 
 export function commentLineNode(range: TextRange, text: String2): CommentLineNode {
-  return lexicalNode({$: $.CommentLineNode, range, text});
+  return lexicalNode({$: $.CommentLineNode, range, text, isHidden: true});
 }

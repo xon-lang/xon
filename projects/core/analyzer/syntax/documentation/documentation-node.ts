@@ -4,19 +4,17 @@ import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-messag
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
-import {HiddenNode} from '../../lexical/node/lexical-node';
 import {SyntaxNode, syntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {DocumentationItemNode} from './documentation-item-node';
 
-export type DocumentationNode = SyntaxNode<$.DocumentationNode> &
-  HiddenNode & {
-    // todo should we use Open and Close nodes here ???
-    open: DocumentationOpenNode;
-    description?: DocumentationDescriptionNode | Nothing;
-    items: Array2<DocumentationItemNode>;
-    close?: DocumentationCloseNode | Nothing;
-  };
+export type DocumentationNode = SyntaxNode<$.DocumentationNode> & {
+  // todo should we use Open and Close nodes here ???
+  open: DocumentationOpenNode;
+  description?: DocumentationDescriptionNode | Nothing;
+  items: Array2<DocumentationItemNode>;
+  close?: DocumentationCloseNode | Nothing;
+};
 
 export function documentationNode(
   analyzer: SyntaxAnalyzer,
@@ -26,6 +24,7 @@ export function documentationNode(
   close?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
   const node = syntaxNode($.DocumentationNode, {open, description, items, close});
+  node.isHidden = true;
 
   validate(analyzer, node);
 

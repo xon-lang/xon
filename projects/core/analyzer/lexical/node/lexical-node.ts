@@ -1,10 +1,6 @@
-import {$, $Model} from '../../../$';
+import {$} from '../../../$';
 import {Anything, String2} from '../../../../lib/types';
 import {Node} from '../../node';
-
-// todo move isHidden property to Node ???
-// or remove entirely HiddenNode type
-export interface HiddenNode extends $Model {}
 
 export type LexicalNode<T extends $ = $> = Node<T> & {
   text: String2;

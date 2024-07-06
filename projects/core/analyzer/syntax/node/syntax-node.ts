@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
+import {Array2, Boolean2, Nothing, String2, nothing} from '../../../../lib/types';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {Node} from '../../node';
 
@@ -10,7 +10,7 @@ export type SyntaxNode<T extends $ = $> = Node<T> & {
 export function syntaxNode<T extends $, U extends Record<String2, Node | Array2<Node> | Nothing>>(
   $: T,
   nodes: U,
-): {$: T} & {children: Array2<Node>; range: TextRange; semantic: Nothing} & U {
+): {$: T} & {children: Array2<Node>; range: TextRange; semantic: Nothing; isHidden?: Boolean2} & U {
   const children = Object.values(nodes)
     .filter((x) => !!x)
     .flat();
