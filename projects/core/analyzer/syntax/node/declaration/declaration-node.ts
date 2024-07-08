@@ -97,7 +97,6 @@ export function getDeclarationGenerics(
   });
 }
 
-// todo same as 'getDeclarationGenerics' above
 export function getDeclarationParameters(
   node: DeclarationNode | LambdaNode,
 ): Array2<DeclarationNode | Nothing> {
