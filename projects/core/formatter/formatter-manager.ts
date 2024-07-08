@@ -195,12 +195,11 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
     formatHiddenNodes(hiddenNodes: Array2<Node>, isNoFirstChildNode: Boolean2): String2 {
       const splittedByNl = hiddenNodes
-        .filter((x) => !is(x, $.WhitespaceNode))
+        .filter((x): x is LexicalNode => is(x, $.LexicalNode) && !is(x, $.WhitespaceNode))
         .splitBy<NlNode>((x) => is(x, $.NlNode));
 
       const text = splittedByNl
-        // todo fix  'as LexicalNode'
-        .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => (z as LexicalNode).text).join(' '))
+        .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => z.text).join(' '))
         .join('');
 
       if (text.length > 0 && isNoFirstChildNode) {
