@@ -13,7 +13,7 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {$, hasSemantic, is, isGroupNode} from '../../../../core/$';
+import {$, hasSemantic, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {Node} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
@@ -65,7 +65,7 @@ function getInvokeNodeAndParameterIndex(
   }
 
   if (is(nodeAtPosition, $.OpenNode)) {
-    if (isGroupNode(nodeAtPosition.parent) && is(nodeAtPosition.parent.parent, $.InvokeNode)) {
+    if (is(nodeAtPosition.parent, $.GroupNode) && is(nodeAtPosition.parent.parent, $.InvokeNode)) {
       return {
         invokeNode: nodeAtPosition.parent.parent,
         parameterIndex: 0,
@@ -77,7 +77,7 @@ function getInvokeNodeAndParameterIndex(
     // todo fix complexity of 'parent.parent.parent...'
     if (
       is(nodeAtPosition.parent, $.ItemNode) &&
-      isGroupNode(nodeAtPosition.parent.parent) &&
+      is(nodeAtPosition.parent.parent, $.GroupNode) &&
       is(nodeAtPosition.parent.parent.parent, $.InvokeNode)
     ) {
       return {
