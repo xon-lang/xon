@@ -1,4 +1,4 @@
-import {$} from '../../../../$';
+import {$, is} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {MemberNode} from '../../../syntax/node/member/member-node';
@@ -49,7 +49,7 @@ test('with new line', () => {
   expect(node.instance?.$).toBe($.IdNode);
   expect((node.instance as IdNode).text).toBe('abc');
   expect((node.operator as OperatorNode).text).toBe('.');
-  // todo fix  'as LexicalNode'
+  expect(is(node.operator.hiddenNodes?.at(0), $.LexicalNode)).toBe(true);
   expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text).toBe(JOINING + '   \n');
   expect(node.id?.$).toBe($.IdNode);
   expect((node.id as IdNode).text).toBe('def');

@@ -4,7 +4,6 @@ import {TextRange} from '../../../../util/resource/text/text-range';
 import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-analyzer-config';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
-// todo add separate parser for documentation (e.g. @param, @return, ...)
 export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
   value: String2;
 };
