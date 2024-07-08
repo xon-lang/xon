@@ -3,7 +3,7 @@ import {Array2, Nothing, nothing, String2} from '../../../../lib/types';
 import {BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
 
 import {CommaNode} from '../../lexical/node/comma/comma-node';
-import {OpenNode} from '../../lexical/node/open2/open-node';
+import {OpenNode} from '../../lexical/node/open/open-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {groupNode, GroupNode, GroupNodeType} from './group-node';
 import {ItemNode, itemNode} from './item-node';
