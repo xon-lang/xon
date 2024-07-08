@@ -12,7 +12,7 @@ export function arrayTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ArrayTypeSemantic | Nothing {
-  if (!is(node, $.ArrayNode)) {
+  if (!is(node, $.BracketGroupNode)) {
     return nothing;
   }
 

@@ -1,7 +1,7 @@
 import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
 import {ExpressionNode} from '../../../node';
-import {Group} from '../../group/group-node';
+import {GroupNode} from '../../group/group-node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
@@ -9,16 +9,16 @@ import {TypeNode} from '../type/type-node';
 
 export type LambdaNode = SyntaxNode<$.LambdaNode> &
   ExpressionNode & {
-    generics: Group | Nothing;
-    parameters: Group;
+    generics: GroupNode | Nothing;
+    parameters: GroupNode;
     type: TypeNode | Nothing;
     assign: AssignNode | Nothing;
   };
 
 export function lambdaNode(
   analyzer: SyntaxAnalyzer,
-  generics: Group | Nothing,
-  parameters: Group,
+  generics: GroupNode | Nothing,
+  parameters: GroupNode,
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): LambdaNode {

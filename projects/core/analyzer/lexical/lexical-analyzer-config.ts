@@ -26,14 +26,14 @@ export const UNION = '|';
 export const COMPLEMENT = '\\';
 export const NOT = '!';
 
-export const GROUP_OPEN = '(';
-export const GROUP_CLOSE = ')';
+export const PAREN_OPEN = '(';
+export const PAREN_CLOSE = ')';
 
-export const ARRAY_OPEN = '[';
-export const ARRAY_CLOSE = ']';
+export const BRACKET_OPEN = '[';
+export const BRACKET_CLOSE = ']';
 
-export const OBJECT_OPEN = '{';
-export const OBJECT_CLOSE = '}';
+export const BRACE_OPEN = '{';
+export const BRACE_CLOSE = '}';
 
 export const IMPORT = 'import';
 export const EXPORT = 'export';

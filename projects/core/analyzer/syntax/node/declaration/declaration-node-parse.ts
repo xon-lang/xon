@@ -5,7 +5,7 @@ import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode, Node, nodeFindMap} from '../../../node';
 import {DocumentationNode} from '../../documentation/documentation-node';
-import {Group} from '../../group/group-node';
+import {GroupNode} from '../../group/group-node';
 import {StatementNode} from '../../statement/statement-node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
@@ -58,8 +58,8 @@ function getDeclarationParts(
       modifier?: OperatorNode | Nothing;
       idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
-      generics?: Group | Nothing;
-      parameters?: Group | Nothing;
+      generics?: GroupNode | Nothing;
+      parameters?: GroupNode | Nothing;
       type?: TypeNode | Nothing;
       assign?: AssignNode | Nothing;
     }
@@ -140,8 +140,8 @@ function getHeader(
       modifier?: OperatorNode | Nothing;
       idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
-      generics?: Group | Nothing;
-      parameters?: Group | Nothing;
+      generics?: GroupNode | Nothing;
+      parameters?: GroupNode | Nothing;
     }
   | Nothing {
   const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $.DocumentationNode));
@@ -168,8 +168,8 @@ function getUnderModifier(
   | {
       idHiddenNodes?: Array2<Node> | Nothing;
       id: IdNode;
-      generics?: Group | Nothing;
-      parameters?: Group | Nothing;
+      generics?: GroupNode | Nothing;
+      parameters?: GroupNode | Nothing;
     }
   | Nothing {
   if (!node) {
@@ -183,9 +183,9 @@ function getUnderModifier(
   if (is(node, $.InvokeNode)) {
     if (
       is(node.instance, $.InvokeNode) &&
-      is(node.group, $.GroupNode) &&
+      is(node.group, $.ParenGroupNode) &&
       is(node.instance.instance, $.IdNode) &&
-      is(node.instance.group, $.ObjectNode)
+      is(node.instance.group, $.BraceGroupNode)
     ) {
       parseDeclarations(analyzer, node.instance.group);
       parseDeclarations(analyzer, node.group);
@@ -201,11 +201,11 @@ function getUnderModifier(
     if (is(node.instance, $.IdNode)) {
       parseDeclarations(analyzer, node.group);
 
-      if (is(node.group, $.ObjectNode)) {
+      if (is(node.group, $.BraceGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
-      if (is(node.group, $.GroupNode)) {
+      if (is(node.group, $.ParenGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
@@ -214,7 +214,7 @@ function getUnderModifier(
   return nothing;
 }
 
-function parseDeclarations(analyzer: SyntaxAnalyzer, group: Group): void {
+function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
   for (const item of group.items) {
     if (is(item.value, $.IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});

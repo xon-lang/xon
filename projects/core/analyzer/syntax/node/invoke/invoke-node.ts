@@ -1,16 +1,16 @@
 import {$} from '../../../../$';
 import {ExpressionNode} from '../../../node';
-import {Group} from '../../group/group-node';
+import {GroupNode} from '../../group/group-node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type InvokeNode = SyntaxNode<$.InvokeNode> &
   ExpressionNode & {
     instance: ExpressionNode;
-    group: Group;
+    group: GroupNode;
   };
 
-export function invokeNode(analyzer: SyntaxAnalyzer, instance: ExpressionNode, group: Group): InvokeNode {
+export function invokeNode(analyzer: SyntaxAnalyzer, instance: ExpressionNode, group: GroupNode): InvokeNode {
   const node = syntaxNode($.InvokeNode, {instance, group});
 
   format(analyzer, node);

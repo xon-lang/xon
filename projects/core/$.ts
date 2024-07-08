@@ -1,6 +1,9 @@
 import {Boolean2, Nothing} from '../lib/types';
 import {CharNode} from './analyzer/lexical/node/char/char-node';
-import {CloseNode} from './analyzer/lexical/node/close/close-node';
+import {BraceCloseNode} from './analyzer/lexical/node/close2/brace-close/brace-close-node';
+import {BracketCloseNode} from './analyzer/lexical/node/close2/bracket-close/bracket-close-node';
+import {CloseNode} from './analyzer/lexical/node/close2/close-node';
+import {ParenCloseNode} from './analyzer/lexical/node/close2/paren-close/paren-close-node';
 import {CommaNode} from './analyzer/lexical/node/comma/comma-node';
 import {CommentBlockNode} from './analyzer/lexical/node/comment-block/comment-block-node';
 import {CommentLineNode} from './analyzer/lexical/node/comment-line/comment-line-node';
@@ -13,7 +16,10 @@ import {IntegerNode} from './analyzer/lexical/node/integer/integer-node';
 import {JoiningNode} from './analyzer/lexical/node/joining/joining-node';
 import {LexicalNode} from './analyzer/lexical/node/lexical-node';
 import {NlNode} from './analyzer/lexical/node/nl/nl-node';
-import {OpenNode} from './analyzer/lexical/node/open/open-node';
+import {BraceOpenNode} from './analyzer/lexical/node/open2/brace-open/brace-open-node';
+import {BracketOpenNode} from './analyzer/lexical/node/open2/bracket-open/bracket-open-node';
+import {OpenNode} from './analyzer/lexical/node/open2/open-node';
+import {ParenOpenNode} from './analyzer/lexical/node/open2/paren-open/paren-open-node';
 import {OperatorNode} from './analyzer/lexical/node/operator/operator-node';
 import {StringNode} from './analyzer/lexical/node/string/string-node';
 import {UnknownNode} from './analyzer/lexical/node/unknown/unknown-node';
@@ -43,8 +49,11 @@ import {StringValueSemantic} from './analyzer/semantic/node/value/string/string-
 import {ValueSemantic} from './analyzer/semantic/node/value/value-semantic';
 import {DocumentationItemNode} from './analyzer/syntax/documentation/documentation-item-node';
 import {DocumentationNode} from './analyzer/syntax/documentation/documentation-node';
-import {ArrayNode, Group, GroupNode, ObjectNode} from './analyzer/syntax/group/group-node';
+import {BraceGroupNode} from './analyzer/syntax/group/brace/brace-group-node';
+import {BracketGroupNode} from './analyzer/syntax/group/bracket/bracket-group-node';
+import {GroupNode} from './analyzer/syntax/group/group-node';
 import {ItemNode} from './analyzer/syntax/group/item-node';
+import {ParenGroupNode} from './analyzer/syntax/group/paren/paren-group-node';
 import {AssignNode} from './analyzer/syntax/node/assign/assign-node';
 import {AssignmentNode} from './analyzer/syntax/node/assignment/assignment-node';
 import {DeclarationNode} from './analyzer/syntax/node/declaration/declaration-node';
@@ -85,24 +94,33 @@ export enum $ {
   JoiningNode = ' JoiningNode ' + $.LexicalNode,
   NlNode = ' NlNode ' + $.LexicalNode,
   IntegerNode = ' IntegerNode ' + $.ExpressionNode + $.LexicalNode,
-  // FloatNode = ' FloatNode ' + $.ExpressionNode + $.LexicalNode,
   CharNode = ' CharNode ' + $.ExpressionNode + $.LexicalNode,
   StringNode = ' StringNode ' + $.ExpressionNode + $.LexicalNode,
   IdNode = ' IdNode ' + $.ExpressionNode + $.LexicalNode,
   OperatorNode = ' OperatorNode ' + $.ExpressionNode + $.LexicalNode,
+
   OpenNode = ' OpenNode ' + $.LexicalNode,
+  ParenOpenNode = ' ParenOpenNode ' + $.OpenNode,
+  BracketOpenNode = ' BracketOpenNode ' + $.OpenNode,
+  BraceOpenNode = ' BraceOpenNode ' + $.OpenNode,
+
   CloseNode = ' CloseNode ' + $.LexicalNode,
+  ParenCloseNode = ' ParenCloseNode ' + $.CloseNode,
+  BracketCloseNode = ' BracketCloseNode ' + $.CloseNode,
+  BraceCloseNode = ' BraceCloseNode ' + $.CloseNode,
+
   CommaNode = ' CommaNode ' + $.LexicalNode,
+  ItemNode = ' ItemNode ' + $.LexicalNode,
+
+  GroupNode = ' GroupNode ' + $.ExpressionNode + $.LexicalNode,
+  ParenGroupNode = ' ParenGroupNode ' + $.GroupNode,
+  BracketGroupNode = ' BracketGroupNode ' + $.GroupNode,
+  BraceGroupNode = ' BraceGroupNode ' + $.GroupNode,
+
   UnknownNode = ' UnknownNode ' + $.LexicalNode,
 
-  ItemNode = ' ItemNode ' + $.LexicalNode,
-  ObjectNode = ' ObjectNode ' + $.ExpressionNode + $.LexicalNode,
-  ArrayNode = ' ArrayNode ' + $.ExpressionNode + $.LexicalNode,
-  GroupNode = ' GroupNode ' + $.ExpressionNode + $.LexicalNode,
   DeclarationNode = ' DeclarationNode ' + $.LexicalNode,
   LambdaNode = ' LambdaNode ' + $.ExpressionNode + $.LexicalNode,
-  // GenericsNode = ' GenericsNode ' + $.LexicalNode,
-  // ParametersNode = ' ParametersNode ' + $.LexicalNode,
   ImportNode = ' ImportNode ' + $.ExpressionNode + $.LexicalNode,
   AssignmentNode = ' AssignmentNode ' + $.LexicalNode,
   MemberNode = ' MemberNode ' + $.ExpressionNode + $.LexicalNode,
@@ -168,23 +186,33 @@ export type TypeMap = {
   [$.JoiningNode]: JoiningNode;
   [$.NlNode]: NlNode;
   [$.IntegerNode]: IntegerNode;
-  // [$.FloatNode]:FloatNode;
   [$.CharNode]: CharNode;
   [$.StringNode]: StringNode;
   [$.IdNode]: IdNode;
   [$.OperatorNode]: OperatorNode;
+
   [$.OpenNode]: OpenNode;
+  [$.ParenOpenNode]: ParenOpenNode;
+  [$.BracketOpenNode]: BracketOpenNode;
+  [$.BraceOpenNode]: BraceOpenNode;
+
   [$.CloseNode]: CloseNode;
+  [$.ParenCloseNode]: ParenCloseNode;
+  [$.BracketCloseNode]: BracketCloseNode;
+  [$.BraceCloseNode]: BraceCloseNode;
+
   [$.CommaNode]: CommaNode;
-  [$.UnknownNode]: UnknownNode;
   [$.ItemNode]: ItemNode;
-  [$.ObjectNode]: ObjectNode;
-  [$.ArrayNode]: ArrayNode;
+
   [$.GroupNode]: GroupNode;
+  [$.ParenGroupNode]: ParenGroupNode;
+  [$.BracketGroupNode]: BracketGroupNode;
+  [$.BraceGroupNode]: BraceGroupNode;
+
+  [$.UnknownNode]: UnknownNode;
+
   [$.DeclarationNode]: DeclarationNode;
   [$.LambdaNode]: LambdaNode;
-  // [$.GenericsNode]:GenericsNode;
-  // [$.ParametersNode]:ParametersNode;
   [$.ImportNode]: ImportNode;
   [$.AssignmentNode]: AssignmentNode;
   [$.MemberNode]: MemberNode;
@@ -251,16 +279,6 @@ export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
 
 export function isHiddenNode(node: Node | Nothing): Boolean2 {
   return !!node?.isHidden;
-}
-
-export const groups = [$.GroupNode, $.ArrayNode, $.ObjectNode];
-
-export function isGroupNode(node: Node | Nothing): node is Group {
-  if (!node) {
-    return false;
-  }
-
-  return groups.some((x) => node.$ === x);
 }
 
 export function isNonOperatorExpression(node: Node): node is ExpressionNode {

@@ -11,7 +11,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
     return nothing;
   }
 
-  if (is(node, $.GroupNode)) {
+  if (is(node, $.ParenGroupNode)) {
     return node.items.map((x) => evaluate(x.value ?? nothing));
   }
 

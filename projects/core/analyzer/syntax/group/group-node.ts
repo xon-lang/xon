@@ -3,35 +3,40 @@ import {Array2, Nothing} from '../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
-import {CloseNode} from '../../lexical/node/close/close-node';
-import {OpenNode} from '../../lexical/node/open/open-node';
+import {CloseNode, CloseNodeType} from '../../lexical/node/close2/close-node';
+import {OpenNode, OpenNodeType} from '../../lexical/node/open2/open-node';
 import {ExpressionNode} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {ItemNode} from './item-node';
 
-export type $Group = $.GroupNode | $.ArrayNode | $.ObjectNode;
-export type Group = GroupNode | ArrayNode | ObjectNode;
-export type ArrayNode = GroupNode;
-export type ObjectNode = GroupNode;
+export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode;
 
-export type GroupNode = SyntaxNode<$.GroupNode | $.ArrayNode | $.ObjectNode> &
+export type GroupNode<
+  GroupType extends GroupNodeType = GroupNodeType,
+  OpenType extends OpenNodeType = OpenNodeType,
+  CloseType extends CloseNodeType = CloseNodeType,
+> = SyntaxNode<GroupType> &
   ExpressionNode & {
-    open: OpenNode;
+    open: OpenNode<OpenType>;
     items: Array2<ItemNode>;
-    close: CloseNode | Nothing;
+    close: CloseNode<CloseType> | Nothing;
   };
 
-export function groupNode(
+export function groupNode<
+  GroupType extends GroupNodeType,
+  OpenType extends OpenNodeType,
+  CloseType extends CloseNodeType,
+>(
   analyzer: SyntaxAnalyzer,
-  $: $Group,
-  open: OpenNode,
+  $: GroupType,
+  open: OpenNode<OpenType>,
   items: Array2<ItemNode>,
-  close: CloseNode | Nothing,
-): GroupNode {
+  close: CloseNode<CloseType> | Nothing,
+): GroupNode<GroupType, OpenType, CloseType> {
   const children = close ? [open, ...items, close] : [open, ...items];
 
-  const node: GroupNode = {
+  const node: GroupNode<GroupType, OpenType, CloseType> = {
     $,
     range: rangeFromNodes(children),
     children,

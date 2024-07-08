@@ -1,7 +1,6 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
-import {OBJECT_OPEN} from '../../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {Node} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
@@ -48,7 +47,7 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Not
 }
 
 function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemantic | Nothing {
-  if (node.group.open.text !== OBJECT_OPEN) {
+  if (!is(node.group.open, $.BraceOpenNode)) {
     analyzer.diagnosticManager.addError(node.group.open.range, DIAGNOSTIC_MESSAGE.notImplemented());
 
     return nothing;

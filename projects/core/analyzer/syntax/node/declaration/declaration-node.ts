@@ -3,7 +3,7 @@ import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {DocumentationNode} from '../../documentation/documentation-node';
-import {Group} from '../../group/group-node';
+import {GroupNode} from '../../group/group-node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 
 import {AssignNode} from '../assign/assign-node';
@@ -15,8 +15,8 @@ export type DeclarationNode = SyntaxNode<$.DeclarationNode> & {
   documentation: DocumentationNode | Nothing;
   modifier: OperatorNode | Nothing;
   id: IdNode;
-  generics: Group | Nothing;
-  parameters: Group | Nothing;
+  generics: GroupNode | Nothing;
+  parameters: GroupNode | Nothing;
   type: TypeNode | Nothing;
   assign: AssignNode | Nothing;
   attributes?: Array2<DeclarationNode> | Nothing;
@@ -27,8 +27,8 @@ export function declarationNode(
   documentation: DocumentationNode | Nothing,
   modifier: OperatorNode | Nothing,
   id: IdNode,
-  generics: Group | Nothing,
-  parameters: Group | Nothing,
+  generics: GroupNode | Nothing,
+  parameters: GroupNode | Nothing,
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): DeclarationNode {

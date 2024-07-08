@@ -1,46 +1,32 @@
 import {$, is} from '../../../$';
-import {Array2, Nothing, String2, nothing} from '../../../../lib/types';
-import {
-  ARRAY_CLOSE,
-  ARRAY_OPEN,
-  GROUP_CLOSE,
-  OBJECT_CLOSE,
-  OBJECT_OPEN,
-} from '../../lexical/lexical-analyzer-config';
+import {Array2, Nothing, nothing, String2} from '../../../../lib/types';
+import {BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
+
 import {CommaNode} from '../../lexical/node/comma/comma-node';
-import {OpenNode} from '../../lexical/node/open/open-node';
+import {OpenNode} from '../../lexical/node/open2/open-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {SyntaxAnalyzerConfig} from '../syntax-analyzer-config';
-import {$Group, Group, groupNode} from './group-node';
+import {groupNode, GroupNode, GroupNodeType} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
-export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Group {
-  if (openNode.text === ARRAY_OPEN) {
-    return groupNodeParseInner(analyzer, $.ArrayNode, openNode, ARRAY_CLOSE);
+export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
+  if (is(openNode, $.ParenOpenNode)) {
+    return groupNodeParseInner(analyzer, $.ParenGroupNode, openNode, PAREN_CLOSE);
   }
 
-  if (openNode.text === OBJECT_OPEN) {
-    return groupNodeParseInner(analyzer, $.ObjectNode, openNode, OBJECT_CLOSE);
+  if (is(openNode, $.BracketOpenNode)) {
+    return groupNodeParseInner(analyzer, $.BracketGroupNode, openNode, BRACKET_CLOSE);
   }
 
-  return groupNodeParseInner(analyzer, $.GroupNode, openNode, GROUP_CLOSE);
+  return groupNodeParseInner(analyzer, $.BraceGroupNode, openNode, BRACE_CLOSE);
 }
 
 function groupNodeParseInner(
   analyzer: SyntaxAnalyzer,
-  groupType: $Group,
+  groupType: GroupNodeType,
   openNode: OpenNode,
   closeText: String2,
-): Group {
+): GroupNode {
   const items: Array2<ItemNode> = [];
-
-  const config: SyntaxAnalyzerConfig = {
-    ...analyzer.config,
-    formatting: {
-      ...analyzer.config.formatting,
-      insertFinalNewline: false,
-    },
-  };
 
   let itemIndex = 0;
   let commaNode: CommaNode | Nothing = nothing;
