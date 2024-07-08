@@ -1,4 +1,4 @@
-import {$} from '../../../../$';
+import {$, is} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFrom} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -19,7 +19,7 @@ test('unknown 1', () => {
   expect(node0.text).toBe('123');
 
   expect(node1.hiddenNodes?.length).toBe(1);
-  // todo fix  'as LexicalNode'
+  expect(is(node1.hiddenNodes?.at(0), $.LexicalNode)).toBe(true);
   expect((node1.hiddenNodes?.at(0) as LexicalNode)?.text).toBe(' ');
   expect(node1.text).toBe('§');
 });
