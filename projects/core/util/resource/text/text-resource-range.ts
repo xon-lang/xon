@@ -2,7 +2,6 @@ import {Boolean2, String2} from '../../../../lib/types';
 import {TextRange} from './text-range';
 import {TextResource} from './text-resource';
 
-// todo is it the same as token node model ???
 export interface TextResourceRange {
   resource: TextResource;
   range: TextRange;

@@ -131,11 +131,12 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
       const indentText = ' '.repeat(this.config.indentSpaceLength * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
-      const nonWhitespaceNodes = afterIndentHiddenNodes.filter((x) => !is(x, $.WhitespaceNode));
+      const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
+        (x): x is LexicalNode => is(x, $.LexicalNode) && !is(x, $.WhitespaceNode),
+      );
       const text =
-        // todo fix  'as LexicalNode'
         indentText +
-        nonWhitespaceNodes.map((x) => (x as LexicalNode).text).join(' ') +
+        nonWhitespaceNodes.map((x) => x.text).join(' ') +
         (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
       if (this.isSameContent(afterIndentHiddenNodes, text)) {
