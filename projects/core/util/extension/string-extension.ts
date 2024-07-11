@@ -1,4 +1,4 @@
-import {Boolean2, Char, Integer, Nothing, String2, nothing} from '../../../lib/types';
+import {Array2, Boolean2, Char, Integer, Nothing, String2} from '../../../lib/types';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -8,29 +8,47 @@ const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 String.prototype.takeWhile = function (
-  predicate: (value: Char, index: Integer, array: String2) => Boolean2,
+  predicate?: (value: String2, index: Integer, array: Array2<Char>) => Boolean2,
   startIndex = 0,
-  includeConditionChar = false,
+  includeConditionItem = false,
 ): String2 {
-  for (let i = startIndex; i < this.length; i++) {
-    // todo should we replace .toString with array of char ???
-    if (!predicate(this[i], i, this.toString())) {
-      return this.slice(startIndex, includeConditionChar ? i + 1 : i);
-    }
-  }
-
-  return this.slice(startIndex, this.length);
+  return Array.from(this).takeWhile(predicate, startIndex, includeConditionItem).join('');
 };
 
-String.prototype.take = function (length: Integer, index: Integer = 0): String2 {
-  return this.slice(index, index + length);
+String.prototype.take = function (length: Integer, startIndex: Integer = 0): String2 {
+  return this.slice(startIndex, startIndex + length);
 };
 
-String.prototype.toCharCodes = function (): Uint8Array {
-  const utf8Encoder = new TextEncoder();
+String.prototype.some = function (
+  predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+): Boolean2 {
+  return Array.from(this).some((value, index, array) => predicate(value, index, array));
+};
 
-  return utf8Encoder.encode(this as string);
-  // return Array.from(this).map((x) => x.charCodeAt(0));
+String.prototype.count = function (
+  predicate: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+): Integer {
+  return Array.from(this).count(predicate);
+};
+
+String.prototype.first = function (
+  predicate?: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+): Char | Nothing {
+  return Array.from(this).first(predicate);
+};
+
+String.prototype.last = function (
+  predicate?: (value: Char, index: Integer, array: Array2<Char>) => Boolean2,
+): Char | Nothing {
+  return Array.from(this).last(predicate);
+};
+
+String.prototype.removeFirst = function (): String2 {
+  return this.slice(1);
+};
+
+String.prototype.removeLast = function (): String2 {
+  return this.slice(0, -1);
 };
 
 String.prototype.isUpperLetter = function (index: Integer): Boolean2 {
@@ -67,66 +85,6 @@ String.prototype.isLetterOrDigit = function (index: Integer): Boolean2 {
   );
 };
 
-String.prototype.some = function (
-  predicate: (value: Char, index: Integer, array: String2) => Boolean2,
-): Boolean2 {
-  const array = Array.from(this);
-
-  return array.some((x, i) => predicate(x, i, this.toString()));
-};
-
-String.prototype.count = function (
-  predicate: (value: Char, index: Integer, array: String2) => Boolean2,
-): Integer {
-  const array = Array.from<Char>(this);
-
-  return array.reduce((sum, val, index) => sum + (predicate(val, index, this.toString()) ? 1 : 0), 0);
-};
-
-String.prototype.first = function (
-  predicate?: (value: Char, index: Integer, array: String2) => Boolean2,
-): Char | Nothing {
-  if (this.length === 0) {
-    return nothing;
-  }
-
-  if (!predicate) {
-    return this[0] ?? nothing;
-  }
-
-  for (let index = 0; index < this.length; index++) {
-    const element = this[index];
-
-    if (predicate(element, index, this.toString())) {
-      return element;
-    }
-  }
-
-  return nothing;
-};
-
-String.prototype.last = function (
-  predicate?: (value: Char, index: Integer, array: String2) => Boolean2,
-): Char | Nothing {
-  if (this.length === 0) {
-    return nothing;
-  }
-
-  if (!predicate) {
-    return this[this.length - 1] ?? nothing;
-  }
-
-  for (let index = this.length - 1; index >= 0; index--) {
-    const element = this[index];
-
-    if (predicate(element, index, this.toString())) {
-      return element;
-    }
-  }
-
-  return nothing;
-};
-
 String.prototype.setPadding = function (padding: Integer): String2 {
   if (this.length === 0) {
     return this.toString();
@@ -157,4 +115,11 @@ String.prototype.setPadding = function (padding: Integer): String2 {
   });
 
   return resultLines.join('\n');
+};
+
+String.prototype.toCharCodes = function (): Uint8Array {
+  const utf8Encoder = new TextEncoder();
+
+  return utf8Encoder.encode(this as string);
+  // return Array.from(this).map((x) => x.charCodeAt(0));
 };
