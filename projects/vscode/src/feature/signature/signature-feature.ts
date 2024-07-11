@@ -74,7 +74,6 @@ function getInvokeNodeAndParameterIndex(
   }
 
   if (is(nodeAtPosition, $.CommaNode)) {
-    // todo fix complexity of 'parent.parent.parent...'
     if (
       is(nodeAtPosition.parent, $.ItemNode) &&
       is(nodeAtPosition.parent.parent, $.GroupNode) &&

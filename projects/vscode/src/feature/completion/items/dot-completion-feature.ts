@@ -12,7 +12,7 @@ import {
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
 import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic-node';
-import {TypeSemantic, isTypeSemantic} from '../../../../../core/analyzer/semantic/node/type/type-semantic';
+import {TypeSemantic} from '../../../../../core/analyzer/semantic/node/type/type-semantic';
 import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
 import {convertVscodePosition, getDocumentSemantic} from '../../../util';
 
@@ -39,7 +39,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
 }
 
 function getAttributes(semantic: Semantic): Record<String2, Array2<TypeSemantic>> | Nothing {
-  if (isTypeSemantic(semantic)) {
+  if (is(semantic, $.TypeSemantic)) {
     return semantic.attributes();
   }
 
