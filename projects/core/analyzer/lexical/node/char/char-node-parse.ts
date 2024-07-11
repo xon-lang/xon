@@ -1,16 +1,20 @@
 import {Nothing, nothing} from '../../../../../lib/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {CHAR_QUOTE} from '../../lexical-analyzer-config';
-import {CharNode, charNode} from './char-node';
+import {CHAR_QUOTE_CLOSE, CHAR_QUOTE_OPEN} from '../../lexical-analyzer-config';
+import {charNode, CharNode} from './char-node';
 
 export function charNodeParse(analyzer: LexicalAnalyzer): CharNode | Nothing {
-  if (analyzer.resource.data[analyzer.position.index] !== CHAR_QUOTE) {
+  if (!analyzer.checkTextAtIndex(CHAR_QUOTE_OPEN)) {
     return nothing;
   }
 
-  const nextQuoteIndex = analyzer.resource.data.indexOf(CHAR_QUOTE, analyzer.position.index + 1);
+  const stopIndex = analyzer.resource.data.indexOf(
+    CHAR_QUOTE_CLOSE,
+    analyzer.position.index + CHAR_QUOTE_OPEN.length,
+  );
 
-  const endSlice = nextQuoteIndex < 0 ? analyzer.resource.data.length : nextQuoteIndex + 1;
+  const endSlice = stopIndex < 0 ? analyzer.resource.data.length : stopIndex + CHAR_QUOTE_CLOSE.length;
+
   const text = analyzer.resource.data.slice(analyzer.position.index, endSlice);
   const range = analyzer.getRangeWithNL(text.length);
 

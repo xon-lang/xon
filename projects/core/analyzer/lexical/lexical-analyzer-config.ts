@@ -6,13 +6,16 @@ export const COMMENT_BLOCK_CLOSE = '---';
 export const DOCUMENTATION_OPEN = '===';
 export const DOCUMENTATION_CLOSE = '===';
 
+export const STRING_QUOTE_OPEN = '"';
+export const STRING_QUOTE_CLOSE = '"';
+export const CHAR_QUOTE_OPEN = "'";
+export const CHAR_QUOTE_CLOSE = "'";
+
 export const NL = '\n';
 export const COMMA = ',';
 export const JOINING = '~';
 export const SPACE = ' ';
 export const UNDERSCORE = '_';
-export const STRING_QUOTE = '"';
-export const CHAR_QUOTE = "'";
 export const TYPE = ':';
 export const ASSIGN = '=';
 export const MEMBER = '.';
