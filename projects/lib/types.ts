@@ -16,12 +16,11 @@ export type Integer = number;
 
 export type Float = number;
 
-export type Boolean2 = boolean;
+export type Boolean2 = boolean; // true | false
 
 export type Array2<T> = Array<T>;
 
 export type Range2<FROM, TO> = {from: FROM; to: TO};
-
 
 /*
 true and false should be as elements of set

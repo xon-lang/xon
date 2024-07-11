@@ -1,4 +1,4 @@
-import {$, is, isHiddenNode} from '../../$';
+import {$, is} from '../../$';
 import {Array2, Boolean2, Nothing, nothing} from '../../../lib/types';
 import {
   AnalyzerDiagnosticManager,
@@ -109,7 +109,7 @@ export function createSyntaxAnalyzer(
           }
         }
 
-        if (isHiddenNode(node)) {
+        if (node.isHidden) {
           if (is(node, $.NlNode)) {
             handleStatement();
           }
@@ -161,7 +161,8 @@ export function createSyntaxAnalyzer(
     },
 
     findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing {
-      const child = children.find((x) => x.range.contains(positionOrRange));
+      const child =
+        children.length === 1 ? children[0] : children.find((x) => x.range.contains(positionOrRange));
 
       if (!child) {
         return nothing;
