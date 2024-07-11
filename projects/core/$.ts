@@ -75,12 +75,14 @@ import {TextRange} from './util/resource/text/text-range';
 import {TextResource} from './util/resource/text/text-resource';
 
 export enum $ {
-  // node
   Node = ' Node ',
   LexicalNode = ' LexicalNode ' + $.Node,
-  SyntaxNode = ' SyntaxNode ' + $.Node,
   ExpressionNode = ' ExpressionNode ' + $.Node,
+  SyntaxNode = ' SyntaxNode ' + $.Node,
+  Semantic = ' Semantic ',
 
+  // lexical
+  UnknownNode = ' UnknownNode ' + $.LexicalNode,
   DocumentationNode = ' DocumentationNode' + $.SyntaxNode,
   DocumentationItemNode = ' DocumentationItemNode ' + $.SyntaxNode,
   DocumentationDescriptionNode = ' DocumentationDescriptionNode ' + $.LexicalNode,
@@ -110,30 +112,28 @@ export enum $ {
   BraceCloseNode = ' BraceCloseNode ' + $.CloseNode,
 
   CommaNode = ' CommaNode ' + $.LexicalNode,
-  ItemNode = ' ItemNode ' + $.LexicalNode,
 
-  GroupNode = ' GroupNode ' + $.ExpressionNode + $.LexicalNode,
+  // syntax
+  ItemNode = ' ItemNode ' + $.SyntaxNode,
+  GroupNode = ' GroupNode ' + $.ExpressionNode + $.SyntaxNode,
   ParenGroupNode = ' ParenGroupNode ' + $.GroupNode,
   BracketGroupNode = ' BracketGroupNode ' + $.GroupNode,
   BraceGroupNode = ' BraceGroupNode ' + $.GroupNode,
 
-  UnknownNode = ' UnknownNode ' + $.LexicalNode,
-
-  DeclarationNode = ' DeclarationNode ' + $.LexicalNode,
-  LambdaNode = ' LambdaNode ' + $.ExpressionNode + $.LexicalNode,
-  ImportNode = ' ImportNode ' + $.ExpressionNode + $.LexicalNode,
-  AssignmentNode = ' AssignmentNode ' + $.LexicalNode,
-  MemberNode = ' MemberNode ' + $.ExpressionNode + $.LexicalNode,
-  InvokeNode = ' InvokeNode ' + $.ExpressionNode + $.LexicalNode,
-  InfixNode = ' InfixNode ' + $.ExpressionNode + $.LexicalNode,
-  PrefixNode = ' PrefixNode ' + $.ExpressionNode + $.LexicalNode,
-  PostfixNode = ' PostfixNode ' + $.ExpressionNode + $.LexicalNode,
-  AssignNode = ' AssignNode ' + $.LexicalNode,
-  TypeNode = ' TypeNode ' + $.LexicalNode,
-  StatementNode = ' StatementNode ' + $.LexicalNode,
+  DeclarationNode = ' DeclarationNode ' + $.SyntaxNode,
+  LambdaNode = ' LambdaNode ' + $.ExpressionNode + $.SyntaxNode,
+  ImportNode = ' ImportNode ' + $.ExpressionNode + $.SyntaxNode,
+  AssignmentNode = ' AssignmentNode ' + $.SyntaxNode,
+  MemberNode = ' MemberNode ' + $.ExpressionNode + $.SyntaxNode,
+  InvokeNode = ' InvokeNode ' + $.ExpressionNode + $.SyntaxNode,
+  InfixNode = ' InfixNode ' + $.ExpressionNode + $.SyntaxNode,
+  PrefixNode = ' PrefixNode ' + $.ExpressionNode + $.SyntaxNode,
+  PostfixNode = ' PostfixNode ' + $.ExpressionNode + $.SyntaxNode,
+  AssignNode = ' AssignNode ' + $.SyntaxNode,
+  TypeNode = ' TypeNode ' + $.SyntaxNode,
+  StatementNode = ' StatementNode ' + $.SyntaxNode,
 
   // semantic
-  Semantic = ' Semantic ',
   DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
   DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
 
@@ -275,10 +275,6 @@ export function is<T extends $>(model: $Model | Nothing, $: T): model is TypeMap
 
 export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
   return semantic.$.includes($.SetTypeSemantic);
-}
-
-export function isHiddenNode(node: Node | Nothing): Boolean2 {
-  return !!node?.isHidden;
 }
 
 export function isNonOperatorExpression(node: Node): node is ExpressionNode {

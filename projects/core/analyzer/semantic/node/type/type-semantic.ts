@@ -6,7 +6,3 @@ export interface TypeSemantic extends Semantic {
   is(other: TypeSemantic): Boolean2;
   eq(other: TypeSemantic): Boolean2;
 }
-
-export function isTypeSemantic(semantic: Semantic): semantic is TypeSemantic {
-  return semantic.$.endsWith('_TYPE');
-}
