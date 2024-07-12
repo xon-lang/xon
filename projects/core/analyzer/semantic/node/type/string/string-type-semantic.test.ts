@@ -1,6 +1,6 @@
 import {$} from '../../../../../$';
 import {nothing} from '../../../../../../lib/types';
-import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
@@ -13,7 +13,7 @@ test('a is string value', () => {
   const text = `
     const a: "abc" = "abc"
   `;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
@@ -36,7 +36,7 @@ test('a is string value', () => {
 test('a is string literal', () => {
   const text = `
     const a: "abc`;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].value as DeclarationNode;
@@ -49,7 +49,7 @@ test('a is string literal', () => {
 test('a is empty string 1', () => {
   const text = `
     const a: "`;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].value as DeclarationNode;
@@ -62,7 +62,7 @@ test('a is empty string 1', () => {
 test('a is empty string 2', () => {
   const text = `
     const a: ""`;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements[0].value as DeclarationNode;

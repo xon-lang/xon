@@ -1,6 +1,5 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
@@ -24,7 +23,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
   }
 
   if (isTypeDeclarationSemantic(declaration)) {
-    analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.notImplemented());
   }
 
   return nothing;

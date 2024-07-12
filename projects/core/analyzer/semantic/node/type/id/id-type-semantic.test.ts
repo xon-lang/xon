@@ -1,6 +1,6 @@
 import {$} from '../../../../../$';
 import {nothing} from '../../../../../../lib/types';
-import {textResourceFrom} from '../../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
@@ -15,7 +15,7 @@ test('a is integer', () => {
     model Integer
     const a: Integer
   `;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -42,7 +42,7 @@ test('a is array', () => {
     model Array{T}
     const a: Array{3}
   `;
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const semantic = createSemanticAnalyzer(syntax);
 

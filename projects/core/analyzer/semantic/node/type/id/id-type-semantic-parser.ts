@@ -1,6 +1,5 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {Node} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
@@ -29,7 +28,7 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Not
   const declaration = analyzer.declarationManager.single(DeclarationKind.TYPE, node.text, nothing, nothing);
 
   if (!declaration) {
-    analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.cannotResolveType());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotResolveType());
 
     return nothing;
   }
@@ -41,15 +40,14 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Not
     return semantic;
   }
 
-  analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.cannotBeUsedAsAType());
+  analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
 
   return nothing;
 }
 
 function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemantic | Nothing {
   if (!is(node.group.open, $.BraceOpenNode)) {
-    analyzer.diagnosticManager.addError(node.group.open.range, DIAGNOSTIC_MESSAGE.notImplemented());
-
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.group.open.range, (x) => x.notImplemented());
     return nothing;
   }
 
@@ -78,7 +76,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
   }
 
   if (generics.length > 0) {
-    analyzer.diagnosticManager.addError(node.instance.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.range, (x) => x.notImplemented());
   }
 
   return nothing;

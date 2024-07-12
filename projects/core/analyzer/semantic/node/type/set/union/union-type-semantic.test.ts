@@ -1,6 +1,6 @@
 import {$} from '../../../../../../$';
 import {String2, nothing} from '../../../../../../../lib/types';
-import {textResourceFrom} from '../../../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {DeclarationKind} from '../../../../declaration-manager';
@@ -18,7 +18,7 @@ test('a is integer or float', () => {
 
     const a: Integer | Float
   `;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -50,7 +50,7 @@ test('1 check type', () => {
     const a: Integer
     const b: Integer | Float
   `;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -75,7 +75,7 @@ test('2 check type', () => {
     const b: Float
     const c: String
   `;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 

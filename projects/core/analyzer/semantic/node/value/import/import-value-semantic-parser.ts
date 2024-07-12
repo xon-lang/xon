@@ -1,12 +1,9 @@
 import {dirname, join, resolve} from 'path';
 import {$, is} from '../../../../../$';
 import {Nothing, String2, nothing} from '../../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
-import {zeroPosition} from '../../../../../util/resource/text/text-position';
-import {textResourceFromFilePath} from '../../../../../util/resource/text/text-resource';
-import {codeLexicalAnalyzer} from '../../../../lexical/code-lexical-analyzer';
+import {textResourceFromLocation} from '../../../../../util/resource/text/text-resource';
 import {Node} from '../../../../node';
-import {createSyntaxAnalyzer} from '../../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
@@ -33,17 +30,17 @@ export function importValueSemanticTryParse(
     return importValueSemantic(analyzer.createReference(node), nothing);
   }
 
-  const location = normalizeImportString(node.value.value, analyzer.resource.location);
-  const resource = textResourceFromFilePath(location);
+  // todo should fix 'node.value.content?.text ?? ''' ???
+  const location = normalizeImportString(node.value.content?.text ?? '', analyzer.resource.location);
+  const resource = textResourceFromLocation(location);
 
   if (!resource) {
-    analyzer.diagnosticManager.addError(node.value.range, DIAGNOSTIC_MESSAGE.cannotFindResource(location));
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.range, (x)=>x.cannotFindResource(location));
 
     return;
   }
 
-  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
-  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
+  const syntaxAnalyzer = syntaxFromResource(resource);
 
   const {declarationManager} = createSemanticAnalyzer(syntaxAnalyzer);
 
@@ -58,20 +55,20 @@ export function importValueSemanticTryParse(
 
 export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {
   const location = normalizeImportString(importString);
-  const resource = textResourceFromFilePath(location);
+  const resource = textResourceFromLocation(location);
 
   if (!resource) {
     return nothing;
   }
 
-  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
-  const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer);
+  const syntaxAnalyzer = syntaxFromResource(resource);
   const {declarationManager} = createSemanticAnalyzer(syntaxAnalyzer);
 
   return declarationManager;
 }
 
 function normalizeImportString(location: String2, targetSourceLocation?: String2 | Nothing): String2 {
+  // todo get extension '.xon' from config
   const locationWithExtension = location + '.xon';
 
   if (location.startsWith('/') || location.startsWith('.')) {

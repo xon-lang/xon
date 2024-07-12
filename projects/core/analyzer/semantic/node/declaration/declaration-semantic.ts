@@ -8,7 +8,6 @@ import { ValueSemantic } from '../value/value-semantic';
 
 export interface DeclarationSemantic extends Semantic<$.DeclarationSemantic> {
   documentation?: String2 | Nothing;
-  // todo maybe 'usages' need to use 'TextResourcePosition' instead of 'TextResourceRange' ???
   usages: Array2<TextResourceRange>;
   modifier?: String2 | Nothing;
   name: String2;

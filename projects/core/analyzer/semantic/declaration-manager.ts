@@ -83,7 +83,7 @@ export function createDeclarationManager(
       const declarations = this.filterByName(kind, name);
 
       if (declarations.length === 0) {
-        // issueManager.addError(node, ISSUE_MESSAGE.declarationNotFound(node.text));
+        // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.declarationNotFound(node.text));
 
         return nothing;
       }
@@ -93,7 +93,7 @@ export function createDeclarationManager(
       );
 
       if (filtered.length !== 1) {
-        // issueManager.addError(node, ISSUE_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
+        // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
 
         return nothing;
       }

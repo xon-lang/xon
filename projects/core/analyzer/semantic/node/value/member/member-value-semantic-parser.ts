@@ -1,6 +1,5 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeSemantic} from '../../type/type-semantic';
@@ -25,7 +24,7 @@ export function memberValueSemanticTryParse(
 
     if (attributes) {
       if (attributes.length > 1) {
-        analyzer.diagnosticManager.addError(node.id.range, DIAGNOSTIC_MESSAGE.notImplemented());
+        analyzer.diagnosticManager.addPredefinedDiagnostic(node.id.range, (x) => x.notImplemented());
       } else {
         memberType = attributes.first();
       }

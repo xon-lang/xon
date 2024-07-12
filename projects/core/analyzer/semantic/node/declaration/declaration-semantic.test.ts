@@ -1,6 +1,6 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../semantic-analyzer';
 import {IdTypeSemantic} from '../type/id/id-type-semantic';
@@ -8,7 +8,7 @@ import {DeclarationSemantic} from './declaration-semantic';
 
 test('only a', () => {
   const text = 'model A\n  p: A';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
   const model = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
@@ -30,7 +30,7 @@ test('only a', () => {
 
 test('declare b then a, a extends b', () => {
   const text = 'model B\nmodel A: B';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -51,7 +51,7 @@ test('declare b then a, a extends b', () => {
 
 test('declare a then b, a extends b', () => {
   const text = 'model A: B\nmodel B';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 

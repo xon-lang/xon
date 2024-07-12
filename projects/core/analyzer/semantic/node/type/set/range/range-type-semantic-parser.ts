@@ -1,6 +1,5 @@
 import {$, is} from '../../../../../../$';
 import {Nothing, nothing} from '../../../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../../../diagnostic/analyzer-diagnostic-message';
 import {RANGE} from '../../../../../lexical/lexical-analyzer-config';
 import {Node} from '../../../../../node';
 import {DeclarationKind} from '../../../../declaration-manager';
@@ -25,9 +24,8 @@ export function rangeTypeSemanticTryParse(
   );
 
   if (!declaration || !isTypeDeclarationSemantic(declaration)) {
-    analyzer.diagnosticManager.addError(
-      node.range,
-      DIAGNOSTIC_MESSAGE.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
+      x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
 
     return nothing;
@@ -40,17 +38,17 @@ export function rangeTypeSemanticTryParse(
   const step = nothing;
 
   if (!from || !to) {
-    analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.notImplemented());
 
     return nothing;
   }
 
   if (!is(from, $.IntegerTypeSemantic)) {
-    analyzer.diagnosticManager.addError(node.left.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.left.range, (x) => x.notImplemented());
   }
 
   if (!is(to, $.IntegerTypeSemantic)) {
-    analyzer.diagnosticManager.addError(node.right.range, DIAGNOSTIC_MESSAGE.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.right.range, (x) => x.notImplemented());
   }
 
   const semantic = rangeTypeSemantic(reference, declaration, from, to, step);

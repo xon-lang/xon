@@ -1,6 +1,5 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../../diagnostic/analyzer-diagnostic-message';
 import {Node} from '../../../../node';
 import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -24,9 +23,8 @@ export function arrayTypeSemanticTryParse(
   );
 
   if (!declaration || !isTypeDeclarationSemantic(declaration)) {
-    analyzer.diagnosticManager.addError(
-      node.range,
-      DIAGNOSTIC_MESSAGE.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
+      x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
 
     return nothing;
