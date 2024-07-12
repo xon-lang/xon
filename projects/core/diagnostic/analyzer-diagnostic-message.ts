@@ -1,118 +1,142 @@
-import {Integer, Nothing, String2, nothing} from '../../lib/types';
+import {String2, nothing} from '../../lib/types';
+import {TextResourceRange} from '../util/resource/text/text-resource-range';
+import {AnalyzerDiagnostic, createDiagnostic} from './analyzer-diagnostic';
+import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
 import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
-export interface AnalyzerDiagnosticMessage {
-  actual: String2;
-  expect: String2 | Nothing;
-  code?: Integer | Nothing;
-  tags?: AnalyzerDiagnosticTag[] | Nothing;
+export function predefinedDiagnostics(reference: TextResourceRange) {
+  return {
+    notImplemented: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: 'Error not implemented',
+        expect: 'Create a valid error message',
+      }),
+
+    unknownSymbol: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: 'Unknown symbol',
+        expect: nothing,
+      }),
+
+    unexpectedExpression: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: 'Unexpected expression',
+        expect: nothing,
+      }),
+
+    expectCloseToken: (open: String2): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Token '${open}' has no close pair`,
+        expect: nothing,
+      }),
+
+    // Semantic
+    declarationNotFound: (name: String2): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Declaration '${name}' not found`,
+        expect: nothing,
+      }),
+
+    tooManyDeclarationsFoundWithName: (name: String2): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Too many declarations found with '${name}'`,
+        expect: nothing,
+      }),
+
+    shouldBeSingleItem: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Should be single item`,
+        expect: nothing,
+      }),
+
+    shouldBeInteger: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Should be integer`,
+        expect: nothing,
+      }),
+
+    shouldBeMemberName: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Should be member name`,
+        expect: nothing,
+      }),
+
+    wrongType: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Wrong type`,
+        expect: nothing,
+      }),
+
+    cannotResolveType: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Cannot resolve type`,
+        expect: nothing,
+      }),
+
+    noTypeRequiredForConst: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `No type required for const`,
+        expect: nothing,
+      }),
+
+    cannotBeUsedAsAType: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Cannot be used as a type`,
+        expect: nothing,
+      }),
+
+    noValueAllowed: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `No value allowed`,
+        expect: nothing,
+      }),
+
+    noAttributesAllowed: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `No attributes allowed`,
+        expect: nothing,
+      }),
+
+    cannotEvaluate: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Cannot evaluate`,
+        expect: nothing,
+      }),
+
+    cannotFindResource: (path: String2): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Cannot find resource '${[path]}'`,
+        expect: nothing,
+      }),
+
+    importValueShouldBeString: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Import value should be string`,
+        expect: nothing,
+      }),
+
+    shouldBeDeclarationStatement: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Should be declaration statement`,
+        expect: nothing,
+      }),
+
+    shouldNotBeBody: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Should not be body`,
+        expect: nothing,
+      }),
+
+    documentationLabelAlreadyExists: (name: String2): AnalyzerDiagnostic =>
+      createDiagnostic(
+        reference,
+        AnalyzerDiagnosticSeverity.WARNING,
+        {
+          actual: `Documentation label '${name}' already exists`,
+          expect: nothing,
+        },
+        nothing,
+        [AnalyzerDiagnosticTag.UNNECESSARY],
+      ),
+  };
 }
-
-export const DIAGNOSTIC_MESSAGE = {
-  notImplemented: () => ({
-    actual: 'Error not implemented',
-    expect: 'Create a valid error message',
-  }),
-
-  unknownSymbol: () => ({
-    actual: 'Unknown symbol',
-    expect: nothing,
-  }),
-
-  unexpectedExpression: () => ({
-    actual: 'Unexpected expression',
-    expect: nothing,
-  }),
-
-  expectCloseToken: (open: String2) => ({
-    actual: `Token '${open}' has no close pair`,
-    expect: nothing,
-  }),
-
-  // Semantic
-  declarationNotFound: (name: String2) => ({
-    actual: `Declaration '${name}' not found`,
-    expect: nothing,
-  }),
-
-  tooManyDeclarationsFoundWithName: (name: String2) => ({
-    actual: `Too many declarations found with '${name}'`,
-    expect: nothing,
-  }),
-
-  shouldBeSingleItem: () => ({
-    actual: `Should be single item`,
-    expect: nothing,
-  }),
-
-  shouldBeInteger: () => ({
-    actual: `Should be integer`,
-    expect: nothing,
-  }),
-
-  shouldBeMemberName: () => ({
-    actual: `Should be member name`,
-    expect: nothing,
-  }),
-
-  wrongType: () => ({
-    actual: `Wrong type`,
-    expect: nothing,
-  }),
-
-  cannotResolveType: () => ({
-    actual: `Cannot resolve type`,
-    expect: nothing,
-  }),
-
-  noTypeRequiredForConst: () => ({
-    actual: `No type required for const`,
-    expect: nothing,
-  }),
-
-  cannotBeUsedAsAType: () => ({
-    actual: `Cannot be used as a type`,
-    expect: nothing,
-  }),
-
-  noValueAllowed: () => ({
-    actual: `No value allowed`,
-    expect: nothing,
-  }),
-
-  noAttributesAllowed: () => ({
-    actual: `No attributes allowed`,
-    expect: nothing,
-  }),
-
-  cannotEvaluate: () => ({
-    actual: `Cannot evaluate`,
-    expect: nothing,
-  }),
-
-  cannotFindResource: (path: String2) => ({
-    actual: `Cannot find resource '${[path]}'`,
-    expect: nothing,
-  }),
-
-  importValueShouldBeString: () => ({
-    actual: `Import value should be string`,
-    expect: nothing,
-  }),
-
-  shouldBeDeclarationStatement: () => ({
-    actual: `Should be declaration statement`,
-    expect: nothing,
-  }),
-
-  shouldNotBeBody: () => ({
-    actual: `Should not be body`,
-    expect: nothing,
-  }),
-
-  documentationLabelAlreadyExists: (name: String2) => ({
-    actual: `Documentation label '${name}' already exists`,
-    expect: nothing,
-    tags: [AnalyzerDiagnosticTag.UNNECESSARY],
-  }),
-};

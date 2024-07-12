@@ -1,9 +1,10 @@
-import {Array2} from '../../lib/types';
+import {Array2, Integer, Nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
-import {AnalyzerDiagnostic, formatAnalyzerDiagnostic} from './analyzer-diagnostic';
-import {AnalyzerDiagnosticMessage} from './analyzer-diagnostic-message';
+import {AnalyzerDiagnostic, AnalyzerDiagnosticMessage, createDiagnostic} from './analyzer-diagnostic';
+import {predefinedDiagnostics} from './analyzer-diagnostic-message';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
+import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
 export interface AnalyzerDiagnosticManager {
   resource: TextResource;
@@ -13,12 +14,19 @@ export interface AnalyzerDiagnosticManager {
     level: AnalyzerDiagnosticSeverity,
     range: TextRange,
     message: AnalyzerDiagnosticMessage,
+    code?: Integer | Nothing,
+    tags?: AnalyzerDiagnosticTag[] | Nothing,
+  ): AnalyzerDiagnostic;
+
+  addPredefinedDiagnostic(
+    range: TextRange,
+    select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
   ): AnalyzerDiagnostic;
 
   addError(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic;
 
   addWarning(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic;
-  log(issue: AnalyzerDiagnostic): void;
+  log(diagnostic: AnalyzerDiagnostic): void;
 }
 
 export function createDiagnosticManager(
@@ -33,16 +41,26 @@ export function createDiagnosticManager(
       severity: AnalyzerDiagnosticSeverity,
       range: TextRange,
       message: AnalyzerDiagnosticMessage,
+      code?: Integer | Nothing,
+      tags?: AnalyzerDiagnosticTag[] | Nothing,
     ): AnalyzerDiagnostic {
-      const diagnostic: AnalyzerDiagnostic = {
-        severity,
-        range,
-        message,
-        code: message.code,
-        tags: message.tags,
-      };
-
+      const reference = resource.getReference(range);
+      const diagnostic = createDiagnostic(reference, severity, message, code, tags);
       this.diagnostics.push(diagnostic);
+
+      // this.log(diagnostic);
+
+      return diagnostic;
+    },
+
+    addPredefinedDiagnostic(
+      range: TextRange,
+      select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
+    ): AnalyzerDiagnostic {
+      const reference = resource.getReference(range);
+      const diagnostic = select(predefinedDiagnostics(reference));
+      this.diagnostics.push(diagnostic);
+
       // this.log(diagnostic);
 
       return diagnostic;
@@ -56,9 +74,8 @@ export function createDiagnosticManager(
       return this.addDiagnostic(AnalyzerDiagnosticSeverity.WARNING, range, message);
     },
 
-    log(issue: AnalyzerDiagnostic): void {
-      const error = formatAnalyzerDiagnostic(this.resource, issue);
-      console.error(error);
+    log(diagnostic: AnalyzerDiagnostic): void {
+      console.error(diagnostic.terminalFormat());
     },
   };
 

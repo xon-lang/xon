@@ -1,69 +1,57 @@
 import {Integer, Nothing, String2} from '../../lib/types';
-import {TextRange} from '../util/resource/text/text-range';
-import {TextResource} from '../util/resource/text/text-resource';
-import {AnalyzerDiagnosticMessage} from './analyzer-diagnostic-message';
+import {TextResourceRange} from '../util/resource/text/text-resource-range';
+import {colorText, TerminalColor} from '../util/terminal/terminal-color';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
 import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
+export interface AnalyzerDiagnosticMessage {
+  actual: String2;
+  expect: String2 | Nothing;
+}
+
 // todo rename 'AnalyzerDiagnostic' to 'Diagnostic'
 export interface AnalyzerDiagnostic {
+  reference: TextResourceRange;
   severity: AnalyzerDiagnosticSeverity;
-  range: TextRange;
   message: AnalyzerDiagnosticMessage;
   code?: Integer | Nothing;
   tags?: AnalyzerDiagnosticTag[] | Nothing;
+
+  terminalFormat(): String2;
 }
 
-const cyan = (x: String2): String2 => colorText(x, Color.FG_CYAN);
-const gray = (x: String2): String2 => colorText(x, Color.FG_GRAY);
-const red = (x: String2): String2 => colorText(x, Color.FG_RED);
+export function createDiagnostic(
+  reference: TextResourceRange,
+  severity: AnalyzerDiagnosticSeverity,
+  message: AnalyzerDiagnosticMessage,
+  code?: Integer | Nothing,
+  tags?: AnalyzerDiagnosticTag[] | Nothing,
+): AnalyzerDiagnostic {
+  return {
+    reference,
+    severity,
+    message,
+    code,
+    tags,
 
-const colorText = (text: String2, color: Color): String2 => `${color}${text}${Color.RESET}`;
+    terminalFormat(): String2 {
+      const msg = red(message.actual);
+      const lineText = this.reference.resource.data.split('\n')[this.reference.range.start.line];
+      const nodeText = this.reference.resource.getText(this.reference.range);
+      const location = cyan(this.reference.resource.location ?? '<code>');
+      const line = cyan(`:${this.reference.range.start.line + 1}`);
+      const column = cyan(`:${this.reference.range.start.column + 1}`);
+      const lineNumberBeforeGrayed = `${this.reference.range.start.line + 1} | `;
+      const lineNumber = gray(lineNumberBeforeGrayed);
+      const caret =
+        ' '.repeat(this.reference.range.start.column + lineNumberBeforeGrayed.length) +
+        red('~'.repeat(nodeText.length));
 
-enum Color {
-  RESET = '\x1b[0m',
-  BRIGHT = '\x1b[1m',
-  DIM = '\x1b[2m',
-  UNDERSCORE = '\x1b[4m',
-  BLINK = '\x1b[5m',
-  REVERSE = '\x1b[7m',
-  HIDDEN = '\x1b[8m',
-
-  FG_BLACK = '\x1b[30m',
-  FG_RED = '\x1b[31m',
-  FG_GREEN = '\x1b[32m',
-  FG_YELLOW = '\x1b[33m',
-  FG_BLUE = '\x1b[34m',
-  FG_MAGENTA = '\x1b[35m',
-  FG_CYAN = '\x1b[36m',
-  FG_WHITE = '\x1b[37m',
-  FG_GRAY = '\x1b[90m',
-
-  BG_BLACK = '\x1b[40m',
-  BG_RED = '\x1b[41m',
-  BG_GREEN = '\x1b[42m',
-  BG_YELLOW = '\x1b[43m',
-  BG_BLUE = '\x1b[44m',
-  BG_MAGENTA = '\x1b[45m',
-  BG_CYAN = '\x1b[46m',
-  BG_WHITE = '\x1b[47m',
-  BG_GRAY = '\x1b[100m',
+      return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
+    },
+  };
 }
 
-export function formatAnalyzerDiagnostic(
-  resource: TextResource,
-  {range, message}: AnalyzerDiagnostic,
-): String2 {
-  const msg = red(message.actual);
-  const lineText = resource.data.split('\n')[range.start.line];
-  const nodeText = resource.getText(range);
-  const location = cyan(resource.location ?? '<code>');
-  const line = cyan(`:${range.start.line + 1}`);
-  const column = cyan(`:${range.start.column + 1}`);
-  const lineNumberBeforeGrayed = `${range.start.line + 1} | `;
-  const lineNumber = gray(lineNumberBeforeGrayed);
-  const caret =
-    ' '.repeat(range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
-
-  return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
-}
+const cyan = (x: String2): String2 => colorText(x, TerminalColor.FG_CYAN);
+const gray = (x: String2): String2 => colorText(x, TerminalColor.FG_GRAY);
+const red = (x: String2): String2 => colorText(x, TerminalColor.FG_RED);
