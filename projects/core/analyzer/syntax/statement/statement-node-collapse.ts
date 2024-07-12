@@ -1,6 +1,5 @@
 import {$, is} from '../../../$';
 import {Array2, Integer, Nothing, nothing} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,
@@ -108,13 +107,13 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
 
   if (isTypeDeclarationNode(parentDeclaration)) {
     if (parentDeclaration.assign?.value) {
-      analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldNotBeBody());
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.shouldNotBeBody());
 
       return;
     }
 
     if (!is(node, $.DeclarationNode)) {
-      analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.shouldBeDeclarationStatement());
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.shouldBeDeclarationStatement());
 
       return;
     }

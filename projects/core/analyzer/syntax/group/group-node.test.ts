@@ -1,7 +1,7 @@
 import {$, is} from '../../../$';
 import {nothing} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
-import {textResourceFrom} from '../../../util/resource/text/text-resource';
+import {predefinedDiagnostics} from '../../../diagnostic/analyzer-diagnostic-message';
+import {textResourceFromData} from '../../../util/resource/text/text-resource';
 import {IntegerNode} from '../../lexical/node/integer/integer-node';
 import {InfixNode} from '../node/infix/infix-node';
 import {syntaxFromResource} from '../syntax-analyzer';
@@ -11,7 +11,7 @@ import {ParenGroupNode} from './paren/paren-group-node';
 
 test('empty closed', () => {
   const text = '()';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ParenGroupNode;
@@ -25,7 +25,7 @@ test('empty closed', () => {
 
 test('validate close pair', () => {
   const text = '(';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ParenGroupNode;
@@ -37,15 +37,17 @@ test('validate close pair', () => {
   expect(node.items.length).toBe(0);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(1);
 
-  const issueMessage = DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text);
+  const diagnosticMessage = predefinedDiagnostics(source.getReference(node.range)).expectCloseToken(
+    node.open.text,
+  ).message;
 
-  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(issueMessage.actual);
-  expect(syntax.diagnosticManager.diagnostics[0].message.expect).toBe(issueMessage.expect);
+  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(diagnosticMessage.actual);
+  expect(syntax.diagnosticManager.diagnostics[0].message.expect).toBe(diagnosticMessage.expect);
 });
 
 test('a in group', () => {
   const text = '(a)';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ParenGroupNode;
@@ -56,7 +58,7 @@ test('a in group', () => {
 
 test('empty object', () => {
   const text = '{}';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BraceGroupNode;
@@ -68,7 +70,7 @@ test('empty object', () => {
 
 test('single item', () => {
   const text = '[123 456]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -81,7 +83,7 @@ test('single item', () => {
 
 test('single comma', () => {
   const text = '[,]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -95,7 +97,7 @@ test('single comma', () => {
 
 test('empty not closed', () => {
   const text = '[';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -109,7 +111,7 @@ test('empty not closed', () => {
 
 test('inner group', () => {
   const text = '[()]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -125,7 +127,7 @@ test('inner group', () => {
 
 test('inner empty group', () => {
   const text = '[[[]]]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -145,7 +147,7 @@ test('inner empty group', () => {
 
 test('two integers no comma and ws at the end', () => {
   const text = '[1, 2]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -159,7 +161,7 @@ test('two integers no comma and ws at the end', () => {
 
 test('two integers and comma no ws at the end', () => {
   const text = '[1, 2,]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -173,7 +175,7 @@ test('two integers and comma no ws at the end', () => {
 
 test('two integers and comma and ws', () => {
   const text = '[1, 2, ]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -190,7 +192,7 @@ test('array on several lines', () => {
                 2+2
                 3,
      4,    6+6]`;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -204,7 +206,7 @@ test('array on several lines', () => {
 
 test('debug 1', () => {
   const text = '[1, , 2 ]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -218,7 +220,7 @@ test('debug 1', () => {
 
 test('empty object', () => {
   const text = '{}';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BraceGroupNode;

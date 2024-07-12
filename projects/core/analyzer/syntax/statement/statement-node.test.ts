@@ -1,12 +1,12 @@
 import {$} from '../../../$';
 import {nothing} from '../../../../lib/types';
-import {textResourceFrom} from '../../../util/resource/text/text-resource';
-import {CharNode} from '../../lexical/node/char/char-node';
+import {textResourceFromData} from '../../../util/resource/text/text-resource';
+import {CharNode} from '../node/char/char-node';
 import {syntaxFromResource} from '../syntax-analyzer';
 
 test('a', () => {
   const text = "   \n    \n  ---comment ---'a'";
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const statement = statements[0];
@@ -18,6 +18,6 @@ test('a', () => {
   expect(statement.parent).toBe(nothing);
   expect(statement.children.length).toBe(1);
   expect(statement.children[0].$).toBe($.CharNode);
-  expect((statement.children[0] as CharNode).text).toBe("'a'");
+  expect((statement.children[0] as CharNode).content?.text).toBe('a');
   expect(statement.body.length).toBe(0);
 });

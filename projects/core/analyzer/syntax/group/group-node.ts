@@ -1,6 +1,5 @@
 import {$} from '../../../$';
 import {Array2, Nothing} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {CloseNode, CloseNodeType} from '../../lexical/node/close/close-node';
@@ -54,18 +53,19 @@ export function groupNode<
 
 function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {
   if (!node.close) {
-    analyzer.diagnosticManager.addError(node.open.range, DIAGNOSTIC_MESSAGE.expectCloseToken(node.open.text));
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.open.range, (x) =>
+      x.expectCloseToken(node.open.text),
+    );
   }
 
   // if(node.items.length>1 && !node.items[0].value){
-  //   context.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression());
+  //   context.diagnosticManager.addPredefinedDiagnostic(node.range, (x)=>x.unexpectedExpression());
   // }
 
   for (const item of node.items.slice(0, -1)) {
     if (!item.value) {
-      analyzer.diagnosticManager.addError(
-        (item.comma ?? node.open).range,
-        DIAGNOSTIC_MESSAGE.unexpectedExpression(),
+      analyzer.diagnosticManager.addPredefinedDiagnostic((item.comma ?? node.open).range, (x) =>
+        x.unexpectedExpression(),
       );
     }
   }

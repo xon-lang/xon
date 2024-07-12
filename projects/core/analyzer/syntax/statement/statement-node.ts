@@ -1,6 +1,5 @@
 import {$} from '../../../$';
 import {Array2, Boolean2, Integer, Nothing} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {Node} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
@@ -59,7 +58,7 @@ export function constructStatementNode(
   nodes
     .slice(1)
     .forEach((node) =>
-      analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unexpectedExpression()),
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.unexpectedExpression()),
     );
 
   return statementNode(analyzer, parentStatement, nodes, indent, isFirstStatement);

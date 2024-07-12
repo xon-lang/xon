@@ -1,7 +1,7 @@
 import {$, is} from '../../../$';
 import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
-import {documentationLexicalAnalyzer} from '../../lexical/documentation-lexical-analyzer.1';
+import {documentationLexicalParsers} from '../../lexical/documentation-lexical-analyzer';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
@@ -12,15 +12,11 @@ export function documentationNodeParse(
   analyzer: SyntaxAnalyzer,
   openNode: DocumentationOpenNode,
 ): DocumentationNode {
-  const lexer = documentationLexicalAnalyzer(
-    analyzer.lexicalAnalyzer.resource,
-    analyzer.lexicalAnalyzer.position,
-  );
-
+  const iterator = analyzer.lexicalAnalyzer.iterator(documentationLexicalParsers);
   let description: DocumentationDescriptionNode | Nothing = nothing;
   const items: Array2<DocumentationItemNode> = [];
 
-  for (const node of lexer) {
+  for (const node of iterator) {
     if (is(node, $.DocumentationDescriptionNode)) {
       if (items.length === 0) {
         description = node;

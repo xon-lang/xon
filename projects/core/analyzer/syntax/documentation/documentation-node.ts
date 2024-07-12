@@ -1,6 +1,5 @@
 import {$} from '../../../$';
 import {Array2, Nothing, String2} from '../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../diagnostic/analyzer-diagnostic-message';
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
@@ -9,7 +8,6 @@ import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {DocumentationItemNode} from './documentation-item-node';
 
 export type DocumentationNode = SyntaxNode<$.DocumentationNode> & {
-  // todo should we use Open and Close nodes here ???
   open: DocumentationOpenNode;
   description?: DocumentationDescriptionNode | Nothing;
   items: Array2<DocumentationItemNode>;
@@ -38,9 +36,8 @@ export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
     const name = item.id.text;
 
     if (unnecessaryLabels.includes(name)) {
-      analyzer.diagnosticManager.addWarning(
-        item.range,
-        DIAGNOSTIC_MESSAGE.documentationLabelAlreadyExists(name),
+      analyzer.diagnosticManager.addPredefinedDiagnostic(item.range, (x) =>
+        x.documentationLabelAlreadyExists(name),
       );
 
       continue;

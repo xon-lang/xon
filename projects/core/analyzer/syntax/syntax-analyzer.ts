@@ -4,16 +4,17 @@ import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,
 } from '../../diagnostic/analyzer-diagnostic-manager';
-import {DIAGNOSTIC_MESSAGE} from '../../diagnostic/analyzer-diagnostic-message';
 import {FormatterManager, createFormatterManager} from '../../formatter/formatter-manager';
-import {TextPosition, zeroPosition} from '../../util/resource/text/text-position';
+import {TextPosition} from '../../util/resource/text/text-position';
 import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
-import {codeLexicalAnalyzer} from '../lexical/code-lexical-analyzer';
-import {LexicalAnalyzer} from '../lexical/lexical-analyzer';
+import {codeLexicalParsers} from '../lexical/code-lexical-analyzer';
+import {LexicalAnalyzer, createLexicalAnalyzer} from '../lexical/lexical-analyzer';
 import {Node} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
+import {charNodeParse} from './node/char/char-node-parse';
+import {stringNodeParse} from './node/string/string-node-parse';
 import {putStatementNode} from './put-statement-node';
 import {StatementNode} from './statement/statement-node';
 import {DEFAULT_SYNTAX_ANALYZER_CONFIG, SyntaxAnalyzerConfig} from './syntax-analyzer-config';
@@ -81,21 +82,29 @@ export function createSyntaxAnalyzer(
         nodes = [];
       };
 
-      for (const iterableNode of lexicalAnalyzer) {
+      const iterator = analyzer.lexicalAnalyzer.iterator(codeLexicalParsers);
+
+      for (const iterableNode of iterator) {
         let node: Node = iterableNode;
 
         if (is(node, $.UnknownNode)) {
-          this.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.unknownSymbol());
+          this.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.unknownSymbol());
         }
 
-        if (is(node, $.OpenNode)) {
-          node = groupNodeParse(this, node);
-          lexicalAnalyzer.position = node.range.stop;
+        if (is(node, $.StringOpenNode)) {
+          node = stringNodeParse(this, node);
+        }
+
+        if (is(node, $.CharOpenNode)) {
+          node = charNodeParse(this, node);
         }
 
         if (is(node, $.DocumentationOpenNode)) {
           node = documentationNodeParse(this, node);
-          lexicalAnalyzer.position = node.range.stop;
+        }
+
+        if (is(node, $.OpenNode)) {
+          node = groupNodeParse(this, node);
         }
 
         if (breakOnNodeFn && breakOnNodeFn(node)) {
@@ -221,7 +230,7 @@ export function syntaxFromResource(
   resource: TextResource,
   syntaxConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
 ): SyntaxAnalyzer {
-  const lexicalAnalyzer = codeLexicalAnalyzer(resource, zeroPosition());
+  const lexicalAnalyzer = createLexicalAnalyzer(resource);
   const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer, syntaxConfig);
 
   return syntaxAnalyzer;
