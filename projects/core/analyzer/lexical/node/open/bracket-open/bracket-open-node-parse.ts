@@ -8,7 +8,7 @@ export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode
     return nothing;
   }
 
-  const text = analyzer.resource.data[analyzer.position.index];
+  const text = BRACKET_OPEN;
   const range = analyzer.getRange(text.length);
 
   return bracketOpenNode(range, text);
