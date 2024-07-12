@@ -1,18 +1,20 @@
 import {readFileSync, statSync} from 'fs';
 import {$} from '../../../$';
-import {Boolean2, Nothing, String2, nothing} from '../../../../lib/types';
+import {Boolean2, Nothing, nothing, String2} from '../../../../lib/types';
 import {Resource} from '../resource';
 import {TextRange} from './text-range';
+import {textResourceRange, TextResourceRange} from './text-resource-range';
 
 export interface TextResource extends Resource {
   $: $.TextResource;
   data: String2;
 
   eq(other: Resource): Boolean2;
+  getReference(range: TextRange): TextResourceRange;
   getText(range: TextRange): String2;
 }
 
-export function textResourceFrom(location: String2 | Nothing, data: String2): TextResource {
+export function textResourceFromData(location: String2 | Nothing, data: String2): TextResource {
   return {
     $: $.TextResource,
     location,
@@ -26,13 +28,17 @@ export function textResourceFrom(location: String2 | Nothing, data: String2): Te
       return this.data === other.data;
     },
 
+    getReference(range: TextRange): TextResourceRange {
+      return textResourceRange(this, range);
+    },
+
     getText({start, stop}: TextRange): String2 {
       return this.data.slice(start.index, stop.index);
     },
   };
 }
 
-export function textResourceFromFilePath(location: String2): TextResource | Nothing {
+export function textResourceFromLocation(location: String2): TextResource | Nothing {
   try {
     if (!statSync(location).isFile()) {
       return nothing;
@@ -40,7 +46,7 @@ export function textResourceFromFilePath(location: String2): TextResource | Noth
 
     const data = readFileSync(location).toString();
 
-    return textResourceFrom(location, data);
+    return textResourceFromData(location, data);
   } catch (error) {
     return nothing;
   }

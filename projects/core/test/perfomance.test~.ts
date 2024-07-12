@@ -3,10 +3,10 @@ import {join} from 'path';
 import {Anything, String2} from '../../lib/types';
 import {syntaxFromResource} from '../analyzer/syntax/syntax-analyzer';
 import {performanceIterations} from '../util/performance';
-import {textResourceFromFilePath} from '../util/resource/text/text-resource';
+import {textResourceFromLocation} from '../util/resource/text/text-resource';
 
 test('performance', () => {
-  const resource = textResourceFromFilePath('projects/core/parser/test/performance/source.xon');
+  const resource = textResourceFromLocation('projects/core/parser/test/performance/source.xon');
 
   if (!resource) {
     return;
@@ -24,7 +24,7 @@ test('performance', () => {
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
-  const source = textResourceFromFilePath(join(dirPath, 'source.xon'));
+  const source = textResourceFromLocation(join(dirPath, 'source.xon'));
 
   expect(source).toBeTruthy();
 
