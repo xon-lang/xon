@@ -1,5 +1,9 @@
 import {Array2, Boolean2, Integer, Nothing, Number2, String2, nothing} from '../../../lib/types';
 
+Array.prototype.take = function <T>(length: Integer, startIndex: Integer = 0): Array2<T> {
+  return this.slice(startIndex, startIndex + length);
+};
+
 Array.prototype.takeWhile = function <T>(
   predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
   startIndex = 0,

@@ -18,7 +18,7 @@ export interface ArrayExtension<T = Anything> {
   removeLast(): Array2<T>;
 
   takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): Array2<T>;
-  take(length: Integer, startIndex: Integer): Array2<T>;
+  take(length: Integer, startIndex?: Integer): Array2<T>;
 
   some(predicate: Predicate<Char>): Boolean2;
 
@@ -39,7 +39,7 @@ export interface StringExtension extends ArrayExtension<Char> {
   removeFirst(): String2;
   removeLast(): String2;
 
-  take(length: Integer, startIndex: Integer): String2;
+  take(length: Integer, startIndex?: Integer): String2;
   takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): String2;
 
   toCharCodes(): Uint8Array;
