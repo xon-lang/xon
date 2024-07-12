@@ -1,7 +1,7 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
+import {syntaxFromResource} from '../../syntax-analyzer';
 import {IntegerNode} from './integer-node';
 
 test('integer', () => {
@@ -13,7 +13,7 @@ test('integer', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.text).toBe('123');
+  expect(node.content.text).toBe('123');
 });
 
 test('zero int number', () => {
@@ -25,5 +25,5 @@ test('zero int number', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.text).toBe('0');
+  expect(node.content.text).toBe('0');
 });

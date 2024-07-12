@@ -1,8 +1,8 @@
 import {$} from '../$';
 import {nothing} from '../../lib/types';
 import {textResourceFromData} from '../util/resource/text/text-resource';
-import {IntegerNode} from './lexical/node/integer/integer-node';
 import {InfixNode} from './syntax/node/infix/infix-node';
+import {IntegerNode} from './syntax/node/integer/integer-node';
 import {syntaxFromResource} from './syntax/syntax-analyzer';
 
 test('comma', () => {
@@ -14,7 +14,7 @@ test('comma', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.text).toBe('1');
+  expect(node.content.text).toBe('1');
 });
 
 // test('single expression', () => {

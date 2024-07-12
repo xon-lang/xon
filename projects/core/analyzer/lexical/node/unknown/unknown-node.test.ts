@@ -1,8 +1,8 @@
 import {$, is} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
+import {IntegerNode} from '../../../syntax/node/integer/integer-node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {IntegerNode} from '../integer/integer-node';
 import {LexicalNode} from '../lexical-node';
 import {UnknownNode} from './unknown-node';
 
@@ -16,7 +16,7 @@ test('unknown 1', () => {
 
   expect(statements.length).toBe(1);
   expect(node0.$).toBe($.IntegerNode);
-  expect(node0.text).toBe('123');
+  expect(node0.content.text).toBe('123');
 
   expect(node1.hiddenNodes?.length).toBe(1);
   expect(is(node1.hiddenNodes?.at(0), $.LexicalNode)).toBe(true);

@@ -1,7 +1,5 @@
 import {Array2} from '../../../lib/types';
-import {TextPosition} from '../../util/resource/text/text-position';
-import {TextResource} from '../../util/resource/text/text-resource';
-import {createLexicalAnalyzer, LexicalAnalyzer, LexicalNodeParseFn} from './lexical-analyzer';
+import {LexicalNodeParseFn} from './lexical-analyzer';
 import {braceCloseNodeParse} from './node/close/brace-close/brace-close-node-parse';
 import {bracketCloseNodeParse} from './node/close/bracket-close/bracket-close-node-parse';
 import {parenCloseNodeParse} from './node/close/paren-close/paren-close-node-parse';
@@ -10,7 +8,7 @@ import {commentBlockNodeParse} from './node/comment-block/comment-block-node-par
 import {commentLineNodeParse} from './node/comment-line/comment-line-node-parse';
 import {documentationOpenNodeParse} from './node/documentation-open/documentation-open-node-parse';
 import {idNodeParse} from './node/id/id-node-parse';
-import {integerNodeParse} from './node/integer/integer-node-parse';
+import {integerContentNodeParse} from './node/integer-content/integer-content-node-parse';
 import {joiningNodeParse} from './node/joining/joining-node-parse';
 import {nlNodeParse} from './node/nl/nl-node-parse';
 import {braceOpenNodeParse} from './node/open/brace-open/brace-open-node-parse';
@@ -30,6 +28,8 @@ export const codeLexicalParsers: Array2<LexicalNodeParseFn> = [
   braceOpenNodeParse,
   braceCloseNodeParse,
 
+  integerContentNodeParse,
+
   commaNodeParse,
 
   commentLineNodeParse,
@@ -38,7 +38,6 @@ export const codeLexicalParsers: Array2<LexicalNodeParseFn> = [
   nlNodeParse,
   joiningNodeParse,
 
-  integerNodeParse,
   // todo should we add 'documentationOpenNodeParse' in codeAnalyzer instead of documentationAnalyzer ???
   documentationOpenNodeParse,
   stringOpenNodeParse,
@@ -46,7 +45,3 @@ export const codeLexicalParsers: Array2<LexicalNodeParseFn> = [
   operatorNodeParse,
   idNodeParse,
 ];
-
-// export function codeLexicalAnalyzer(resource: TextResource, startPosition: TextPosition): LexicalAnalyzer {
-//   return createLexicalAnalyzer(parsers, resource, startPosition);
-// }

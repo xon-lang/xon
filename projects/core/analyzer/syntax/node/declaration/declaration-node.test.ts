@@ -2,9 +2,9 @@ import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
-import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
 import {CharNode} from '../char/char-node';
+import {IntegerNode} from '../integer/integer-node';
 import {DeclarationNode} from './declaration-node';
 
 test('model A', () => {
@@ -73,7 +73,7 @@ test('with parameters extends b', () => {
   const parameter0 = node.parameters?.items.at(0)?.value as DeclarationNode;
   expect(parameter0?.id?.text).toBe('a');
   expect((parameter0?.type?.value as IdNode)?.text).toBe('Integer');
-  expect((parameter0?.assign?.value as IntegerNode)?.text).toBe('123');
+  expect((parameter0?.assign?.value as IntegerNode)?.content?.text).toBe('123');
 
   const parameter1 = node.parameters?.items.at(1)?.value as DeclarationNode;
   expect(parameter1?.id?.text).toBe('b');
@@ -113,7 +113,7 @@ test('with generics and parameters extends b', () => {
   const parameter0 = node.parameters?.items.at(0)?.value as DeclarationNode;
   expect(parameter0?.id?.text).toBe('a');
   expect((parameter0?.type?.value as IdNode)?.text).toBe('Integer');
-  expect((parameter0?.assign?.value as IntegerNode)?.text).toBe('123');
+  expect((parameter0?.assign?.value as IntegerNode)?.content.text).toBe('123');
 
   const parameter1 = node.parameters?.items.at(1)?.value as DeclarationNode;
   expect(parameter1?.id?.text).toBe('b');

@@ -14,7 +14,7 @@ import {DocumentationDescriptionNode} from './analyzer/lexical/node/documentatio
 import {DocumentationLabelNode} from './analyzer/lexical/node/documentation-label/documentation-label-node';
 import {DocumentationOpenNode} from './analyzer/lexical/node/documentation-open/documentation-open-node';
 import {IdNode} from './analyzer/lexical/node/id/id-node';
-import {IntegerNode} from './analyzer/lexical/node/integer/integer-node';
+import {IntegerContentNode} from './analyzer/lexical/node/integer-content/integer-content-node';
 import {JoiningNode} from './analyzer/lexical/node/joining/joining-node';
 import {LexicalNode} from './analyzer/lexical/node/lexical-node';
 import {NlNode} from './analyzer/lexical/node/nl/nl-node';
@@ -64,6 +64,7 @@ import {CharNode} from './analyzer/syntax/node/char/char-node';
 import {DeclarationNode} from './analyzer/syntax/node/declaration/declaration-node';
 import {ImportNode} from './analyzer/syntax/node/import/import-node';
 import {InfixNode} from './analyzer/syntax/node/infix/infix-node';
+import {IntegerNode} from './analyzer/syntax/node/integer/integer-node';
 import {InvokeNode} from './analyzer/syntax/node/invoke/invoke-node';
 import {LambdaNode} from './analyzer/syntax/node/lambda/lambda-node';
 import {MemberNode} from './analyzer/syntax/node/member/member-node';
@@ -119,6 +120,7 @@ export enum $ {
   CharCloseNode = ' CharCloseNode ' + $.CloseNode,
   DocumentationCloseNode = ' DocumentationCloseNode ' + $.CloseNode,
 
+  IntegerContentNode = ' IntegerContentNode ' + $.LexicalNode,
   StringContentNode = ' StringContentNode ' + $.LexicalNode,
   CharContentNode = ' CharContentNode ' + $.LexicalNode,
 
@@ -220,6 +222,7 @@ export type TypeMap = {
   [$.StringCloseNode]: StringCloseNode;
   [$.CharCloseNode]: CharCloseNode;
 
+  [$.IntegerContentNode]: IntegerContentNode;
   [$.StringContentNode]: StringContentNode;
   [$.CharContentNode]: CharContentNode;
 

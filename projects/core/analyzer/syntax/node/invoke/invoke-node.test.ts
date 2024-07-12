@@ -2,9 +2,9 @@ import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
-import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {GroupNode} from '../../group/group-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
+import {IntegerNode} from '../integer/integer-node';
 import {MemberNode} from '../member/member-node';
 import {StringNode} from '../string/string-node';
 import {InvokeNode} from './invoke-node';
@@ -20,7 +20,7 @@ test('method call', () => {
   expect(node.$).toBe($.InvokeNode);
   expect(node.group.items.length).toBe(2);
   expect(node.group.items[0]?.value?.$).toBe($.IntegerNode);
-  expect((node.group.items[0]?.value as IntegerNode).text).toBe('3');
+  expect((node.group.items[0]?.value as IntegerNode).content.text).toBe('3');
   expect(node.group.items[1]?.value?.$).toBe($.CharNode);
   expect((node.group.items[1]?.value as StringNode).content?.text).toBe('str');
   expect(node.instance.$).toBe($.IdNode);
@@ -55,7 +55,7 @@ test('can call with type parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InvokeNode);
   expect(node.group.items.length).toBe(1);
-  expect((node.group.items[0]?.value as IntegerNode).text).toBe('1');
+  expect((node.group.items[0]?.value as IntegerNode).content.text).toBe('1');
   expect(node.instance.$).toBe($.MemberNode);
   const {operator, instance, id} = node.instance as MemberNode;
   expect(operator.text).toBe('.');

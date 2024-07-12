@@ -1,9 +1,9 @@
-import {Nothing, nothing} from '../../../../../lib/types';
+import {nothing, Nothing} from '../../../../../lib/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {UNDERSCORE} from '../../lexical-analyzer-config';
-import {IntegerNode, integerNode} from './integer-node';
+import {integerContentNode, IntegerContentNode} from './integer-content-node';
 
-export function integerNodeParse(analyzer: LexicalAnalyzer): IntegerNode | Nothing {
+export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerContentNode | Nothing {
   if (!analyzer.resource.data.isDigit(analyzer.position.index)) {
     return nothing;
   }
@@ -15,5 +15,5 @@ export function integerNodeParse(analyzer: LexicalAnalyzer): IntegerNode | Nothi
 
   const range = analyzer.getRange(text.length);
 
-  return integerNode(range, text);
+  return integerContentNode(range, text);
 }

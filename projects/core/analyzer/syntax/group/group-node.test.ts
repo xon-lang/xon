@@ -2,8 +2,8 @@ import {$, is} from '../../../$';
 import {nothing} from '../../../../lib/types';
 import {predefinedDiagnostics} from '../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFromData} from '../../../util/resource/text/text-resource';
-import {IntegerNode} from '../../lexical/node/integer/integer-node';
 import {InfixNode} from '../node/infix/infix-node';
+import {IntegerNode} from '../node/integer/integer-node';
 import {syntaxFromResource} from '../syntax-analyzer';
 import {BraceGroupNode} from './brace/brace-group-node';
 import {BracketGroupNode} from './bracket/bracket-group-node';
@@ -78,7 +78,7 @@ test('single item', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(1);
-  expect((node.items[0]?.value as IntegerNode).text).toBe('123');
+  expect((node.items[0]?.value as IntegerNode).content.text).toBe('123');
 });
 
 test('single comma', () => {
@@ -155,8 +155,8 @@ test('two integers no comma and ws at the end', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(2);
-  expect((node.items[0]?.value as IntegerNode).text).toBe('1');
-  expect((node.items[1]?.value as IntegerNode).text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
+  expect((node.items[1]?.value as IntegerNode).content.text).toBe('2');
 });
 
 test('two integers and comma no ws at the end', () => {
@@ -169,8 +169,8 @@ test('two integers and comma no ws at the end', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0]?.value as IntegerNode).text).toBe('1');
-  expect((node.items[1]?.value as IntegerNode).text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
+  expect((node.items[1]?.value as IntegerNode).content.text).toBe('2');
 });
 
 test('two integers and comma and ws', () => {
@@ -183,8 +183,8 @@ test('two integers and comma and ws', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0]?.value as IntegerNode).text).toBe('1');
-  expect((node.items[1]?.value as IntegerNode).text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
+  expect((node.items[1]?.value as IntegerNode).content.text).toBe('2');
 });
 
 test('array on several lines', () => {
@@ -200,7 +200,7 @@ test('array on several lines', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(4);
-  expect((node.items[0]?.value as IntegerNode).text).toBe('1');
+  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
   expect((node.items[1]?.value as InfixNode).operator.text).toBe('+');
 });
 
@@ -214,8 +214,8 @@ test('debug 1', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.BracketGroupNode);
   expect(node.items.length).toBe(3);
-  expect((node.items[0]?.value as IntegerNode).text).toBe('1');
-  expect((node.items[2]?.value as IntegerNode).text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
+  expect((node.items[2]?.value as IntegerNode).content.text).toBe('2');
 });
 
 test('empty object', () => {

@@ -3,9 +3,8 @@ import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
-import {IntegerNode} from '../../../lexical/node/integer/integer-node';
-import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
+import {IntegerNode} from '../integer/integer-node';
 import {PrefixNode} from '../prefix/prefix-node';
 import {InfixNode} from './infix-node';
 
@@ -45,7 +44,7 @@ test('num is number', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
   expect(node.operator.text).toBe('&');
-  expect((node.left as IntegerNode).text).toBe('1');
+  expect((node.left as IntegerNode).content.text).toBe('1');
   expect((node.right as IdNode).text).toBe('Number');
 });
 
@@ -59,7 +58,7 @@ test('equals', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
   expect(node.operator.text).toBe('==');
-  expect((node.right as IntegerNode).text).toBe('123');
+  expect((node.right as IntegerNode).content.text).toBe('123');
 });
 
 // test('has several relational operators', () => {
@@ -97,7 +96,7 @@ test('several operators', () => {
   expect(node.right?.$).toBe($.PrefixNode);
   expect((node.right as PrefixNode).operator.text).toBe('+');
   expect((node.right as PrefixNode).value?.$).toBe($.IntegerNode);
-  expect(((node.right as PrefixNode).value as IntegerNode).text).toBe('2');
+  expect(((node.right as PrefixNode).value as IntegerNode).content.text).toBe('2');
 });
 
 test('range', () => {
@@ -111,10 +110,10 @@ test('range', () => {
   expect(node.$).toBe($.InfixNode);
 
   expect(node.left.$).toBe($.IntegerNode);
-  expect((node.left as LexicalNode).text).toBe('0');
+  expect((node.left as IntegerNode).content.text).toBe('0');
 
   expect(node.operator.text).toBe('..');
 
   expect(node.right?.$).toBe($.IntegerNode);
-  expect((node.right as LexicalNode).text).toBe('3');
+  expect((node.right as IntegerNode).content.text).toBe('3');
 });

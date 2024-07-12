@@ -14,6 +14,7 @@ import {Node} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
 import {charNodeParse} from './node/char/char-node-parse';
+import { integerNodeParse } from './node/integer/integer-node-parse';
 import {stringNodeParse} from './node/string/string-node-parse';
 import {putStatementNode} from './put-statement-node';
 import {StatementNode} from './statement/statement-node';
@@ -89,6 +90,10 @@ export function createSyntaxAnalyzer(
 
         if (is(node, $.UnknownNode)) {
           this.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.unknownSymbol());
+        }
+
+        if (is(node, $.IntegerContentNode)) {
+          node = integerNodeParse(this, node);
         }
 
         if (is(node, $.StringOpenNode)) {

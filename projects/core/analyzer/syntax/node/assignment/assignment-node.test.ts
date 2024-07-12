@@ -1,7 +1,7 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IntegerNode} from '../../../lexical/node/integer/integer-node';
+import {IntegerNode} from '../integer/integer-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
 import {AssignmentNode} from './assignment-node';
 
