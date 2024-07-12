@@ -14,6 +14,7 @@ test('string', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.StringNode);
   expect(node.content?.text).toBe(text.slice(1, -1));
+  expect(node.value).toBe('abc   def');
 });
 
 test('multiline string', () => {
@@ -26,6 +27,7 @@ test('multiline string', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.StringNode);
   expect(node.content?.text).toBe(text.slice(1, -1));
+  expect(node.value).toBe('some\nmultiline\n\n\nstring\n');
 });
 
 test('empty string', () => {
@@ -38,6 +40,7 @@ test('empty string', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.StringNode);
   expect(node.content).toBeFalsy();
+  expect(node.value).toBe('');
 });
 
 test('not closed', () => {
@@ -50,4 +53,5 @@ test('not closed', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.StringNode);
   expect(node.content?.text).toBe('abc');
+  expect(node.value).toBe('abc');
 });

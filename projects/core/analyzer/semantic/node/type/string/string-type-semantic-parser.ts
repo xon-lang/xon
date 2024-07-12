@@ -30,8 +30,7 @@ export function stringTypeSemanticTryParse(
   }
 
   const reference = analyzer.createReference(node);
-  // todo should fix 'node.content?.text ?? ''' ???
-  const semantic = stringTypeSemantic(reference, declaration, node.content?.text ?? '');
+  const semantic = stringTypeSemantic(reference, declaration, node.value);
 
   return semantic;
 }

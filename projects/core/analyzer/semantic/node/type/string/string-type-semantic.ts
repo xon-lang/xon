@@ -14,7 +14,7 @@ export interface StringTypeSemantic extends TypeSemantic {
 export function stringTypeSemantic(
   reference: TextResourceRange,
   declaration: DeclarationSemantic,
-  value: StringTypeSemantic['value'],
+  value: String2,
 ): StringTypeSemantic {
   const semantic: StringTypeSemantic = {
     $: $.StringTypeSemantic,
