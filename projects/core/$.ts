@@ -1,9 +1,11 @@
 import {Boolean2, Nothing} from '../lib/types';
-import {CharNode} from './analyzer/lexical/node/char/char-node';
+import {CharContentNode} from './analyzer/lexical/node/char-content/char-content-node';
 import {BraceCloseNode} from './analyzer/lexical/node/close/brace-close/brace-close-node';
 import {BracketCloseNode} from './analyzer/lexical/node/close/bracket-close/bracket-close-node';
+import {CharCloseNode} from './analyzer/lexical/node/close/char-close/char-close-node';
 import {CloseNode} from './analyzer/lexical/node/close/close-node';
 import {ParenCloseNode} from './analyzer/lexical/node/close/paren-close/paren-close-node';
+import {StringCloseNode} from './analyzer/lexical/node/close/string-close/string-close-node';
 import {CommaNode} from './analyzer/lexical/node/comma/comma-node';
 import {CommentBlockNode} from './analyzer/lexical/node/comment-block/comment-block-node';
 import {CommentLineNode} from './analyzer/lexical/node/comment-line/comment-line-node';
@@ -18,10 +20,12 @@ import {LexicalNode} from './analyzer/lexical/node/lexical-node';
 import {NlNode} from './analyzer/lexical/node/nl/nl-node';
 import {BraceOpenNode} from './analyzer/lexical/node/open/brace-open/brace-open-node';
 import {BracketOpenNode} from './analyzer/lexical/node/open/bracket-open/bracket-open-node';
+import {CharOpenNode} from './analyzer/lexical/node/open/char-open/char-open-node';
 import {OpenNode} from './analyzer/lexical/node/open/open-node';
 import {ParenOpenNode} from './analyzer/lexical/node/open/paren-open/paren-open-node';
+import {StringOpenNode} from './analyzer/lexical/node/open/string-open/string-open-node';
 import {OperatorNode} from './analyzer/lexical/node/operator/operator-node';
-import {StringNode} from './analyzer/lexical/node/string/string-node';
+import {StringContentNode} from './analyzer/lexical/node/string-content/string-content-node';
 import {UnknownNode} from './analyzer/lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './analyzer/lexical/node/whitespace/whitespace-node';
 import {ExpressionNode, Node} from './analyzer/node';
@@ -56,6 +60,7 @@ import {ItemNode} from './analyzer/syntax/group/item-node';
 import {ParenGroupNode} from './analyzer/syntax/group/paren/paren-group-node';
 import {AssignNode} from './analyzer/syntax/node/assign/assign-node';
 import {AssignmentNode} from './analyzer/syntax/node/assignment/assignment-node';
+import {CharNode} from './analyzer/syntax/node/char/char-node';
 import {DeclarationNode} from './analyzer/syntax/node/declaration/declaration-node';
 import {ImportNode} from './analyzer/syntax/node/import/import-node';
 import {InfixNode} from './analyzer/syntax/node/infix/infix-node';
@@ -64,6 +69,7 @@ import {LambdaNode} from './analyzer/syntax/node/lambda/lambda-node';
 import {MemberNode} from './analyzer/syntax/node/member/member-node';
 import {PostfixNode} from './analyzer/syntax/node/postfix/postfix-node';
 import {PrefixNode} from './analyzer/syntax/node/prefix/prefix-node';
+import {StringNode} from './analyzer/syntax/node/string/string-node';
 import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
 import {StatementNode} from './analyzer/syntax/statement/statement-node';
@@ -87,8 +93,6 @@ export enum $ {
   DocumentationItemNode = ' DocumentationItemNode ' + $.SyntaxNode,
   DocumentationDescriptionNode = ' DocumentationDescriptionNode ' + $.LexicalNode,
   DocumentationLabelNode = ' DocumentationLabelNode ' + $.LexicalNode,
-  DocumentationOpenNode = ' DocumentationOpenNode ' + $.LexicalNode,
-  DocumentationCloseNode = ' DocumentationCloseNode ' + $.LexicalNode,
 
   CommentLineNode = ' CommentLineNode ' + $.LexicalNode,
   CommentBlockNode = ' CommentBlockNode ' + $.LexicalNode,
@@ -96,8 +100,6 @@ export enum $ {
   JoiningNode = ' JoiningNode ' + $.LexicalNode,
   NlNode = ' NlNode ' + $.LexicalNode,
   IntegerNode = ' IntegerNode ' + $.ExpressionNode + $.LexicalNode,
-  CharNode = ' CharNode ' + $.ExpressionNode + $.LexicalNode,
-  StringNode = ' StringNode ' + $.ExpressionNode + $.LexicalNode,
   IdNode = ' IdNode ' + $.ExpressionNode + $.LexicalNode,
   OperatorNode = ' OperatorNode ' + $.ExpressionNode + $.LexicalNode,
 
@@ -105,30 +107,43 @@ export enum $ {
   ParenOpenNode = ' ParenOpenNode ' + $.OpenNode,
   BracketOpenNode = ' BracketOpenNode ' + $.OpenNode,
   BraceOpenNode = ' BraceOpenNode ' + $.OpenNode,
+  StringOpenNode = ' StringOpenNode ' + $.OpenNode,
+  CharOpenNode = ' CharOpenNode ' + $.OpenNode,
+  DocumentationOpenNode = ' DocumentationOpenNode ' + $.OpenNode,
 
   CloseNode = ' CloseNode ' + $.LexicalNode,
   ParenCloseNode = ' ParenCloseNode ' + $.CloseNode,
   BracketCloseNode = ' BracketCloseNode ' + $.CloseNode,
   BraceCloseNode = ' BraceCloseNode ' + $.CloseNode,
+  StringCloseNode = ' StringCloseNode ' + $.CloseNode,
+  CharCloseNode = ' CharCloseNode ' + $.CloseNode,
+  DocumentationCloseNode = ' DocumentationCloseNode ' + $.CloseNode,
+
+  StringContentNode = ' StringContentNode ' + $.LexicalNode,
+  CharContentNode = ' CharContentNode ' + $.LexicalNode,
 
   CommaNode = ' CommaNode ' + $.LexicalNode,
 
   // syntax
   ItemNode = ' ItemNode ' + $.SyntaxNode,
+
   GroupNode = ' GroupNode ' + $.ExpressionNode + $.SyntaxNode,
   ParenGroupNode = ' ParenGroupNode ' + $.GroupNode,
   BracketGroupNode = ' BracketGroupNode ' + $.GroupNode,
   BraceGroupNode = ' BraceGroupNode ' + $.GroupNode,
 
   DeclarationNode = ' DeclarationNode ' + $.SyntaxNode,
+
+  CharNode = ' CharNode ' + $.ExpressionNode + $.SyntaxNode,
+  StringNode = ' StringNode ' + $.ExpressionNode + $.SyntaxNode,
   LambdaNode = ' LambdaNode ' + $.ExpressionNode + $.SyntaxNode,
   ImportNode = ' ImportNode ' + $.ExpressionNode + $.SyntaxNode,
-  AssignmentNode = ' AssignmentNode ' + $.SyntaxNode,
   MemberNode = ' MemberNode ' + $.ExpressionNode + $.SyntaxNode,
   InvokeNode = ' InvokeNode ' + $.ExpressionNode + $.SyntaxNode,
   InfixNode = ' InfixNode ' + $.ExpressionNode + $.SyntaxNode,
   PrefixNode = ' PrefixNode ' + $.ExpressionNode + $.SyntaxNode,
   PostfixNode = ' PostfixNode ' + $.ExpressionNode + $.SyntaxNode,
+  AssignmentNode = ' AssignmentNode ' + $.SyntaxNode,
   AssignNode = ' AssignNode ' + $.SyntaxNode,
   TypeNode = ' TypeNode ' + $.SyntaxNode,
   StatementNode = ' StatementNode ' + $.SyntaxNode,
@@ -195,11 +210,18 @@ export type TypeMap = {
   [$.ParenOpenNode]: ParenOpenNode;
   [$.BracketOpenNode]: BracketOpenNode;
   [$.BraceOpenNode]: BraceOpenNode;
+  [$.StringOpenNode]: StringOpenNode;
+  [$.CharOpenNode]: CharOpenNode;
 
   [$.CloseNode]: CloseNode;
   [$.ParenCloseNode]: ParenCloseNode;
   [$.BracketCloseNode]: BracketCloseNode;
   [$.BraceCloseNode]: BraceCloseNode;
+  [$.StringCloseNode]: StringCloseNode;
+  [$.CharCloseNode]: CharCloseNode;
+
+  [$.StringContentNode]: StringContentNode;
+  [$.CharContentNode]: CharContentNode;
 
   [$.CommaNode]: CommaNode;
   [$.ItemNode]: ItemNode;

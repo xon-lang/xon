@@ -1,13 +1,13 @@
 import {$} from '../$';
 import {nothing} from '../../lib/types';
-import {textResourceFrom} from '../util/resource/text/text-resource';
+import {textResourceFromData} from '../util/resource/text/text-resource';
 import {IntegerNode} from './lexical/node/integer/integer-node';
 import {InfixNode} from './syntax/node/infix/infix-node';
 import {syntaxFromResource} from './syntax/syntax-analyzer';
 
 test('comma', () => {
   const text = '1';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as IntegerNode;
@@ -59,7 +59,7 @@ test('debug 3', () => {
   const text = `a
  b
 c`;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node0 = statements[0].value as InfixNode;
@@ -72,7 +72,7 @@ c`;
 
 test('debug 4', () => {
   const text = '  a\n   b\n   b';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
 
@@ -86,7 +86,7 @@ test('debug 4', () => {
 
 test('multiple expression', () => {
   const text = '\n  x = 1\n  y = 2\n  z = 3';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
 
