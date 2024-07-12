@@ -1,5 +1,5 @@
 import {Array2, Boolean2, Integer, nothing, Nothing, String2} from '../../../lib/types';
-import {textPosition, TextPosition} from '../../util/resource/text/text-position';
+import {textPosition, TextPosition, zeroPosition} from '../../util/resource/text/text-position';
 import {TextRange, textRange} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {NL} from './lexical-analyzer-config';
@@ -8,48 +8,31 @@ import {unknownNodeParse} from './node/unknown/unknown-node-parse';
 
 export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | Nothing;
 
-export interface LexicalAnalyzer extends IterableIterator<LexicalNode> {
-  parsers: Array2<LexicalNodeParseFn>;
+export interface LexicalAnalyzer {
   resource: TextResource;
   position: TextPosition;
 
-  next(): IteratorResult<LexicalNode>;
+  iterator(parsers: Array2<LexicalNodeParseFn>): IterableIterator<LexicalNode>;
 
   getRange(length: Integer): TextRange;
   getRangeWithNL(length: Integer): TextRange;
   checkTextAtIndex(text: String2): Boolean2;
-  checkTextAtIndex(text: String2, index?: Integer | Nothing): Boolean2;
+  checkTextAtIndex(text: String2, index: Integer | Nothing): Boolean2;
+
+  checkTextsAtIndex(text: Array2<String2>): String2 | Nothing;
+  checkTextsAtIndex(text: Array2<String2>, index: Integer): String2 | Nothing;
 }
 
 export function createLexicalAnalyzer(
-  parsers: Array2<LexicalNodeParseFn>,
   resource: TextResource,
-  position: TextPosition,
+  position: TextPosition = zeroPosition(),
 ): LexicalAnalyzer {
   return {
-    parsers,
     resource,
     position,
 
-    next(): IteratorResult<LexicalNode> {
-      if (this.position.index >= this.resource.data.length) {
-        return {
-          done: true,
-          value: nothing,
-        };
-      }
-
-      const node = this.parsers.findMap((parse) => parse(this)) ?? unknownNodeParse(this);
-      this.position = node.range.stop;
-
-      return {
-        done: false,
-        value: node,
-      };
-    },
-
-    [Symbol.iterator](): IterableIterator<LexicalNode> {
-      return this;
+    iterator(parsers: Array2<LexicalNodeParseFn>): IterableIterator<LexicalNode> {
+      return iterator(this, parsers);
     },
 
     getRange(length: Integer): TextRange {
@@ -84,6 +67,40 @@ export function createLexicalAnalyzer(
 
     checkTextAtIndex(text: String2, index?: Integer): Boolean2 {
       return this.resource.data.take(text.length, index ?? this.position.index) === text;
+    },
+
+    checkTextsAtIndex(texts: Array2<String2>, index?: Integer): String2 | Nothing {
+      const startIndex = index ?? this.position.index;
+
+      return texts.find((x) => this.resource.data.take(x.length, startIndex) === x);
+    },
+  };
+}
+
+function iterator(
+  lexer: LexicalAnalyzer,
+  parsers: Array2<LexicalNodeParseFn>,
+): IterableIterator<LexicalNode> {
+  return {
+    next(): IteratorResult<LexicalNode> {
+      if (lexer.position.index >= lexer.resource.data.length) {
+        return {
+          done: true,
+          value: nothing,
+        };
+      }
+
+      const node = parsers.findMap((parse) => parse(lexer)) ?? unknownNodeParse(lexer);
+      lexer.position = node.range.stop;
+
+      return {
+        done: false,
+        value: node,
+      };
+    },
+
+    [Symbol.iterator](): IterableIterator<LexicalNode> {
+      return this;
     },
   };
 }

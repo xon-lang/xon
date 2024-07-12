@@ -6,10 +6,11 @@ export const COMMENT_BLOCK_CLOSE = '---';
 export const DOCUMENTATION_OPEN = '===';
 export const DOCUMENTATION_CLOSE = '===';
 
-export const STRING_QUOTE_OPEN = '"';
-export const STRING_QUOTE_CLOSE = '"';
-export const CHAR_QUOTE_OPEN = "'";
-export const CHAR_QUOTE_CLOSE = "'";
+export const STRING_OPEN = '"';
+export const STRING_CLOSE = '"';
+
+export const CHAR_OPEN = "'";
+export const CHAR_CLOSE = "'";
 
 export const NL = '\n';
 export const COMMA = ',';
