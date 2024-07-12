@@ -1,13 +1,13 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {predefinedDiagnostics} from '../../../../diagnostic/analyzer-diagnostic-message';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {IdNode} from './id-node';
 
 test('single id', () => {
   const text = 'abc';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as IdNode;
@@ -19,7 +19,7 @@ test('single id', () => {
 
 test('several id', () => {
   const text = 'abc edf_    _ghi1_23';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as IdNode;
@@ -29,10 +29,10 @@ test('several id', () => {
   expect(node.$).toBe($.IdNode);
 
   expect(syntax.diagnosticManager.diagnostics.length).toBe(2);
-  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(
-    DIAGNOSTIC_MESSAGE.unexpectedExpression().actual,
-  );
-  expect(syntax.diagnosticManager.diagnostics[1].message.actual).toBe(
-    DIAGNOSTIC_MESSAGE.unexpectedExpression().actual,
-  );
+
+  const diagnosticMessage = predefinedDiagnostics(source.getReference(node.range)).unexpectedExpression()
+    .message;
+
+  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(diagnosticMessage.actual);
+  expect(syntax.diagnosticManager.diagnostics[1].message.actual).toBe(diagnosticMessage.actual);
 });

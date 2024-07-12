@@ -1,6 +1,6 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {InfixNode} from '../../../syntax/node/infix/infix-node';
 import {PostfixNode} from '../../../syntax/node/postfix/postfix-node';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
@@ -8,7 +8,7 @@ import {OperatorNode} from './operator-node';
 
 test('single operator', () => {
   const text = '!';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as OperatorNode;
@@ -20,7 +20,7 @@ test('single operator', () => {
 
 test('after integer', () => {
   const text = '1!';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as PostfixNode;
@@ -32,7 +32,7 @@ test('after integer', () => {
 
 test('x + x', () => {
   const text = 'x is Number';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;
