@@ -56,7 +56,7 @@ function convertDiagnostic(analyzerDiagnostics: Array2<AnalyzerDiagnostic>): Arr
   const diagnostics: Array2<Diagnostic> = [];
 
   for (const analyzerDiagnostic of analyzerDiagnostics) {
-    const range = convertRange(analyzerDiagnostic.range);
+    const range = convertRange(analyzerDiagnostic.reference.range);
 
     const diagnostic = new Diagnostic(
       range,

@@ -1,7 +1,7 @@
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
 import {semanticFromResource} from '../../../../core/analyzer/semantic/semantic-analyzer';
 import {createTypescriptTranslator} from '../../../../core/translator/typescript/typescript-translator';
-import {textResourceFrom} from '../../../../core/util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../core/util/resource/text/text-resource';
 import {LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
 
 import * as fs from 'fs';
@@ -37,7 +37,7 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
 function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
   try {
     const filepath = document.uri.fsPath;
-    const resource = textResourceFrom(filepath, document.getText());
+    const resource = textResourceFromData(filepath, document.getText());
     const semanticAnalyzer = semanticFromResource(resource);
     const translator = createTypescriptTranslator(semanticAnalyzer);
 
