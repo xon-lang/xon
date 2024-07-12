@@ -1,15 +1,15 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {CharNode} from '../../../lexical/node/char/char-node';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
+import {CharNode} from '../char/char-node';
 import {DeclarationNode} from './declaration-node';
 
 test('model A', () => {
   const text = 'model A';
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -22,7 +22,7 @@ test('model A', () => {
 
 test('model A: B', () => {
   const text = 'model A: B';
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -37,7 +37,7 @@ test('model A: B', () => {
 
 test('with generics extends b', () => {
   const text = 'model A{T: Array = String, U}: B';
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -58,7 +58,7 @@ test('with generics extends b', () => {
 
 test('with parameters extends b', () => {
   const text = "model A(a: Integer = 123, b: Boolean, c = 'C'): B";
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -83,7 +83,7 @@ test('with parameters extends b', () => {
   const parameter2 = node.parameters?.items.at(2)?.value as DeclarationNode;
   expect(parameter2?.id?.text).toBe('c');
   expect(parameter2?.type).toBeFalsy();
-  expect((parameter2?.assign?.value as CharNode)?.text).toBe("'C'");
+  expect((parameter2?.assign?.value as CharNode)?.content?.text).toBe('C');
 
   expect(node.type?.value?.$).toBe($.IdNode);
   expect((node.type?.value as IdNode).text).toBe('B');
@@ -91,7 +91,7 @@ test('with parameters extends b', () => {
 
 test('with generics and parameters extends b', () => {
   const text = "model A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -123,7 +123,7 @@ test('with generics and parameters extends b', () => {
   const parameter2 = node.parameters?.items.at(2)?.value as DeclarationNode;
   expect(parameter2?.id?.text).toBe('c');
   expect(parameter2?.type).toBeFalsy();
-  expect((parameter2?.assign?.value as CharNode)?.text).toBe("'C'");
+  expect((parameter2?.assign?.value as CharNode)?.content?.text).toBe('C');
 
   expect(node.type?.value.$).toBe($.IdNode);
   expect((node.type?.value as IdNode).text).toBe('B');
@@ -138,7 +138,7 @@ test('has attributes', () => {
   e(a, b, c: Char, d = 2): Nothing
   f{T, U, V}(a, b, c: Char, d = 2) = a + b + d
   `;
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -153,7 +153,7 @@ test('has attributes', () => {
 
 test('model string with base class', () => {
   const text = 'model Array\nmodel String: Array';
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[1].value as DeclarationNode;
@@ -167,7 +167,7 @@ test('model string with base class', () => {
 
 test('lambda type', () => {
   const text = 'const a: (x: Integer): Integer';
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -186,7 +186,7 @@ test('declaration documentation', () => {
   Some description
 ===
 model A`;
-  const resource = textResourceFrom(nothing, text);
+  const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;

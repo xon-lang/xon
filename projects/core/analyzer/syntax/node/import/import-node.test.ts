@@ -1,13 +1,13 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
-import {StringNode} from '../../../lexical/node/string/string-node';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../syntax-analyzer';
+import {StringNode} from '../string/string-node';
 import {ImportNode} from './import-node';
 
 test('import string', () => {
   const text = 'import "xon/core"';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ImportNode;
@@ -16,12 +16,12 @@ test('import string', () => {
   expect(node.$).toBe($.ImportNode);
   expect(node.operator.text).toBe('import');
   expect(node.value?.$).toBe($.StringNode);
-  expect((node.value as StringNode).value).toBe('xon/core');
+  expect((node.value as StringNode).content?.text).toBe('xon/core');
 });
 
 test('import integer', () => {
   const text = 'import 1';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ImportNode;

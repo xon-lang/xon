@@ -1,7 +1,7 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {evaluate} from '../../../../util/evaluate';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {LexicalNode} from '../../../lexical/node/lexical-node';
@@ -11,7 +11,7 @@ import {InfixNode} from './infix-node';
 
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;
@@ -24,7 +24,7 @@ test('several operands with different priorities', () => {
 
 test('num plus str', () => {
   const text = '1  + "str"';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;
@@ -37,7 +37,7 @@ test('num plus str', () => {
 
 test('num is number', () => {
   const text = '1 & Number';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;
@@ -51,7 +51,7 @@ test('num is number', () => {
 
 test('equals', () => {
   const text = 'this.text == 123';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;
@@ -84,7 +84,7 @@ test('equals', () => {
 
 test('several operators', () => {
   const text = '1 /+ 2';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;
@@ -102,7 +102,7 @@ test('several operators', () => {
 
 test('range', () => {
   const text = '0..3';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;

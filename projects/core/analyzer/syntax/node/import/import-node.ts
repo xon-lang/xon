@@ -1,10 +1,9 @@
 import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {StringNode} from '../../../lexical/node/string/string-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
+import {StringNode} from '../string/string-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 
 export type ImportNode = SyntaxNode<$.ImportNode> &
@@ -28,7 +27,7 @@ export function importNode(
 
 function validate(analyzer: SyntaxAnalyzer, node: ImportNode): void {
   if (!node.value) {
-    analyzer.diagnosticManager.addError(node.range, DIAGNOSTIC_MESSAGE.importValueShouldBeString());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.importValueShouldBeString());
   }
 }
 

@@ -1,6 +1,5 @@
 import {$} from '../../../../$';
 import {Nothing} from '../../../../../lib/types';
-import {DIAGNOSTIC_MESSAGE} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode, Node} from '../../../node';
@@ -30,7 +29,7 @@ export function memberNode(
 
 function validate(analyzer: SyntaxAnalyzer, node: MemberNode): void {
   if (!node.id) {
-    analyzer.diagnosticManager.addError(node.operator.range, DIAGNOSTIC_MESSAGE.shouldBeMemberName());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.operator.range, (x) => x.shouldBeMemberName());
   }
 }
 

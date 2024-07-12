@@ -1,16 +1,17 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
-import {textResourceFrom} from '../../../../util/resource/text/text-resource';
+import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {IntegerNode} from '../../../lexical/node/integer/integer-node';
 import {GroupNode} from '../../group/group-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
 import {MemberNode} from '../member/member-node';
+import {StringNode} from '../string/string-node';
 import {InvokeNode} from './invoke-node';
 
 test('method call', () => {
   const text = "f(3, 'str')";
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
@@ -21,7 +22,7 @@ test('method call', () => {
   expect(node.group.items[0]?.value?.$).toBe($.IntegerNode);
   expect((node.group.items[0]?.value as IntegerNode).text).toBe('3');
   expect(node.group.items[1]?.value?.$).toBe($.CharNode);
-  expect((node.group.items[1]?.value as IdNode).text).toBe("'str'");
+  expect((node.group.items[1]?.value as StringNode).content?.text).toBe('str');
   expect(node.instance.$).toBe($.IdNode);
 });
 
@@ -29,7 +30,7 @@ test('method on several lines', () => {
   const text = `f[3,
         'str', 123, 
     415]`;
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
@@ -46,7 +47,7 @@ test('method on several lines', () => {
 
 test('can call with type parameter', () => {
   const text = 'a.get [1]';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
@@ -64,7 +65,7 @@ test('can call with type parameter', () => {
 
 test('object method', () => {
   const text = '{a, b}.call()';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
@@ -84,7 +85,7 @@ test('object method', () => {
 
 test('generics', () => {
   const text = 'Animal{T}';
-  const source = textResourceFrom(nothing, text);
+  const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InvokeNode;
