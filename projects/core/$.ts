@@ -100,7 +100,6 @@ export enum $ {
   WhitespaceNode = ' WhitespaceNode ' + $.LexicalNode,
   JoiningNode = ' JoiningNode ' + $.LexicalNode,
   NlNode = ' NlNode ' + $.LexicalNode,
-  IntegerNode = ' IntegerNode ' + $.ExpressionNode + $.LexicalNode,
   IdNode = ' IdNode ' + $.ExpressionNode + $.LexicalNode,
   OperatorNode = ' OperatorNode ' + $.ExpressionNode + $.LexicalNode,
 
@@ -136,6 +135,7 @@ export enum $ {
 
   DeclarationNode = ' DeclarationNode ' + $.SyntaxNode,
 
+  IntegerNode = ' IntegerNode ' + $.ExpressionNode + $.SyntaxNode,
   CharNode = ' CharNode ' + $.ExpressionNode + $.SyntaxNode,
   StringNode = ' StringNode ' + $.ExpressionNode + $.SyntaxNode,
   LambdaNode = ' LambdaNode ' + $.ExpressionNode + $.SyntaxNode,
