@@ -20,7 +20,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   }
 
   if (is(node, $.StringNode) || is(node, $.CharNode)) {
-    return node.value;
+    return node.content?.text;
   }
 
   if (is(node, $.InfixNode)) {

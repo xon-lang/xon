@@ -4,7 +4,7 @@ import {TypeSemantic} from '../../core/analyzer/semantic/node/type/type-semantic
 import {SemanticAnalyzer, semanticFromResource} from '../../core/analyzer/semantic/semantic-analyzer';
 import {textPosition, TextPosition} from '../../core/util/resource/text/text-position';
 import {textRange, TextRange} from '../../core/util/resource/text/text-range';
-import {textResourceFrom} from '../../core/util/resource/text/text-resource';
+import {textResourceFromData} from '../../core/util/resource/text/text-resource';
 import {Nothing, nothing, String2} from '../../lib/types';
 
 export function convertRange(range: TextRange): Range {
@@ -34,7 +34,7 @@ export function convertVscodePosition(document: TextDocument, position: Position
 export function getDocumentSemantic(document: TextDocument, channel: OutputChannel): SemanticAnalyzer {
   const text = document.getText();
   const location = document.uri.fsPath;
-  const resource = textResourceFrom(location, text);
+  const resource = textResourceFromData(location, text);
 
   return semanticFromResource(resource);
 }
