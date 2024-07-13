@@ -1,6 +1,7 @@
 import {$} from '../../../../../../$';
-import {Array2, Boolean2, String2} from '../../../../../../../lib/types';
+import {Boolean2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
+import {DeclarationManager} from '../../../../declaration-manager';
 import {TypeSemantic} from '../../type-semantic';
 import {SetTypeSemantic} from '../set';
 
@@ -29,8 +30,8 @@ export function complementTypeSemantic(
       return false;
     },
 
-    attributes(): Record<String2, Array2<TypeSemantic>> {
-      return {};
+    attributes(): DeclarationManager {
+      return this.left.attributes().complement(this.right.attributes());
     },
   };
 

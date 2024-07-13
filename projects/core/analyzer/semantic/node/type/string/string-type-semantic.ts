@@ -1,6 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2, String2} from '../../../../../../lib/types';
+import {Boolean2, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
@@ -46,8 +47,8 @@ export function stringTypeSemantic(
       return false;
     },
 
-    attributes(): Record<String2, Array2<TypeSemantic>> {
-      return {};
+    attributes(): DeclarationManager {
+      return this.declaration.attributes?.clone() ?? createDeclarationManager();
     },
   };
 

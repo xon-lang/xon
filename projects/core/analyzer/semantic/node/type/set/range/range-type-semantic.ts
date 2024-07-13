@@ -1,6 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
-import {Array2, Boolean2, Nothing, String2} from '../../../../../../../lib/types';
+import {Boolean2, Nothing} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
+import {DeclarationManager} from '../../../../declaration-manager';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {isInSet, SetTypeSemantic} from '../set';
@@ -58,8 +59,8 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    attributes(): Record<String2, Array2<TypeSemantic>> {
-      return {};
+    attributes(): DeclarationManager {
+      throw new Error('Not implemented');
     },
   };
 

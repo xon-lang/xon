@@ -1,6 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2, Nothing, String2} from '../../../../../../lib/types';
+import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {isInSet} from '../set/set';
@@ -48,25 +49,12 @@ export function idTypeSemantic(
       return false;
     },
 
-    attributes(): Record<String2, Array2<TypeSemantic>> {
-      return getDeclarationAttributes(declaration);
+    attributes(): DeclarationManager {
+      return declaration.attributes?.clone() ?? createDeclarationManager();
     },
   };
 
   declaration.usages.push(reference);
 
   return semantic;
-}
-
-function getDeclarationAttributes(declaration: DeclarationSemantic): Record<String2, Array2<TypeSemantic>> {
-  const attributes: Record<String2, Array2<TypeSemantic>> = {};
-
-  if (isTypeDeclarationSemantic(declaration)) {
-    for (const [name, declarations] of Object.entries(declaration.attributes?.declarations ?? {})) {
-      const types = declarations.map((x) => x.type).filter((x) => !!x);
-      attributes[name] = types;
-    }
-  }
-
-  return attributes;
 }
