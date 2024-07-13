@@ -1,0 +1,23 @@
+// value property declaration
+const value
+  const a = 1
+  const b = 2
+  const c = a + b
+
+  return c * c
+
+
+// value function declaration
+const value(a, b): Integer
+  const c = a + b
+
+  return c * c
+
+
+// type declaration
+
+model Some: Other
+  a: Integer = 1
+  b = 1
+  c: Integer
+  d
