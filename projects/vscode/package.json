@@ -71,32 +71,32 @@
     ],
     "commands": [
       {
-        "command": "xon.translate-ts",
+        "command": "xon.translateToTypescript",
         "title": "Translate to TypeScript"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "xon.translate-ts",
+          "command": "xon.translateToTypescript",
           "when": "editorLangId == xon"
         }
       ],
       "explorer/context": [
         {
-          "command": "xon.translate-ts",
+          "command": "xon.translateToTypescript",
           "when": "resourceLangId == xon"
         }
       ],
       "editor/context": [
         {
-          "command": "xon.translate-ts",
+          "command": "xon.translateToTypescript",
           "when": "resourceLangId == xon"
         }
       ],
       "editor/title/context": [
         {
-          "command": "xon.translate-ts",
+          "command": "xon.translateToTypescript",
           "when": "resourceLangId == xon"
         }
       ]
@@ -113,7 +113,7 @@
               "description": "Create translated ts file with near original one"
             },
             "newFileNameCase": {
-              "type": "string",
+              "type": "",
               "enum": [
                 "camel",
                 "capital",
