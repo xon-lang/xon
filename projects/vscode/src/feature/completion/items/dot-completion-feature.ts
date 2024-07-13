@@ -11,9 +11,9 @@ import {
   TextDocument,
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
+import {DeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
-import {TypeSemantic} from '../../../../../core/analyzer/semantic/node/type/type-semantic';
-import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
+import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {convertVscodePosition, getDocumentSemantic} from '../../../util';
 
 export class DotCompletionItemProvider implements CompletionItemProvider {
@@ -30,29 +30,31 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
 
     if (is(node?.parent, $.MemberNode) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);
+
       if (attributes) {
-        return Object.entries(attributes).map(([name, types]) => createPropertyCompletionItem(name, types));
+        return attributes.map(createPropertyCompletionItem);
       }
     }
+
     return nothing;
   }
 }
 
-function getAttributes(semantic: Semantic): Record<String2, Array2<TypeSemantic>> | Nothing {
+function getAttributes(semantic: Semantic): Array2<DeclarationSemantic> | Nothing {
   if (is(semantic, $.TypeSemantic)) {
-    return semantic.attributes();
+    return semantic.attributes().all();
   }
 
   if (is(semantic, $.ValueSemantic) && semantic.type) {
-    return semantic.type.attributes();
+    return semantic.type.attributes().all();
   }
 
   return nothing;
 }
 
-function createPropertyCompletionItem(name: String2, types: Array2<TypeSemantic>) {
-  const item = new CompletionItem(name, CompletionItemKind.Property);
-  const type = types.first();
+function createPropertyCompletionItem(declaration: DeclarationSemantic) {
+  const item = new CompletionItem(declaration.name, CompletionItemKind.Property);
+  const type = declaration.type;
 
   if (is(type, $.IdTypeSemantic)) {
     item.detail = type.declaration.name;
