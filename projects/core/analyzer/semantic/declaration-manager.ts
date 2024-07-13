@@ -24,8 +24,8 @@ export interface DeclarationManager {
   single(
     kind: DeclarationKind | Nothing,
     name: String2,
-    generics: Array2<TypeSemantic | Nothing> | Nothing,
-    parameters: Array2<TypeSemantic | Nothing> | Nothing,
+    generics?: Array2<TypeSemantic | Nothing> | Nothing,
+    parameters?: Array2<TypeSemantic | Nothing> | Nothing,
   ): DeclarationSemantic | Nothing;
 }
 

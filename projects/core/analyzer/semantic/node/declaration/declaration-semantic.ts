@@ -2,6 +2,7 @@ import {$, is} from '../../../../$';
 import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../../lexical/lexical-analyzer-config';
+import {DeclarationManager} from '../../declaration-manager';
 import {Semantic} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';
 import {ValueSemantic} from '../value/value-semantic';
@@ -15,7 +16,7 @@ export interface DeclarationSemantic extends Semantic<$.DeclarationSemantic> {
   parameters?: Array2<DeclarationSemantic | Nothing> | Nothing;
   type?: TypeSemantic | Nothing;
   value?: (TypeSemantic | ValueSemantic) | Nothing;
-  attributes?: Record<String2, Array2<DeclarationSemantic>> | Nothing;
+  attributes?: DeclarationManager | Nothing;
 
   eq(other: DeclarationSemantic): Boolean2;
 }

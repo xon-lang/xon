@@ -49,7 +49,7 @@ export function idTypeSemantic(
     },
 
     attributes(): Record<String2, Array2<TypeSemantic>> {
-      return getDeclarationAttributes(analyzer, declaration);
+      return getDeclarationAttributes(declaration);
     },
   };
 
@@ -58,14 +58,11 @@ export function idTypeSemantic(
   return semantic;
 }
 
-export function getDeclarationAttributes(
-  analyzer: SemanticAnalyzer,
-  declaration: DeclarationSemantic,
-): Record<String2, Array2<TypeSemantic>> {
+function getDeclarationAttributes(declaration: DeclarationSemantic): Record<String2, Array2<TypeSemantic>> {
   const attributes: Record<String2, Array2<TypeSemantic>> = {};
 
   if (isTypeDeclarationSemantic(declaration)) {
-    for (const [name, declarations] of Object.entries(declaration?.attributes ?? {})) {
+    for (const [name, declarations] of Object.entries(declaration.attributes?.declarations ?? {})) {
       const types = declarations.map((x) => x.type).filter((x) => !!x);
       attributes[name] = types;
     }

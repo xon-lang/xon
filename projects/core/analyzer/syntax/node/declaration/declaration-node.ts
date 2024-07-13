@@ -73,14 +73,6 @@ export function partialToDeclaration(
   );
 }
 
-export function getDeclarationAttributes(node: DeclarationNode): Array2<DeclarationNode> {
-  if (node.attributes) {
-    return node.attributes;
-  }
-
-  return [];
-}
-
 export function getDeclarationGenerics(
   node: DeclarationNode | LambdaNode,
 ): Array2<DeclarationNode | Nothing> {

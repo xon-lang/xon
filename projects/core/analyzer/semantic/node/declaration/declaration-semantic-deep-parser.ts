@@ -3,10 +3,10 @@ import {Nothing, nothing} from '../../../../../lib/types';
 import {DocumentationNode} from '../../../syntax/documentation/documentation-node';
 import {
   DeclarationNode,
-  getDeclarationAttributes,
   getDeclarationGenerics,
   getDeclarationParameters,
 } from '../../../syntax/node/declaration/declaration-node';
+import {createDeclarationManager} from '../../declaration-manager';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
@@ -119,30 +119,20 @@ function attributesParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  const syntaxAttributes = getDeclarationAttributes(node);
-
-  if (syntaxAttributes.length === 0) {
+  if (!node.attributes) {
     return;
   }
 
-  const declarations = declarationsParse(analyzer, syntaxAttributes);
-  const attributes: DeclarationSemantic['attributes'] = {};
+  const attributes = declarationsParse(analyzer, node.attributes);
+  declaration.attributes = createDeclarationManager();
 
-  for (const declaration of declarations) {
-    // todo fix hack with semantic type checking
-    if (!declaration || !is(declaration, $.DeclarationSemantic)) {
+  for (const attribute of attributes) {
+    if (!is(attribute, $.DeclarationSemantic)) {
       continue;
     }
 
-    // todo replace with attributes manager
-    if (!attributes[declaration.name]) {
-      attributes[declaration.name] = [];
-    }
-
-    attributes[declaration.name].push(declaration);
+    declaration.attributes.add(attribute);
   }
-
-  declaration.attributes = attributes;
 }
 
 function parameterDocumentationHandle(

@@ -2,6 +2,7 @@ import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
+import {DeclarationKind} from '../../declaration-manager';
 import {createSemanticAnalyzer} from '../../semantic-analyzer';
 import {IdTypeSemantic} from '../type/id/id-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';
@@ -18,9 +19,9 @@ test('only a', () => {
   expect(model.modifier).toBe('model');
   expect(model.name).toBe('A');
 
-  expect(Object.keys(model.attributes ?? {}).length).toBe(1);
+  expect(Object.keys(model.attributes?.declarations ?? {}).length).toBe(1);
 
-  const attributeP = model.attributes?.['p'][0] as DeclarationSemantic;
+  const attributeP = model.attributes?.single(DeclarationKind.VALUE, 'p') as DeclarationSemantic;
   expect(attributeP.$).toBe($.DeclarationSemantic);
   expect(attributeP.name).toBe('p');
   expect(attributeP.generics).toBeFalsy();
