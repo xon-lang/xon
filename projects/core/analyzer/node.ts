@@ -1,7 +1,7 @@
 import {$, $Model} from '../$';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
-import {Semantic} from './semantic/node/semantic-node';
+import {Semantic} from './semantic/node/semantic';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;

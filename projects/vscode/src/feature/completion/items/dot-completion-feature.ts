@@ -11,7 +11,7 @@ import {
   TextDocument,
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
-import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic-node';
+import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
 import {TypeSemantic} from '../../../../../core/analyzer/semantic/node/type/type-semantic';
 import {Array2, Nothing, String2, nothing} from '../../../../../lib/types';
 import {convertVscodePosition, getDocumentSemantic} from '../../../util';

@@ -12,7 +12,7 @@ import {
 } from 'vscode';
 import {$, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {Semantic} from '../../../../core/analyzer/semantic/node/semantic-node';
+import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
 import {TypeSemantic} from '../../../../core/analyzer/semantic/node/type/type-semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';

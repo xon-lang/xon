@@ -12,10 +12,11 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 export type StringNode = SyntaxNode<$.StringNode> &
   ExpressionNode & {
     semantic?: StringTypeSemantic | StringValueSemantic | Nothing;
+    value: String2;
+
     open: StringOpenNode;
     content?: StringContentNode | Nothing;
     close?: StringCloseNode | Nothing;
-    value: String2;
   };
 
 export function stringNode(

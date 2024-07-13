@@ -1,10 +1,10 @@
-import { $, is } from '../../../../$';
-import { Array2, Boolean2, Nothing, String2 } from '../../../../../lib/types';
-import { TextResourceRange } from '../../../../util/resource/text/text-resource-range';
-import { TYPE_MODIFIERS, VALUE_MODIFIERS } from '../../../lexical/lexical-analyzer-config';
-import { Semantic } from '../semantic-node';
-import { TypeSemantic } from '../type/type-semantic';
-import { ValueSemantic } from '../value/value-semantic';
+import {$, is} from '../../../../$';
+import {Array2, Boolean2, Nothing, String2} from '../../../../../lib/types';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
+import {TYPE_MODIFIERS, VALUE_MODIFIERS} from '../../../lexical/lexical-analyzer-config';
+import {Semantic} from '../semantic';
+import {TypeSemantic} from '../type/type-semantic';
+import {ValueSemantic} from '../value/value-semantic';
 
 export interface DeclarationSemantic extends Semantic<$.DeclarationSemantic> {
   documentation?: String2 | Nothing;
@@ -42,15 +42,12 @@ export function declarationSemantic(
 
 export function isTypeDeclarationSemantic(semantic: Semantic): semantic is DeclarationSemantic {
   return (
-    is(semantic, $.DeclarationSemantic) &&
-    !!semantic.modifier &&
-    TYPE_MODIFIERS.includes(semantic.modifier)
+    is(semantic, $.DeclarationSemantic) && !!semantic.modifier && TYPE_MODIFIERS.includes(semantic.modifier)
   );
 }
 
 export function isValueDeclarationSemantic(semantic: Semantic): semantic is DeclarationSemantic {
   return (
-    is(semantic, $.DeclarationSemantic) &&
-    (!semantic.modifier || VALUE_MODIFIERS.includes(semantic.modifier))
+    is(semantic, $.DeclarationSemantic) && (!semantic.modifier || VALUE_MODIFIERS.includes(semantic.modifier))
   );
 }

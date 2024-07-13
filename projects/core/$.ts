@@ -31,7 +31,7 @@ import {WhitespaceNode} from './analyzer/lexical/node/whitespace/whitespace-node
 import {ExpressionNode, Node} from './analyzer/node';
 import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declaration-semantic';
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
-import {Semantic} from './analyzer/semantic/node/semantic-node';
+import {Semantic} from './analyzer/semantic/node/semantic';
 import {ArrayTypeSemantic} from './analyzer/semantic/node/type/array/array-type-semantic';
 import {FunctionTypeSemantic} from './analyzer/semantic/node/type/function/function-type-semantic';
 import {IdTypeSemantic} from './analyzer/semantic/node/type/id/id-type-semantic';
@@ -155,9 +155,10 @@ export enum $ {
   DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
 
   TypeSemantic = ' TypeSemantic ' + $.Semantic,
-  IdTypeSemantic = ' IdTypeSemantic ' + $.TypeSemantic,
   IntegerTypeSemantic = ' IntegerTypeSemantic ' + $.TypeSemantic,
   StringTypeSemantic = ' StringTypeSemantic ' + $.TypeSemantic,
+  // CharTypeSemantic = ' CharTypeSemantic ' + $.TypeSemantic,
+  IdTypeSemantic = ' IdTypeSemantic ' + $.TypeSemantic,
   ArrayTypeSemantic = ' ArrayTypeSemantic ' + $.TypeSemantic,
   FunctionTypeSemantic = ' FunctionTypeSemantic ' + $.TypeSemantic,
 
@@ -169,10 +170,11 @@ export enum $ {
   NotTypeSemantic = ' NotTypeSemantic ' + $.SetTypeSemantic,
 
   ValueSemantic = ' ValueSemantic ' + $.Semantic,
-  IdValueSemantic = ' IdValueSemantic ' + $.ValueSemantic,
-  InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   IntegerValueSemantic = ' IntegerValueSemantic ' + $.ValueSemantic,
   StringValueSemantic = ' StringValueSemantic ' + $.ValueSemantic,
+  // CharValueSemantic = ' CharValueSemantic ' + $.ValueSemantic,
+  IdValueSemantic = ' IdValueSemantic ' + $.ValueSemantic,
+  InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
 
