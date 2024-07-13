@@ -52,13 +52,20 @@ function getAttributes(semantic: Semantic): Array2<DeclarationSemantic> | Nothin
   return nothing;
 }
 
-function createPropertyCompletionItem(declaration: DeclarationSemantic) {
-  const item = new CompletionItem(declaration.name, CompletionItemKind.Property);
-  const type = declaration.type;
+function createPropertyCompletionItem(attribute: DeclarationSemantic): CompletionItem {
+  const item = new CompletionItem(attribute.name, getCompletionItemKind(attribute));
 
-  if (is(type, $.IdTypeSemantic)) {
-    item.detail = type.declaration.name;
+  if (is(attribute.type, $.IdTypeSemantic)) {
+    item.detail = attribute.type.declaration.name;
   }
 
   return item;
+}
+
+export function getCompletionItemKind(attribute: DeclarationSemantic): CompletionItemKind {
+  if (attribute.parameters) {
+    return CompletionItemKind.Method;
+  }
+
+  return CompletionItemKind.Field;
 }

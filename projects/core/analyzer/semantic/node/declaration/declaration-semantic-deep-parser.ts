@@ -11,7 +11,7 @@ import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
-import {DeclarationSemantic} from './declaration-semantic';
+import {DeclarationSemantic, isTypeDeclarationSemantic} from './declaration-semantic';
 import {declarationsParse} from './declaration-semantic-parser';
 
 export function declarationDeepParse(
@@ -22,6 +22,11 @@ export function declarationDeepParse(
 
   if (!is(semantic, $.DeclarationSemantic)) {
     return nothing;
+  }
+
+  // todo should we create attributes here ???
+  if (isTypeDeclarationSemantic(semantic)) {
+    semantic.attributes = createDeclarationManager();
   }
 
   analyzer.pushDeclarationScope();
@@ -84,10 +89,15 @@ function typeParse(
     return;
   }
 
-  const type = typeSemanticParse(analyzer, node.type.value);
+  declaration.type = typeSemanticParse(analyzer, node.type.value);
 
-  if (type) {
-    declaration.type = type;
+  if (declaration.type) {
+    // todo remove 'declaration.attributes' if we create separate type and value declarations model
+    if (declaration.attributes && isTypeDeclarationSemantic(declaration)) {
+      for (const attribute of declaration.type.attributes().all()) {
+        declaration.attributes.add(attribute);
+      }
+    }
   } else {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.type.range, (x) => x.cannotResolveType());
   }
@@ -119,12 +129,12 @@ function attributesParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  if (!node.attributes) {
+  // todo remove 'declaration.attributes' if we create separate type and value declarations model
+  if (!node.attributes || !declaration.attributes) {
     return;
   }
 
   const attributes = declarationsParse(analyzer, node.attributes);
-  declaration.attributes = createDeclarationManager();
 
   for (const attribute of attributes) {
     if (!is(attribute, $.DeclarationSemantic)) {
