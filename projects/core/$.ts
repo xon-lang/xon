@@ -74,7 +74,10 @@ import {StringNode} from './analyzer/syntax/node/string/string-node';
 import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
 import {StatementNode} from './analyzer/syntax/statement/statement-node';
-import {Translator} from './translator/typescript';
+import {Translator} from './translator/translator';
+import { TranslatorElement } from './translator/translator-element';
+import { InterfaceTypescriptElement } from './translator/typescript/element/interface/interface-typescript-element';
+import { TypeTypescriptElement } from './translator/typescript/element/type/type-typescript-element';
 import {TypescriptTranslator} from './translator/typescript/typescript-translator';
 import {Resource} from './util/resource/resource';
 import {TextPosition} from './util/resource/text/text-position';
@@ -185,7 +188,10 @@ export enum $ {
   TextResource = ' TextResource ' + $.Resource,
 
   Translator = ' Translator ',
+  TranslatorElement = ' TranslatorElement ',
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
+  InterfaceTypescriptElement = ' InterfaceTypescriptElement ' + $.TranslatorElement,
+  TypeTypescriptElement = ' TypeTypescriptElement ' + $.TranslatorElement,
 }
 
 export type TypeMap = {
@@ -281,7 +287,11 @@ export type TypeMap = {
   [$.TextResource]: TextResource;
 
   [$.Translator]: Translator;
+  [$.TranslatorElement]: TranslatorElement;
+
   [$.TypescriptTranslator]: TypescriptTranslator;
+  [$.InterfaceTypescriptElement]: InterfaceTypescriptElement;
+  [$.TypeTypescriptElement]: TypeTypescriptElement;
 };
 
 export type $Model = {
