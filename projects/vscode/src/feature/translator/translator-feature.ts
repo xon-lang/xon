@@ -2,7 +2,7 @@ import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspa
 import {semanticFromResource} from '../../../../core/analyzer/semantic/semantic-analyzer';
 import {createTypescriptTranslator} from '../../../../core/translator/typescript/typescript-translator';
 import {textResourceFromData} from '../../../../core/util/resource/text/text-resource';
-import {LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
+import {EXTENSION_CONFIG, LANGUAGE_NAME} from '../../config';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -14,7 +14,7 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
         return;
       }
 
-      let translateOnSave = WORKSPACE_CONFIG.translOnSave();
+      let translateOnSave = EXTENSION_CONFIG.translateOnSave.get();
 
       if (translateOnSave) {
         saveTranslatedFile(document, channel);
@@ -23,8 +23,7 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
   );
 
   context.subscriptions.push(
-    commands.registerCommand('xon.translate-ts', () => {
-      const activeTextEditor = window.activeTextEditor;
+    commands.registerCommand('xon.translateToTypescript', () => {
       const document = window.activeTextEditor?.document;
 
       if (document) {

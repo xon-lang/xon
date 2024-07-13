@@ -20,7 +20,7 @@ import {dirname} from 'path';
 import {$, is} from '../../../../core/$';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
-import {FILE_EXTENSION, LANGUAGE_NAME, WORKSPACE_CONFIG} from '../../config';
+import {EXTENSION_CONFIG, FILE_EXTENSION, LANGUAGE_NAME} from '../../config';
 import {convertVscodePosition, getDocumentSemantic} from '../../util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
@@ -46,7 +46,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
     }
 
     const dir = dirname(document.uri.fsPath);
-    const caseFn = getCaseFnByName(WORKSPACE_CONFIG.newFileNameCase()) ?? kebabCase;
+    const caseFn = getCaseFnByName(EXTENSION_CONFIG.newFileNameCase.get()) ?? kebabCase;
     const fileName = caseFn(node.text) + '.' + FILE_EXTENSION;
     const action = new CodeAction(`Move to a new file: './${fileName}'`, CodeActionKind.RefactorMove);
     action.edit = new WorkspaceEdit();
