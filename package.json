@@ -3,7 +3,7 @@
   "author": "nizami",
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.10",
+    "@types/node": "^20.14.11",
     "@types/vscode": "^1.91.0",
     "esbuild": "^0.23.0",
     "jest": "^29.7.0",
