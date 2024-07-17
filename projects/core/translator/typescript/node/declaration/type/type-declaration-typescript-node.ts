@@ -1,31 +1,27 @@
 import {$} from '../../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
-import {DeclarationNode} from '../../../../../analyzer/syntax/node/declaration/declaration-node';
-import {toTypeTypescriptNode, TypeTypescriptNode} from '../../type/type-typescript-node';
+import {Nothing, String2} from '../../../../../../lib/types';
+import {DeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/declaration-semantic';
 import {TypescriptTranslatorNode} from '../../typescript-node';
 
 export type TypeDeclarationTypescriptNode = TypescriptTranslatorNode & {
   $: $.TypeDeclarationTypescriptNode;
-  isExport?: Boolean2 | Nothing;
-  name: String2 | Nothing;
-  value: TypeTypescriptNode | Nothing;
 };
 
-export function toTypeDeclarationTypescriptNode(node: DeclarationNode): TypeDeclarationTypescriptNode {
+export function toTypeDeclarationTypescriptNode(
+  semantic: DeclarationSemantic | Nothing,
+): TypeDeclarationTypescriptNode {
   return {
     $: $.TypeDeclarationTypescriptNode,
-    isExport: true,
-    name: node.id.text,
-    value: toTypeTypescriptNode(node.assign?.value),
 
     translate(): String2 {
-      const exportText = this.isExport ? 'export ' : '';
-
-      if (this.value) {
-        return `${exportText}type ${this.name} = ${this.value.translate()}`;
+      if (!semantic) {
+        return `// error ???`;
       }
 
-      return `// error: ${exportText}type ${this.name} = ???`;
+      const exportText = true ? 'export ' : '';
+      // const valueText = toTypeTypescriptNode(semantic.type).translate();
+
+      return `${exportText}type ${semantic.name} = {}`;
     },
   };
 }
