@@ -4,7 +4,6 @@ import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {SemanticAnalyzer} from '../../analyzer/semantic/semantic-analyzer';
 import {StatementNode} from '../../analyzer/syntax/statement/statement-node';
 import {Translator} from '../translator';
-import {declarationTypescriptTransform} from './transformer/declaration-typescript-translator';
 
 export type TypescriptTranslator = Translator & {
   $: $.TypescriptTranslator;

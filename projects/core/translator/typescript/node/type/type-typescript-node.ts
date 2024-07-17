@@ -1,22 +1,40 @@
-import {$} from '../../../../$';
-import {nothing, Nothing, String2} from '../../../../../lib/types';
-import {ExpressionNode} from '../../../../analyzer/node';
+import {$, is} from '../../../../$';
+import {Nothing, String2} from '../../../../../lib/types';
+import {TypeSemantic} from '../../../../analyzer/semantic/node/type/type-semantic';
 import {TypescriptTranslatorNode} from '../typescript-node';
 
 export type TypeTypescriptNode = TypescriptTranslatorNode & {
   $: $.TypeTypescriptNode;
 };
 
-export function toTypeTypescriptNode(node: ExpressionNode | Nothing): TypeTypescriptNode | Nothing {
-  if (!node) {
-    return nothing;
-  }
-
+export function toTypeTypescriptNode(semantic: TypeSemantic | Nothing): TypeTypescriptNode {
   return {
     $: $.TypeTypescriptNode,
 
     translate(): String2 {
-      return ``;
+      if (is(semantic, $.StringTypeSemantic)) {
+        return `"${semantic.value}"`;
+      }
+
+      if (is(semantic, $.IntegerTypeSemantic)) {
+        return `${semantic.value}`;
+      }
+
+      if (is(semantic, $.UnionTypeSemantic)) {
+        const left = toTypeTypescriptNode(semantic.left);
+        const right = toTypeTypescriptNode(semantic.right);
+
+        return `${left.translate()} | ${right.translate()}`;
+      }
+
+      if (is(semantic, $.IntersectionTypeSemantic)) {
+        const left = toTypeTypescriptNode(semantic.left);
+        const right = toTypeTypescriptNode(semantic.right);
+
+        return `${left.translate()} & ${right.translate()}`;
+      }
+
+      return `// error ???`;
     },
   };
 }
