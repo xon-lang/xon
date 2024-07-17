@@ -38,6 +38,12 @@ export function toTypeTypescriptNode(semantic: TypeSemantic | Nothing): TypeType
         return `${left.translate()} & ${right.translate()}`;
       }
 
+      if (is(semantic, $.ArrayTypeSemantic)) {
+        const items = semantic.items.map((x) => toTypeTypescriptNode(x).translate()).join(', ');
+
+        return `[${items}]`;
+      }
+
       return `// error ???`;
     },
   };

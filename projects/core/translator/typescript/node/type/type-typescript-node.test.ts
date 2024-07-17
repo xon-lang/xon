@@ -41,3 +41,15 @@ test('type union', () => {
 
   expect(translated).toBe('123 | "abc" | 1 | "a"');
 });
+
+test('type array', () => {
+  const text = 'const a: [1, 2, "abc", "a" | 1 & 2]';
+  const resource = textResourceFromData(nothing, text);
+  const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const declaration = syntax.statements[0].value as DeclarationNode;
+  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const translator = toTypeTypescriptNode(semantic.type);
+  const translated = translator.translate();
+
+  expect(translated).toBe('[1, 2, "abc", "a" | 1 & 2]');
+});
