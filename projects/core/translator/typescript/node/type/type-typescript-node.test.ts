@@ -1,42 +1,43 @@
 import {nothing} from '../../../../../lib/types';
-import {ExpressionNode} from '../../../../analyzer/node';
-import {TypeSemantic} from '../../../../analyzer/semantic/node/type/type-semantic';
+import {DeclarationSemantic} from '../../../../analyzer/semantic/node/declaration/declaration-semantic';
 import {semanticFromResource} from '../../../../analyzer/semantic/semantic-analyzer';
+import {TEST_SEMANTIC_CONFIG} from '../../../../analyzer/semantic/semantic-analyzer-config';
+import {DeclarationNode} from '../../../../analyzer/syntax/node/declaration/declaration-node';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {toTypeTypescriptNode} from './type-typescript-node';
 
 test('type string', () => {
-  const text = '"string"';
+  const text = 'const a: "string"';
   const resource = textResourceFromData(nothing, text);
-  const syntax = semanticFromResource(resource);
-  const value = syntax.statements[0].value as ExpressionNode;
-  const semantic = value.semantic as TypeSemantic;
-  const translator = toTypeTypescriptNode(semantic);
+  const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const declaration = syntax.statements[0].value as DeclarationNode;
+  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
   expect(translated).toBe('"string"');
 });
 
 test('type integer', () => {
-  const text = '123';
+  const text = 'const a: 123';
   const resource = textResourceFromData(nothing, text);
-  const syntax = semanticFromResource(resource);
-  const value = syntax.statements[0].value as ExpressionNode;
-  const semantic = value.semantic as TypeSemantic;
-  const translator = toTypeTypescriptNode(semantic);
+  const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const declaration = syntax.statements[0].value as DeclarationNode;
+  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
   expect(translated).toBe('123');
 });
 
 test('type union', () => {
-  const text = '123 | "abc"';
+  const text = 'const a: 123 | "abc" | 1 | "a"';
   const resource = textResourceFromData(nothing, text);
-  const syntax = semanticFromResource(resource);
-  const value = syntax.statements[0].value as ExpressionNode;
-  const semantic = value.semantic as TypeSemantic;
-  const translator = toTypeTypescriptNode(semantic);
+  const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const declaration = syntax.statements[0].value as DeclarationNode;
+  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
-  expect(translated).toBe('123 | "abc"');
+  expect(translated).toBe('123 | "abc" | 1 | "a"');
 });

@@ -12,6 +12,10 @@ export function toTypeTypescriptNode(semantic: TypeSemantic | Nothing): TypeType
     $: $.TypeTypescriptNode,
 
     translate(): String2 {
+      if (!semantic) {
+        return `// error ???`;
+      }
+
       if (is(semantic, $.StringTypeSemantic)) {
         return `"${semantic.value}"`;
       }
