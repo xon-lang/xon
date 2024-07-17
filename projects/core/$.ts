@@ -75,9 +75,10 @@ import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
 import {StatementNode} from './analyzer/syntax/statement/statement-node';
 import {Translator} from './translator/translator';
-import { TranslatorElement } from './translator/translator-element';
-import { InterfaceTypescriptElement } from './translator/typescript/element/interface/interface-typescript-element';
-import { TypeTypescriptElement } from './translator/typescript/element/type/type-typescript-element';
+import {TranslatorNode} from './translator/translator-node';
+import {TypeDeclarationTypescriptNode} from './translator/typescript/node/declaration/type/type-declaration-typescript-node';
+import {TypeTypescriptNode} from './translator/typescript/node/type/type-typescript-node';
+import {TypescriptTranslatorNode} from './translator/typescript/node/typescript-node';
 import {TypescriptTranslator} from './translator/typescript/typescript-translator';
 import {Resource} from './util/resource/resource';
 import {TextPosition} from './util/resource/text/text-position';
@@ -188,10 +189,13 @@ export enum $ {
   TextResource = ' TextResource ' + $.Resource,
 
   Translator = ' Translator ',
-  TranslatorElement = ' TranslatorElement ',
+  TranslatorNode = ' TranslatorNode ',
+
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
-  InterfaceTypescriptElement = ' InterfaceTypescriptElement ' + $.TranslatorElement,
-  TypeTypescriptElement = ' TypeTypescriptElement ' + $.TranslatorElement,
+
+  TypescriptTranslatorNode = ' TypescriptTranslatorNode ',
+  TypeDeclarationTypescriptNode = ' TypeDeclarationTypescriptNode ' + $.TypescriptTranslatorNode,
+  TypeTypescriptNode = ' TypeTypescriptNode ' + $.TypescriptTranslatorNode,
 }
 
 export type TypeMap = {
@@ -287,11 +291,12 @@ export type TypeMap = {
   [$.TextResource]: TextResource;
 
   [$.Translator]: Translator;
-  [$.TranslatorElement]: TranslatorElement;
+  [$.TranslatorNode]: TranslatorNode;
 
   [$.TypescriptTranslator]: TypescriptTranslator;
-  [$.InterfaceTypescriptElement]: InterfaceTypescriptElement;
-  [$.TypeTypescriptElement]: TypeTypescriptElement;
+  [$.TypescriptTranslatorNode]: TypescriptTranslatorNode;
+  [$.TypeTypescriptNode]: TypeTypescriptNode;
+  [$.TypeDeclarationTypescriptNode]: TypeDeclarationTypescriptNode;
 };
 
 export type $Model = {

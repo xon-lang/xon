@@ -1,6 +1,6 @@
 import {$Model} from '../$';
 import {String2} from '../../lib/types';
 
-export type TranslatorElement = $Model & {
+export type TranslatorNode = $Model & {
   translate(): String2;
 };

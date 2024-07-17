@@ -2,9 +2,12 @@ import {$, is} from '../../../$';
 import {MODEL} from '../../../analyzer/lexical/lexical-analyzer-config';
 import {DeclarationNode} from '../../../analyzer/syntax/node/declaration/declaration-node';
 import {isTypeDeclarationNode} from '../../../analyzer/syntax/node/declaration/declaration-node-parse';
-import {createTypeTypescriptElement, TypeTypescriptElement} from '../element/type/type-typescript-element';
+import {
+  createTypeTypescriptNode,
+  TypeTypescriptNode,
+} from '../node/declaration/type/type-declaration-typescript-node';
 
-export function declarationTypescriptTransform(node: DeclarationNode): TypeTypescriptElement {
+export function declarationTypescriptTransform(node: DeclarationNode): TypeTypescriptNode {
   const semantic = node.id.semantic;
 
   if (!isTypeDeclarationNode(node) || !is(semantic, $.DeclarationSemantic)) {
@@ -13,7 +16,7 @@ export function declarationTypescriptTransform(node: DeclarationNode): TypeTypes
 
   // todo use ModelDeclarationSemantic instead of ???
   if (semantic.modifier === MODEL) {
-    return createTypeTypescriptElement({
+    return createTypeTypescriptNode({
       isExport: true,
       name: semantic.name,
       value: '{}',
