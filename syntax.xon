@@ -15,9 +15,44 @@ const value(a, b): Integer
 
 
 // type declaration
-
 model Some: Other
   a: Integer = 1
   b = 1
   c: Integer
   d
+
+// nominal types
+type Something
+type String: Something
+
+s: String = "abc" // {$: String, data: ...}
+
+type Animal = "dog" | "cat" | Number
+
+animal: String | Number = "fog" // {$: String, data: ...}
+
+
+isAnimal(some): Boolean
+  if (some.$.includes(String) && some.data == "dog")
+  if (some.$.includes(String) && some.data == "cat")
+  if (some.$.includes(Number))
+
+
+// enum
+
+model Color
+  name: String
+
+
+model Colors
+  red: Color & {name: "red"}
+
+
+colors = Colors {
+  red = Color {name = "red"}
+}
+
+color = Color {
+  name = "red"
+}
+
