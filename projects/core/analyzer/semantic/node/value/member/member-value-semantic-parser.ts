@@ -1,7 +1,6 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeSemantic} from '../../type/type-semantic';
 import {valueSemanticParse} from '../value-semantic-parser';
@@ -21,7 +20,9 @@ export function memberValueSemanticTryParse(
   let memberType: TypeSemantic | Nothing = nothing;
 
   if (instanceSemantic && node.id) {
-    const attributes = instanceSemantic.type?.attributes().filterByName(DeclarationKind.VALUE, node.id.text);
+    const attributes = instanceSemantic.type
+      ?.attributes()
+      .filterByName($.ValueDeclarationSemantic, node.id.text);
 
     if (attributes) {
       if (attributes.length > 1) {
