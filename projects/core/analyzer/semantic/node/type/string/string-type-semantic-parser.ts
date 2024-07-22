@@ -1,9 +1,7 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {StringTypeSemantic, stringTypeSemantic} from './string-type-semantic';
 
 export function stringTypeSemanticTryParse(
@@ -15,13 +13,13 @@ export function stringTypeSemanticTryParse(
   }
 
   const declaration = analyzer.declarationManager.single(
-    DeclarationKind.TYPE,
+    $.TypeDeclarationSemantic,
     analyzer.config.literalTypeNames.stringTypeName,
     nothing,
     nothing,
   );
 
-  if (!declaration || !isTypeDeclarationSemantic(declaration)) {
+  if (!declaration || !is(declaration, $.NominalTypeDeclarationSemantic)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
     );
