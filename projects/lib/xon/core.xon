@@ -1,22 +1,22 @@
-model Anything
+type Anything
 
-model Something: Anything
+type Something: Anything
 
-model Nothing: Anything
+type Nothing: Anything
 
-model Number: Something
+type Number: Something
 
-model Integer: Number
+type Integer: Number
 
-model Char: Something
+type Char: Something
 
-model Array{T}: Something
+type Array{T}: Something
   length: Integer
 
-model String: Array{Char}
+type String: Array{Char}
   length: Integer
 
-model Range: Something
+type Range: Something
 
 // literal String{$T}: String
 //   length: $T.length

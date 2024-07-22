@@ -7,7 +7,7 @@ import {textResourceFromData} from '../../../../../util/resource/text/text-resou
 import {toTypeDeclarationTypescriptNode} from './type-declaration-typescript-node';
 
 test('type string', () => {
-  const text = 'model A';
+  const text = 'type A';
   const resource = textResourceFromData(nothing, text);
   const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = syntax.statements[0].value as DeclarationNode;
