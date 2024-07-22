@@ -2,22 +2,22 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Integer} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface IntegerTypeSemantic extends TypeSemantic {
   $: $.IntegerTypeSemantic;
-  declaration: DeclarationSemantic;
+  declaration: NominalTypeDeclarationSemantic;
   value: Integer;
 }
 
 export function integerTypeSemantic(
   reference: TextResourceRange,
-  declaration: DeclarationSemantic,
-  value: IntegerTypeSemantic['value'],
+  declaration: NominalTypeDeclarationSemantic,
+  value: Integer,
 ): IntegerTypeSemantic {
-  const semantic: IntegerTypeSemantic = {
+  return {
     $: $.IntegerTypeSemantic,
     reference,
     declaration,
@@ -51,6 +51,4 @@ export function integerTypeSemantic(
       return this.declaration.attributes?.clone() ?? createDeclarationManager();
     },
   };
-
-  return semantic;
 }
