@@ -19,7 +19,7 @@ export function functionTypeSemantic(
   parameters: Array2<DeclarationSemantic | Nothing>,
   result: TypeSemantic | Nothing,
 ): FunctionTypeSemantic {
-  const semantic: FunctionTypeSemantic = {
+  return {
     $: $.FunctionTypeSemantic,
     reference,
     generics,
@@ -46,6 +46,4 @@ export function functionTypeSemantic(
       throw new Error('Not implemented');
     },
   };
-
-  return semantic;
 }
