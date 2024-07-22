@@ -14,7 +14,7 @@ import {Node} from '../node';
 import {documentationNodeParse} from './documentation/documentation-node-parse';
 import {groupNodeParse} from './group/group-node-parse';
 import {charNodeParse} from './node/char/char-node-parse';
-import { integerNodeParse } from './node/integer/integer-node-parse';
+import {integerNodeParse} from './node/integer/integer-node-parse';
 import {stringNodeParse} from './node/string/string-node-parse';
 import {putStatementNode} from './put-statement-node';
 import {StatementNode} from './statement/statement-node';
@@ -238,5 +238,6 @@ export function syntaxFromResource(
   const lexicalAnalyzer = createLexicalAnalyzer(resource);
   const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer, syntaxConfig);
 
+  // todo fill semantic before return
   return syntaxAnalyzer;
 }

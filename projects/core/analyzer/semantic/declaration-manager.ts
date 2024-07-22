@@ -1,15 +1,16 @@
-import {Array2, Integer, Nothing, String2, nothing} from '../../../lib/types';
-import {
-  DeclarationSemantic,
-  isTypeDeclarationSemantic,
-  isValueDeclarationSemantic,
-} from './node/declaration/declaration-semantic';
+import {$, is, TypeMap} from '../../$';
+import {Array2, Integer, Nothing, nothing, String2} from '../../../lib/types';
+import {DeclarationSemantic} from './node/declaration/declaration-semantic';
 import {TypeSemantic} from './node/type/type-semantic';
 
-export enum DeclarationKind {
-  TYPE = 'TYPE',
-  VALUE = 'VALUE',
-}
+export type DeclarationKind =
+  | $.DeclarationSemantic
+  | $.TypeDeclarationSemantic
+  | $.NominalTypeDeclarationSemantic
+  | $.StructuralTypeDeclarationSemantic
+  | $.ValueDeclarationSemantic
+  | $.MethodValueDeclarationSemantic
+  | $.PropertyValueDeclarationSemantic;
 
 export interface DeclarationManager {
   imports: Array2<DeclarationManager> | Nothing;
@@ -18,15 +19,16 @@ export interface DeclarationManager {
 
   count(): Integer;
   add(declaration: DeclarationSemantic): void;
-  filterByName(kind: DeclarationKind | Nothing, name: String2): Array2<DeclarationSemantic>;
   all(): Array2<DeclarationSemantic>;
 
-  single(
-    kind: DeclarationKind | Nothing,
+  filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): Array2<TypeMap[KIND]>;
+
+  single<KIND extends DeclarationKind>(
+    kind: KIND,
     name: String2,
     generics?: Array2<TypeSemantic | Nothing> | Nothing,
     parameters?: Array2<TypeSemantic | Nothing> | Nothing,
-  ): DeclarationSemantic | Nothing;
+  ): TypeMap[KIND] | Nothing;
 
   clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager;
   union(other: DeclarationManager): DeclarationManager;
@@ -55,9 +57,13 @@ export function createDeclarationManager(
       this.declarations[declaration.name].push(declaration);
     },
 
-    filterByName(kind: DeclarationKind | Nothing, name: String2): Array2<DeclarationSemantic> {
-      const declarations = (this.declarations[name] ?? this.parent?.filterByName(kind, name))?.filter(
-        (x) => !kind || isDeclarationKind(x, kind),
+    all(): Array2<DeclarationSemantic> {
+      return Object.values(this.declarations).flat();
+    },
+
+    filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): Array2<TypeMap[KIND]> {
+      const declarations = (this.declarations[name] ?? this.parent?.filterByName<KIND>(kind, name))?.filter(
+        (x) => is(x, kind),
       );
 
       if (declarations && declarations.length > 0) {
@@ -65,7 +71,7 @@ export function createDeclarationManager(
       }
 
       const importDeclarations = this.imports?.flatMap((x) =>
-        x.declarations[name]?.filter((x) => !kind || isDeclarationKind(x, kind)),
+        x.declarations[name]?.filter((x) => is(x, kind)),
       );
 
       if (importDeclarations && importDeclarations?.length > 0) {
@@ -75,16 +81,12 @@ export function createDeclarationManager(
       return [];
     },
 
-    all(): Array2<DeclarationSemantic> {
-      return Object.values(this.declarations).flat();
-    },
-
-    single(
-      kind: DeclarationKind | Nothing,
+    single<KIND extends DeclarationKind>(
+      kind: KIND,
       name: String2,
       generics: Array2<TypeSemantic | Nothing> | Nothing,
       // parameters: Array2<TypeSemantic | Nothing> | Nothing,
-    ): DeclarationSemantic | Nothing {
+    ): TypeMap[KIND] | Nothing {
       const declarations = this.filterByName(kind, name);
 
       if (declarations.length === 0) {
@@ -138,19 +140,4 @@ export function createDeclarationManager(
       return this.union(other);
     },
   };
-}
-
-function isDeclarationKind<T extends DeclarationSemantic = DeclarationSemantic>(
-  declaration: DeclarationSemantic,
-  kind: DeclarationKind,
-): declaration is T {
-  if (kind === DeclarationKind.TYPE && isTypeDeclarationSemantic(declaration)) {
-    return true;
-  }
-
-  if (kind === DeclarationKind.VALUE && isValueDeclarationSemantic(declaration)) {
-    return true;
-  }
-
-  return false;
 }

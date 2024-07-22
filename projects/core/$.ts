@@ -30,6 +30,12 @@ import {UnknownNode} from './analyzer/lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './analyzer/lexical/node/whitespace/whitespace-node';
 import {ExpressionNode, Node} from './analyzer/node';
 import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declaration-semantic';
+import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
+import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
+import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
+import {MethodValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/method/method-value-declaration-semantic';
+import {PropertyValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/property/property-value-declaration-semantic';
+import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
 import {Semantic} from './analyzer/semantic/node/semantic';
 import {ArrayTypeSemantic} from './analyzer/semantic/node/type/array/array-type-semantic';
@@ -155,8 +161,17 @@ export enum $ {
   StatementNode = ' StatementNode ' + $.SyntaxNode,
 
   // semantic
-  DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
   DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
+
+  TypeDeclarationSemantic = ' TypeDeclarationSemantic ' + $.DeclarationSemantic,
+  NominalTypeDeclarationSemantic = ' NominalTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
+  StructuralTypeDeclarationSemantic = ' StructuralTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
+
+  ValueDeclarationSemantic = ' ValueDeclarationSemantic ' + $.DeclarationSemantic,
+  MethodValueDeclarationSemantic = ' MethodValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
+  PropertyValueDeclarationSemantic = ' PropertyValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
+
+  DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
 
   TypeSemantic = ' TypeSemantic ' + $.Semantic,
   IntegerTypeSemantic = ' IntegerTypeSemantic ' + $.TypeSemantic,
@@ -263,7 +278,17 @@ export type TypeMap = {
 
   [$.Semantic]: Semantic;
   [$.DocumentationIdSemantic]: DocumentationIdSemantic;
+
   [$.DeclarationSemantic]: DeclarationSemantic;
+
+  [$.TypeDeclarationSemantic]: TypeDeclarationSemantic;
+  [$.NominalTypeDeclarationSemantic]: NominalTypeDeclarationSemantic;
+  [$.StructuralTypeDeclarationSemantic]: StructuralTypeDeclarationSemantic;
+
+  [$.ValueDeclarationSemantic]: ValueDeclarationSemantic;
+  [$.MethodValueDeclarationSemantic]: MethodValueDeclarationSemantic;
+  [$.PropertyValueDeclarationSemantic]: PropertyValueDeclarationSemantic;
+
   [$.TypeSemantic]: TypeSemantic;
   [$.IdTypeSemantic]: IdTypeSemantic;
   [$.IntegerTypeSemantic]: IntegerTypeSemantic;
