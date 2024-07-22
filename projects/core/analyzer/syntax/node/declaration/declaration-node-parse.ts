@@ -1,6 +1,6 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
 import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
-import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIERS} from '../../../lexical/lexical-analyzer-config';
+import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode, Node, nodeFindMap} from '../../../node';
@@ -226,7 +226,7 @@ export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarat
   if (
     is(declarationNode, $.DeclarationNode) &&
     declarationNode.modifier?.text &&
-    TYPE_MODIFIERS.includes(declarationNode.modifier.text)
+    TYPE_MODIFIER === declarationNode.modifier.text
   ) {
     return true;
   }

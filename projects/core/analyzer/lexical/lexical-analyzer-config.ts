@@ -42,9 +42,6 @@ export const BRACE_CLOSE = '}';
 export const IMPORT = 'import';
 export const EXPORT = 'export';
 
-export const MODEL = 'model';
-export const OBJECT = 'object';
-
 export const CONST = 'const';
 export const IDEM = 'idem';
 export const VAR = 'var';
@@ -53,10 +50,10 @@ export const INFIX = 'infix';
 export const PREFIX = 'prefix';
 export const POSTFIX = 'postfix';
 
-export const TYPE_MODIFIERS = [MODEL, OBJECT];
+export const TYPE_MODIFIER = 'type';
 export const VALUE_MODIFIERS = [CONST, VAR, PREFIX, POSTFIX, INFIX];
 
-export const MODIFIER_KEYWORDS = [...TYPE_MODIFIERS, ...VALUE_MODIFIERS];
+export const MODIFIER_KEYWORDS = [TYPE_MODIFIER, ...VALUE_MODIFIERS];
 export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
 export const CONTROL_KEYWORDS = [
   'if',

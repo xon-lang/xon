@@ -12,13 +12,13 @@ import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
 export type DeclarationNode = SyntaxNode<$.DeclarationNode> & {
-  documentation: DocumentationNode | Nothing;
-  modifier: OperatorNode | Nothing;
+  documentation?: DocumentationNode | Nothing;
+  modifier?: OperatorNode | Nothing;
   id: IdNode;
-  generics: GroupNode | Nothing;
-  parameters: GroupNode | Nothing;
-  type: TypeNode | Nothing;
-  assign: AssignNode | Nothing;
+  generics?: GroupNode | Nothing;
+  parameters?: GroupNode | Nothing;
+  type?: TypeNode | Nothing;
+  assign?: AssignNode | Nothing;
   attributes?: Array2<DeclarationNode> | Nothing;
 };
 
