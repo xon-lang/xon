@@ -2,7 +2,6 @@ import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {isTypeDeclarationSemantic, isValueDeclarationSemantic} from '../../declaration/declaration-semantic';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 
@@ -11,20 +10,18 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
     return nothing;
   }
 
-  const declaration = analyzer.declarationManager.single(nothing, node.text, nothing, nothing);
+  const declaration = analyzer.declarationManager.single($.DeclarationSemantic, node.text, nothing, nothing);
 
   if (!declaration) {
     return nothing;
   }
 
   // todo review condition and another one below
-  if (isValueDeclarationSemantic(declaration)) {
+  if (is(declaration, $.ValueDeclarationSemantic)) {
     return idValueSemantic(analyzer.createReference(node), declaration);
   }
 
-  if (isTypeDeclarationSemantic(declaration)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.notImplemented());
-  }
+  analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.notImplemented());
 
   return nothing;
 }
