@@ -7,8 +7,8 @@ import {CharNode} from '../char/char-node';
 import {IntegerNode} from '../integer/integer-node';
 import {DeclarationNode} from './declaration-node';
 
-test('model A', () => {
-  const text = 'model A';
+test('type A', () => {
+  const text = 'type A';
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -16,12 +16,12 @@ test('model A', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
 });
 
-test('model A: B', () => {
-  const text = 'model A: B';
+test('type A: B', () => {
+  const text = 'type A: B';
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -29,14 +29,14 @@ test('model A: B', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
   expect(node.type?.$).toBe($.TypeNode);
   expect((node.type?.value as IdNode).text).toBe('B');
 });
 
 test('with generics extends b', () => {
-  const text = 'model A{T: Array = String, U}: B';
+  const text = 'type A{T: Array = String, U}: B';
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -44,7 +44,7 @@ test('with generics extends b', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
   expect(node.generics?.items.length).toBe(2);
   const generic = node.generics?.items.at(0)?.value as DeclarationNode;
@@ -57,7 +57,7 @@ test('with generics extends b', () => {
 });
 
 test('with parameters extends b', () => {
-  const text = "model A(a: Integer = 123, b: Boolean, c = 'C'): B";
+  const text = "type A(a: Integer = 123, b: Boolean, c = 'C'): B";
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -65,7 +65,7 @@ test('with parameters extends b', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
 
   expect(node.parameters?.items.length).toBe(3);
@@ -90,7 +90,7 @@ test('with parameters extends b', () => {
 });
 
 test('with generics and parameters extends b', () => {
-  const text = "model A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
+  const text = "type A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -98,7 +98,7 @@ test('with generics and parameters extends b', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
 
   expect(node.generics?.items.length).toBe(2);
@@ -130,7 +130,7 @@ test('with generics and parameters extends b', () => {
 });
 
 test('has attributes', () => {
-  const text = `model A
+  const text = `type A
   a
   b: Boolean
   c: Char = 'C'
@@ -145,14 +145,14 @@ test('has attributes', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
   expect(node.type).toBeFalsy();
   expect(statements[0].body.length).toBe(6);
 });
 
-test('model string with base class', () => {
-  const text = 'model Array\nmodel String: Array';
+test('type string with base class', () => {
+  const text = 'type Array\ntype String: Array';
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -162,7 +162,7 @@ test('model string with base class', () => {
   expect(node.$).toBe($.DeclarationNode);
 
   expect(node.modifier?.$).toBe($.OperatorNode);
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
 });
 
 test('lambda type', () => {
@@ -185,7 +185,7 @@ test('declaration documentation', () => {
 ===
   Some description
 ===
-model A`;
+type A`;
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -194,7 +194,7 @@ model A`;
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.DeclarationNode);
   expect(node.documentation?.description?.text).toBe('\n  Some description\n');
-  expect(node.modifier?.text).toBe('model');
+  expect(node.modifier?.text).toBe('type');
   expect(node.id?.text).toBe('A');
   expect(node.id.range.start.line).toBe(4);
 });
