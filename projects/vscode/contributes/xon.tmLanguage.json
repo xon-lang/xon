@@ -34,7 +34,7 @@
     },
     {
       "name": "storage.type.xon",
-      "match": "\\b(model|object|const|literal)\\b"
+      "match": "\\b(type|object|const|literal)\\b"
     },
     {
       "name": "keyword.control.xon",
