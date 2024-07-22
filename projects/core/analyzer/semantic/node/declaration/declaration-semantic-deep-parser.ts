@@ -11,7 +11,7 @@ import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {valueSemanticParse} from '../value/value-semantic-parser';
-import {DeclarationSemantic, isTypeDeclarationSemantic} from './declaration-semantic';
+import {DeclarationSemantic} from './declaration-semantic';
 import {declarationsParse} from './declaration-semantic-parser';
 
 export function declarationDeepParse(
@@ -25,7 +25,7 @@ export function declarationDeepParse(
   }
 
   // todo should we create attributes here ???
-  if (isTypeDeclarationSemantic(semantic)) {
+  if (is(semantic, $.NominalTypeDeclarationSemantic)) {
     semantic.attributes = createDeclarationManager();
   }
 
@@ -66,7 +66,7 @@ function parametersParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  if (!node.parameters) {
+  if (!node.parameters || !is(declaration, $.MethodValueDeclarationSemantic)) {
     return;
   }
 
@@ -85,15 +85,22 @@ function typeParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  if (!node.type?.value) {
+  // todo fix 'is' conditions
+  if (
+    !node.type?.value ||
+    (!is(declaration, $.NominalTypeDeclarationSemantic) &&
+      !is(declaration, $.MethodValueDeclarationSemantic) &&
+      !is(declaration, $.PropertyValueDeclarationSemantic))
+  ) {
     return;
   }
 
   declaration.type = typeSemanticParse(analyzer, node.type.value);
 
-  if (declaration.type) {
+  // todo recheck 'is(declaration, $.NominalTypeDeclarationSemantic)'
+  if (declaration.type && is(declaration, $.NominalTypeDeclarationSemantic)) {
     // todo remove 'declaration.attributes' if we create separate type and value declarations model
-    if (declaration.attributes && isTypeDeclarationSemantic(declaration)) {
+    if (declaration.attributes) {
       for (const attribute of declaration.type.attributes().all()) {
         declaration.attributes.add(attribute);
       }
@@ -108,7 +115,13 @@ function valueParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  if (!node.assign?.value) {
+  // todo fix 'is' conditions
+  if (
+    !node.assign?.value ||
+    (!is(declaration, $.NominalTypeDeclarationSemantic) &&
+      !is(declaration, $.MethodValueDeclarationSemantic) &&
+      !is(declaration, $.PropertyValueDeclarationSemantic))
+  ) {
     return;
   }
 
@@ -130,7 +143,7 @@ function attributesParse(
   node: DeclarationNode,
 ): void {
   // todo remove 'declaration.attributes' if we create separate type and value declarations model
-  if (!node.attributes || !declaration.attributes) {
+  if (!node.attributes || !is(declaration, $.NominalTypeDeclarationSemantic) || !declaration.attributes) {
     return;
   }
 

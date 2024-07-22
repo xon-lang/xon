@@ -2,71 +2,73 @@ import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {DeclarationKind} from '../../declaration-manager';
 import {createSemanticAnalyzer} from '../../semantic-analyzer';
 import {IdTypeSemantic} from '../type/id/id-type-semantic';
-import {DeclarationSemantic} from './declaration-semantic';
+import {NominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
+import {PropertyValueDeclarationSemantic} from './value/property/property-value-declaration-semantic';
 
 test('only a', () => {
-  const text = 'model A\n  p: A';
+  const text = 'type A\n  p: A';
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
-  const model = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
+  const type = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(model.$).toBe($.DeclarationSemantic);
-  expect(model.modifier).toBe('model');
-  expect(model.name).toBe('A');
+  expect(type.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(type.modifier).toBe('type');
+  expect(type.name).toBe('A');
 
-  expect(Object.keys(model.attributes?.declarations ?? {}).length).toBe(1);
+  expect(Object.keys(type.attributes?.declarations ?? {}).length).toBe(1);
 
-  const attributeP = model.attributes?.single(DeclarationKind.VALUE, 'p') as DeclarationSemantic;
-  expect(attributeP.$).toBe($.DeclarationSemantic);
+  const attributeP = type.attributes?.single(
+    $.ValueDeclarationSemantic,
+    'p',
+  ) as PropertyValueDeclarationSemantic;
+  expect(attributeP.$).toBe($.PropertyValueDeclarationSemantic);
   expect(attributeP.name).toBe('p');
   expect(attributeP.generics).toBeFalsy();
-  expect(attributeP.parameters).toBeFalsy();
   expect((attributeP.type as IdTypeSemantic).declaration?.name).toBe('A');
 });
 
 test('declare b then a, a extends b', () => {
-  const text = 'model B\nmodel A: B';
+  const text = 'type B\ntype A: B';
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const modelA = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
-  expect(modelA.$).toBe($.DeclarationSemantic);
-  expect(modelA.modifier).toBe('model');
-  expect(modelA.name).toBe('A');
-  expect(modelA.type?.$).toBe($.IdTypeSemantic);
-  expect((modelA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
+  const typeA = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(typeA.modifier).toBe('type');
+  expect(typeA.name).toBe('A');
+  expect(typeA.type?.$).toBe($.IdTypeSemantic);
+  expect((typeA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 
-  const modelB = semantic.declarationManager.declarations['B'][0] as DeclarationSemantic;
-  expect(modelB.$).toBe($.DeclarationSemantic);
-  expect(modelB.modifier).toBe('model');
-  expect(modelB.name).toBe('B');
+  const typeB = semantic.declarationManager.declarations['B'][0] as NominalTypeDeclarationSemantic;
+  expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(typeB.modifier).toBe('type');
+  expect(typeB.name).toBe('B');
 });
 
 test('declare a then b, a extends b', () => {
-  const text = 'model A: B\nmodel B';
+  const text = 'type A: B\ntype B';
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const modelA = semantic.declarationManager.declarations['A'][0] as DeclarationSemantic;
-  expect(modelA.$).toBe($.DeclarationSemantic);
-  expect(modelA.modifier).toBe('model');
-  expect(modelA.name).toBe('A');
-  expect(modelA.type?.$).toBe($.IdTypeSemantic);
-  expect((modelA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
+  const typeA = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(typeA.modifier).toBe('type');
+  expect(typeA.name).toBe('A');
+  expect(typeA.type?.$).toBe($.IdTypeSemantic);
+  expect((typeA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 
-  const modelB = semantic.declarationManager.declarations['B'][0] as DeclarationSemantic;
-  expect(modelB.$).toBe($.DeclarationSemantic);
-  expect(modelB.modifier).toBe('model');
-  expect(modelB.name).toBe('B');
+  const typeB = semantic.declarationManager.declarations['B'][0] as NominalTypeDeclarationSemantic;
+  expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(typeB.modifier).toBe('type');
+  expect(typeB.name).toBe('B');
 });
