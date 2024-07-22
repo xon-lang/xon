@@ -1,9 +1,7 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {ArrayTypeSemantic, integerTypeSemantic} from './array-type-semantic';
 
@@ -16,13 +14,13 @@ export function arrayTypeSemanticTryParse(
   }
 
   const declaration = analyzer.declarationManager.single(
-    DeclarationKind.TYPE,
+    $.TypeDeclarationSemantic,
     analyzer.config.literalTypeNames.integerTypeName,
     nothing,
     nothing,
   );
 
-  if (!declaration || !isTypeDeclarationSemantic(declaration)) {
+  if (!declaration || !is(declaration, $.NominalTypeDeclarationSemantic)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );

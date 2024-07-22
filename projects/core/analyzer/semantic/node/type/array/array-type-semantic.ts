@@ -2,22 +2,22 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationManager} from '../../../declaration-manager';
-import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
+import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {
   $: $.ArrayTypeSemantic;
-  declaration: DeclarationSemantic;
+  declaration: NominalTypeDeclarationSemantic;
   items: (TypeSemantic | Nothing)[];
 }
 
 export function integerTypeSemantic(
   reference: TextResourceRange,
-  declaration: DeclarationSemantic,
+  declaration: NominalTypeDeclarationSemantic,
   items: ArrayTypeSemantic['items'],
 ): ArrayTypeSemantic {
-  const semantic: ArrayTypeSemantic = {
+  return {
     $: $.ArrayTypeSemantic,
     reference,
     declaration,
@@ -32,7 +32,7 @@ export function integerTypeSemantic(
         return true;
       }
 
-      if (isTypeDeclarationSemantic(other)) {
+      if (is(other, $.TypeDeclarationSemantic)) {
         return this.declaration.eq(other) || (this.declaration.type?.is(other) ?? false);
       }
 
@@ -51,6 +51,4 @@ export function integerTypeSemantic(
       throw new Error('Not implemented');
     },
   };
-
-  return semantic;
 }
