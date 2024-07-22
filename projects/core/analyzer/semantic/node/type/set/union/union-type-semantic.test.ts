@@ -3,9 +3,8 @@ import {String2, nothing} from '../../../../../../../lib/types';
 import {textResourceFromData} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
-import {DeclarationKind} from '../../../../declaration-manager';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
-import {DeclarationSemantic} from '../../../declaration/declaration-semantic';
+import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeSemanticParse} from '../../type-semantic-parser';
@@ -13,8 +12,8 @@ import {UnionTypeSemantic} from './union-type-semantic';
 
 test('a is integer or float', () => {
   const text = `
-    model Integer
-    model Float
+    type Integer
+    type Float
 
     const a: Integer | Float
   `;
@@ -23,14 +22,14 @@ test('a is integer or float', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.DeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.DeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as DeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as UnionTypeSemantic;
@@ -43,9 +42,9 @@ test('a is integer or float', () => {
 
 test('1 check type', () => {
   const text = `
-    model Number
-    model Integer: Number
-    model Float
+    type Number
+    type Integer: Number
+    type Float
 
     const a: Integer
     const b: Integer | Float
@@ -66,10 +65,10 @@ test('1 check type', () => {
 
 test('2 check type', () => {
   const text = `
-    model Number
-    model Integer: Number
-    model Float: Number
-    model String
+    type Number
+    type Integer: Number
+    type Float: Number
+    type String
 
     const a: Integer | Float
     const b: Float
@@ -80,8 +79,14 @@ test('2 check type', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   const getConst = (name: String2) =>
-    (semantic.declarationManager.single(DeclarationKind.VALUE, name, nothing, nothing) as DeclarationSemantic)
-      .type as TypeSemantic;
+    (
+      semantic.declarationManager.single(
+        $.ValueDeclarationSemantic,
+        name,
+        nothing,
+        nothing,
+      ) as PropertyValueDeclarationSemantic
+    ).type as TypeSemantic;
 
   const aType = getConst('a');
   const bType = getConst('b');

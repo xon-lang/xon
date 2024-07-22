@@ -2,13 +2,13 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {DeclarationManager} from '../../../../declaration-manager';
-import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../../declaration/declaration-semantic';
+import {NominalTypeDeclarationSemantic} from '../../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {isInSet, SetTypeSemantic} from '../set';
 
 export interface RangeTypeSemantic extends SetTypeSemantic {
   $: $.RangeTypeSemantic;
-  declaration: DeclarationSemantic;
+  declaration: NominalTypeDeclarationSemantic;
   from: TypeSemantic;
   to: TypeSemantic;
   step: TypeSemantic | Nothing;
@@ -16,7 +16,7 @@ export interface RangeTypeSemantic extends SetTypeSemantic {
 
 export function rangeTypeSemantic(
   reference: TextResourceRange,
-  declaration: DeclarationSemantic,
+  declaration: NominalTypeDeclarationSemantic,
   from: RangeTypeSemantic['from'],
   to: RangeTypeSemantic['to'],
   step: RangeTypeSemantic['step'],
@@ -42,10 +42,6 @@ export function rangeTypeSemantic(
           is(other.to, $.IntegerTypeSemantic)
         )
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
-      }
-
-      if (isTypeDeclarationSemantic(other)) {
-        return this.declaration.eq(other) || (this.declaration.type?.is(other) ?? false);
       }
 
       return false;
