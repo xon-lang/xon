@@ -6,8 +6,7 @@ export interface TextResourceRange {
   resource: TextResource;
   range: TextRange;
 
-  positionEquals(reference: TextResourceRange): Boolean2;
-  rangeEquals(reference: TextResourceRange): Boolean2;
+  equals(reference: TextResourceRange): Boolean2;
   getText(): String2;
 }
 
@@ -19,16 +18,8 @@ export function textResourceRange(
     resource,
     range,
 
-    positionEquals(other: TextResourceRange): Boolean2 {
-      return this.resource.eq(other.resource) && this.range.start.index === other.range.start.index;
-    },
-
-    rangeEquals(other: TextResourceRange): Boolean2 {
-      return (
-        this.resource.eq(other.resource) &&
-        this.range.start.index === other.range.start.index &&
-        this.range.stop.index === other.range.stop.index
-      );
+    equals(other: TextResourceRange): Boolean2 {
+      return this.resource.equals(other.resource) && this.range.equals(other.range);
     },
 
     getText(): String2 {

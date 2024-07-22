@@ -1,11 +1,13 @@
 import {$, $Model} from '../../../$';
-import {Integer} from '../../../../lib/types';
+import {Boolean2, Integer} from '../../../../lib/types';
 
 export type TextPosition = $Model & {
   $: $.TextPosition;
   index: Integer;
   line: Integer;
   column: Integer;
+
+  equals(other: TextPosition): Boolean2;
 };
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
@@ -14,6 +16,10 @@ export function textPosition(index: Integer, line: Integer, column: Integer): Te
     index,
     line,
     column,
+
+    equals(other: TextPosition): Boolean2 {
+      return this.index === other.index && this.line === other.line && this.column === other.column;
+    },
   };
 }
 

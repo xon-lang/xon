@@ -8,6 +8,7 @@ export type TextRange = $Model & {
   start: TextPosition;
   stop: TextPosition;
 
+  equals(other: TextRange): Boolean2;
   contains(position: TextPosition): Boolean2;
   contains(range: TextRange): Boolean2;
   contains(positionOrRange: TextPosition | TextRange): Boolean2;
@@ -18,6 +19,10 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     $: $.TextRange,
     start,
     stop,
+
+    equals(other: TextRange): Boolean2 {
+      return this.start.equals(other.start) && this.stop.equals(other.stop);
+    },
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
       if (is(positionOrRange, $.TextPosition)) {

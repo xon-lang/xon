@@ -9,7 +9,7 @@ export interface TextResource extends Resource {
   $: $.TextResource;
   data: String2;
 
-  eq(other: Resource): Boolean2;
+  equals(other: Resource): Boolean2;
   getReference(range: TextRange): TextResourceRange;
   getText(range: TextRange): String2;
 }
@@ -20,7 +20,7 @@ export function textResourceFromData(location: String2 | Nothing, data: String2)
     location,
     data,
 
-    eq(other: Resource): Boolean2 {
+    equals(other: Resource): Boolean2 {
       if (this.location) {
         return this.location === other.location;
       }
