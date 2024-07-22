@@ -3,9 +3,7 @@ import {Nothing, nothing} from '../../../../../../lib/types';
 import {IdNode} from '../../../../lexical/node/id/id-node';
 import {Node} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
-import {DeclarationKind} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
@@ -25,7 +23,12 @@ export function declarationTypeSemanticTryParse(
 }
 
 function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Nothing {
-  const declaration = analyzer.declarationManager.single(DeclarationKind.TYPE, node.text, nothing, nothing);
+  const declaration = analyzer.declarationManager.single(
+    $.TypeDeclarationSemantic,
+    node.text,
+    nothing,
+    nothing,
+  );
 
   if (!declaration) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotResolveType());
@@ -55,7 +58,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
 
   if (is(node.instance, $.IdNode)) {
     const declaration = analyzer.declarationManager.single(
-      DeclarationKind.TYPE,
+      $.TypeDeclarationSemantic,
       node.instance.text,
       generics,
       nothing,
@@ -65,7 +68,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
       return nothing;
     }
 
-    if (isTypeDeclarationSemantic(declaration)) {
+    if (is(declaration, $.TypeDeclarationSemantic)) {
       const reference = analyzer.createReference(node);
       const semantic = idTypeSemantic(analyzer, reference, declaration, generics);
       // todo control when semantic attribute must be set

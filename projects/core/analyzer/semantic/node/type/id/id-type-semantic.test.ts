@@ -5,14 +5,14 @@ import {IdNode} from '../../../../lexical/node/id/id-node';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic} from './id-type-semantic';
 
 test('a is integer', () => {
   const text = `
-    model Integer
+    type Integer
     const a: Integer
   `;
   const source = textResourceFromData(nothing, text);
@@ -20,26 +20,26 @@ test('a is integer', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.DeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.DeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as DeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
   expect((constNode.type?.value as IdNode)?.text).toBe('Integer');
   expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($.IdTypeSemantic);
 
   const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
-  expect(typeSemantic.declaration?.$).toBe($.DeclarationSemantic);
+  expect(typeSemantic.declaration?.$).toBe($.NominalTypeDeclarationSemantic);
 });
 
 test('a is array', () => {
   const text = `
-    model Integer
-    model Array{T}
+    type Integer
+    type Array{T}
     const a: Array{3}
   `;
   const resource = textResourceFromData(nothing, text);
@@ -47,19 +47,19 @@ test('a is array', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.DeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.DeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as DeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IdTypeSemantic;
   expect(typeSemantic.$).toBe($.IdTypeSemantic);
-  expect(typeSemantic.declaration.$).toBe($.DeclarationSemantic);
+  expect(typeSemantic.declaration.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeSemantic.declaration.name).toBe('Array');
   expect(typeSemantic.generics?.length).toBe(1);
   expect((typeSemantic.generics?.at(0) as IntegerTypeSemantic).value).toBe(3);

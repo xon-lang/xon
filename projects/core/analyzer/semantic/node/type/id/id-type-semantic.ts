@@ -3,23 +3,25 @@ import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {DeclarationSemantic, isTypeDeclarationSemantic} from '../../declaration/declaration-semantic';
+import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface IdTypeSemantic extends TypeSemantic {
   $: $.IdTypeSemantic;
-  declaration: DeclarationSemantic;
+  declaration: TypeDeclarationSemantic;
   generics: Array2<TypeSemantic | Nothing> | Nothing;
 }
 
 export function idTypeSemantic(
   analyzer: SemanticAnalyzer,
   reference: TextResourceRange,
-  declaration: DeclarationSemantic,
+  declaration: TypeDeclarationSemantic,
   generics: Array2<TypeSemantic | Nothing> | Nothing,
 ): IdTypeSemantic {
-  const semantic: IdTypeSemantic = {
+  declaration.usages.push(reference);
+
+  return {
     $: $.IdTypeSemantic,
     reference,
     declaration,
@@ -34,7 +36,7 @@ export function idTypeSemantic(
         return true;
       }
 
-      if (isTypeDeclarationSemantic(this.declaration)) {
+      if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
         return this.declaration.type?.is(other) ?? false;
       }
 
@@ -42,7 +44,7 @@ export function idTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (isTypeDeclarationSemantic(this.declaration) && is(other, $.IdTypeSemantic)) {
+      if (is(this.declaration, $.NominalTypeDeclarationSemantic) && is(other, $.IdTypeSemantic)) {
         return this.declaration.eq(other.declaration);
       }
 
@@ -50,11 +52,16 @@ export function idTypeSemantic(
     },
 
     attributes(): DeclarationManager {
-      return declaration.attributes?.clone() ?? createDeclarationManager();
+      // todo review below two checks
+      if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
+        return this.declaration.attributes?.clone() ?? createDeclarationManager();
+      }
+
+      if (is(this.declaration, $.StructuralTypeDeclarationSemantic)) {
+        return this.declaration.value?.attributes().clone() ?? createDeclarationManager();
+      }
+
+      return createDeclarationManager();
     },
   };
-
-  declaration.usages.push(reference);
-
-  return semantic;
 }
