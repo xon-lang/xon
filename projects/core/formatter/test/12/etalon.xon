@@ -1,2 +1,2 @@
-model Abc
+type Abc
   name: String

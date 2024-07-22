@@ -1,14 +1,14 @@
-model A: B
+type A: B
 
-model A: B
+type A: B
 
 const a = 0..10
 
 a.max
 
-model A: B
+type A: B
 
-// model A:    B
+// type A:    B
 
 const a = 0..10
 
