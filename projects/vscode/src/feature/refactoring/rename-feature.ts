@@ -13,10 +13,7 @@ import {
 } from 'vscode';
 
 import {$, is} from '../../../../core/$';
-import {
-  DeclarationSemantic,
-  isTypeDeclarationSemantic,
-} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
+import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
@@ -72,10 +69,6 @@ class LanguageRenameProvider implements RenameProvider {
 
 function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
   if (is(semantic, $.DeclarationSemantic)) {
-    return semantic;
-  }
-
-  if (isTypeDeclarationSemantic(semantic)) {
     return semantic;
   }
 

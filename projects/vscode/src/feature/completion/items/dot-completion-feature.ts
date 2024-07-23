@@ -12,6 +12,7 @@ import {
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
 import {DeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
+import {ValueDeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {convertVscodePosition, getDocumentSemantic} from '../../../util';
@@ -32,7 +33,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
       const attributes = getAttributes(node.parent.instance.semantic);
 
       if (attributes) {
-        return attributes.map(createPropertyCompletionItem);
+        return attributes.map(createAttributeCompletionItem);
       }
     }
 
@@ -52,18 +53,18 @@ function getAttributes(semantic: Semantic): Array2<DeclarationSemantic> | Nothin
   return nothing;
 }
 
-function createPropertyCompletionItem(attribute: DeclarationSemantic): CompletionItem {
-  const item = new CompletionItem(attribute.name, getCompletionItemKind(attribute));
+function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): CompletionItem {
+  const item = new CompletionItem(semantic.name, getCompletionItemKind(semantic));
 
-  if (is(attribute.type, $.IdTypeSemantic)) {
-    item.detail = attribute.type.declaration.name;
+  if (is(semantic.type, $.IdTypeSemantic)) {
+    item.detail = semantic.type.declaration.name;
   }
 
   return item;
 }
 
-export function getCompletionItemKind(attribute: DeclarationSemantic): CompletionItemKind {
-  if (attribute.parameters) {
+export function getCompletionItemKind(semantic: ValueDeclarationSemantic): CompletionItemKind {
+  if (is(semantic, $.MethodValueDeclarationSemantic)) {
     return CompletionItemKind.Method;
   }
 

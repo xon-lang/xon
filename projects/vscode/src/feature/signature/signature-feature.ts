@@ -17,6 +17,7 @@ import {$, hasSemantic, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {Node} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
+import {MethodValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/method/method-value-declaration-semantic';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
@@ -48,7 +49,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     if (is(invokeParameterIndex.invokeNode.instance, $.IdNode)) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
-      if (declaration) {
+      if (is(declaration, $.MethodValueDeclarationSemantic)) {
         return getSignatureHelp(declaration, invokeParameterIndex.parameterIndex);
       }
     }
@@ -101,7 +102,10 @@ function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
   return nothing;
 }
 
-function getSignatureHelp(declaration: DeclarationSemantic, parameterIndex: Integer): SignatureHelp {
+function getSignatureHelp(
+  declaration: MethodValueDeclarationSemantic,
+  parameterIndex: Integer,
+): SignatureHelp {
   const signatureHelp = new SignatureHelp();
   const signature = getSignatureInformation(declaration);
 
@@ -112,13 +116,13 @@ function getSignatureHelp(declaration: DeclarationSemantic, parameterIndex: Inte
   return signatureHelp;
 }
 
-function getSignatureInformation(declaration: DeclarationSemantic): SignatureInformation {
-  const description = declaration.documentation?.setPadding(0)?.trim() ?? '';
+function getSignatureInformation(declaration: MethodValueDeclarationSemantic): SignatureInformation {
   const parametersNames =
     declaration.parameters
       ?.map((x) => `${x?.name ?? ''}: ${typeSemanticToString(x?.type) ?? ''}`)
       ?.join(', ') ?? '';
 
+  const description = declaration.documentation?.setPadding(0)?.trim() ?? '';
   const descriptionMarkdown = new MarkdownString(description);
   const signature = new SignatureInformation(`${declaration.name}(${parametersNames})`, descriptionMarkdown);
 

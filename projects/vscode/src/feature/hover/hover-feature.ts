@@ -13,7 +13,6 @@ import {
 import {$, hasSemantic, is} from '../../../../core/$';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
-import {TypeSemantic} from '../../../../core/analyzer/semantic/node/type/type-semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, convertVscodePosition, getDocumentSemantic} from '../../util';
@@ -35,7 +34,7 @@ class LanguageHoverProvider implements HoverProvider {
       return nothing;
     }
 
-    const markdown = getSemanticHoverText(node.semantic);
+    const markdown = getTypeMarkdown(node.semantic);
 
     if (!markdown) {
       return nothing;
@@ -47,20 +46,8 @@ class LanguageHoverProvider implements HoverProvider {
   }
 }
 
-function getSemanticHoverText(semantic: Semantic): MarkdownString | Nothing {
-  if (is(semantic, $.TypeSemantic)) {
-    return getTypeMarkdown(semantic);
-  }
-
-  if (is(semantic, $.ValueSemantic) && semantic.type) {
-    return getTypeMarkdown(semantic.type);
-  }
-
-  return nothing;
-}
-
-function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
-  const text = typeToText(type);
+function getTypeMarkdown(semantic: Semantic): MarkdownString | Nothing {
+  const text = semanticToText(semantic);
 
   if (!text) {
     return nothing;
@@ -69,21 +56,29 @@ function getTypeMarkdown(type: TypeSemantic): MarkdownString | Nothing {
   return markdownCode(text);
 }
 
-function typeToText(type: TypeSemantic): String2 | Nothing {
-  if (is(type, $.IdTypeSemantic)) {
-    return declarationToText(type.declaration);
+function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
+  if (is(semantic, $.ValueSemantic)) {
+    return semanticToText(semantic.type);
   }
 
-  if (is(type, $.StringTypeSemantic)) {
-    const declaration = declarationToText(type.declaration);
-
-    return `${declaration}("${type.value}")`;
+  if (is(semantic, $.DeclarationSemantic)) {
+    return declarationToText(semantic);
   }
 
-  if (is(type, $.IntegerTypeSemantic)) {
-    const declaration = declarationToText(type.declaration);
+  if (is(semantic, $.IdTypeSemantic)) {
+    return declarationToText(semantic.declaration);
+  }
 
-    return `${declaration}(${type.value})`;
+  if (is(semantic, $.StringTypeSemantic)) {
+    const declaration = declarationToText(semantic.declaration);
+
+    return `${declaration}("${semantic.value}")`;
+  }
+
+  if (is(semantic, $.IntegerTypeSemantic)) {
+    const declaration = declarationToText(semantic.declaration);
+
+    return `${declaration}(${semantic.value})`;
   }
 
   return '';
