@@ -5,6 +5,7 @@ export type CloseNodeType =
   | $.ParenCloseNode
   | $.BracketCloseNode
   | $.BraceCloseNode
+  | $.AngleCloseNode
   | $.StringCloseNode
   | $.CharCloseNode;
 

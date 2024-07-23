@@ -108,6 +108,7 @@ export function createSyntaxAnalyzer(
           node = documentationNodeParse(this, node);
         }
 
+        // todo order above is important so fix it. Should we join all open nodes ???
         if (is(node, $.OpenNode)) {
           node = groupNodeParse(this, node);
         }

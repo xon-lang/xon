@@ -1,6 +1,6 @@
 import {$, is} from '../../../$';
 import {Array2, Nothing, nothing, String2} from '../../../../lib/types';
-import {BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
+import {ANGLE_CLOSE, BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
 
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {OpenNode} from '../../lexical/node/open/open-node';
@@ -9,6 +9,7 @@ import {groupNode, GroupNode, GroupNodeType} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
+  debugger;
   if (is(openNode, $.ParenOpenNode)) {
     return groupNodeParseInner(analyzer, $.ParenGroupNode, openNode, PAREN_CLOSE);
   }
@@ -17,7 +18,11 @@ export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Gr
     return groupNodeParseInner(analyzer, $.BracketGroupNode, openNode, BRACKET_CLOSE);
   }
 
-  return groupNodeParseInner(analyzer, $.BraceGroupNode, openNode, BRACE_CLOSE);
+  if (is(openNode, $.BraceOpenNode)) {
+    return groupNodeParseInner(analyzer, $.BraceGroupNode, openNode, BRACE_CLOSE);
+  }
+
+  return groupNodeParseInner(analyzer, $.AngleGroupNode, openNode, ANGLE_CLOSE);
 }
 
 function groupNodeParseInner(

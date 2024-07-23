@@ -9,7 +9,7 @@ import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {ItemNode} from './item-node';
 
-export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode;
+export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode | $.AngleGroupNode;
 
 export type GroupNode<
   GroupType extends GroupNodeType = GroupNodeType,

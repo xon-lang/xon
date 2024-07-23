@@ -1,5 +1,6 @@
 import {Boolean2, Nothing} from '../lib/types';
 import {CharContentNode} from './analyzer/lexical/node/char-content/char-content-node';
+import {AngleCloseNode} from './analyzer/lexical/node/close/angle-close/angle-close-node';
 import {BraceCloseNode} from './analyzer/lexical/node/close/brace-close/brace-close-node';
 import {BracketCloseNode} from './analyzer/lexical/node/close/bracket-close/bracket-close-node';
 import {CharCloseNode} from './analyzer/lexical/node/close/char-close/char-close-node';
@@ -18,6 +19,7 @@ import {IntegerContentNode} from './analyzer/lexical/node/integer-content/intege
 import {JoiningNode} from './analyzer/lexical/node/joining/joining-node';
 import {LexicalNode} from './analyzer/lexical/node/lexical-node';
 import {NlNode} from './analyzer/lexical/node/nl/nl-node';
+import {AngleOpenNode} from './analyzer/lexical/node/open/angle-open/angle-open-node';
 import {BraceOpenNode} from './analyzer/lexical/node/open/brace-open/brace-open-node';
 import {BracketOpenNode} from './analyzer/lexical/node/open/bracket-open/bracket-open-node';
 import {CharOpenNode} from './analyzer/lexical/node/open/char-open/char-open-node';
@@ -59,6 +61,7 @@ import {StringValueSemantic} from './analyzer/semantic/node/value/string/string-
 import {ValueSemantic} from './analyzer/semantic/node/value/value-semantic';
 import {DocumentationItemNode} from './analyzer/syntax/documentation/documentation-item-node';
 import {DocumentationNode} from './analyzer/syntax/documentation/documentation-node';
+import {AngleGroupNode} from './analyzer/syntax/group/angle/angle-group-node';
 import {BraceGroupNode} from './analyzer/syntax/group/brace/brace-group-node';
 import {BracketGroupNode} from './analyzer/syntax/group/bracket/bracket-group-node';
 import {GroupNode} from './analyzer/syntax/group/group-node';
@@ -117,6 +120,7 @@ export enum $ {
   ParenOpenNode = ' ParenOpenNode ' + $.OpenNode,
   BracketOpenNode = ' BracketOpenNode ' + $.OpenNode,
   BraceOpenNode = ' BraceOpenNode ' + $.OpenNode,
+  AngleOpenNode = ' AngleOpenNode ' + $.OpenNode,
   StringOpenNode = ' StringOpenNode ' + $.OpenNode,
   CharOpenNode = ' CharOpenNode ' + $.OpenNode,
   DocumentationOpenNode = ' DocumentationOpenNode ' + $.OpenNode,
@@ -125,6 +129,7 @@ export enum $ {
   ParenCloseNode = ' ParenCloseNode ' + $.CloseNode,
   BracketCloseNode = ' BracketCloseNode ' + $.CloseNode,
   BraceCloseNode = ' BraceCloseNode ' + $.CloseNode,
+  AngleCloseNode = ' AngleCloseNode ' + $.CloseNode,
   StringCloseNode = ' StringCloseNode ' + $.CloseNode,
   CharCloseNode = ' CharCloseNode ' + $.CloseNode,
   DocumentationCloseNode = ' DocumentationCloseNode ' + $.CloseNode,
@@ -142,6 +147,7 @@ export enum $ {
   ParenGroupNode = ' ParenGroupNode ' + $.GroupNode,
   BracketGroupNode = ' BracketGroupNode ' + $.GroupNode,
   BraceGroupNode = ' BraceGroupNode ' + $.GroupNode,
+  AngleGroupNode = ' AngleGroupNode ' + $.GroupNode,
 
   DeclarationNode = ' DeclarationNode ' + $.SyntaxNode,
 
@@ -239,6 +245,7 @@ export type TypeMap = {
   [$.ParenOpenNode]: ParenOpenNode;
   [$.BracketOpenNode]: BracketOpenNode;
   [$.BraceOpenNode]: BraceOpenNode;
+  [$.AngleOpenNode]: AngleOpenNode;
   [$.StringOpenNode]: StringOpenNode;
   [$.CharOpenNode]: CharOpenNode;
 
@@ -246,6 +253,7 @@ export type TypeMap = {
   [$.ParenCloseNode]: ParenCloseNode;
   [$.BracketCloseNode]: BracketCloseNode;
   [$.BraceCloseNode]: BraceCloseNode;
+  [$.AngleCloseNode]: AngleCloseNode;
   [$.StringCloseNode]: StringCloseNode;
   [$.CharCloseNode]: CharCloseNode;
 
@@ -260,6 +268,7 @@ export type TypeMap = {
   [$.ParenGroupNode]: ParenGroupNode;
   [$.BracketGroupNode]: BracketGroupNode;
   [$.BraceGroupNode]: BraceGroupNode;
+  [$.AngleGroupNode]: AngleGroupNode;
 
   [$.UnknownNode]: UnknownNode;
 
