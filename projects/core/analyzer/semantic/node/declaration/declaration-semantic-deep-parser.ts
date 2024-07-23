@@ -47,7 +47,13 @@ function genericsParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  if (!node.generics) {
+  if (
+    // todo fix 'is' conditions
+    !node.generics ||
+    (!is(declaration, $.NominalTypeDeclarationSemantic) &&
+      !is(declaration, $.StructuralTypeDeclarationSemantic) &&
+      !is(declaration, $.MethodValueDeclarationSemantic))
+  ) {
     return;
   }
 

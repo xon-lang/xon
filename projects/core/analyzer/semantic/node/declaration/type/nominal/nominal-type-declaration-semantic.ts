@@ -1,5 +1,5 @@
 import {$} from '../../../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
+import {Array2, Boolean2, Nothing, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {TypeSemantic} from '../../../type/type-semantic';

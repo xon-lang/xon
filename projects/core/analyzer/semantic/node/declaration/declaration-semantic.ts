@@ -7,7 +7,6 @@ export type DeclarationSemantic = Semantic & {
   usages: Array2<TextResourceRange>;
   modifier?: String2 | Nothing;
   name: String2;
-  generics?: Array2<DeclarationSemantic | Nothing> | Nothing;
 
   eq(other: DeclarationSemantic): Boolean2;
 };

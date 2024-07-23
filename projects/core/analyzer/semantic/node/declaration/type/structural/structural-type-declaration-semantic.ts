@@ -8,8 +8,6 @@ import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.StructuralTypeDeclarationSemantic;
   value?: TypeSemantic | Nothing;
-
-  eq(other: DeclarationSemantic): Boolean2;
 };
 
 export function structuralTypeDeclarationSemantic(

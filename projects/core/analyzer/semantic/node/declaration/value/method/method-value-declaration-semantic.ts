@@ -8,8 +8,7 @@ import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 export type MethodValueDeclarationSemantic = ValueDeclarationSemantic & {
   $: $.MethodValueDeclarationSemantic;
   parameters?: Array2<DeclarationSemantic | Nothing> | Nothing;
-
-  eq(other: DeclarationSemantic): Boolean2;
+  generics?: Array2<DeclarationSemantic | Nothing> | Nothing;
 };
 
 export function methodValueDeclarationSemantic(

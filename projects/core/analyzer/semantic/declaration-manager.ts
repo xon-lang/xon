@@ -95,9 +95,10 @@ export function createDeclarationManager(
         return nothing;
       }
 
-      const filtered = declarations.filter((x) =>
-        generics && x.generics ? x.generics.length === generics.length : true,
-      );
+      // todo fix it
+      const filtered = declarations; // .filter((x) =>
+      //   generics && x.generics ? x.generics.length === generics.length : true,
+      // );
 
       if (filtered.length !== 1) {
         // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));

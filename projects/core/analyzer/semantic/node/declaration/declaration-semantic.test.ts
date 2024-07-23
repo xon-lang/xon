@@ -27,7 +27,6 @@ test('only a', () => {
   ) as PropertyValueDeclarationSemantic;
   expect(attributeP.$).toBe($.PropertyValueDeclarationSemantic);
   expect(attributeP.name).toBe('p');
-  expect(attributeP.generics).toBeFalsy();
   expect((attributeP.type as IdTypeSemantic).declaration?.name).toBe('A');
 });
 
