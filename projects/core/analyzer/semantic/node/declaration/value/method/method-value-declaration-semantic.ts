@@ -7,7 +7,7 @@ import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
 export type MethodValueDeclarationSemantic = ValueDeclarationSemantic & {
   $: $.MethodValueDeclarationSemantic;
-  parameters?: Array2<DeclarationSemantic | Nothing> | Nothing;
+  parameters?: Array2<ValueDeclarationSemantic | Nothing> | Nothing;
   generics?: Array2<DeclarationSemantic | Nothing> | Nothing;
 };
 
@@ -16,7 +16,7 @@ export function methodValueDeclarationSemantic(
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
-  parameters: Array2<DeclarationSemantic | Nothing> | Nothing,
+  parameters: Array2<ValueDeclarationSemantic | Nothing> | Nothing,
   type: TypeSemantic | Nothing,
 ): MethodValueDeclarationSemantic {
   return {

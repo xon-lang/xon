@@ -1,6 +1,6 @@
 import {$} from '../../../../../$';
 import {Nothing, String2} from '../../../../../../lib/types';
-import {DeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/declaration-semantic';
+import {TypeDeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {TypescriptTranslatorNode} from '../../typescript-node';
 
 export type TypeDeclarationTypescriptNode = TypescriptTranslatorNode & {
@@ -8,7 +8,7 @@ export type TypeDeclarationTypescriptNode = TypescriptTranslatorNode & {
 };
 
 export function toTypeDeclarationTypescriptNode(
-  semantic: DeclarationSemantic | Nothing,
+  semantic: TypeDeclarationSemantic | Nothing,
 ): TypeDeclarationTypescriptNode {
   return {
     $: $.TypeDeclarationTypescriptNode,

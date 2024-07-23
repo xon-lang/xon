@@ -9,7 +9,6 @@ import {groupNode, GroupNode, GroupNodeType} from './group-node';
 import {ItemNode, itemNode} from './item-node';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
-  debugger;
   if (is(openNode, $.ParenOpenNode)) {
     return groupNodeParseInner(analyzer, $.ParenGroupNode, openNode, PAREN_CLOSE);
   }

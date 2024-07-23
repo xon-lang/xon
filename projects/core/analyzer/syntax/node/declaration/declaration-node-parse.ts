@@ -226,7 +226,7 @@ export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarat
   if (
     is(declarationNode, $.DeclarationNode) &&
     declarationNode.modifier?.text &&
-    TYPE_MODIFIER === declarationNode.modifier.text
+    declarationNode.modifier.text === TYPE_MODIFIER
   ) {
     return true;
   }
