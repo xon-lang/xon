@@ -39,6 +39,9 @@ export const BRACKET_CLOSE = ']';
 export const BRACE_OPEN = '{';
 export const BRACE_CLOSE = '}';
 
+export const ANGLE_OPEN = '<:';
+export const ANGLE_CLOSE = ':>';
+
 export const IMPORT = 'import';
 export const EXPORT = 'export';
 

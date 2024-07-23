@@ -5,6 +5,7 @@ export type OpenNodeType =
   | $.ParenOpenNode
   | $.BracketOpenNode
   | $.BraceOpenNode
+  | $.AngleOpenNode
   | $.StringOpenNode
   | $.CharOpenNode;
 
