@@ -22,7 +22,7 @@ export function documentationItemNode(
   const id = idFromLabel(label);
   const operator = operatorFromLabel(label);
 
-  return syntaxNode($.DocumentationItemNode, {operator, id, description});
+  return syntaxNode({$: $.DocumentationItemNode, operator, id, description});
 }
 
 function operatorFromLabel(label: DocumentationLabelNode): OperatorNode {

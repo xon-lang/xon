@@ -21,8 +21,7 @@ export function documentationNode(
   items: Array2<DocumentationItemNode>,
   close?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
-  const node = syntaxNode($.DocumentationNode, {open, description, items, close});
-  node.isHidden = true;
+  const node = syntaxNode({$: $.DocumentationNode, isHidden: true, open, description, items, close});
 
   validate(analyzer, node);
 

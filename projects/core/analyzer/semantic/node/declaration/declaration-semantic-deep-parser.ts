@@ -132,13 +132,14 @@ function valueParse(
   }
 
   // todo depends on declaration kind (e.g. generic or const) ???
-  const value = valueSemanticParse(analyzer, node.assign.value);
+  const valueSemantic = valueSemanticParse(analyzer, node.assign.value);
+  node.assign.value.semantic = valueSemantic;
 
   if (!declaration.type) {
-    if (value?.type) {
-      declaration.type = value.type;
+    if (valueSemantic?.type) {
+      declaration.type = valueSemantic.type;
     }
-  } else if (!value?.type || !value.type.is(declaration.type)) {
+  } else if (!valueSemantic?.type || !valueSemantic.type.is(declaration.type)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.assign.value.range, (x) => x.wrongType());
   }
 }
