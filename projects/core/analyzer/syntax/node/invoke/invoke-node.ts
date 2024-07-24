@@ -11,7 +11,7 @@ export type InvokeNode = SyntaxNode<$.InvokeNode> &
   };
 
 export function invokeNode(analyzer: SyntaxAnalyzer, instance: ExpressionNode, group: GroupNode): InvokeNode {
-  const node = syntaxNode($.InvokeNode, {instance, group});
+  const node = syntaxNode({$: $.InvokeNode, instance, group});
 
   format(analyzer, node);
 

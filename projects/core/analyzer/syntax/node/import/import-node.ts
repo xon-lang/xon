@@ -17,7 +17,7 @@ export function importNode(
   operator: OperatorNode,
   value: StringNode | Nothing,
 ): ImportNode {
-  const node = syntaxNode($.ImportNode, {operator, value});
+  const node = syntaxNode({$: $.ImportNode, operator, value});
 
   validate(analyzer, node);
   format(analyzer, node);

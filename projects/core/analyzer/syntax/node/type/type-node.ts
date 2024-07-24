@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {Nothing} from '../../../../../lib/types';
+import {nothing, Nothing} from '../../../../../lib/types';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
@@ -12,7 +12,7 @@ export type TypeNode = SyntaxNode<$.TypeNode> & {
 };
 
 export function typeNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: ExpressionNode): TypeNode {
-  const node = syntaxNode($.TypeNode, {operator, value});
+  const node = syntaxNode({$: $.TypeNode, operator, value, semantic: nothing});
 
   format(analyzer, node);
 

@@ -20,5 +20,5 @@ export function charNode(
   content: CharContentNode | Nothing,
   close?: CharCloseNode | Nothing,
 ): CharNode {
-  return syntaxNode($.CharNode, {open, content, close});
+  return syntaxNode({$: $.CharNode, open, content, close});
 }

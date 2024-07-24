@@ -18,7 +18,7 @@ export function infixNode(
   operator: OperatorNode,
   right: ExpressionNode,
 ): InfixNode {
-  const node = syntaxNode($.InfixNode, {left, operator, right});
+  const node = syntaxNode({$: $.InfixNode, left, operator, right});
 
   format(analyzer, node);
 

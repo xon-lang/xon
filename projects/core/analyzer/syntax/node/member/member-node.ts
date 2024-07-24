@@ -19,7 +19,7 @@ export function memberNode(
   operator: OperatorNode,
   id: IdNode | Nothing,
 ): MemberNode {
-  const node = syntaxNode($.MemberNode, {instance, operator, id});
+  const node = syntaxNode({$: $.MemberNode, instance, operator, id});
 
   validate(analyzer, node);
   format(analyzer, node);

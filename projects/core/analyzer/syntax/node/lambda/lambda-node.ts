@@ -22,12 +22,7 @@ export function lambdaNode(
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): LambdaNode {
-  const node = syntaxNode($.LambdaNode, {
-    generics,
-    parameters,
-    type,
-    assign,
-  });
+  const node = syntaxNode({$: $.LambdaNode, generics, parameters, type, assign});
 
   format(analyzer, node);
 

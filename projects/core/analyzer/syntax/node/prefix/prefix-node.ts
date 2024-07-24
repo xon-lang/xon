@@ -16,7 +16,7 @@ export function prefixNode(
   operator: OperatorNode,
   value: ExpressionNode,
 ): PrefixNode {
-  const node = syntaxNode($.PrefixNode, {operator, value});
+  const node = syntaxNode({$: $.PrefixNode, operator, value});
 
   format(analyzer, node);
 

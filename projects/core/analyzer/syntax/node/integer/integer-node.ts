@@ -12,10 +12,7 @@ export type IntegerNode = SyntaxNode<$.IntegerNode> &
   };
 
 export function integerNode(analyzer: SyntaxAnalyzer, content: IntegerContentNode): IntegerNode {
-  const node: IntegerNode = {
-    ...syntaxNode($.IntegerNode, {content}),
-    value: Number(content.text.replaceAll('_', '')),
-  };
+  const value = Number(content.text.replaceAll('_', ''));
 
-  return node;
+  return syntaxNode({$: $.IntegerNode, content, value});
 }

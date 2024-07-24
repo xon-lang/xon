@@ -15,7 +15,7 @@ export function postfixNode(
   value: ExpressionNode,
   operator: OperatorNode,
 ): PostfixNode {
-  const node = syntaxNode($.PostfixNode, {value, operator});
+  const node = syntaxNode({$: $.PostfixNode, value, operator});
 
   format(analyzer, node);
 
