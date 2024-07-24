@@ -28,7 +28,10 @@ class LanguageHoverProvider implements HoverProvider {
 
   provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
     const semantic = getDocumentSemantic(document, this.channel);
-    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
+    const node = semantic.syntaxAnalyzer.findClosestNode(
+      convertVscodePosition(document, position),
+      $.ExpressionNode,
+    );
 
     if (!hasSemantic(node)) {
       return nothing;

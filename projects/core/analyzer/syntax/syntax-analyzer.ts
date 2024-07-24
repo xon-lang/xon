@@ -41,8 +41,8 @@ export type SyntaxAnalyzer = {
   ): StatementNode | Nothing;
 
   findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing;
-
   findNode(positionOrRange: TextPosition | TextRange): Node | Nothing;
+  findClosestNode(positionOrRange: TextPosition | TextRange, $: $): Node | Nothing;
 };
 
 export function createSyntaxAnalyzer(
@@ -198,6 +198,24 @@ export function createSyntaxAnalyzer(
       }
 
       return this.findNodeInChildren(statement.children, positionOrRange);
+    },
+
+    findClosestNode(positionOrRange: TextPosition | TextRange, $: $): Node | Nothing {
+      let node = this.findNode(positionOrRange);
+
+      if (!node) {
+        return nothing;
+      }
+
+      while (!is(node, $)) {
+        node = (node as unknown as Node).parent;
+
+        if (!node) {
+          return nothing;
+        }
+      }
+
+      return node;
     },
   };
 

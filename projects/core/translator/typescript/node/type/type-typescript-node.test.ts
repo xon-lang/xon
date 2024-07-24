@@ -1,5 +1,5 @@
 import {nothing} from '../../../../../lib/types';
-import {DeclarationSemantic} from '../../../../analyzer/semantic/node/declaration/declaration-semantic';
+import {ValueDeclarationSemantic} from '../../../../analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {semanticFromResource} from '../../../../analyzer/semantic/semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../analyzer/semantic/semantic-analyzer-config';
 import {DeclarationNode} from '../../../../analyzer/syntax/node/declaration/declaration-node';
@@ -11,7 +11,7 @@ test('type string', () => {
   const resource = textResourceFromData(nothing, text);
   const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = syntax.statements[0].value as DeclarationNode;
-  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
@@ -23,7 +23,7 @@ test('type integer', () => {
   const resource = textResourceFromData(nothing, text);
   const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = syntax.statements[0].value as DeclarationNode;
-  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
@@ -35,7 +35,7 @@ test('type union', () => {
   const resource = textResourceFromData(nothing, text);
   const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = syntax.statements[0].value as DeclarationNode;
-  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
@@ -47,7 +47,7 @@ test('type array', () => {
   const resource = textResourceFromData(nothing, text);
   const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = syntax.statements[0].value as DeclarationNode;
-  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = toTypeTypescriptNode(semantic.type);
   const translated = translator.translate();
 
