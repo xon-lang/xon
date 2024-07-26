@@ -8,16 +8,18 @@ export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): Document
     return nothing;
   }
 
-  const text = analyzer.resource.data.takeWhile(
-    (x, i) => x === AT || analyzer.resource.data.isLetterOrDigit(i),
-    analyzer.position.index,
-  );
+  const text = analyzer.resource.data
+    // todo simplify it '.characters[i].isLetterOrDigit(0)'
+    .takeWhile(
+      (x, i) => x === AT || analyzer.resource.data.characters[i].isLetterOrDigit(0),
+      analyzer.position.index,
+    );
 
-  if (text.length <= AT.length) {
+  if (text.length() <= AT.length) {
     return nothing;
   }
 
-  const range = analyzer.getRange(text.length);
+  const range = analyzer.getRange(text);
 
   return documentationLabelNode(range, text);
 }

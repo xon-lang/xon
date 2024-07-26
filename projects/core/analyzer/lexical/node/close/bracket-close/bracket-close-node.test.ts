@@ -13,5 +13,5 @@ test('close paren', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.BracketCloseNode);
-  expect(node.text).toBe(']');
+  expect(node.text.toString()).toBe(']');
 });

@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {ANGLE_CLOSE} from '../../../lexical-analyzer-config';
 import {AngleCloseNode, angleCloseNode} from './angle-close-node';
@@ -8,8 +9,8 @@ export function angleCloseNodeParse(analyzer: LexicalAnalyzer): AngleCloseNode |
     return nothing;
   }
 
-  const text = ANGLE_CLOSE;
-  const range = analyzer.getRange(text.length);
+  const text = textData(ANGLE_CLOSE);
+  const range = analyzer.getRange(text);
 
   return angleCloseNode(range, text);
 }

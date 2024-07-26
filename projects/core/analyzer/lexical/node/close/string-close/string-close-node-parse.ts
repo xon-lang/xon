@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {STRING_CLOSE} from '../../../lexical-analyzer-config';
 import {StringCloseNode, stringCloseNode} from './string-close-node';
@@ -8,8 +9,8 @@ export function stringCloseNodeParse(analyzer: LexicalAnalyzer): StringCloseNode
     return nothing;
   }
 
-  const text = STRING_CLOSE;
-  const range = analyzer.getRange(text.length);
+  const text = textData(STRING_CLOSE);
+  const range = analyzer.getRange(text);
 
   return stringCloseNode(range, text);
 }

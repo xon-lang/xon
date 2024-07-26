@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {BRACKET_CLOSE} from '../../../lexical-analyzer-config';
 import {bracketCloseNode, BracketCloseNode} from './bracket-close-node';
@@ -8,8 +9,8 @@ export function bracketCloseNodeParse(analyzer: LexicalAnalyzer): BracketCloseNo
     return nothing;
   }
 
-  const text = BRACKET_CLOSE;
-  const range = analyzer.getRange(text.length);
+  const text = textData(BRACKET_CLOSE);
+  const range = analyzer.getRange(text);
 
   return bracketCloseNode(range, text);
 }

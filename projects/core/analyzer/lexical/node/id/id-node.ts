@@ -1,5 +1,6 @@
 import {$} from '../../../../$';
-import {Nothing, String2} from '../../../../../lib/types';
+import {Nothing} from '../../../../../lib/types';
+import {TextData} from '../../../../util/data/text-data';
 import '../../../../util/extension';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {ExpressionNode} from '../../../node';
@@ -14,6 +15,6 @@ export type IdNode = LexicalNode<$.IdNode> &
     semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | DocumentationIdSemantic | Nothing;
   };
 
-export function idNode(range: TextRange, text: String2): IdNode {
+export function idNode(range: TextRange, text: TextData): IdNode {
   return lexicalNode({$: $.IdNode, range, text});
 }

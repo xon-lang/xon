@@ -8,14 +8,14 @@ export function stringContentNodeParse(analyzer: LexicalAnalyzer): StringContent
     return nothing;
   }
 
-  const endIndex = analyzer.resource.data.indexOf(STRING_CLOSE, analyzer.position.index);
+  const endIndex = analyzer.resource.data.firstIndex(STRING_CLOSE, analyzer.position.index);
 
   const text = analyzer.resource.data.slice(
     analyzer.position.index,
-    endIndex > 0 ? endIndex : analyzer.resource.data.length,
+    endIndex > 0 ? endIndex : analyzer.resource.data.length(),
   );
 
-  const range = analyzer.getRange(text.length);
+  const range = analyzer.getRange(text);
 
   return stringContentNode(range, text);
 }

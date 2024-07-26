@@ -8,14 +8,15 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
     return nothing;
   }
 
-  let text =
-    JOINING + analyzer.resource.data.takeWhile((x) => x === SPACE, analyzer.position.index + JOINING.length);
+  const text = analyzer.resource.data
+    .takeWhile((x) => x === SPACE, analyzer.position.index + JOINING.length)
+    .prepend(JOINING);
 
-  if (analyzer.resource.data[analyzer.position.index + text.length] === NL) {
-    text += NL;
+  if (analyzer.resource.data.characters[analyzer.position.index + text.length()] === NL) {
+    text.append(NL);
   }
 
-  const range = analyzer.getRangeWithNL(text.length);
+  const range = analyzer.getRangeWithNL(text);
 
   return joiningNode(range, text);
 }

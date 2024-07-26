@@ -11,11 +11,11 @@ export function documentationDescriptionNodeParse(
     analyzer.position.index,
   );
 
-  if (text.length === 0) {
+  if (text.length() === 0) {
     return nothing;
   }
 
-  const range = analyzer.getRangeWithNL(text.length);
+  const range = analyzer.getRangeWithNL(text);
 
   return documentationDescriptionNode(range, text);
 }

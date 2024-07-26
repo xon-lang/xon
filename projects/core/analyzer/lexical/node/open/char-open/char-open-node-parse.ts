@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {CHAR_OPEN} from '../../../lexical-analyzer-config';
 import {CharOpenNode, charOpenNode} from './char-open-node';
@@ -8,8 +9,8 @@ export function charOpenNodeParse(analyzer: LexicalAnalyzer): CharOpenNode | Not
     return nothing;
   }
 
-  const text = CHAR_OPEN;
-  const range = analyzer.getRange(text.length);
+  const text = textData(CHAR_OPEN);
+  const range = analyzer.getRange(text);
 
   return charOpenNode(range, text);
 }

@@ -15,5 +15,5 @@ test('whitespace', () => {
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($.WhitespaceNode);
-  expect((node as LexicalNode).text).toBe('    ');
+  expect((node as LexicalNode).text.toString()).toBe('    ');
 });

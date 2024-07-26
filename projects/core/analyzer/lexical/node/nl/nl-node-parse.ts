@@ -13,10 +13,10 @@ export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
     analyzer.position.index,
   );
 
-  const lastNlIndex = textWithIndents.lastIndexOf(NL);
+  const lastNlIndex = textWithIndents.lastIndex(NL);
 
   const text = textWithIndents.slice(0, lastNlIndex + 1);
-  const range = analyzer.getRangeWithNL(text.length);
+  const range = analyzer.getRangeWithNL(text);
 
   return nlNode(range, text);
 }

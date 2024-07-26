@@ -14,5 +14,5 @@ test('line comment', () => {
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($.CommentLineNode);
-  expect(node.text).toBe('// abc');
+  expect(node.text.toString()).toBe('// abc');
 });

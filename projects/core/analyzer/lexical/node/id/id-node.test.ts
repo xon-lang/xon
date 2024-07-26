@@ -13,7 +13,7 @@ test('single id', () => {
   const node = statements[0].value as IdNode;
 
   expect(statements.length).toBe(1);
-  expect(node.text).toBe('abc');
+  expect(node.text.toString()).toBe('abc');
   expect(node.$).toBe($.IdNode);
 });
 
@@ -25,12 +25,12 @@ test('several id', () => {
   const node = statements[0].value as IdNode;
 
   expect(statements.length).toBe(1);
-  expect(node.text).toBe('abc');
+  expect(node.text.toString()).toBe('abc');
   expect(node.$).toBe($.IdNode);
 
   expect(syntax.diagnosticManager.diagnostics.length).toBe(2);
 
-  const diagnosticMessage = predefinedDiagnostics(source.getReference(node.range)).unexpectedExpression()
+  const diagnosticMessage = predefinedDiagnostics(source.reference(node.range)).unexpectedExpression()
     .message;
 
   expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(diagnosticMessage.actual);

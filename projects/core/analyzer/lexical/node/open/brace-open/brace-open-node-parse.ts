@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {BRACE_OPEN} from '../../../lexical-analyzer-config';
 import {BraceOpenNode, braceOpenNode} from './brace-open-node';
@@ -8,8 +9,8 @@ export function braceOpenNodeParse(analyzer: LexicalAnalyzer): BraceOpenNode | N
     return nothing;
   }
 
-  const text = BRACE_OPEN;
-  const range = analyzer.getRange(text.length);
+  const text = textData(BRACE_OPEN);
+  const range = analyzer.getRange(text);
 
   return braceOpenNode(range, text);
 }

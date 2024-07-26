@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../lib/types';
+import {textData} from '../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {COMMA} from '../../lexical-analyzer-config';
 import {CommaNode, commaNode} from './comma-node';
@@ -8,8 +9,8 @@ export function commaNodeParse(analyzer: LexicalAnalyzer): CommaNode | Nothing {
     return nothing;
   }
 
-  const text = COMMA;
-  const range = analyzer.getRange(text.length);
+  const text = textData(COMMA);
+  const range = analyzer.getRange(text);
 
   return commaNode(range, text);
 }

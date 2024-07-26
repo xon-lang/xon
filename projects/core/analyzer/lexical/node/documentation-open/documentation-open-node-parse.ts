@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../lib/types';
+import {textData} from '../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {DOCUMENTATION_OPEN} from '../../lexical-analyzer-config';
 import {documentationOpenNode, DocumentationOpenNode} from './documentation-open-node';
@@ -8,8 +9,8 @@ export function documentationOpenNodeParse(analyzer: LexicalAnalyzer): Documenta
     return nothing;
   }
 
-  const text = DOCUMENTATION_OPEN;
-  const range = analyzer.getRange(DOCUMENTATION_OPEN.length);
+  const text = textData(DOCUMENTATION_OPEN);
+  const range = analyzer.getRange(text);
 
   return documentationOpenNode(range, text);
 }

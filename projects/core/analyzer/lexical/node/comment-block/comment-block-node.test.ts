@@ -14,5 +14,5 @@ test('block comment', () => {
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
   expect(node.$).toBe($.CommentBlockNode);
-  expect(node.text).toBe('--- abc\n\n\n def---');
+  expect(node.text.toString()).toBe('--- abc\n\n\n def---');
 });

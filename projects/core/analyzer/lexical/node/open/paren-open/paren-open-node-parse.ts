@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {PAREN_OPEN} from '../../../lexical-analyzer-config';
 import {ParenOpenNode, parenOpenNode} from './paren-open-node';
@@ -8,8 +9,8 @@ export function parenOpenNodeParse(analyzer: LexicalAnalyzer): ParenOpenNode | N
     return nothing;
   }
 
-  const text = PAREN_OPEN;
-  const range = analyzer.getRange(text.length);
+  const text = textData(PAREN_OPEN);
+  const range = analyzer.getRange(text);
 
   return parenOpenNode(range, text);
 }

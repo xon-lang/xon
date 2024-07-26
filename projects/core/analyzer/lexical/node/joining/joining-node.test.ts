@@ -17,10 +17,10 @@ test('no space', () => {
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($.IdNode);
-  expect((node.instance as IdNode).text).toBe('abc');
-  expect((node.operator as OperatorNode).text).toBe('.');
+  expect((node.instance as IdNode).text.toString()).toBe('abc');
+  expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(node.id?.$).toBe($.IdNode);
-  expect((node.id as IdNode).text).toBe('def');
+  expect((node.id as IdNode).text.toString()).toBe('def');
 });
 
 test('spaces', () => {
@@ -32,10 +32,10 @@ test('spaces', () => {
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($.IdNode);
-  expect((node.instance as IdNode).text).toBe('abc');
-  expect((node.operator as OperatorNode).text).toBe('.');
+  expect((node.instance as IdNode).text.toString()).toBe('abc');
+  expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(node.id?.$).toBe($.IdNode);
-  expect((node.id as IdNode).text).toBe('def');
+  expect((node.id as IdNode).text.toString()).toBe('def');
 });
 
 test('with new line', () => {
@@ -47,10 +47,10 @@ test('with new line', () => {
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($.IdNode);
-  expect((node.instance as IdNode).text).toBe('abc');
-  expect((node.operator as OperatorNode).text).toBe('.');
+  expect((node.instance as IdNode).text.toString()).toBe('abc');
+  expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(is(node.operator.hiddenNodes?.at(0), $.LexicalNode)).toBe(true);
-  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text).toBe(JOINING + '   \n');
+  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(JOINING + '   \n');
   expect(node.id?.$).toBe($.IdNode);
-  expect((node.id as IdNode).text).toBe('def');
+  expect((node.id as IdNode).text.toString()).toBe('def');
 });

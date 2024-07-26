@@ -1,5 +1,6 @@
 import {$} from '../../../../$';
 import {Nothing, String2} from '../../../../../lib/types';
+import {TextData} from '../../../../util/data/text-data';
 import {TextRange} from '../../../../util/resource/text/text-range';
 import {ExpressionNode} from '../../../node';
 import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-analyzer-config';
@@ -16,7 +17,7 @@ export type OperatorNode = LexicalNode<$.OperatorNode> & ExpressionNode;
 //   keywordType: KeywordType | Nothing;
 // };
 
-export function operatorNode(range: TextRange, text: String2): OperatorNode {
+export function operatorNode(range: TextRange, text: TextData): OperatorNode {
   return lexicalNode({$: $.OperatorNode, range, text}); //, keywordType: getKeywordType(text)
 }
 

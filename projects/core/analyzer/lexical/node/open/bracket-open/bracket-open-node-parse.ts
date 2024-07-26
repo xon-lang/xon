@@ -1,4 +1,5 @@
 import {Nothing, nothing} from '../../../../../../lib/types';
+import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {BRACKET_OPEN} from '../../../lexical-analyzer-config';
 import {BracketOpenNode, bracketOpenNode} from './bracket-open-node';
@@ -8,8 +9,8 @@ export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode
     return nothing;
   }
 
-  const text = BRACKET_OPEN;
-  const range = analyzer.getRange(text.length);
+  const text = textData(BRACKET_OPEN);
+  const range = analyzer.getRange(text);
 
   return bracketOpenNode(range, text);
 }

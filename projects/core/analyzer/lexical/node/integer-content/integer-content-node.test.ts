@@ -13,6 +13,6 @@ test('string content', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.content?.text).toBe('1_2_3');
+  expect(node.content?.text.toString()).toBe('1_2_3');
   expect(node.value).toBe(123);
 });
