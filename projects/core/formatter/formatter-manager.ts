@@ -45,11 +45,11 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       const formatters = this.items.sortBy((x) => x.range.start.index);
 
       for (const {range, text} of formatters) {
-        formattedText += this.resource.data.slice(index, range.start.index) + text;
+        formattedText += this.resource.data.slice(index, range.start.index).toString() + text;
         index = range.stop.index;
       }
 
-      formattedText += this.resource.data.slice(index, this.resource.data.length);
+      formattedText += this.resource.data.slice(index, this.resource.data.length()).toString();
 
       return formattedText;
     },
@@ -78,7 +78,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
           return;
         }
 
-        if (whitespace.text === ' ') {
+        if (whitespace.text.equals(' ')) {
           return;
         }
 
@@ -227,7 +227,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       const startIndex = hiddenNodes.first()!.range.start.index;
       const stopIndex = hiddenNodes.last()!.range.stop.index;
 
-      return text === resource.data.slice(startIndex, stopIndex);
+      return resource.data.slice(startIndex, stopIndex).equals(text);
     },
   };
 }
