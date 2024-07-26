@@ -26,7 +26,7 @@ test('a is integer', () => {
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
-  expect(constNode.id?.text).toBe('a');
+  expect(constNode.id?.text.toString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;

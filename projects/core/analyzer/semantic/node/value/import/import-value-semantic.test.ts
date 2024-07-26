@@ -23,7 +23,7 @@ test('import core', () => {
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode).toBeTruthy();
-  expect(constNode.id?.text).toBe('a');
+  expect(constNode.id?.text.toString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;

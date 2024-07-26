@@ -10,7 +10,7 @@ export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): RangeTypeSemantic | Nothing {
-  if (!is(node, $.InfixNode) || node.operator.text !== RANGE) {
+  if (!is(node, $.InfixNode) || !node.operator.text.equals(RANGE)) {
     return nothing;
   }
 

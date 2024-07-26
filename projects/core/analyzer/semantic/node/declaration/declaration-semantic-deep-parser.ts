@@ -170,7 +170,7 @@ function parameterDocumentationHandle(
   documentation: DocumentationNode,
   parameter: DeclarationSemantic,
 ): void {
-  const filteredItems = documentation.items.filter((x) => x.id.text === parameter.name);
+  const filteredItems = documentation.items.filter((x) => x.id.text.equals(parameter.name));
 
   for (const item of filteredItems) {
     const reference = analyzer.createReference(item.id);
@@ -179,6 +179,6 @@ function parameterDocumentationHandle(
     item.id.semantic = documentationIdSemantic(analyzer, reference, parameter);
   }
 
-  const description = filteredItems.first()?.description?.text.setPadding(0).trim();
+  const description = filteredItems.first()?.description?.text.toString().setPadding(0).trim();
   parameter.documentation = description;
 }

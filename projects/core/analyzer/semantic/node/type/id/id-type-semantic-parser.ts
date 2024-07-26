@@ -25,7 +25,7 @@ export function declarationTypeSemanticTryParse(
 function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Nothing {
   const declaration = analyzer.declarationManager.single(
     $.TypeDeclarationSemantic,
-    node.text,
+    node.text.toString(),
     nothing,
     nothing,
   );
@@ -59,7 +59,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
   if (is(node.instance, $.IdNode)) {
     const declaration = analyzer.declarationManager.single(
       $.TypeDeclarationSemantic,
-      node.instance.text,
+      node.instance.text.toString(),
       generics,
       nothing,
     );

@@ -22,7 +22,7 @@ export function memberValueSemanticTryParse(
   if (instanceSemantic && node.id) {
     const attributes = instanceSemantic.type
       ?.attributes()
-      .filterByName($.ValueDeclarationSemantic, node.id.text);
+      .filterByName($.ValueDeclarationSemantic, node.id.text.toString());
 
     if (attributes) {
       if (attributes.length > 1) {

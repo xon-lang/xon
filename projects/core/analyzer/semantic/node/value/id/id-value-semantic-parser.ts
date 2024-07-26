@@ -10,7 +10,12 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
     return nothing;
   }
 
-  const declaration = analyzer.declarationManager.single($.DeclarationSemantic, node.text, nothing, nothing);
+  const declaration = analyzer.declarationManager.single(
+    $.DeclarationSemantic,
+    node.text.toString(),
+    nothing,
+    nothing,
+  );
 
   if (!declaration) {
     return nothing;

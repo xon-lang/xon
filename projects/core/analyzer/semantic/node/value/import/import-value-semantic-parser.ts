@@ -31,11 +31,16 @@ export function importValueSemanticTryParse(
   }
 
   // todo should fix 'node.value.content?.text ?? ''' ???
-  const location = normalizeImportString(node.value.content?.text ?? '', analyzer.resource.location);
+  const location = normalizeImportString(
+    node.value.content?.text.toString() ?? '',
+    analyzer.resource.location,
+  );
   const resource = textResourceFromLocation(location);
 
   if (!resource) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.range, (x)=>x.cannotFindResource(location));
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.range, (x) =>
+      x.cannotFindResource(location),
+    );
 
     return;
   }

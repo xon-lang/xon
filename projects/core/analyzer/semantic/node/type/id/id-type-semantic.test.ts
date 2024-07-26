@@ -24,12 +24,12 @@ test('a is integer', () => {
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
-  expect(constNode.id?.text).toBe('a');
+  expect(constNode.id?.text.toString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
-  expect((constNode.type?.value as IdNode)?.text).toBe('Integer');
+  expect((constNode.type?.value as IdNode)?.text.toString()).toBe('Integer');
   expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($.IdTypeSemantic);
 
   const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
@@ -51,7 +51,7 @@ test('a is array', () => {
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
-  expect(constNode.id?.text).toBe('a');
+  expect(constNode.id?.text.toString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;

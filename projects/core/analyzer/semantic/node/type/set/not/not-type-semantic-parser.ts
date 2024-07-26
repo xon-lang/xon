@@ -7,7 +7,7 @@ import {typeSemanticParse} from '../../type-semantic-parser';
 import {NotTypeSemantic, notTypeSemantic} from './not-type-semantic';
 
 export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): NotTypeSemantic | Nothing {
-  if (is(node, $.PrefixNode) && node.operator.text === NOT) {
+  if (is(node, $.PrefixNode) && node.operator.text.equals(NOT)) {
     const value = typeSemanticParse(analyzer, node.value);
 
     if (!value) {

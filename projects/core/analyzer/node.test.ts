@@ -14,7 +14,7 @@ test('comma', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.content.text).toBe('1');
+  expect(node.content.text.toString()).toBe('1');
 });
 
 // test('single expression', () => {
@@ -26,9 +26,9 @@ test('comma', () => {
 
 //   expect(statements.length).toBe(1);
 
-//   expect((node.left as TokenNode).text).toBe('a');
-//   expect(node.operator.text).toBe('=');
-//   expect((node.right as IntegerNode).text).toBe('1');
+//   expect((node.left as TokenNode).text.toString()).toBe('a');
+//   expect(node.operator.text.toString()).toBe('=');
+//   expect((node.right as IntegerNode).text.toString()).toBe('1');
 // });
 
 // test('debug 1', () => {
