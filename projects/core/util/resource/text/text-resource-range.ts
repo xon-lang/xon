@@ -1,4 +1,5 @@
-import {Boolean2, String2} from '../../../../lib/types';
+import {Boolean2} from '../../../../lib/types';
+import {TextData} from '../../data/text-data';
 import {TextRange} from './text-range';
 import {TextResource} from './text-resource';
 
@@ -7,7 +8,7 @@ export interface TextResourceRange {
   range: TextRange;
 
   equals(reference: TextResourceRange): Boolean2;
-  getText(): String2;
+  text(): TextData;
 }
 
 export function textResourceRange(
@@ -22,8 +23,8 @@ export function textResourceRange(
       return this.resource.equals(other.resource) && this.range.equals(other.range);
     },
 
-    getText(): String2 {
-      return this.resource.getText(this.range);
+    text(): TextData {
+      return this.resource.data.slice(this.range);
     },
   };
 }

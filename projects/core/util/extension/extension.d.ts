@@ -11,8 +11,8 @@ export interface ArrayExtension<T = Anything> {
   last(predicate?: Predicate<T>): T | Nothing;
   last<V extends T>(predicate?: PredicateTypeSafe<T, V>): V | Nothing;
 
-  firstIndex(predicate?: Predicate<T>): Integer;
-  lastIndex(predicate?: Predicate<T>): Integer;
+  firstIndex(predicate?: Predicate<T>, startIndex?: Integer): Integer;
+  lastIndex(predicate?: Predicate<T>, startIndex?: Integer): Integer;
 
   removeFirst(): Array2<T>;
   removeLast(): Array2<T>;
@@ -33,6 +33,8 @@ export interface ArrayExtension<T = Anything> {
 
   splitBy(predicate: Predicate<T>): Array2<{splitter: T | Nothing; items: Array2<T>}>;
   splitBy<V extends T>(predicate: PredicateTypeSafe<T, V>): Array2<{splitter: V | Nothing; items: Array2<T>}>;
+
+  equals(other: Array2<T>): Boolean2;
 }
 
 export interface StringExtension extends ArrayExtension<Char> {

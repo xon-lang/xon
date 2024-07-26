@@ -1,24 +1,24 @@
 import {readFileSync, statSync} from 'fs';
 import {$} from '../../../$';
 import {Boolean2, Nothing, nothing, String2} from '../../../../lib/types';
+import {textData, TextData} from '../../data/text-data';
 import {Resource} from '../resource';
 import {TextRange} from './text-range';
 import {textResourceRange, TextResourceRange} from './text-resource-range';
 
 export interface TextResource extends Resource {
   $: $.TextResource;
-  data: String2;
+  data: TextData;
 
   equals(other: Resource): Boolean2;
-  getReference(range: TextRange): TextResourceRange;
-  getText(range: TextRange): String2;
+  reference(range: TextRange): TextResourceRange;
 }
 
 export function textResourceFromData(location: String2 | Nothing, data: String2): TextResource {
   return {
     $: $.TextResource,
     location,
-    data,
+    data: textData(data),
 
     equals(other: Resource): Boolean2 {
       if (this.location) {
@@ -28,12 +28,8 @@ export function textResourceFromData(location: String2 | Nothing, data: String2)
       return this.data === other.data;
     },
 
-    getReference(range: TextRange): TextResourceRange {
+    reference(range: TextRange): TextResourceRange {
       return textResourceRange(this, range);
-    },
-
-    getText({start, stop}: TextRange): String2 {
-      return this.data.slice(start.index, stop.index);
     },
   };
 }

@@ -44,26 +44,6 @@ Array.prototype.first = function <T>(
   return nothing;
 };
 
-Array.prototype.firstIndex = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
-): Integer {
-  if (this.length === 0) {
-    return -1;
-  }
-
-  if (!predicate) {
-    return 0;
-  }
-
-  for (let index = 0; index < this.length; index++) {
-    if (predicate(this[index], index, this)) {
-      return index;
-    }
-  }
-
-  return -1;
-};
-
 Array.prototype.last = function <T>(
   predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
 ): T | Nothing {
@@ -86,8 +66,30 @@ Array.prototype.last = function <T>(
   return nothing;
 };
 
+Array.prototype.firstIndex = function <T>(
+  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  startIndex = 0,
+): Integer {
+  if (this.length === 0) {
+    return -1;
+  }
+
+  if (!predicate) {
+    return 0;
+  }
+
+  for (let index = startIndex; index < this.length; index++) {
+    if (predicate(this[index], index, this)) {
+      return index;
+    }
+  }
+
+  return -1;
+};
+
 Array.prototype.lastIndex = function <T>(
   predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  startIndex?: Integer,
 ): Integer {
   if (this.length === 0) {
     return -1;
@@ -97,7 +99,9 @@ Array.prototype.lastIndex = function <T>(
     return this.length - 1;
   }
 
-  for (let index = this.length - 1; index >= 0; index--) {
+  startIndex ??= this.length - 1;
+
+  for (let index = startIndex; index >= 0; index--) {
     if (predicate(this[index], index, this)) {
       return index;
     }
@@ -206,4 +210,8 @@ Array.prototype.splitBy = function <T>(
   }
 
   return result;
+};
+
+Array.prototype.equals = function <T>(other: Array2<T>): Boolean2 {
+  return this.length === other.length && this.every((x, i) => other[i] === x);
 };

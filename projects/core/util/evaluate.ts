@@ -20,26 +20,26 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   }
 
   if (is(node, $.StringNode) || is(node, $.CharNode)) {
-    return node.content?.text;
+    return node.content?.text.toString();
   }
 
   if (is(node, $.InfixNode)) {
-    const a = evaluate(node.left, argsMap);
-    const b = evaluate(node.right, argsMap);
-    const operator = (node.operator.text === '^' && '**') || node.operator.text;
+    const a: Anything = evaluate(node.left, argsMap);
+    const b: Anything = evaluate(node.right, argsMap);
+    const operator: String2 = node.operator.text.equals('^') ? '**' : node.operator.text.toString();
 
     return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
 
   if (is(node, $.PrefixNode)) {
-    const a = evaluate(node.value, argsMap);
+    const a: Anything = evaluate(node.value, argsMap);
 
     return eval(`${node.operator.text}${escapeToString(a)}`);
   }
 
   if (is(node, $.IdNode)) {
-    if (argsMap[node.text]) {
-      return argsMap[node.text];
+    if (argsMap[node.text.toString()]) {
+      return argsMap[node.text.toString()];
     }
 
     throw new Error('Not implemented');
