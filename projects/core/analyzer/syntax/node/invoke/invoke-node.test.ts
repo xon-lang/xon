@@ -20,9 +20,9 @@ test('method call', () => {
   expect(node.$).toBe($.InvokeNode);
   expect(node.group.items.length).toBe(2);
   expect(node.group.items[0]?.value?.$).toBe($.IntegerNode);
-  expect((node.group.items[0]?.value as IntegerNode).content.text).toBe('3');
+  expect((node.group.items[0]?.value as IntegerNode).content.text.toString()).toBe('3');
   expect(node.group.items[1]?.value?.$).toBe($.CharNode);
-  expect((node.group.items[1]?.value as StringNode).content?.text).toBe('str');
+  expect((node.group.items[1]?.value as StringNode).content?.text.toString()).toBe('str');
   expect(node.instance.$).toBe($.IdNode);
 });
 
@@ -55,12 +55,12 @@ test('can call with type parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InvokeNode);
   expect(node.group.items.length).toBe(1);
-  expect((node.group.items[0]?.value as IntegerNode).content.text).toBe('1');
+  expect((node.group.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
   expect(node.instance.$).toBe($.MemberNode);
   const {operator, instance, id} = node.instance as MemberNode;
-  expect(operator.text).toBe('.');
-  expect((instance as IdNode).text).toBe('a');
-  expect((id as IdNode).text).toBe('get');
+  expect(operator.text.toString()).toBe('.');
+  expect((instance as IdNode).text.toString()).toBe('a');
+  expect((id as IdNode).text.toString()).toBe('get');
 });
 
 test('object method', () => {
@@ -75,12 +75,12 @@ test('object method', () => {
   expect(node.group.items.length).toBe(0);
   expect(node.instance.$).toBe($.MemberNode);
   const {operator, instance, id} = node.instance as MemberNode;
-  expect(operator.text).toBe('.');
+  expect(operator.text.toString()).toBe('.');
   const leftParameters = (instance as GroupNode).items;
   expect(leftParameters.length).toBe(2);
-  expect((leftParameters[0].value as IdNode).text).toBe('a');
-  expect((leftParameters[1].value as IdNode).text).toBe('b');
-  expect((id as IdNode).text).toBe('call');
+  expect((leftParameters[0].value as IdNode).text.toString()).toBe('a');
+  expect((leftParameters[1].value as IdNode).text.toString()).toBe('b');
+  expect((id as IdNode).text.toString()).toBe('call');
 });
 
 test('generics', () => {
@@ -94,5 +94,5 @@ test('generics', () => {
   expect(node.$).toBe($.InvokeNode);
   expect(node.group.items.length).toBe(1);
   expect(node.instance.$).toBe($.IdNode);
-  expect((node.instance as IdNode).text).toBe('Animal');
+  expect((node.instance as IdNode).text.toString()).toBe('Animal');
 });

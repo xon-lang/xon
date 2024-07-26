@@ -10,7 +10,7 @@ export function prefixNodeParse(operators: String[], isLeftRecursive: Boolean2):
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
         !is(node, $.OperatorNode) ||
-        !operators.includes(node.text) ||
+        !operators.includes(node.text.toString()) ||
         (index !== 0 && !is(nodes[index - 1], $.OperatorNode))
       ) {
         return nothing;

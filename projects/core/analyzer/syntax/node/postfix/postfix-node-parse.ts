@@ -10,7 +10,7 @@ export function postfixNodeParse(operators: String[], isLeftRecursive: Boolean2)
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
         !is(node, $.OperatorNode) ||
-        !operators.includes(node.text) ||
+        !operators.includes(node.text.toString()) ||
         (index !== nodes.length - 1 && !is(nodes[index + 1], $.OperatorNode))
       ) {
         return nothing;

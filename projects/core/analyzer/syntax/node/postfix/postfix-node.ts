@@ -23,6 +23,6 @@ export function postfixNode(
 }
 
 function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {
-  const keepSingleWhitespace = node.operator.text.some((x) => x.isLetter(0));
+  const keepSingleWhitespace = node.operator.text.characters.some((x) => x.isLetter(0));
   analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
 }

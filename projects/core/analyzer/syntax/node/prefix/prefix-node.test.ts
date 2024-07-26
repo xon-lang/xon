@@ -16,7 +16,7 @@ test('negative integer', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.PrefixNode);
-  expect(node.operator.text).toBe('-');
+  expect(node.operator.text.toString()).toBe('-');
   expect(evaluate(node)).toBe(-1);
 });
 
@@ -29,7 +29,7 @@ test('infix modifier', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.OperatorNode);
-  expect(node.text).toBe('infix');
+  expect(node.text.toString()).toBe('infix');
 });
 
 test('hidden nodes', () => {
@@ -41,11 +41,11 @@ test('hidden nodes', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.PrefixNode);
-  expect(node.operator.text).toBe('-');
+  expect(node.operator.text.toString()).toBe('-');
 
   expect(node.value.hiddenNodes?.length).toBe(1);
   expect(node.value.hiddenNodes?.at(0)?.$).toBe($.WhitespaceNode);
-  expect((node.value.hiddenNodes?.at(0) as LexicalNode)?.text).toBe('    ');
+  expect((node.value.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe('    ');
 
   expect(evaluate(node)).toBe(-1);
 });

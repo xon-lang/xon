@@ -8,7 +8,7 @@ import {memberNode} from './member-node';
 export function memberNodeParse(operators: String[]): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (!is(node, $.OperatorNode) || !operators.includes(node.text)) {
+      if (!is(node, $.OperatorNode) || !operators.includes(node.text.toString())) {
         return nothing;
       }
 

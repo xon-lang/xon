@@ -17,7 +17,7 @@ test('several operands with different priorities', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
-  expect(node.operator.text).toBe('+');
+  expect(node.operator.text.toString()).toBe('+');
   expect(evaluate(node)).toBe(34);
 });
 
@@ -30,7 +30,7 @@ test('num plus str', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
-  expect(node.operator.text).toBe('+');
+  expect(node.operator.text.toString()).toBe('+');
   expect(evaluate(node)).toBe('1str');
 });
 
@@ -43,9 +43,9 @@ test('num is number', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
-  expect(node.operator.text).toBe('&');
-  expect((node.left as IntegerNode).content.text).toBe('1');
-  expect((node.right as IdNode).text).toBe('Number');
+  expect(node.operator.text.toString()).toBe('&');
+  expect((node.left as IntegerNode).content.text.toString()).toBe('1');
+  expect((node.right as IdNode).text.toString()).toBe('Number');
 });
 
 test('equals', () => {
@@ -57,8 +57,8 @@ test('equals', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
-  expect(node.operator.text).toBe('==');
-  expect((node.right as IntegerNode).content.text).toBe('123');
+  expect(node.operator.text.toString()).toBe('==');
+  expect((node.right as IntegerNode).content.text.toString()).toBe('123');
 });
 
 // test('has several relational operators', () => {
@@ -70,15 +70,15 @@ test('equals', () => {
 
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.INFIX);
-//   expect(node.operator.text).toBe('>');
+//   expect(node.operator.text.toString()).toBe('>');
 //   expect(node.left?.$).toBe($Node.INFIX);
 //   expect(node.right?.$).toBe($Node.ID);
 
 //   const left = node.left as InfixNode;
-//   expect(left.operator.text).toBe('<');
-//   expect((left.left as IdNode).text).toBe('a');
-//   expect((left.right as IdNode).text).toBe('b');
-//   expect((node.right as IdNode).text).toBe('c');
+//   expect(left.operator.text.toString()).toBe('<');
+//   expect((left.left as IdNode).text.toString()).toBe('a');
+//   expect((left.right as IdNode).text.toString()).toBe('b');
+//   expect((node.right as IdNode).text.toString()).toBe('c');
 // });
 
 test('several operators', () => {
@@ -91,12 +91,12 @@ test('several operators', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.InfixNode);
   expect(node.left?.$).toBe($.IntegerNode);
-  expect(node.operator.text).toBe('/');
+  expect(node.operator.text.toString()).toBe('/');
 
   expect(node.right?.$).toBe($.PrefixNode);
-  expect((node.right as PrefixNode).operator.text).toBe('+');
+  expect((node.right as PrefixNode).operator.text.toString()).toBe('+');
   expect((node.right as PrefixNode).value?.$).toBe($.IntegerNode);
-  expect(((node.right as PrefixNode).value as IntegerNode).content.text).toBe('2');
+  expect(((node.right as PrefixNode).value as IntegerNode).content.text.toString()).toBe('2');
 });
 
 test('range', () => {
@@ -110,10 +110,10 @@ test('range', () => {
   expect(node.$).toBe($.InfixNode);
 
   expect(node.left.$).toBe($.IntegerNode);
-  expect((node.left as IntegerNode).content.text).toBe('0');
+  expect((node.left as IntegerNode).content.text.toString()).toBe('0');
 
-  expect(node.operator.text).toBe('..');
+  expect(node.operator.text.toString()).toBe('..');
 
   expect(node.right?.$).toBe($.IntegerNode);
-  expect((node.right as IntegerNode).content.text).toBe('3');
+  expect((node.right as IntegerNode).content.text.toString()).toBe('3');
 });

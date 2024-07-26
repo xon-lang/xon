@@ -37,8 +37,8 @@ test('validate close pair', () => {
   expect(node.items.length).toBe(0);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(1);
 
-  const diagnosticMessage = predefinedDiagnostics(source.getReference(node.range)).expectCloseToken(
-    node.open.text,
+  const diagnosticMessage = predefinedDiagnostics(source.reference(node.range)).expectCloseToken(
+    node.open.text.toString(),
   ).message;
 
   expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(diagnosticMessage.actual);
@@ -78,7 +78,7 @@ test('single item', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(1);
-  expect((node.items[0]?.value as IntegerNode).content.text).toBe('123');
+  expect((node.items[0]?.value as IntegerNode).content.text.toString()).toBe('123');
 });
 
 test('single comma', () => {
@@ -155,8 +155,8 @@ test('two integers no comma and ws at the end', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(2);
-  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
-  expect((node.items[1]?.value as IntegerNode).content.text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
+  expect((node.items[1]?.value as IntegerNode).content.text.toString()).toBe('2');
 });
 
 test('two integers and comma no ws at the end', () => {
@@ -169,8 +169,8 @@ test('two integers and comma no ws at the end', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
-  expect((node.items[1]?.value as IntegerNode).content.text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
+  expect((node.items[1]?.value as IntegerNode).content.text.toString()).toBe('2');
 });
 
 test('two integers and comma and ws', () => {
@@ -183,8 +183,8 @@ test('two integers and comma and ws', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(3);
-  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
-  expect((node.items[1]?.value as IntegerNode).content.text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
+  expect((node.items[1]?.value as IntegerNode).content.text.toString()).toBe('2');
 });
 
 test('array on several lines', () => {
@@ -200,8 +200,8 @@ test('array on several lines', () => {
   expect(statements.length).toBe(1);
   expect(is(node, $.BracketGroupNode)).toBe(true);
   expect(node.items.length).toBe(4);
-  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
-  expect((node.items[1]?.value as InfixNode).operator.text).toBe('+');
+  expect((node.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
+  expect((node.items[1]?.value as InfixNode).operator.text.toString()).toBe('+');
 });
 
 test('debug 1', () => {
@@ -214,8 +214,8 @@ test('debug 1', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.BracketGroupNode);
   expect(node.items.length).toBe(3);
-  expect((node.items[0]?.value as IntegerNode).content.text).toBe('1');
-  expect((node.items[2]?.value as IntegerNode).content.text).toBe('2');
+  expect((node.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
+  expect((node.items[2]?.value as IntegerNode).content.text.toString()).toBe('2');
 });
 
 test('empty object', () => {
@@ -241,10 +241,10 @@ test('empty object', () => {
 //   expect(statements.length).toBe(1);
 //   expect(node.$).toBe($Node.GROUP);
 //   expect(node.items.length).toBe(2);
-//   expect((node.items[0]?.value as IntegerNode).text).toBe('123');
+//   expect((node.items[0]?.value as IntegerNode).text.toString()).toBe('123');
 //   expect(node.items[0]?.statements.length).toBe(1);
-//   expect((node.items[1]?.value as IntegerNode).text).toBe('456');
+//   expect((node.items[1]?.value as IntegerNode).text.toString()).toBe('456');
 //   expect(node.items[1]?.statements.length).toBe(1);
 //   expect(node.items[1]?.statements[0].body.length).toBe(1);
-//   expect((node.items[1]?.statements[0].body[0].item as IntegerNode).text).toBe('7');
+//   expect((node.items[1]?.statements[0].body[0].item as IntegerNode).text.toString()).toBe('7');
 // });

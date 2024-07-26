@@ -32,7 +32,7 @@ export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
   const unnecessaryLabels: Array2<String2> = [];
 
   for (const item of node.items) {
-    const name = item.id.text;
+    const name = item.id.text.toString();
 
     if (unnecessaryLabels.includes(name)) {
       analyzer.diagnosticManager.addPredefinedDiagnostic(item.range, (x) =>

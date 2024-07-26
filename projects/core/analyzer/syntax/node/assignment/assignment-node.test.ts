@@ -1,8 +1,8 @@
 import {$} from '../../../../$';
 import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IntegerNode} from '../integer/integer-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
+import {IntegerNode} from '../integer/integer-node';
 import {AssignmentNode} from './assignment-node';
 
 test('a = 1', () => {
@@ -14,7 +14,7 @@ test('a = 1', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.AssignmentNode);
-  expect(node.id.text).toBe('a');
-  expect(node.assign.operator.text).toBe('=');
+  expect(node.id.text.toString()).toBe('a');
+  expect(node.assign.operator.text.toString()).toBe('=');
   expect((node.assign.value as IntegerNode).value).toBe(1);
 });

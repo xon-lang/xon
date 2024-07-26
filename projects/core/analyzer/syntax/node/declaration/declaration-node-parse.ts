@@ -74,7 +74,7 @@ function getDeclarationParts(
     if (
       index - 1 === 0 &&
       is(node, $.OperatorNode) &&
-      node.text === TYPE &&
+      node.text.equals(TYPE) &&
       isNonOperatorExpression(nodes[index + 1])
     ) {
       return {node, index};
@@ -92,7 +92,7 @@ function getDeclarationParts(
 
     if (
       is(assignOperator, $.OperatorNode) &&
-      assignOperator.text === ASSIGN &&
+      assignOperator.text.equals(ASSIGN) &&
       isNonOperatorExpression(assignValue)
     ) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
@@ -111,7 +111,7 @@ function getDeclarationParts(
     if (
       index - 1 === 0 &&
       is(node, $.OperatorNode) &&
-      node.text === ASSIGN &&
+      node.text.equals(ASSIGN) &&
       isNonOperatorExpression(nodes[index + 1])
     ) {
       return {node, index};
@@ -120,7 +120,7 @@ function getDeclarationParts(
     return nothing;
   });
 
-  if (assignOperatorFound) {
+  ntriif (assignOperatorFound) {
     const assignValue = nodes[assignOperatorFound.index + 1] as ExpressionNode;
     const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
@@ -146,7 +146,7 @@ function getHeader(
   | Nothing {
   const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $.DocumentationNode));
 
-  if (is(node, $.PrefixNode) && MODIFIER_KEYWORDS.includes(node.operator.text)) {
+  if (is(node, $.PrefixNode) && MODIFIER_KEYWORDS.includes(node.operator.text.toString())) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {
@@ -226,7 +226,7 @@ export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarat
   if (
     is(declarationNode, $.DeclarationNode) &&
     declarationNode.modifier?.text &&
-    declarationNode.modifier.text === TYPE_MODIFIER
+    declarationNode.modifier.text.equals(TYPE_MODIFIER)
   ) {
     return true;
   }

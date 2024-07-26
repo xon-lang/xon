@@ -46,7 +46,7 @@ function getLambdaParts(
   const typeOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
       is(node, $.OperatorNode) &&
-      node.text === TYPE &&
+      node.text.equals(TYPE) &&
       isNonOperatorExpression(nodes[index + 1]) &&
       (is(nodes[index - 1], $.ParenGroupNode) ||
         (is(nodes[index - 1], $.InvokeNode) &&
@@ -68,7 +68,7 @@ function getLambdaParts(
 
     if (
       is(assignOperator, $.OperatorNode) &&
-      assignOperator.text === ASSIGN &&
+      assignOperator.text.equals(ASSIGN) &&
       isNonOperatorExpression(assignValue)
     ) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
@@ -82,7 +82,7 @@ function getLambdaParts(
   const assignOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
       is(node, $.OperatorNode) &&
-      node.text === ASSIGN &&
+      node.text.equals(ASSIGN) &&
       isNonOperatorExpression(nodes[index + 1]) &&
       (is(nodes[index - 1], $.ParenGroupNode) ||
         (is(nodes[index - 1], $.InvokeNode) &&

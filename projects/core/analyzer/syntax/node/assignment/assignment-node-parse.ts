@@ -10,7 +10,7 @@ import {assignmentNode} from './assignment-node';
 export function assignmentNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (!is(node, $.OperatorNode) || node.text !== ASSIGN) {
+      if (!is(node, $.OperatorNode) || !node.text.equals(ASSIGN)) {
         return nothing;
       }
 

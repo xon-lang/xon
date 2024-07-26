@@ -16,7 +16,7 @@ test('documentation', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($.DocumentationNode);
-  expect(node.description?.text).toBe('a');
+  expect(node.description?.text.toString()).toBe('a');
 });
 
 test('documentation 2', () => {
@@ -31,7 +31,7 @@ test('documentation 2', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($.DocumentationNode);
-  expect(node.description?.text).toBe(' abc\n\n\n def==');
+  expect(node.description?.text.toString()).toBe(' abc\n\n\n def==');
 });
 
 test('documentation labels', () => {
@@ -46,16 +46,16 @@ test('documentation labels', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($.DocumentationNode);
-  expect(node.description?.text).toBe(' abc\n\n\n def ');
+  expect(node.description?.text.toString()).toBe(' abc\n\n\n def ');
   expect(node.items?.length).toBe(2);
 
-  expect(node.items?.at(0)?.operator.text).toBe('@');
-  expect(node.items?.at(0)?.id.text).toBe('in');
-  expect(node.items?.at(0)?.description?.text).toBe(' a1 b2 c 3     ');
+  expect(node.items?.at(0)?.operator.text.toString()).toBe('@');
+  expect(node.items?.at(0)?.id.text.toString()).toBe('in');
+  expect(node.items?.at(0)?.description?.text.toString()).toBe(' a1 b2 c 3     ');
 
-  expect(node.items?.at(1)?.operator.text).toBe('@');
-  expect(node.items?.at(1)?.id.text).toBe('return');
-  expect(node.items?.at(1)?.description?.text).toBe(' _123 _ ');
+  expect(node.items?.at(1)?.operator.text.toString()).toBe('@');
+  expect(node.items?.at(1)?.id.text.toString()).toBe('return');
+  expect(node.items?.at(1)?.description?.text.toString()).toBe(' _123 _ ');
 });
 
 test('documentation operator id', () => {
@@ -73,7 +73,7 @@ test('documentation operator id', () => {
   expect(node.description).toBeFalsy();
   expect(node.items?.length).toBe(1);
 
-  expect(node.items?.at(0)?.operator.text).toBe('@');
+  expect(node.items?.at(0)?.operator.text.toString()).toBe('@');
   expect(node.items?.at(0)?.operator.range.start.index).toBe(3);
   expect(node.items?.at(0)?.operator.range.start.line).toBe(0);
   expect(node.items?.at(0)?.operator.range.start.column).toBe(3);
@@ -88,5 +88,5 @@ test('documentation operator id', () => {
   expect(node.items?.at(0)?.id.range.stop.line).toBe(0);
   expect(node.items?.at(0)?.id.range.stop.column).toBe(7);
 
-  expect(node.items?.at(0)?.description?.text).toBe(' desc');
+  expect(node.items?.at(0)?.description?.text.toString()).toBe(' desc');
 });

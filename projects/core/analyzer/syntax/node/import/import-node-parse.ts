@@ -9,7 +9,7 @@ import {importNode} from './import-node';
 export function importNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, false, (node, index, nodes) => {
-      if (!is(node, $.OperatorNode) || node.text !== IMPORT) {
+      if (!is(node, $.OperatorNode) || !node.text.equals(IMPORT)) {
         return nothing;
       }
 

@@ -13,5 +13,5 @@ test('a', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.CharNode);
-  expect(node.content?.text).toBe(text.slice(1, -1));
+  expect(node.content?.text.toString()).toBe(text.slice(1, -1));
 });

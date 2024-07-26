@@ -18,7 +18,7 @@ test('function with no parameters', () => {
   expect(node.$).toBe($.LambdaNode);
   expect(node.generics).toBeFalsy();
   expect(node.parameters?.items.length).toBe(0);
-  expect((node.type?.value as IdNode).text).toBe('Integer');
+  expect((node.type?.value as IdNode).text.toString()).toBe('Integer');
 });
 
 test('function with generic', () => {
@@ -31,9 +31,9 @@ test('function with generic', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.LambdaNode);
   expect(node.generics?.items.length).toBe(1);
-  expect((node.generics?.items[0].value as DeclarationNode).id.text).toBe('T');
+  expect((node.generics?.items[0].value as DeclarationNode).id.text.toString()).toBe('T');
   expect(node.parameters.items.length).toBe(0);
-  expect((node.type?.value as IdNode).text).toBe('T');
+  expect((node.type?.value as IdNode).text.toString()).toBe('T');
 });
 
 test('function with generic and parameter', () => {
@@ -46,11 +46,13 @@ test('function with generic and parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.LambdaNode);
   expect(node.generics?.items.length).toBe(1);
-  expect((node.generics?.items[0].value as DeclarationNode).id.text).toBe('T');
+  expect((node.generics?.items[0].value as DeclarationNode).id.text.toString()).toBe('T');
   expect(node.parameters.items.length).toBe(1);
-  expect((node.parameters?.items[0].value as DeclarationNode).id.text).toBe('a');
-  expect(((node.parameters?.items[0].value as DeclarationNode).type?.value as IdNode).text).toBe('T');
-  expect((node.type?.value as IdNode).text).toBe('T');
+  expect((node.parameters?.items[0].value as DeclarationNode).id.text.toString()).toBe('a');
+  expect(((node.parameters?.items[0].value as DeclarationNode).type?.value as IdNode).text.toString()).toBe(
+    'T',
+  );
+  expect((node.type?.value as IdNode).text.toString()).toBe('T');
 });
 
 test('has argument and value', () => {
@@ -63,7 +65,7 @@ test('has argument and value', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.LambdaNode);
   expect(node.parameters?.items.length).toBe(1);
-  expect((node.parameters?.items[0].value as DeclarationNode).id.text).toBe('x');
+  expect((node.parameters?.items[0].value as DeclarationNode).id.text.toString()).toBe('x');
 
   expect(
     evaluate(node.assign?.value, {
@@ -82,6 +84,6 @@ test('two parameter', () => {
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.LambdaNode);
   expect(node.parameters?.items.length).toBe(2);
-  expect((node.parameters?.items[0].value as DeclarationNode).id?.text).toBe('a');
-  expect((node.parameters?.items[1].value as DeclarationNode).id?.text).toBe('b');
+  expect((node.parameters?.items[0].value as DeclarationNode).id?.text.toString()).toBe('a');
+  expect((node.parameters?.items[1].value as DeclarationNode).id?.text.toString()).toBe('b');
 });

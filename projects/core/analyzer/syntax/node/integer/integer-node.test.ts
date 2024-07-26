@@ -13,7 +13,7 @@ test('integer', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.content.text).toBe('123');
+  expect(node.content.text.toString()).toBe('123');
 });
 
 test('zero int number', () => {
@@ -25,5 +25,5 @@ test('zero int number', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($.IntegerNode);
-  expect(node.content.text).toBe('0');
+  expect(node.content.text.toString()).toBe('0');
 });

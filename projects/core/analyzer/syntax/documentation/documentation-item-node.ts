@@ -1,5 +1,6 @@
 import {$} from '../../../$';
 import {Nothing} from '../../../../lib/types';
+import {textData} from '../../../util/data/text-data';
 import {textPosition} from '../../../util/resource/text/text-position';
 import {textRange} from '../../../util/resource/text/text-range';
 import {AT} from '../../lexical/lexical-analyzer-config';
@@ -42,5 +43,5 @@ function idFromLabel(label: DocumentationLabelNode): IdNode {
   const idStart = textPosition(labelStart.index + AT.length, labelStart.line, labelStart.column + AT.length);
   const idRange = textRange(idStart, label.range.stop);
 
-  return idNode(idRange, label.name);
+  return idNode(idRange, textData(label.name));
 }

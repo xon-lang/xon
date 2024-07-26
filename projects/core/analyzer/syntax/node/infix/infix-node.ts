@@ -26,7 +26,7 @@ export function infixNode(
 }
 
 function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {
-  const keepSingleWhitespace = node.operator.text !== RANGE;
+  const keepSingleWhitespace = !node.operator.text.equals(RANGE);
   analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
   analyzer.formatterManager.formatChildNode(node.right, keepSingleWhitespace);
 }
