@@ -32,11 +32,16 @@ export function convertVscodePosition(document: TextDocument, position: Position
 }
 
 export function getDocumentSemantic(document: TextDocument, channel: OutputChannel): SemanticAnalyzer {
-  const text = document.getText();
-  const location = document.uri.fsPath;
-  const resource = textResourceFromData(location, text);
+  try {
+    const text = document.getText();
+    const location = document.uri.fsPath;
+    const resource = textResourceFromData(location, text);
 
-  return semanticFromResource(resource);
+    return semanticFromResource(resource);
+  } catch (error) {
+    channel.appendLine(error?.toString() ?? 'Error');
+    throw new Error('Not implemented');
+  }
 }
 
 export function typeSemanticToString(type: TypeSemantic | Nothing): String2 | Nothing {

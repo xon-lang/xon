@@ -47,7 +47,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
 
     const dir = dirname(document.uri.fsPath);
     const caseFn = getCaseFnByName(EXTENSION_CONFIG.newFileNameCase.get()) ?? kebabCase;
-    const fileName = caseFn(node.text) + '.' + FILE_EXTENSION;
+    const fileName = caseFn(node.text.toString()) + '.' + FILE_EXTENSION;
     const action = new CodeAction(`Move to a new file: './${fileName}'`, CodeActionKind.RefactorMove);
     action.edit = new WorkspaceEdit();
     const path = Uri.joinPath(Uri.parse(dir), fileName);

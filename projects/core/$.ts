@@ -1,4 +1,4 @@
-import {Boolean2, Nothing} from '../lib/types';
+import {Anything, Boolean2, Nothing} from '../lib/types';
 import {CharContentNode} from './analyzer/lexical/node/char-content/char-content-node';
 import {AngleCloseNode} from './analyzer/lexical/node/close/angle-close/angle-close-node';
 import {BraceCloseNode} from './analyzer/lexical/node/close/brace-close/brace-close-node';
@@ -89,6 +89,7 @@ import {TypeDeclarationTypescriptNode} from './translator/typescript/node/declar
 import {TypeTypescriptNode} from './translator/typescript/node/type/type-typescript-node';
 import {TypescriptTranslatorNode} from './translator/typescript/node/typescript-node';
 import {TypescriptTranslator} from './translator/typescript/typescript-translator';
+import {TextData} from './util/data/text-data';
 import {Resource} from './util/resource/resource';
 import {TextPosition} from './util/resource/text/text-position';
 import {TextRange} from './util/resource/text/text-range';
@@ -205,6 +206,7 @@ export enum $ {
 
   TextPosition = ' TextPosition ',
   TextRange = ' TextRange ',
+  TextData = ' TextData ',
 
   Resource = ' Resource ',
   TextResource = ' TextResource ' + $.Resource,
@@ -320,6 +322,7 @@ export type TypeMap = {
 
   [$.TextPosition]: TextPosition;
   [$.TextRange]: TextRange;
+  [$.TextData]: TextData;
 
   [$.Resource]: Resource;
   [$.TextResource]: TextResource;
@@ -341,12 +344,12 @@ type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
 export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
-export function is<T extends $>(model: $Model | Nothing, $: T): model is TypeMap[T] {
-  if (!model?.$) {
-    return false;
+export function is<T extends $>(model: Anything, $: T): model is TypeMap[T] {
+  if (model && typeof model === 'object' && '$' in model && typeof model['$'] === 'string') {
+    return model.$.includes($);
   }
 
-  return model.$.includes($);
+  return false;
 }
 
 export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {

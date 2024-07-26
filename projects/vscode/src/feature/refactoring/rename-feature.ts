@@ -109,7 +109,7 @@ function renameWithWorkspace(
   oldName: String2,
   newName: String2,
 ): void {
-  if (!reference.resource.location || reference.getText() !== oldName) {
+  if (!reference.resource.location || !reference.text().equals(oldName)) {
     return;
   }
 
