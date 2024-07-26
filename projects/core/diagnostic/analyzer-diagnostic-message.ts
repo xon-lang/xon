@@ -24,6 +24,7 @@ export function predefinedDiagnostics(reference: TextResourceRange) {
         expect: nothing,
       }),
 
+    // todo should we use 'TextData' instead of 'String' for parameters ???
     expectCloseToken: (open: String2): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
         actual: `Token '${open}' has no close pair`,

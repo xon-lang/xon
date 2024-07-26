@@ -36,8 +36,8 @@ export function createDiagnostic(
 
     terminalFormat(): String2 {
       const msg = red(message.actual);
-      const lineText = this.reference.resource.data.split('\n')[this.reference.range.start.line];
-      const nodeText = this.reference.resource.getText(this.reference.range);
+      const lineText = this.reference.resource.data.lineText(this.reference.range.start.line).toString();
+      const nodeText = this.reference.resource.data.slice(this.reference.range).toString();
       const location = cyan(this.reference.resource.location ?? '<code>');
       const line = cyan(`:${this.reference.range.start.line + 1}`);
       const column = cyan(`:${this.reference.range.start.column + 1}`);
