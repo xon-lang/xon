@@ -120,7 +120,7 @@ function getDeclarationParts(
     return nothing;
   });
 
-  ntriif (assignOperatorFound) {
+  if (assignOperatorFound) {
     const assignValue = nodes[assignOperatorFound.index + 1] as ExpressionNode;
     const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
