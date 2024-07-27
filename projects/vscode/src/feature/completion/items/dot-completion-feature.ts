@@ -56,7 +56,7 @@ function getAttributes(semantic: Semantic): Array2<DeclarationSemantic> | Nothin
 function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): CompletionItem {
   const item = new CompletionItem(semantic.name, getCompletionItemKind(semantic));
 
-  if (is(semantic.type, $.IdTypeSemantic)) {
+  if (is(semantic.type, $.IdTypeSemantic) && semantic.type.declaration) {
     item.detail = semantic.type.declaration.name;
   }
 

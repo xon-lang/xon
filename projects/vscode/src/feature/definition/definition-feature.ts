@@ -53,6 +53,10 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     }
 
     if (is(node.semantic, $.IdTypeSemantic)) {
+      if (!node.semantic.declaration) {
+        return nothing;
+      }
+
       return navigateToReference(node.range, node.semantic.declaration.reference);
     }
 
@@ -62,6 +66,10 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     if (is(node.semantic, $.ValueSemantic)) {
       if (is(node.semantic.type, $.IdTypeSemantic)) {
+        if (!node.semantic.type.declaration) {
+          return nothing;
+        }
+
         return navigateToReference(node.range, node.semantic.type.declaration.reference);
       }
 

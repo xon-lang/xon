@@ -45,11 +45,7 @@ export function getDocumentSemantic(document: TextDocument, channel: OutputChann
 }
 
 export function typeSemanticToString(type: TypeSemantic | Nothing): String2 | Nothing {
-  if (!type) {
-    return nothing;
-  }
-
-  if (is(type, $.IdTypeSemantic)) {
+  if (is(type, $.IdTypeSemantic) && type.declaration) {
     return type.declaration.name;
   }
 

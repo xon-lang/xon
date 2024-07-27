@@ -59,8 +59,12 @@ function getTypeMarkdown(semantic: Semantic): MarkdownString | Nothing {
   return markdownCode(text);
 }
 
-function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
+function semanticToText(semantic: Semantic): String2 | Nothing {
   if (is(semantic, $.ValueSemantic)) {
+    if (!semantic.type) {
+      return '';
+    }
+
     return semanticToText(semantic.type);
   }
 
@@ -69,6 +73,10 @@ function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
   }
 
   if (is(semantic, $.IdTypeSemantic)) {
+    if (!semantic.declaration) {
+      return '';
+    }
+
     return declarationToText(semantic.declaration);
   }
 
