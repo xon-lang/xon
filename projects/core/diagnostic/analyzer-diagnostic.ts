@@ -35,19 +35,7 @@ export function createDiagnostic(
     tags,
 
     terminalFormat(): String2 {
-      const msg = red(message.actual);
-      const lineText = this.reference.resource.data.lineText(this.reference.range.start.line).toString();
-      const nodeText = this.reference.resource.data.slice(this.reference.range).toString();
-      const location = cyan(this.reference.resource.location ?? '<code>');
-      const line = cyan(`:${this.reference.range.start.line + 1}`);
-      const column = cyan(`:${this.reference.range.start.column + 1}`);
-      const lineNumberBeforeGrayed = `${this.reference.range.start.line + 1} | `;
-      const lineNumber = gray(lineNumberBeforeGrayed);
-      const caret =
-        ' '.repeat(this.reference.range.start.column + lineNumberBeforeGrayed.length) +
-        red('~'.repeat(nodeText.length));
-
-      return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
+      return terminalFormat(this.message.actual, this.reference);
     },
   };
 }
@@ -55,3 +43,19 @@ export function createDiagnostic(
 const cyan = (x: String2): String2 => colorText(x, TerminalColor.FG_CYAN);
 const gray = (x: String2): String2 => colorText(x, TerminalColor.FG_GRAY);
 const red = (x: String2): String2 => colorText(x, TerminalColor.FG_RED);
+
+// todo rename 'terminalFormat'
+export function terminalFormat(message: String2, {resource, range}: TextResourceRange): String2 {
+  const msg = red(message);
+  const lineText = resource.data.lineText(range.start.line).toString();
+  const nodeText = resource.data.slice(range).toString();
+  const location = cyan(resource.location ?? '<code>');
+  const line = cyan(`:${range.start.line + 1}`);
+  const column = cyan(`:${range.start.column + 1}`);
+  const lineNumberBeforeGrayed = `${range.start.line + 1} | `;
+  const lineNumber = gray(lineNumberBeforeGrayed);
+  const caret =
+    ' '.repeat(range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
+
+  return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
+}
