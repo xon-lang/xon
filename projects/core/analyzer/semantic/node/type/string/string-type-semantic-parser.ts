@@ -13,18 +13,16 @@ export function stringTypeSemanticTryParse(
   }
 
   const declaration = analyzer.declarationManager.single(
-    $.TypeDeclarationSemantic,
+    $.NominalTypeDeclarationSemantic,
     analyzer.config.literalTypeNames.stringTypeName,
     nothing,
     nothing,
   );
 
-  if (!declaration || !is(declaration, $.NominalTypeDeclarationSemantic)) {
+  if (!declaration) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
     );
-
-    return nothing;
   }
 
   const reference = analyzer.createReference(node);
