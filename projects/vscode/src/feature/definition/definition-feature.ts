@@ -65,23 +65,13 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     }
 
     if (is(node.semantic, $.ValueSemantic)) {
-      if (is(node.semantic.type, $.IdTypeSemantic)) {
-        if (!node.semantic.type.declaration) {
-          return nothing;
-        }
+      const declaration = node.semantic.type?.declaration;
 
-        return navigateToReference(node.range, node.semantic.type.declaration.reference);
+      if (!declaration) {
+        return nothing;
       }
 
-      if (is(node.semantic.type, $.IntegerTypeSemantic)) {
-        return navigateToReference(node.range, node.semantic.type.declaration.reference);
-      }
-
-      if (is(node.semantic.type, $.StringTypeSemantic)) {
-        return navigateToReference(node.range, node.semantic.type.declaration.reference);
-      }
-
-      return nothing;
+      return navigateToReference(node.range, declaration.reference);
     }
 
     return nothing;

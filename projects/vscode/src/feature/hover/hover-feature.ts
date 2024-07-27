@@ -28,6 +28,7 @@ class LanguageHoverProvider implements HoverProvider {
 
   provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
     const semantic = getDocumentSemantic(document, this.channel);
+
     const node = semantic.syntaxAnalyzer.findClosestNode(
       convertVscodePosition(document, position),
       $.ExpressionNode,
@@ -59,25 +60,27 @@ function getTypeMarkdown(semantic: Semantic): MarkdownString | Nothing {
   return markdownCode(text);
 }
 
-function semanticToText(semantic: Semantic): String2 | Nothing {
-  if (is(semantic, $.ValueSemantic)) {
-    if (!semantic.type) {
-      return '';
-    }
-
-    return semanticToText(semantic.type);
+function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
+  if (!semantic) {
+    return '';
   }
 
   if (is(semantic, $.DeclarationSemantic)) {
     return declarationToText(semantic);
   }
 
-  if (is(semantic, $.IdTypeSemantic)) {
-    if (!semantic.declaration) {
-      return '';
-    }
+  if (is(semantic, $.ValueSemantic)) {
+    return semanticToText(semantic.type);
+  }
 
+  if (is(semantic, $.IdTypeSemantic)) {
     return declarationToText(semantic.declaration);
+  }
+
+  if (is(semantic, $.CharTypeSemantic)) {
+    const declaration = declarationToText(semantic.declaration);
+
+    return `${declaration}('${semantic.value}')`;
   }
 
   if (is(semantic, $.StringTypeSemantic)) {
@@ -95,7 +98,11 @@ function semanticToText(semantic: Semantic): String2 | Nothing {
   return '';
 }
 
-function declarationToText(declaration: DeclarationSemantic) {
+function declarationToText(declaration: DeclarationSemantic | Nothing) {
+  if (!declaration) {
+    return '';
+  }
+
   const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
 
   return `${modifier}${declaration.name}`;
