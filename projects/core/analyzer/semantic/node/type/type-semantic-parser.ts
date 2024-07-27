@@ -3,6 +3,7 @@ import {Array2, Nothing} from '../../../../../lib/types';
 import {Node} from '../../../node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
+import {charTypeSemanticTryParse} from './char/char-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
 import {idTypeSemanticTryParse} from './id/id-type-semantic-parser';
 import {nothingTypeFromNode} from './id/nothing/nothing-id-type-semantic';
@@ -19,6 +20,7 @@ type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSe
 
 const parsers: Array2<TypeSemanticTryParseFn> = [
   integerTypeSemanticTryParse,
+  charTypeSemanticTryParse,
   stringTypeSemanticTryParse,
   rangeTypeSemanticTryParse,
   arrayTypeSemanticTryParse,

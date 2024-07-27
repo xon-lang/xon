@@ -4,6 +4,7 @@ export interface SemanticAnalyzerConfig {
   defaultImports: Array2<String2>;
   literalTypeNames: {
     integerTypeName: String2;
+    charTypeName: String2;
     stringTypeName: String2;
     rangeTypeName: String2;
     arrayTypeName: String2;
@@ -14,6 +15,7 @@ export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   defaultImports: [],
   literalTypeNames: {
     integerTypeName: 'Integer',
+    charTypeName: 'Char',
     stringTypeName: 'String',
     rangeTypeName: 'Range',
     arrayTypeName: 'Array',
