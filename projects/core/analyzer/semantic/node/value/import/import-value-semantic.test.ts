@@ -5,8 +5,8 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
+import {typeNodeType} from '../../type/array/array-type-semantic-parser';
 import {StringTypeSemantic} from '../../type/string/string-type-semantic';
-import {typeSemanticParse} from '../../type/type-semantic-parser';
 
 test('import core', () => {
   const text = `
@@ -29,8 +29,10 @@ test('import core', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as StringTypeSemantic;
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
+    : nothing;
   expect(typeSemantic).toBeTruthy();
-  expect(typeSemantic.$).toBe($.StringTypeSemantic);
-  expect(typeSemantic.value).toBe('abc');
+  expect(typeSemantic?.$).toBe($.StringTypeSemantic);
+  expect(typeSemantic?.value).toBe('abc');
 });

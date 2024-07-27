@@ -21,7 +21,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
     return nothing;
   }
 
-  // todo review condition and another one below
+  // todo review condition
   if (is(declaration, $.ValueDeclarationSemantic)) {
     return idValueSemantic(analyzer.createReference(node), declaration);
   }

@@ -1,5 +1,5 @@
-import {$, is} from '../../../../$';
-import {Array2, Nothing, nothing} from '../../../../../lib/types';
+import {$} from '../../../../$';
+import {Array2, Nothing} from '../../../../../lib/types';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {DocumentationNode} from '../../documentation/documentation-node';
@@ -7,7 +7,6 @@ import {GroupNode} from '../../group/group-node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 
 import {AssignNode} from '../assign/assign-node';
-import {LambdaNode} from '../lambda/lambda-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
@@ -72,36 +71,4 @@ export function partialToDeclaration(
     params.type,
     params.assign,
   );
-}
-
-export function getDeclarationGenerics(
-  node: DeclarationNode | LambdaNode,
-): Array2<DeclarationNode | Nothing> {
-  if (!node.generics) {
-    return [];
-  }
-
-  return node.generics.items.map<DeclarationNode | Nothing>((x) => {
-    if (is(x.value, $.DeclarationNode)) {
-      return x.value;
-    }
-
-    return nothing;
-  });
-}
-
-export function getDeclarationParameters(
-  node: DeclarationNode | LambdaNode,
-): Array2<DeclarationNode | Nothing> {
-  if (!node.parameters) {
-    return [];
-  }
-
-  return node.parameters.items.map<DeclarationNode | Nothing>((x) => {
-    if (is(x.value, $.DeclarationNode)) {
-      return x.value;
-    }
-
-    return nothing;
-  });
 }
