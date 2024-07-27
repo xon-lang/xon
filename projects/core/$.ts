@@ -41,6 +41,7 @@ import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/val
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
 import {Semantic} from './analyzer/semantic/node/semantic';
 import {ArrayTypeSemantic} from './analyzer/semantic/node/type/array/array-type-semantic';
+import {CharTypeSemantic} from './analyzer/semantic/node/type/char/char-type-semantic';
 import {FunctionTypeSemantic} from './analyzer/semantic/node/type/function/function-type-semantic';
 import {IdTypeSemantic} from './analyzer/semantic/node/type/id/id-type-semantic';
 import {NothingIdTypeSemantic} from './analyzer/semantic/node/type/id/nothing/nothing-id-type-semantic';
@@ -53,6 +54,7 @@ import {SetTypeSemantic} from './analyzer/semantic/node/type/set/set';
 import {UnionTypeSemantic} from './analyzer/semantic/node/type/set/union/union-type-semantic';
 import {StringTypeSemantic} from './analyzer/semantic/node/type/string/string-type-semantic';
 import {TypeSemantic} from './analyzer/semantic/node/type/type-semantic';
+import {CharValueSemantic} from './analyzer/semantic/node/value/char/char-value-semantic';
 import {IdValueSemantic} from './analyzer/semantic/node/value/id/id-value-semantic';
 import {ImportValueSemantic} from './analyzer/semantic/node/value/import/import-value-semantic';
 import {IntegerValueSemantic} from './analyzer/semantic/node/value/integer/integer-value-semantic';
@@ -179,8 +181,8 @@ export enum $ {
 
   TypeSemantic = ' TypeSemantic ' + $.Semantic,
   IntegerTypeSemantic = ' IntegerTypeSemantic ' + $.TypeSemantic,
+  CharTypeSemantic = ' CharTypeSemantic ' + $.TypeSemantic,
   StringTypeSemantic = ' StringTypeSemantic ' + $.TypeSemantic,
-  // CharTypeSemantic = ' CharTypeSemantic ' + $.TypeSemantic,
 
   IdTypeSemantic = ' IdTypeSemantic ' + $.TypeSemantic,
   NothingIdTypeSemantic = ' NothingIdTypeSemantic ' + $.TypeSemantic,
@@ -197,8 +199,8 @@ export enum $ {
 
   ValueSemantic = ' ValueSemantic ' + $.Semantic,
   IntegerValueSemantic = ' IntegerValueSemantic ' + $.ValueSemantic,
+  CharValueSemantic = ' CharValueSemantic ' + $.ValueSemantic,
   StringValueSemantic = ' StringValueSemantic ' + $.ValueSemantic,
-  // CharValueSemantic = ' CharValueSemantic ' + $.ValueSemantic,
   IdValueSemantic = ' IdValueSemantic ' + $.ValueSemantic,
   InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
@@ -300,6 +302,7 @@ export type TypeMap = {
   [$.NothingIdTypeSemantic]: NothingIdTypeSemantic;
 
   [$.IntegerTypeSemantic]: IntegerTypeSemantic;
+  [$.CharTypeSemantic]: CharTypeSemantic;
   [$.StringTypeSemantic]: StringTypeSemantic;
   [$.ArrayTypeSemantic]: ArrayTypeSemantic;
   [$.FunctionTypeSemantic]: FunctionTypeSemantic;
@@ -313,6 +316,7 @@ export type TypeMap = {
   [$.IdValueSemantic]: IdValueSemantic;
   [$.InvokeValueSemantic]: InvokeValueSemantic;
   [$.IntegerValueSemantic]: IntegerValueSemantic;
+  [$.CharValueSemantic]: CharValueSemantic;
   [$.StringValueSemantic]: StringValueSemantic;
   [$.MemberValueSemantic]: MemberValueSemantic;
   [$.ImportValueSemantic]: ImportValueSemantic;

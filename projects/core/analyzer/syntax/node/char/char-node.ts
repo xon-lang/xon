@@ -1,14 +1,19 @@
 import {$} from '../../../../$';
-import {Nothing} from '../../../../../lib/types';
+import {Char, Nothing} from '../../../../../lib/types';
 import {CharContentNode} from '../../../lexical/node/char-content/char-content-node';
 import {CharCloseNode} from '../../../lexical/node/close/char-close/char-close-node';
 import {CharOpenNode} from '../../../lexical/node/open/char-open/char-open-node';
 import {ExpressionNode} from '../../../node';
+import {CharTypeSemantic} from '../../../semantic/node/type/char/char-type-semantic';
+import { CharValueSemantic } from '../../../semantic/node/value/char/char-value-semantic';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {syntaxNode, SyntaxNode} from '../syntax-node';
 
 export type CharNode = SyntaxNode<$.CharNode> &
   ExpressionNode & {
+    semantic?: CharTypeSemantic | CharValueSemantic | Nothing;
+    value: Char;
+
     open: CharOpenNode;
     content?: CharContentNode | Nothing;
     close?: CharCloseNode | Nothing;
@@ -20,5 +25,7 @@ export function charNode(
   content: CharContentNode | Nothing,
   close?: CharCloseNode | Nothing,
 ): CharNode {
-  return syntaxNode({$: $.CharNode, open, content, close});
+  const value = content?.text.toString() ?? '';
+
+  return syntaxNode({$: $.CharNode, open, content, close, value});
 }
