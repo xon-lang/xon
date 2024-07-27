@@ -4,16 +4,16 @@ import {semanticFromResource} from '../../../../../analyzer/semantic/semantic-an
 import {TEST_SEMANTIC_CONFIG} from '../../../../../analyzer/semantic/semantic-analyzer-config';
 import {DeclarationNode} from '../../../../../analyzer/syntax/node/declaration/declaration-node';
 import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {toTypeDeclarationTypescriptNode} from './type-declaration-typescript-node';
+import {createTypescriptTranslator} from '../../../typescript-translator';
 
 test('type string', () => {
   const text = 'type A';
   const resource = textResourceFromData(nothing, text);
-  const syntax = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
-  const declaration = syntax.statements[0].value as DeclarationNode;
+  const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as DeclarationSemantic;
-  const translator = toTypeDeclarationTypescriptNode(semantic);
-  const translated = translator.translate();
+  const translator = createTypescriptTranslator(semanticAnalyzer);
+  const translated = translator.typeDeclaration(semantic);
 
   expect(translated).toBe('export type A = {}');
 });

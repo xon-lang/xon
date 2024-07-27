@@ -1,27 +1,23 @@
-import {$} from '../../../../../$';
-import {Nothing, String2} from '../../../../../../lib/types';
+import {$, is} from '../../../../../$';
+import {String2} from '../../../../../../lib/types';
 import {TypeDeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
-import {TypescriptTranslatorNode} from '../../typescript-node';
+import {TypescriptTranslator} from '../../../typescript-translator';
 
-export type TypeDeclarationTypescriptNode = TypescriptTranslatorNode & {
-  $: $.TypeDeclarationTypescriptNode;
-};
+export function typeDeclarationTypescriptTranslate(
+  translator: TypescriptTranslator,
+  semantic: TypeDeclarationSemantic,
+): String2 {
+  const exportText = true ? 'export ' : '';
 
-export function toTypeDeclarationTypescriptNode(
-  semantic: TypeDeclarationSemantic | Nothing,
-): TypeDeclarationTypescriptNode {
-  return {
-    $: $.TypeDeclarationTypescriptNode,
+  if (is(semantic, $.NominalTypeDeclarationSemantic)) {
+    return `${exportText}type ${semantic.name} = {}`;
+  }
 
-    translate(): String2 {
-      if (!semantic) {
-        return `// error ???`;
-      }
+  if (is(semantic, $.StructuralTypeDeclarationSemantic)) {
+    const typeValue = semantic.value ? translator.type(semantic.value) : 'null';
 
-      const exportText = true ? 'export ' : '';
-      // const valueText = toTypeTypescriptNode(semantic.type).translate();
+    return `${exportText}type ${semantic.name} = ${typeValue}`;
+  }
 
-      return `${exportText}type ${semantic.name} = {}`;
-    },
-  };
+  return translator.error(semantic.reference.range, 'typeDeclaration');
 }
