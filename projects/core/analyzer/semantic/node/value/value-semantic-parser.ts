@@ -2,6 +2,7 @@ import {$, is} from '../../../../$';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
 import {Node} from '../../../node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
+import {charValueSemanticTryParse} from './char/char-value-semantic-parser';
 import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
 import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
 import {invokeValueSemanticTryParse} from './invoke/invoke-value-semantic-parser';
@@ -13,6 +14,7 @@ type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => Value
 
 export const parsers: Array2<ValueSemanticTryParseFn> = [
   integerValueSemanticTryParse,
+  charValueSemanticTryParse,
   stringValueSemanticTryParse,
   idValueSemanticTryParse,
   memberValueSemanticTryParse,

@@ -4,6 +4,10 @@ import {TypeSemantic} from '../../../../analyzer/semantic/node/type/type-semanti
 import {TypescriptTranslator} from '../../typescript-translator';
 
 export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): String2 {
+  if (is(semantic, $.CharTypeSemantic)) {
+    return `"${semantic.value}"`;
+  }
+
   if (is(semantic, $.StringTypeSemantic)) {
     return `"${semantic.value}"`;
   }
