@@ -1,50 +1,36 @@
 import {$, is} from '../../../../$';
-import {Nothing, String2} from '../../../../../lib/types';
+import {String2} from '../../../../../lib/types';
 import {TypeSemantic} from '../../../../analyzer/semantic/node/type/type-semantic';
-import {TypescriptTranslatorNode} from '../typescript-node';
+import {TypescriptTranslator} from '../../typescript-translator';
 
-export type TypeTypescriptNode = TypescriptTranslatorNode & {
-  $: $.TypeTypescriptNode;
-};
+export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): String2 {
+  if (is(semantic, $.StringTypeSemantic)) {
+    return `"${semantic.value}"`;
+  }
 
-export function toTypeTypescriptNode(semantic: TypeSemantic | Nothing): TypeTypescriptNode {
-  return {
-    $: $.TypeTypescriptNode,
+  if (is(semantic, $.IntegerTypeSemantic)) {
+    return `${semantic.value}`;
+  }
 
-    translate(): String2 {
-      if (!semantic) {
-        return `// error ???`;
-      }
+  if (is(semantic, $.UnionTypeSemantic)) {
+    const left = translator.type(semantic.left);
+    const right = translator.type(semantic.right);
 
-      if (is(semantic, $.StringTypeSemantic)) {
-        return `"${semantic.value}"`;
-      }
+    return `${left} | ${right}`;
+  }
 
-      if (is(semantic, $.IntegerTypeSemantic)) {
-        return `${semantic.value}`;
-      }
+  if (is(semantic, $.IntersectionTypeSemantic)) {
+    const left = translator.type(semantic.left);
+    const right = translator.type(semantic.right);
 
-      if (is(semantic, $.UnionTypeSemantic)) {
-        const left = toTypeTypescriptNode(semantic.left);
-        const right = toTypeTypescriptNode(semantic.right);
+    return `${left} & ${right}`;
+  }
 
-        return `${left.translate()} | ${right.translate()}`;
-      }
+  if (is(semantic, $.ArrayTypeSemantic)) {
+    const items = semantic.items.map((x) => translator.type(x)).join(', ');
 
-      if (is(semantic, $.IntersectionTypeSemantic)) {
-        const left = toTypeTypescriptNode(semantic.left);
-        const right = toTypeTypescriptNode(semantic.right);
+    return `[${items}]`;
+  }
 
-        return `${left.translate()} & ${right.translate()}`;
-      }
-
-      if (is(semantic, $.ArrayTypeSemantic)) {
-        const items = semantic.items.map((x) => toTypeTypescriptNode(x).translate()).join(', ');
-
-        return `[${items}]`;
-      }
-
-      return `// error ???`;
-    },
-  };
+  return translator.error();
 }
