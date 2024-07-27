@@ -1,10 +1,11 @@
 import {$, is} from '../../../../$';
-import {Array2, Nothing, nothing} from '../../../../../lib/types';
+import {Array2, Nothing} from '../../../../../lib/types';
 import {Node} from '../../../node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
-import {declarationTypeSemanticTryParse} from './id/id-type-semantic-parser';
+import {idTypeSemanticTryParse} from './id/id-type-semantic-parser';
+import {nothingTypeFromNode} from './id/nothing/nothing-id-type-semantic';
 import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
 import {complementTypeSemanticTryParse} from './set/complement/intersection-type-semantic-parser';
 import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
@@ -21,7 +22,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   stringTypeSemanticTryParse,
   rangeTypeSemanticTryParse,
   arrayTypeSemanticTryParse,
-  declarationTypeSemanticTryParse,
+  idTypeSemanticTryParse,
   functionTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   unionTypeSemanticTryParse,
@@ -29,12 +30,12 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   notTypeSemanticTryParse,
 ];
 
-export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node | Nothing): TypeSemantic | Nothing {
+export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic {
   if (!is(node, $.ExpressionNode)) {
-    return nothing;
+    return nothingTypeFromNode(analyzer, node);
   }
 
-  const semantic = parsers.findMap((parse) => parse(analyzer, node));
+  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? nothingTypeFromNode(analyzer, node);
   node.semantic = semantic;
 
   return semantic;

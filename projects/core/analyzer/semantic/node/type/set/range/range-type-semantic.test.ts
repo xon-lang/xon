@@ -6,8 +6,8 @@ import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../semantic-analyzer-config';
 import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
+import {typeNodeType} from '../../array/array-type-semantic-parser';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
-import {typeSemanticParse} from '../../type-semantic-parser';
 import {RangeTypeSemantic} from './range-type-semantic';
 
 test('a is range', () => {
@@ -29,8 +29,11 @@ test('a is range', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as RangeTypeSemantic;
-  expect(typeSemantic.$).toBe($.RangeTypeSemantic);
-  expect((typeSemantic.from as IntegerTypeSemantic).value).toBe(1);
-  expect((typeSemantic.to as IntegerTypeSemantic).value).toBe(3);
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semantic, constNode.type) as RangeTypeSemantic)
+    : nothing;
+
+  expect(typeSemantic?.$).toBe($.RangeTypeSemantic);
+  expect((typeSemantic?.from as IntegerTypeSemantic).value).toBe(1);
+  expect((typeSemantic?.to as IntegerTypeSemantic).value).toBe(3);
 });

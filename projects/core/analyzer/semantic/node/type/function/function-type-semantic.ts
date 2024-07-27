@@ -8,16 +8,16 @@ import {TypeSemantic} from '../type-semantic';
 
 export interface FunctionTypeSemantic extends TypeSemantic {
   $: $.FunctionTypeSemantic;
-  generics: Array2<TypeSemantic | Nothing> | Nothing;
+  generics: Array2<TypeSemantic> | Nothing;
   parameters: Array2<DeclarationSemantic | Nothing>;
-  result: TypeSemantic | Nothing;
+  result: TypeSemantic;
 }
 
 export function functionTypeSemantic(
   reference: TextResourceRange,
-  generics: Array2<TypeSemantic | Nothing> | Nothing,
+  generics: Array2<TypeSemantic> | Nothing,
   parameters: Array2<DeclarationSemantic | Nothing>,
-  result: TypeSemantic | Nothing,
+  result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
     $: $.FunctionTypeSemantic,

@@ -5,9 +5,9 @@ import {DeclarationNode} from '../../../../../syntax/node/declaration/declaratio
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
+import {typeNodeType} from '../../array/array-type-semantic-parser';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {typeSemanticParse} from '../../type-semantic-parser';
 import {ComplementTypeSemantic} from './complement-type-semantic';
 
 test('a is integer or float', () => {
@@ -32,12 +32,14 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ComplementTypeSemantic;
-  expect(typeSemantic.$).toBe($.ComplementTypeSemantic);
-  expect(typeSemantic.left.$).toBe($.IdTypeSemantic);
-  expect((typeSemantic.left as IdTypeSemantic).declaration?.name).toBe('Integer');
-  expect(typeSemantic.right.$).toBe($.IdTypeSemantic);
-  expect((typeSemantic.right as IdTypeSemantic).declaration?.name).toBe('Float');
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semantic, constNode.type) as ComplementTypeSemantic)
+    : nothing;
+  expect(typeSemantic?.$).toBe($.ComplementTypeSemantic);
+  expect(typeSemantic?.left.$).toBe($.IdTypeSemantic);
+  expect((typeSemantic?.left as IdTypeSemantic).declaration?.name).toBe('Integer');
+  expect(typeSemantic?.right.$).toBe($.IdTypeSemantic);
+  expect((typeSemantic?.right as IdTypeSemantic).declaration?.name).toBe('Float');
 });
 
 test('check type', () => {

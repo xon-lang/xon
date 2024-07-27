@@ -5,9 +5,9 @@ import {DeclarationNode} from '../../../../../syntax/node/declaration/declaratio
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
+import {typeNodeType} from '../../array/array-type-semantic-parser';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
-import {typeSemanticParse} from '../../type-semantic-parser';
 import {UnionTypeSemantic} from './union-type-semantic';
 
 test('a is integer or float', () => {
@@ -32,12 +32,14 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as UnionTypeSemantic;
-  expect(typeSemantic.$).toBe($.UnionTypeSemantic);
-  expect(typeSemantic.left.$).toBe($.IdTypeSemantic);
-  expect((typeSemantic.left as IdTypeSemantic).declaration?.name).toBe('Integer');
-  expect(typeSemantic.right.$).toBe($.IdTypeSemantic);
-  expect((typeSemantic.right as IdTypeSemantic).declaration?.name).toBe('Float');
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semantic, constNode.type) as UnionTypeSemantic)
+    : nothing;
+  expect(typeSemantic?.$).toBe($.UnionTypeSemantic);
+  expect(typeSemantic?.left.$).toBe($.IdTypeSemantic);
+  expect((typeSemantic?.left as IdTypeSemantic).declaration?.name).toBe('Integer');
+  expect(typeSemantic?.right.$).toBe($.IdTypeSemantic);
+  expect((typeSemantic?.right as IdTypeSemantic).declaration?.name).toBe('Float');
 });
 
 test('1 check type', () => {
@@ -56,11 +58,11 @@ test('1 check type', () => {
   const aConst = syntax.statements[3].value as DeclarationNode;
   const bConst = syntax.statements[4].value as DeclarationNode;
 
-  const aType = typeSemanticParse(semantic, aConst.type?.value) as TypeSemantic;
-  const bType = typeSemanticParse(semantic, bConst.type?.value) as TypeSemantic;
-  expect(aType.$).toBe($.IdTypeSemantic);
-  expect(bType.$).toBe($.UnionTypeSemantic);
-  expect(aType.is(bType)).toBe(true);
+  const aType = aConst.type ? typeNodeType(semantic, aConst.type) : nothing;
+  const bType = bConst.type ? typeNodeType(semantic, bConst.type) : nothing;
+  expect(aType?.$).toBe($.IdTypeSemantic);
+  expect(bType?.$).toBe($.UnionTypeSemantic);
+  expect(bType && aType?.is(bType)).toBe(true);
 });
 
 test('2 check type', () => {

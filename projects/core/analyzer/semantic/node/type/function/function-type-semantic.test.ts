@@ -36,6 +36,6 @@ test('a is integer', () => {
   expect((typeSemantic.parameters[0] as PropertyValueDeclarationSemantic).name).toBe('x');
   expect(
     ((typeSemantic.parameters[0] as PropertyValueDeclarationSemantic).type as IdTypeSemantic).declaration
-      .name,
+      ?.name,
   ).toBe('Integer');
 });

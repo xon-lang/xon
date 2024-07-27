@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../lib/types';
+import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
@@ -8,14 +8,14 @@ import {TypeSemantic} from '../type-semantic';
 
 export interface ArrayTypeSemantic extends TypeSemantic {
   $: $.ArrayTypeSemantic;
-  declaration: NominalTypeDeclarationSemantic;
-  items: (TypeSemantic | Nothing)[];
+  declaration?: NominalTypeDeclarationSemantic | Nothing;
+  items: Array2<TypeSemantic>;
 }
 
-export function integerTypeSemantic(
+export function arrayTypeSemantic(
   reference: TextResourceRange,
-  declaration: NominalTypeDeclarationSemantic,
-  items: ArrayTypeSemantic['items'],
+  declaration: NominalTypeDeclarationSemantic | Nothing,
+  items: Array2<TypeSemantic>,
 ): ArrayTypeSemantic {
   return {
     $: $.ArrayTypeSemantic,
@@ -33,7 +33,7 @@ export function integerTypeSemantic(
       }
 
       if (is(other, $.TypeDeclarationSemantic)) {
-        return this.declaration.eq(other) || (this.declaration.type?.is(other) ?? false);
+        return this.declaration?.eq(other) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;

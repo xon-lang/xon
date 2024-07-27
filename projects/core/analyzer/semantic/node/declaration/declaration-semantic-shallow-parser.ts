@@ -2,6 +2,7 @@ import {nothing, Nothing} from '../../../../../lib/types';
 import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
+import {typeNodeType} from '../type/array/array-type-semantic-parser';
 import {typeSemanticParse} from '../type/type-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
 import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
@@ -35,8 +36,8 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode) {
       return structuralTypeDeclarationSemantic(reference, documentation, modifier, name, valueType);
     }
 
-    const baseType = typeSemanticParse(analyzer, node.type?.value);
-    return nominalTypeDeclarationSemantic(reference, documentation, modifier, name, baseType);
+    const type = node.type ? typeNodeType(analyzer, node.type) : nothing;
+    return nominalTypeDeclarationSemantic(reference, documentation, modifier, name, type);
   }
 
   if (node.parameters) {

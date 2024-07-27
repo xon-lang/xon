@@ -1,11 +1,7 @@
 import {$, is} from '../../../../$';
 import {Nothing, nothing} from '../../../../../lib/types';
 import {DocumentationNode} from '../../../syntax/documentation/documentation-node';
-import {
-  DeclarationNode,
-  getDeclarationGenerics,
-  getDeclarationParameters,
-} from '../../../syntax/node/declaration/declaration-node';
+import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {createDeclarationManager} from '../../declaration-manager';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {documentationIdSemantic} from '../documentation/documentation-id-semantic';
@@ -57,7 +53,7 @@ function genericsParse(
     return;
   }
 
-  const syntaxGenerics = getDeclarationGenerics(node);
+  const syntaxGenerics = node.generics.items.map((x) => (is(x.value, $.DeclarationNode) ? x.value : nothing));
   declaration.generics = declarationsParse(analyzer, syntaxGenerics);
 
   if (node.documentation) {
@@ -76,7 +72,9 @@ function parametersParse(
     return;
   }
 
-  const syntaxParameters = getDeclarationParameters(node);
+  const syntaxParameters = node.parameters.items.map((x) =>
+    is(x.value, $.DeclarationNode) ? x.value : nothing,
+  );
   declaration.parameters = declarationsParse(analyzer, syntaxParameters);
 
   if (node.documentation) {

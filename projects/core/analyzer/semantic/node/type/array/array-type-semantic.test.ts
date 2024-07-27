@@ -8,8 +8,8 @@ import {TEST_SEMANTIC_CONFIG} from '../../../semantic-analyzer-config';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {StringTypeSemantic} from '../string/string-type-semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
 import {ArrayTypeSemantic} from './array-type-semantic';
+import {typeNodeType} from './array-type-semantic-parser';
 
 test('a is array', () => {
   const text = `
@@ -30,10 +30,12 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as ArrayTypeSemantic;
-  expect(typeSemantic.$).toBe($.ArrayTypeSemantic);
-  expect(typeSemantic.items.length).toBe(3);
-  expect((typeSemantic.items[0] as IntegerTypeSemantic).value).toBe(1);
-  expect((typeSemantic.items[1] as IntegerTypeSemantic).value).toBe(2);
-  expect((typeSemantic.items[2] as StringTypeSemantic).value).toBe('A');
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semantic, constNode.type) as ArrayTypeSemantic)
+    : nothing;
+  expect(typeSemantic?.$).toBe($.ArrayTypeSemantic);
+  expect(typeSemantic?.items.length).toBe(3);
+  expect((typeSemantic?.items[0] as IntegerTypeSemantic).value).toBe(1);
+  expect((typeSemantic?.items[1] as IntegerTypeSemantic).value).toBe(2);
+  expect((typeSemantic?.items[2] as StringTypeSemantic).value).toBe('A');
 });

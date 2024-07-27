@@ -32,7 +32,7 @@ export function integerTypeSemantic(
         return true;
       }
 
-      if (is(other, $.IdTypeSemantic)) {
+      if (is(other, $.IdTypeSemantic) && other.declaration) {
         return this.declaration.eq(other.declaration) || (this.declaration.type?.is(other) ?? false);
       }
 

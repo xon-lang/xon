@@ -6,7 +6,7 @@ import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../semantic-analyzer-config';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
+import {typeNodeType} from '../array/array-type-semantic-parser';
 import {IntegerTypeSemantic} from './integer-type-semantic';
 
 test('a is integer', () => {
@@ -28,7 +28,9 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IntegerTypeSemantic;
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semantic, constNode.type) as IntegerTypeSemantic)
+    : nothing;
   expect(typeSemantic?.$).toBe($.IntegerTypeSemantic);
   expect(typeSemantic?.value).toBe(123);
 });
