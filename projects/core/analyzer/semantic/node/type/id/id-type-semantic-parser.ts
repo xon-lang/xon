@@ -4,13 +4,11 @@ import {IdNode} from '../../../../lexical/node/id/id-node';
 import {Node} from '../../../../node';
 import {InvokeNode} from '../../../../syntax/node/invoke/invoke-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {typeSemanticParse} from '../type-semantic-parser';
+import {itemNodeType} from '../array/array-type-semantic-parser';
 import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
 
-export function declarationTypeSemanticTryParse(
-  analyzer: SemanticAnalyzer,
-  node: Node,
-): IdTypeSemantic | Nothing {
+// todo should return always 'IdTypeSemantic' ???
+export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): IdTypeSemantic | Nothing {
   if (is(node, $.IdNode)) {
     return idParse(analyzer, node);
   }
@@ -22,7 +20,7 @@ export function declarationTypeSemanticTryParse(
   return nothing;
 }
 
-function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Nothing {
+function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic {
   const declaration = analyzer.declarationManager.single(
     $.TypeDeclarationSemantic,
     node.text.toString(),
@@ -32,29 +30,23 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic | Not
 
   if (!declaration) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotResolveType());
-
-    return nothing;
   }
 
-  if (is(declaration, $.DeclarationSemantic)) {
-    const reference = analyzer.createReference(node);
-    const semantic = idTypeSemantic(analyzer, reference, declaration, nothing);
-
-    return semantic;
+  if (is(declaration, $.ValueDeclarationSemantic)) {
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
   }
 
-  analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
-
-  return nothing;
+  const reference = analyzer.createReference(node);
+  return idTypeSemantic(analyzer, reference, declaration, nothing);
 }
 
 function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemantic | Nothing {
-  if (!is(node.group.open, $.BraceOpenNode)) {
+  if (!is(node.group, $.BraceGroupNode)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.group.open.range, (x) => x.notImplemented());
     return nothing;
   }
 
-  const generics = node.group.items.map((x) => typeSemanticParse(analyzer, x.value));
+  const generics = node.group.items.map((x) => itemNodeType(analyzer, x));
 
   if (is(node.instance, $.IdNode)) {
     const declaration = analyzer.declarationManager.single(

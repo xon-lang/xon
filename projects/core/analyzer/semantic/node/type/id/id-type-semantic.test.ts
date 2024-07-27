@@ -6,8 +6,8 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
+import {typeNodeType} from '../array/array-type-semantic-parser';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
 import {IdTypeSemantic} from './id-type-semantic';
 
 test('a is integer', () => {
@@ -44,11 +44,11 @@ test('a is array', () => {
   `;
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
-  const semantic = createSemanticAnalyzer(syntax);
+  const semanticAnalyzer = createSemanticAnalyzer(syntax);
 
-  expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
-  expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
+  expect(semanticAnalyzer.declarationManager.count()).toBe(3);
+  expect(semanticAnalyzer.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
+  expect(semanticAnalyzer.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
@@ -57,10 +57,12 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
-  const typeSemantic = typeSemanticParse(semantic, constNode.type?.value) as IdTypeSemantic;
-  expect(typeSemantic.$).toBe($.IdTypeSemantic);
-  expect(typeSemantic.declaration.$).toBe($.NominalTypeDeclarationSemantic);
-  expect(typeSemantic.declaration.name).toBe('Array');
-  expect(typeSemantic.generics?.length).toBe(1);
-  expect((typeSemantic.generics?.at(0) as IntegerTypeSemantic).value).toBe(3);
+  const typeSemantic = constNode.type
+    ? (typeNodeType(semanticAnalyzer, constNode.type) as IdTypeSemantic)
+    : nothing;
+  expect(typeSemantic?.$).toBe($.IdTypeSemantic);
+  expect(typeSemantic?.declaration?.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(typeSemantic?.declaration?.name).toBe('Array');
+  expect(typeSemantic?.generics?.length).toBe(1);
+  expect((typeSemantic?.generics?.at(0) as IntegerTypeSemantic).value).toBe(3);
 });

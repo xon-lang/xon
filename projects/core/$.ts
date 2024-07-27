@@ -43,6 +43,7 @@ import {Semantic} from './analyzer/semantic/node/semantic';
 import {ArrayTypeSemantic} from './analyzer/semantic/node/type/array/array-type-semantic';
 import {FunctionTypeSemantic} from './analyzer/semantic/node/type/function/function-type-semantic';
 import {IdTypeSemantic} from './analyzer/semantic/node/type/id/id-type-semantic';
+import {NothingIdTypeSemantic} from './analyzer/semantic/node/type/id/nothing/nothing-id-type-semantic';
 import {IntegerTypeSemantic} from './analyzer/semantic/node/type/integer/integer-type-semantic';
 import {ComplementTypeSemantic} from './analyzer/semantic/node/type/set/complement/complement-type-semantic';
 import {IntersectionTypeSemantic} from './analyzer/semantic/node/type/set/intersection/intersection-type-semantic';
@@ -84,10 +85,6 @@ import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
 import {StatementNode} from './analyzer/syntax/statement/statement-node';
 import {Translator} from './translator/translator';
-import {TranslatorNode} from './translator/translator-node';
-import {TypeDeclarationTypescriptNode} from './translator/typescript/node/declaration/type/type-declaration-typescript-node';
-import {TypeTypescriptNode} from './translator/typescript/node/type/type-typescript-node';
-import {TypescriptTranslatorNode} from './translator/typescript/node/typescript-node';
 import {TypescriptTranslator} from './translator/typescript/typescript-translator';
 import {TextData} from './util/data/text-data';
 import {Resource} from './util/resource/resource';
@@ -184,7 +181,10 @@ export enum $ {
   IntegerTypeSemantic = ' IntegerTypeSemantic ' + $.TypeSemantic,
   StringTypeSemantic = ' StringTypeSemantic ' + $.TypeSemantic,
   // CharTypeSemantic = ' CharTypeSemantic ' + $.TypeSemantic,
+
   IdTypeSemantic = ' IdTypeSemantic ' + $.TypeSemantic,
+  NothingIdTypeSemantic = ' NothingIdTypeSemantic ' + $.TypeSemantic,
+
   ArrayTypeSemantic = ' ArrayTypeSemantic ' + $.TypeSemantic,
   FunctionTypeSemantic = ' FunctionTypeSemantic ' + $.TypeSemantic,
 
@@ -212,13 +212,7 @@ export enum $ {
   TextResource = ' TextResource ' + $.Resource,
 
   Translator = ' Translator ',
-  TranslatorNode = ' TranslatorNode ',
-
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
-
-  TypescriptTranslatorNode = ' TypescriptTranslatorNode ',
-  TypeDeclarationTypescriptNode = ' TypeDeclarationTypescriptNode ' + $.TypescriptTranslatorNode,
-  TypeTypescriptNode = ' TypeTypescriptNode ' + $.TypescriptTranslatorNode,
 }
 
 export type TypeMap = {
@@ -301,7 +295,10 @@ export type TypeMap = {
   [$.PropertyValueDeclarationSemantic]: PropertyValueDeclarationSemantic;
 
   [$.TypeSemantic]: TypeSemantic;
+
   [$.IdTypeSemantic]: IdTypeSemantic;
+  [$.NothingIdTypeSemantic]: NothingIdTypeSemantic;
+
   [$.IntegerTypeSemantic]: IntegerTypeSemantic;
   [$.StringTypeSemantic]: StringTypeSemantic;
   [$.ArrayTypeSemantic]: ArrayTypeSemantic;
@@ -328,12 +325,7 @@ export type TypeMap = {
   [$.TextResource]: TextResource;
 
   [$.Translator]: Translator;
-  [$.TranslatorNode]: TranslatorNode;
-
   [$.TypescriptTranslator]: TypescriptTranslator;
-  [$.TypescriptTranslatorNode]: TypescriptTranslatorNode;
-  [$.TypeTypescriptNode]: TypeTypescriptNode;
-  [$.TypeDeclarationTypescriptNode]: TypeDeclarationTypescriptNode;
 };
 
 export type $Model = {

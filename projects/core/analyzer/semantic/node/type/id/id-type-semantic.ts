@@ -7,19 +7,19 @@ import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-s
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
-export interface IdTypeSemantic extends TypeSemantic {
+export type IdTypeSemantic = TypeSemantic & {
   $: $.IdTypeSemantic;
-  declaration: TypeDeclarationSemantic;
-  generics: Array2<TypeSemantic | Nothing> | Nothing;
-}
+  declaration?: TypeDeclarationSemantic | Nothing;
+  generics?: Array2<TypeSemantic | Nothing> | Nothing;
+};
 
 export function idTypeSemantic(
   analyzer: SemanticAnalyzer,
   reference: TextResourceRange,
-  declaration: TypeDeclarationSemantic,
-  generics: Array2<TypeSemantic | Nothing> | Nothing,
+  declaration?: TypeDeclarationSemantic | Nothing,
+  generics?: Array2<TypeSemantic | Nothing> | Nothing,
 ): IdTypeSemantic {
-  declaration.usages.push(reference);
+  declaration?.usages.push(reference);
 
   return {
     $: $.IdTypeSemantic,
@@ -36,6 +36,7 @@ export function idTypeSemantic(
         return true;
       }
 
+      // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
       if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
         return this.declaration.type?.is(other) ?? false;
       }
@@ -44,7 +45,12 @@ export function idTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is(this.declaration, $.NominalTypeDeclarationSemantic) && is(other, $.IdTypeSemantic)) {
+      // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
+      if (
+        is(this.declaration, $.NominalTypeDeclarationSemantic) &&
+        is(other, $.IdTypeSemantic) &&
+        is(other.declaration, $.NominalTypeDeclarationSemantic)
+      ) {
         return this.declaration.eq(other.declaration);
       }
 
