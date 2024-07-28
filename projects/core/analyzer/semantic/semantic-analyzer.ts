@@ -26,6 +26,7 @@ export type SemanticAnalyzer = {
   createReference: (node: Node) => TextResourceRange;
   pushDeclarationScope(): void;
   popDeclarationScope(): void;
+  usingDeclarationScope<T>(cb: () => T): T;
 };
 
 export function createSemanticAnalyzer(
@@ -59,6 +60,14 @@ export function createSemanticAnalyzer(
       if (this.declarationManager.parent) {
         this.declarationManager = this.declarationManager.parent;
       }
+    },
+
+    usingDeclarationScope<T>(cb: () => T): T {
+      this.pushDeclarationScope();
+      const result = cb();
+      this.popDeclarationScope();
+
+      return result;
     },
   };
 
