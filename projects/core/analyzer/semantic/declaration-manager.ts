@@ -12,14 +12,14 @@ export type DeclarationKind =
   | $.MethodValueDeclarationSemantic
   | $.PropertyValueDeclarationSemantic;
 
-export interface DeclarationManager {
+export interface DeclarationManager<T extends DeclarationSemantic = DeclarationSemantic> {
   imports: Array2<DeclarationManager> | Nothing;
   parent: DeclarationManager | Nothing;
-  declarations: Record<String2, Array2<DeclarationSemantic>>;
+  declarations: Record<String2, Array2<T>>;
 
   count(): Integer;
-  add(declaration: DeclarationSemantic): void;
-  all(): Array2<DeclarationSemantic>;
+  add(declaration: T): void;
+  all(): Array2<T>;
 
   filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): Array2<TypeMap[KIND]>;
 
@@ -30,16 +30,16 @@ export interface DeclarationManager {
     parameters?: Array2<TypeSemantic | Nothing> | Nothing,
   ): TypeMap[KIND] | Nothing;
 
-  clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager;
-  union(other: DeclarationManager): DeclarationManager;
-  intersection(other: DeclarationManager): DeclarationManager;
-  complement(other: DeclarationManager): DeclarationManager;
+  clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager<T>;
+  union(other: DeclarationManager<T>): DeclarationManager<T>;
+  intersection(other: DeclarationManager<T>): DeclarationManager<T>;
+  complement(other: DeclarationManager<T>): DeclarationManager<T>;
 }
 
-export function createDeclarationManager(
-  parent?: DeclarationManager | Nothing,
-  imports?: Array2<DeclarationManager> | Nothing,
-): DeclarationManager {
+export function createDeclarationManager<T extends DeclarationSemantic = DeclarationSemantic>(
+  parent?: DeclarationManager<T> | Nothing,
+  imports?: Array2<DeclarationManager<T>> | Nothing,
+): DeclarationManager<T> {
   return {
     imports,
     parent,
@@ -49,7 +49,7 @@ export function createDeclarationManager(
       return Object.keys(this.declarations).length;
     },
 
-    add(declaration: DeclarationSemantic): void {
+    add(declaration: T): void {
       if (!this.declarations[declaration.name]) {
         this.declarations[declaration.name] = [];
       }
@@ -57,7 +57,7 @@ export function createDeclarationManager(
       this.declarations[declaration.name].push(declaration);
     },
 
-    all(): Array2<DeclarationSemantic> {
+    all(): Array2<T> {
       return Object.values(this.declarations).flat();
     },
 
@@ -109,8 +109,8 @@ export function createDeclarationManager(
       return filtered.first();
     },
 
-    clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager {
-      const declarationManager = createDeclarationManager();
+    clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager<T> {
+      const declarationManager = createDeclarationManager<T>();
 
       // todo simplify it. allow create declaration manager from 'declarations' field
       for (const declaration of this.all()) {
@@ -120,8 +120,8 @@ export function createDeclarationManager(
       return declarationManager;
     },
 
-    union(other: DeclarationManager): DeclarationManager {
-      const newDeclarationManager = createDeclarationManager();
+    union(other: DeclarationManager<T>): DeclarationManager<T> {
+      const newDeclarationManager = createDeclarationManager<T>();
       const allDeclarations = [...this.all(), ...other.all()];
 
       for (const declaration of allDeclarations) {
@@ -131,12 +131,12 @@ export function createDeclarationManager(
       return newDeclarationManager;
     },
 
-    intersection(other: DeclarationManager): DeclarationManager {
+    intersection(other: DeclarationManager<T>): DeclarationManager<T> {
       // todo add 'intersection' logic instead of 'union'
       return this.union(other);
     },
 
-    complement(other: DeclarationManager): DeclarationManager {
+    complement(other: DeclarationManager<T>): DeclarationManager<T> {
       // todo add 'complement' logic instead of 'union'
       return this.union(other);
     },

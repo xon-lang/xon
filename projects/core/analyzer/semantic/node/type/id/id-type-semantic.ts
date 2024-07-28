@@ -4,6 +4,7 @@ import {TextResourceRange} from '../../../../../util/resource/text/text-resource
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
+import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -57,7 +58,7 @@ export function idTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager {
+    attributes(): DeclarationManager<ValueDeclarationSemantic> {
       // todo review below two checks
       if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
         return this.declaration.attributes?.clone() ?? createDeclarationManager();

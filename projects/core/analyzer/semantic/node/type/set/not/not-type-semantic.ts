@@ -2,6 +2,7 @@ import {$} from '../../../../../../$';
 import {Boolean2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {DeclarationManager} from '../../../../declaration-manager';
+import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {SetTypeSemantic} from '../set';
 
@@ -24,7 +25,7 @@ export function notTypeSemantic(reference: TextResourceRange, value: TypeSemanti
       return false;
     },
 
-    attributes(): DeclarationManager {
+    attributes(): DeclarationManager<ValueDeclarationSemantic> {
       // todo investigate
       throw new Error('Not implemented');
     },

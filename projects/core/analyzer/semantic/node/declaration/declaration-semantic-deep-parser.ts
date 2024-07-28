@@ -147,11 +147,9 @@ function attributesParse(
   const attributes = declarationsParse(analyzer, node.attributes);
 
   for (const attribute of attributes) {
-    if (!is(attribute, $.DeclarationSemantic)) {
-      continue;
+    if (is(attribute, $.ValueDeclarationSemantic)) {
+      declaration.attributes.add(attribute);
     }
-
-    declaration.attributes.add(attribute);
   }
 }
 

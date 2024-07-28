@@ -3,6 +3,7 @@ import {Boolean2, Char, Nothing} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
+import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -47,7 +48,7 @@ export function charTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager {
+    attributes(): DeclarationManager<ValueDeclarationSemantic> {
       return this.declaration?.attributes?.clone() ?? createDeclarationManager();
     },
   };
