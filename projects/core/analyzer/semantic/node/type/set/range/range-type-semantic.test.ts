@@ -6,8 +6,8 @@ import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../semantic-analyzer-config';
 import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
-import {typeNodeType} from '../../array/array-type-semantic-parser';
 import {IntegerTypeSemantic} from '../../integer/integer-type-semantic';
+import {typeNodeType} from '../../type-semantic-parser';
 import {RangeTypeSemantic} from './range-type-semantic';
 
 test('a is range', () => {

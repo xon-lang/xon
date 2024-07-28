@@ -5,9 +5,9 @@ import {DeclarationNode} from '../../../../../syntax/node/declaration/declaratio
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
-import {typeNodeType} from '../../array/array-type-semantic-parser';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
+import {typeNodeType} from '../../type-semantic-parser';
 import {NotTypeSemantic} from './not-type-semantic';
 
 test('a is integer or float', () => {
