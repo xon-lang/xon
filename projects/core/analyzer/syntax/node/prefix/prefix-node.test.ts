@@ -5,6 +5,7 @@ import {textResourceFromData} from '../../../../util/resource/text/text-resource
 import {LexicalNode} from '../../../lexical/node/lexical-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {syntaxFromResource} from '../../syntax-analyzer';
+import {DeclarationNode} from '../declaration/declaration-node';
 import {PrefixNode} from './prefix-node';
 
 test('negative integer', () => {
@@ -48,4 +49,17 @@ test('hidden nodes', () => {
   expect((node.value.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe('    ');
 
   expect(evaluate(node)).toBe(-1);
+});
+
+test('infix declaration', () => {
+  const text = 'infix +';
+  const source = textResourceFromData(nothing, text);
+  const syntax = syntaxFromResource(source);
+  const statements = syntax.statements;
+  const node = statements[0].value as DeclarationNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($.DeclarationNode);
+  expect(node.modifier?.text.toString()).toBe('infix');
+  expect(node.id.text.toString()).toBe('+');
 });

@@ -12,6 +12,8 @@ export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | No
 export interface LexicalAnalyzer {
   resource: TextResource;
   position: TextPosition;
+  previousNode?: LexicalNode | Nothing;
+  previousNonHiddenNode?: LexicalNode | Nothing;
 
   iterator(parsers: Array2<LexicalNodeParseFn>): IterableIterator<LexicalNode>;
 
@@ -107,6 +109,11 @@ function iterator(
 
       const node = parsers.findMap((parse) => parse(lexer)) ?? unknownNodeParse(lexer);
       lexer.position = node.range.stop;
+      lexer.previousNode = node;
+
+      if (!node.isHidden) {
+        lexer.previousNonHiddenNode = node;
+      }
 
       return {
         done: false,

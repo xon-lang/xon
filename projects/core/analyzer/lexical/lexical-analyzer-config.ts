@@ -52,9 +52,10 @@ export const VAR = 'var';
 export const INFIX = 'infix';
 export const PREFIX = 'prefix';
 export const POSTFIX = 'postfix';
+export const AFFIX_MODIFIERS = [PREFIX, INFIX, POSTFIX];
 
 export const TYPE_MODIFIER = 'type';
-export const VALUE_MODIFIERS = [CONST, VAR, PREFIX, POSTFIX, INFIX];
+export const VALUE_MODIFIERS = [CONST, VAR, ...AFFIX_MODIFIERS];
 
 export const MODIFIER_KEYWORDS = [TYPE_MODIFIER, ...VALUE_MODIFIERS];
 export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];

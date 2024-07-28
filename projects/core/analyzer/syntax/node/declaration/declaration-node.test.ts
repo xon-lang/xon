@@ -198,3 +198,18 @@ type A`;
   expect(node.id?.text.toString()).toBe('A');
   expect(node.id.range.start.line).toBe(4);
 });
+
+test('infix plus operator', () => {
+  const text = 'infix + (a: Integer, b: Integer): Integer';
+  const resource = textResourceFromData(nothing, text);
+  const syntax = syntaxFromResource(resource);
+  const statements = syntax.statements;
+  const node = statements[0].value as DeclarationNode;
+
+  expect(statements.length).toBe(1);
+  expect(node.$).toBe($.DeclarationNode);
+  // expect(node.documentation?.description?.text.toString()).toBe('\n  Some description\n');
+  // expect(node.modifier?.text.toString()).toBe('type');
+  // expect(node.id?.text.toString()).toBe('A');
+  // expect(node.id.range.start.line).toBe(4);
+});
