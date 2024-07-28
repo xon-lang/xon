@@ -35,6 +35,7 @@ import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declarat
 import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
 import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
 import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
+import {UnknownDeclarationSemantic} from './analyzer/semantic/node/declaration/unknown/unknown-declaration-semantic';
 import {MethodValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/method/method-value-declaration-semantic';
 import {PropertyValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/property/property-value-declaration-semantic';
 import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
@@ -56,6 +57,7 @@ import {StringTypeSemantic} from './analyzer/semantic/node/type/string/string-ty
 import {TypeSemantic} from './analyzer/semantic/node/type/type-semantic';
 import {CharValueSemantic} from './analyzer/semantic/node/value/char/char-value-semantic';
 import {IdValueSemantic} from './analyzer/semantic/node/value/id/id-value-semantic';
+import {NothingIdValueSemantic} from './analyzer/semantic/node/value/id/nothing/nothgin-id-value-semantic';
 import {ImportValueSemantic} from './analyzer/semantic/node/value/import/import-value-semantic';
 import {IntegerValueSemantic} from './analyzer/semantic/node/value/integer/integer-value-semantic';
 import {InvokeValueSemantic} from './analyzer/semantic/node/value/invoke/invoke-value-semantic';
@@ -169,6 +171,8 @@ export enum $ {
   // semantic
   DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
 
+  UnknownDeclarationSemantic = ' UnknownDeclarationSemantic ' + $.DeclarationSemantic,
+
   TypeDeclarationSemantic = ' TypeDeclarationSemantic ' + $.DeclarationSemantic,
   NominalTypeDeclarationSemantic = ' NominalTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
   StructuralTypeDeclarationSemantic = ' StructuralTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
@@ -202,6 +206,7 @@ export enum $ {
   CharValueSemantic = ' CharValueSemantic ' + $.ValueSemantic,
   StringValueSemantic = ' StringValueSemantic ' + $.ValueSemantic,
   IdValueSemantic = ' IdValueSemantic ' + $.ValueSemantic,
+  NothingIdValueSemantic = ' NothingIdValueSemantic ' + $.ValueSemantic,
   InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
@@ -288,6 +293,8 @@ export type TypeMap = {
 
   [$.DeclarationSemantic]: DeclarationSemantic;
 
+  [$.UnknownDeclarationSemantic]: UnknownDeclarationSemantic;
+
   [$.TypeDeclarationSemantic]: TypeDeclarationSemantic;
   [$.NominalTypeDeclarationSemantic]: NominalTypeDeclarationSemantic;
   [$.StructuralTypeDeclarationSemantic]: StructuralTypeDeclarationSemantic;
@@ -314,6 +321,7 @@ export type TypeMap = {
   [$.NotTypeSemantic]: NotTypeSemantic;
   [$.ValueSemantic]: ValueSemantic;
   [$.IdValueSemantic]: IdValueSemantic;
+  [$.NothingIdValueSemantic]: NothingIdValueSemantic;
   [$.InvokeValueSemantic]: InvokeValueSemantic;
   [$.IntegerValueSemantic]: IntegerValueSemantic;
   [$.CharValueSemantic]: CharValueSemantic;
