@@ -1,10 +1,11 @@
-import {nothing, Nothing} from '../../../../../lib/types';
+import {nothing} from '../../../../../lib/types';
 import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {typeNodeType} from '../type/array/array-type-semantic-parser';
-import {typeSemanticParse} from '../type/type-semantic-parser';
+import {nothingTypeFromNode} from '../type/id/nothing/nothing-id-type-semantic';
+import {typeNodeType, typeSemanticParse} from '../type/type-semantic-parser';
 import {DeclarationSemantic} from './declaration-semantic';
+import {declarationsParse} from './declaration-semantic-parser';
 import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
 import {structuralTypeDeclarationSemantic} from './type/structural/structural-type-declaration-semantic';
 import {methodValueDeclarationSemantic} from './value/method/method-value-declaration-semantic';
@@ -13,15 +14,15 @@ import {propertyValueDeclarationSemantic} from './value/property/property-value-
 export function declarationShallowParse(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
-): DeclarationSemantic | Nothing {
-  const declaration: DeclarationSemantic = createDeclaration(analyzer, node);
+): DeclarationSemantic {
+  const declaration = createDeclaration(analyzer, node);
   node.id.semantic = declaration;
   analyzer.declarationManager.add(declaration);
 
   return declaration;
 }
 
-function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode) {
+function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
   const reference = analyzer.createReference(node.id);
   const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
   const modifier = node.modifier?.text.toString();
@@ -37,12 +38,17 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode) {
     }
 
     const type = node.type ? typeNodeType(analyzer, node.type) : nothing;
+
     return nominalTypeDeclarationSemantic(reference, documentation, modifier, name, type);
   }
 
+  const type = node.type ? typeNodeType(analyzer, node.type) : nothingTypeFromNode(analyzer, node);
+
   if (node.parameters) {
-    return methodValueDeclarationSemantic(reference, documentation, modifier, name, nothing, nothing);
+    const parameters = declarationsParse(analyzer, node.parameters.items);
+
+    return methodValueDeclarationSemantic(reference, documentation, modifier, name, parameters, type);
   }
 
-  return propertyValueDeclarationSemantic(reference, documentation, modifier, name, nothing);
+  return propertyValueDeclarationSemantic(reference, documentation, modifier, name, type);
 }

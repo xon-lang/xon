@@ -25,15 +25,11 @@ export function declarationDeepParse(
     semantic.attributes = createDeclarationManager();
   }
 
-  analyzer.pushDeclarationScope();
-
-  genericsParse(analyzer, semantic, node);
-  parametersParse(analyzer, semantic, node);
+  analyzer.usingDeclarationScope(() => genericsParse(analyzer, semantic, node));
+  analyzer.usingDeclarationScope(() => parametersParse(analyzer, semantic, node));
   typeParse(analyzer, semantic, node);
   valueParse(analyzer, semantic, node);
-  attributesParse(analyzer, semantic, node);
-
-  analyzer.popDeclarationScope();
+  analyzer.usingDeclarationScope(() => attributesParse(analyzer, semantic, node));
 
   return semantic;
 }
@@ -53,8 +49,7 @@ function genericsParse(
     return;
   }
 
-  const syntaxGenerics = node.generics.items.map((x) => (is(x.value, $.DeclarationNode) ? x.value : nothing));
-  declaration.generics = declarationsParse(analyzer, syntaxGenerics);
+  declaration.generics = declarationsParse(analyzer, node.generics.items);
 
   if (node.documentation) {
     for (const generic of declaration.generics.filter((x) => !!x)) {
@@ -72,10 +67,7 @@ function parametersParse(
     return;
   }
 
-  const syntaxParameters = node.parameters.items.map((x) =>
-    is(x.value, $.DeclarationNode) ? x.value : nothing,
-  );
-  declaration.parameters = declarationsParse(analyzer, syntaxParameters);
+  declaration.parameters = declarationsParse(analyzer, node.parameters.items);
 
   if (node.documentation) {
     for (const parameter of declaration.parameters.filter((x) => !!x)) {

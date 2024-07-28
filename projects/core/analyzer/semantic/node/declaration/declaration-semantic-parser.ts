@@ -1,10 +1,12 @@
 import {$, is} from '../../../../$';
-import {Array2, Nothing, nothing} from '../../../../../lib/types';
+import {Array2, nothing} from '../../../../../lib/types';
+import {ItemNode} from '../../../syntax/group/item-node';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationDeepParse} from './declaration-semantic-deep-parser';
 import {declarationShallowParse} from './declaration-semantic-shallow-parser';
+import {unknownDeclarationSemantic} from './unknown/unknown-declaration-semantic';
 
 export function syntaxDeclarationsParse(analyzer: SemanticAnalyzer): void {
   const declarationNodes = analyzer.statements.filterMap((x) =>
@@ -16,17 +18,28 @@ export function syntaxDeclarationsParse(analyzer: SemanticAnalyzer): void {
 
 export function declarationsParse(
   analyzer: SemanticAnalyzer,
-  declarationNodes: Array2<DeclarationNode | Nothing>,
-): Array2<DeclarationSemantic | Nothing> {
-  const declarations = declarationNodes.map((x) => (x ? declarationShallowParse(analyzer, x) : nothing));
+  nodes: Array2<DeclarationNode | ItemNode>,
+): Array2<DeclarationSemantic> {
+  // todo use push pop always here
+  // analyzer.pushDeclarationScope();
 
-  for (const node of declarationNodes) {
-    if (!node) {
-      continue;
+  const declarations = nodes.map((x) => {
+    const node = is(x, $.DeclarationNode) ? x : x.value;
+
+    if (is(node, $.DeclarationNode)) {
+      return declarationShallowParse(analyzer, node);
     }
 
-    declarationDeepParse(analyzer, node);
+    return unknownDeclarationSemantic(analyzer.createReference(x));
+  });
+
+  for (const node of nodes) {
+    if (is(node, $.DeclarationNode)) {
+      declarationDeepParse(analyzer, node);
+    }
   }
+
+  // analyzer.popDeclarationScope();
 
   return declarations;
 }

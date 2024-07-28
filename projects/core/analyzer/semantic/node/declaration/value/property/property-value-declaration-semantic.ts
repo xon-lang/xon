@@ -16,7 +16,7 @@ export function propertyValueDeclarationSemantic(
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
-  type: TypeSemantic | Nothing,
+  type: TypeSemantic,
 ): PropertyValueDeclarationSemantic {
   return {
     $: $.PropertyValueDeclarationSemantic,
