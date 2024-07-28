@@ -13,6 +13,7 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     return idParse(analyzer, node);
   }
 
+  // todo separate generics from other invoke variants !!!
   if (is(node, $.InvokeNode) && is(node.instance, $.IdNode)) {
     return invokeParse(analyzer, node);
   }
