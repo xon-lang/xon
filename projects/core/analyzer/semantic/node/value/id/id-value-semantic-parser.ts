@@ -2,7 +2,7 @@ import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {nothingTypeFromNode} from '../../type/id/nothing/nothing-id-type-semantic';
+import {nothingTypeFromNode} from '../../type/unknown/unknown-type-semantic';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 

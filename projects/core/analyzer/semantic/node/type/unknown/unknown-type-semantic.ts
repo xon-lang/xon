@@ -1,29 +1,29 @@
-import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
-import {Node} from '../../../../../node';
-import {DeclarationManager, createDeclarationManager} from '../../../../declaration-manager';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {NominalTypeDeclarationSemantic} from '../../../declaration/type/nominal/nominal-type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
-import {isInSet} from '../../set/set';
-import {TypeSemantic} from '../../type-semantic';
+import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
+import {Boolean2, Nothing} from '../../../../../../lib/types';
+import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
+import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
+import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
+import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {isInSet} from '../set/set';
+import {TypeSemantic} from '../type-semantic';
 
 // todo extend from 'IdTypeSemantic'
-export type NothingIdTypeSemantic = TypeSemantic & {
-  $: $.NothingIdTypeSemantic;
+export type UnknownTypeSemantic = TypeSemantic & {
+  $: $.UnknownTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
 };
 
-export function nothingIdTypeSemantic(
+export function unknownTypeSemantic(
   analyzer: SemanticAnalyzer,
   reference: TextResourceRange,
   declaration?: NominalTypeDeclarationSemantic | Nothing,
-): NothingIdTypeSemantic {
+): UnknownTypeSemantic {
   declaration?.usages.push(reference);
 
   return {
-    $: $.NothingIdTypeSemantic,
+    $: $.UnknownTypeSemantic,
     reference,
     declaration,
 
@@ -66,7 +66,7 @@ export function nothingIdTypeSemantic(
   };
 }
 
-export function nothingTypeFromNode(analyzer: SemanticAnalyzer, node: Node): NothingIdTypeSemantic {
+export function nothingTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic {
   const {nothingTypeName} = analyzer.config.literalTypeNames;
 
   const nothingDeclaration = analyzer.declarationManager.single(
@@ -74,5 +74,5 @@ export function nothingTypeFromNode(analyzer: SemanticAnalyzer, node: Node): Not
     nothingTypeName,
   );
 
-  return nothingIdTypeSemantic(analyzer, analyzer.createReference(node), nothingDeclaration);
+  return unknownTypeSemantic(analyzer, analyzer.createReference(node), nothingDeclaration);
 }

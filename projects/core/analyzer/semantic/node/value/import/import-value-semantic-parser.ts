@@ -6,7 +6,7 @@ import {Node} from '../../../../node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {nothingTypeFromNode} from '../../type/id/nothing/nothing-id-type-semantic';
+import {nothingTypeFromNode} from '../../type/unknown/unknown-type-semantic';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');

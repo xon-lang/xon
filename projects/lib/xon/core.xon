@@ -25,3 +25,5 @@ type Range: Something
   @a - 
 ---
 min(a: Integer, b: Integer): Integer
+
+infix + (a: Integer, b: Integer): Integer

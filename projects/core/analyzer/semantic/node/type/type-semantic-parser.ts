@@ -7,7 +7,6 @@ import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {charTypeSemanticTryParse} from './char/char-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
 import {idTypeSemanticTryParse} from './id/id-type-semantic-parser';
-import {nothingTypeFromNode} from './id/nothing/nothing-id-type-semantic';
 import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
 import {complementTypeSemanticTryParse} from './set/complement/intersection-type-semantic-parser';
 import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
@@ -16,6 +15,7 @@ import {rangeTypeSemanticTryParse} from './set/range/range-type-semantic-parser'
 import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser';
 import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
+import {nothingTypeFromNode} from './unknown/unknown-type-semantic';
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 

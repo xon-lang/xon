@@ -45,7 +45,6 @@ import {ArrayTypeSemantic} from './analyzer/semantic/node/type/array/array-type-
 import {CharTypeSemantic} from './analyzer/semantic/node/type/char/char-type-semantic';
 import {FunctionTypeSemantic} from './analyzer/semantic/node/type/function/function-type-semantic';
 import {IdTypeSemantic} from './analyzer/semantic/node/type/id/id-type-semantic';
-import {NothingIdTypeSemantic} from './analyzer/semantic/node/type/id/nothing/nothing-id-type-semantic';
 import {IntegerTypeSemantic} from './analyzer/semantic/node/type/integer/integer-type-semantic';
 import {ComplementTypeSemantic} from './analyzer/semantic/node/type/set/complement/complement-type-semantic';
 import {IntersectionTypeSemantic} from './analyzer/semantic/node/type/set/intersection/intersection-type-semantic';
@@ -55,6 +54,7 @@ import {SetTypeSemantic} from './analyzer/semantic/node/type/set/set';
 import {UnionTypeSemantic} from './analyzer/semantic/node/type/set/union/union-type-semantic';
 import {StringTypeSemantic} from './analyzer/semantic/node/type/string/string-type-semantic';
 import {TypeSemantic} from './analyzer/semantic/node/type/type-semantic';
+import {UnknownTypeSemantic} from './analyzer/semantic/node/type/unknown/unknown-type-semantic';
 import {CharValueSemantic} from './analyzer/semantic/node/value/char/char-value-semantic';
 import {IdValueSemantic} from './analyzer/semantic/node/value/id/id-value-semantic';
 import {NothingIdValueSemantic} from './analyzer/semantic/node/value/id/nothing/nothgin-id-value-semantic';
@@ -189,7 +189,7 @@ export enum $ {
   StringTypeSemantic = ' StringTypeSemantic ' + $.TypeSemantic,
 
   IdTypeSemantic = ' IdTypeSemantic ' + $.TypeSemantic,
-  NothingIdTypeSemantic = ' NothingIdTypeSemantic ' + $.TypeSemantic,
+  UnknownTypeSemantic = ' UnknownTypeSemantic ' + $.TypeSemantic,
 
   ArrayTypeSemantic = ' ArrayTypeSemantic ' + $.TypeSemantic,
   FunctionTypeSemantic = ' FunctionTypeSemantic ' + $.TypeSemantic,
@@ -306,7 +306,7 @@ export type TypeMap = {
   [$.TypeSemantic]: TypeSemantic;
 
   [$.IdTypeSemantic]: IdTypeSemantic;
-  [$.NothingIdTypeSemantic]: NothingIdTypeSemantic;
+  [$.UnknownTypeSemantic]: UnknownTypeSemantic;
 
   [$.IntegerTypeSemantic]: IntegerTypeSemantic;
   [$.CharTypeSemantic]: CharTypeSemantic;

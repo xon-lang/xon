@@ -4,9 +4,9 @@ import {Node} from '../../../../node';
 import {BracketGroupNode} from '../../../../syntax/group/bracket/bracket-group-node';
 import {ItemNode} from '../../../../syntax/group/item-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {nothingTypeFromNode} from '../id/nothing/nothing-id-type-semantic';
 import {TypeSemantic} from '../type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
+import {nothingTypeFromNode} from '../unknown/unknown-type-semantic';
 import {ArrayTypeSemantic, arrayTypeSemantic} from './array-type-semantic';
 
 export function arrayTypeSemanticTryParse(

@@ -4,8 +4,8 @@ import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {itemNodeType} from '../array/array-type-semantic-parser';
-import {nothingTypeFromNode} from '../id/nothing/nothing-id-type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
+import {nothingTypeFromNode} from '../unknown/unknown-type-semantic';
 import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 
 export function functionTypeSemanticTryParse(
