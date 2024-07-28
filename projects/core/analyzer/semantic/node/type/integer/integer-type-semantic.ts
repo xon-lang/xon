@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Integer} from '../../../../../../lib/types';
+import {Boolean2, Integer, Nothing} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
@@ -8,13 +8,13 @@ import {TypeSemantic} from '../type-semantic';
 
 export interface IntegerTypeSemantic extends TypeSemantic {
   $: $.IntegerTypeSemantic;
-  declaration: NominalTypeDeclarationSemantic;
+  declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: Integer;
 }
 
 export function integerTypeSemantic(
   reference: TextResourceRange,
-  declaration: NominalTypeDeclarationSemantic,
+  declaration: NominalTypeDeclarationSemantic | Nothing,
   value: Integer,
 ): IntegerTypeSemantic {
   return {
@@ -33,7 +33,7 @@ export function integerTypeSemantic(
       }
 
       if (is(other, $.IdTypeSemantic) && other.declaration) {
-        return this.declaration.eq(other.declaration) || (this.declaration.type?.is(other) ?? false);
+        return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;
@@ -48,7 +48,7 @@ export function integerTypeSemantic(
     },
 
     attributes(): DeclarationManager {
-      return this.declaration.attributes?.clone() ?? createDeclarationManager();
+      return this.declaration?.attributes?.clone() ?? createDeclarationManager();
     },
   };
 }
