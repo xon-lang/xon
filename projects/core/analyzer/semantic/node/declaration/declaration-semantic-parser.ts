@@ -33,7 +33,9 @@ export function declarationsParse(
     return unknownDeclarationSemantic(analyzer.createReference(x));
   });
 
-  for (const node of nodes) {
+  for (const x of nodes) {
+    const node = is(x, $.DeclarationNode) ? x : x.value;
+
     if (is(node, $.DeclarationNode)) {
       declarationDeepParse(analyzer, node);
     }
