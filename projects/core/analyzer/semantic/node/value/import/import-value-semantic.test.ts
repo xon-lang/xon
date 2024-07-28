@@ -5,8 +5,8 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
-import {typeNodeType} from '../../type/array/array-type-semantic-parser';
 import {StringTypeSemantic} from '../../type/string/string-type-semantic';
+import {typeNodeType} from '../../type/type-semantic-parser';
 
 test('import core', () => {
   const text = `
