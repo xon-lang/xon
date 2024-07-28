@@ -11,7 +11,6 @@ import {
   TextDocument,
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
-import {DeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
@@ -41,7 +40,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
   }
 }
 
-function getAttributes(semantic: Semantic): Array2<DeclarationSemantic> | Nothing {
+function getAttributes(semantic: Semantic): Array2<ValueDeclarationSemantic> | Nothing {
   if (is(semantic, $.TypeSemantic)) {
     return semantic.attributes().all();
   }

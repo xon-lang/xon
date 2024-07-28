@@ -119,7 +119,11 @@ function getSignatureHelp(
 function getSignatureInformation(declaration: MethodValueDeclarationSemantic): SignatureInformation {
   const parametersNames =
     declaration.parameters
-      ?.map((x) => `${x?.name ?? ''}: ${typeSemanticToString(x?.type) ?? ''}`)
+      .map((x) => {
+        const type = is(x, $.PropertyValueDeclarationSemantic) ? x.type : nothing;
+
+        return `${x?.name ?? ''}: ${typeSemanticToString(type) ?? ''}`;
+      })
       ?.join(', ') ?? '';
 
   const description = declaration.documentation?.setPadding(0)?.trim() ?? '';
