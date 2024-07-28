@@ -75,5 +75,9 @@ function statementValueTranslate(translator: TypescriptTranslator, node: Node): 
     return translator.typeDeclaration(node.id.semantic);
   }
 
+  if (is(node, $.ExpressionNode) && is(node.semantic, $.ValueSemantic)) {
+    return translator.value(node.semantic);
+  }
+
   return '/* error */';
 }
