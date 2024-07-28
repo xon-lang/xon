@@ -5,23 +5,23 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
-import {IdTypeSemantic} from '../id/id-type-semantic';
 import {FunctionTypeSemantic} from './function-type-semantic';
 
 test('a is integer', () => {
   const text = `
     type Integer
-    const a: (x: Integer): Integer
+    type String
+    const a: (x: Integer): String
   `;
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
-  expect(semantic.declarationManager.count()).toBe(2);
+  expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
-  const constNode = syntax.statements[1].value as DeclarationNode;
+  const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
 
@@ -34,8 +34,8 @@ test('a is integer', () => {
   expect(typeSemantic.parameters.length).toBe(1);
   expect(typeSemantic.parameters[0]?.$).toBe($.PropertyValueDeclarationSemantic);
   expect((typeSemantic.parameters[0] as PropertyValueDeclarationSemantic).name).toBe('x');
-  expect(
-    ((typeSemantic.parameters[0] as PropertyValueDeclarationSemantic).type as IdTypeSemantic).declaration
-      ?.name,
-  ).toBe('Integer');
+  expect((typeSemantic.parameters[0] as PropertyValueDeclarationSemantic).type.declaration?.name).toBe(
+    'Integer',
+  );
+  expect(typeSemantic.result.declaration?.name).toBe('String');
 });
