@@ -3,7 +3,7 @@ import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {typeNodeType, typeSemanticParse} from '../type/type-semantic-parser';
-import {nothingTypeFromNode} from '../type/unknown/unknown-type-semantic';
+import {unknownTypeFromNode} from '../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationsParse} from './declaration-semantic-parser';
 import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
@@ -28,8 +28,6 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();
 
-  // const nothingType = analyzer.declarationManager.single(DeclarationKind.TYPE, 'Nothing')
-
   if (modifier === TYPE_MODIFIER) {
     if (node.assign) {
       const valueType = typeSemanticParse(analyzer, node.assign.value);
@@ -42,7 +40,7 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
     return nominalTypeDeclarationSemantic(reference, documentation, modifier, name, type);
   }
 
-  const type = node.type ? typeNodeType(analyzer, node.type) : nothingTypeFromNode(analyzer, node);
+  const type = node.type ? typeNodeType(analyzer, node.type) : unknownTypeFromNode(analyzer, node);
 
   if (node.parameters) {
     const parameters = declarationsParse(analyzer, node.parameters.items);

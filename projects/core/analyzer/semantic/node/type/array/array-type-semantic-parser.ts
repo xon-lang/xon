@@ -6,7 +6,7 @@ import {ItemNode} from '../../../../syntax/group/item-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeSemantic} from '../type-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
-import {nothingTypeFromNode} from '../unknown/unknown-type-semantic';
+import {unknownTypeFromNode} from '../unknown/unknown-type-semantic';
 import {ArrayTypeSemantic, arrayTypeSemantic} from './array-type-semantic';
 
 export function arrayTypeSemanticTryParse(
@@ -50,5 +50,5 @@ export function itemNodeType(analyzer: SemanticAnalyzer, node: ItemNode): TypeSe
     return typeSemanticParse(analyzer, node.value);
   }
 
-  return nothingTypeFromNode(analyzer, node);
+  return unknownTypeFromNode(analyzer, node);
 }

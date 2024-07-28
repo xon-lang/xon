@@ -2,7 +2,7 @@ import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {nothingTypeFromNode} from '../../type/unknown/unknown-type-semantic';
+import {unknownTypeFromNode} from '../../type/unknown/unknown-type-semantic';
 
 import {IdValueSemantic, idValueSemantic} from './id-value-semantic';
 
@@ -23,7 +23,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
   }
 
   const name = node.text.toString();
-  const type = declaration?.type ?? nothingTypeFromNode(analyzer, node);
+  const type = declaration?.type ?? unknownTypeFromNode(analyzer, node);
 
   return idValueSemantic(analyzer.createReference(node), name, declaration, type);
 }

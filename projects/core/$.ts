@@ -57,12 +57,12 @@ import {TypeSemantic} from './analyzer/semantic/node/type/type-semantic';
 import {UnknownTypeSemantic} from './analyzer/semantic/node/type/unknown/unknown-type-semantic';
 import {CharValueSemantic} from './analyzer/semantic/node/value/char/char-value-semantic';
 import {IdValueSemantic} from './analyzer/semantic/node/value/id/id-value-semantic';
-import {NothingIdValueSemantic} from './analyzer/semantic/node/value/id/nothing/nothgin-id-value-semantic';
 import {ImportValueSemantic} from './analyzer/semantic/node/value/import/import-value-semantic';
 import {IntegerValueSemantic} from './analyzer/semantic/node/value/integer/integer-value-semantic';
 import {InvokeValueSemantic} from './analyzer/semantic/node/value/invoke/invoke-value-semantic';
 import {MemberValueSemantic} from './analyzer/semantic/node/value/member/member-value-semantic';
 import {StringValueSemantic} from './analyzer/semantic/node/value/string/string-value-semantic';
+import {UnknownValueSemantic} from './analyzer/semantic/node/value/unknown/unknown-value-semantic';
 import {ValueSemantic} from './analyzer/semantic/node/value/value-semantic';
 import {DocumentationItemNode} from './analyzer/syntax/documentation/documentation-item-node';
 import {DocumentationNode} from './analyzer/syntax/documentation/documentation-node';
@@ -206,7 +206,7 @@ export enum $ {
   CharValueSemantic = ' CharValueSemantic ' + $.ValueSemantic,
   StringValueSemantic = ' StringValueSemantic ' + $.ValueSemantic,
   IdValueSemantic = ' IdValueSemantic ' + $.ValueSemantic,
-  NothingIdValueSemantic = ' NothingIdValueSemantic ' + $.ValueSemantic,
+  UnknownValueSemantic = ' UnknownValueSemantic ' + $.ValueSemantic,
   InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
@@ -321,7 +321,7 @@ export type TypeMap = {
   [$.NotTypeSemantic]: NotTypeSemantic;
   [$.ValueSemantic]: ValueSemantic;
   [$.IdValueSemantic]: IdValueSemantic;
-  [$.NothingIdValueSemantic]: NothingIdValueSemantic;
+  [$.UnknownValueSemantic]: UnknownValueSemantic;
   [$.InvokeValueSemantic]: InvokeValueSemantic;
   [$.IntegerValueSemantic]: IntegerValueSemantic;
   [$.CharValueSemantic]: CharValueSemantic;

@@ -6,7 +6,7 @@ import {Node} from '../../../../node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {nothingTypeFromNode} from '../../type/unknown/unknown-type-semantic';
+import {unknownTypeFromNode} from '../../type/unknown/unknown-type-semantic';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');
@@ -28,7 +28,7 @@ export function importValueSemanticTryParse(
   }
 
   if (!node.value) {
-    return importValueSemantic(analyzer.createReference(node), nothing, nothingTypeFromNode(analyzer, node));
+    return importValueSemantic(analyzer.createReference(node), nothing, unknownTypeFromNode(analyzer, node));
   }
 
   // todo should fix 'node.value.content?.text ?? ''' ???
@@ -57,7 +57,7 @@ export function importValueSemanticTryParse(
   analyzer.declarationManager.imports.push(declarationManager);
 
   // todo fix import type. shoud not be unknown
-  return importValueSemantic(analyzer.createReference(node), resource, nothingTypeFromNode(analyzer, node));
+  return importValueSemantic(analyzer.createReference(node), resource, unknownTypeFromNode(analyzer, node));
 }
 
 export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {

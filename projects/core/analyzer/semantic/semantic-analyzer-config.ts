@@ -3,6 +3,7 @@ import {Array2, String2} from '../../../lib/types';
 export interface SemanticAnalyzerConfig {
   defaultImports: Array2<String2>;
   literalTypeNames: {
+    unknownTypeName: String2;
     anythingTypeName: String2;
     somethingTypeName: String2;
     nothingTypeName: String2;
@@ -17,6 +18,7 @@ export interface SemanticAnalyzerConfig {
 export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   defaultImports: [],
   literalTypeNames: {
+    unknownTypeName: 'Unknown',
     anythingTypeName: 'Anything',
     somethingTypeName: 'Something',
     nothingTypeName: 'Nothing',

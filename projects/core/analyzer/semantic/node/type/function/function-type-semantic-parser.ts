@@ -5,7 +5,7 @@ import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {declarationsParse} from '../../declaration/declaration-semantic-parser';
 import {itemNodeType} from '../array/array-type-semantic-parser';
 import {typeSemanticParse} from '../type-semantic-parser';
-import {nothingTypeFromNode} from '../unknown/unknown-type-semantic';
+import {unknownTypeFromNode} from '../unknown/unknown-type-semantic';
 import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 
 export function functionTypeSemanticTryParse(
@@ -31,7 +31,7 @@ export function functionTypeSemanticTryParse(
   const result = node.type
     ? typeSemanticParse(analyzer, node.type.value)
     : // todo user another range than 'node'
-      nothingTypeFromNode(analyzer, node);
+      unknownTypeFromNode(analyzer, node);
   const semantic = functionTypeSemantic(reference, generics, parameters, result);
 
   return semantic;

@@ -9,7 +9,7 @@ import {ValueDeclarationSemantic} from '../../declaration/value/value-declaratio
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
-// todo extend from 'IdTypeSemantic'
+// todo one Unknown doesn't equals another
 export type UnknownTypeSemantic = TypeSemantic & {
   $: $.UnknownTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
@@ -66,13 +66,9 @@ export function unknownTypeSemantic(
   };
 }
 
-export function nothingTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic {
-  const {nothingTypeName} = analyzer.config.literalTypeNames;
+export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic {
+  const {unknownTypeName} = analyzer.config.literalTypeNames;
+  const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
 
-  const nothingDeclaration = analyzer.declarationManager.single(
-    $.NominalTypeDeclarationSemantic,
-    nothingTypeName,
-  );
-
-  return unknownTypeSemantic(analyzer, analyzer.createReference(node), nothingDeclaration);
+  return unknownTypeSemantic(analyzer, analyzer.createReference(node), declaration);
 }
