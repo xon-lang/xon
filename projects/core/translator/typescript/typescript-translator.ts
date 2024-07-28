@@ -4,6 +4,7 @@ import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {Node} from '../../analyzer/node';
 import {TypeDeclarationSemantic} from '../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {TypeSemantic} from '../../analyzer/semantic/node/type/type-semantic';
+import {ValueSemantic} from '../../analyzer/semantic/node/value/value-semantic';
 import {SemanticAnalyzer} from '../../analyzer/semantic/semantic-analyzer';
 import {
   AnalyzerDiagnosticManager,
@@ -13,12 +14,14 @@ import {TextRange} from '../../util/resource/text/text-range';
 import {Translator} from '../translator';
 import {typeDeclarationTypescriptTranslate} from './node/declaration/type/type-declaration-typescript-node';
 import {typeTypescriptTranslate} from './node/type/type-typescript-node';
+import {valueTypescriptTranslate} from './node/value/value-typescript-node';
 
 export type TypescriptTranslator = Translator & {
   $: $.TypescriptTranslator;
   diagnosticManager: AnalyzerDiagnosticManager;
 
   type(semantic: TypeSemantic): String2;
+  value(semantic: ValueSemantic): String2;
   typeDeclaration(semantic: TypeDeclarationSemantic): String2;
   // todo does we really need 'translationName' ???
   error(range: TextRange, translationName: keyof TypescriptTranslator): String2;
@@ -32,6 +35,10 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
 
     type(semantic: TypeSemantic): String2 {
       return typeTypescriptTranslate(this, semantic);
+    },
+
+    value(semantic: ValueSemantic): String2 {
+      return valueTypescriptTranslate(this, semantic);
     },
 
     typeDeclaration(semantic: TypeDeclarationSemantic): String2 {
