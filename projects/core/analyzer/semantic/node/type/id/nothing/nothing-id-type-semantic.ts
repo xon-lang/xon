@@ -65,9 +65,13 @@ export function nothingIdTypeSemantic(
   };
 }
 
-// todo recheck function
-export function nothingTypeFromNode(analyzer: SemanticAnalyzer, node: Node) {
-  const nothingDeclaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, 'Nothing');
+export function nothingTypeFromNode(analyzer: SemanticAnalyzer, node: Node): NothingIdTypeSemantic {
+  const {nothingTypeName} = analyzer.config.literalTypeNames;
+
+  const nothingDeclaration = analyzer.declarationManager.single(
+    $.NominalTypeDeclarationSemantic,
+    nothingTypeName,
+  );
 
   return nothingIdTypeSemantic(analyzer, analyzer.createReference(node), nothingDeclaration);
 }
