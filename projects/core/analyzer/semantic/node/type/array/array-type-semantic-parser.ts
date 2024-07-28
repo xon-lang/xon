@@ -1,8 +1,8 @@
 import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
+import {BracketGroupNode} from '../../../../syntax/group/bracket/bracket-group-node';
 import {ItemNode} from '../../../../syntax/group/item-node';
-import {TypeNode} from '../../../../syntax/node/type/type-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {nothingTypeFromNode} from '../id/nothing/nothing-id-type-semantic';
 import {TypeSemantic} from '../type-semantic';
@@ -17,19 +17,24 @@ export function arrayTypeSemanticTryParse(
     return nothing;
   }
 
+  return arrayTypeSemanticParse(analyzer, node);
+}
+
+export function arrayTypeSemanticParse(
+  analyzer: SemanticAnalyzer,
+  node: BracketGroupNode,
+): ArrayTypeSemantic {
   const declaration = analyzer.declarationManager.single(
-    $.TypeDeclarationSemantic,
+    $.NominalTypeDeclarationSemantic,
     analyzer.config.literalTypeNames.integerTypeName,
     nothing,
     nothing,
   );
 
-  if (!declaration || !is(declaration, $.NominalTypeDeclarationSemantic)) {
+  if (!declaration) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
-
-    return nothing;
   }
 
   const reference = analyzer.createReference(node);
@@ -41,15 +46,6 @@ export function arrayTypeSemanticTryParse(
 
 // todo move or remove 'itemNodeType'
 export function itemNodeType(analyzer: SemanticAnalyzer, node: ItemNode): TypeSemantic {
-  if (node.value) {
-    return typeSemanticParse(analyzer, node.value);
-  }
-
-  return nothingTypeFromNode(analyzer, node);
-}
-
-// todo move or remove 'typeNodeType'
-export function typeNodeType(analyzer: SemanticAnalyzer, node: TypeNode): TypeSemantic {
   if (node.value) {
     return typeSemanticParse(analyzer, node.value);
   }

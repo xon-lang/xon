@@ -8,8 +8,8 @@ import {TEST_SEMANTIC_CONFIG} from '../../../semantic-analyzer-config';
 import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {StringTypeSemantic} from '../string/string-type-semantic';
+import {typeNodeType} from '../type-semantic-parser';
 import {ArrayTypeSemantic} from './array-type-semantic';
-import {typeNodeType} from './array-type-semantic-parser';
 
 test('a is array', () => {
   const text = `
