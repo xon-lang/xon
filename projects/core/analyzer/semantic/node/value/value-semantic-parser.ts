@@ -1,9 +1,9 @@
-import {$, is} from '../../../../$';
-import {Array2, Nothing, nothing} from '../../../../../lib/types';
-import {Node} from '../../../node';
+import {Array2, Nothing} from '../../../../../lib/types';
+import {ExpressionNode, Node} from '../../../node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {charValueSemanticTryParse} from './char/char-value-semantic-parser';
 import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
+import {nothingValueFromNode} from './id/nothing/nothgin-id-value-semantic';
 import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
 import {invokeValueSemanticTryParse} from './invoke/invoke-value-semantic-parser';
 import {memberValueSemanticTryParse} from './member/member-value-semantic-parser';
@@ -29,20 +29,8 @@ export function syntaxValuesParse(analyzer: SemanticAnalyzer) {
   }
 }
 
-export function valueSemanticParse(
-  analyzer: SemanticAnalyzer,
-  node: Node | Nothing,
-): ValueSemantic | Nothing {
-  if (!is(node, $.ExpressionNode)) {
-    return nothing;
-  }
-
-  const semantic = parsers.findMap((parse) => parse(analyzer, node));
-
-  if (!semantic) {
-    return nothing;
-  }
-
+export function valueSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): ValueSemantic {
+  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? nothingValueFromNode(analyzer, node);
   node.semantic = semantic;
 
   return semantic;

@@ -1,6 +1,7 @@
 import {$, is} from '../../../../$';
 import {Array2, Nothing} from '../../../../../lib/types';
 import {Node} from '../../../node';
+import {TypeNode} from '../../../syntax/node/type/type-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
 import {charTypeSemanticTryParse} from './char/char-type-semantic-parser';
@@ -41,4 +42,13 @@ export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeS
   node.semantic = semantic;
 
   return semantic;
+}
+
+// todo move or remove 'typeNodeType'
+export function typeNodeType(analyzer: SemanticAnalyzer, node: TypeNode): TypeSemantic {
+  if (node.value) {
+    return typeSemanticParse(analyzer, node.value);
+  }
+
+  return nothingTypeFromNode(analyzer, node);
 }

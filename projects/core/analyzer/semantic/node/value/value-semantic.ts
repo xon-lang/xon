@@ -1,8 +1,8 @@
 import {$} from '../../../../$';
-import {Nothing} from '../../../../../lib/types';
 import {Semantic} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';
 
-export interface ValueSemantic<T extends $ = $, U extends TypeSemantic = TypeSemantic> extends Semantic<T> {
-  type: U | Nothing;
+export interface ValueSemantic<T extends $ = $, TYPE extends TypeSemantic = TypeSemantic>
+  extends Semantic<T> {
+  type: TYPE;
 }
