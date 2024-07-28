@@ -16,6 +16,7 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
 export function nominalTypeDeclarationSemantic(
   reference: TextResourceRange,
   documentation: String2 | Nothing,
+  // todo we always know 'type' modifier
   modifier: String2 | Nothing,
   name: String2,
   type: TypeSemantic | Nothing,
