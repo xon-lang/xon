@@ -65,7 +65,7 @@ export function idTypeSemantic(
       }
 
       if (is(this.declaration, $.StructuralTypeDeclarationSemantic)) {
-        return this.declaration.value?.attributes().clone() ?? createDeclarationManager();
+        return this.declaration.typeValue?.attributes().clone() ?? createDeclarationManager();
       }
 
       return createDeclarationManager();
