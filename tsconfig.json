@@ -26,5 +26,6 @@
     "target": "ESNext",
     "useDefineForClassFields": false,
     "useUnknownInCatchVariables": true
-  }
+  },
+  "exclude": ["**/*.gen.ts", "**/dist"]
 }
