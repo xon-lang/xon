@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
+import {Array2, Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -10,6 +10,7 @@ import {TypeSemantic} from '../type-semantic';
 
 export type IdTypeSemantic = TypeSemantic & {
   $: $.IdTypeSemantic;
+  name: String2;
   declaration?: TypeDeclarationSemantic | Nothing;
   generics?: Array2<TypeSemantic | Nothing> | Nothing;
 };
@@ -17,6 +18,7 @@ export type IdTypeSemantic = TypeSemantic & {
 export function idTypeSemantic(
   analyzer: SemanticAnalyzer,
   reference: TextResourceRange,
+  name: String2,
   declaration?: TypeDeclarationSemantic | Nothing,
   generics?: Array2<TypeSemantic | Nothing> | Nothing,
 ): IdTypeSemantic {
@@ -25,6 +27,7 @@ export function idTypeSemantic(
   return {
     $: $.IdTypeSemantic,
     reference,
+    name,
     declaration,
     generics,
 
