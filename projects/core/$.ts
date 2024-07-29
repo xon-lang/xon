@@ -98,15 +98,10 @@ import {TextResource} from './util/resource/text/text-resource';
 
 export enum $ {
   Node = ' Node ',
-  LexicalNode = ' LexicalNode ' + $.Node,
   ExpressionNode = ' ExpressionNode ' + $.Node,
-  SyntaxNode = ' SyntaxNode ' + $.Node,
-  Semantic = ' Semantic ',
 
-  // lexical
+  LexicalNode = ' LexicalNode ' + $.Node,
   UnknownNode = ' UnknownNode ' + $.LexicalNode,
-  DocumentationNode = ' DocumentationNode' + $.SyntaxNode,
-  DocumentationItemNode = ' DocumentationItemNode ' + $.SyntaxNode,
   DocumentationDescriptionNode = ' DocumentationDescriptionNode ' + $.LexicalNode,
   DocumentationLabelNode = ' DocumentationLabelNode ' + $.LexicalNode,
 
@@ -142,7 +137,9 @@ export enum $ {
 
   CommaNode = ' CommaNode ' + $.LexicalNode,
 
-  // syntax
+  SyntaxNode = ' SyntaxNode ' + $.Node,
+  DocumentationNode = ' DocumentationNode' + $.SyntaxNode,
+  DocumentationItemNode = ' DocumentationItemNode ' + $.SyntaxNode,
   ItemNode = ' ItemNode ' + $.SyntaxNode,
 
   GroupNode = ' GroupNode ' + $.ExpressionNode + $.SyntaxNode,
@@ -168,7 +165,7 @@ export enum $ {
   TypeNode = ' TypeNode ' + $.SyntaxNode,
   StatementNode = ' StatementNode ' + $.SyntaxNode,
 
-  // semantic
+  Semantic = ' Semantic ',
   DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
 
   UnknownDeclarationSemantic = ' UnknownDeclarationSemantic ' + $.DeclarationSemantic,
