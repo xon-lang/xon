@@ -5,9 +5,11 @@ import {TypeSemantic} from '../../../type/type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
-export type MethodValueDeclarationSemantic = ValueDeclarationSemantic & {
+export type MethodValueDeclarationSemantic = Omit<ValueDeclarationSemantic, '$'> & {
   $: $.MethodValueDeclarationSemantic;
-  // todo refactor to use 'parameters: Array2<ValueDeclarationSemantic>'
+  // todo move it to new 'OperatorDeclarationSemantic'
+  alternativeName: String2;
+  // todo refactor to use 'parameters: Array2<ParameterValueDeclarationSemantic>'
   parameters: Array2<DeclarationSemantic>;
   generics?: Array2<DeclarationSemantic> | Nothing;
 };
@@ -28,6 +30,7 @@ export function methodValueDeclarationSemantic(
     documentation,
     modifier,
     name,
+    alternativeName: alternativeName(name),
     parameters,
     type,
 
@@ -35,4 +38,12 @@ export function methodValueDeclarationSemantic(
       return this.reference.equals(other.reference);
     },
   };
+}
+
+function alternativeName(operator: String2): String2 {
+  if (operator === '+') {
+    return '__plus__';
+  }
+
+  return operator;
 }
