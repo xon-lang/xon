@@ -30,6 +30,10 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
     return `${left} & ${right}`;
   }
 
+  if (is(semantic, $.IdTypeSemantic)) {
+    return semantic.name;
+  }
+
   if (is(semantic, $.ArrayTypeSemantic)) {
     const items = semantic.items.map((x) => translator.type(x)).join(', ');
 
