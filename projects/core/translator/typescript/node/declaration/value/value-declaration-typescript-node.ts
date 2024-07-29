@@ -10,18 +10,23 @@ export function valueDeclarationTypescriptTranslate(
   const exportText = true ? 'export ' : '';
 
   if (is(semantic, $.MethodValueDeclarationSemantic)) {
-    const name = semantic.name;
-    const parameters = semantic.parameters.map((x) => translator.typeDeclaration(x)).join(', ');
+    const name = semantic.alternativeName;
+    const parameters = semantic.parameters
+      .map((x) =>
+        is(x, $.PropertyValueDeclarationSemantic) ? translator.valueDeclaration(x) : translator.error(),
+      )
+      .join(', ');
     const type = translator.type(semantic.type);
 
     return `${exportText}function ${name}(${parameters}): ${type} {}`;
   }
 
-  // if (is(semantic, $.PropertyValueDeclarationSemantic)) {
-  // const type = translator.type(semantic.type);
+  if (is(semantic, $.PropertyValueDeclarationSemantic)) {
+    const name = semantic.name;
+    const type = translator.type(semantic.type);
 
-  //   return `${exportText}type ${semantic.name} = ${typeValue}`;
-  // }
+    return `${name}: ${type}`;
+  }
 
   return translator.error(semantic.reference.range, 'valueDeclaration');
 }
