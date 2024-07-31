@@ -3,10 +3,10 @@ import {nothing} from '../../../../../lib/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../semantic-analyzer';
-import { TEST_SEMANTIC_CONFIG } from '../../semantic-analyzer-config';
+import {TEST_SEMANTIC_CONFIG} from '../../semantic-analyzer-config';
 import {IdTypeSemantic} from '../type/id/id-type-semantic';
 import {NominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
-import {PropertyValueDeclarationSemantic} from './value/property/property-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from './value/parameter/parameter-value-declaration-semantic';
 
 test('only a', () => {
   const text = 'type A\n  p: A';
@@ -25,8 +25,8 @@ test('only a', () => {
   const attributeP = type.attributes?.single(
     $.ValueDeclarationSemantic,
     'p',
-  ) as PropertyValueDeclarationSemantic;
-  expect(attributeP.$).toBe($.PropertyValueDeclarationSemantic);
+  ) as ParameterValueDeclarationSemantic;
+  expect(attributeP.$).toBe($.ParameterValueDeclarationSemantic);
   expect(attributeP.name).toBe('p');
   expect((attributeP.type as IdTypeSemantic).declaration?.name).toBe('A');
 });

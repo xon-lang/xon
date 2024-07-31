@@ -44,7 +44,7 @@ function genericsParse(
     !node.generics ||
     (!is(declaration, $.NominalTypeDeclarationSemantic) &&
       !is(declaration, $.StructuralTypeDeclarationSemantic) &&
-      !is(declaration, $.MethodValueDeclarationSemantic))
+      !is(declaration, $.FunctionValueDeclarationSemantic))
   ) {
     return;
   }
@@ -63,7 +63,7 @@ function parametersParse(
   declaration: DeclarationSemantic,
   node: DeclarationNode,
 ): void {
-  if (!node.parameters || !is(declaration, $.MethodValueDeclarationSemantic)) {
+  if (!node.parameters || !is(declaration, $.FunctionValueDeclarationSemantic)) {
     return;
   }
 
@@ -85,25 +85,25 @@ function typeParse(
   if (
     !node.type?.value ||
     (!is(declaration, $.NominalTypeDeclarationSemantic) &&
-      !is(declaration, $.MethodValueDeclarationSemantic) &&
-      !is(declaration, $.PropertyValueDeclarationSemantic))
+      !is(declaration, $.FunctionValueDeclarationSemantic) &&
+      !is(declaration, $.ParameterValueDeclarationSemantic))
   ) {
     return;
   }
 
   declaration.type = typeSemanticParse(analyzer, node.type.value);
 
-  // todo recheck 'is(declaration, $.NominalTypeDeclarationSemantic)'
-  if (declaration.type && is(declaration, $.NominalTypeDeclarationSemantic)) {
-    // todo remove 'declaration.attributes' if we create separate type and value declarations model
-    if (declaration.attributes) {
-      for (const attribute of declaration.type.attributes().all()) {
-        declaration.attributes.add(attribute);
-      }
-    }
-  } else {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.type.range, (x) => x.cannotResolveType());
-  }
+  // // todo recheck 'is(declaration, $.NominalTypeDeclarationSemantic)'
+  // if (declaration.type && is(declaration, $.NominalTypeDeclarationSemantic)) {
+  //   // todo remove 'declaration.attributes' if we create separate type and value declarations model
+  //   if (declaration.attributes) {
+  //     for (const attribute of declaration.type.attributes().all()) {
+  //       declaration.attributes.add(attribute);
+  //     }
+  //   }
+  // } else {
+  //   analyzer.diagnosticManager.addPredefinedDiagnostic(node.type.range, (x) => x.cannotResolveType());
+  // }
 }
 
 function valueParse(
@@ -115,8 +115,8 @@ function valueParse(
   if (
     !node.assign?.value ||
     (!is(declaration, $.NominalTypeDeclarationSemantic) &&
-      !is(declaration, $.MethodValueDeclarationSemantic) &&
-      !is(declaration, $.PropertyValueDeclarationSemantic))
+      !is(declaration, $.FunctionValueDeclarationSemantic) &&
+      !is(declaration, $.ParameterValueDeclarationSemantic))
   ) {
     return;
   }
@@ -126,10 +126,8 @@ function valueParse(
   node.assign.value.semantic = valueSemantic;
 
   if (!declaration.type) {
-    if (valueSemantic?.type) {
-      declaration.type = valueSemantic.type;
-    }
-  } else if (!valueSemantic?.type || !valueSemantic.type.is(declaration.type)) {
+    declaration.type = valueSemantic.type;
+  } else if (!valueSemantic.type.is(declaration.type)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.assign.value.range, (x) => x.wrongType());
   }
 }

@@ -36,8 +36,8 @@ import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declarati
 import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
 import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {UnknownDeclarationSemantic} from './analyzer/semantic/node/declaration/unknown/unknown-declaration-semantic';
-import {MethodValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/method/method-value-declaration-semantic';
-import {PropertyValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/property/property-value-declaration-semantic';
+import {FunctionValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/function/function-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/parameter/parameter-value-declaration-semantic';
 import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
 import {Semantic} from './analyzer/semantic/node/semantic';
@@ -175,8 +175,8 @@ export enum $ {
   StructuralTypeDeclarationSemantic = ' StructuralTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
 
   ValueDeclarationSemantic = ' ValueDeclarationSemantic ' + $.DeclarationSemantic,
-  MethodValueDeclarationSemantic = ' MethodValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
-  PropertyValueDeclarationSemantic = ' PropertyValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
+  FunctionValueDeclarationSemantic = ' FunctionValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
+  ParameterValueDeclarationSemantic = ' ParameterValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
 
   DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
 
@@ -297,8 +297,8 @@ export type TypeMap = {
   [$.StructuralTypeDeclarationSemantic]: StructuralTypeDeclarationSemantic;
 
   [$.ValueDeclarationSemantic]: ValueDeclarationSemantic;
-  [$.MethodValueDeclarationSemantic]: MethodValueDeclarationSemantic;
-  [$.PropertyValueDeclarationSemantic]: PropertyValueDeclarationSemantic;
+  [$.FunctionValueDeclarationSemantic]: FunctionValueDeclarationSemantic;
+  [$.ParameterValueDeclarationSemantic]: ParameterValueDeclarationSemantic;
 
   [$.TypeSemantic]: TypeSemantic;
 

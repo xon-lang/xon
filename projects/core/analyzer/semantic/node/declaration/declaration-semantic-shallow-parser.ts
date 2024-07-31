@@ -5,8 +5,8 @@ import {unknownTypeFromNode} from '../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';
 import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
 import {structuralTypeDeclarationSemantic} from './type/structural/structural-type-declaration-semantic';
-import {methodValueDeclarationSemantic} from './value/method/method-value-declaration-semantic';
-import {propertyValueDeclarationSemantic} from './value/property/property-value-declaration-semantic';
+import {functionValueDeclarationSemantic} from './value/function/function-value-declaration-semantic';
+import {propertyValueDeclarationSemantic} from './value/parameter/parameter-value-declaration-semantic';
 
 export function declarationShallowParse(
   analyzer: SemanticAnalyzer,
@@ -35,7 +35,7 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
   }
 
   if (node.parameters) {
-    return methodValueDeclarationSemantic(reference, documentation, modifier, name, [], type);
+    return functionValueDeclarationSemantic(reference, documentation, modifier, name, [], type);
   }
 
   return propertyValueDeclarationSemantic(reference, documentation, modifier, name, type);

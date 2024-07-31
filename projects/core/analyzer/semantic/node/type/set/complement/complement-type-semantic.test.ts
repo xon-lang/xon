@@ -4,7 +4,7 @@ import {textResourceFromData} from '../../../../../../util/resource/text/text-re
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../../semantic-analyzer';
-import {PropertyValueDeclarationSemantic} from '../../../declaration/value/property/property-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from '../../../declaration/value/parameter/parameter-value-declaration-semantic';
 import {IdTypeSemantic} from '../../id/id-type-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {typeNodeType} from '../../type-semantic-parser';
@@ -22,14 +22,14 @@ test('a is integer or float', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.ParameterValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.ParameterValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as ParameterValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = constNode.type
@@ -64,7 +64,7 @@ test('check type', () => {
         name,
         nothing,
         nothing,
-      ) as PropertyValueDeclarationSemantic
+      ) as ParameterValueDeclarationSemantic
     ).type as TypeSemantic;
 
   const aType = getConst('a');

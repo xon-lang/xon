@@ -5,8 +5,8 @@ import {TypeSemantic} from '../../../type/type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
-export type PropertyValueDeclarationSemantic = ValueDeclarationSemantic & {
-  $: $.PropertyValueDeclarationSemantic;
+export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic & {
+  $: $.ParameterValueDeclarationSemantic;
 
   eq(other: DeclarationSemantic): Boolean2;
 };
@@ -17,9 +17,9 @@ export function propertyValueDeclarationSemantic(
   modifier: String2 | Nothing,
   name: String2,
   type: TypeSemantic,
-): PropertyValueDeclarationSemantic {
+): ParameterValueDeclarationSemantic {
   return {
-    $: $.PropertyValueDeclarationSemantic,
+    $: $.ParameterValueDeclarationSemantic,
     reference,
     usages: [],
     documentation,

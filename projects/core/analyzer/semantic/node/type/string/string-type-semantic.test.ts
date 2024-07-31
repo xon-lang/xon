@@ -5,7 +5,7 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../semantic-analyzer-config';
-import {PropertyValueDeclarationSemantic} from '../../declaration/value/property/property-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
 import {typeNodeType} from '../type-semantic-parser';
 import {StringTypeSemantic} from './string-type-semantic';
 
@@ -18,14 +18,14 @@ test('a is string value', () => {
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.PropertyValueDeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.ParameterValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.PropertyValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.ParameterValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as PropertyValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as ParameterValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = constNode.type

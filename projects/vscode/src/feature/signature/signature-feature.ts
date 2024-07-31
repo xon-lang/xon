@@ -17,7 +17,7 @@ import {$, hasSemantic, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {Node} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {MethodValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/method/method-value-declaration-semantic';
+import {FunctionValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/function/function-value-declaration-semantic';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
@@ -49,7 +49,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     if (is(invokeParameterIndex.invokeNode.instance, $.IdNode)) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
-      if (is(declaration, $.MethodValueDeclarationSemantic)) {
+      if (is(declaration, $.FunctionValueDeclarationSemantic)) {
         return getSignatureHelp(declaration, invokeParameterIndex.parameterIndex);
       }
     }
@@ -103,7 +103,7 @@ function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
 }
 
 function getSignatureHelp(
-  declaration: MethodValueDeclarationSemantic,
+  declaration: FunctionValueDeclarationSemantic,
   parameterIndex: Integer,
 ): SignatureHelp {
   const signatureHelp = new SignatureHelp();
@@ -116,11 +116,11 @@ function getSignatureHelp(
   return signatureHelp;
 }
 
-function getSignatureInformation(declaration: MethodValueDeclarationSemantic): SignatureInformation {
+function getSignatureInformation(declaration: FunctionValueDeclarationSemantic): SignatureInformation {
   const parametersNames =
     declaration.parameters
       .map((x) => {
-        const type = is(x, $.PropertyValueDeclarationSemantic) ? x.type : nothing;
+        const type = is(x, $.ParameterValueDeclarationSemantic) ? x.type : nothing;
 
         return `${x?.name ?? ''}: ${typeSemanticToString(type) ?? ''}`;
       })

@@ -63,7 +63,7 @@ function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): Comp
 }
 
 export function getCompletionItemKind(semantic: ValueDeclarationSemantic): CompletionItemKind {
-  if (is(semantic, $.MethodValueDeclarationSemantic)) {
+  if (is(semantic, $.FunctionValueDeclarationSemantic)) {
     return CompletionItemKind.Method;
   }
 

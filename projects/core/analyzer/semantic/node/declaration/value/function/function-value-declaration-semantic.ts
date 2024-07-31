@@ -5,8 +5,8 @@ import {TypeSemantic} from '../../../type/type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
-export type MethodValueDeclarationSemantic = Omit<ValueDeclarationSemantic, '$'> & {
-  $: $.MethodValueDeclarationSemantic;
+export type FunctionValueDeclarationSemantic = ValueDeclarationSemantic & {
+  $: $.FunctionValueDeclarationSemantic;
   // todo move it to new 'OperatorDeclarationSemantic'
   alternativeName: String2;
   // todo refactor to use 'parameters: Array2<ParameterValueDeclarationSemantic>'
@@ -14,16 +14,16 @@ export type MethodValueDeclarationSemantic = Omit<ValueDeclarationSemantic, '$'>
   generics?: Array2<DeclarationSemantic> | Nothing;
 };
 
-export function methodValueDeclarationSemantic(
+export function functionValueDeclarationSemantic(
   reference: TextResourceRange,
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
   parameters: Array2<DeclarationSemantic>,
   type: TypeSemantic,
-): MethodValueDeclarationSemantic {
+): FunctionValueDeclarationSemantic {
   return {
-    $: $.MethodValueDeclarationSemantic,
+    $: $.FunctionValueDeclarationSemantic,
     reference,
     usages: [],
 

@@ -9,8 +9,8 @@ export type DeclarationKind =
   | $.NominalTypeDeclarationSemantic
   | $.StructuralTypeDeclarationSemantic
   | $.ValueDeclarationSemantic
-  | $.MethodValueDeclarationSemantic
-  | $.PropertyValueDeclarationSemantic;
+  | $.FunctionValueDeclarationSemantic
+  | $.ParameterValueDeclarationSemantic;
 
 export interface DeclarationManager<T extends DeclarationSemantic = DeclarationSemantic> {
   imports: Array2<DeclarationManager> | Nothing;

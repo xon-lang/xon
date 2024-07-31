@@ -9,11 +9,11 @@ export function valueDeclarationTypescriptTranslate(
 ): String2 {
   const exportText = true ? 'export ' : '';
 
-  if (is(semantic, $.MethodValueDeclarationSemantic)) {
+  if (is(semantic, $.FunctionValueDeclarationSemantic)) {
     const name = semantic.alternativeName;
     const parameters = semantic.parameters
       .map((x) =>
-        is(x, $.PropertyValueDeclarationSemantic) ? translator.valueDeclaration(x) : translator.error(),
+        is(x, $.ParameterValueDeclarationSemantic) ? translator.valueDeclaration(x) : translator.error(),
       )
       .join(', ');
     const type = translator.type(semantic.type);
@@ -21,7 +21,7 @@ export function valueDeclarationTypescriptTranslate(
     return `${exportText}function ${name}(${parameters}): ${type} {}`;
   }
 
-  if (is(semantic, $.PropertyValueDeclarationSemantic)) {
+  if (is(semantic, $.ParameterValueDeclarationSemantic)) {
     const name = semantic.name;
     const type = translator.type(semantic.type);
 

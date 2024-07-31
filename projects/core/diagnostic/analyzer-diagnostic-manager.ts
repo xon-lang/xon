@@ -57,7 +57,7 @@ export function createDiagnosticManager(
       range: TextRange,
       select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
     ): AnalyzerDiagnostic {
-      const reference = resource.reference(range);
+      const reference = this.resource.reference(range);
       const diagnostic = select(predefinedDiagnostics(reference));
       this.diagnostics.push(diagnostic);
 
