@@ -1,3 +1,3 @@
 import {DeclarationSemantic} from '../declaration-semantic';
 
-export type TypeDeclarationSemantic = DeclarationSemantic & {};
+export type TypeDeclarationSemantic = DeclarationSemantic;
