@@ -1,0 +1,27 @@
+type Integer Number
+
+
+const a Integer = 2
+const a: Integer = 2
+
+
+const sum (a Integer) (b Integer) Integer = 2
+const sum: (a: Integer): (b: Integer): Integer = 2
+
+
+type Integer Number
+  plus = (a Integer, b Integer) Integer
+    return a + b
+
+  minus(a Integer, b Integer) = a - b
+  minus 2
+
+
+type Integer: Number
+  plus (a: Integer, b: Integer): Integer
+    return a + b
+
+  minus (a: Integer, b: Integer): Integer
+    return a - b
+
+

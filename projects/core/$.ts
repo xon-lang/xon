@@ -32,12 +32,12 @@ import {UnknownNode} from './analyzer/lexical/node/unknown/unknown-node';
 import {WhitespaceNode} from './analyzer/lexical/node/whitespace/whitespace-node';
 import {ExpressionNode, Node} from './analyzer/node';
 import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declaration-semantic';
+import {GenericTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/generic/generic-type-declaration-semantic';
 import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
 import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
 import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {UnknownDeclarationSemantic} from './analyzer/semantic/node/declaration/unknown/unknown-declaration-semantic';
-import {FunctionValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/function/function-value-declaration-semantic';
-import {ParameterValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/parameter/parameter-value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
 import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
 import {Semantic} from './analyzer/semantic/node/semantic';
@@ -172,11 +172,11 @@ export enum $ {
 
   TypeDeclarationSemantic = ' TypeDeclarationSemantic ' + $.DeclarationSemantic,
   NominalTypeDeclarationSemantic = ' NominalTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
+  GenericTypeDeclarationSemantic = ' GenericTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
   StructuralTypeDeclarationSemantic = ' StructuralTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
 
   ValueDeclarationSemantic = ' ValueDeclarationSemantic ' + $.DeclarationSemantic,
-  FunctionValueDeclarationSemantic = ' FunctionValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
-  ParameterValueDeclarationSemantic = ' ParameterValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
+  AttributeValueDeclarationSemantic = ' AttributeValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
 
   DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
 
@@ -273,6 +273,7 @@ export type TypeMap = {
   [$.UnknownNode]: UnknownNode;
 
   [$.DeclarationNode]: DeclarationNode;
+
   [$.LambdaNode]: LambdaNode;
   [$.ImportNode]: ImportNode;
   [$.AssignmentNode]: AssignmentNode;
@@ -294,11 +295,11 @@ export type TypeMap = {
 
   [$.TypeDeclarationSemantic]: TypeDeclarationSemantic;
   [$.NominalTypeDeclarationSemantic]: NominalTypeDeclarationSemantic;
+  [$.GenericTypeDeclarationSemantic]: GenericTypeDeclarationSemantic;
   [$.StructuralTypeDeclarationSemantic]: StructuralTypeDeclarationSemantic;
 
   [$.ValueDeclarationSemantic]: ValueDeclarationSemantic;
-  [$.FunctionValueDeclarationSemantic]: FunctionValueDeclarationSemantic;
-  [$.ParameterValueDeclarationSemantic]: ParameterValueDeclarationSemantic;
+  [$.AttributeValueDeclarationSemantic]: AttributeValueDeclarationSemantic;
 
   [$.TypeSemantic]: TypeSemantic;
 

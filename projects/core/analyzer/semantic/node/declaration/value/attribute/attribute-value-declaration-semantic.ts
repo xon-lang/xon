@@ -5,25 +5,21 @@ import {TypeSemantic} from '../../../type/type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
-export type FunctionValueDeclarationSemantic = ValueDeclarationSemantic & {
-  $: $.FunctionValueDeclarationSemantic;
+export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
+  $: $.AttributeValueDeclarationSemantic;
   // todo move it to new 'OperatorDeclarationSemantic'
   alternativeName: String2;
-  // todo refactor to use 'parameters: Array2<ParameterValueDeclarationSemantic>'
-  parameters: Array2<DeclarationSemantic>;
-  generics?: Array2<DeclarationSemantic> | Nothing;
 };
 
-export function functionValueDeclarationSemantic(
+export function attributeValueDeclarationSemantic(
   reference: TextResourceRange,
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
-  parameters: Array2<DeclarationSemantic>,
   type: TypeSemantic,
-): FunctionValueDeclarationSemantic {
+): AttributeValueDeclarationSemantic {
   return {
-    $: $.FunctionValueDeclarationSemantic,
+    $: $.AttributeValueDeclarationSemantic,
     reference,
     usages: [],
 
@@ -31,7 +27,6 @@ export function functionValueDeclarationSemantic(
     modifier,
     name,
     alternativeName: alternativeName(name),
-    parameters,
     type,
 
     eq(other: DeclarationSemantic): Boolean2 {
@@ -40,6 +35,7 @@ export function functionValueDeclarationSemantic(
   };
 }
 
+// todo fix or remove it
 function alternativeName(operator: String2): String2 {
   if (operator === '+') {
     return '__plus__';

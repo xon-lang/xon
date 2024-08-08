@@ -17,7 +17,7 @@ import {$, hasSemantic, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {Node} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {FunctionValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/function/function-value-declaration-semantic';
+import {FunctionValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';

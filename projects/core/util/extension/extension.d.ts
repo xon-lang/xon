@@ -22,8 +22,10 @@ export interface ArrayExtension<T = Anything> {
 
   some(predicate: Predicate<Char>): Boolean2;
 
-  sum(select: Select<T, Number2>): Number2;
   count(predicate?: Predicate<T>): Integer;
+  sum(select: Select<T, Number2>): Number2;
+  min(select: Select<T, Number2>): T | Nothing;
+  max(select: Select<T, Number2>): T | Nothing;
 
   findMap<V>(predicate: PredicateSelect<T, V>): V | Nothing;
   filterMap<V>(predicate: PredicateSelect<T, V>): Array2<V>;

@@ -5,7 +5,7 @@ import {IdNode} from '../../../../lexical/node/id/id-node';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {typeNodeType} from '../type-semantic-parser';
 import {IdTypeSemantic} from './id-type-semantic';
@@ -20,14 +20,14 @@ test('a is integer', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.ParameterValueDeclarationSemantic);
+  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.AttributeValueDeclarationSemantic);
   expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.ParameterValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.AttributeValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as ParameterValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
   expect((constNode.type?.value as IdNode)?.text.toString()).toBe('Integer');
   expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($.IdTypeSemantic);
@@ -48,15 +48,15 @@ test('a is array', () => {
 
   expect(semanticAnalyzer.declarationManager.count()).toBe(3);
   expect(semanticAnalyzer.declarationManager.declarations['a'][0].$).toBe(
-    $.ParameterValueDeclarationSemantic,
+    $.AttributeValueDeclarationSemantic,
   );
   expect(semanticAnalyzer.declarationManager.declarations['a'][0].name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.ParameterValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($.AttributeValueDeclarationSemantic);
 
-  const idSemantic = constNode.id?.semantic as ParameterValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = constNode.type

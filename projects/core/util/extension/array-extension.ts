@@ -127,10 +127,6 @@ Array.prototype.sortStrings = function (): Array2<String2> {
   return (this as Array2<String2>).sort((a, b) => a.localeCompare(b));
 };
 
-Array.prototype.sum = function <T>(select: (value: T, index: Integer, array: Array2<T>) => Number2): Number2 {
-  return this.reduce((result, val, index, array) => result + select(val, index, array), 0);
-};
-
 Array.prototype.findMap = function <T, V>(
   predicate?: (value: T, index: Integer, array: Array2<T>) => V | Nothing,
 ): V | Nothing {
@@ -177,6 +173,56 @@ Array.prototype.count = function <T>(
   }
 
   return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
+};
+
+Array.prototype.sum = function <T>(select: (value: T, index: Integer, array: Array2<T>) => Number2): Number2 {
+  return this.reduce((result, val, index, array) => result + select(val, index, array), 0);
+};
+
+Array.prototype.min = function <T>(
+  select: (value: T, index: Integer, array: Array2<T>) => Number2,
+): T | Nothing {
+  if (!this.length) {
+    return nothing;
+  }
+
+  if (this.length === 1) {
+    return this[0];
+  }
+
+  return this.slice(1).reduce((prev, cur, index, array) => {
+    const prevValue = select(prev, index - 1, array);
+    const curValue = select(cur, index, array);
+
+    if (curValue < prevValue) {
+      return cur;
+    }
+
+    return prev;
+  }, this[0]);
+};
+
+Array.prototype.max = function <T>(
+  select: (value: T, index: Integer, array: Array2<T>) => Number2,
+): T | Nothing {
+  if (!this.length) {
+    return nothing;
+  }
+
+  if (this.length === 1) {
+    return this[0];
+  }
+
+  return this.slice(1).reduce((prev, cur, index, array) => {
+    const prevValue = select(prev, index - 1, array);
+    const curValue = select(cur, index, array);
+
+    if (curValue > prevValue) {
+      return cur;
+    }
+
+    return prev;
+  }, this[0]);
 };
 
 Array.prototype.sortBy = function <T>(select: (value: T) => Number2, ascending: Boolean2 = true): Array2<T> {

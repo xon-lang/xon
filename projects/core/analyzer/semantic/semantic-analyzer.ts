@@ -1,5 +1,7 @@
+import {$, is} from '../../$';
 import {Array2, Nothing, nothing} from '../../../lib/types';
 import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
+import {TextRange} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-range';
 import {Node} from '../node';
@@ -23,7 +25,9 @@ export type SemanticAnalyzer = {
   declarationManager: DeclarationManager;
   statements: Array2<StatementNode>;
 
-  createReference: (node: Node) => TextResourceRange;
+  // todo rename to 'reference'
+  createReference(node: Node): TextResourceRange;
+  createReference(range: TextRange): TextResourceRange;
   pushDeclarationScope(): void;
   popDeclarationScope(): void;
   usingDeclarationScope<T>(cb: () => T): T;
@@ -48,8 +52,12 @@ export function createSemanticAnalyzer(
     declarationManager,
     config,
 
-    createReference(node: Node): TextResourceRange {
-      return textResourceRange(this.syntaxAnalyzer.resource, node.range);
+    createReference(nodeOrRange: Node | TextRange): TextResourceRange {
+      if (is(nodeOrRange, $.TextRange)) {
+        return textResourceRange(this.syntaxAnalyzer.resource, nodeOrRange);
+      }
+
+      return textResourceRange(this.syntaxAnalyzer.resource, nodeOrRange.range);
     },
 
     pushDeclarationScope(): void {

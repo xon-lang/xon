@@ -10,7 +10,7 @@ import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
 
-export type DeclarationNode = SyntaxNode<$.DeclarationNode> & {
+export type DeclarationNode = SyntaxNode & {
   documentation?: DocumentationNode | Nothing;
   modifier?: OperatorNode | Nothing;
   id: IdNode;
