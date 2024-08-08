@@ -182,15 +182,17 @@ Array.prototype.sum = function <T>(select: (value: T, index: Integer, array: Arr
 Array.prototype.min = function <T>(
   select: (value: T, index: Integer, array: Array2<T>) => Number2,
 ): T | Nothing {
-  if (!this.length) {
+  const array: Array2<T> = this;
+
+  if (!array.length) {
     return nothing;
   }
 
-  if (this.length === 1) {
-    return this[0];
+  if (array.length === 1) {
+    return array[0];
   }
 
-  return this.slice(1).reduce((prev, cur, index, array) => {
+  return array.slice(1).reduce((prev, cur, index, array) => {
     const prevValue = select(prev, index - 1, array);
     const curValue = select(cur, index, array);
 
@@ -199,30 +201,67 @@ Array.prototype.min = function <T>(
     }
 
     return prev;
-  }, this[0]);
+  }, array[0]);
 };
 
 Array.prototype.max = function <T>(
   select: (value: T, index: Integer, array: Array2<T>) => Number2,
 ): T | Nothing {
-  if (!this.length) {
+  const array: Array2<T> = this;
+
+  if (!array.length) {
     return nothing;
   }
 
-  if (this.length === 1) {
-    return this[0];
+  if (array.length === 1) {
+    return array[0];
   }
 
-  return this.slice(1).reduce((prev, cur, index, array) => {
-    const prevValue = select(prev, index - 1, array);
-    const curValue = select(cur, index, array);
+  return array.slice(1).reduce((prev, cur, index, arr) => {
+    const prevValue = select(prev, index - 1, arr);
+    const curValue = select(cur, index, arr);
 
     if (curValue > prevValue) {
       return cur;
     }
 
     return prev;
-  }, this[0]);
+  }, array[0]);
+};
+
+Array.prototype.minMax = function <T>(
+  select: (value: T, index: Integer, array: Array2<T>) => Number2,
+): {min: T; max: T} | Nothing | Nothing {
+  const array: Array2<T> = this;
+
+  if (!this.length) {
+    return nothing;
+  }
+
+  if (this.length === 1) {
+    return {min: array[0], max: array[0]};
+  }
+
+  let min = array[0];
+  let max = array[0];
+
+  for (let i = 1; i < array.length; i++) {
+    const item = array[i];
+
+    const value = select(item, i, array);
+    const minValue = select(min, i, array);
+    const maxValue = select(max, i, array);
+
+    if (value > maxValue) {
+      max = item;
+    }
+
+    if (value < minValue) {
+      min = item;
+    }
+  }
+
+  return {min, max};
 };
 
 Array.prototype.sortBy = function <T>(select: (value: T) => Number2, ascending: Boolean2 = true): Array2<T> {

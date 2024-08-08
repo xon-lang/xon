@@ -26,6 +26,7 @@ export interface ArrayExtension<T = Anything> {
   sum(select: Select<T, Number2>): Number2;
   min(select: Select<T, Number2>): T | Nothing;
   max(select: Select<T, Number2>): T | Nothing;
+  minMax(select: Select<T, Number2>): {min: T, max: T} | Nothing;
 
   findMap<V>(predicate: PredicateSelect<T, V>): V | Nothing;
   filterMap<V>(predicate: PredicateSelect<T, V>): Array2<V>;
