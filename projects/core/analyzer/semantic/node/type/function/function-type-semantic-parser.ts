@@ -16,7 +16,7 @@ export function functionTypeSemanticTryParse(
     return nothing;
   }
 
-  const reference = analyzer.createReference(node);
+  const reference = analyzer.reference(node);
 
   // todo remove and add 'usingDeclarationScope' to 'declarationsParse'
   const generics = analyzer.usingDeclarationScope(() => {

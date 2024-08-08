@@ -28,7 +28,7 @@ export function importValueSemanticTryParse(
   }
 
   if (!node.value) {
-    return importValueSemantic(analyzer.createReference(node), nothing, unknownTypeFromNode(analyzer, node));
+    return importValueSemantic(analyzer.reference(node), nothing, unknownTypeFromNode(analyzer, node));
   }
 
   // todo should fix 'node.value.content?.text ?? ''' ???
@@ -57,7 +57,7 @@ export function importValueSemanticTryParse(
   analyzer.declarationManager.imports.push(declarationManager);
 
   // todo fix import type. shoud not be unknown
-  return importValueSemantic(analyzer.createReference(node), resource, unknownTypeFromNode(analyzer, node));
+  return importValueSemantic(analyzer.reference(node), resource, unknownTypeFromNode(analyzer, node));
 }
 
 export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {

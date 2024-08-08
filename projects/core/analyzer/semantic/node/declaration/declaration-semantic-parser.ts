@@ -30,7 +30,7 @@ export function declarationsParse(
       return declarationShallowParse(analyzer, node);
     }
 
-    return unknownDeclarationSemantic(analyzer.createReference(x));
+    return unknownDeclarationSemantic(analyzer.reference(x));
   });
 
   for (const x of nodes) {

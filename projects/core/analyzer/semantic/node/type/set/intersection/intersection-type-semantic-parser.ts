@@ -18,7 +18,7 @@ export function intersectionTypeSemanticTryParse(
       return nothing;
     }
 
-    const reference = analyzer.createReference(node);
+    const reference = analyzer.reference(node);
     const semantic = intersectionTypeSemantic(reference, left, right);
 
     return semantic;

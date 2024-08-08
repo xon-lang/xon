@@ -19,7 +19,7 @@ export function declarationShallowParse(
 }
 
 function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
-  const reference = analyzer.createReference(node.id);
+  const reference = analyzer.reference(node.id);
   const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();

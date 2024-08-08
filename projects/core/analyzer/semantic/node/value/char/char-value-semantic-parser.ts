@@ -14,5 +14,5 @@ export function charValueSemanticTryParse(
     return nothing;
   }
 
-  return charValueSemantic(analyzer.createReference(node), type);
+  return charValueSemantic(analyzer.reference(node), type);
 }

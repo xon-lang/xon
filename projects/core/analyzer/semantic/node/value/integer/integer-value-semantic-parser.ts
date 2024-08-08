@@ -14,5 +14,5 @@ export function integerValueSemanticTryParse(
     return nothing;
   }
 
-  return integerValueSemantic(analyzer.createReference(node), type);
+  return integerValueSemantic(analyzer.reference(node), type);
 }

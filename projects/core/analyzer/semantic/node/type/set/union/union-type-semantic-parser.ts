@@ -18,7 +18,7 @@ export function unionTypeSemanticTryParse(
       return nothing;
     }
 
-    const reference = analyzer.createReference(node);
+    const reference = analyzer.reference(node);
     const semantic = unionTypeSemantic(reference, left, right);
 
     return semantic;

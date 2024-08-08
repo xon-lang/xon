@@ -33,7 +33,7 @@ function idParse(analyzer: SemanticAnalyzer, node: IdNode): IdTypeSemantic {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
   }
 
-  const reference = analyzer.createReference(node);
+  const reference = analyzer.reference(node);
   return idTypeSemantic(analyzer, reference, name, declaration, nothing);
 }
 
@@ -60,7 +60,7 @@ function invokeParse(analyzer: SemanticAnalyzer, node: InvokeNode): IdTypeSemant
     }
 
     if (is(declaration, $.TypeDeclarationSemantic)) {
-      const reference = analyzer.createReference(node);
+      const reference = analyzer.reference(node);
       const semantic = idTypeSemantic(analyzer, reference, name, declaration, generics);
       // todo control when semantic attribute must be set
       node.instance.semantic = semantic;

@@ -70,5 +70,5 @@ export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): Unk
   const {unknownTypeName} = analyzer.config.literalTypeNames;
   const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
 
-  return unknownTypeSemantic(analyzer, analyzer.createReference(node), declaration);
+  return unknownTypeSemantic(analyzer, analyzer.reference(node), declaration);
 }

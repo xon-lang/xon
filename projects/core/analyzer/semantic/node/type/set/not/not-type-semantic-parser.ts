@@ -14,7 +14,7 @@ export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
       return nothing;
     }
 
-    const reference = analyzer.createReference(node);
+    const reference = analyzer.reference(node);
     const semantic = notTypeSemantic(reference, value);
 
     return semantic;

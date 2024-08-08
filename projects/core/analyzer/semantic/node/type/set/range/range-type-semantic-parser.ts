@@ -29,7 +29,7 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  const reference = analyzer.createReference(node);
+  const reference = analyzer.reference(node);
   const from = typeSemanticParse(analyzer, node.left);
   const to = typeSemanticParse(analyzer, node.right);
   // todo add step

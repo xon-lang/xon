@@ -18,7 +18,7 @@ export function complementTypeSemanticTryParse(
       return nothing;
     }
 
-    const reference = analyzer.createReference(node);
+    const reference = analyzer.reference(node);
     const semantic = complementTypeSemantic(reference, left, right);
 
     return semantic;

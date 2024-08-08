@@ -25,9 +25,8 @@ export type SemanticAnalyzer = {
   declarationManager: DeclarationManager;
   statements: Array2<StatementNode>;
 
-  // todo rename to 'reference'
-  createReference(node: Node): TextResourceRange;
-  createReference(range: TextRange): TextResourceRange;
+  reference(node: Node): TextResourceRange;
+  reference(range: TextRange): TextResourceRange;
   pushDeclarationScope(): void;
   popDeclarationScope(): void;
   usingDeclarationScope<T>(cb: () => T): T;
@@ -52,7 +51,7 @@ export function createSemanticAnalyzer(
     declarationManager,
     config,
 
-    createReference(nodeOrRange: Node | TextRange): TextResourceRange {
+    reference(nodeOrRange: Node | TextRange): TextResourceRange {
       if (is(nodeOrRange, $.TextRange)) {
         return textResourceRange(this.syntaxAnalyzer.resource, nodeOrRange);
       }

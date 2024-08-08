@@ -25,5 +25,5 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
   const name = node.text.toString();
   const type = declaration?.type ?? unknownTypeFromNode(analyzer, node);
 
-  return idValueSemantic(analyzer.createReference(node), name, declaration, type);
+  return idValueSemantic(analyzer.reference(node), name, declaration, type);
 }
