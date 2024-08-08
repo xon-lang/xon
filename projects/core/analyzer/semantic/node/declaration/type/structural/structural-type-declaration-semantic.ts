@@ -16,6 +16,7 @@ export function structuralTypeDeclarationSemantic(
   // todo we always know 'type' modifier
   modifier: String2 | Nothing,
   name: String2,
+  type: TypeSemantic,
   typeValue: TypeSemantic,
 ): StructuralTypeDeclarationSemantic {
   return {
@@ -26,6 +27,7 @@ export function structuralTypeDeclarationSemantic(
 
     modifier,
     name,
+    type,
     typeValue: typeValue,
 
     eq(other: DeclarationSemantic): Boolean2 {

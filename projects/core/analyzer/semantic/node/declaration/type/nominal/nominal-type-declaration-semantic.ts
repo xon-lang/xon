@@ -9,6 +9,7 @@ import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
+  modifier: String2;
   type: TypeSemantic | Nothing;
   attributes?: DeclarationManager<ValueDeclarationSemantic> | Nothing;
 };
@@ -16,10 +17,9 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
 export function nominalTypeDeclarationSemantic(
   reference: TextResourceRange,
   documentation: String2 | Nothing,
-  // todo we always know 'type' modifier
-  modifier: String2 | Nothing,
+  modifier: String2,
   name: String2,
-  type: TypeSemantic | Nothing,
+  type: TypeSemantic,
 ): NominalTypeDeclarationSemantic {
   return {
     $: $.NominalTypeDeclarationSemantic,
