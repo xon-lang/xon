@@ -45,6 +45,7 @@ import {CharTypeSemantic} from './analyzer/semantic/node/type/char/char-type-sem
 import {FunctionTypeSemantic} from './analyzer/semantic/node/type/function/function-type-semantic';
 import {IdTypeSemantic} from './analyzer/semantic/node/type/id/id-type-semantic';
 import {IntegerTypeSemantic} from './analyzer/semantic/node/type/integer/integer-type-semantic';
+import {InvokeTypeSemantic} from './analyzer/semantic/node/type/invoke/invoke-type-semantic';
 import {ComplementTypeSemantic} from './analyzer/semantic/node/type/set/complement/complement-type-semantic';
 import {IntersectionTypeSemantic} from './analyzer/semantic/node/type/set/intersection/intersection-type-semantic';
 import {NotTypeSemantic} from './analyzer/semantic/node/type/set/not/not-type-semantic';
@@ -188,6 +189,7 @@ export enum $ {
 
   ArrayTypeSemantic = ' ArrayTypeSemantic ' + $.TypeSemantic,
   FunctionTypeSemantic = ' FunctionTypeSemantic ' + $.TypeSemantic,
+  InvokeTypeSemantic = ' InvokeTypeSemantic ' + $.TypeSemantic,
 
   SetTypeSemantic = ' SetTypeSemantic ' + $.TypeSemantic,
   RangeTypeSemantic = ' RangeTypeSemantic ' + $.SetTypeSemantic,
@@ -308,6 +310,7 @@ export type TypeMap = {
   [$.StringTypeSemantic]: StringTypeSemantic;
   [$.ArrayTypeSemantic]: ArrayTypeSemantic;
   [$.FunctionTypeSemantic]: FunctionTypeSemantic;
+  [$.InvokeTypeSemantic]: InvokeTypeSemantic;
   [$.SetTypeSemantic]: SetTypeSemantic;
   [$.RangeTypeSemantic]: RangeTypeSemantic;
   [$.IntersectionTypeSemantic]: IntersectionTypeSemantic;

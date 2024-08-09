@@ -8,6 +8,7 @@ import {charTypeSemanticTryParse} from './char/char-type-semantic-parser';
 import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
 import {idTypeSemanticTryParse} from './id/id-type-semantic-parser';
 import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
+import {invokeTypeSemanticTryParse} from './invoke/invoke-type-semantic-parser';
 import {complementTypeSemanticTryParse} from './set/complement/intersection-type-semantic-parser';
 import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
 import {notTypeSemanticTryParse} from './set/not/not-type-semantic-parser';
@@ -27,6 +28,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   arrayTypeSemanticTryParse,
   idTypeSemanticTryParse,
   functionTypeSemanticTryParse,
+  invokeTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   unionTypeSemanticTryParse,
   complementTypeSemanticTryParse,
