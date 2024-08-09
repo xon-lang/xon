@@ -8,6 +8,8 @@ export interface TypeSemantic extends Semantic {
   declaration?: TypeDeclarationSemantic | Nothing;
 
   attributes(): DeclarationManager<ValueDeclarationSemantic>;
+
+  // todo 'unknown is unknown' is false ???
   is(other: TypeSemantic): Boolean2;
   eq(other: TypeSemantic): Boolean2;
 }

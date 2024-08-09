@@ -25,6 +25,7 @@ export type SemanticAnalyzer = {
   declarationManager: DeclarationManager;
   statements: Array2<StatementNode>;
 
+  // use node instead ???
   reference(node: Node): TextResourceRange;
   reference(range: TextRange): TextResourceRange;
   pushDeclarationScope(): void;

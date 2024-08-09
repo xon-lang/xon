@@ -18,7 +18,7 @@ export function unknownValueSemantic(
   };
 }
 
-export function unknownFromNode(analyzer: SemanticAnalyzer, node: ExpressionNode): UnknownValueSemantic {
+export function unknownValueFromNode(analyzer: SemanticAnalyzer, node: ExpressionNode): UnknownValueSemantic {
   const type = unknownTypeFromNode(analyzer, node);
 
   return unknownValueSemantic(analyzer.reference(node), type);
