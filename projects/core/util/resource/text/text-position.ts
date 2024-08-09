@@ -8,7 +8,6 @@ export type TextPosition = $Model & {
   column: Integer;
 
   equals(other: TextPosition): Boolean2;
-  min(...other: TextPosition[]): TextPosition;
 };
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
@@ -21,11 +20,6 @@ export function textPosition(index: Integer, line: Integer, column: Integer): Te
     equals(other: TextPosition): Boolean2 {
       return this.index === other.index && this.line === other.line && this.column === other.column;
     },
-
-  min(...other: TextPosition[]): TextPosition{ 
-    [this, ...other].sum
-  }
-
   };
 }
 
