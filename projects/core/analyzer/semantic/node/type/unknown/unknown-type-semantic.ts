@@ -16,7 +16,6 @@ export type UnknownTypeSemantic = TypeSemantic & {
 };
 
 export function unknownTypeSemantic(
-  analyzer: SemanticAnalyzer,
   reference: TextResourceRange,
   declaration?: NominalTypeDeclarationSemantic | Nothing,
 ): UnknownTypeSemantic {
@@ -66,9 +65,21 @@ export function unknownTypeSemantic(
   };
 }
 
-export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic {
+export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic;
+export function unknownTypeFromNode(
+  analyzer: SemanticAnalyzer,
+  reference: TextResourceRange,
+): UnknownTypeSemantic;
+export function unknownTypeFromNode(
+  analyzer: SemanticAnalyzer,
+  nodeOrReference: Node | TextResourceRange,
+): UnknownTypeSemantic {
   const {unknownTypeName} = analyzer.config.literalTypeNames;
   const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
 
-  return unknownTypeSemantic(analyzer, analyzer.reference(node), declaration);
+  if (is(nodeOrReference, $.TextResourceRange)) {
+    return unknownTypeSemantic(nodeOrReference, declaration);
+  }
+
+  return unknownTypeSemantic(analyzer.reference(nodeOrReference), declaration);
 }

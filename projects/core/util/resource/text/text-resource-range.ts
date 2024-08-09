@@ -1,9 +1,11 @@
+import {$} from '../../../$';
 import {Boolean2} from '../../../../lib/types';
 import {TextData} from '../../data/text-data';
 import {TextRange} from './text-range';
 import {TextResource} from './text-resource';
 
 export interface TextResourceRange {
+  $: $.TextResourceRange;
   resource: TextResource;
   range: TextRange;
 
@@ -16,6 +18,7 @@ export function textResourceRange(
   range: TextResourceRange['range'],
 ): TextResourceRange {
   return {
+    $: $.TextResourceRange,
     resource,
     range,
 

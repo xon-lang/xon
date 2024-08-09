@@ -5,6 +5,7 @@ import {Semantic} from './semantic/node/semantic';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;
+  // todo use 'reference' or 'TextResourceRange' instead of 'TextRange'
   range: TextRange;
   parent?: Node | Nothing;
   isHidden?: Boolean2 | Nothing;

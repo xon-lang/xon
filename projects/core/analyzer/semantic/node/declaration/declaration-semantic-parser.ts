@@ -3,6 +3,7 @@ import {Array2, nothing} from '../../../../../lib/types';
 import {ItemNode} from '../../../syntax/group/item-node';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
+import {unknownTypeFromNode} from '../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';
 import {declarationDeepParse} from './declaration-semantic-deep-parser';
 import {declarationShallowParse} from './declaration-semantic-shallow-parser';
@@ -30,7 +31,8 @@ export function declarationsParse(
       return declarationShallowParse(analyzer, node);
     }
 
-    return unknownDeclarationSemantic(analyzer.reference(x));
+    const unknownReference = analyzer.reference(x);
+    return unknownDeclarationSemantic(unknownReference, unknownTypeFromNode(analyzer, unknownReference));
   });
 
   for (const x of nodes) {

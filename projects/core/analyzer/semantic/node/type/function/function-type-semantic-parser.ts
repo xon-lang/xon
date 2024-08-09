@@ -18,10 +18,7 @@ export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): FunctionTypeSemantic | Nothing {
-  // if (is(node, $.InvokeNode) && is(node.instance, $.IdNode)) {
-  //   return invokeParse(analyzer, node);
-  // }
-
+  // todo remove '!is(node, $.DeclarationNode) &&'
   if ((!is(node, $.DeclarationNode) && !is(node, $.LambdaNode)) || !node.parameters) {
     return nothing;
   }
@@ -43,7 +40,7 @@ export function functionTypeSemanticTryParse(
     : // todo user another range than 'node'
       unknownTypeFromNode(analyzer, node);
 
-  const semantic = functionTypeSemantic(reference, generics, parameters, result);
+  const semantic = functionTypeSemantic(reference, parameters, result);
 
   return semantic;
 }

@@ -95,6 +95,7 @@ import {Resource} from './util/resource/resource';
 import {TextPosition} from './util/resource/text/text-position';
 import {TextRange} from './util/resource/text/text-range';
 import {TextResource} from './util/resource/text/text-resource';
+import {TextResourceRange} from './util/resource/text/text-resource-range';
 
 export enum $ {
   Node = ' Node ',
@@ -214,6 +215,7 @@ export enum $ {
 
   Resource = ' Resource ',
   TextResource = ' TextResource ' + $.Resource,
+  TextResourceRange = ' TextResourceRange ' + $.Resource,
 
   Translator = ' Translator ',
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
@@ -333,6 +335,7 @@ export type TypeMap = {
 
   [$.Resource]: Resource;
   [$.TextResource]: TextResource;
+  [$.TextResourceRange]: TextResourceRange;
 
   [$.Translator]: Translator;
   [$.TypescriptTranslator]: TypescriptTranslator;
