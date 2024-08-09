@@ -14,7 +14,7 @@ export function typeDeclarationTypescriptTranslate(
   }
 
   if (is(semantic, $.StructuralTypeDeclarationSemantic)) {
-    const type = translator.type(semantic.typeValue);
+    const type = translator.type(semantic.type);
 
     return `${exportText}type ${semantic.name} = ${type}`;
   }

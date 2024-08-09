@@ -7,7 +7,7 @@ import {integerValueSemanticTryParse} from './integer/integer-value-semantic-par
 import {invokeValueSemanticTryParse} from './invoke/invoke-value-semantic-parser';
 import {memberValueSemanticTryParse} from './member/member-value-semantic-parser';
 import {stringValueSemanticTryParse} from './string/string-value-semantic-parser';
-import {unknownFromNode} from './unknown/unknown-value-semantic';
+import {unknownValueFromNode} from './unknown/unknown-value-semantic';
 import {ValueSemantic} from './value-semantic';
 
 type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => ValueSemantic | Nothing;
@@ -30,7 +30,7 @@ export function syntaxValuesParse(analyzer: SemanticAnalyzer) {
 }
 
 export function valueSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): ValueSemantic {
-  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownFromNode(analyzer, node);
+  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
   node.semantic = semantic;
 
   return semantic;
