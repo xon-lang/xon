@@ -7,7 +7,6 @@ import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.StructuralTypeDeclarationSemantic;
-  typeValue: TypeSemantic;
 };
 
 export function structuralTypeDeclarationSemantic(
@@ -17,7 +16,6 @@ export function structuralTypeDeclarationSemantic(
   modifier: String2 | Nothing,
   name: String2,
   type: TypeSemantic,
-  typeValue: TypeSemantic,
 ): StructuralTypeDeclarationSemantic {
   return {
     $: $.StructuralTypeDeclarationSemantic,
@@ -28,7 +26,6 @@ export function structuralTypeDeclarationSemantic(
     modifier,
     name,
     type,
-    typeValue: typeValue,
 
     eq(other: DeclarationSemantic): Boolean2 {
       return this.reference.equals(other.reference);

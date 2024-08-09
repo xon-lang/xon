@@ -25,6 +25,7 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
   const name = node.id.text.toString();
   const type = unknownTypeFromNode(analyzer, node);
 
+  // todo simplify three return statements
   if (modifier === TYPE_MODIFIER) {
     if (node.assign) {
       return structuralTypeDeclarationSemantic(reference, documentation, modifier, name, type);
@@ -33,5 +34,5 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
     return nominalTypeDeclarationSemantic(reference, documentation, modifier, name, type);
   }
 
-  return attributeValueDeclarationSemantic(reference, documentation, modifier, name, [], type);
+  return attributeValueDeclarationSemantic(reference, documentation, modifier, name, type);
 }

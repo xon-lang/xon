@@ -1,10 +1,11 @@
 import {$} from '../../../../../../$';
-import {Array2, Boolean2, Nothing, String2} from '../../../../../../../lib/types';
+import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
 import {TypeSemantic} from '../../../type/type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
+// todo rename 'AttributeValueDeclarationSemantic' to 'AttributeDeclarationSemantic' ???
 export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
   $: $.AttributeValueDeclarationSemantic;
   // todo move it to new 'OperatorDeclarationSemantic'

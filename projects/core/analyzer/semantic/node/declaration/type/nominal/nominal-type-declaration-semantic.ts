@@ -10,7 +10,9 @@ import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
   modifier: String2;
-  type: TypeSemantic | Nothing;
+  baseType?: TypeSemantic | Nothing;
+
+  // todo should be nullable ???
   attributes?: DeclarationManager<ValueDeclarationSemantic> | Nothing;
 };
 
@@ -19,6 +21,7 @@ export function nominalTypeDeclarationSemantic(
   documentation: String2 | Nothing,
   modifier: String2,
   name: String2,
+  // todo should we send 'type' because of always send unknown type at shallow/first parse
   type: TypeSemantic,
 ): NominalTypeDeclarationSemantic {
   return {
