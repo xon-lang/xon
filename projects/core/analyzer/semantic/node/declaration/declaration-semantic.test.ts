@@ -64,8 +64,8 @@ test('declare a then b, a extends b', () => {
   expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeA.modifier).toBe('type');
   expect(typeA.name).toBe('A');
-  expect(typeA.type?.$).toBe($.IdTypeSemantic);
-  expect((typeA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
+  expect(typeA.baseType?.$).toBe($.IdTypeSemantic);
+  expect((typeA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const typeB = semantic.declarationManager.declarations['B'][0] as NominalTypeDeclarationSemantic;
   expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);

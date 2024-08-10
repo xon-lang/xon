@@ -35,6 +35,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   notTypeSemanticTryParse,
 ];
 
+// todo refactor 'node: Node' to 'node: ExpressionNode'
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic {
   if (!is(node, $.ExpressionNode)) {
     return unknownTypeFromNode(analyzer, node);

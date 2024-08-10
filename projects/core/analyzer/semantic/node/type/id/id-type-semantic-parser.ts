@@ -14,11 +14,14 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
 
   if (!declaration) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotResolveType());
-  }
-
-  if (is(declaration, $.ValueDeclarationSemantic)) {
+  } else if (is(declaration, $.ValueDeclarationSemantic)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
   }
+
+  // todo remove 'idTypeSemanticTryParse' and get type from declarations
+  // if (is(declaration, $.TypeDeclarationSemantic)) {
+  //   return declaration.type;
+  // }
 
   const reference = analyzer.reference(node);
 
