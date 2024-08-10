@@ -1,7 +1,7 @@
 import {$, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2} from '../../../../../../lib/types';
 import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
-import {DeclarationManager} from '../../../declaration-manager';
+import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
@@ -40,7 +40,8 @@ export function invokeTypeSemantic(
     },
 
     attributes(): DeclarationManager<ValueDeclarationSemantic> {
-      throw new Error('Not implemented');
+      return createDeclarationManager();
+      // throw new Error('Not implemented');
     },
   };
 }

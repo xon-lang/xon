@@ -16,7 +16,7 @@ export function nominalTypeDeclarationSemanticHandle(
 ): void {
   if (node.type) {
     // todo use 'unknownType' type instead of 'nothing' ???
-    semantic.baseType = typeSemanticParse(analyzer, node.type);
+    semantic.baseType = typeSemanticParse(analyzer, node.type.value);
   }
 
   const resultType = idTypeSemantic(analyzer.reference(node.id), semantic.name, semantic);
