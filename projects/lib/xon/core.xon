@@ -13,12 +13,12 @@ type Char: Something
 type Array{T}: Something
   length: Integer
 
-type String: Array{Char}
+type String: Array<:Char:>
   length: Integer
 
 type Range: Something
 
-// literal String{$T}: String
+// literal String<:$T:>: String
 //   length: $T.length
 
 --- doc

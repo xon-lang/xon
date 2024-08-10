@@ -7,6 +7,7 @@ import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
+import {InvokeTypeSemantic} from '../invoke/invoke-type-semantic';
 import {typeNodeType} from '../type-semantic-parser';
 import {IdTypeSemantic} from './id-type-semantic';
 
@@ -39,8 +40,8 @@ test('a is integer', () => {
 test('a is array', () => {
   const text = `
     type Integer
-    type Array{T}
-    const a: Array{3}
+    type Array<:T:>
+    const a: Array<:3:>
   `;
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
@@ -60,11 +61,13 @@ test('a is array', () => {
   expect(idSemantic.name).toBe('a');
 
   const typeSemantic = constNode.type
-    ? (typeNodeType(semanticAnalyzer, constNode.type) as IdTypeSemantic)
+    ? (typeNodeType(semanticAnalyzer, constNode.type) as InvokeTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$).toBe($.IdTypeSemantic);
-  expect(typeSemantic?.declaration?.$).toBe($.NominalTypeDeclarationSemantic);
-  expect(typeSemantic?.declaration?.name).toBe('Array');
-  expect(typeSemantic?.generics?.length).toBe(1);
-  expect((typeSemantic?.generics?.at(0) as IntegerTypeSemantic).value).toBe(3);
+  const instanceType = typeSemantic?.instance as IdTypeSemantic;
+  expect(typeSemantic?.$).toBe($.InvokeTypeSemantic);
+  expect(instanceType?.$).toBe($.IdTypeSemantic);
+  expect(instanceType?.declaration?.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(instanceType?.declaration?.name).toBe('Array');
+  expect(typeSemantic?.args.length).toBe(1);
+  expect((typeSemantic?.args.at(0) as IntegerTypeSemantic).value).toBe(3);
 });

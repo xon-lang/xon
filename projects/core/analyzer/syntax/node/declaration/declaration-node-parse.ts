@@ -183,9 +183,9 @@ function getUnderModifier(
   if (is(node, $.InvokeNode)) {
     if (
       is(node.instance, $.InvokeNode) &&
-      is(node.group, $.ParenGroupNode) &&
       is(node.instance.instance, $.IdNode) &&
-      is(node.instance.group, $.BraceGroupNode)
+      is(node.instance.group, $.AngleGroupNode) &&
+      is(node.group, $.ParenGroupNode)
     ) {
       parseDeclarations(analyzer, node.instance.group);
       parseDeclarations(analyzer, node.group);
@@ -201,7 +201,7 @@ function getUnderModifier(
     if (is(node.instance, $.IdNode)) {
       parseDeclarations(analyzer, node.group);
 
-      if (is(node.group, $.BraceGroupNode)) {
+      if (is(node.group, $.AngleGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
