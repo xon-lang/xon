@@ -37,7 +37,7 @@ export function idTypeSemantic(
 
       // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
       if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
-        return this.declaration.type?.is(other) ?? false;
+        return this.declaration.baseType?.is(other) ?? false;
       }
 
       return false;

@@ -36,7 +36,7 @@ test('type A: B', () => {
 });
 
 test('with generics extends b', () => {
-  const text = 'type A{T: Array = String, U}: B';
+  const text = 'type A<:T: Array = String, U:>: B';
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -90,7 +90,7 @@ test('with parameters extends b', () => {
 });
 
 test('with generics and parameters extends b', () => {
-  const text = "type A{T: Array = String, U}(a: Integer = 123, b: Boolean, c = 'C'): B";
+  const text = "type A<:T: Array = String, U:>(a: Integer = 123, b: Boolean, c = 'C'): B";
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;

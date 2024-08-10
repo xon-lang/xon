@@ -10,6 +10,7 @@ import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
   modifier: String2;
+  // todo refactor to be required 'baseType: TypeSemantic | Nothing;'
   baseType?: TypeSemantic | Nothing;
 
   // todo should be nullable ???
