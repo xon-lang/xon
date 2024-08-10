@@ -1,6 +1,5 @@
-import {$, is} from '../../../../$';
 import {Array2, Nothing} from '../../../../../lib/types';
-import {Node} from '../../../node';
+import {ExpressionNode, Node} from '../../../node';
 import {TypeNode} from '../../../syntax/node/type/type-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
@@ -35,12 +34,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
   notTypeSemanticTryParse,
 ];
 
-// todo refactor 'node: Node' to 'node: ExpressionNode'
-export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic {
-  if (!is(node, $.ExpressionNode)) {
-    return unknownTypeFromNode(analyzer, node);
-  }
-
+export function typeSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): TypeSemantic {
   const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownTypeFromNode(analyzer, node);
   node.semantic = semantic;
 
