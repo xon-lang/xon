@@ -8,6 +8,7 @@ export type UnknownDeclarationSemantic = DeclarationSemantic & {
   $: $.UnknownDeclarationSemantic;
 };
 
+// todo remove it
 export function unknownDeclarationSemantic(
   reference: TextResourceRange,
   type: TypeSemantic,

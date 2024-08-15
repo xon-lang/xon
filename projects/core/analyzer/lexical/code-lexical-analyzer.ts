@@ -21,6 +21,7 @@ import {stringOpenNodeParse} from './node/open/string-open/string-open-node-pars
 import {operatorNodeParse} from './node/operator/operator-node-parse';
 import {whitespaceNodeParse} from './node/whitespace/whitespace-node-parse';
 
+// todo remove all nodes if possible and use single node (e.g. 'TokenNode')
 export const codeLexicalParsers: Array2<LexicalNodeParseFn> = [
   parenOpenNodeParse,
   parenCloseNodeParse,
