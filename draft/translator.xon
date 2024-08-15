@@ -1,0 +1,16 @@
+const a: Box<Integer>
+const b: Box<Float>
+const c = a + b
+
+type Box<T>: Shape<T>
+type Shape<T>
+
+// translated to
+type Integer
+type Shape
+type Shape_Integer: Shape
+type Shape_Float: Shape
+
+type Box
+type Box_Integer: Box & Shape_Integer
+type Box_Float: Box & Shape_Float
