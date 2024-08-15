@@ -9,7 +9,7 @@ import {StatementNode} from '../syntax/statement/statement-node';
 import {SyntaxAnalyzer, syntaxFromResource} from '../syntax/syntax-analyzer';
 import {SyntaxAnalyzerConfig} from '../syntax/syntax-analyzer-config';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
-import {syntaxDeclarationsParse} from './node/declaration/declaration-semantic-parser';
+import {declarationsParse} from './node/declaration/declaration-semantic-parser';
 import {
   declarationManagerFromImportString,
   syntaxImportsParse,
@@ -44,7 +44,7 @@ export function createSemanticAnalyzer(
 
   const declarationManager = createDeclarationManager(nothing, imports);
 
-  const semantic: SemanticAnalyzer = {
+  const semanticAnalyzer: SemanticAnalyzer = {
     syntaxAnalyzer: syntaxAnalyzer,
     resource: syntaxAnalyzer.resource,
     diagnosticManager: syntaxAnalyzer.diagnosticManager,
@@ -79,11 +79,9 @@ export function createSemanticAnalyzer(
     },
   };
 
-  syntaxImportsParse(semantic);
-  syntaxDeclarationsParse(semantic);
-  syntaxValuesParse(semantic);
+  runParsers(semanticAnalyzer);
 
-  return semantic;
+  return semanticAnalyzer;
 }
 
 export function semanticFromResource(
@@ -95,4 +93,14 @@ export function semanticFromResource(
   const semanticAnalyzer = createSemanticAnalyzer(syntaxAnalyzer, semanticConfig);
 
   return semanticAnalyzer;
+}
+
+function runParsers(analyzer: SemanticAnalyzer) {
+  const declarationNodes = analyzer.statements.filterMap((x) =>
+    is(x.value, $.DeclarationNode) ? x.value : nothing,
+  );
+
+  syntaxImportsParse(analyzer);
+  declarationsParse(analyzer, declarationNodes);
+  syntaxValuesParse(analyzer);
 }
