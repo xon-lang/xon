@@ -17,7 +17,7 @@ export interface DeclarationManager<T extends DeclarationSemantic = DeclarationS
   declarations: Record<String2, Array2<T>>;
 
   count(): Integer;
-  add(declaration: T): void;
+  add(...declarations: Array2<T>): void;
   all(): Array2<T>;
 
   filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): Array2<TypeMap[KIND]>;
@@ -48,12 +48,14 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return Object.keys(this.declarations).length;
     },
 
-    add(declaration: T): void {
-      if (!this.declarations[declaration.name]) {
-        this.declarations[declaration.name] = [];
-      }
+    add(...declarations: Array2<T>): void {
+      for (const declaration of declarations) {
+        if (!this.declarations[declaration.name]) {
+          this.declarations[declaration.name] = [];
+        }
 
-      this.declarations[declaration.name].push(declaration);
+        this.declarations[declaration.name].push(declaration);
+      }
     },
 
     all(): Array2<T> {
