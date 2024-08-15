@@ -10,7 +10,6 @@ import {TypeSemantic} from '../type-semantic';
 export type IdTypeSemantic = TypeSemantic & {
   $: $.IdTypeSemantic;
   name: String2;
-  declaration?: TypeDeclarationSemantic | Nothing;
 };
 
 export function idTypeSemantic(

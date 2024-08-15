@@ -5,6 +5,7 @@ import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {syntaxNode, SyntaxNode} from '../syntax-node';
 
+// todo add also base node as 'LiteralNode' ???
 export type IntegerNode = SyntaxNode<$.IntegerNode> &
   ExpressionNode & {
     content: IntegerContentNode;

@@ -1,11 +1,8 @@
 type Anything
-
 type Something: Anything
-
 type Nothing: Anything
 
 type Number: Something
-
 type Integer: Number
 
 type Char: Something
