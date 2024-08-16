@@ -300,3 +300,13 @@ Array.prototype.splitBy = function <T>(
 Array.prototype.equals = function <T>(other: Array2<T>): Boolean2 {
   return this.length === other.length && this.every((x, i) => other[i] === x);
 };
+
+Array.prototype.toDictionary = function <T, Key extends String2 | Number2>(
+  select: (value: T, index: Integer, array: Array2<T>) => Key,
+): Record<Key, T> {
+  return this.reduce((o: Record<Key, T>, v, i, arr) => {
+    o[select(v, i, arr)] = v;
+
+    return o;
+  }, {});
+};
