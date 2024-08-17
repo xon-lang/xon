@@ -1,61 +1,69 @@
 import {$, is} from '../../../../$';
-import {Array2, nothing, String2} from '../../../../../lib/types';
+import {Array2, Nothing, String2} from '../../../../../lib/types';
+import {topologicalSort} from '../../../../util/sort/topological-sort';
+import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {Node} from '../../../node';
-import {ItemNode} from '../../../syntax/group/item-node';
+import {GroupNode} from '../../../syntax/group/group-node';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {unknownTypeFromNode} from '../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';
+import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
+import {nominalTypeDeclarationSemanticHandle} from './type/nominal/nominal-type-declaration-semantic-handle';
+import {structuralTypeDeclarationSemantic} from './type/structural/structural-type-declaration-semantic';
+import {structuralTypeDeclarationSemanticHandle} from './type/structural/structural-type-declaration-semantic-handle';
 import {unknownDeclarationSemantic} from './unknown/unknown-declaration-semantic';
+import {attributeValueDeclarationSemantic} from './value/attribute/attribute-value-declaration-semantic';
+import {attributeValueDeclarationSemanticHandle} from './value/attribute/attribute-value-declaration-semantic-handle';
+
+export function parameterDeclarationsParse(
+  analyzer: SemanticAnalyzer,
+  parametersNode: GroupNode,
+): Array2<DeclarationSemantic> {
+  return declarationsParse(
+    analyzer,
+    parametersNode.items.map((x) => x.value ?? x),
+  );
+}
 
 export function declarationsParse(
   analyzer: SemanticAnalyzer,
-  nodes: Array2<DeclarationNode | ItemNode>,
+  nodes: Array2<Node>,
 ): Array2<DeclarationSemantic> {
-  const declarations = nodes.map((x) => {
-    const node = is(x, $.DeclarationNode) ? x : x.value;
-
-    if (is(node, $.DeclarationNode)) {
-      return declarationShallowParse(analyzer, node);
+  const declarations = nodes.map((node) => {
+    if (!is(node, $.DeclarationNode)) {
+      return unknownDeclarationSemantic(analyzer.reference(node), unknownTypeFromNode(analyzer, node));
     }
 
-    const unknownReference = analyzer.reference(x);
+    const declaration = createDeclaration(analyzer, node);
+    node.id.semantic = declaration;
+    analyzer.declarationManager.add(declaration);
 
-    return unknownDeclarationSemantic(unknownReference, unknownTypeFromNode(analyzer, unknownReference));
+    return declaration;
   });
 
-  for (const x of nodes) {
-    const node = is(x, $.DeclarationNode) ? x : x.value;
+  const declarationNodes = nodes.filter((x) => is(x, $.DeclarationNode));
+  const dependencies = declarationNodeDependencies(declarationNodes);
+  const {order, cycle} = topologicalSort(dependencies);
 
-    if (is(node, $.DeclarationNode)) {
-      declarationDeepParse(analyzer, node);
-    }
+  if (cycle.length > 0) {
+    throw new Error(`Not implemented: cycle dependencies '${cycle.join(', ')}'`);
+  }
+
+  const nodesDict = declarationNodes.toDictionary((x) => x.id.text.toString());
+
+  for (const name of order) {
+    declarationDeepParse(analyzer, nodesDict[name]);
   }
 
   return declarations;
 }
 
-
-export function declarationShallowParse(
-  analyzer: SemanticAnalyzer,
-  node: DeclarationNode,
-): DeclarationSemantic {
-  const declaration = createDeclaration(analyzer, node);
-  node.id.semantic = declaration;
-  analyzer.declarationManager.add(declaration);
-
-  return declaration;
-}
-
-
-export function declarationDeepParse(
-  analyzer: SemanticAnalyzer,
-  node: DeclarationNode,
-): DeclarationSemantic | Nothing {
+function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode): void {
   const semantic = node.id?.semantic;
 
   if (!is(semantic, $.DeclarationSemantic)) {
-    return nothing;
+    return;
   }
 
   analyzer.pushDeclarationScope();
@@ -69,12 +77,34 @@ export function declarationDeepParse(
   }
 
   analyzer.popDeclarationScope();
-
-  return semantic;
 }
 
+function declarationNodeDependencies(nodes: Array2<DeclarationNode>): Record<string, Array2<string>> {
+  return nodes.reduce((o: Record<String2, Array2<String2>>, node) => {
+    const name = node.id.text.toString();
 
-function nodeDependencies(node: Node): Array2<String2> {
+    if (!o[name]) {
+      o[name] = [];
+    }
+
+    const dependencies = nodeDependencies(node.type ?? node.assign);
+
+    for (const dependency of dependencies) {
+      if (!o[name].includes(dependency)) {
+        o[name].push(dependency);
+      }
+    }
+
+    return o;
+  }, {});
+}
+
+function nodeDependencies(node: Node | Nothing): Array2<String2> {
+  if (!node) {
+    return [];
+  }
+
+  // todo add other types (literals, operators, ...)
   if (is(node, $.IdNode)) {
     return [node.text.toString()];
   }
@@ -93,7 +123,6 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
   const name = node.id.text.toString();
   const type = unknownTypeFromNode(analyzer, node);
 
-  // todo simplify three return statements
   if (modifier === TYPE_MODIFIER) {
     if (node.assign) {
       return structuralTypeDeclarationSemantic(reference, documentation, modifier, name, type);
