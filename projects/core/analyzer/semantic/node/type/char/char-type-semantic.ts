@@ -1,6 +1,6 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Char, Nothing} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -14,13 +14,13 @@ export interface CharTypeSemantic extends TypeSemantic {
 }
 
 export function charTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   declaration: NominalTypeDeclarationSemantic | Nothing,
   value: Char,
 ): CharTypeSemantic {
   return {
     $: $.CharTypeSemantic,
-    reference,
+    nodeLink,
     declaration,
     value,
 

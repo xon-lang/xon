@@ -30,8 +30,5 @@ export function integerTypeSemanticParse(analyzer: SemanticAnalyzer, node: Integ
     );
   }
 
-  const reference = analyzer.reference(node);
-  const semantic = integerTypeSemantic(reference, declaration, node.value);
-
-  return semantic;
+  return integerTypeSemantic(node, declaration, node.value);
 }

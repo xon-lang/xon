@@ -17,7 +17,7 @@ export function structuralTypeDeclarationSemanticHandle(
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);
-    semantic.type = functionTypeSemantic(analyzer.reference(node.generics), generics, resultType);
+    semantic.type = functionTypeSemantic(node.generics, generics, resultType);
 
     return;
   }

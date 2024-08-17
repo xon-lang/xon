@@ -32,7 +32,7 @@ export function declarationsParse(
 ): Array2<DeclarationSemantic> {
   const declarations = nodes.map((node) => {
     if (!is(node, $.DeclarationNode)) {
-      return unknownDeclarationSemantic(analyzer.reference(node), unknownTypeFromNode(analyzer, node));
+      return unknownDeclarationSemantic(node, unknownTypeFromNode(analyzer, node));
     }
 
     const declaration = createDeclaration(analyzer, node);
@@ -117,7 +117,6 @@ function nodeDependencies(node: Node | Nothing): Array2<String2> {
 }
 
 function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
-  const reference = analyzer.reference(node.id);
   const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();
@@ -125,11 +124,11 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
 
   if (modifier === TYPE_MODIFIER) {
     if (node.assign) {
-      return structuralTypeDeclarationSemantic(reference, documentation, modifier, name, type);
+      return structuralTypeDeclarationSemantic(node.id, documentation, modifier, name, type);
     }
 
-    return nominalTypeDeclarationSemantic(reference, documentation, modifier, name, type);
+    return nominalTypeDeclarationSemantic(node.id, documentation, modifier, name, type);
   }
 
-  return attributeValueDeclarationSemantic(reference, documentation, modifier, name, type);
+  return attributeValueDeclarationSemantic(node.id, documentation, modifier, name, type);
 }

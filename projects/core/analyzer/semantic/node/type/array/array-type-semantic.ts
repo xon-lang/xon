@@ -1,6 +1,6 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {DeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -14,13 +14,13 @@ export interface ArrayTypeSemantic extends TypeSemantic {
 }
 
 export function arrayTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   declaration: NominalTypeDeclarationSemantic | Nothing,
   items: Array2<TypeSemantic>,
 ): ArrayTypeSemantic {
   return {
     $: $.ArrayTypeSemantic,
-    reference,
+    nodeLink,
     declaration,
     items,
 

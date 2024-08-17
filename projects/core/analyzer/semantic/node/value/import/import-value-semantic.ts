@@ -1,7 +1,7 @@
 import {$} from '../../../../../$';
 import {Nothing} from '../../../../../../lib/types';
 import {Resource} from '../../../../../util/resource/resource';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {TypeSemantic} from '../../type/type-semantic';
 import {ValueSemantic} from '../value-semantic';
 
@@ -10,13 +10,13 @@ export type ImportValueSemantic = ValueSemantic<$.ImportValueSemantic> & {
 };
 
 export function importValueSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   resource: Resource | Nothing,
   type: TypeSemantic,
 ): ImportValueSemantic {
   return {
     $: $.ImportValueSemantic,
-    reference,
+    nodeLink,
     type,
     resource,
   };

@@ -1,6 +1,6 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -13,15 +13,17 @@ export type IdTypeSemantic = TypeSemantic & {
 };
 
 export function idTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   name: String2,
   declaration?: TypeDeclarationSemantic | Nothing,
 ): IdTypeSemantic {
-  declaration?.usages.push(reference);
+  if (nodeLink && declaration) {
+    declaration.usages.push(nodeLink.reference);
+  }
 
   return {
     $: $.IdTypeSemantic,
-    reference,
+    nodeLink,
     name,
     declaration,
 

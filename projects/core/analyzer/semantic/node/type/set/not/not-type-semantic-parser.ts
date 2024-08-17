@@ -10,14 +10,9 @@ export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
   if (is(node, $.PrefixNode) && node.operator.text.equals(NOT)) {
     const value = typeSemanticParse(analyzer, node.value);
 
-    if (!value) {
-      return nothing;
+    if (value) {
+      return notTypeSemantic(node, value);
     }
-
-    const reference = analyzer.reference(node);
-    const semantic = notTypeSemantic(reference, value);
-
-    return semantic;
   }
 
   return nothing;

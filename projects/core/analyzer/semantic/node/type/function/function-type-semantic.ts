@@ -1,6 +1,6 @@
 import {$, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
+import {Node} from '../../../../node';
 import {DeclarationManager} from '../../../declaration-manager';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -14,13 +14,13 @@ export interface FunctionTypeSemantic extends TypeSemantic {
 }
 
 export function functionTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   parameters: Array2<DeclarationSemantic>,
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
     $: $.FunctionTypeSemantic,
-    reference,
+    nodeLink,
     parameters,
     result,
 

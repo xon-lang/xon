@@ -37,9 +37,8 @@ export function arrayTypeSemanticParse(
     );
   }
 
-  const reference = analyzer.reference(node);
   const items = node.items.map((x) => itemNodeType(analyzer, x));
-  const semantic = arrayTypeSemantic(reference, declaration, items);
+  const semantic = arrayTypeSemantic(node, declaration, items);
 
   return semantic;
 }

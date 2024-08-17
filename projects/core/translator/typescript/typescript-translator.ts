@@ -4,6 +4,7 @@ import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {Node} from '../../analyzer/node';
 import {TypeDeclarationSemantic} from '../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../analyzer/semantic/node/declaration/value/value-declaration-semantic';
+import {Semantic} from '../../analyzer/semantic/node/semantic';
 import {TypeSemantic} from '../../analyzer/semantic/node/type/type-semantic';
 import {ValueSemantic} from '../../analyzer/semantic/node/value/value-semantic';
 import {SemanticAnalyzer} from '../../analyzer/semantic/semantic-analyzer';
@@ -11,7 +12,6 @@ import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,
 } from '../../diagnostic/analyzer-diagnostic-manager';
-import {TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {Translator} from '../translator';
 import {typeDeclarationTypescriptTranslate} from './node/declaration/type/type-declaration-typescript-node';
 import {valueDeclarationTypescriptTranslate} from './node/declaration/value/value-declaration-typescript-node';
@@ -26,7 +26,7 @@ export type TypescriptTranslator = Translator & {
   value(semantic: ValueSemantic): String2;
   typeDeclaration(semantic: TypeDeclarationSemantic): String2;
   valueDeclaration(semantic: ValueDeclarationSemantic): String2;
-  error(reference: TextResourceRange): String2;
+  error(semantic: Semantic): String2;
 };
 
 export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
@@ -50,8 +50,12 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
       return valueDeclarationTypescriptTranslate(this, semantic);
     },
 
-    error(reference: TextResourceRange): String2 {
-      this.diagnosticManager.addPredefinedDiagnostic(reference, (x) => x.cannotTranslate());
+    error(semantic: Semantic): String2 {
+      if (semantic.nodeLink) {
+        this.diagnosticManager.addPredefinedDiagnostic(semantic.nodeLink.reference, (x) =>
+          x.cannotTranslate(),
+        );
+      }
 
       return '/* error */';
     },

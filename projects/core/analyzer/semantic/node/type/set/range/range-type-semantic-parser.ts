@@ -29,7 +29,6 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  const reference = analyzer.reference(node);
   const from = typeSemanticParse(analyzer, node.left);
   const to = typeSemanticParse(analyzer, node.right);
   // todo add step
@@ -49,7 +48,5 @@ export function rangeTypeSemanticTryParse(
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.right.reference, (x) => x.notImplemented());
   }
 
-  const semantic = rangeTypeSemantic(reference, declaration, from, to, step);
-
-  return semantic;
+  return rangeTypeSemantic(node, declaration, from, to, step);
 }

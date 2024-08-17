@@ -1,6 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
 import {Node} from '../../../../node';
 import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -16,14 +15,16 @@ export type UnknownTypeSemantic = TypeSemantic & {
 };
 
 export function unknownTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   declaration?: NominalTypeDeclarationSemantic | Nothing,
 ): UnknownTypeSemantic {
-  declaration?.usages.push(reference);
+  if (nodeLink && declaration) {
+    declaration.usages.push(nodeLink.reference);
+  }
 
   return {
     $: $.UnknownTypeSemantic,
-    reference,
+    nodeLink,
     declaration,
 
     is(other: TypeSemantic): Boolean2 {
@@ -65,21 +66,9 @@ export function unknownTypeSemantic(
   };
 }
 
-export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic;
-export function unknownTypeFromNode(
-  analyzer: SemanticAnalyzer,
-  reference: TextResourceRange,
-): UnknownTypeSemantic;
-export function unknownTypeFromNode(
-  analyzer: SemanticAnalyzer,
-  nodeOrReference: Node | TextResourceRange,
-): UnknownTypeSemantic {
+export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic {
   const {unknownTypeName} = analyzer.config.literalTypeNames;
   const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
 
-  if (is(nodeOrReference, $.TextResourceRange)) {
-    return unknownTypeSemantic(nodeOrReference, declaration);
-  }
-
-  return unknownTypeSemantic(analyzer.reference(nodeOrReference), declaration);
+  return unknownTypeSemantic(node, declaration);
 }

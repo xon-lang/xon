@@ -1,6 +1,6 @@
 import {$} from '../../../../../../$';
-import {Boolean2} from '../../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
+import {Boolean2, Nothing} from '../../../../../../../lib/types';
+import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
@@ -11,10 +11,10 @@ export interface NotTypeSemantic extends SetTypeSemantic {
   value: TypeSemantic;
 }
 
-export function notTypeSemantic(reference: TextResourceRange, value: TypeSemantic): NotTypeSemantic {
+export function notTypeSemantic(nodeLink: Node | Nothing, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {
     $: $.NotTypeSemantic,
-    reference,
+    nodeLink,
     value,
 
     is(other: TypeSemantic): Boolean2 {

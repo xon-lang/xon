@@ -14,14 +14,9 @@ export function complementTypeSemanticTryParse(
     const left = typeSemanticParse(analyzer, node.left);
     const right = typeSemanticParse(analyzer, node.right);
 
-    if (!left || !right) {
-      return nothing;
+    if (left && right) {
+      return complementTypeSemantic(node, left, right);
     }
-
-    const reference = analyzer.reference(node);
-    const semantic = complementTypeSemantic(reference, left, right);
-
-    return semantic;
   }
 
   return nothing;

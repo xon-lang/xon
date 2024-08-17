@@ -1,6 +1,6 @@
 import {$, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
+import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {isInSet} from '../set/set';
@@ -13,13 +13,13 @@ export type InvokeTypeSemantic = TypeSemantic & {
 };
 
 export function invokeTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   instance: TypeSemantic,
   args: Array2<TypeSemantic>,
 ): InvokeTypeSemantic {
   return {
     $: $.InvokeTypeSemantic,
-    reference,
+    nodeLink,
     instance,
     args,
 

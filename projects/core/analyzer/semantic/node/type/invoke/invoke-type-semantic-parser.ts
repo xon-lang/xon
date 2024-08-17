@@ -14,8 +14,6 @@ export function invokeTypeSemanticTryParse(
     return nothing;
   }
 
-  const reference = analyzer.reference(node);
-
   if (!is(node.group, $.AngleGroupNode)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.group.open.reference, (x) => x.notImplemented());
 
@@ -29,5 +27,5 @@ export function invokeTypeSemanticTryParse(
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.reference, (x) => x.notImplemented());
   }
 
-  return invokeTypeSemantic(reference, instance, args);
+  return invokeTypeSemantic(node, instance, args);
 }

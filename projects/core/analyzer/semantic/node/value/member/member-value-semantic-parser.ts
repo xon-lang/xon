@@ -34,5 +34,5 @@ export function memberValueSemanticTryParse(
 
   const name = node.id?.text.toString();
 
-  return memberValueSemantic(analyzer.reference(node), instanceSemantic, name, memberType);
+  return memberValueSemantic(node, instanceSemantic, name, memberType);
 }

@@ -1,6 +1,6 @@
 import {$} from '../../../../../../$';
-import {Boolean2} from '../../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
+import {Boolean2, Nothing} from '../../../../../../../lib/types';
+import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
@@ -13,13 +13,13 @@ export interface UnionTypeSemantic extends SetTypeSemantic {
 }
 
 export function unionTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   left: TypeSemantic,
   right: TypeSemantic,
 ): UnionTypeSemantic {
   const semantic: UnionTypeSemantic = {
     $: $.UnionTypeSemantic,
-    reference,
+    nodeLink,
     left,
     right,
 

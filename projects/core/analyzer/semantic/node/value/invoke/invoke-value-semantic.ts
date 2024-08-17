@@ -1,14 +1,15 @@
 import {$} from '../../../../../$';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Nothing} from '../../../../../../lib/types';
+import {Node} from '../../../../node';
 import {TypeSemantic} from '../../type/type-semantic';
 import {ValueSemantic} from '../value-semantic';
 
 export type InvokeValueSemantic = ValueSemantic<$.InvokeValueSemantic>;
 
-export function invokeValueSemantic(reference: TextResourceRange, type: TypeSemantic): InvokeValueSemantic {
+export function invokeValueSemantic(nodeLink: Node | Nothing, type: TypeSemantic): InvokeValueSemantic {
   return {
     $: $.InvokeValueSemantic,
-    reference,
+    nodeLink,
     type,
   };
 }

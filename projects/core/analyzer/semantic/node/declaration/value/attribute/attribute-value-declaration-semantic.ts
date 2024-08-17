@@ -1,6 +1,6 @@
 import {$} from '../../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../../node';
 import {TypeSemantic} from '../../../type/type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
@@ -13,7 +13,7 @@ export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
 };
 
 export function attributeValueDeclarationSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
@@ -21,7 +21,7 @@ export function attributeValueDeclarationSemantic(
 ): AttributeValueDeclarationSemantic {
   return {
     $: $.AttributeValueDeclarationSemantic,
-    reference,
+    nodeLink,
     usages: [],
 
     documentation,
@@ -31,7 +31,12 @@ export function attributeValueDeclarationSemantic(
     type,
 
     eq(other: DeclarationSemantic): Boolean2 {
-      return this.reference.equals(other.reference);
+      // todo recheck 'eq' conditions
+      if (this.nodeLink && other.nodeLink) {
+        return this.nodeLink?.reference.equals(other.nodeLink?.reference);
+      }
+
+      return false;
     },
   };
 }

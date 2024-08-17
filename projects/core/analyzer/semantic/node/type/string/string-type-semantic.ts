@@ -1,6 +1,6 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -14,13 +14,13 @@ export interface StringTypeSemantic extends TypeSemantic {
 }
 
 export function stringTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   declaration: NominalTypeDeclarationSemantic | Nothing,
   value: String2,
 ): StringTypeSemantic {
   return {
     $: $.StringTypeSemantic,
-    reference,
+    nodeLink,
     declaration,
     value,
 

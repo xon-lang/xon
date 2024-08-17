@@ -16,5 +16,5 @@ export function invokeValueSemanticTryParse(
   const instanceSemantic = valueSemanticParse(analyzer, node.instance);
   node.instance.semantic = instanceSemantic;
 
-  return invokeValueSemantic(analyzer.reference(node), instanceSemantic.type);
+  return invokeValueSemantic(node, instanceSemantic.type);
 }

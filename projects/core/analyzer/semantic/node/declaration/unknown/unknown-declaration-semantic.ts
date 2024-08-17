@@ -1,6 +1,6 @@
 import {$} from '../../../../../$';
-import {Boolean2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Boolean2, Nothing} from '../../../../../../lib/types';
+import {Node} from '../../../../node';
 import {TypeSemantic} from '../../type/type-semantic';
 import {DeclarationSemantic} from '../declaration-semantic';
 
@@ -10,12 +10,12 @@ export type UnknownDeclarationSemantic = DeclarationSemantic & {
 
 // todo remove it
 export function unknownDeclarationSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   type: TypeSemantic,
 ): UnknownDeclarationSemantic {
   return {
     $: $.UnknownDeclarationSemantic,
-    reference,
+    nodeLink,
     usages: [],
     name: '<unknown>',
     type,

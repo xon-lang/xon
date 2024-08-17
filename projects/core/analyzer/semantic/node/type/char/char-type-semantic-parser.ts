@@ -27,8 +27,5 @@ export function charTypeSemanticParse(analyzer: SemanticAnalyzer, node: CharNode
     );
   }
 
-  const reference = analyzer.reference(node);
-  const semantic = charTypeSemantic(reference, declaration, node.value);
-
-  return semantic;
+  return charTypeSemantic(node, declaration, node.value);
 }

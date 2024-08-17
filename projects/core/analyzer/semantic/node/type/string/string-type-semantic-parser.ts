@@ -30,8 +30,5 @@ export function stringTypeSemanticParse(analyzer: SemanticAnalyzer, node: String
     );
   }
 
-  const reference = analyzer.reference(node);
-  const semantic = stringTypeSemantic(reference, declaration, node.value);
-
-  return semantic;
+  return stringTypeSemantic(node, declaration, node.value);
 }

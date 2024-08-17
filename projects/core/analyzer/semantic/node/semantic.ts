@@ -1,7 +1,8 @@
 import {$, $Model} from '../../../$';
-import {TextResourceRange} from '../../../util/resource/text/text-resource-range';
+import {Nothing} from '../../../../lib/types';
+import {Node} from '../../node';
 
 export type Semantic<T extends $ = $> = $Model & {
   $: T;
-  reference: TextResourceRange;
+  nodeLink?: Node | Nothing;
 };

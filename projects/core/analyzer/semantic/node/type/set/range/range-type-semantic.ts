@@ -1,6 +1,6 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
@@ -16,7 +16,7 @@ export interface RangeTypeSemantic extends SetTypeSemantic {
 }
 
 export function rangeTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   declaration: NominalTypeDeclarationSemantic,
   from: RangeTypeSemantic['from'],
   to: RangeTypeSemantic['to'],
@@ -24,7 +24,7 @@ export function rangeTypeSemantic(
 ): RangeTypeSemantic {
   const semantic: RangeTypeSemantic = {
     $: $.RangeTypeSemantic,
-    reference,
+    nodeLink,
     declaration,
     from,
     to,

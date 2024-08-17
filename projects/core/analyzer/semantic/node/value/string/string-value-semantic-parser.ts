@@ -23,5 +23,5 @@ export function stringValueSemanticParse(
 ): StringValueSemantic | Nothing {
   const type = stringTypeSemanticParse(analyzer, node);
 
-  return stringValueSemantic(analyzer.reference(node), type);
+  return stringValueSemantic(node, type);
 }

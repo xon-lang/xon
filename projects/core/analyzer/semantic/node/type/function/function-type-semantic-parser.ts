@@ -20,7 +20,6 @@ export function functionTypeSemanticTryParse(
     return nothing;
   }
 
-  const reference = analyzer.reference(node);
   const parameters = node.parameters ? parameterDeclarationsParse(analyzer, node.parameters) : [];
 
   const result = node.type
@@ -28,7 +27,7 @@ export function functionTypeSemanticTryParse(
     : // todo user another range than 'node'
       unknownTypeFromNode(analyzer, node);
 
-  const semantic = functionTypeSemantic(reference, parameters, result);
+  const semantic = functionTypeSemantic(node, parameters, result);
 
   return semantic;
 }
@@ -57,10 +56,8 @@ function parameterDocumentationHandle(
   const filteredItems = documentation.items.filter((x) => x.id.text.equals(parameter.name));
 
   for (const item of filteredItems) {
-    const reference = analyzer.reference(item.id);
-
-    parameter.usages.push(reference);
-    item.id.semantic = documentationIdSemantic(analyzer, reference, parameter);
+    parameter.usages.push(item.id.reference);
+    item.id.semantic = documentationIdSemantic(analyzer, item.id, parameter);
   }
 
   parameter.documentation = filteredItems.first()?.description?.text.toString().setPadding(0).trim();

@@ -1,6 +1,6 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Integer, Nothing} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
@@ -14,13 +14,13 @@ export interface IntegerTypeSemantic extends TypeSemantic {
 }
 
 export function integerTypeSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   declaration: NominalTypeDeclarationSemantic | Nothing,
   value: Integer,
 ): IntegerTypeSemantic {
   return {
     $: $.IntegerTypeSemantic,
-    reference,
+    nodeLink,
     declaration,
     value,
 

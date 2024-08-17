@@ -1,6 +1,6 @@
 import {$} from '../../../../../$';
 import {Nothing, String2} from '../../../../../../lib/types';
-import {TextResourceRange} from '../../../../../util/resource/text/text-resource-range';
+import {Node} from '../../../../node';
 import {TypeSemantic} from '../../type/type-semantic';
 import {ValueSemantic} from '../value-semantic';
 
@@ -10,14 +10,14 @@ export type MemberValueSemantic = ValueSemantic<$.MemberValueSemantic> & {
 };
 
 export function memberValueSemantic(
-  reference: TextResourceRange,
+  nodeLink: Node | Nothing,
   instance: ValueSemantic,
   name: String2 | Nothing,
   type: TypeSemantic,
 ): MemberValueSemantic {
   return {
     $: $.MemberValueSemantic,
-    reference,
+    nodeLink,
     instance,
     name,
     type,
