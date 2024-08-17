@@ -1,4 +1,4 @@
-import {Array2, Boolean2, Integer, nothing, Nothing, String2} from '../../../lib/types';
+import {Boolean2, Integer, nothing, Nothing, String2} from '../../../lib/types';
 import {TextData} from '../../util/data/text-data';
 import {textPosition, TextPosition, zeroPosition} from '../../util/resource/text/text-position';
 import {textRange} from '../../util/resource/text/text-range';
@@ -16,7 +16,7 @@ export interface LexicalAnalyzer {
   previousNode?: LexicalNode | Nothing;
   previousNonHiddenNode?: LexicalNode | Nothing;
 
-  iterator(parsers: Array2<LexicalNodeParseFn>): IterableIterator<LexicalNode>;
+  iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode>;
 
   getResourceRange(length: Integer): TextResourceRange;
   getResourceRange(text: TextData): TextResourceRange;
@@ -25,8 +25,8 @@ export interface LexicalAnalyzer {
   checkTextAtIndex(text: String2): Boolean2;
   checkTextAtIndex(text: String2, index: Integer | Nothing): Boolean2;
 
-  checkTextsAtIndex(text: Array2<String2>): String2 | Nothing;
-  checkTextsAtIndex(text: Array2<String2>, index: Integer): String2 | Nothing;
+  checkTextsAtIndex(text: String2[]): String2 | Nothing;
+  checkTextsAtIndex(text: String2[], index: Integer): String2 | Nothing;
 }
 
 export function createLexicalAnalyzer(
@@ -37,7 +37,7 @@ export function createLexicalAnalyzer(
     resource,
     position,
 
-    iterator(parsers: Array2<LexicalNodeParseFn>): IterableIterator<LexicalNode> {
+    iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
       return iterator(this, parsers);
     },
 
@@ -91,7 +91,7 @@ export function createLexicalAnalyzer(
       return this.resource.data.take(text.length, index ?? this.position.index).equals(text);
     },
 
-    checkTextsAtIndex(texts: Array2<String2>, index?: Integer): String2 | Nothing {
+    checkTextsAtIndex(texts: String2[], index?: Integer): String2 | Nothing {
       const startIndex = index ?? this.position.index;
 
       return texts.find((x) => this.resource.data.take(x.length, startIndex).equals(x));
@@ -99,10 +99,7 @@ export function createLexicalAnalyzer(
   };
 }
 
-function iterator(
-  lexer: LexicalAnalyzer,
-  parsers: Array2<LexicalNodeParseFn>,
-): IterableIterator<LexicalNode> {
+function iterator(lexer: LexicalAnalyzer, parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
   return {
     next(): IteratorResult<LexicalNode> {
       if (lexer.position.index >= lexer.resource.data.length()) {

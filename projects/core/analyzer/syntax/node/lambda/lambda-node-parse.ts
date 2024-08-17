@@ -1,5 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-analyzer-config';
 import {ExpressionNode, Node, nodeFindMap} from '../../../node';
 import {GroupNode} from '../../group/group-node';
@@ -12,7 +12,7 @@ import {TypeNode, typeNode} from '../type/type-node';
 import {lambdaNode} from './lambda-node';
 
 export function lambdaNodeParse(): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>) => {
+  return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {
     const parts = getLambdaParts(analyzer, nodes);
 
     if (!parts || !parts.parameters) {
@@ -31,12 +31,12 @@ export function lambdaNodeParse(): SyntaxParseFn {
 
 function getLambdaParts(
   analyzer: SyntaxAnalyzer,
-  nodes: Array2<Node>,
+  nodes: Node[],
 ):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
-      genericsHiddenNodes?: Array2<Node> | Nothing;
+      genericsHiddenNodes?: Node[] | Nothing;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
       type?: TypeNode | Nothing;
@@ -110,7 +110,7 @@ function getGenericsParameters(
   analyzer: SyntaxAnalyzer,
   node: Node,
 ): {
-  genericsHiddenNodes?: Array2<Node> | Nothing;
+  genericsHiddenNodes?: Node[] | Nothing;
   generics?: GroupNode | Nothing;
   parameters?: GroupNode | Nothing;
 } {

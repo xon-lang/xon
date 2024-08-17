@@ -1,12 +1,12 @@
 import {$, is} from '../../../$';
-import {Anything, Array2, String2, nothing} from '../../../../lib/types';
+import {Anything, String2, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {Node} from '../../node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 
 export type SyntaxNode<T extends $ = $> = Node<T> & {
-  children: Array2<Node>;
+  children: Node[];
 };
 
 export function syntaxNode<

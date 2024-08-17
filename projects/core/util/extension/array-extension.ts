@@ -1,14 +1,14 @@
-import {Array2, Boolean2, Integer, Nothing, Number2, String2, nothing} from '../../../lib/types';
+import {Boolean2, Integer, Nothing, Number2, String2, nothing} from '../../../lib/types';
 
-Array.prototype.take = function <T>(length: Integer, startIndex: Integer = 0): Array2<T> {
+Array.prototype.take = function <T>(length: Integer, startIndex: Integer = 0): T[] {
   return this.slice(startIndex, startIndex + length);
 };
 
 Array.prototype.takeWhile = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
   startIndex = 0,
   includeConditionItem = false,
-): Array2<T> {
+): T[] {
   if (!predicate) {
     return this.slice(startIndex);
   }
@@ -23,7 +23,7 @@ Array.prototype.takeWhile = function <T>(
 };
 
 Array.prototype.first = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
 ): T | Nothing {
   if (this.length === 0) {
     return nothing;
@@ -45,7 +45,7 @@ Array.prototype.first = function <T>(
 };
 
 Array.prototype.last = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
 ): T | Nothing {
   if (this.length === 0) {
     return nothing;
@@ -67,7 +67,7 @@ Array.prototype.last = function <T>(
 };
 
 Array.prototype.firstIndex = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
   startIndex = 0,
 ): Integer {
   if (this.length === 0) {
@@ -88,7 +88,7 @@ Array.prototype.firstIndex = function <T>(
 };
 
 Array.prototype.lastIndex = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
   startIndex?: Integer,
 ): Integer {
   if (this.length === 0) {
@@ -110,25 +110,25 @@ Array.prototype.lastIndex = function <T>(
   return -1;
 };
 
-Array.prototype.removeFirst = function <T>(): Array2<T> {
+Array.prototype.removeFirst = function <T>(): T[] {
   this.splice(0, 1);
 
   return this;
 };
 
-Array.prototype.removeLast = function <T>(): Array2<T> {
+Array.prototype.removeLast = function <T>(): T[] {
   this.splice(-1, 1);
 
   return this;
 };
 
-Array.prototype.sortStrings = function (): Array2<String2> {
-  // todo fix 'as Array2<String2>'
-  return (this as Array2<String2>).sort((a, b) => a.localeCompare(b));
+Array.prototype.sortStrings = function (): String2[] {
+  // todo fix 'as String2[]'
+  return (this as String2[]).sort((a, b) => a.localeCompare(b));
 };
 
 Array.prototype.findMap = function <T, V>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => V | Nothing,
+  predicate?: (value: T, index: Integer, array: T[]) => V | Nothing,
 ): V | Nothing {
   if (!predicate) {
     return this.first();
@@ -146,13 +146,13 @@ Array.prototype.findMap = function <T, V>(
 };
 
 Array.prototype.filterMap = function <T, V>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => V | Nothing,
-): Array2<V> {
+  predicate?: (value: T, index: Integer, array: T[]) => V | Nothing,
+): V[] {
   if (!predicate) {
     return this.slice(0);
   }
 
-  const newArray: Array2<V> = [];
+  const newArray: V[] = [];
 
   for (let index = 0; index < this.length; index++) {
     const result = predicate(this[index], index, this);
@@ -166,7 +166,7 @@ Array.prototype.filterMap = function <T, V>(
 };
 
 Array.prototype.count = function <T>(
-  predicate?: (value: T, index: Integer, array: Array2<T>) => Boolean2,
+  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
 ): Integer {
   if (!predicate) {
     return this.length;
@@ -175,14 +175,12 @@ Array.prototype.count = function <T>(
   return this.reduce((sum, val, index, array) => sum + (predicate(val, index, array) ? 1 : 0), 0);
 };
 
-Array.prototype.sum = function <T>(select: (value: T, index: Integer, array: Array2<T>) => Number2): Number2 {
+Array.prototype.sum = function <T>(select: (value: T, index: Integer, array: T[]) => Number2): Number2 {
   return this.reduce((result, val, index, array) => result + select(val, index, array), 0);
 };
 
-Array.prototype.min = function <T>(
-  select: (value: T, index: Integer, array: Array2<T>) => Number2,
-): T | Nothing {
-  const array: Array2<T> = this;
+Array.prototype.min = function <T>(select: (value: T, index: Integer, array: T[]) => Number2): T | Nothing {
+  const array: T[] = this;
 
   if (!array.length) {
     return nothing;
@@ -204,10 +202,8 @@ Array.prototype.min = function <T>(
   }, array[0]);
 };
 
-Array.prototype.max = function <T>(
-  select: (value: T, index: Integer, array: Array2<T>) => Number2,
-): T | Nothing {
-  const array: Array2<T> = this;
+Array.prototype.max = function <T>(select: (value: T, index: Integer, array: T[]) => Number2): T | Nothing {
+  const array: T[] = this;
 
   if (!array.length) {
     return nothing;
@@ -230,9 +226,9 @@ Array.prototype.max = function <T>(
 };
 
 Array.prototype.minMax = function <T>(
-  select: (value: T, index: Integer, array: Array2<T>) => Number2,
+  select: (value: T, index: Integer, array: T[]) => Number2,
 ): {min: T; max: T} | Nothing | Nothing {
-  const array: Array2<T> = this;
+  const array: T[] = this;
 
   if (!this.length) {
     return nothing;
@@ -264,7 +260,7 @@ Array.prototype.minMax = function <T>(
   return {min, max};
 };
 
-Array.prototype.sortBy = function <T>(select: (value: T) => Number2, ascending: Boolean2 = true): Array2<T> {
+Array.prototype.sortBy = function <T>(select: (value: T) => Number2, ascending: Boolean2 = true): T[] {
   if (ascending) {
     return [...this].sort((a, b) => select(a) - select(b));
   }
@@ -274,9 +270,9 @@ Array.prototype.sortBy = function <T>(select: (value: T) => Number2, ascending: 
 
 // [1, 2, 3, 0, 5].splitBy(x=>x===0) is [{splitter: nothing, items: [1, 2, 3]}, {splitter: 0, items: [5]}]
 Array.prototype.splitBy = function <T>(
-  predicate: (value: T, index: Integer, array: Array2<T>) => Boolean2,
-): Array2<{splitter: T | Nothing; items: Array2<T>}> {
-  const result: Array2<{splitter: T | Nothing; items: Array2<T>}> = [];
+  predicate: (value: T, index: Integer, array: T[]) => Boolean2,
+): {splitter: T | Nothing; items: T[]}[] {
+  const result: {splitter: T | Nothing; items: T[]}[] = [];
 
   for (let index = 0; index < this.length; index++) {
     const item = this[index];
@@ -297,12 +293,12 @@ Array.prototype.splitBy = function <T>(
   return result;
 };
 
-Array.prototype.equals = function <T>(other: Array2<T>): Boolean2 {
+Array.prototype.equals = function <T>(other: T[]): Boolean2 {
   return this.length === other.length && this.every((x, i) => other[i] === x);
 };
 
 Array.prototype.toDictionary = function <T, Key extends String2 | Number2>(
-  select: (value: T, index: Integer, array: Array2<T>) => Key,
+  select: (value: T, index: Integer, array: T[]) => Key,
 ): Record<Key, T> {
   return this.reduce((o: Record<Key, T>, v, i, arr) => {
     o[select(v, i, arr)] = v;

@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
+import {Boolean2, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -11,13 +11,13 @@ import {TypeSemantic} from '../type-semantic';
 export interface ArrayTypeSemantic extends TypeSemantic {
   $: $.ArrayTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
-  items: Array2<TypeSemantic>;
+  items: TypeSemantic[];
 }
 
 export function arrayTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node | Nothing,
-  items: Array2<TypeSemantic>,
+  items: TypeSemantic[],
 ): ArrayTypeSemantic {
   return {
     $: $.ArrayTypeSemantic,

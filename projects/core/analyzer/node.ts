@@ -1,5 +1,5 @@
 import {$, $Model} from '../$';
-import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/types';
+import {Boolean2, Integer, Nothing, nothing} from '../../lib/types';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {Semantic} from './semantic/node/semantic';
 
@@ -9,7 +9,7 @@ export type Node<T extends $ = $> = $Model & {
   reference: TextResourceRange;
   parent?: Node | Nothing;
   isHidden?: Boolean2 | Nothing;
-  hiddenNodes?: Array2<Node> | Nothing;
+  hiddenNodes?: Node[] | Nothing;
 };
 
 export type ExpressionNode = Node & {

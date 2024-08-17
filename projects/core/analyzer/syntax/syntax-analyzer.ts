@@ -1,5 +1,5 @@
 import {$, is} from '../../$';
-import {Array2, Boolean2, Nothing, nothing} from '../../../lib/types';
+import {Boolean2, Nothing, nothing} from '../../../lib/types';
 import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,
@@ -27,20 +27,20 @@ export type SyntaxAnalyzer = {
   formatterManager: FormatterManager;
   config: SyntaxAnalyzerConfig;
   statements: StatementNode[];
-  hiddenNodes: Array2<Node>;
+  hiddenNodes: Node[];
 
   parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
     statements: StatementNode[];
     breakNode?: Node | Nothing;
-    hiddenNodes: Array2<Node>;
+    hiddenNodes: Node[];
   };
 
   findStatementNode(
-    statements: Array2<StatementNode>,
+    statements: StatementNode[],
     positionOrRange: TextPosition | TextRange,
   ): StatementNode | Nothing;
 
-  findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing;
+  findNodeInChildren(children: Node[], positionOrRange: TextPosition | TextRange): Node | Nothing;
   findNode(positionOrRange: TextPosition | TextRange): Node | Nothing;
   findClosestNode(positionOrRange: TextPosition | TextRange, $: $): Node | Nothing;
 };
@@ -65,14 +65,14 @@ export function createSyntaxAnalyzer(
     parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
       statements: StatementNode[];
       breakNode?: Node | Nothing;
-      hiddenNodes: Array2<Node>;
+      hiddenNodes: Node[];
     } {
-      let hiddenNodes: Array2<Node> = [];
+      let hiddenNodes: Node[] = [];
       let lastStatement: StatementNode | Nothing = nothing;
-      let statements: Array2<StatementNode> = [];
+      let statements: StatementNode[] = [];
       let statementIndent: TextRange = rangeFromPosition(lexicalAnalyzer.position);
       let breakNode: Node | Nothing = nothing;
-      let nodes: Array2<Node> = [];
+      let nodes: Node[] = [];
 
       const handleStatement = () => {
         if (nodes.length === 0) {
@@ -153,7 +153,7 @@ export function createSyntaxAnalyzer(
     },
 
     findStatementNode(
-      statements: Array2<StatementNode>,
+      statements: StatementNode[],
       positionOrRange: TextPosition | TextRange,
     ): StatementNode | Nothing {
       if (statements.length === 0) {
@@ -175,7 +175,7 @@ export function createSyntaxAnalyzer(
       return nothing;
     },
 
-    findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing {
+    findNodeInChildren(children: Node[], positionOrRange: TextPosition | TextRange): Node | Nothing {
       const child =
         children.length === 1
           ? children[0]
@@ -228,7 +228,7 @@ export function createSyntaxAnalyzer(
   return analyzer;
 }
 
-function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): TextRange | Nothing {
+function getStatementIndent(nodes: Node[], hiddenNodes: Node[]): TextRange | Nothing {
   if (nodes.length !== 0 || hiddenNodes.length === 0) {
     return nothing;
   }

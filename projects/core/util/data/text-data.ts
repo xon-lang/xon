@@ -1,29 +1,29 @@
 import {$, is} from '../../$';
-import {Array2, Boolean2, Char, Integer, String2} from '../../../lib/types';
+import {Boolean2, Char, Integer, String2} from '../../../lib/types';
 import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {Predicate} from '../extension/extension';
 import {TextRange} from '../resource/text/text-range';
 
 export type TextData = {
   $: $.TextData;
-  characters: Array2<Char>;
+  characters: Char[];
 
   slice(startIndex: Integer, stopIndex?: Integer): TextData;
   slice(range: TextRange): TextData;
   lineText(line: Integer): TextData;
-  firstIndex(characters: Array2<Char>, startIndex?: Integer): Integer;
+  firstIndex(characters: Char[], startIndex?: Integer): Integer;
   firstIndex(string: String2, startIndex?: Integer): Integer;
   firstIndex(data: TextData, startIndex?: Integer): Integer;
-  lastIndex(characters: Array2<Char>, startIndex?: Integer): Integer;
+  lastIndex(characters: Char[], startIndex?: Integer): Integer;
   lastIndex(string: String2, startIndex?: Integer): Integer;
   lastIndex(data: TextData, startIndex?: Integer): Integer;
 
   takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): TextData;
   take(length: Integer, startIndex?: Integer): TextData;
 
-  append(data: Array2<String2>): TextData;
+  append(data: String2[]): TextData;
   append(data: String2): TextData;
-  prepend(data: Array2<String2>): TextData;
+  prepend(data: String2[]): TextData;
   prepend(data: String2): TextData;
 
   clone(): TextData;
@@ -35,9 +35,9 @@ export type TextData = {
   toString(): String2;
 };
 
-export function textData(data: Array2<String2>): TextData;
+export function textData(data: String2[]): TextData;
 export function textData(data: String2): TextData;
-export function textData(data: Array2<String2> | String2): TextData {
+export function textData(data: String2[] | String2): TextData {
   const characters = typeof data === 'string' ? stringToCharacters(data) : data;
 
   return {
@@ -82,7 +82,7 @@ export function textData(data: Array2<String2> | String2): TextData {
       return textData([]);
     },
 
-    firstIndex(data: Array2<Char> | String2 | TextData, startIndex?: Integer): Integer {
+    firstIndex(data: Char[] | String2 | TextData, startIndex?: Integer): Integer {
       if (Array.isArray(data)) {
         return this.characters.firstIndex((_, i, arr) => data.every((z, j) => z === arr[i + j]), startIndex);
       }
@@ -94,7 +94,7 @@ export function textData(data: Array2<String2> | String2): TextData {
       return this.firstIndex(data.characters, startIndex);
     },
 
-    lastIndex(data: Array2<Char> | String2 | TextData, startIndex?: Integer): Integer {
+    lastIndex(data: Char[] | String2 | TextData, startIndex?: Integer): Integer {
       if (Array.isArray(data)) {
         return this.characters.lastIndex((_, i, arr) => data.every((z, j) => z === arr[i + j]), startIndex);
       }
@@ -118,7 +118,7 @@ export function textData(data: Array2<String2> | String2): TextData {
       return textData(characters);
     },
 
-    append(data: Array2<String2> | String2): TextData {
+    append(data: String2[] | String2): TextData {
       if (Array.isArray(data)) {
         this.characters.push(...data);
       } else {
@@ -128,7 +128,7 @@ export function textData(data: Array2<String2> | String2): TextData {
       return this;
     },
 
-    prepend(data: Array2<String2> | String2): TextData {
+    prepend(data: String2[] | String2): TextData {
       if (Array.isArray(data)) {
         this.characters.unshift(...data);
       } else {

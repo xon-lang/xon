@@ -1,5 +1,5 @@
 import {$, $Model, is} from '../../../$';
-import {Array2, Boolean2} from '../../../../lib/types';
+import {Boolean2} from '../../../../lib/types';
 import {Node} from '../../../analyzer/node';
 import {clonePosition, TextPosition, zeroPosition} from './text-position';
 
@@ -46,7 +46,7 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   };
 }
 
-export function rangeFromNodes(nodes: Array2<Node>): TextRange {
+export function rangeFromNodes(nodes: Node[]): TextRange {
   const startNode = nodes.first();
   const stopNode = nodes.last();
 

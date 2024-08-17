@@ -1,5 +1,5 @@
 import {$, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
+import {Boolean2, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -9,13 +9,13 @@ import {TypeSemantic} from '../type-semantic';
 export type InvokeTypeSemantic = TypeSemantic & {
   $: $.InvokeTypeSemantic;
   instance: TypeSemantic;
-  args: Array2<TypeSemantic>;
+  args: TypeSemantic[];
 };
 
 export function invokeTypeSemantic(
   nodeLink: Node | Nothing,
   instance: TypeSemantic,
-  args: Array2<TypeSemantic>,
+  args: TypeSemantic[],
 ): InvokeTypeSemantic {
   return {
     $: $.InvokeTypeSemantic,

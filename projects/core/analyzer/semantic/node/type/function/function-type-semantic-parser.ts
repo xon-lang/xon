@@ -1,5 +1,5 @@
 import {$, is} from '../../../../../$';
-import {Array2, Nothing, nothing} from '../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {DocumentationNode} from '../../../../syntax/documentation/documentation-node';
 import {GroupNode} from '../../../../syntax/group/group-node';
@@ -36,7 +36,7 @@ export function parametersParse(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
   group: GroupNode,
-): Array2<DeclarationSemantic> {
+): DeclarationSemantic[] {
   const generics = parameterDeclarationsParse(analyzer, group);
 
   if (node.documentation) {

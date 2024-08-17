@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {Array2, Nothing} from '../../../../../lib/types';
+import {Nothing} from '../../../../../lib/types';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {DocumentationNode} from '../../documentation/documentation-node';
@@ -18,7 +18,7 @@ export type DeclarationNode = SyntaxNode & {
   parameters?: GroupNode | Nothing;
   type?: TypeNode | Nothing;
   assign?: AssignNode | Nothing;
-  attributes?: Array2<DeclarationNode> | Nothing;
+  attributes?: DeclarationNode[] | Nothing;
 };
 
 export function declarationNode(

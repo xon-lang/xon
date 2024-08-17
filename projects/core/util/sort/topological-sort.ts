@@ -1,16 +1,16 @@
-import {Array2, String2} from '../../../lib/types';
+import {String2} from '../../../lib/types';
 
-export function topologicalSort(dependencies: Record<String2, Array2<String2>>): {
-  order: Array2<String2>;
-  cycle: Array2<String2>;
+export function topologicalSort(dependencies: Record<String2, String2[]>): {
+  order: String2[];
+  cycle: String2[];
 } {
   const used = new Set();
-  const order: Array2<String2> = [];
+  const order: String2[] = [];
   const keys = Object.keys(dependencies);
   let cycle = keys;
 
   while (cycle.length) {
-    const items: Array2<String2> = [];
+    const items: String2[] = [];
     const length = cycle.length;
 
     cycle = cycle.filter((k) => {

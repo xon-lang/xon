@@ -1,4 +1,4 @@
-import {Array2, Nothing} from '../types';
+import {Nothing} from '../types';
 
 export interface LinkedListNode<T> {
   data: T;
@@ -9,5 +9,5 @@ export interface LinkedListNode<T> {
 export interface LinkedList<T> {
   firstNode: LinkedListNode<T>;
   lastNode: LinkedListNode<T>;
-  nodes: Array2<LinkedListNode<T>>;
+  nodes: LinkedListNode<T>[];
 }

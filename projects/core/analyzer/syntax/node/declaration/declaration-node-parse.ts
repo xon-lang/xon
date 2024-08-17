@@ -1,5 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Array2, Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Integer, Nothing, nothing} from '../../../../../lib/types';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
@@ -16,7 +16,7 @@ import {DeclarationNode, partialToDeclaration} from './declaration-node';
 export function declarationNodeParse(): SyntaxParseFn {
   return (
     analyzer: SyntaxAnalyzer,
-    nodes: Array2<Node>,
+    nodes: Node[],
     _startIndex: Integer,
     parentStatement: StatementNode | Nothing,
   ) => {
@@ -48,15 +48,15 @@ export function declarationNodeParse(): SyntaxParseFn {
 
 function getDeclarationParts(
   analyzer: SyntaxAnalyzer,
-  nodes: Array2<Node>,
+  nodes: Node[],
   parentStatement: StatementNode | Nothing,
 ):
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
-      modifierHiddenNodes?: Array2<Node> | Nothing;
+      modifierHiddenNodes?: Node[] | Nothing;
       modifier?: OperatorNode | Nothing;
-      idHiddenNodes?: Array2<Node> | Nothing;
+      idHiddenNodes?: Node[] | Nothing;
       id: IdNode;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
@@ -135,10 +135,10 @@ function getHeader(
   node: Node | Nothing,
 ):
   | {
-      modifierHiddenNodes?: Array2<Node> | Nothing;
+      modifierHiddenNodes?: Node[] | Nothing;
       documentation?: DocumentationNode | Nothing;
       modifier?: OperatorNode | Nothing;
-      idHiddenNodes?: Array2<Node> | Nothing;
+      idHiddenNodes?: Node[] | Nothing;
       id: IdNode;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
@@ -166,7 +166,7 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
-      idHiddenNodes?: Array2<Node> | Nothing;
+      idHiddenNodes?: Node[] | Nothing;
       id: IdNode;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;

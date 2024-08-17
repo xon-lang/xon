@@ -1,5 +1,5 @@
 import {$, is} from '../../../$';
-import {Array2, Nothing, nothing} from '../../../../lib/types';
+import {Nothing, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {documentationLexicalParsers} from '../../lexical/documentation-lexical-analyzer';
@@ -15,7 +15,7 @@ export function documentationNodeParse(
 ): DocumentationNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(documentationLexicalParsers);
   let description: DocumentationDescriptionNode | Nothing = nothing;
-  const items: Array2<DocumentationItemNode> = [];
+  const items: DocumentationItemNode[] = [];
 
   for (const node of iterator) {
     if (is(node, $.DocumentationDescriptionNode)) {

@@ -1,5 +1,5 @@
 import {$, is} from '../../../../$';
-import {Array2, Nothing, String2} from '../../../../../lib/types';
+import {Nothing, String2} from '../../../../../lib/types';
 import {topologicalSort} from '../../../../util/sort/topological-sort';
 import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {Node} from '../../../node';
@@ -17,17 +17,14 @@ import {attributeValueDeclarationSemanticHandle} from './value/attribute/attribu
 export function parameterDeclarationsParse(
   analyzer: SemanticAnalyzer,
   parametersNode: GroupNode,
-): Array2<DeclarationSemantic> {
+): DeclarationSemantic[] {
   return declarationsParse(
     analyzer,
     parametersNode.items.map((x) => x.value ?? x),
   );
 }
 
-export function declarationsParse(
-  analyzer: SemanticAnalyzer,
-  nodes: Array2<Node>,
-): Array2<DeclarationSemantic> {
+export function declarationsParse(analyzer: SemanticAnalyzer, nodes: Node[]): DeclarationSemantic[] {
   const declarations = nodes
     .filter((node) => is(node, $.DeclarationNode))
     .map((node) => {
@@ -75,8 +72,8 @@ function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode)
   analyzer.popDeclarationScope();
 }
 
-function declarationNodeDependencies(nodes: Array2<DeclarationNode>): Record<string, Array2<string>> {
-  return nodes.reduce((o: Record<String2, Array2<String2>>, node) => {
+function declarationNodeDependencies(nodes: DeclarationNode[]): Record<string, string[]> {
+  return nodes.reduce((o: Record<String2, String2[]>, node) => {
     const name = node.id.text.toString();
 
     if (!o[name]) {
@@ -95,7 +92,7 @@ function declarationNodeDependencies(nodes: Array2<DeclarationNode>): Record<str
   }, {});
 }
 
-function nodeDependencies(node: Node | Nothing): Array2<String2> {
+function nodeDependencies(node: Node | Nothing): String2[] {
   if (!node) {
     return [];
   }

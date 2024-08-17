@@ -13,7 +13,6 @@ import {
 import {AnalyzerDiagnostic} from '../../../../core/diagnostic/analyzer-diagnostic';
 import {AnalyzerDiagnosticSeverity} from '../../../../core/diagnostic/analyzer-diagnostic-severity';
 import {AnalyzerDiagnosticTag} from '../../../../core/diagnostic/analyzer-diagnostic-tag';
-import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange} from '../../util/convert';
 import {getDocumentSemantic} from '../../util/util';
@@ -53,8 +52,8 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
   diagnostics.set(document.uri, convertDiagnostic(syntax.diagnosticManager.diagnostics));
 }
 
-function convertDiagnostic(analyzerDiagnostics: Array2<AnalyzerDiagnostic>): Array2<Diagnostic> {
-  const diagnostics: Array2<Diagnostic> = [];
+function convertDiagnostic(analyzerDiagnostics: AnalyzerDiagnostic[]): Diagnostic[] {
+  const diagnostics: Diagnostic[] = [];
 
   for (const analyzerDiagnostic of analyzerDiagnostics) {
     const range = convertRange(analyzerDiagnostic.reference.range);

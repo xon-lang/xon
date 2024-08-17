@@ -1,4 +1,3 @@
-import {Array2} from '../../../lib/types';
 import {LexicalNodeParseFn} from './lexical-analyzer';
 import {angleCloseNodeParse} from './node/close/angle-close/angle-close-node-parse';
 import {braceCloseNodeParse} from './node/close/brace-close/brace-close-node-parse';
@@ -22,7 +21,7 @@ import {operatorNodeParse} from './node/operator/operator-node-parse';
 import {whitespaceNodeParse} from './node/whitespace/whitespace-node-parse';
 
 // todo remove all nodes if possible and use single node (e.g. 'TokenNode')
-export const codeLexicalParsers: Array2<LexicalNodeParseFn> = [
+export const codeLexicalParsers: LexicalNodeParseFn[] = [
   parenOpenNodeParse,
   parenCloseNodeParse,
   bracketOpenNodeParse,

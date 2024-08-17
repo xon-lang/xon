@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Array2, Nothing} from '../../../../lib/types';
+import {Nothing} from '../../../../lib/types';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {textResourceRange} from '../../../util/resource/text/text-resource-range';
@@ -19,7 +19,7 @@ export type GroupNode<
 > = SyntaxNode<GroupType> &
   ExpressionNode & {
     open: OpenNode<OpenType>;
-    items: Array2<ItemNode>;
+    items: ItemNode[];
     close: CloseNode<CloseType> | Nothing;
   };
 
@@ -31,7 +31,7 @@ export function groupNode<
   analyzer: SyntaxAnalyzer,
   $: GroupType,
   open: OpenNode<OpenType>,
-  items: Array2<ItemNode>,
+  items: ItemNode[],
   close: CloseNode<CloseType> | Nothing,
 ): GroupNode<GroupType, OpenType, CloseType> {
   const children = close ? [open, ...items, close] : [open, ...items];

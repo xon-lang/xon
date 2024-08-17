@@ -13,7 +13,7 @@ import {
 import {$, is} from '../../../../../core/$';
 import {ValueDeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
-import {Array2, Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/types';
 import {convertVscodePosition} from '../../../util/convert';
 import {getDocumentSemantic} from '../../../util/util';
 
@@ -25,7 +25,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     position: Position,
     _token: CancellationToken,
     _context: CompletionContext,
-  ): ProviderResult<Array2<CompletionItem> | CompletionList<CompletionItem>> {
+  ): ProviderResult<CompletionItem[] | CompletionList<CompletionItem>> {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
@@ -41,7 +41,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
   }
 }
 
-function getAttributes(semantic: Semantic): Array2<ValueDeclarationSemantic> | Nothing {
+function getAttributes(semantic: Semantic): ValueDeclarationSemantic[] | Nothing {
   if (is(semantic, $.TypeSemantic)) {
     return semantic.attributes().all();
   }

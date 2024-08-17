@@ -1,5 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Array2, Integer, nothing} from '../../../../../lib/types';
+import {Integer, nothing} from '../../../../../lib/types';
 import {ASSIGN} from '../../../lexical/lexical-analyzer-config';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
@@ -8,7 +8,7 @@ import {prefixNode} from '../prefix/prefix-node';
 import {assignmentNode} from './assignment-node';
 
 export function assignmentNodeParse(): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
       if (!is(node, $.OperatorNode) || !node.text.equals(ASSIGN)) {
         return nothing;

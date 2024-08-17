@@ -13,7 +13,6 @@ import {
 } from 'vscode';
 
 import {FormatterItem} from '../../../../core/formatter/formatter-item';
-import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange} from '../../util/convert';
 import {getDocumentSemantic} from '../../util/util';
@@ -41,7 +40,7 @@ export class LanguageDocumentFormattingEditProvider implements DocumentFormattin
     document: TextDocument,
     options: FormattingOptions,
     token: CancellationToken,
-  ): ProviderResult<Array2<TextEdit>> {
+  ): ProviderResult<TextEdit[]> {
     return getDocumentFormatters(document, this.channel);
   }
 }
@@ -54,7 +53,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     range: Range,
     options: FormattingOptions,
     token: CancellationToken,
-  ): ProviderResult<Array2<TextEdit>> {
+  ): ProviderResult<TextEdit[]> {
     const formatters = getDocumentFormatters(document, this.channel).filter((x) => range.contains(x.range));
 
     return formatters;
@@ -62,10 +61,10 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
 
   provideDocumentRangesFormattingEdits?(
     document: TextDocument,
-    ranges: Array2<Range>,
+    ranges: Range[],
     options: FormattingOptions,
     token: CancellationToken,
-  ): ProviderResult<Array2<TextEdit>> {
+  ): ProviderResult<TextEdit[]> {
     const formatters = getDocumentFormatters(document, this.channel).filter((x) =>
       ranges.some((z) => z.contains(x.range)),
     );
@@ -73,7 +72,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     return formatters;
   }
 
-  provideDocumentFormattingEdits(document: TextDocument): ProviderResult<Array2<TextEdit>> {
+  provideDocumentFormattingEdits(document: TextDocument): ProviderResult<TextEdit[]> {
     const semantic = getDocumentSemantic(document, this.channel);
     const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 
@@ -81,7 +80,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
   }
 }
 
-function getDocumentFormatters(document: TextDocument, channel: OutputChannel): Array2<TextEdit> {
+function getDocumentFormatters(document: TextDocument, channel: OutputChannel): TextEdit[] {
   const semantic = getDocumentSemantic(document, channel);
   const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 

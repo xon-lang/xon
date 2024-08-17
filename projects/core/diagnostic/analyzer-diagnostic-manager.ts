@@ -1,4 +1,4 @@
-import {Array2, Integer, Nothing} from '../../lib/types';
+import {Integer, Nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';
@@ -9,7 +9,7 @@ import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
 
 export interface AnalyzerDiagnosticManager {
   resource: TextResource;
-  diagnostics: Array2<AnalyzerDiagnostic>;
+  diagnostics: AnalyzerDiagnostic[];
 
   addDiagnostic(
     level: AnalyzerDiagnosticSeverity,
@@ -29,7 +29,7 @@ export interface AnalyzerDiagnosticManager {
 
 export function createDiagnosticManager(
   resource: TextResource,
-  diagnostics: Array2<AnalyzerDiagnostic> = [],
+  diagnostics: AnalyzerDiagnostic[] = [],
 ): AnalyzerDiagnosticManager {
   const manager: AnalyzerDiagnosticManager = {
     resource,

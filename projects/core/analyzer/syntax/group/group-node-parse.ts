@@ -1,5 +1,5 @@
 import {$, is} from '../../../$';
-import {Array2, Nothing, nothing, String2} from '../../../../lib/types';
+import {Nothing, nothing, String2} from '../../../../lib/types';
 import {ANGLE_CLOSE, BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
 
 import {CommaNode} from '../../lexical/node/comma/comma-node';
@@ -30,7 +30,7 @@ function groupNodeParseInner(
   openNode: OpenNode,
   closeText: String2,
 ): GroupNode {
-  const items: Array2<ItemNode> = [];
+  const items: ItemNode[] = [];
 
   let itemIndex = 0;
   let commaNode: CommaNode | Nothing = nothing;

@@ -2,6 +2,16 @@ type Anything
 type Something: Anything
 type Nothing: Anything
 
+// or:
+// type Unknown
+// type Something
+// type Nothing
+
+// or:
+// type Anything
+// type Something
+// type Nothing
+
 type Number: Something
 type Integer: Number
 

@@ -1,4 +1,4 @@
-import {Array2, Nothing, nothing} from '../../../lib/types';
+import {Nothing, nothing} from '../../../lib/types';
 import {TextRange} from '../../util/resource/text/text-range';
 import {Node} from '../node';
 import {StatementNode, constructStatementNode} from './statement/statement-node';
@@ -6,8 +6,8 @@ import {SyntaxAnalyzer} from './syntax-analyzer';
 
 export function putStatementNode(
   analyzer: SyntaxAnalyzer,
-  nodes: Array2<Node>,
-  statements: Array2<StatementNode>,
+  nodes: Node[],
+  statements: StatementNode[],
   lastStatement: StatementNode | Nothing,
   indent: TextRange,
 ): StatementNode {

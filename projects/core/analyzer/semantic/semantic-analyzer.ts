@@ -1,5 +1,5 @@
 import {$, is} from '../../$';
-import {Array2, Nothing, nothing} from '../../../lib/types';
+import {Nothing, nothing} from '../../../lib/types';
 import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
 import {TextRange} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
@@ -23,7 +23,7 @@ export type SemanticAnalyzer = {
   config: SemanticAnalyzerConfig;
   diagnosticManager: AnalyzerDiagnosticManager;
   declarationManager: DeclarationManager;
-  statements: Array2<StatementNode>;
+  statements: StatementNode[];
 
   // use node instead ???
   reference(node: Node): TextResourceRange;

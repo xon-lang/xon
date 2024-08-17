@@ -1,5 +1,5 @@
 import {$, is, TypeMap} from '../../$';
-import {Array2, Integer, Nothing, nothing, String2} from '../../../lib/types';
+import {Integer, Nothing, nothing, String2} from '../../../lib/types';
 import {DeclarationSemantic} from './node/declaration/declaration-semantic';
 import {TypeSemantic} from './node/type/type-semantic';
 
@@ -12,24 +12,24 @@ export type DeclarationKind =
   | $.AttributeValueDeclarationSemantic;
 
 export interface DeclarationManager<T extends DeclarationSemantic = DeclarationSemantic> {
-  imports: Array2<DeclarationManager> | Nothing;
+  imports: DeclarationManager[] | Nothing;
   parent: DeclarationManager | Nothing;
-  declarations: Record<String2, Array2<T>>;
+  declarations: Record<String2, T[]>;
 
   count(): Integer;
   add(declaration: T): void;
-  all(): Array2<T>;
+  all(): T[];
 
-  filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): Array2<TypeMap[KIND]>;
+  filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND][];
 
   single<KIND extends DeclarationKind>(
     kind: KIND,
     name: String2,
-    generics?: Array2<TypeSemantic | Nothing> | Nothing,
-    parameters?: Array2<TypeSemantic | Nothing> | Nothing,
+    generics?: TypeSemantic | Nothing[] | Nothing,
+    parameters?: TypeSemantic | Nothing[] | Nothing,
   ): TypeMap[KIND] | Nothing;
 
-  clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager<T>;
+  clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationManager<T>;
   union(other: DeclarationManager<T>): DeclarationManager<T>;
   intersection(other: DeclarationManager<T>): DeclarationManager<T>;
   complement(other: DeclarationManager<T>): DeclarationManager<T>;
@@ -37,7 +37,7 @@ export interface DeclarationManager<T extends DeclarationSemantic = DeclarationS
 
 export function createDeclarationManager<T extends DeclarationSemantic = DeclarationSemantic>(
   parent?: DeclarationManager<T> | Nothing,
-  imports?: Array2<DeclarationManager<T>> | Nothing,
+  imports?: DeclarationManager<T>[] | Nothing,
 ): DeclarationManager<T> {
   return {
     imports,
@@ -56,11 +56,11 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       this.declarations[declaration.name].push(declaration);
     },
 
-    all(): Array2<T> {
+    all(): T[] {
       return Object.values(this.declarations).flat();
     },
 
-    filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): Array2<TypeMap[KIND]> {
+    filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND][] {
       const declarations = (this.declarations[name] ?? this.parent?.filterByName<KIND>(kind, name))?.filter(
         (x) => is(x, kind),
       );
@@ -80,12 +80,7 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return [];
     },
 
-    single<KIND extends DeclarationKind>(
-      kind: KIND,
-      name: String2,
-      generics: Array2<TypeSemantic | Nothing> | Nothing,
-      // parameters: Array2<TypeSemantic | Nothing> | Nothing,
-    ): TypeMap[KIND] | Nothing {
+    single<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND] | Nothing {
       const declarations = this.filterByName(kind, name);
 
       if (declarations.length === 0) {
@@ -110,7 +105,7 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return filtered.first();
     },
 
-    clone(generics?: Array2<TypeSemantic | Nothing> | Nothing): DeclarationManager<T> {
+    clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationManager<T> {
       const declarationManager = createDeclarationManager<T>();
 
       // todo simplify it. allow create declaration manager from 'declarations' field

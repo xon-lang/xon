@@ -1,4 +1,4 @@
-import {Anything, Array2, Boolean2, Char, Integer, Nothing, Number2, String2} from '../../../lib/types';
+import {Anything, Boolean2, Char, Integer, Nothing, Number2, String2} from '../../../lib/types';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}
@@ -14,11 +14,11 @@ export interface ArrayExtension<T = Anything> {
   firstIndex(predicate?: Predicate<T>, startIndex?: Integer): Integer;
   lastIndex(predicate?: Predicate<T>, startIndex?: Integer): Integer;
 
-  removeFirst(): Array2<T>;
-  removeLast(): Array2<T>;
+  removeFirst(): T[];
+  removeLast(): T[];
 
-  takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): Array2<T>;
-  take(length: Integer, startIndex?: Integer): Array2<T>;
+  takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): T[];
+  take(length: Integer, startIndex?: Integer): T[];
 
   some(predicate: Predicate<Char>): Boolean2;
 
@@ -29,15 +29,15 @@ export interface ArrayExtension<T = Anything> {
   minMax(select: Select<T, Number2>): {min: T; max: T} | Nothing;
 
   findMap<V>(predicate: PredicateSelect<T, V>): V | Nothing;
-  filterMap<V>(predicate: PredicateSelect<T, V>): Array2<V>;
+  filterMap<V>(predicate: PredicateSelect<T, V>): V[];
 
-  sortBy(select: (value: T) => Number2, ascending?: Boolean2): Array2<T>;
-  sortStrings(): Array2<T>;
+  sortBy(select: (value: T) => Number2, ascending?: Boolean2): T[];
+  sortStrings(): T[];
 
-  splitBy(predicate: Predicate<T>): Array2<{splitter: T | Nothing; items: Array2<T>}>;
-  splitBy<V extends T>(predicate: PredicateTypeSafe<T, V>): Array2<{splitter: V | Nothing; items: Array2<T>}>;
+  splitBy(predicate: Predicate<T>): {splitter: T | Nothing; items: T[]}[];
+  splitBy<V extends T>(predicate: PredicateTypeSafe<T, V>): {splitter: V | Nothing; items: T[]}[];
 
-  equals(other: Array2<T>): Boolean2;
+  equals(other: T[]): Boolean2;
   toDictionary<Key extends String2 | Number2>(select: Select<T, Key>): Record<Key, T>;
 }
 
@@ -57,7 +57,7 @@ export interface StringExtension extends ArrayExtension<Char> {
   setPadding(padding: Integer): String2;
 }
 
-export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: Array2<T>) => V;
-export type PredicateTypeSafe<T, V> = (value: T, index: Integer, array: Array2<T>) => value is V;
-export type Select<T, V> = (value: T, index: Integer, array: Array2<T>) => V;
-export type PredicateSelect<T, V> = (value: T, index: Integer, array: Array2<T>) => V | Nothing;
+export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: T[]) => V;
+export type PredicateTypeSafe<T, V> = (value: T, index: Integer, array: T[]) => value is V;
+export type Select<T, V> = (value: T, index: Integer, array: T[]) => V;
+export type PredicateSelect<T, V> = (value: T, index: Integer, array: T[]) => V | Nothing;

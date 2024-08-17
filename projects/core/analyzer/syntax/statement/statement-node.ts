@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Array2, Boolean2, Integer, Nothing} from '../../../../lib/types';
+import {Boolean2, Integer, Nothing} from '../../../../lib/types';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
 import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {Node} from '../../node';
@@ -11,15 +11,15 @@ export type StatementNode = SyntaxNode<$.StatementNode> & {
   parent: StatementNode | Nothing;
   indentLevel: Integer;
   indent: TextRange;
-  children: Array2<Node>;
+  children: Node[];
   value: Node;
-  body: Array2<StatementNode>;
+  body: StatementNode[];
 };
 
 export function statementNode(
   analyzer: SyntaxAnalyzer,
   parentStatement: StatementNode | Nothing,
-  children: Array2<Node>,
+  children: Node[],
   indent: TextRange,
   isFirstStatement: Boolean2,
 ): StatementNode {
@@ -52,7 +52,7 @@ export function format(analyzer: SyntaxAnalyzer, node: StatementNode, isFirstSta
 export function constructStatementNode(
   analyzer: SyntaxAnalyzer,
   parentStatement: StatementNode | Nothing,
-  nodes: Array2<Node>,
+  nodes: Node[],
   indent: TextRange,
   isFirstStatement: Boolean2,
 ): StatementNode {

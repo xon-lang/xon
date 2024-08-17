@@ -1,7 +1,7 @@
-import {Array2, String2} from '../../../lib/types';
+import {String2} from '../../../lib/types';
 
 export interface SemanticAnalyzerConfig {
-  defaultImports: Array2<String2>;
+  defaultImports: String2[];
   literalTypeNames: {
     unknownTypeName: String2;
     anythingTypeName: String2;

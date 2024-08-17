@@ -1,12 +1,12 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Array2, Integer, nothing} from '../../../../../lib/types';
+import {Integer, nothing} from '../../../../../lib/types';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {memberNode} from './member-node';
 
 export function memberNodeParse(operators: String[]): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Array2<Node>, startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
       if (!is(node, $.OperatorNode) || !operators.includes(node.text.toString())) {
         return nothing;

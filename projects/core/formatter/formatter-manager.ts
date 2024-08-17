@@ -1,5 +1,5 @@
 import {$, is} from '../$';
-import {Array2, Boolean2, Nothing, String2} from '../../lib/types';
+import {Boolean2, Nothing, String2} from '../../lib/types';
 import {NL} from '../analyzer/lexical/lexical-analyzer-config';
 import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
@@ -12,7 +12,7 @@ import {FormatterItem} from './formatter-item';
 
 export type FormatterManager = {
   resource: TextResource;
-  items: Array2<FormatterItem>;
+  items: FormatterItem[];
   config: FormatterConfig;
 
   addItem(formatter: FormatterItem): void;
@@ -20,13 +20,13 @@ export type FormatterManager = {
   formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
   formatStatementNode(statement: StatementNode, isFirstStatement: Boolean2): void;
   formatRemainingHiddenNodes(
-    statements: Array2<StatementNode>,
+    statements: StatementNode[],
     lastStatement: StatementNode | Nothing,
-    hiddenNodes: Array2<Node>,
+    hiddenNodes: Node[],
   ): void;
-  formatHiddenNodes(hiddenNodes: Array2<Node>, isNoFirstChildNode: Boolean2): String2;
+  formatHiddenNodes(hiddenNodes: Node[], isNoFirstChildNode: Boolean2): String2;
   formatNlNode(node: NlNode | Nothing): String2;
-  isSameContent(hiddenNodes: Array2<Node>, text: String2): Boolean2;
+  isSameContent(hiddenNodes: Node[], text: String2): Boolean2;
 };
 
 export function createFormatterManager(resource: TextResource, config: FormatterConfig): FormatterManager {
@@ -150,9 +150,9 @@ export function createFormatterManager(resource: TextResource, config: Formatter
     },
 
     formatRemainingHiddenNodes(
-      statements: Array2<StatementNode>,
+      statements: StatementNode[],
       lastStatement: StatementNode | Nothing,
-      hiddenNodes: Array2<Node>,
+      hiddenNodes: Node[],
     ): void {
       if (hiddenNodes.length === 0) {
         if (!lastStatement || !this.config.insertFinalNewline) {
@@ -193,7 +193,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       });
     },
 
-    formatHiddenNodes(hiddenNodes: Array2<Node>, isNoFirstChildNode: Boolean2): String2 {
+    formatHiddenNodes(hiddenNodes: Node[], isNoFirstChildNode: Boolean2): String2 {
       const splittedByNl = hiddenNodes
         .filter((x): x is LexicalNode => is(x, $.LexicalNode) && !is(x, $.WhitespaceNode))
         .splitBy<NlNode>((x) => is(x, $.NlNode));
@@ -219,7 +219,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       return NL.repeat(Math.min(nlCount, this.config.maxNewLines));
     },
 
-    isSameContent(hiddenNodes: Array2<Node>, text: String2): Boolean2 {
+    isSameContent(hiddenNodes: Node[], text: String2): Boolean2 {
       if (hiddenNodes.length === 0) {
         return text.length === 0;
       }

@@ -1,5 +1,5 @@
 import {$, is} from '../../../$';
-import {Array2, Integer, Nothing, nothing} from '../../../../lib/types';
+import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,
@@ -44,12 +44,12 @@ import {StatementNode} from './statement-node';
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (
   analyzer: SyntaxAnalyzer,
-  nodes: Array2<Node>,
+  nodes: Node[],
   startIndex: Integer,
   parentStatement: StatementNode | Nothing,
 ) => SyntaxParseResult;
 
-const parsers: Array2<{min: Integer; parse: SyntaxParseFn}> = [
+const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
   {min: 2, parse: importNodeParse()},
   {min: 2, parse: memberNodeParse([MEMBER, META_MEMBER])},
   {min: 2, parse: invokeNodeParse()},

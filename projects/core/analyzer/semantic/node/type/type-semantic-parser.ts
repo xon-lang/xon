@@ -1,4 +1,4 @@
-import {Array2, Nothing} from '../../../../../lib/types';
+import {Nothing} from '../../../../../lib/types';
 import {ExpressionNode, Node} from '../../../node';
 import {TypeNode} from '../../../syntax/node/type/type-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
@@ -19,7 +19,7 @@ import {unknownTypeSemantic} from './unknown/unknown-type-semantic';
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
-const parsers: Array2<TypeSemanticTryParseFn> = [
+const parsers: TypeSemanticTryParseFn[] = [
   integerTypeSemanticTryParse,
   charTypeSemanticTryParse,
   stringTypeSemanticTryParse,
