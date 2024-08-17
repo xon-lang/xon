@@ -4,7 +4,7 @@
   "description": "XON language support",
   "author": "nizami",
   "publisher": "nizami",
-  "version": "1.12.64",
+  "version": "1.13.0",
   "license": "MIT",
   "engines": {
     "vscode": "^1.87.0"
