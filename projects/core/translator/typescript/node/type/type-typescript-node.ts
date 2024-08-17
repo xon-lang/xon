@@ -40,5 +40,12 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
     return `[${items}]`;
   }
 
+  if (is(semantic, $.FunctionTypeSemantic)) {
+    const parameters = semantic.parameters.map((x) => translator.valueDeclaration(x)).join(', ');
+    const result = translator.type(semantic.result);
+
+    return `(${parameters}) => ${result}`;
+  }
+
   return translator.error();
 }

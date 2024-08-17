@@ -8,10 +8,11 @@ export function valueDeclarationTypescriptTranslate(
   semantic: ValueDeclarationSemantic,
 ): String2 {
   if (is(semantic, $.AttributeValueDeclarationSemantic)) {
-    const name = semantic.name;
+    const modifier = semantic.modifier === 'infix' ? 'const ' : '';
+    const name = semantic.alternativeName;
     const type = translator.type(semantic.type);
 
-    return `${name}: ${type}`;
+    return `${modifier}${name}: ${type}`;
   }
 
   return translator.error(semantic.reference.range, 'valueDeclaration');
