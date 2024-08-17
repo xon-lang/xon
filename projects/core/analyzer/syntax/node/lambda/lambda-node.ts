@@ -9,7 +9,6 @@ import {TypeNode} from '../type/type-node';
 
 export type LambdaNode = SyntaxNode<$.LambdaNode> &
   ExpressionNode & {
-    // todo remove generics ???
     generics: GroupNode | Nothing;
     parameters: GroupNode;
     type: TypeNode | Nothing;
