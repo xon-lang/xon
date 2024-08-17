@@ -12,9 +12,7 @@ import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
   modifier: String2;
-  // todo refactor to be required 'baseType: TypeSemantic | Nothing;'
-  baseType?: TypeSemantic | Nothing;
-
+  baseType: TypeSemantic;
   // todo should be nullable ???
   attributes?: DeclarationManager<ValueDeclarationSemantic> | Nothing;
 };
@@ -33,6 +31,7 @@ export function nominalTypeDeclarationSemantic(
     documentation,
     modifier,
     name,
+    baseType: unknownTypeSemantic(analyzer, nodeLink),
     type: unknownTypeSemantic(analyzer, nodeLink),
 
     eq(other: DeclarationSemantic): Boolean2 {
