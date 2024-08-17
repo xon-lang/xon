@@ -17,7 +17,7 @@ export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNo
 
   const text = analyzer.resource.data.slice(analyzer.position.index, endSlice);
   // todo should we calculate nl count in place ???
-  const range = analyzer.getRangeWithNL(text);
+  const reference = analyzer.getResourceRangeWithNL(text);
 
-  return commentBlockNode(range, text);
+  return commentBlockNode(reference, text);
 }

@@ -10,7 +10,7 @@ export function angleCloseNodeParse(analyzer: LexicalAnalyzer): AngleCloseNode |
   }
 
   const text = textData(ANGLE_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return angleCloseNode(range, text);
+  return angleCloseNode(reference, text);
 }

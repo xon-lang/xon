@@ -13,9 +13,9 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
   const declaration = analyzer.declarationManager.single($.TypeDeclarationSemantic, name, nothing, nothing);
 
   if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotResolveType());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotResolveType());
   } else if (is(declaration, $.ValueDeclarationSemantic)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotBeUsedAsAType());
   }
 
   if (is(declaration, $.TypeDeclarationSemantic)) {

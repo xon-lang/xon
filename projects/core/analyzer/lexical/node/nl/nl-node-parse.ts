@@ -16,7 +16,7 @@ export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
   const lastNlIndex = textWithIndents.lastIndex(NL);
 
   const text = textWithIndents.slice(0, lastNlIndex + 1);
-  const range = analyzer.getRangeWithNL(text);
+  const reference = analyzer.getResourceRangeWithNL(text);
 
-  return nlNode(range, text);
+  return nlNode(reference, text);
 }

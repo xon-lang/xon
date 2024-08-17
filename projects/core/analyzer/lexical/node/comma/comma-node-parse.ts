@@ -10,7 +10,7 @@ export function commaNodeParse(analyzer: LexicalAnalyzer): CommaNode | Nothing {
   }
 
   const text = textData(COMMA);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return commaNode(range, text);
+  return commaNode(reference, text);
 }

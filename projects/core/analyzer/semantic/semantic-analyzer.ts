@@ -57,7 +57,7 @@ export function createSemanticAnalyzer(
         return textResourceRange(this.syntaxAnalyzer.resource, nodeOrRange);
       }
 
-      return textResourceRange(this.syntaxAnalyzer.resource, nodeOrRange.range);
+      return nodeOrRange.reference;
     },
 
     pushDeclarationScope(): void {

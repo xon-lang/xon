@@ -10,7 +10,7 @@ export function charOpenNodeParse(analyzer: LexicalAnalyzer): CharOpenNode | Not
   }
 
   const text = textData(CHAR_OPEN);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return charOpenNode(range, text);
+  return charOpenNode(reference, text);
 }

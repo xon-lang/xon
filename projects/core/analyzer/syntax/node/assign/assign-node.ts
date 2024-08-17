@@ -16,7 +16,7 @@ export function assignNode(
   operator: OperatorNode,
   value: ExpressionNode,
 ): AssignNode {
-  const node = syntaxNode({$: $.AssignNode, operator, value, semantic: nothing});
+  const node = syntaxNode(analyzer, {$: $.AssignNode, operator, value, semantic: nothing});
 
   format(analyzer, node);
 

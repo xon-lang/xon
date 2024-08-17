@@ -39,7 +39,7 @@ export function importValueSemanticTryParse(
   const resource = textResourceFromLocation(location);
 
   if (!resource) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.range, (x) =>
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.reference, (x) =>
       x.cannotFindResource(location),
     );
 

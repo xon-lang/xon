@@ -74,19 +74,19 @@ test('documentation operator id', () => {
   expect(node.items?.length).toBe(1);
 
   expect(node.items?.at(0)?.operator.text.toString()).toBe('@');
-  expect(node.items?.at(0)?.operator.range.start.index).toBe(3);
-  expect(node.items?.at(0)?.operator.range.start.line).toBe(0);
-  expect(node.items?.at(0)?.operator.range.start.column).toBe(3);
-  expect(node.items?.at(0)?.operator.range.stop.index).toBe(4);
-  expect(node.items?.at(0)?.operator.range.stop.line).toBe(0);
-  expect(node.items?.at(0)?.operator.range.stop.column).toBe(4);
+  expect(node.items?.at(0)?.operator.reference.range.start.index).toBe(3);
+  expect(node.items?.at(0)?.operator.reference.range.start.line).toBe(0);
+  expect(node.items?.at(0)?.operator.reference.range.start.column).toBe(3);
+  expect(node.items?.at(0)?.operator.reference.range.stop.index).toBe(4);
+  expect(node.items?.at(0)?.operator.reference.range.stop.line).toBe(0);
+  expect(node.items?.at(0)?.operator.reference.range.stop.column).toBe(4);
 
-  expect(node.items?.at(0)?.id.range.start.index).toBe(4);
-  expect(node.items?.at(0)?.id.range.start.line).toBe(0);
-  expect(node.items?.at(0)?.id.range.start.column).toBe(4);
-  expect(node.items?.at(0)?.id.range.stop.index).toBe(7);
-  expect(node.items?.at(0)?.id.range.stop.line).toBe(0);
-  expect(node.items?.at(0)?.id.range.stop.column).toBe(7);
+  expect(node.items?.at(0)?.id.reference.range.start.index).toBe(4);
+  expect(node.items?.at(0)?.id.reference.range.start.line).toBe(0);
+  expect(node.items?.at(0)?.id.reference.range.start.column).toBe(4);
+  expect(node.items?.at(0)?.id.reference.range.stop.index).toBe(7);
+  expect(node.items?.at(0)?.id.reference.range.stop.line).toBe(0);
+  expect(node.items?.at(0)?.id.reference.range.stop.column).toBe(7);
 
   expect(node.items?.at(0)?.description?.text.toString()).toBe(' desc');
 });

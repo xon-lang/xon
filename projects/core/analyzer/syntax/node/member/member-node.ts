@@ -19,7 +19,7 @@ export function memberNode(
   operator: OperatorNode,
   id: IdNode | Nothing,
 ): MemberNode {
-  const node = syntaxNode({$: $.MemberNode, instance, operator, id});
+  const node = syntaxNode(analyzer, {$: $.MemberNode, instance, operator, id});
 
   validate(analyzer, node);
   format(analyzer, node);
@@ -29,7 +29,9 @@ export function memberNode(
 
 function validate(analyzer: SyntaxAnalyzer, node: MemberNode): void {
   if (!node.id) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.operator.range, (x) => x.shouldBeMemberName());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.operator.reference, (x) =>
+      x.shouldBeMemberName(),
+    );
   }
 }
 

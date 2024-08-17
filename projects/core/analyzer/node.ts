@@ -1,12 +1,12 @@
 import {$, $Model} from '../$';
 import {Array2, Boolean2, Integer, Nothing, nothing} from '../../lib/types';
-import {TextRange} from '../util/resource/text/text-range';
+import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {Semantic} from './semantic/node/semantic';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;
   // todo use 'reference' or 'TextResourceRange' instead of 'TextRange'
-  range: TextRange;
+  reference: TextResourceRange;
   parent?: Node | Nothing;
   isHidden?: Boolean2 | Nothing;
   hiddenNodes?: Array2<Node> | Nothing;

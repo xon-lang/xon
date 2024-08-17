@@ -10,7 +10,7 @@ export function charCloseNodeParse(analyzer: LexicalAnalyzer): CharCloseNode | N
   }
 
   const text = textData(CHAR_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return charCloseNode(range, text);
+  return charCloseNode(reference, text);
 }

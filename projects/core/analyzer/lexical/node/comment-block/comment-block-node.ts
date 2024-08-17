@@ -1,7 +1,7 @@
 import {$} from '../../../../$';
 import {String2} from '../../../../../lib/types';
 import {TextData} from '../../../../util/data/text-data';
-import {TextRange} from '../../../../util/resource/text/text-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-analyzer-config';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
@@ -9,7 +9,7 @@ export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
   value: String2;
 };
 
-export function commentBlockNode(range: TextRange, text: TextData): CommentBlockNode {
+export function commentBlockNode(reference: TextResourceRange, text: TextData): CommentBlockNode {
   let value = '';
   const lastCloseIndex = text.firstIndex(COMMENT_BLOCK_CLOSE);
 
@@ -19,5 +19,5 @@ export function commentBlockNode(range: TextRange, text: TextData): CommentBlock
     value = text.slice(COMMENT_BLOCK_OPEN.length).toString();
   }
 
-  return lexicalNode({$: $.CommentBlockNode, range, text, value, isHidden: true});
+  return lexicalNode({$: $.CommentBlockNode, reference, text, value, isHidden: true});
 }

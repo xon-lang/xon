@@ -2,6 +2,7 @@ import {$} from '../../../$';
 import {Array2, Nothing} from '../../../../lib/types';
 import '../../../util/extension';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
+import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {CloseNode, CloseNodeType} from '../../lexical/node/close/close-node';
 import {OpenNode, OpenNodeType} from '../../lexical/node/open/open-node';
 import {ExpressionNode} from '../../node';
@@ -34,10 +35,11 @@ export function groupNode<
   close: CloseNode<CloseType> | Nothing,
 ): GroupNode<GroupType, OpenType, CloseType> {
   const children = close ? [open, ...items, close] : [open, ...items];
+  const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
 
   const node: GroupNode<GroupType, OpenType, CloseType> = {
     $,
-    range: rangeFromNodes(children),
+    reference,
     children,
     open,
     items,
@@ -53,7 +55,7 @@ export function groupNode<
 
 function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {
   if (!node.close) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.open.range, (x) =>
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.open.reference, (x) =>
       x.expectCloseToken(node.open.text.toString()),
     );
   }
@@ -64,7 +66,7 @@ function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {
 
   for (const item of node.items.slice(0, -1)) {
     if (!item.value) {
-      analyzer.diagnosticManager.addPredefinedDiagnostic((item.comma ?? node.open).range, (x) =>
+      analyzer.diagnosticManager.addPredefinedDiagnostic((item.comma ?? node.open).reference, (x) =>
         x.unexpectedExpression(),
       );
     }

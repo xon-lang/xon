@@ -10,7 +10,7 @@ export function documentationOpenNodeParse(analyzer: LexicalAnalyzer): Documenta
   }
 
   const text = textData(DOCUMENTATION_OPEN);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return documentationOpenNode(range, text);
+  return documentationOpenNode(reference, text);
 }

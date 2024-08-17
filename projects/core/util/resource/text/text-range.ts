@@ -8,6 +8,7 @@ export type TextRange = $Model & {
   start: TextPosition;
   stop: TextPosition;
 
+  clone(): TextRange;
   equals(other: TextRange): Boolean2;
   contains(position: TextPosition): Boolean2;
   contains(range: TextRange): Boolean2;
@@ -20,6 +21,10 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     $: $.TextRange,
     start,
     stop,
+
+    clone(): TextRange {
+      return textRange(clonePosition(this.start), clonePosition(this.stop));
+    },
 
     equals(other: TextRange): Boolean2 {
       return this.start.equals(other.start) && this.stop.equals(other.stop);
@@ -41,10 +46,6 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   };
 }
 
-export function cloneRange(range: TextRange): TextRange {
-  return textRange(clonePosition(range.start), clonePosition(range.stop));
-}
-
 export function rangeFromNodes(nodes: Array2<Node>): TextRange {
   const startNode = nodes.first();
   const stopNode = nodes.last();
@@ -53,7 +54,10 @@ export function rangeFromNodes(nodes: Array2<Node>): TextRange {
     return zeroRange();
   }
 
-  return textRange(clonePosition(startNode.range.start), clonePosition(stopNode.range.stop));
+  return textRange(
+    clonePosition(startNode.reference.range.start),
+    clonePosition(stopNode.reference.range.stop),
+  );
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {

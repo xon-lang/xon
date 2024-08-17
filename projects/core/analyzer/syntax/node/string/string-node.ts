@@ -27,5 +27,5 @@ export function stringNode(
 ): StringNode {
   const value = content?.text.toString() ?? '';
 
-  return syntaxNode({$: $.StringNode, open, content, close, value});
+  return syntaxNode(analyzer, {$: $.StringNode, open, content, close, value});
 }

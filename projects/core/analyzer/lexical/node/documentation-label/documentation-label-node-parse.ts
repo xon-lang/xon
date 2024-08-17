@@ -19,7 +19,7 @@ export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): Document
     return nothing;
   }
 
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return documentationLabelNode(range, text);
+  return documentationLabelNode(reference, text);
 }

@@ -21,7 +21,14 @@ export function documentationNode(
   items: Array2<DocumentationItemNode>,
   close?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
-  const node = syntaxNode({$: $.DocumentationNode, isHidden: true, open, description, items, close});
+  const node = syntaxNode(analyzer, {
+    $: $.DocumentationNode,
+    isHidden: true,
+    open,
+    description,
+    items,
+    close,
+  });
 
   validate(analyzer, node);
 
@@ -35,7 +42,7 @@ export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
     const name = item.id.text.toString();
 
     if (unnecessaryLabels.includes(name)) {
-      analyzer.diagnosticManager.addPredefinedDiagnostic(item.range, (x) =>
+      analyzer.diagnosticManager.addPredefinedDiagnostic(item.reference, (x) =>
         x.documentationLabelAlreadyExists(name),
       );
 

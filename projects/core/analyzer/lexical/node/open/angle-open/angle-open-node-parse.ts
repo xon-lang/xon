@@ -10,7 +10,7 @@ export function angleOpenNodeParse(analyzer: LexicalAnalyzer): AngleOpenNode | N
   }
 
   const text = textData(ANGLE_OPEN);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return angleOpenNode(range, text);
+  return angleOpenNode(reference, text);
 }

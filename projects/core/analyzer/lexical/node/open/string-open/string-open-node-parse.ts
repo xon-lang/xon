@@ -10,7 +10,7 @@ export function stringOpenNodeParse(analyzer: LexicalAnalyzer): StringOpenNode |
   }
 
   const text = textData(STRING_OPEN);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return stringOpenNode(range, text);
+  return stringOpenNode(reference, text);
 }

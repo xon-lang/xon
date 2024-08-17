@@ -10,7 +10,7 @@ export function stringCloseNodeParse(analyzer: LexicalAnalyzer): StringCloseNode
   }
 
   const text = textData(STRING_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return stringCloseNode(range, text);
+  return stringCloseNode(reference, text);
 }

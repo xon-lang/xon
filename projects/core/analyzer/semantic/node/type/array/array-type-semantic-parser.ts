@@ -32,7 +32,7 @@ export function arrayTypeSemanticParse(
   );
 
   if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
   }

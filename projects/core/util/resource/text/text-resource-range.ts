@@ -13,10 +13,7 @@ export interface TextResourceRange {
   text(): TextData;
 }
 
-export function textResourceRange(
-  resource: TextResourceRange['resource'],
-  range: TextResourceRange['range'],
-): TextResourceRange {
+export function textResourceRange(resource: TextResource, range: TextRange): TextResourceRange {
   return {
     $: $.TextResourceRange,
     resource,

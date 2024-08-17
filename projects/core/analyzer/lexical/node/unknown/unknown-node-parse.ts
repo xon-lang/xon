@@ -3,7 +3,7 @@ import {UnknownNode, unknownNode} from './unknown-node';
 
 export function unknownNodeParse(analyzer: LexicalAnalyzer): UnknownNode {
   const text = analyzer.resource.data.slice(analyzer.position.index, analyzer.position.index + 1);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return unknownNode(range, text);
+  return unknownNode(reference, text);
 }

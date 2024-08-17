@@ -15,7 +15,7 @@ export function documentationDescriptionNodeParse(
     return nothing;
   }
 
-  const range = analyzer.getRangeWithNL(text);
+  const reference = analyzer.getResourceRangeWithNL(text);
 
-  return documentationDescriptionNode(range, text);
+  return documentationDescriptionNode(reference, text);
 }

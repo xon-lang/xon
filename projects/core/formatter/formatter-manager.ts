@@ -5,7 +5,7 @@ import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
 import {Node} from '../analyzer/node';
 import {StatementNode} from '../analyzer/syntax/statement/statement-node';
-import {cloneRange, rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
+import {rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {FormatterConfig} from './formatter-config';
 import {FormatterItem} from './formatter-item';
@@ -58,7 +58,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       if (!node.hiddenNodes || node.hiddenNodes.length === 0) {
         if (keepSingleSpace) {
           this.addItem({
-            range: rangeFromPosition(node.range.start),
+            range: rangeFromPosition(node.reference.range.start),
             text: ' ',
           });
         }
@@ -71,7 +71,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
         if (!keepSingleSpace) {
           this.addItem({
-            range: cloneRange(whitespace.range),
+            range: whitespace.reference.range.clone(),
             text: '',
           });
 
@@ -83,7 +83,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         }
 
         this.addItem({
-          range: cloneRange(whitespace.range),
+          range: whitespace.reference.range.clone(),
           text: ' ',
         });
 
@@ -160,7 +160,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         }
 
         this.addItem({
-          range: rangeFromPosition(lastStatement.range.stop),
+          range: rangeFromPosition(lastStatement.reference.range.stop),
           text: NL,
         });
 
@@ -214,7 +214,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return '';
       }
 
-      const nlCount = node.range.stop.line - node.range.start.line;
+      const nlCount = node.reference.range.stop.line - node.reference.range.start.line;
 
       return NL.repeat(Math.min(nlCount, this.config.maxNewLines));
     },
@@ -224,8 +224,8 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return text.length === 0;
       }
 
-      const startIndex = hiddenNodes.first()!.range.start.index;
-      const stopIndex = hiddenNodes.last()!.range.stop.index;
+      const startIndex = hiddenNodes.first()!.reference.range.start.index;
+      const stopIndex = hiddenNodes.last()!.reference.range.stop.index;
 
       return resource.data.slice(startIndex, stopIndex).equals(text);
     },

@@ -196,7 +196,7 @@ type A`;
   expect(node.documentation?.description?.text.toString()).toBe('\n  Some description\n');
   expect(node.modifier?.text.toString()).toBe('type');
   expect(node.id?.text.toString()).toBe('A');
-  expect(node.id.range.start.line).toBe(4);
+  expect(node.id.reference.range.start.line).toBe(4);
 });
 
 test('infix plus operator', () => {

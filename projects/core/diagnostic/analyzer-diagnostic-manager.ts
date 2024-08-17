@@ -1,6 +1,7 @@
 import {Array2, Integer, Nothing} from '../../lib/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
+import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticMessage, createDiagnostic} from './analyzer-diagnostic';
 import {predefinedDiagnostics} from './analyzer-diagnostic-message';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
@@ -19,13 +20,10 @@ export interface AnalyzerDiagnosticManager {
   ): AnalyzerDiagnostic;
 
   addPredefinedDiagnostic(
-    range: TextRange,
+    reference: TextResourceRange,
     select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
   ): AnalyzerDiagnostic;
 
-  addError(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic;
-
-  addWarning(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic;
   log(diagnostic: AnalyzerDiagnostic): void;
 }
 
@@ -54,24 +52,15 @@ export function createDiagnosticManager(
     },
 
     addPredefinedDiagnostic(
-      range: TextRange,
+      reference: TextResourceRange,
       select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
     ): AnalyzerDiagnostic {
-      const reference = this.resource.reference(range);
       const diagnostic = select(predefinedDiagnostics(reference));
       this.diagnostics.push(diagnostic);
 
       // this.log(diagnostic);
 
       return diagnostic;
-    },
-
-    addError(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic {
-      return this.addDiagnostic(AnalyzerDiagnosticSeverity.ERROR, range, message);
-    },
-
-    addWarning(range: TextRange, message: AnalyzerDiagnosticMessage): AnalyzerDiagnostic {
-      return this.addDiagnostic(AnalyzerDiagnosticSeverity.WARNING, range, message);
     },
 
     log(diagnostic: AnalyzerDiagnostic): void {

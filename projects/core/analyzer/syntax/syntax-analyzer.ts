@@ -6,7 +6,7 @@ import {
 } from '../../diagnostic/analyzer-diagnostic-manager';
 import {FormatterManager, createFormatterManager} from '../../formatter/formatter-manager';
 import {TextPosition} from '../../util/resource/text/text-position';
-import {TextRange, cloneRange, rangeFromPosition} from '../../util/resource/text/text-range';
+import {TextRange, rangeFromPosition} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {codeLexicalParsers} from '../lexical/code-lexical-analyzer';
 import {LexicalAnalyzer, createLexicalAnalyzer} from '../lexical/lexical-analyzer';
@@ -89,7 +89,7 @@ export function createSyntaxAnalyzer(
         let node: Node = iterableNode;
 
         if (is(node, $.UnknownNode)) {
-          this.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.unknownSymbol());
+          this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unknownSymbol());
         }
 
         if (is(node, $.IntegerContentNode)) {
@@ -161,7 +161,7 @@ export function createSyntaxAnalyzer(
       }
 
       for (const statement of statements) {
-        if (statement.range.contains(positionOrRange)) {
+        if (statement.reference.range.contains(positionOrRange)) {
           return statement;
         }
 
@@ -177,7 +177,9 @@ export function createSyntaxAnalyzer(
 
     findNodeInChildren(children: Array2<Node>, positionOrRange: TextPosition | TextRange): Node | Nothing {
       const child =
-        children.length === 1 ? children[0] : children.find((x) => x.range.contains(positionOrRange));
+        children.length === 1
+          ? children[0]
+          : children.find((x) => x.reference.range.contains(positionOrRange));
 
       if (!child) {
         return nothing;
@@ -237,14 +239,14 @@ function getStatementIndent(nodes: Array2<Node>, hiddenNodes: Array2<Node>): Tex
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
     if (is(whiteSpaceNode, $.WhitespaceNode)) {
-      return cloneRange(whiteSpaceNode.range);
+      return whiteSpaceNode.reference.range.clone();
     }
 
-    return rangeFromPosition(hiddenNodes[lastNlIndex].range.stop);
+    return rangeFromPosition(hiddenNodes[lastNlIndex].reference.range.stop);
   }
 
   if (is(hiddenNodes[0], $.WhitespaceNode)) {
-    return cloneRange(hiddenNodes[0].range);
+    return hiddenNodes[0].reference.range.clone();
   }
 
   return nothing;

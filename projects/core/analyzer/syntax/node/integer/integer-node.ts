@@ -15,5 +15,5 @@ export type IntegerNode = SyntaxNode<$.IntegerNode> &
 export function integerNode(analyzer: SyntaxAnalyzer, content: IntegerContentNode): IntegerNode {
   const value = Number(content.text.toString().replaceAll('_', ''));
 
-  return syntaxNode({$: $.IntegerNode, content, value});
+  return syntaxNode(analyzer, {$: $.IntegerNode, content, value});
 }

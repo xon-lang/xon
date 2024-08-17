@@ -19,7 +19,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
   );
 
   if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.notImplemented());
   }
 
   const name = node.text.toString();

@@ -12,7 +12,7 @@ export type TypeNode = SyntaxNode<$.TypeNode> & {
 };
 
 export function typeNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: ExpressionNode): TypeNode {
-  const node = syntaxNode({$: $.TypeNode, operator, value, semantic: nothing});
+  const node = syntaxNode(analyzer, {$: $.TypeNode, operator, value, semantic: nothing});
 
   format(analyzer, node);
 

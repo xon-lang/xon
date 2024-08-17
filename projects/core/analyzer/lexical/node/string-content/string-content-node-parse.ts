@@ -15,7 +15,7 @@ export function stringContentNodeParse(analyzer: LexicalAnalyzer): StringContent
     endIndex > 0 ? endIndex : analyzer.resource.data.length(),
   );
 
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return stringContentNode(range, text);
+  return stringContentNode(reference, text);
 }

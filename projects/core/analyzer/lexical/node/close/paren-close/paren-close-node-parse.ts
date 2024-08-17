@@ -10,7 +10,7 @@ export function parenCloseNodeParse(analyzer: LexicalAnalyzer): ParenCloseNode |
   }
 
   const text = textData(PAREN_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return parenCloseNode(range, text);
+  return parenCloseNode(reference, text);
 }

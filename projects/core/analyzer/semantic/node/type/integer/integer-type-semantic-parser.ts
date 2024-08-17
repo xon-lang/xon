@@ -25,7 +25,7 @@ export function integerTypeSemanticParse(analyzer: SemanticAnalyzer, node: Integ
   );
 
   if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
     );
   }

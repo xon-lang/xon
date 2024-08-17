@@ -10,7 +10,7 @@ export function bracketCloseNodeParse(analyzer: LexicalAnalyzer): BracketCloseNo
   }
 
   const text = textData(BRACKET_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return bracketCloseNode(range, text);
+  return bracketCloseNode(reference, text);
 }

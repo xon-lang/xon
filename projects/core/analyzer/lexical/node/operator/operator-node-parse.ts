@@ -20,7 +20,7 @@ export function operatorNodeParse(analyzer: LexicalAnalyzer): LexicalNode | Noth
     analyzer.previousNonHiddenNode &&
     AFFIX_MODIFIERS.includes(analyzer.previousNonHiddenNode.text.toString())
   ) {
-    const range = analyzer.getRange(text);
+    const range = analyzer.getResourceRange(text);
 
     return idNode(range, text);
   }
@@ -31,7 +31,7 @@ export function operatorNodeParse(analyzer: LexicalAnalyzer): LexicalNode | Noth
     return id;
   }
 
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return operatorNode(range, text);
+  return operatorNode(reference, text);
 }

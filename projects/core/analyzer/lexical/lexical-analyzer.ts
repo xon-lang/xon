@@ -1,8 +1,9 @@
 import {Array2, Boolean2, Integer, nothing, Nothing, String2} from '../../../lib/types';
 import {TextData} from '../../util/data/text-data';
 import {textPosition, TextPosition, zeroPosition} from '../../util/resource/text/text-position';
-import {TextRange, textRange} from '../../util/resource/text/text-range';
+import {textRange} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
+import {textResourceRange, TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {NL} from './lexical-analyzer-config';
 import {LexicalNode} from './node/lexical-node';
 import {unknownNodeParse} from './node/unknown/unknown-node-parse';
@@ -17,10 +18,10 @@ export interface LexicalAnalyzer {
 
   iterator(parsers: Array2<LexicalNodeParseFn>): IterableIterator<LexicalNode>;
 
-  getRange(length: Integer): TextRange;
-  getRange(text: TextData): TextRange;
-  getRangeWithNL(length: Integer): TextRange;
-  getRangeWithNL(text: TextData): TextRange;
+  getResourceRange(length: Integer): TextResourceRange;
+  getResourceRange(text: TextData): TextResourceRange;
+  getResourceRangeWithNL(length: Integer): TextResourceRange;
+  getResourceRangeWithNL(text: TextData): TextResourceRange;
   checkTextAtIndex(text: String2): Boolean2;
   checkTextAtIndex(text: String2, index: Integer | Nothing): Boolean2;
 
@@ -40,9 +41,9 @@ export function createLexicalAnalyzer(
       return iterator(this, parsers);
     },
 
-    getRange(lengthOrText: Integer | TextData): TextRange {
+    getResourceRange(lengthOrText: Integer | TextData): TextResourceRange {
       if (typeof lengthOrText === 'number') {
-        return textRange(
+        const range = textRange(
           textPosition(this.position.index, this.position.line, this.position.column),
           textPosition(
             this.position.index + lengthOrText,
@@ -50,14 +51,16 @@ export function createLexicalAnalyzer(
             this.position.column + lengthOrText,
           ),
         );
+
+        return textResourceRange(this.resource, range);
       }
 
-      return this.getRange(lengthOrText.length());
+      return this.getResourceRange(lengthOrText.length());
     },
 
-    getRangeWithNL(lengthOrText: Integer | TextData): TextRange {
+    getResourceRangeWithNL(lengthOrText: Integer | TextData): TextResourceRange {
       if (typeof lengthOrText !== 'number') {
-        return this.getRangeWithNL(lengthOrText.length());
+        return this.getResourceRangeWithNL(lengthOrText.length());
       }
 
       let nlCount = this.position.line;
@@ -76,10 +79,12 @@ export function createLexicalAnalyzer(
         columnIndent += 1;
       }
 
-      return textRange(
+      const range = textRange(
         textPosition(this.position.index, this.position.line, this.position.column),
         textPosition(this.position.index + lengthOrText, nlCount, columnIndent),
       );
+
+      return textResourceRange(this.resource, range);
     },
 
     checkTextAtIndex(text: String2, index?: Integer): Boolean2 {
@@ -108,7 +113,7 @@ function iterator(
       }
 
       const node = parsers.findMap((parse) => parse(lexer)) ?? unknownNodeParse(lexer);
-      lexer.position = node.range.stop;
+      lexer.position = node.reference.range.stop;
       lexer.previousNode = node;
 
       if (!node.isHidden) {

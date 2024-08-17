@@ -28,7 +28,7 @@ export function memberValueSemanticTryParse(
     if (attributes && attributes.length === 1) {
       memberType = attributes[0].type;
     } else {
-      analyzer.diagnosticManager.addPredefinedDiagnostic(node.id.range, (x) => x.notImplemented());
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.id.reference, (x) => x.notImplemented());
     }
   }
 

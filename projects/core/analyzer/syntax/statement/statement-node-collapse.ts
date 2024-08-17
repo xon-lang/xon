@@ -107,13 +107,15 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
 
   if (isTypeDeclarationNode(parentDeclaration)) {
     if (parentDeclaration.assign?.value) {
-      analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.shouldNotBeBody());
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.shouldNotBeBody());
 
       return;
     }
 
     if (!is(node, $.DeclarationNode)) {
-      analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.shouldBeDeclarationStatement());
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
+        x.shouldBeDeclarationStatement(),
+      );
 
       return;
     }

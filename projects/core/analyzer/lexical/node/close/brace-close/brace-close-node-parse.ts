@@ -10,7 +10,7 @@ export function braceCloseNodeParse(analyzer: LexicalAnalyzer): BraceCloseNode |
   }
 
   const text = textData(BRACE_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return braceCloseNode(range, text);
+  return braceCloseNode(reference, text);
 }

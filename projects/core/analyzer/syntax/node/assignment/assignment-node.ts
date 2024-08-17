@@ -10,7 +10,7 @@ export type AssignmentNode = SyntaxNode<$.AssignmentNode> & {
 };
 
 export function assignmentNode(analyzer: SyntaxAnalyzer, id: IdNode, assign: PrefixNode): AssignmentNode {
-  const node = syntaxNode({$: $.AssignmentNode, id, assign});
+  const node = syntaxNode(analyzer, {$: $.AssignmentNode, id, assign});
 
   format(analyzer, node);
 

@@ -1,10 +1,10 @@
 import {$} from '../../../../$';
 import {TextData} from '../../../../util/data/text-data';
-import {TextRange} from '../../../../util/resource/text/text-range';
+import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {LexicalNode, lexicalNode} from '../lexical-node';
 
 export type UnknownNode = LexicalNode<$.UnknownNode>;
 
-export function unknownNode(range: TextRange, text: TextData): UnknownNode {
-  return lexicalNode({$: $.UnknownNode, range, text});
+export function unknownNode(reference: TextResourceRange, text: TextData): UnknownNode {
+  return lexicalNode({$: $.UnknownNode, reference, text});
 }

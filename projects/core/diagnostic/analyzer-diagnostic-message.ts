@@ -140,9 +140,9 @@ export function predefinedDiagnostics(reference: TextResourceRange) {
         [AnalyzerDiagnosticTag.UNNECESSARY],
       ),
 
-    cannotTranslate: (name: String2): AnalyzerDiagnostic =>
+    cannotTranslate: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Cannot translate '${name}'`,
+        actual: `Cannot translate`,
         expect: nothing,
       }),
   };

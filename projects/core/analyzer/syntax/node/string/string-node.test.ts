@@ -67,7 +67,7 @@ test('emoji', () => {
   expect(node.$).toBe($.StringNode);
   expect(node.content?.text.toString()).toBe('🙂');
   expect(node.value).toBe('🙂');
-  expect(node.range.stop.index).toBe(3);
+  expect(node.reference.range.stop.index).toBe(3);
 });
 
 test('emoji 2', () => {
@@ -81,5 +81,5 @@ test('emoji 2', () => {
   expect(node.$).toBe($.StringNode);
   expect(node.content?.text.toString()).toBe('👩‍❤️‍💋‍👩');
   expect(node.value).toBe('👩‍❤️‍💋‍👩');
-  expect(node.range.stop.index).toBe(10);
+  expect(node.reference.range.stop.index).toBe(10);
 });

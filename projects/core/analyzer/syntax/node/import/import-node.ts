@@ -17,7 +17,7 @@ export function importNode(
   operator: OperatorNode,
   value: StringNode | Nothing,
 ): ImportNode {
-  const node = syntaxNode({$: $.ImportNode, operator, value});
+  const node = syntaxNode(analyzer, {$: $.ImportNode, operator, value});
 
   validate(analyzer, node);
   format(analyzer, node);
@@ -27,7 +27,7 @@ export function importNode(
 
 function validate(analyzer: SyntaxAnalyzer, node: ImportNode): void {
   if (!node.value) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.importValueShouldBeString());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.importValueShouldBeString());
   }
 }
 

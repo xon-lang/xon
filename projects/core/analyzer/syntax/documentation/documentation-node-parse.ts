@@ -1,6 +1,7 @@
 import {$, is} from '../../../$';
 import {Array2, Nothing, nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
+import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {documentationLexicalParsers} from '../../lexical/documentation-lexical-analyzer';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
@@ -24,14 +25,15 @@ export function documentationNodeParse(
         const lastItem = items.last()!;
         lastItem.description = node;
         lastItem.children.push(node);
-        lastItem.range = rangeFromNodes(lastItem.children);
+        const range = rangeFromNodes(lastItem.children);
+        lastItem.reference = textResourceRange(analyzer.resource, range);
       }
 
       continue;
     }
 
     if (is(node, $.DocumentationLabelNode)) {
-      items.push(documentationItemNode(node));
+      items.push(documentationItemNode(analyzer, node));
 
       continue;
     }

@@ -43,14 +43,14 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     if (is(node.semantic, $.ImportValueSemantic)) {
       if (node.semantic.resource?.location) {
-        return navigateToLocation(node.range, node.semantic.resource.location);
+        return navigateToLocation(node.reference, node.semantic.resource.location);
       }
 
       return nothing;
     }
 
     if (is(node.semantic, $.DeclarationSemantic)) {
-      return navigateToUsages(node.range, node.semantic);
+      return navigateToUsages(node.reference, node.semantic);
     }
 
     if (is(node.semantic, $.IdTypeSemantic)) {
@@ -58,11 +58,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return nothing;
       }
 
-      return navigateToReference(node.range, node.semantic.declaration.reference);
+      return navigateToReference(node.reference, node.semantic.declaration.reference);
     }
 
     if (is(node.semantic, $.DocumentationIdSemantic)) {
-      return navigateToReference(node.range, node.semantic.declaration.reference);
+      return navigateToReference(node.reference, node.semantic.declaration.reference);
     }
 
     if (is(node.semantic, $.ValueSemantic)) {
@@ -72,7 +72,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return nothing;
       }
 
-      return navigateToReference(node.range, declaration.reference);
+      return navigateToReference(node.reference, declaration.reference);
     }
 
     return nothing;

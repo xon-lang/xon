@@ -23,10 +23,10 @@ export function valueTypescriptTranslate(translator: TypescriptTranslator, seman
 
   if (is(semantic, $.MemberValueSemantic)) {
     const instance = translator.value(semantic.instance);
-    const name = semantic.name ?? translator.error();
+    const name = semantic.name ?? translator.error(semantic.reference);
 
     return `${instance}.${name}`;
   }
 
-  return translator.error();
+  return translator.error(semantic.reference);
 }

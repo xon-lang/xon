@@ -16,7 +16,7 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
     text.append(NL);
   }
 
-  const range = analyzer.getRangeWithNL(text);
+  const reference = analyzer.getResourceRangeWithNL(text);
 
-  return joiningNode(range, text);
+  return joiningNode(reference, text);
 }

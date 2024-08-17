@@ -1,6 +1,7 @@
 import {$} from '../../../$';
 import {Integer, Nothing} from '../../../../lib/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
+import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {CommaNode} from '../../lexical/node/comma/comma-node';
 import {Node} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
@@ -21,10 +22,11 @@ export function itemNode(
   statements: StatementNode[],
 ): ItemNode {
   const children = comma ? [comma, ...statements] : [...statements];
+  const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
 
   const node: ItemNode = {
     $: $.ItemNode,
-    range: rangeFromNodes(children),
+    reference,
     children,
     index,
     value: statements.first()?.value,

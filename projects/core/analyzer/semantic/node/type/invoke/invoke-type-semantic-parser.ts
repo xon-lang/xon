@@ -6,7 +6,10 @@ import {itemNodeType} from '../array/array-type-semantic-parser';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {InvokeTypeSemantic, invokeTypeSemantic} from './invoke-type-semantic';
 
-export function invokeTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): InvokeTypeSemantic | Nothing {
+export function invokeTypeSemanticTryParse(
+  analyzer: SemanticAnalyzer,
+  node: Node,
+): InvokeTypeSemantic | Nothing {
   if (!is(node, $.InvokeNode)) {
     return nothing;
   }
@@ -14,7 +17,7 @@ export function invokeTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Nod
   const reference = analyzer.reference(node);
 
   if (!is(node.group, $.AngleGroupNode)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.group.open.range, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.group.open.reference, (x) => x.notImplemented());
 
     return nothing;
   }
@@ -23,7 +26,7 @@ export function invokeTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Nod
   const instance = typeSemanticParse(analyzer, node.instance);
 
   if (args.length === 0) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.range, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.reference, (x) => x.notImplemented());
   }
 
   return invokeTypeSemantic(reference, instance, args);

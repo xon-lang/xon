@@ -18,8 +18,8 @@ import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import { convertVscodePosition, convertRange } from '../../util/convert';
-import { getDocumentSemantic } from '../../util/util';
+import {convertRange, convertVscodePosition} from '../../util/convert';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -64,7 +64,7 @@ class LanguageRenameProvider implements RenameProvider {
       throw new Error('You cannot rename this element');
     }
 
-    return convertRange(node.range);
+    return convertRange(node.reference);
   }
 }
 

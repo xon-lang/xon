@@ -11,7 +11,7 @@ import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,
 } from '../../diagnostic/analyzer-diagnostic-manager';
-import {TextRange} from '../../util/resource/text/text-range';
+import {TextResourceRange} from '../../util/resource/text/text-resource-range';
 import {Translator} from '../translator';
 import {typeDeclarationTypescriptTranslate} from './node/declaration/type/type-declaration-typescript-node';
 import {valueDeclarationTypescriptTranslate} from './node/declaration/value/value-declaration-typescript-node';
@@ -26,9 +26,7 @@ export type TypescriptTranslator = Translator & {
   value(semantic: ValueSemantic): String2;
   typeDeclaration(semantic: TypeDeclarationSemantic): String2;
   valueDeclaration(semantic: ValueDeclarationSemantic): String2;
-  // todo does we really need 'translationName' ???
-  error(range: TextRange, translationName: keyof TypescriptTranslator): String2;
-  error(): String2;
+  error(reference: TextResourceRange): String2;
 };
 
 export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
@@ -52,14 +50,8 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
       return valueDeclarationTypescriptTranslate(this, semantic);
     },
 
-    error(range?: TextRange, translationName?: keyof TypescriptTranslator): String2 {
-      if (range && translationName) {
-        const diagnostic = this.diagnosticManager.addPredefinedDiagnostic(range, (x) =>
-          x.cannotTranslate(translationName),
-        );
-
-        this.diagnosticManager.log(diagnostic);
-      }
+    error(reference: TextResourceRange): String2 {
+      this.diagnosticManager.addPredefinedDiagnostic(reference, (x) => x.cannotTranslate());
 
       return '/* error */';
     },

@@ -10,7 +10,7 @@ export function documentationCloseNodeParse(analyzer: LexicalAnalyzer): Document
   }
 
   const text = textData(DOCUMENTATION_CLOSE);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return documentationCloseNode(range, text);
+  return documentationCloseNode(reference, text);
 }

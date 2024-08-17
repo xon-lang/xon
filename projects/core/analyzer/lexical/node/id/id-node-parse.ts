@@ -18,7 +18,7 @@ export function idNodeParse(analyzer: LexicalAnalyzer): IdNode | Nothing {
     analyzer.position.index,
   );
 
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return idNode(range, text);
+  return idNode(reference, text);
 }

@@ -5,7 +5,7 @@ import {CharCloseNode} from '../../../lexical/node/close/char-close/char-close-n
 import {CharOpenNode} from '../../../lexical/node/open/char-open/char-open-node';
 import {ExpressionNode} from '../../../node';
 import {CharTypeSemantic} from '../../../semantic/node/type/char/char-type-semantic';
-import { CharValueSemantic } from '../../../semantic/node/value/char/char-value-semantic';
+import {CharValueSemantic} from '../../../semantic/node/value/char/char-value-semantic';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
 import {syntaxNode, SyntaxNode} from '../syntax-node';
 
@@ -27,5 +27,5 @@ export function charNode(
 ): CharNode {
   const value = content?.text.toString() ?? '';
 
-  return syntaxNode({$: $.CharNode, open, content, close, value});
+  return syntaxNode(analyzer, {$: $.CharNode, open, content, close, value});
 }

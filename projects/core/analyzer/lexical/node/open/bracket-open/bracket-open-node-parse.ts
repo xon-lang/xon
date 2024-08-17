@@ -10,7 +10,7 @@ export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode
   }
 
   const text = textData(BRACKET_OPEN);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return bracketOpenNode(range, text);
+  return bracketOpenNode(reference, text);
 }

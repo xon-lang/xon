@@ -18,7 +18,7 @@ export function attributeValueDeclarationSemanticHandle(
   let type = node.type ? typeSemanticParse(analyzer, node.type.value) : valueType;
 
   if (node.assign?.value && !valueType.is(type)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.assign.value.range, (x) => x.wrongType());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.assign.value.reference, (x) => x.wrongType());
   }
 
   if (node.parameters) {

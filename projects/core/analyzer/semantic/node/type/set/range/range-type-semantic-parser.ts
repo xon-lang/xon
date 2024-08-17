@@ -22,7 +22,7 @@ export function rangeTypeSemanticTryParse(
   );
 
   if (!declaration || !is(declaration, $.NominalTypeDeclarationSemantic)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) =>
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
 
@@ -36,17 +36,17 @@ export function rangeTypeSemanticTryParse(
   const step = nothing;
 
   if (!from || !to) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.notImplemented());
 
     return nothing;
   }
 
   if (!is(from, $.IntegerTypeSemantic)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.left.range, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.left.reference, (x) => x.notImplemented());
   }
 
   if (!is(to, $.IntegerTypeSemantic)) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.right.range, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.right.reference, (x) => x.notImplemented());
   }
 
   const semantic = rangeTypeSemantic(reference, declaration, from, to, step);

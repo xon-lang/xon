@@ -37,7 +37,7 @@ test('validate close pair', () => {
   expect(node.items.length).toBe(0);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(1);
 
-  const diagnosticMessage = predefinedDiagnostics(source.reference(node.range)).expectCloseToken(
+  const diagnosticMessage = predefinedDiagnostics(node.reference).expectCloseToken(
     node.open.text.toString(),
   ).message;
 

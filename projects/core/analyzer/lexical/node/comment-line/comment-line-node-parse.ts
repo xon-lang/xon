@@ -9,7 +9,7 @@ export function commentLineNodeParse(analyzer: LexicalAnalyzer): CommentLineNode
   }
 
   const text = analyzer.resource.data.takeWhile((x) => x !== NL, analyzer.position.index);
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return commentLineNode(range, text);
+  return commentLineNode(reference, text);
 }

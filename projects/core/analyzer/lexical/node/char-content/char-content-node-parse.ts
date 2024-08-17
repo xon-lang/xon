@@ -15,7 +15,7 @@ export function charContentNodeParse(analyzer: LexicalAnalyzer): CharContentNode
     endIndex > 0 ? endIndex : analyzer.resource.data.length(),
   );
 
-  const range = analyzer.getRange(text);
+  const reference = analyzer.getResourceRange(text);
 
-  return charContentNode(range, text);
+  return charContentNode(reference, text);
 }

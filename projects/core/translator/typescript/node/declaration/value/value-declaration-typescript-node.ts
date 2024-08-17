@@ -15,5 +15,5 @@ export function valueDeclarationTypescriptTranslate(
     return `${modifier}${name}: ${type}`;
   }
 
-  return translator.error(semantic.reference.range, 'valueDeclaration');
+  return translator.error(semantic.reference);
 }

@@ -31,7 +31,7 @@ export function declarationNode(
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): DeclarationNode {
-  const node = syntaxNode({
+  const node = syntaxNode(analyzer, {
     $: $.DeclarationNode,
     documentation,
     modifier,

@@ -1,6 +1,7 @@
 import {$} from '../../../$';
 import {Array2, Boolean2, Integer, Nothing} from '../../../../lib/types';
 import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
+import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {Node} from '../../node';
 import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
@@ -22,9 +23,11 @@ export function statementNode(
   indent: TextRange,
   isFirstStatement: Boolean2,
 ): StatementNode {
+  const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
+
   const statement: StatementNode = {
     $: $.StatementNode,
-    range: rangeFromNodes(children),
+    reference,
     hiddenNodes: children[0].hiddenNodes,
     children,
     indent,
@@ -58,7 +61,7 @@ export function constructStatementNode(
   nodes
     .slice(1)
     .forEach((node) =>
-      analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.unexpectedExpression()),
+      analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unexpectedExpression()),
     );
 
   return statementNode(analyzer, parentStatement, nodes, indent, isFirstStatement);
