@@ -2,7 +2,7 @@ import {$, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Array2, Boolean2, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -39,7 +39,7 @@ export function invokeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<ValueDeclarationSemantic> {
+    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
       return createDeclarationManager();
       // throw new Error('Not implemented');
     },

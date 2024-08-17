@@ -3,7 +3,7 @@ import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -57,7 +57,7 @@ export function idTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<ValueDeclarationSemantic> {
+    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
       return this.declaration?.type.attributes().clone() ?? createDeclarationManager();
     },
   };

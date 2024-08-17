@@ -3,7 +3,7 @@ import {Boolean2, Nothing} from '../../../../../../../lib/types';
 import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {NominalTypeDeclarationSemantic} from '../../../declaration/type/nominal/nominal-type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {isInSet, SetTypeSemantic} from '../set';
 
@@ -56,7 +56,7 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<ValueDeclarationSemantic> {
+    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
       throw new Error('Not implemented');
     },
   };

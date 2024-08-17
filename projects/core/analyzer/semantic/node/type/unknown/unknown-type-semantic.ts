@@ -4,7 +4,7 @@ import {Node} from '../../../../node';
 import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
@@ -58,7 +58,7 @@ export function unknownTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<ValueDeclarationSemantic> {
+    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
       // todo review body of this function
       if (this.declaration) {
         return this.declaration.attributes?.clone() ?? createDeclarationManager();

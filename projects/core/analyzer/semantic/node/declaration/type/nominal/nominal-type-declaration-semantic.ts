@@ -1,11 +1,12 @@
 import {$} from '../../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
 import {Node} from '../../../../../node';
-import {DeclarationManager} from '../../../../declaration-manager';
+import {createDeclarationManager, DeclarationManager} from '../../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TypeSemantic} from '../../../type/type-semantic';
 import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
+import { AttributeValueDeclarationSemantic } from '../../value/attribute/attribute-value-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../value/value-declaration-semantic';
 import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 
@@ -13,8 +14,7 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
   modifier: String2;
   baseType: TypeSemantic;
-  // todo should be nullable ???
-  attributes?: DeclarationManager<ValueDeclarationSemantic> | Nothing;
+  attributes: DeclarationManager<AttributeValueDeclarationSemantic>;
 };
 
 export function nominalTypeDeclarationSemantic(
@@ -33,6 +33,7 @@ export function nominalTypeDeclarationSemantic(
     name,
     baseType: unknownTypeSemantic(analyzer, nodeLink),
     type: unknownTypeSemantic(analyzer, nodeLink),
+    attributes: createDeclarationManager(),
 
     eq(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions

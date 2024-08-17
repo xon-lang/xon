@@ -1,6 +1,5 @@
 import {$, is} from '../../../../../../$';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {createDeclarationManager} from '../../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
 import {parametersParse} from '../../../type/function/function-type-semantic-parser';
@@ -33,10 +32,8 @@ export function nominalTypeDeclarationSemanticHandle(
   semantic.type = resultType;
 
   if (node.attributes) {
-    semantic.attributes = createDeclarationManager();
-
     const attributes = declarationsParse(analyzer, node.attributes).filter((x) =>
-      is(x, $.ValueDeclarationSemantic),
+      is(x, $.AttributeValueDeclarationSemantic),
     );
 
     for (const attribute of attributes) {

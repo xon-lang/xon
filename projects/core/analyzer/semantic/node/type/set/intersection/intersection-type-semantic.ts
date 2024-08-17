@@ -2,7 +2,7 @@ import {$} from '../../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../../lib/types';
 import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
-import {ValueDeclarationSemantic} from '../../../declaration/value/value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
 import {SetTypeSemantic} from '../set';
 
@@ -31,7 +31,7 @@ export function intersectionTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<ValueDeclarationSemantic> {
+    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
       return this.left.attributes().intersection(this.right.attributes());
     },
   };
