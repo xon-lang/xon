@@ -12,6 +12,7 @@ export interface SemanticAnalyzerConfig {
     stringTypeName: String2;
     rangeTypeName: String2;
     arrayTypeName: String2;
+    functionTypeName: String2;
   };
 }
 
@@ -27,6 +28,7 @@ export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
     stringTypeName: 'String',
     rangeTypeName: 'Range',
     arrayTypeName: 'Array',
+    functionTypeName: 'Function',
   },
 };
 

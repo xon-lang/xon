@@ -17,18 +17,5 @@ export function integerTypeSemanticTryParse(
 }
 
 export function integerTypeSemanticParse(analyzer: SemanticAnalyzer, node: IntegerNode): IntegerTypeSemantic {
-  const declaration = analyzer.declarationManager.single(
-    $.NominalTypeDeclarationSemantic,
-    analyzer.config.literalTypeNames.integerTypeName,
-    nothing,
-    nothing,
-  );
-
-  if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
-      x.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
-    );
-  }
-
-  return integerTypeSemantic(node, declaration, node.value);
+  return integerTypeSemantic(analyzer, node, node.value);
 }

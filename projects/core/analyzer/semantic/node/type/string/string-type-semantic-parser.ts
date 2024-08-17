@@ -17,18 +17,5 @@ export function stringTypeSemanticTryParse(
 }
 
 export function stringTypeSemanticParse(analyzer: SemanticAnalyzer, node: StringNode): StringTypeSemantic {
-  const declaration = analyzer.declarationManager.single(
-    $.NominalTypeDeclarationSemantic,
-    analyzer.config.literalTypeNames.stringTypeName,
-    nothing,
-    nothing,
-  );
-
-  if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
-      x.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
-    );
-  }
-
-  return stringTypeSemantic(node, declaration, node.value);
+  return stringTypeSemantic(analyzer, node, node.value);
 }

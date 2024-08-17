@@ -12,10 +12,10 @@ export type IdTypeSemantic = TypeSemantic & {
   name: String2;
 };
 
+// todo should we remove it ???
 export function idTypeSemantic(
   nodeLink: Node | Nothing,
-  name: String2,
-  declaration?: TypeDeclarationSemantic | Nothing,
+  declaration: TypeDeclarationSemantic,
 ): IdTypeSemantic {
   if (nodeLink && declaration) {
     declaration.usages.push(nodeLink.reference);
@@ -24,7 +24,7 @@ export function idTypeSemantic(
   return {
     $: $.IdTypeSemantic,
     nodeLink,
-    name,
+    name: declaration.name,
     declaration,
 
     is(other: TypeSemantic): Boolean2 {

@@ -27,7 +27,7 @@ export function functionTypeSemanticTryParse(
     : // todo user another range than 'node'
       unknownTypeSemantic(analyzer, node);
 
-  const semantic = functionTypeSemantic(node, parameters, result);
+  const semantic = functionTypeSemantic(analyzer, node, parameters, result);
 
   return semantic;
 }

@@ -22,23 +22,10 @@ export function arrayTypeSemanticParse(
   analyzer: SemanticAnalyzer,
   node: BracketGroupNode,
 ): ArrayTypeSemantic {
-  const declaration = analyzer.declarationManager.single(
-    $.NominalTypeDeclarationSemantic,
-    analyzer.config.literalTypeNames.integerTypeName,
-    nothing,
-    nothing,
-  );
-
-  if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
-      x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
-    );
-  }
-
   const items = node.items.map((x) =>
     x.value ? typeSemanticParse(analyzer, x.value) : unknownTypeSemantic(analyzer, x),
   );
-  const semantic = arrayTypeSemantic(node, declaration, items);
+  const semantic = arrayTypeSemantic(analyzer, node, items);
 
   return semantic;
 }

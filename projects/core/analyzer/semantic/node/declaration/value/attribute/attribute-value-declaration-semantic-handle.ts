@@ -23,12 +23,12 @@ export function attributeValueDeclarationSemanticHandle(
 
   if (node.parameters) {
     const parameters = parametersParse(analyzer, node, node.parameters);
-    type = functionTypeSemantic(node.parameters, parameters, type);
+    type = functionTypeSemantic(analyzer, node.parameters, parameters, type);
   }
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);
-    type = functionTypeSemantic(node.generics, generics, type);
+    type = functionTypeSemantic(analyzer, node.generics, generics, type);
   }
 
   semantic.type = type;

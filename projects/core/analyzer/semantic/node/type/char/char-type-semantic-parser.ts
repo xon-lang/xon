@@ -14,18 +14,5 @@ export function charTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node)
 }
 
 export function charTypeSemanticParse(analyzer: SemanticAnalyzer, node: CharNode): CharTypeSemantic {
-  const declaration = analyzer.declarationManager.single(
-    $.NominalTypeDeclarationSemantic,
-    analyzer.config.literalTypeNames.charTypeName,
-    nothing,
-    nothing,
-  );
-
-  if (!declaration) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
-      x.declarationNotFound(analyzer.config.literalTypeNames.stringTypeName),
-    );
-  }
-
-  return charTypeSemantic(node, declaration, node.value);
+  return charTypeSemantic(analyzer, node, node.value);
 }

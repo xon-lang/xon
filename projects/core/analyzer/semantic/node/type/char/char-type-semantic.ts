@@ -2,6 +2,7 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Char, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {isInSet} from '../set/set';
@@ -14,14 +15,17 @@ export interface CharTypeSemantic extends TypeSemantic {
 }
 
 export function charTypeSemantic(
+  analyzer: SemanticAnalyzer,
   nodeLink: Node | Nothing,
-  declaration: NominalTypeDeclarationSemantic | Nothing,
   value: Char,
 ): CharTypeSemantic {
   return {
     $: $.CharTypeSemantic,
     nodeLink,
-    declaration,
+    declaration: analyzer.declarationManager.single(
+      $.NominalTypeDeclarationSemantic,
+      analyzer.config.literalTypeNames.charTypeName,
+    ),
     value,
 
     is(other: TypeSemantic): Boolean2 {

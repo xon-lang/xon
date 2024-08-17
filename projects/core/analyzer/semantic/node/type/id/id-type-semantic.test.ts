@@ -68,8 +68,8 @@ test('a is array', () => {
 
   const instanceType = typeSemantic?.instance as FunctionTypeSemantic;
   expect(instanceType?.$).toBe($.FunctionTypeSemantic);
-  expect(instanceType?.declaration?.$).toBe($.NominalTypeDeclarationSemantic);
-  expect(instanceType?.declaration?.name).toBe('Array');
+  expect(instanceType?.declaration).toBeFalsy();
+  expect((instanceType?.result as IdTypeSemantic)?.name).toBe('Array');
   expect(typeSemantic?.args.length).toBe(1);
   expect((typeSemantic?.args.at(0) as IntegerTypeSemantic).value).toBe(3);
 });

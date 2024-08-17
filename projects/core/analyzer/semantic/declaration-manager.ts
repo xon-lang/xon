@@ -89,7 +89,9 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       const declarations = this.filterByName(kind, name);
 
       if (declarations.length === 0) {
-        // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.declarationNotFound(node.text));
+        // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
+        //   x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
+        // );
 
         return nothing;
       }
