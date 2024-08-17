@@ -3,7 +3,6 @@ import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeSemantic} from '../type-semantic';
-import {idTypeSemantic} from './id-type-semantic';
 
 export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic | Nothing {
   if (!is(node, $.IdNode)) {
@@ -23,7 +22,5 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     return declaration.type;
   }
 
-  const reference = analyzer.reference(node);
-
-  return idTypeSemantic(reference, name, declaration);
+  return nothing;
 }
