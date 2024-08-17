@@ -6,7 +6,6 @@ import {TextRange} from '../resource/text/text-range';
 
 export type TextData = {
   $: $.TextData;
-  // todo recheck all usages
   characters: Array2<Char>;
 
   slice(startIndex: Integer, stopIndex?: Integer): TextData;
@@ -33,13 +32,11 @@ export type TextData = {
   equals(other: TextData): Boolean2;
 
   // todo should we use only 'TextData' without 'String' ???
-  // todo recheck all usages
   toString(): String2;
 };
 
 export function textData(data: Array2<String2>): TextData;
 export function textData(data: String2): TextData;
-// todo how we can hide 'Array2<String2> | String2' signature ???
 export function textData(data: Array2<String2> | String2): TextData {
   const characters = typeof data === 'string' ? stringToCharacters(data) : data;
 
