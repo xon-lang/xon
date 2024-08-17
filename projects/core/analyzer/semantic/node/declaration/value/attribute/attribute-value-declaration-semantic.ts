@@ -37,10 +37,10 @@ export function attributeValueDeclarationSemantic(
 }
 
 // todo fix or remove it
-function alternativeName(operator: String2): String2 {
-  if (operator === '+') {
+function alternativeName(name: String2): String2 {
+  if (name === '+') {
     return '__plus__';
   }
 
-  return operator;
+  return name;
 }
