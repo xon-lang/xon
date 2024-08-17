@@ -2,9 +2,10 @@ import {$, is} from '../../../../../$';
 import {Nothing, nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {IdTypeSemantic, idTypeSemantic} from './id-type-semantic';
+import {TypeSemantic} from '../type-semantic';
+import {idTypeSemantic} from './id-type-semantic';
 
-export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): IdTypeSemantic | Nothing {
+export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic | Nothing {
   if (!is(node, $.IdNode)) {
     return nothing;
   }
@@ -18,10 +19,9 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.range, (x) => x.cannotBeUsedAsAType());
   }
 
-  // todo remove 'idTypeSemanticTryParse' and get type from declarations
-  // if (is(declaration, $.TypeDeclarationSemantic)) {
-  //   return declaration.type;
-  // }
+  if (is(declaration, $.TypeDeclarationSemantic)) {
+    return declaration.type;
+  }
 
   const reference = analyzer.reference(node);
 

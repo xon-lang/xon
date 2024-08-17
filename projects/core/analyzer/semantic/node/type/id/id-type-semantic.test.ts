@@ -6,6 +6,7 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
+import {FunctionTypeSemantic} from '../function/function-type-semantic';
 import {IntegerTypeSemantic} from '../integer/integer-type-semantic';
 import {InvokeTypeSemantic} from '../invoke/invoke-type-semantic';
 import {typeNodeType} from '../type-semantic-parser';
@@ -63,9 +64,10 @@ test('a is array', () => {
   const typeSemantic = constNode.type
     ? (typeNodeType(semanticAnalyzer, constNode.type) as InvokeTypeSemantic)
     : nothing;
-  const instanceType = typeSemantic?.instance as IdTypeSemantic;
   expect(typeSemantic?.$).toBe($.InvokeTypeSemantic);
-  expect(instanceType?.$).toBe($.IdTypeSemantic);
+
+  const instanceType = typeSemantic?.instance as FunctionTypeSemantic;
+  expect(instanceType?.$).toBe($.FunctionTypeSemantic);
   expect(instanceType?.declaration?.$).toBe($.NominalTypeDeclarationSemantic);
   expect(instanceType?.declaration?.name).toBe('Array');
   expect(typeSemantic?.args.length).toBe(1);

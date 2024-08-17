@@ -6,7 +6,7 @@ import {GroupNode} from '../../../../syntax/group/group-node';
 import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {declarationsParse} from '../../declaration/declaration-semantic-parser';
+import {parameterDeclarationsParse} from '../../declaration/declaration-semantic-parser';
 import {documentationIdSemantic} from '../../documentation/documentation-id-semantic';
 import {itemNodeType} from '../array/array-type-semantic-parser';
 import {typeSemanticParse} from '../type-semantic-parser';
@@ -32,7 +32,7 @@ export function functionTypeSemanticTryParse(
 
   // todo remove and add 'usingDeclarationScope' to 'declarationsParse'
   const parameters = analyzer.usingDeclarationScope(() => {
-    return node.parameters ? declarationsParse(analyzer, node.parameters.items) : [];
+    return node.parameters ? parameterDeclarationsParse(analyzer, node.parameters) : [];
   });
 
   const result = node.type
@@ -51,7 +51,7 @@ export function parametersOrGenericsParse(
   node: DeclarationNode,
   group: GroupNode,
 ): Array2<DeclarationSemantic> {
-  const generics = declarationsParse(analyzer, group.items);
+  const generics = parameterDeclarationsParse(analyzer, group);
 
   if (node.documentation) {
     for (const generic of generics.filter((x) => !!x)) {
