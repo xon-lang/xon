@@ -1,4 +1,4 @@
-import {String2} from '../../../lib/types';
+import {String2} from '../types';
 
 export function topologicalSort(dependencies: Record<String2, String2[]>): {
   order: String2[];
