@@ -1,7 +1,7 @@
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersOrGenericsParse} from '../../../type/function/function-type-semantic-parser';
+import {parametersParse} from '../../../type/function/function-type-semantic-parser';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';
 import {unknownTypeFromNode} from '../../../type/unknown/unknown-type-semantic';
 import {StructuralTypeDeclarationSemantic} from './structural-type-declaration-semantic';
@@ -16,7 +16,7 @@ export function structuralTypeDeclarationSemanticHandle(
     : unknownTypeFromNode(analyzer, node);
 
   if (node.generics) {
-    const generics = parametersOrGenericsParse(analyzer, node, node.generics);
+    const generics = parametersParse(analyzer, node, node.generics);
     semantic.type = functionTypeSemantic(analyzer.reference(node.generics), generics, resultType);
 
     return;

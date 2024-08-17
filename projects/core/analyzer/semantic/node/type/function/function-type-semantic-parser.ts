@@ -33,8 +33,7 @@ export function functionTypeSemanticTryParse(
   return semantic;
 }
 
-// todo rename 'parametersOrGenerics' prefix
-export function parametersOrGenericsParse(
+export function parametersParse(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
   group: GroupNode,
@@ -43,15 +42,14 @@ export function parametersOrGenericsParse(
 
   if (node.documentation) {
     for (const generic of generics.filter((x) => !!x)) {
-      parameterOrGenericDocumentationHandle(analyzer, node.documentation, generic);
+      parameterDocumentationHandle(analyzer, node.documentation, generic);
     }
   }
 
   return generics;
 }
 
-// todo rename 'parametersOrGenerics' prefix
-function parameterOrGenericDocumentationHandle(
+function parameterDocumentationHandle(
   analyzer: SemanticAnalyzer,
   documentation: DocumentationNode,
   parameter: DeclarationSemantic,

@@ -1,7 +1,7 @@
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersOrGenericsParse} from '../../../type/function/function-type-semantic-parser';
+import {parametersParse} from '../../../type/function/function-type-semantic-parser';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';
 import {unknownTypeFromNode} from '../../../type/unknown/unknown-type-semantic';
 import {AttributeValueDeclarationSemantic} from './attribute-value-declaration-semantic';
@@ -22,12 +22,12 @@ export function attributeValueDeclarationSemanticHandle(
   }
 
   if (node.parameters) {
-    const parameters = parametersOrGenericsParse(analyzer, node, node.parameters);
+    const parameters = parametersParse(analyzer, node, node.parameters);
     type = functionTypeSemantic(analyzer.reference(node.parameters), parameters, type);
   }
 
   if (node.generics) {
-    const generics = parametersOrGenericsParse(analyzer, node, node.generics);
+    const generics = parametersParse(analyzer, node, node.generics);
     type = functionTypeSemantic(analyzer.reference(node.generics), generics, type);
   }
 

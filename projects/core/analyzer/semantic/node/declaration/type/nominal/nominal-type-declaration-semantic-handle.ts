@@ -3,7 +3,7 @@ import {DeclarationNode} from '../../../../../syntax/node/declaration/declaratio
 import {createDeclarationManager} from '../../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersOrGenericsParse} from '../../../type/function/function-type-semantic-parser';
+import {parametersParse} from '../../../type/function/function-type-semantic-parser';
 import {idTypeSemantic} from '../../../type/id/id-type-semantic';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';
 import {declarationsParse} from '../../declaration-semantic-parser';
@@ -22,7 +22,7 @@ export function nominalTypeDeclarationSemanticHandle(
   const resultType = idTypeSemantic(analyzer.reference(node.id), semantic.name, semantic);
 
   if (node.generics) {
-    const generics = parametersOrGenericsParse(analyzer, node, node.generics);
+    const generics = parametersParse(analyzer, node, node.generics);
     semantic.type = functionTypeSemantic(analyzer.reference(node.generics), generics, resultType);
     // todo should we send as argument to 'functionTypeSemantic'
     semantic.type.declaration = semantic;
