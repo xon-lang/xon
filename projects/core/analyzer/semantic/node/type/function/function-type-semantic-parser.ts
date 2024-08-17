@@ -8,32 +8,20 @@ import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {parameterDeclarationsParse} from '../../declaration/declaration-semantic-parser';
 import {documentationIdSemantic} from '../../documentation/documentation-id-semantic';
-import {itemNodeType} from '../array/array-type-semantic-parser';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {unknownTypeFromNode} from '../unknown/unknown-type-semantic';
 import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
 
-// todo should we remove 'functionTypeSemanticTryParse' ???
 export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): FunctionTypeSemantic | Nothing {
-  // todo remove '!is(node, $.DeclarationNode) &&'
-  if ((!is(node, $.DeclarationNode) && !is(node, $.LambdaNode)) || !node.parameters) {
+  if (!is(node, $.LambdaNode)) {
     return nothing;
   }
 
   const reference = analyzer.reference(node);
-
-  // todo remove and add 'usingDeclarationScope' to 'declarationsParse'
-  const generics = analyzer.usingDeclarationScope(() => {
-    return node.generics?.items.map((x) => itemNodeType(analyzer, x));
-  });
-
-  // todo remove and add 'usingDeclarationScope' to 'declarationsParse'
-  const parameters = analyzer.usingDeclarationScope(() => {
-    return node.parameters ? parameterDeclarationsParse(analyzer, node.parameters) : [];
-  });
+  const parameters = node.parameters ? parameterDeclarationsParse(analyzer, node.parameters) : [];
 
   const result = node.type
     ? typeSemanticParse(analyzer, node.type.value)
