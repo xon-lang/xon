@@ -24,6 +24,8 @@ export function nominalTypeDeclarationSemanticHandle(
   if (node.generics) {
     const generics = parametersOrGenericsParse(analyzer, node, node.generics);
     semantic.type = functionTypeSemantic(analyzer.reference(node.generics), generics, resultType);
+    // todo should we send as argument to 'functionTypeSemantic'
+    semantic.type.declaration = semantic;
 
     return;
   }
