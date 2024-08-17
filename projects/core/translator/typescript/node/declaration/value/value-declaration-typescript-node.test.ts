@@ -7,13 +7,13 @@ import {textResourceFromData} from '../../../../../util/resource/text/text-resou
 import {createTypescriptTranslator} from '../../../typescript-translator';
 
 test('type string', () => {
-  const text = 'type A';
+  const text = 'a: Integer | String';
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as DeclarationSemantic;
   const translator = createTypescriptTranslator(semanticAnalyzer);
-  const translated = translator.typeDeclaration(semantic);
+  const translated = translator.valueDeclaration(semantic);
 
-  expect(translated).toBe('export type A = {}');
+  expect(translated).toBe('a: Integer | String');
 });
