@@ -15,7 +15,8 @@ import {
 import {FormatterItem} from '../../../../core/formatter/formatter-item';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, getDocumentSemantic} from '../../util';
+import {convertRange} from '../../util/convert';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureFormattingFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

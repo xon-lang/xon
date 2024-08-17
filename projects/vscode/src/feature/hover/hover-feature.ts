@@ -15,7 +15,8 @@ import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/decla
 import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, convertVscodePosition, getDocumentSemantic} from '../../util';
+import {convertRange, convertVscodePosition} from '../../util/convert';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

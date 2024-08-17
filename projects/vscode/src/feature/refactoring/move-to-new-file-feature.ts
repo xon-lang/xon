@@ -21,7 +21,8 @@ import {$, is} from '../../../../core/$';
 import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
 import {nothing} from '../../../../lib/types';
 import {EXTENSION_CONFIG, FILE_EXTENSION, LANGUAGE_NAME} from '../../config';
-import {convertVscodePosition, getDocumentSemantic} from '../../util';
+import {convertVscodePosition} from '../../util/convert';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

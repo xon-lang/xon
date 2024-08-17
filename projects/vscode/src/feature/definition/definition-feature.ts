@@ -17,7 +17,8 @@ import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-ran
 import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, convertVscodePosition, getDocumentSemantic} from '../../util';
+import {convertRange, convertVscodePosition} from '../../util/convert';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

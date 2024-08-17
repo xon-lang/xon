@@ -14,7 +14,8 @@ import {$, is} from '../../../../../core/$';
 import {ValueDeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
 import {Array2, Nothing, nothing} from '../../../../../lib/types';
-import {convertVscodePosition, getDocumentSemantic} from '../../../util';
+import {convertVscodePosition} from '../../../util/convert';
+import {getDocumentSemantic} from '../../../util/util';
 
 export class DotCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
@@ -63,7 +64,7 @@ function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): Comp
 }
 
 export function getCompletionItemKind(semantic: ValueDeclarationSemantic): CompletionItemKind {
-  if (is(semantic, $.FunctionValueDeclarationSemantic)) {
+  if (is(semantic.type, $.FunctionTypeSemantic)) {
     return CompletionItemKind.Method;
   }
 

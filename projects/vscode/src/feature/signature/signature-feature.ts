@@ -17,11 +17,13 @@ import {$, hasSemantic, is} from '../../../../core/$';
 import {IdNode} from '../../../../core/analyzer/lexical/node/id/id-node';
 import {Node} from '../../../../core/analyzer/node';
 import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {FunctionValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
 import {InvokeNode} from '../../../../core/analyzer/syntax/node/invoke/invoke-node';
 import {Integer, Nothing, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertVscodePosition, getDocumentSemantic, typeSemanticToString} from '../../util';
+import {convertVscodePosition} from '../../util/convert';
+import {declarationSemanticHeaderToString} from '../../util/semantic-view';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureSignatureFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
@@ -49,7 +51,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     if (is(invokeParameterIndex.invokeNode.instance, $.IdNode)) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
-      if (is(declaration, $.FunctionValueDeclarationSemantic)) {
+      if (is(declaration, $.AttributeValueDeclarationSemantic)) {
         return getSignatureHelp(declaration, invokeParameterIndex.parameterIndex);
       }
     }
@@ -103,7 +105,7 @@ function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
 }
 
 function getSignatureHelp(
-  declaration: FunctionValueDeclarationSemantic,
+  declaration: AttributeValueDeclarationSemantic,
   parameterIndex: Integer,
 ): SignatureHelp {
   const signatureHelp = new SignatureHelp();
@@ -116,21 +118,16 @@ function getSignatureHelp(
   return signatureHelp;
 }
 
-function getSignatureInformation(declaration: FunctionValueDeclarationSemantic): SignatureInformation {
-  const parametersNames =
-    declaration.parameters
-      .map((x) => {
-        const type = is(x, $.ParameterValueDeclarationSemantic) ? x.type : nothing;
-
-        return `${x?.name ?? ''}: ${typeSemanticToString(type) ?? ''}`;
-      })
-      ?.join(', ') ?? '';
+function getSignatureInformation(declaration: AttributeValueDeclarationSemantic): SignatureInformation {
+  const declarationHeader = declarationSemanticHeaderToString(declaration) ?? '';
 
   const description = declaration.documentation?.setPadding(0)?.trim() ?? '';
   const descriptionMarkdown = new MarkdownString(description);
-  const signature = new SignatureInformation(`${declaration.name}(${parametersNames})`, descriptionMarkdown);
+  const signature = new SignatureInformation(declarationHeader, descriptionMarkdown);
 
-  signature.parameters = declaration.parameters?.map((x) => getParameterInformation(x)) ?? [];
+  if (is(declaration.type, $.FunctionTypeSemantic)) {
+    signature.parameters = declaration.type.parameters?.map((x) => getParameterInformation(x)) ?? [];
+  }
 
   return signature;
 }

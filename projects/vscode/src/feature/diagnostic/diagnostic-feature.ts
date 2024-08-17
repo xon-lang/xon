@@ -15,7 +15,8 @@ import {AnalyzerDiagnosticSeverity} from '../../../../core/diagnostic/analyzer-d
 import {AnalyzerDiagnosticTag} from '../../../../core/diagnostic/analyzer-diagnostic-tag';
 import {Array2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
-import {convertRange, getDocumentSemantic} from '../../util';
+import {convertRange} from '../../util/convert';
+import {getDocumentSemantic} from '../../util/util';
 
 export function configureDiagnosticFeature(context: ExtensionContext, channel: OutputChannel) {
   const diagnostics = languages.createDiagnosticCollection(LANGUAGE_NAME);

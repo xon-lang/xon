@@ -12,7 +12,8 @@ import {
 } from 'vscode';
 import {$, is} from '../../../../../core/$';
 import {Array2} from '../../../../../lib/types';
-import {convertVscodePosition, getDocumentSemantic} from '../../../util';
+import {convertVscodePosition} from '../../../util/convert';
+import {getDocumentSemantic} from '../../../util/util';
 
 export class IdCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
