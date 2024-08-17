@@ -6,13 +6,11 @@ import {Node} from '../../../node';
 import {GroupNode} from '../../../syntax/group/group-node';
 import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {unknownTypeFromNode} from '../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from './declaration-semantic';
 import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
 import {nominalTypeDeclarationSemanticHandle} from './type/nominal/nominal-type-declaration-semantic-handle';
 import {structuralTypeDeclarationSemantic} from './type/structural/structural-type-declaration-semantic';
 import {structuralTypeDeclarationSemanticHandle} from './type/structural/structural-type-declaration-semantic-handle';
-import {unknownDeclarationSemantic} from './unknown/unknown-declaration-semantic';
 import {attributeValueDeclarationSemantic} from './value/attribute/attribute-value-declaration-semantic';
 import {attributeValueDeclarationSemanticHandle} from './value/attribute/attribute-value-declaration-semantic-handle';
 
@@ -30,17 +28,15 @@ export function declarationsParse(
   analyzer: SemanticAnalyzer,
   nodes: Array2<Node>,
 ): Array2<DeclarationSemantic> {
-  const declarations = nodes.map((node) => {
-    if (!is(node, $.DeclarationNode)) {
-      return unknownDeclarationSemantic(node, unknownTypeFromNode(analyzer, node));
-    }
+  const declarations = nodes
+    .filter((node) => is(node, $.DeclarationNode))
+    .map((node) => {
+      const declaration = createDeclaration(analyzer, node);
+      node.id.semantic = declaration;
+      analyzer.declarationManager.add(declaration);
 
-    const declaration = createDeclaration(analyzer, node);
-    node.id.semantic = declaration;
-    analyzer.declarationManager.add(declaration);
-
-    return declaration;
-  });
+      return declaration;
+    });
 
   const declarationNodes = nodes.filter((x) => is(x, $.DeclarationNode));
   const dependencies = declarationNodeDependencies(declarationNodes);
@@ -120,15 +116,14 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
   const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();
-  const type = unknownTypeFromNode(analyzer, node);
 
   if (modifier === TYPE_MODIFIER) {
     if (node.assign) {
-      return structuralTypeDeclarationSemantic(node.id, documentation, modifier, name, type);
+      return structuralTypeDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
     }
 
-    return nominalTypeDeclarationSemantic(node.id, documentation, modifier, name, type);
+    return nominalTypeDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
   }
 
-  return attributeValueDeclarationSemantic(node.id, documentation, modifier, name, type);
+  return attributeValueDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
 }

@@ -35,7 +35,6 @@ import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declarat
 import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
 import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
 import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
-import {UnknownDeclarationSemantic} from './analyzer/semantic/node/declaration/unknown/unknown-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
 import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
@@ -169,8 +168,6 @@ export enum $ {
   Semantic = ' Semantic ',
   DeclarationSemantic = ' DeclarationSemantic ' + $.Semantic,
 
-  UnknownDeclarationSemantic = ' UnknownDeclarationSemantic ' + $.DeclarationSemantic,
-
   TypeDeclarationSemantic = ' TypeDeclarationSemantic ' + $.DeclarationSemantic,
   NominalTypeDeclarationSemantic = ' NominalTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
   StructuralTypeDeclarationSemantic = ' StructuralTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
@@ -292,9 +289,6 @@ export type TypeMap = {
   [$.DocumentationIdSemantic]: DocumentationIdSemantic;
 
   [$.DeclarationSemantic]: DeclarationSemantic;
-
-  [$.UnknownDeclarationSemantic]: UnknownDeclarationSemantic;
-
   [$.TypeDeclarationSemantic]: TypeDeclarationSemantic;
   [$.NominalTypeDeclarationSemantic]: NominalTypeDeclarationSemantic;
   [$.StructuralTypeDeclarationSemantic]: StructuralTypeDeclarationSemantic;

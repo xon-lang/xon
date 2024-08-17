@@ -15,7 +15,7 @@ import {rangeTypeSemanticTryParse} from './set/range/range-type-semantic-parser'
 import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser';
 import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
 import {TypeSemantic} from './type-semantic';
-import {unknownTypeFromNode} from './unknown/unknown-type-semantic';
+import {unknownTypeSemantic} from './unknown/unknown-type-semantic';
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
@@ -35,7 +35,7 @@ const parsers: Array2<TypeSemanticTryParseFn> = [
 ];
 
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): TypeSemantic {
-  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownTypeFromNode(analyzer, node);
+  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
   node.semantic = semantic;
 
   return semantic;
@@ -47,5 +47,5 @@ export function typeNodeType(analyzer: SemanticAnalyzer, node: TypeNode): TypeSe
     return typeSemanticParse(analyzer, node.value);
   }
 
-  return unknownTypeFromNode(analyzer, node);
+  return unknownTypeSemantic(analyzer, node);
 }

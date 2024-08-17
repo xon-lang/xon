@@ -3,7 +3,7 @@ import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
 import {parametersParse} from '../../../type/function/function-type-semantic-parser';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {unknownTypeFromNode} from '../../../type/unknown/unknown-type-semantic';
+import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
 import {AttributeValueDeclarationSemantic} from './attribute-value-declaration-semantic';
 
 export function attributeValueDeclarationSemanticHandle(
@@ -13,7 +13,7 @@ export function attributeValueDeclarationSemanticHandle(
 ): void {
   const valueType = node.assign
     ? typeSemanticParse(analyzer, node.assign.value)
-    : unknownTypeFromNode(analyzer, node);
+    : unknownTypeSemantic(analyzer, node);
 
   let type = node.type ? typeSemanticParse(analyzer, node.type.value) : valueType;
 

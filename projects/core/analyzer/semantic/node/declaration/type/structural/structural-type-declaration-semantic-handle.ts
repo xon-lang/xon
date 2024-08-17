@@ -3,7 +3,7 @@ import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
 import {parametersParse} from '../../../type/function/function-type-semantic-parser';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {unknownTypeFromNode} from '../../../type/unknown/unknown-type-semantic';
+import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
 import {StructuralTypeDeclarationSemantic} from './structural-type-declaration-semantic';
 
 export function structuralTypeDeclarationSemanticHandle(
@@ -13,7 +13,7 @@ export function structuralTypeDeclarationSemanticHandle(
 ): void {
   const resultType = node.assign
     ? typeSemanticParse(analyzer, node.assign.value)
-    : unknownTypeFromNode(analyzer, node);
+    : unknownTypeSemantic(analyzer, node);
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);

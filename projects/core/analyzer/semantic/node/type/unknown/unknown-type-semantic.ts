@@ -15,9 +15,12 @@ export type UnknownTypeSemantic = TypeSemantic & {
 };
 
 export function unknownTypeSemantic(
+  analyzer: SemanticAnalyzer,
   nodeLink: Node | Nothing,
-  declaration?: NominalTypeDeclarationSemantic | Nothing,
 ): UnknownTypeSemantic {
+  const {unknownTypeName} = analyzer.config.literalTypeNames;
+  const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
+
   if (nodeLink && declaration) {
     declaration.usages.push(nodeLink.reference);
   }
@@ -64,11 +67,4 @@ export function unknownTypeSemantic(
       return createDeclarationManager();
     },
   };
-}
-
-export function unknownTypeFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownTypeSemantic {
-  const {unknownTypeName} = analyzer.config.literalTypeNames;
-  const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
-
-  return unknownTypeSemantic(node, declaration);
 }
