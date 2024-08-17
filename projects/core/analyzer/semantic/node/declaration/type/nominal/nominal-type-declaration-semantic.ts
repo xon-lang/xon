@@ -6,8 +6,7 @@ import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TypeSemantic} from '../../../type/type-semantic';
 import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
-import { AttributeValueDeclarationSemantic } from '../../value/attribute/attribute-value-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../value/value-declaration-semantic';
+import {AttributeValueDeclarationSemantic} from '../../value/attribute/attribute-value-declaration-semantic';
 import {TypeDeclarationSemantic} from '../type-declaration-semantic';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
@@ -19,7 +18,7 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
 
 export function nominalTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   documentation: String2 | Nothing,
   modifier: String2,
   name: String2,
@@ -38,7 +37,7 @@ export function nominalTypeDeclarationSemantic(
     eq(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions
       if (this.nodeLink && other.nodeLink) {
-        return this.nodeLink?.reference.equals(other.nodeLink?.reference);
+        return this.nodeLink.reference.equals(other.nodeLink.reference);
       }
 
       return false;

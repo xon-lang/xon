@@ -1,5 +1,5 @@
 import {$} from '../../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../../lib/types';
+import {Boolean2} from '../../../../../../../lib/types';
 import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {AttributeValueDeclarationSemantic} from '../../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -13,7 +13,7 @@ export interface UnionTypeSemantic extends SetTypeSemantic {
 }
 
 export function unionTypeSemantic(
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   left: TypeSemantic,
   right: TypeSemantic,
 ): UnionTypeSemantic {

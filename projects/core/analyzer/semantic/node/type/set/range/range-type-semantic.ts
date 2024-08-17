@@ -16,7 +16,7 @@ export interface RangeTypeSemantic extends SetTypeSemantic {
 }
 
 export function rangeTypeSemantic(
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   declaration: NominalTypeDeclarationSemantic,
   from: RangeTypeSemantic['from'],
   to: RangeTypeSemantic['to'],

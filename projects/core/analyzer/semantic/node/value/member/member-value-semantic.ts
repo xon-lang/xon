@@ -10,7 +10,7 @@ export type MemberValueSemantic = ValueSemantic<$.MemberValueSemantic> & {
 };
 
 export function memberValueSemantic(
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   instance: ValueSemantic,
   name: String2 | Nothing,
   type: TypeSemantic,

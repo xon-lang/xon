@@ -11,12 +11,12 @@ export type IdValueSemantic = ValueSemantic<$.IdValueSemantic> & {
 };
 
 export function idValueSemantic(
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   name: String2,
   declaration: ValueDeclarationSemantic | Nothing,
   type: TypeSemantic,
 ): IdValueSemantic {
-  if (nodeLink && declaration) {
+  if (declaration) {
     declaration.usages.push(nodeLink.reference);
   }
 

@@ -14,14 +14,11 @@ export type UnknownTypeSemantic = TypeSemantic & {
   declaration?: NominalTypeDeclarationSemantic | Nothing;
 };
 
-export function unknownTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
-): UnknownTypeSemantic {
+export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node): UnknownTypeSemantic {
   const {unknownTypeName} = analyzer.config.literalTypeNames;
   const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
 
-  if (nodeLink && declaration) {
+  if (declaration) {
     declaration.usages.push(nodeLink.reference);
   }
 

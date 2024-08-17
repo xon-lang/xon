@@ -16,7 +16,7 @@ export interface IntegerTypeSemantic extends TypeSemantic {
 
 export function integerTypeSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   value: Integer,
 ): IntegerTypeSemantic {
   return {

@@ -16,7 +16,7 @@ export interface StringTypeSemantic extends TypeSemantic {
 
 export function stringTypeSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   value: String2,
 ): StringTypeSemantic {
   return {

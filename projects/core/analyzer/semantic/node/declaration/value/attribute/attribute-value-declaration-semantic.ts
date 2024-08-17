@@ -15,7 +15,7 @@ export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
 
 export function attributeValueDeclarationSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   documentation: String2 | Nothing,
   modifier: String2 | Nothing,
   name: String2,
@@ -33,7 +33,7 @@ export function attributeValueDeclarationSemantic(
     eq(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions
       if (this.nodeLink && other.nodeLink) {
-        return this.nodeLink?.reference.equals(other.nodeLink?.reference);
+        return this.nodeLink.reference.equals(other.nodeLink.reference);
       }
 
       return false;

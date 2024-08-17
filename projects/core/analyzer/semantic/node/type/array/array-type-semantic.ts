@@ -16,7 +16,7 @@ export interface ArrayTypeSemantic extends TypeSemantic {
 
 export function arrayTypeSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   items: TypeSemantic[],
 ): ArrayTypeSemantic {
   return {

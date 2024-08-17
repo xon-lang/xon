@@ -14,11 +14,7 @@ export interface CharTypeSemantic extends TypeSemantic {
   value: Char;
 }
 
-export function charTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
-  value: Char,
-): CharTypeSemantic {
+export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
   return {
     $: $.CharTypeSemantic,
     nodeLink,

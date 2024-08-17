@@ -1,5 +1,5 @@
 import {$, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../lib/types';
+import {Boolean2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -13,7 +13,7 @@ export type InvokeTypeSemantic = TypeSemantic & {
 };
 
 export function invokeTypeSemantic(
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   instance: TypeSemantic,
   args: TypeSemantic[],
 ): InvokeTypeSemantic {

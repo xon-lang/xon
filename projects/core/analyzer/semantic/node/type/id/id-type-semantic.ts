@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
+import {Boolean2, String2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
@@ -13,11 +13,8 @@ export type IdTypeSemantic = TypeSemantic & {
 };
 
 // todo should we remove it ???
-export function idTypeSemantic(
-  nodeLink: Node | Nothing,
-  declaration: TypeDeclarationSemantic,
-): IdTypeSemantic {
-  if (nodeLink && declaration) {
+export function idTypeSemantic(nodeLink: Node, declaration: TypeDeclarationSemantic): IdTypeSemantic {
+  if (declaration) {
     declaration.usages.push(nodeLink.reference);
   }
 

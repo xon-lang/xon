@@ -1,5 +1,5 @@
 import {$} from '../../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../../lib/types';
+import {Boolean2} from '../../../../../../../lib/types';
 import {Node} from '../../../../../node';
 import {DeclarationManager} from '../../../../declaration-manager';
 import {AttributeValueDeclarationSemantic} from '../../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -11,7 +11,7 @@ export interface NotTypeSemantic extends SetTypeSemantic {
   value: TypeSemantic;
 }
 
-export function notTypeSemantic(nodeLink: Node | Nothing, value: TypeSemantic): NotTypeSemantic {
+export function notTypeSemantic(nodeLink: Node, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {
     $: $.NotTypeSemantic,
     nodeLink,

@@ -10,7 +10,7 @@ export type ImportValueSemantic = ValueSemantic<$.ImportValueSemantic> & {
 };
 
 export function importValueSemantic(
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   resource: Resource | Nothing,
   type: TypeSemantic,
 ): ImportValueSemantic {

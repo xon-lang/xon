@@ -1,5 +1,5 @@
 import {$, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../lib/types';
+import {Boolean2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -16,7 +16,7 @@ export interface FunctionTypeSemantic extends TypeSemantic {
 
 export function functionTypeSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node | Nothing,
+  nodeLink: Node,
   parameters: DeclarationSemantic[],
   result: TypeSemantic,
 ): FunctionTypeSemantic {
