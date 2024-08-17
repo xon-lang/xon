@@ -19,5 +19,5 @@ export function typeDeclarationTypescriptTranslate(
     return `${exportText}type ${semantic.name} = ${type}`;
   }
 
-  return translator.error(semantic);
+  return translator.error(semantic.nodeLink);
 }

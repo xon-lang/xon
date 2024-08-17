@@ -1,10 +1,9 @@
-import {$, is} from '../../$';
+import {$} from '../../$';
 import {String2} from '../../../lib/types';
 import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {Node} from '../../analyzer/node';
 import {TypeDeclarationSemantic} from '../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {ValueDeclarationSemantic} from '../../analyzer/semantic/node/declaration/value/value-declaration-semantic';
-import {Semantic} from '../../analyzer/semantic/node/semantic';
 import {TypeSemantic} from '../../analyzer/semantic/node/type/type-semantic';
 import {ValueSemantic} from '../../analyzer/semantic/node/value/value-semantic';
 import {SemanticAnalyzer} from '../../analyzer/semantic/semantic-analyzer';
@@ -13,10 +12,11 @@ import {
   createDiagnosticManager,
 } from '../../diagnostic/analyzer-diagnostic-manager';
 import {Translator} from '../translator';
-import {typeDeclarationTypescriptTranslate} from './node/declaration/type/type-declaration-typescript-node';
-import {valueDeclarationTypescriptTranslate} from './node/declaration/value/value-declaration-typescript-node';
-import {typeTypescriptTranslate} from './node/type/type-typescript-node';
-import {valueTypescriptTranslate} from './node/value/value-typescript-node';
+import {typeDeclarationTypescriptTranslate} from './node/declaration/type/type-declaration-typescript-translate';
+import {valueDeclarationTypescriptTranslate} from './node/declaration/value/value-declaration-typescript-translate';
+import {statementTypescriptTranslate} from './node/statement/statement-typescript-translate';
+import {typeTypescriptTranslate} from './node/type/type-typescript-translate';
+import {valueTypescriptTranslate} from './node/value/value-typescript-translate';
 
 export type TypescriptTranslator = Translator & {
   $: $.TypescriptTranslator;
@@ -26,7 +26,7 @@ export type TypescriptTranslator = Translator & {
   value(semantic: ValueSemantic): String2;
   typeDeclaration(semantic: TypeDeclarationSemantic): String2;
   valueDeclaration(semantic: ValueDeclarationSemantic): String2;
-  error(semantic: Semantic): String2;
+  error(node: Node): String2;
 };
 
 export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
@@ -50,45 +50,22 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
       return valueDeclarationTypescriptTranslate(this, semantic);
     },
 
-    error(semantic: Semantic): String2 {
-      if (semantic.nodeLink) {
-        this.diagnosticManager.addPredefinedDiagnostic(semantic.nodeLink.reference, (x) =>
-          x.cannotTranslate(),
-        );
-      }
+    error(node: Node): String2 {
+      this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
+      const location = node.reference.resource.location;
+      const line = node.reference.range.start.line;
+      const column = node.reference.range.start.column;
 
-      return '/* error */';
+      return `/* error ${location}:${line}:${column} */`;
     },
 
     translate(): String2 {
       return (
         semanticAnalyzer.statements
-          .map((x) => statementValueTranslate(this, x.value))
-          .filter((x) => x.length)
+          .map((x) => statementTypescriptTranslate(this, x))
+          .filter((x) => x.length > 0)
           .join(NL + NL) + NL
       );
     },
   };
-}
-
-function statementValueTranslate(translator: TypescriptTranslator, node: Node): String2 {
-  // todo simplify it
-
-  if (is(node, $.DeclarationNode)) {
-    if (is(node.id.semantic, $.TypeDeclarationSemantic)) {
-      return translator.typeDeclaration(node.id.semantic);
-    }
-
-    if (is(node.id.semantic, $.ValueDeclarationSemantic)) {
-      return translator.valueDeclaration(node.id.semantic);
-    }
-
-    return '/* error */';
-  }
-
-  if (is(node, $.ExpressionNode) && is(node.semantic, $.ValueSemantic)) {
-    return translator.value(node.semantic);
-  }
-
-  return '/* error */';
 }

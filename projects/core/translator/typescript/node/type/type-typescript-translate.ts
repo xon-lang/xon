@@ -47,5 +47,5 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
     return `(${parameters}) => ${result}`;
   }
 
-  return translator.error(semantic);
+  return translator.error(semantic.nodeLink);
 }

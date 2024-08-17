@@ -27,5 +27,5 @@ test('type function', () => {
   const translator = createTypescriptTranslator(semanticAnalyzer);
   const translated = translator.valueDeclaration(semantic);
 
-  expect(translated).toBe('const __plus__: (a: Integer, b: Integer) => Integer');
+  expect(translated).toBe('__plus__: (a: Integer, b: Integer) => Integer');
 });
