@@ -55,7 +55,11 @@ export function idTypeSemantic(nodeLink: Node, declaration: TypeDeclarationSeman
     },
 
     attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
-      return this.declaration?.type.attributes().clone() ?? createDeclarationManager();
+      if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
+        return this.declaration.attributes;
+      }
+
+      return createDeclarationManager();
     },
   };
 }

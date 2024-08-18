@@ -12,10 +12,10 @@ test('only a', () => {
   const text = 'type A\n  p: A';
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
-  const semantic = createSemanticAnalyzer(syntax);
-  const type = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  const semanticAnalyzer = createSemanticAnalyzer(syntax);
+  const type = semanticAnalyzer.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
 
-  expect(semantic.declarationManager.count()).toBe(1);
+  expect(semanticAnalyzer.declarationManager.count()).toBe(1);
   expect(type.$).toBe($.NominalTypeDeclarationSemantic);
   expect(type.modifier).toBe('type');
   expect(type.name).toBe('A');

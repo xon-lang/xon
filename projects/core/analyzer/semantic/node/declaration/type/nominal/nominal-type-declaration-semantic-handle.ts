@@ -13,9 +13,12 @@ export function nominalTypeDeclarationSemanticHandle(
   semantic: NominalTypeDeclarationSemantic,
   node: DeclarationNode,
 ): void {
+  // todo use 'unknownType' type instead of 'nothing' ???
   if (node.type) {
-    // todo use 'unknownType' type instead of 'nothing' ???
     semantic.baseType = typeSemanticParse(analyzer, node.type.value);
+    for (const attribute of semantic.baseType.attributes().all()) {
+      semantic.attributes.add(attribute);
+    }
   }
 
   const resultType = idTypeSemantic(node.id, semantic);
@@ -36,12 +39,6 @@ export function nominalTypeDeclarationSemanticHandle(
 
     for (const attribute of attributes) {
       semantic.attributes.add(attribute);
-    }
-
-    if (semantic.baseType) {
-      for (const attribute of semantic.baseType.attributes().all()) {
-        semantic.attributes.add(attribute);
-      }
     }
   }
 

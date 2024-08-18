@@ -7,7 +7,11 @@ import {importValueSemanticParse} from '../value/import/import-value-semantic-pa
 import {valueSemanticParse} from '../value/value-semantic-parser';
 import {returnStatementSemanticParse} from './return/return-statement-semantic-parser';
 
-export function statementsParse(analyzer: SemanticAnalyzer, statements: StatementNode[]) {
+export function statementsParse(analyzer: SemanticAnalyzer, statements: StatementNode[]): void {
+  if (statements.length === 0) {
+    return;
+  }
+
   for (const statement of statements) {
     if (is(statement.value, $.ImportNode)) {
       importValueSemanticParse(analyzer, statement.value);
@@ -32,4 +36,13 @@ export function statementsParse(analyzer: SemanticAnalyzer, statements: Statemen
       valueSemanticParse(analyzer, node);
     }
   }
+
+  // todo fix it if needed
+  analyzer.pushDeclarationScope();
+
+  for (const statement of statements) {
+    statementsParse(analyzer, statement.body);
+  }
+
+  analyzer.popDeclarationScope();
 }

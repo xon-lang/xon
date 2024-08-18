@@ -8,6 +8,7 @@ import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribu
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
+// todo use something instead of unknown ???
 // todo one Unknown doesn't equals another
 export type UnknownTypeSemantic = TypeSemantic & {
   $: $.UnknownTypeSemantic;
