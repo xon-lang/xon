@@ -15,7 +15,7 @@ export function statementTypescriptTranslate(
       return translator.error(node.id);
     }
 
-    return declarationTypescriptTranslate(translator, node.id.semantic);
+    return declarationTranslate(translator, node.id.semantic);
   }
 
   if (is(node, $.ReturnNode)) {
@@ -37,7 +37,7 @@ export function statementTypescriptTranslate(
   return translator.error(node);
 }
 
-function declarationTypescriptTranslate(
+function declarationTranslate(
   translator: TypescriptTranslator,
   semantic: Semantic, // DeclarationSemantic
 ): String2 {
@@ -46,9 +46,7 @@ function declarationTypescriptTranslate(
   }
 
   if (is(semantic, $.ValueDeclarationSemantic)) {
-    const modifier = semantic.modifier === 'infix' ? 'const ' : '';
-
-    return modifier + translator.valueDeclaration(semantic);
+    return 'const ' + translator.valueDeclaration(semantic);
   }
 
   return translator.error(semantic.nodeLink);

@@ -8,6 +8,7 @@ import {ValueDeclarationSemantic} from '../../analyzer/semantic/node/declaration
 import {TypeSemantic} from '../../analyzer/semantic/node/type/type-semantic';
 import {ValueSemantic} from '../../analyzer/semantic/node/value/value-semantic';
 import {SemanticAnalyzer} from '../../analyzer/semantic/semantic-analyzer';
+import {StatementNode} from '../../analyzer/syntax/statement/statement-node';
 import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,
@@ -26,6 +27,7 @@ export type TypescriptTranslator = Translator & {
   value(semantic: ValueSemantic): String2;
   typeDeclaration(semantic: TypeDeclarationSemantic): String2;
   valueDeclaration(semantic: ValueDeclarationSemantic): String2;
+  statement(node: StatementNode): String2;
   error(node: Node): String2;
 };
 
@@ -50,6 +52,21 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
       return valueDeclarationTypescriptTranslate(this, semantic);
     },
 
+    statement(statement: StatementNode): String2 {
+      const statementTranslated = statementTypescriptTranslate(this, statement);
+
+      const bodyTranslated = statement.body
+        .map((node) => this.statement(node))
+        .join(NL)
+        .setPadding(2);
+
+      if (bodyTranslated.length > 0) {
+        return statementTranslated + NL + bodyTranslated;
+      }
+
+      return statementTranslated;
+    },
+
     error(node: Node): String2 {
       this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
       const location = node.reference.resource.location;
@@ -63,8 +80,8 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
     translate(): String2 {
       return (
         semanticAnalyzer.statements
-          .map((x) => statementTypescriptTranslate(this, x))
-          .filter((x) => x.length > 0)
+          .map((node) => this.statement(node))
+          .filter((translatedNode) => translatedNode.length > 0)
           .join(NL + NL) + NL
       );
     },
