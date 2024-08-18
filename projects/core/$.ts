@@ -60,6 +60,7 @@ import {ImportValueSemantic} from './analyzer/semantic/node/value/import/import-
 import {IntegerValueSemantic} from './analyzer/semantic/node/value/integer/integer-value-semantic';
 import {InvokeValueSemantic} from './analyzer/semantic/node/value/invoke/invoke-value-semantic';
 import {MemberValueSemantic} from './analyzer/semantic/node/value/member/member-value-semantic';
+import {PrefixValueSemantic} from './analyzer/semantic/node/value/prefix/prefix-value-semantic';
 import {StringValueSemantic} from './analyzer/semantic/node/value/string/string-value-semantic';
 import {UnknownValueSemantic} from './analyzer/semantic/node/value/unknown/unknown-value-semantic';
 import {ValueSemantic} from './analyzer/semantic/node/value/value-semantic';
@@ -83,6 +84,7 @@ import {LambdaNode} from './analyzer/syntax/node/lambda/lambda-node';
 import {MemberNode} from './analyzer/syntax/node/member/member-node';
 import {PostfixNode} from './analyzer/syntax/node/postfix/postfix-node';
 import {PrefixNode} from './analyzer/syntax/node/prefix/prefix-node';
+import {ReturnNode} from './analyzer/syntax/node/return/return-node';
 import {StringNode} from './analyzer/syntax/node/string/string-node';
 import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
 import {TypeNode} from './analyzer/syntax/node/type/type-node';
@@ -163,6 +165,7 @@ export enum $ {
   AssignmentNode = ' AssignmentNode ' + $.SyntaxNode,
   AssignNode = ' AssignNode ' + $.SyntaxNode,
   TypeNode = ' TypeNode ' + $.SyntaxNode,
+  ReturnNode = ' ReturnNode ' + $.SyntaxNode,
   StatementNode = ' StatementNode ' + $.SyntaxNode,
 
   Semantic = ' Semantic ',
@@ -205,6 +208,7 @@ export enum $ {
   InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
+  PrefixValueSemantic = ' PrefixValueSemantic ' + $.ValueSemantic,
 
   TextPosition = ' TextPosition ',
   TextRange = ' TextRange ',
@@ -283,6 +287,7 @@ export type TypeMap = {
   [$.PostfixNode]: PostfixNode;
   [$.AssignNode]: AssignNode;
   [$.TypeNode]: TypeNode;
+  [$.ReturnNode]: ReturnNode;
   [$.StatementNode]: StatementNode;
 
   [$.Semantic]: Semantic;
@@ -322,6 +327,7 @@ export type TypeMap = {
   [$.StringValueSemantic]: StringValueSemantic;
   [$.MemberValueSemantic]: MemberValueSemantic;
   [$.ImportValueSemantic]: ImportValueSemantic;
+  [$.PrefixValueSemantic]: PrefixValueSemantic;
 
   [$.TextPosition]: TextPosition;
   [$.TextRange]: TextRange;
