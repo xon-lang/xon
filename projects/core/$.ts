@@ -60,7 +60,6 @@ import {ImportValueSemantic} from './analyzer/semantic/node/value/import/import-
 import {IntegerValueSemantic} from './analyzer/semantic/node/value/integer/integer-value-semantic';
 import {InvokeValueSemantic} from './analyzer/semantic/node/value/invoke/invoke-value-semantic';
 import {MemberValueSemantic} from './analyzer/semantic/node/value/member/member-value-semantic';
-import {PrefixValueSemantic} from './analyzer/semantic/node/value/prefix/prefix-value-semantic';
 import {StringValueSemantic} from './analyzer/semantic/node/value/string/string-value-semantic';
 import {UnknownValueSemantic} from './analyzer/semantic/node/value/unknown/unknown-value-semantic';
 import {ValueSemantic} from './analyzer/semantic/node/value/value-semantic';
@@ -208,7 +207,6 @@ export enum $ {
   InvokeValueSemantic = ' InvokeValueSemantic ' + $.ValueSemantic,
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
-  PrefixValueSemantic = ' PrefixValueSemantic ' + $.ValueSemantic,
 
   TextPosition = ' TextPosition ',
   TextRange = ' TextRange ',
@@ -327,7 +325,6 @@ export type TypeMap = {
   [$.StringValueSemantic]: StringValueSemantic;
   [$.MemberValueSemantic]: MemberValueSemantic;
   [$.ImportValueSemantic]: ImportValueSemantic;
-  [$.PrefixValueSemantic]: PrefixValueSemantic;
 
   [$.TextPosition]: TextPosition;
   [$.TextRange]: TextRange;

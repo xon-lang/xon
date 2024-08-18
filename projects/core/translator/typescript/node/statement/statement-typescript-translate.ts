@@ -1,6 +1,5 @@
 import {$, is} from '../../../../$';
 import {String2} from '../../../../../lib/types';
-import {RETURN} from '../../../../analyzer/lexical/lexical-analyzer-config';
 import {Semantic} from '../../../../analyzer/semantic/node/semantic';
 import {StatementNode} from '../../../../analyzer/syntax/statement/statement-node';
 import {TypescriptTranslator} from '../../typescript-translator';
@@ -19,24 +18,20 @@ export function statementTypescriptTranslate(
     return declarationTypescriptTranslate(translator, node.id.semantic);
   }
 
-  if (is(node, $.PrefixNode)) {
-    if (node.operator.text.toString() === RETURN) {
+  if (is(node, $.ReturnNode)) {
+    if (node.value) {
       const value = is(node.value.semantic, $.ValueSemantic)
         ? translator.value(node.value.semantic)
         : translator.error(node.value);
 
       return `return ${value}`;
     }
+
+    return `return`;
   }
 
   if (is(node, $.ExpressionNode) && is(node.semantic, $.ValueSemantic)) {
     return translator.value(node.semantic);
-  }
-
-  if (is(node, $.OperatorNode)) {
-    if (node.text.toString() === RETURN) {
-      return `return`;
-    }
   }
 
   return translator.error(node);
