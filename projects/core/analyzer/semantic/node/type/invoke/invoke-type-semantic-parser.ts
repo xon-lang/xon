@@ -29,5 +29,5 @@ export function invokeTypeSemanticTryParse(
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.reference, (x) => x.notImplemented());
   }
 
-  return invokeTypeSemantic(node, instance, args);
+  return invokeTypeSemantic(analyzer, node, instance, args);
 }

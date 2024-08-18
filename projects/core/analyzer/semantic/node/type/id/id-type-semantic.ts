@@ -2,6 +2,7 @@ import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, String2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
+import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {isInSet} from '../set/set';
@@ -13,7 +14,11 @@ export type IdTypeSemantic = TypeSemantic & {
 };
 
 // todo should we remove it ???
-export function idTypeSemantic(nodeLink: Node, declaration: TypeDeclarationSemantic): IdTypeSemantic {
+export function idTypeSemantic(
+  analyzer: SemanticAnalyzer,
+  nodeLink: Node,
+  declaration: TypeDeclarationSemantic,
+): IdTypeSemantic {
   if (declaration) {
     declaration.usages.push(nodeLink.reference);
   }
@@ -59,7 +64,7 @@ export function idTypeSemantic(nodeLink: Node, declaration: TypeDeclarationSeman
         return this.declaration.attributes;
       }
 
-      return createDeclarationManager();
+      return createDeclarationManager(analyzer);
     },
   };
 }

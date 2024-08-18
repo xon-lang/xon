@@ -140,6 +140,13 @@ export function predefinedDiagnostics(reference: TextResourceRange) {
         [AnalyzerDiagnosticTag.UNNECESSARY],
       ),
 
+    declarationAlreadyExists: (): AnalyzerDiagnostic =>
+      createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
+        actual: `Declaration already exists`,
+        expect: nothing,
+      }),
+
+    // translator
     cannotTranslate: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
         actual: `Cannot translate`,

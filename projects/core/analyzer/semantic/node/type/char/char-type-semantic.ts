@@ -49,7 +49,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
     },
 
     attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationManager();
+      return this.declaration?.attributes?.clone() ?? createDeclarationManager(analyzer);
     },
   };
 }

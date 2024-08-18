@@ -53,7 +53,7 @@ export function stringTypeSemantic(
     },
 
     attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationManager();
+      return this.declaration?.attributes?.clone() ?? createDeclarationManager(analyzer);
     },
   };
 }

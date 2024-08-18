@@ -59,10 +59,10 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
     attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
       // todo review body of this function
       if (this.declaration) {
-        return this.declaration.attributes?.clone() ?? createDeclarationManager();
+        return this.declaration.attributes?.clone() ?? createDeclarationManager(analyzer);
       }
 
-      return createDeclarationManager();
+      return createDeclarationManager(analyzer);
     },
   };
 }

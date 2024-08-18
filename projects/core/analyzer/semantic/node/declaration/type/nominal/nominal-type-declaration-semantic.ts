@@ -32,7 +32,7 @@ export function nominalTypeDeclarationSemantic(
     name,
     baseType: unknownTypeSemantic(analyzer, nodeLink),
     type: unknownTypeSemantic(analyzer, nodeLink),
-    attributes: createDeclarationManager(),
+    attributes: createDeclarationManager(analyzer),
 
     eq(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions

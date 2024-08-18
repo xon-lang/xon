@@ -2,6 +2,7 @@ import {$, is, TypeMap} from '../../$';
 import {Integer, Nothing, nothing, String2} from '../../../lib/types';
 import {DeclarationSemantic} from './node/declaration/declaration-semantic';
 import {TypeSemantic} from './node/type/type-semantic';
+import {SemanticAnalyzer} from './semantic-analyzer';
 
 export type DeclarationKind =
   | $.DeclarationSemantic
@@ -22,6 +23,7 @@ export interface DeclarationManager<T extends DeclarationSemantic = DeclarationS
 
   filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND][];
 
+  // todo rename to find ???
   single<KIND extends DeclarationKind>(
     kind: KIND,
     name: String2,
@@ -36,6 +38,7 @@ export interface DeclarationManager<T extends DeclarationSemantic = DeclarationS
 }
 
 export function createDeclarationManager<T extends DeclarationSemantic = DeclarationSemantic>(
+  analyzer: SemanticAnalyzer,
   parent?: DeclarationManager<T> | Nothing,
   imports?: DeclarationManager<T>[] | Nothing,
 ): DeclarationManager<T> {
@@ -49,6 +52,15 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
     },
 
     add(declaration: T): void {
+      if (
+        is(declaration, $.ValueDeclarationSemantic) &&
+        this.single($.DeclarationSemantic, declaration.name)
+      ) {
+        analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
+          x.declarationAlreadyExists(),
+        );
+      }
+
       if (!this.declarations[declaration.name]) {
         this.declarations[declaration.name] = [];
       }
@@ -106,7 +118,7 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
     },
 
     clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationManager<T> {
-      const declarationManager = createDeclarationManager<T>();
+      const declarationManager = createDeclarationManager<T>(analyzer);
 
       // todo simplify it. allow create declaration manager from 'declarations' field
       for (const declaration of this.all()) {
@@ -117,7 +129,7 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
     },
 
     union(other: DeclarationManager<T>): DeclarationManager<T> {
-      const newDeclarationManager = createDeclarationManager<T>();
+      const newDeclarationManager = createDeclarationManager<T>(analyzer);
       const allDeclarations = [...this.all(), ...other.all()];
 
       for (const declaration of allDeclarations) {
