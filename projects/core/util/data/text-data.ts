@@ -21,10 +21,10 @@ export type TextData = {
   takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): TextData;
   take(length: Integer, startIndex?: Integer): TextData;
 
-  append(data: String2[]): TextData;
-  append(data: String2): TextData;
-  prepend(data: String2[]): TextData;
-  prepend(data: String2): TextData;
+  append(characters: Char[]): TextData;
+  append(string: String2): TextData;
+  prepend(characters: Char[]): TextData;
+  prepend(string: String2): TextData;
 
   clone(): TextData;
   length(): Integer;
@@ -35,11 +35,11 @@ export type TextData = {
   toString(): String2;
 };
 
-export function textData(characters: String2[]): TextData;
-export function textData(data: String2): TextData;
-export function textData(dataOrCharacters: String2 | String2[]): TextData {
+export function textData(characters: Char[]): TextData;
+export function textData(string: String2): TextData;
+export function textData(stringOrCharacters: String2 | Char[]): TextData {
   const characters =
-    typeof dataOrCharacters === 'string' ? stringToCharacters(dataOrCharacters) : dataOrCharacters;
+    typeof stringOrCharacters === 'string' ? stringToCharacters(stringOrCharacters) : stringOrCharacters;
 
   return {
     $: $.TextData,
@@ -119,21 +119,21 @@ export function textData(dataOrCharacters: String2 | String2[]): TextData {
       return textData(characters);
     },
 
-    append(data: String2[] | String2): TextData {
-      if (Array.isArray(data)) {
-        this.characters.push(...data);
+    append(stringOrCharacters: String2 | String2[]): TextData {
+      if (Array.isArray(stringOrCharacters)) {
+        this.characters.push(...stringOrCharacters);
       } else {
-        this.characters.push(...stringToCharacters(data));
+        this.characters.push(...stringToCharacters(stringOrCharacters));
       }
 
       return this;
     },
 
-    prepend(data: String2[] | String2): TextData {
-      if (Array.isArray(data)) {
-        this.characters.unshift(...data);
+    prepend(stringOrCharacters: String2 | String2[]): TextData {
+      if (Array.isArray(stringOrCharacters)) {
+        this.characters.unshift(...stringOrCharacters);
       } else {
-        this.characters.unshift(...stringToCharacters(data));
+        this.characters.unshift(...stringToCharacters(stringOrCharacters));
       }
 
       return this;
