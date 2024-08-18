@@ -1,8 +1,7 @@
 import {dirname, join, resolve} from 'path';
-import {$, is} from '../../../../../$';
 import {Nothing, String2, nothing} from '../../../../../../lib/types';
 import {textResourceFromLocation} from '../../../../../util/resource/text/text-resource';
-import {Node} from '../../../../node';
+import {ImportNode} from '../../../../syntax/node/import/import-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
@@ -11,22 +10,10 @@ import {ImportValueSemantic, importValueSemantic} from './import-value-semantic'
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../../lib');
 
-export function syntaxImportsParse(analyzer: SemanticAnalyzer) {
-  for (const statement of analyzer.statements) {
-    if (is(statement.value, $.Node)) {
-      importValueSemanticTryParse(analyzer, statement.value);
-    }
-  }
-}
-
-export function importValueSemanticTryParse(
+export function importValueSemanticParse(
   analyzer: SemanticAnalyzer,
-  node: Node,
+  node: ImportNode,
 ): ImportValueSemantic | Nothing {
-  if (!is(node, $.ImportNode)) {
-    return nothing;
-  }
-
   if (!node.value) {
     return importValueSemantic(node, nothing, unknownTypeSemantic(analyzer, node));
   }
@@ -56,7 +43,7 @@ export function importValueSemanticTryParse(
 
   analyzer.declarationManager.imports.push(declarationManager);
 
-  // todo fix import type. shoud not be unknown
+  // todo fix import type. should not be unknown
   return importValueSemantic(node, resource, unknownTypeSemantic(analyzer, node));
 }
 

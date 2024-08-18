@@ -21,14 +21,6 @@ export const parsers: ValueSemanticTryParseFn[] = [
   invokeValueSemanticTryParse,
 ];
 
-export function syntaxValuesParse(analyzer: SemanticAnalyzer) {
-  for (const statement of analyzer.statements) {
-    for (const node of statement.children) {
-      valueSemanticParse(analyzer, node);
-    }
-  }
-}
-
 export function valueSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): ValueSemantic {
   const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
   node.semantic = semantic;
