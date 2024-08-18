@@ -90,6 +90,7 @@ String.prototype.setPadding = function (padding: Integer): String2 {
     return this.toString();
   }
 
+  // todo use constant NL ???
   const lines = this.split('\n').map((x) => ({
     str: x,
     padding: x.takeWhile((x) => x === ' ').length,

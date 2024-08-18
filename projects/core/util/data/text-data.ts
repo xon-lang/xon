@@ -35,10 +35,11 @@ export type TextData = {
   toString(): String2;
 };
 
-export function textData(data: String2[]): TextData;
+export function textData(characters: String2[]): TextData;
 export function textData(data: String2): TextData;
-export function textData(data: String2[] | String2): TextData {
-  const characters = typeof data === 'string' ? stringToCharacters(data) : data;
+export function textData(dataOrCharacters: String2 | String2[]): TextData {
+  const characters =
+    typeof dataOrCharacters === 'string' ? stringToCharacters(dataOrCharacters) : dataOrCharacters;
 
   return {
     $: $.TextData,
