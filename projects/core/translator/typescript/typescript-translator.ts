@@ -1,3 +1,4 @@
+import * as path from 'path';
 import {$} from '../../$';
 import {String2} from '../../../lib/types';
 import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
@@ -17,7 +18,6 @@ import {valueDeclarationTypescriptTranslate} from './node/declaration/value/valu
 import {statementTypescriptTranslate} from './node/statement/statement-typescript-translate';
 import {typeTypescriptTranslate} from './node/type/type-typescript-translate';
 import {valueTypescriptTranslate} from './node/value/value-typescript-translate';
-
 export type TypescriptTranslator = Translator & {
   $: $.TypescriptTranslator;
   diagnosticManager: AnalyzerDiagnosticManager;
@@ -53,10 +53,11 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
     error(node: Node): String2 {
       this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
       const location = node.reference.resource.location;
-      const line = node.reference.range.start.line;
-      const column = node.reference.range.start.column;
+      const basename = path.basename(location ?? '<code>');
+      const line = node.reference.range.start.line + 1;
+      const column = node.reference.range.start.column + 1;
 
-      return `/* error ${location}:${line}:${column} */`;
+      return `/* error ${basename}:${line}:${column} */`;
     },
 
     translate(): String2 {
