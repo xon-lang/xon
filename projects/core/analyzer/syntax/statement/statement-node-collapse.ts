@@ -7,6 +7,7 @@ import {
   EQUALS,
   GREAT,
   GREAT_EQUALS,
+  IMPORT,
   INTERSECTION,
   LESS,
   LESS_EQUALS,
@@ -25,6 +26,7 @@ import {
   PROMISE,
   RANGE,
   REST,
+  RETURN,
   UNION,
 } from '../../lexical/lexical-analyzer-config';
 import {Node} from '../../node';
@@ -37,6 +39,7 @@ import {lambdaNodeParse} from '../node/lambda/lambda-node-parse';
 import {memberNodeParse} from '../node/member/member-node-parse';
 import {postfixNodeParse} from '../node/postfix/postfix-node-parse';
 import {prefixNodeParse} from '../node/prefix/prefix-node-parse';
+import {returnNodeParse} from '../node/return/return-node-parse';
 import {SyntaxNode} from '../node/syntax-node';
 import {SyntaxAnalyzer} from '../syntax-analyzer';
 import {StatementNode} from './statement-node';
@@ -50,7 +53,7 @@ export type SyntaxParseFn = (
 ) => SyntaxParseResult;
 
 const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
-  {min: 2, parse: importNodeParse()},
+  {min: 2, parse: importNodeParse(IMPORT, false)},
   {min: 2, parse: memberNodeParse([MEMBER, META_MEMBER])},
   {min: 2, parse: invokeNodeParse()},
   {min: 2, parse: prefixNodeParse([REST, PLUS, MINUS, PLUS, NOT], true)},
@@ -65,6 +68,8 @@ const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
   {min: 3, parse: infixNodeParse([INTERSECTION], true)},
   {min: 3, parse: infixNodeParse([UNION, COMPLEMENT], true)},
   {min: 2, parse: prefixNodeParse(MODIFIER_KEYWORDS, false)},
+  {min: 2, parse: returnNodeParse(RETURN, false)},
+  // todo remove and use another node than 'prefixNodeParse' for 'CONTROL_KEYWORDS'
   {min: 2, parse: prefixNodeParse(CONTROL_KEYWORDS, false)},
   {min: 1, parse: lambdaNodeParse()},
   {min: 1, parse: declarationNodeParse()},

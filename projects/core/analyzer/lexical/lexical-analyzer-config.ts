@@ -45,6 +45,7 @@ export const ANGLE_CLOSE = ':>';
 
 export const IMPORT = 'import';
 export const EXPORT = 'export';
+export const RETURN = 'return';
 
 export const CONST = 'const';
 export const IDEM = 'idem';
@@ -69,7 +70,7 @@ export const CONTROL_KEYWORDS = [
   'while',
   'break',
   'continue',
-  'return',
+  RETURN,
   EXPORT,
 ];
 
