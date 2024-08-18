@@ -1,20 +1,13 @@
-import {$, is} from '../../$';
 import {Nothing, nothing} from '../../../lib/types';
 import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
-import {TextRange} from '../../util/resource/text/text-range';
 import {TextResource} from '../../util/resource/text/text-resource';
-import {TextResourceRange, textResourceRange} from '../../util/resource/text/text-resource-range';
-import {Node} from '../node';
 import {StatementNode} from '../syntax/statement/statement-node';
 import {SyntaxAnalyzer, syntaxFromResource} from '../syntax/syntax-analyzer';
 import {SyntaxAnalyzerConfig} from '../syntax/syntax-analyzer-config';
 import {DeclarationManager, createDeclarationManager} from './declaration-manager';
-import {declarationsParse} from './node/declaration/declaration-semantic-parser';
-import {
-  declarationManagerFromImportString,
-  syntaxImportsParse,
-} from './node/value/import/import-value-semantic-parser';
-import {syntaxValuesParse} from './node/value/value-semantic-parser';
+import {statementsParse} from './node/statement/statement-semantic-parser';
+import {declarationManagerFromImportString} from './node/value/import/import-value-semantic-parser';
+
 import {DEFAULT_SEMANTIC_CONFIG, SemanticAnalyzerConfig} from './semantic-analyzer-config';
 
 export type SemanticAnalyzer = {
@@ -25,9 +18,6 @@ export type SemanticAnalyzer = {
   declarationManager: DeclarationManager;
   statements: StatementNode[];
 
-  // use node instead ???
-  reference(node: Node): TextResourceRange;
-  reference(range: TextRange): TextResourceRange;
   pushDeclarationScope(): void;
   popDeclarationScope(): void;
   usingDeclarationScope<T>(cb: () => T): T;
@@ -52,14 +42,6 @@ export function createSemanticAnalyzer(
     declarationManager,
     config,
 
-    reference(nodeOrRange: Node | TextRange): TextResourceRange {
-      if (is(nodeOrRange, $.TextRange)) {
-        return textResourceRange(this.syntaxAnalyzer.resource, nodeOrRange);
-      }
-
-      return nodeOrRange.reference;
-    },
-
     pushDeclarationScope(): void {
       this.declarationManager = createDeclarationManager(this.declarationManager);
     },
@@ -79,7 +61,7 @@ export function createSemanticAnalyzer(
     },
   };
 
-  runParsers(semanticAnalyzer);
+  statementsParse(semanticAnalyzer, semanticAnalyzer.statements);
 
   return semanticAnalyzer;
 }
@@ -90,17 +72,6 @@ export function semanticFromResource(
   semanticConfig?: Partial<SemanticAnalyzerConfig> | Nothing,
 ): SemanticAnalyzer {
   const syntaxAnalyzer = syntaxFromResource(resource, syntaxConfig);
-  const semanticAnalyzer = createSemanticAnalyzer(syntaxAnalyzer, semanticConfig);
 
-  return semanticAnalyzer;
-}
-
-function runParsers(analyzer: SemanticAnalyzer) {
-  const declarationNodes = analyzer.statements.filterMap((x) =>
-    is(x.value, $.DeclarationNode) ? x.value : nothing,
-  );
-
-  syntaxImportsParse(analyzer);
-  declarationsParse(analyzer, declarationNodes);
-  syntaxValuesParse(analyzer);
+  return createSemanticAnalyzer(syntaxAnalyzer, semanticConfig);
 }
