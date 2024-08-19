@@ -5,6 +5,7 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
 import {createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
 import {FunctionTypeSemantic} from './function-type-semantic';
 
 test('a is function', () => {
@@ -32,9 +33,9 @@ test('a is function', () => {
   const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
   expect(typeSemantic.$).toBe($.FunctionTypeSemantic);
   expect(typeSemantic.parameters.length).toBe(1);
-  expect(typeSemantic.parameters[0]?.$).toBe($.AttributeValueDeclarationSemantic);
-  expect((typeSemantic.parameters[0] as AttributeValueDeclarationSemantic).name).toBe('x');
-  expect((typeSemantic.parameters[0] as AttributeValueDeclarationSemantic).type.declaration?.name).toBe(
+  expect(typeSemantic.parameters[0]?.$).toBe($.ParameterValueDeclarationSemantic);
+  expect((typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).name).toBe('x');
+  expect((typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).type.declaration?.name).toBe(
     'Integer',
   );
   expect(typeSemantic.result.declaration?.name).toBe('String');

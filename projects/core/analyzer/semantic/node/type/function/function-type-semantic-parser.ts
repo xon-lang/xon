@@ -7,6 +7,8 @@ import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-n
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {DeclarationSemantic} from '../../declaration/declaration-semantic';
 import {parameterDeclarationsParse} from '../../declaration/declaration-semantic-parser';
+import {ParameterTypeDeclarationSemantic} from '../../declaration/type/parameter/parameter-type-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
 import {documentationIdSemantic} from '../../documentation/documentation-id-semantic';
 import {typeSemanticParse} from '../type-semantic-parser';
 import {unknownTypeSemantic} from '../unknown/unknown-type-semantic';
@@ -36,16 +38,17 @@ export function parametersParse(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
   group: GroupNode,
-): DeclarationSemantic[] {
-  const generics = parameterDeclarationsParse(analyzer, group);
+  // todo return single type not union
+): (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[] {
+  const parameters = parameterDeclarationsParse(analyzer, group);
 
   if (node.documentation) {
-    for (const generic of generics.filter((x) => !!x)) {
-      parameterDocumentationHandle(analyzer, node.documentation, generic);
+    for (const parameter of parameters.filter((x) => !!x)) {
+      parameterDocumentationHandle(analyzer, node.documentation, parameter);
     }
   }
 
-  return generics;
+  return parameters;
 }
 
 function parameterDocumentationHandle(

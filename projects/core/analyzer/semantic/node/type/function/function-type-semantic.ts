@@ -3,21 +3,22 @@ import {Boolean2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
+import {ParameterTypeDeclarationSemantic} from '../../declaration/type/parameter/parameter-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
 import {isInSet} from '../set/set';
 import {TypeSemantic} from '../type-semantic';
 
 export interface FunctionTypeSemantic extends TypeSemantic {
   $: $.FunctionTypeSemantic;
-  parameters: DeclarationSemantic[];
+  parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[];
   result: TypeSemantic;
 }
 
 export function functionTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node,
-  parameters: DeclarationSemantic[],
+  parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[],
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
