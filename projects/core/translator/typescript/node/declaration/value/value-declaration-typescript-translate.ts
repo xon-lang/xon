@@ -14,5 +14,12 @@ export function valueDeclarationTypescriptTranslate(
     return `${name}: ${type}`;
   }
 
+  if (is(semantic, $.ParameterValueDeclarationSemantic)) {
+    const name = semantic.name;
+    const type = translator.type(semantic.type);
+
+    return `${name}: ${type}`;
+  }
+
   return translator.error(semantic.nodeLink);
 }
