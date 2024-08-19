@@ -5,10 +5,20 @@ import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {DocumentationNode} from '../../documentation/documentation-node';
 import {GroupNode} from '../../group/group-node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';
-
 import {AssignNode} from '../assign/assign-node';
 import {SyntaxNode, syntaxNode} from '../syntax-node';
 import {TypeNode} from '../type/type-node';
+
+// export enum DeclarationNodeKind {
+//   // types
+//   NominalType = 'NominalType',
+//   StructuralType = 'StructuralType',
+//   ParameterType = 'ParameterType',
+
+//   // values
+//   AttributeValue = 'AttributeValue',
+//   ParameterValue = 'ParameterValue',
+// }
 
 export type DeclarationNode = SyntaxNode & {
   documentation?: DocumentationNode | Nothing;

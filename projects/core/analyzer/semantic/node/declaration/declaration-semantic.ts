@@ -1,7 +1,20 @@
+import {$} from '../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../lib/types';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {Semantic} from '../semantic';
 import {TypeSemantic} from '../type/type-semantic';
+
+export type DeclarationKind =
+  | $.DeclarationSemantic
+  // types
+  | $.TypeDeclarationSemantic
+  | $.NominalTypeDeclarationSemantic
+  | $.StructuralTypeDeclarationSemantic
+  | $.ParameterTypeDeclarationSemantic
+  // values
+  | $.ValueDeclarationSemantic
+  | $.AttributeValueDeclarationSemantic
+  | $.ParameterValueDeclarationSemantic;
 
 export type DeclarationSemantic = Semantic & {
   documentation?: String2 | Nothing;

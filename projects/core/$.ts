@@ -33,9 +33,11 @@ import {WhitespaceNode} from './analyzer/lexical/node/whitespace/whitespace-node
 import {ExpressionNode, Node} from './analyzer/node';
 import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declaration-semantic';
 import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
+import {ParameterTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/parameter/parameter-type-declaration-semantic';
 import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
 import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
+import {ParameterValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/parameter/parameter-value-declaration-semantic';
 import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
 import {Semantic} from './analyzer/semantic/node/semantic';
@@ -173,9 +175,11 @@ export enum $ {
   TypeDeclarationSemantic = ' TypeDeclarationSemantic ' + $.DeclarationSemantic,
   NominalTypeDeclarationSemantic = ' NominalTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
   StructuralTypeDeclarationSemantic = ' StructuralTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
+  ParameterTypeDeclarationSemantic = ' ParameterTypeDeclarationSemantic ' + $.TypeDeclarationSemantic,
 
   ValueDeclarationSemantic = ' ValueDeclarationSemantic ' + $.DeclarationSemantic,
   AttributeValueDeclarationSemantic = ' AttributeValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
+  ParameterValueDeclarationSemantic = ' ParameterValueDeclarationSemantic ' + $.ValueDeclarationSemantic,
 
   DocumentationIdSemantic = ' DocumentationIdSemantic ' + $.Semantic,
 
@@ -295,9 +299,11 @@ export type TypeMap = {
   [$.TypeDeclarationSemantic]: TypeDeclarationSemantic;
   [$.NominalTypeDeclarationSemantic]: NominalTypeDeclarationSemantic;
   [$.StructuralTypeDeclarationSemantic]: StructuralTypeDeclarationSemantic;
+  [$.ParameterTypeDeclarationSemantic]: ParameterTypeDeclarationSemantic;
 
   [$.ValueDeclarationSemantic]: ValueDeclarationSemantic;
   [$.AttributeValueDeclarationSemantic]: AttributeValueDeclarationSemantic;
+  [$.ParameterValueDeclarationSemantic]: ParameterValueDeclarationSemantic;
 
   [$.TypeSemantic]: TypeSemantic;
 

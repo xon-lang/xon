@@ -1,16 +1,8 @@
 import {$, is, TypeMap} from '../../$';
 import {Integer, Nothing, nothing, String2} from '../../../lib/types';
-import {DeclarationSemantic} from './node/declaration/declaration-semantic';
+import {DeclarationKind, DeclarationSemantic} from './node/declaration/declaration-semantic';
 import {TypeSemantic} from './node/type/type-semantic';
 import {SemanticAnalyzer} from './semantic-analyzer';
-
-export type DeclarationKind =
-  | $.DeclarationSemantic
-  | $.TypeDeclarationSemantic
-  | $.NominalTypeDeclarationSemantic
-  | $.StructuralTypeDeclarationSemantic
-  | $.ValueDeclarationSemantic
-  | $.AttributeValueDeclarationSemantic;
 
 export interface DeclarationManager<T extends DeclarationSemantic = DeclarationSemantic> {
   imports: DeclarationManager[] | Nothing;
