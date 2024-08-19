@@ -5,6 +5,7 @@ import {semanticFromResource} from '../../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../semantic-analyzer-config';
 import {FunctionTypeSemantic} from '../../../type/function/function-type-semantic';
 import {IdTypeSemantic} from '../../../type/id/id-type-semantic';
+import {ParameterValueDeclarationSemantic} from '../parameter/parameter-value-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from './attribute-value-declaration-semantic';
 
 test('only a', () => {
@@ -24,11 +25,11 @@ test('only a', () => {
   const parameters = type.parameters;
   expect(parameters.length).toBe(2);
 
-  const aParam = parameters[0] as AttributeValueDeclarationSemantic & {type: IdTypeSemantic};
+  const aParam = parameters[0] as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
   expect(aParam.name).toBe('a');
   expect(aParam.type.declaration?.name).toBe('Integer');
 
-  const bParam = parameters[1] as AttributeValueDeclarationSemantic & {type: IdTypeSemantic};
+  const bParam = parameters[1] as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
   expect(bParam.name).toBe('b');
   expect(bParam.type.declaration?.name).toBe('String');
 

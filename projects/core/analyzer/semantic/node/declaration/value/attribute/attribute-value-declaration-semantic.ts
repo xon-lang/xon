@@ -6,7 +6,6 @@ import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
 import {ValueDeclarationSemantic} from '../value-declaration-semantic';
 
-// todo rename 'AttributeValueDeclarationSemantic' to 'AttributeDeclarationSemantic' ???
 export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
   $: $.AttributeValueDeclarationSemantic;
   // todo move it to new 'OperatorDeclarationSemantic'
