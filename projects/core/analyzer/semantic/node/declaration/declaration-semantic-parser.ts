@@ -9,47 +9,79 @@ import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {DeclarationSemantic} from './declaration-semantic';
 import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
 import {nominalTypeDeclarationSemanticHandle} from './type/nominal/nominal-type-declaration-semantic-handle';
+import {
+  ParameterTypeDeclarationSemantic,
+  parameterTypeDeclarationSemantic,
+} from './type/parameter/parameter-type-declaration-semantic';
+import {parameterTypeDeclarationSemanticHandle} from './type/parameter/parameter-type-declaration-semantic-handle';
 import {structuralTypeDeclarationSemantic} from './type/structural/structural-type-declaration-semantic';
 import {structuralTypeDeclarationSemanticHandle} from './type/structural/structural-type-declaration-semantic-handle';
 import {attributeValueDeclarationSemantic} from './value/attribute/attribute-value-declaration-semantic';
 import {attributeValueDeclarationSemanticHandle} from './value/attribute/attribute-value-declaration-semantic-handle';
+import {
+  ParameterValueDeclarationSemantic,
+  parameterValueDeclarationSemantic,
+} from './value/parameter/parameter-value-declaration-semantic';
+import {parameterValueDeclarationSemanticHandle} from './value/parameter/parameter-value-declaration-semantic-handle';
+
+export function statementDeclarationsParse(analyzer: SemanticAnalyzer, nodes: Node[]): DeclarationSemantic[] {
+  const declarationNodes = nodes.filter((node) => is(node, $.DeclarationNode));
+  const declarations = declarationNodes.map((node) => {
+    const declaration = createStatementDeclaration(analyzer, node);
+    node.id.semantic = declaration;
+    analyzer.declarationManager.add(declaration);
+
+    return declaration;
+  });
+
+  declarationsParse(analyzer, declarationNodes);
+
+  return declarations;
+}
 
 export function parameterDeclarationsParse(
   analyzer: SemanticAnalyzer,
-  parametersNode: GroupNode,
-): DeclarationSemantic[] {
-  return declarationsParse(
-    analyzer,
-    parametersNode.items.map((x) => x.value ?? x),
-  );
+  groupNode: GroupNode,
+): (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[] {
+  const declarationNodes = groupNode.items.filterMap((node) => {
+    if (is(node.value, $.DeclarationNode)) {
+      return node.value;
+    }
+
+    const {reference} = node.value ?? node;
+    analyzer.diagnosticManager.addPredefinedDiagnostic(reference, (x) => x.notImplemented());
+  });
+
+  const declarations = declarationNodes.map((node) => {
+    const isParameterType = is(groupNode, $.AngleGroupNode);
+    const declaration = isParameterType
+      ? createParameterTypeDeclaration(analyzer, node)
+      : createParameterValueDeclaration(analyzer, node);
+
+    node.id.semantic = declaration;
+    analyzer.declarationManager.add(declaration);
+
+    return declaration;
+  });
+
+  declarationsParse(analyzer, declarationNodes);
+
+  return declarations;
 }
 
-export function declarationsParse(analyzer: SemanticAnalyzer, nodes: Node[]): DeclarationSemantic[] {
-  const declarations = nodes
-    .filter((node) => is(node, $.DeclarationNode))
-    .map((node) => {
-      const declaration = createDeclaration(analyzer, node);
-      node.id.semantic = declaration;
-      analyzer.declarationManager.add(declaration);
-
-      return declaration;
-    });
-
-  const declarationNodes = nodes.filter((x) => is(x, $.DeclarationNode));
-  const dependencies = declarationNodeDependencies(declarationNodes);
+function declarationsParse(analyzer: SemanticAnalyzer, nodes: DeclarationNode[]): void {
+  const dependencies = declarationNodeDependencies(nodes);
   const {order, cycle} = topologicalSort(dependencies);
 
   if (cycle.length > 0) {
     throw new Error(`Not implemented: cycle dependencies '${cycle.join(', ')}'`);
   }
 
-  const nodesDict = declarationNodes.toDictionary((x) => x.id.text.toString());
+  const nodesDict = nodes.toDictionary((x) => x.id.text.toString());
 
   for (const name of order) {
     declarationDeepParse(analyzer, nodesDict[name]);
   }
-
-  return declarations;
 }
 
 function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode): void {
@@ -65,8 +97,12 @@ function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode)
     nominalTypeDeclarationSemanticHandle(analyzer, semantic, node);
   } else if (is(semantic, $.StructuralTypeDeclarationSemantic)) {
     structuralTypeDeclarationSemanticHandle(analyzer, semantic, node);
+  } else if (is(semantic, $.ParameterTypeDeclarationSemantic)) {
+    parameterTypeDeclarationSemanticHandle(analyzer, semantic, node);
   } else if (is(semantic, $.AttributeValueDeclarationSemantic)) {
     attributeValueDeclarationSemanticHandle(analyzer, semantic, node);
+  } else if (is(semantic, $.ParameterValueDeclarationSemantic)) {
+    parameterValueDeclarationSemanticHandle(analyzer, semantic, node);
   }
 
   analyzer.popDeclarationScope();
@@ -109,7 +145,7 @@ function nodeDependencies(node: Node | Nothing): String2[] {
   return [];
 }
 
-function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
+function createStatementDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
   const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();
@@ -123,4 +159,26 @@ function createDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): D
   }
 
   return attributeValueDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+}
+
+function createParameterTypeDeclaration(
+  analyzer: SemanticAnalyzer,
+  node: DeclarationNode,
+): ParameterTypeDeclarationSemantic {
+  const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
+  const modifier = node.modifier?.text.toString();
+  const name = node.id.text.toString();
+
+  return parameterTypeDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+}
+
+function createParameterValueDeclaration(
+  analyzer: SemanticAnalyzer,
+  node: DeclarationNode,
+): ParameterValueDeclarationSemantic {
+  const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
+  const modifier = node.modifier?.text.toString();
+  const name = node.id.text.toString();
+
+  return parameterValueDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
 }
