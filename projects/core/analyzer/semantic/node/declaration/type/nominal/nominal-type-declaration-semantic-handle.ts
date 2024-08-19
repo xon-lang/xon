@@ -5,7 +5,7 @@ import {functionTypeSemantic} from '../../../type/function/function-type-semanti
 import {parametersParse} from '../../../type/function/function-type-semantic-parser';
 import {idTypeSemantic} from '../../../type/id/id-type-semantic';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {declarationsParse} from '../../declaration-semantic-parser';
+import {statementDeclarationsParse} from '../../declaration-semantic-parser';
 import {NominalTypeDeclarationSemantic} from './nominal-type-declaration-semantic';
 
 export function nominalTypeDeclarationSemanticHandle(
@@ -34,7 +34,7 @@ export function nominalTypeDeclarationSemanticHandle(
   semantic.type = resultType;
 
   if (node.attributes) {
-    const attributes = declarationsParse(analyzer, node.attributes).filter((x) =>
+    const attributes = statementDeclarationsParse(analyzer, node.attributes).filter((x) =>
       is(x, $.AttributeValueDeclarationSemantic),
     );
 
