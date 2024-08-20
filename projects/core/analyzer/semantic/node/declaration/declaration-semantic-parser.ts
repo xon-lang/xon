@@ -91,21 +91,23 @@ function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode)
     return;
   }
 
-  analyzer.pushDeclarationScope();
-
   if (is(semantic, $.NominalTypeDeclarationSemantic)) {
+    analyzer.pushDeclarationScope();
     nominalTypeDeclarationSemanticHandle(analyzer, semantic, node);
+    analyzer.popDeclarationScope();
   } else if (is(semantic, $.StructuralTypeDeclarationSemantic)) {
+    analyzer.pushDeclarationScope();
     structuralTypeDeclarationSemanticHandle(analyzer, semantic, node);
+    analyzer.popDeclarationScope();
   } else if (is(semantic, $.ParameterTypeDeclarationSemantic)) {
     parameterTypeDeclarationSemanticHandle(analyzer, semantic, node);
   } else if (is(semantic, $.AttributeValueDeclarationSemantic)) {
+    analyzer.pushDeclarationScope();
     attributeValueDeclarationSemanticHandle(analyzer, semantic, node);
+    analyzer.popDeclarationScope();
   } else if (is(semantic, $.ParameterValueDeclarationSemantic)) {
     parameterValueDeclarationSemanticHandle(analyzer, semantic, node);
   }
-
-  analyzer.popDeclarationScope();
 }
 
 function declarationNodeDependencies(nodes: DeclarationNode[]): Record<string, string[]> {
@@ -152,13 +154,13 @@ function createStatementDeclaration(analyzer: SemanticAnalyzer, node: Declaratio
 
   if (modifier === TYPE_MODIFIER) {
     if (node.assign) {
-      return structuralTypeDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+      return structuralTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
     }
 
-    return nominalTypeDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+    return nominalTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
   }
 
-  return attributeValueDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+  return attributeValueDeclarationSemantic(analyzer, node, documentation, modifier, name);
 }
 
 function createParameterTypeDeclaration(
@@ -169,7 +171,7 @@ function createParameterTypeDeclaration(
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();
 
-  return parameterTypeDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+  return parameterTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
 }
 
 function createParameterValueDeclaration(
@@ -180,5 +182,5 @@ function createParameterValueDeclaration(
   const modifier = node.modifier?.text.toString();
   const name = node.id.text.toString();
 
-  return parameterValueDeclarationSemantic(analyzer, node.id, documentation, modifier, name);
+  return parameterValueDeclarationSemantic(analyzer, node, documentation, modifier, name);
 }
