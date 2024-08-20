@@ -1,5 +1,6 @@
 import {$, is} from '../../../../$';
 import {String2} from '../../../../../lib/types';
+import {NL} from '../../../../analyzer/lexical/lexical-analyzer-config';
 import {Semantic} from '../../../../analyzer/semantic/node/semantic';
 import {StatementNode} from '../../../../analyzer/syntax/statement/statement-node';
 import {TypescriptTranslator} from '../../typescript-translator';
@@ -8,6 +9,21 @@ export function statementTypescriptTranslate(
   translator: TypescriptTranslator,
   statement: StatementNode,
 ): String2 {
+  const statementTranslated = statementTranslate(translator, statement);
+
+  const bodyTranslated = statement.body
+    .map((node) => translator.statement(node))
+    .join(NL)
+    .setPadding(2);
+
+  if (bodyTranslated.length > 0) {
+    return statementTranslated + NL + bodyTranslated;
+  }
+
+  return statementTranslated;
+}
+
+function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): String2 {
   const node = statement.value;
 
   if (is(node, $.DeclarationNode)) {

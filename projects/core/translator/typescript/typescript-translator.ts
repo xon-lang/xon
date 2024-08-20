@@ -53,18 +53,7 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
     },
 
     statement(statement: StatementNode): String2 {
-      const statementTranslated = statementTypescriptTranslate(this, statement);
-
-      const bodyTranslated = statement.body
-        .map((node) => this.statement(node))
-        .join(NL)
-        .setPadding(2);
-
-      if (bodyTranslated.length > 0) {
-        return statementTranslated + NL + bodyTranslated;
-      }
-
-      return statementTranslated;
+      return statementTypescriptTranslate(this, statement);
     },
 
     error(node: Node): String2 {
