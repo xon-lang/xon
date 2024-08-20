@@ -19,5 +19,12 @@ export function typeDeclarationTypescriptTranslate(
     return `${exportText}type ${semantic.name} = ${type}`;
   }
 
+  if (is(semantic, $.ParameterTypeDeclarationSemantic)) {
+    const type = semantic.nodeLink.type ? ' extends ' + translator.type(semantic.type) : '';
+    const value = semantic.value ? ' = ' + translator.type(semantic.value) : '';
+
+    return `${semantic.name}${type}${value}`;
+  }
+
   return translator.error(semantic.nodeLink);
 }

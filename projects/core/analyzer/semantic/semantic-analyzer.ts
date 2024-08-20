@@ -20,7 +20,6 @@ export type SemanticAnalyzer = {
 
   pushDeclarationScope(): void;
   popDeclarationScope(): void;
-  usingDeclarationScope<T>(cb: () => T): T;
 };
 
 export function createSemanticAnalyzer(
@@ -50,15 +49,9 @@ export function createSemanticAnalyzer(
     popDeclarationScope(): void {
       if (this.declarationManager.parent) {
         this.declarationManager = this.declarationManager.parent;
+      } else {
+        throw new Error('Not implemented');
       }
-    },
-
-    usingDeclarationScope<T>(cb: () => T): T {
-      this.pushDeclarationScope();
-      const result = cb();
-      this.popDeclarationScope();
-
-      return result;
     },
   };
 

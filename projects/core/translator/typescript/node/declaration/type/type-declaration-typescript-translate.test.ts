@@ -17,3 +17,15 @@ test('type string', () => {
 
   expect(translated).toBe('export type A = {}');
 });
+
+test('parameter type', () => {
+  const text = 'type A<:T:>';
+  const resource = textResourceFromData(nothing, text);
+  const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
+  const semantic = declaration.id.semantic as DeclarationSemantic;
+  const translator = createTypescriptTranslator(semanticAnalyzer);
+  const translated = translator.typeDeclaration(semantic);
+
+  expect(translated).toBe('export type A<T> = {}');
+});
