@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, String2} from '../../../../../../lib/types';
+import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
 import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
@@ -17,7 +17,8 @@ export type IdTypeSemantic = TypeSemantic & {
 export function idTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node,
-  declaration: TypeDeclarationSemantic,
+  name: String2,
+  declaration: TypeDeclarationSemantic | Nothing,
 ): IdTypeSemantic {
   if (declaration) {
     declaration.usages.push(nodeLink.reference);
@@ -26,7 +27,7 @@ export function idTypeSemantic(
   return {
     $: $.IdTypeSemantic,
     nodeLink,
-    name: declaration.name,
+    name: name,
     declaration,
 
     is(other: TypeSemantic): Boolean2 {

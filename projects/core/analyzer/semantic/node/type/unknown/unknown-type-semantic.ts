@@ -15,6 +15,7 @@ export type UnknownTypeSemantic = TypeSemantic & {
   declaration?: NominalTypeDeclarationSemantic | Nothing;
 };
 
+// todo use 'Anything' type as unknown
 export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node): UnknownTypeSemantic {
   const {unknownTypeName} = analyzer.config.literalTypeNames;
   const declaration = analyzer.declarationManager.single($.NominalTypeDeclarationSemantic, unknownTypeName);
