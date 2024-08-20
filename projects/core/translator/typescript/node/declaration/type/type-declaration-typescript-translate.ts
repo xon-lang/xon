@@ -10,7 +10,17 @@ export function typeDeclarationTypescriptTranslate(
   const exportText = true ? 'export ' : '';
 
   if (is(semantic, $.NominalTypeDeclarationSemantic)) {
-    return `${exportText}type ${semantic.name} = {}`;
+    const parameters = is(semantic.type, $.FunctionTypeSemantic)
+      ? `<${semantic.type.parameters.map(translator.typeDeclaration).join(', ')}>`
+      : '';
+
+    // todo fix it
+    const baseType =
+      (semantic.baseType.declaration?.name ?? 'Something') === 'Something'
+        ? ''
+        : translator.type(semantic.baseType) + ' & ';
+
+    return `${exportText}type ${semantic.name}${parameters} = ${baseType}{}`;
   }
 
   if (is(semantic, $.StructuralTypeDeclarationSemantic)) {

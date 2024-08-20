@@ -47,5 +47,18 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
     return `(${parameters}) => ${result}`;
   }
 
+  if (is(semantic, $.InvokeTypeSemantic)) {
+    const instance = translator.type(semantic.instance);
+    const args = semantic.args.map((x) => translator.type(x)).join(', ');
+
+    // todo check whole semantic than an args length
+    if (args.length > 0) {
+      return `${instance}<${args}>`;
+    }
+
+    // todo fix it
+    return `${instance}[${args}]`;
+  }
+
   return translator.error(semantic.nodeLink);
 }

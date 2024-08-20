@@ -10,6 +10,7 @@ import {TypeSemantic} from '../type-semantic';
 export type InvokeTypeSemantic = TypeSemantic & {
   $: $.InvokeTypeSemantic;
   instance: TypeSemantic;
+  // todo use a separate semantic than array
   args: TypeSemantic[];
 };
 
