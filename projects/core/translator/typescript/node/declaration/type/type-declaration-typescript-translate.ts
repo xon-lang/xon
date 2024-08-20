@@ -11,7 +11,7 @@ export function typeDeclarationTypescriptTranslate(
 
   if (is(semantic, $.NominalTypeDeclarationSemantic)) {
     const parameters = is(semantic.type, $.FunctionTypeSemantic)
-      ? `<${semantic.type.parameters.map(translator.typeDeclaration).join(', ')}>`
+      ? `<${semantic.type.parameters.map((x) => translator.typeDeclaration(x)).join(', ')}>`
       : '';
 
     // todo fix it

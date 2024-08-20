@@ -19,7 +19,7 @@ test('type string', () => {
 });
 
 test('parameter type', () => {
-  const text = 'type A<:T:>';
+  const text = 'type A<:T: Number = Integer:>';
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -27,5 +27,5 @@ test('parameter type', () => {
   const translator = createTypescriptTranslator(semanticAnalyzer);
   const translated = translator.typeDeclaration(semantic);
 
-  expect(translated).toBe('export type A<T> = {}');
+  expect(translated).toBe('export type A<T extends Number = Integer> = {}');
 });
