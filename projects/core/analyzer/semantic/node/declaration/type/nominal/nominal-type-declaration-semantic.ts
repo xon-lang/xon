@@ -1,6 +1,6 @@
 import {$} from '../../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
-import {Node} from '../../../../../node';
+import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {createDeclarationManager, DeclarationManager} from '../../../../declaration-manager';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TypeSemantic} from '../../../type/type-semantic';
@@ -18,7 +18,7 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
 
 export function nominalTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node,
+  nodeLink: DeclarationNode,
   documentation: String2 | Nothing,
   modifier: String2,
   name: String2,
