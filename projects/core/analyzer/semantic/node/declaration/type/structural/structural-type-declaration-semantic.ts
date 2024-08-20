@@ -1,6 +1,6 @@
 import {$} from '../../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
-import {Node} from '../../../../../node';
+import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
 import {DeclarationSemantic} from '../../declaration-semantic';
@@ -12,7 +12,7 @@ export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic & {
 
 export function structuralTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
-  nodeLink: Node,
+  nodeLink: DeclarationNode,
   documentation: String2 | Nothing,
   // todo we always know 'type' modifier
   modifier: String2 | Nothing,
