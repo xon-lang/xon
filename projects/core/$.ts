@@ -348,9 +348,9 @@ export type $Model = {
   $: $;
 };
 
-type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
+// type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
 // export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
-export type TypeKey<T> = KeyMatching<TypeMap, T>;
+// export type TypeKey<T> = KeyMatching<TypeMap, T>;
 
 export function is<T extends $>(model: Anything, $: T): model is TypeMap[T] {
   if (model && typeof model === 'object' && '$' in model && typeof model['$'] === 'string') {
