@@ -4,7 +4,7 @@ import {TextResource} from '../../util/resource/text/text-resource';
 import {StatementNode} from '../syntax/statement/statement-node';
 import {SyntaxAnalyzer, syntaxFromResource} from '../syntax/syntax-analyzer';
 import {SyntaxAnalyzerConfig} from '../syntax/syntax-analyzer-config';
-import {DeclarationManager, createDeclarationManager} from './declaration-manager';
+import {DeclarationScope, createDeclarationScope} from './declaration-scope';
 import {statementsParse} from './node/statement/statement-semantic-parser';
 import {declarationManagerFromImportString} from './node/value/import/import-value-semantic-parser';
 
@@ -15,7 +15,7 @@ export type SemanticAnalyzer = {
   resource: TextResource;
   config: SemanticAnalyzerConfig;
   diagnosticManager: AnalyzerDiagnosticManager;
-  declarationManager: DeclarationManager;
+  declarationManager: DeclarationScope;
   statements: StatementNode[];
 
   pushDeclarationScope(): void;
@@ -32,7 +32,7 @@ export function createSemanticAnalyzer(
     semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
 
   // todo fix it
-  const dummyDeclarationManager = {} as DeclarationManager;
+  const dummyDeclarationManager = {} as DeclarationScope;
 
   const semanticAnalyzer: SemanticAnalyzer = {
     syntaxAnalyzer: syntaxAnalyzer,
@@ -43,7 +43,7 @@ export function createSemanticAnalyzer(
     config,
 
     pushDeclarationScope(): void {
-      this.declarationManager = createDeclarationManager(this, this.declarationManager);
+      this.declarationManager = createDeclarationScope(this, this.declarationManager);
     },
 
     popDeclarationScope(): void {
@@ -56,7 +56,7 @@ export function createSemanticAnalyzer(
   };
 
   // todo fix it
-  semanticAnalyzer.declarationManager = createDeclarationManager(semanticAnalyzer, nothing, imports);
+  semanticAnalyzer.declarationManager = createDeclarationScope(semanticAnalyzer, nothing, imports);
 
   statementsParse(semanticAnalyzer, semanticAnalyzer.statements);
 

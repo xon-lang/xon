@@ -1,7 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {DeclarationManager} from '../../../declaration-manager';
+import {DeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -52,7 +52,7 @@ export function arrayTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
       throw new Error('Not implemented');
     },
   };

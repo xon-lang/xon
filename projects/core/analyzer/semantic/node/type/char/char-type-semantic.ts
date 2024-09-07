@@ -1,7 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Char, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
+import {DeclarationScope, createDeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -48,8 +48,8 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
       return false;
     },
 
-    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationManager(analyzer);
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
     },
   };
 }

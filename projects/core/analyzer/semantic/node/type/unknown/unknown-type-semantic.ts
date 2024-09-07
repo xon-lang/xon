@@ -1,7 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {DeclarationManager, createDeclarationManager} from '../../../declaration-manager';
+import {DeclarationScope, createDeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -57,13 +57,13 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
       return false;
     },
 
-    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
       // todo review body of this function
       if (this.declaration) {
-        return this.declaration.attributes?.clone() ?? createDeclarationManager(analyzer);
+        return this.declaration.attributes?.clone() ?? createDeclarationScope(analyzer);
       }
 
-      return createDeclarationManager(analyzer);
+      return createDeclarationScope(analyzer);
     },
   };
 }

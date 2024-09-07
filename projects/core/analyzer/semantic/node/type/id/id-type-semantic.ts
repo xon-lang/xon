@@ -1,7 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
+import {createDeclarationScope, DeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -60,12 +60,12 @@ export function idTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
       if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
         return this.declaration.attributes;
       }
 
-      return createDeclarationManager(analyzer);
+      return createDeclarationScope(analyzer);
     },
   };
 }

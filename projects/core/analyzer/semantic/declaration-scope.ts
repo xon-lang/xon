@@ -4,9 +4,9 @@ import {DeclarationKind, DeclarationSemantic} from './node/declaration/declarati
 import {TypeSemantic} from './node/type/type-semantic';
 import {SemanticAnalyzer} from './semantic-analyzer';
 
-export interface DeclarationManager<T extends DeclarationSemantic = DeclarationSemantic> {
-  imports: DeclarationManager[] | Nothing;
-  parent: DeclarationManager | Nothing;
+export interface DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> {
+  imports: DeclarationScope[] | Nothing;
+  parent: DeclarationScope | Nothing;
   declarations: Record<String2, T[]>;
 
   count(): Integer;
@@ -22,17 +22,17 @@ export interface DeclarationManager<T extends DeclarationSemantic = DeclarationS
     parameters?: TypeSemantic | Nothing[] | Nothing,
   ): TypeMap[KIND] | Nothing;
 
-  clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationManager<T>;
-  union(other: DeclarationManager<T>): DeclarationManager<T>;
-  intersection(other: DeclarationManager<T>): DeclarationManager<T>;
-  complement(other: DeclarationManager<T>): DeclarationManager<T>;
+  clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationScope<T>;
+  union(other: DeclarationScope<T>): DeclarationScope<T>;
+  intersection(other: DeclarationScope<T>): DeclarationScope<T>;
+  complement(other: DeclarationScope<T>): DeclarationScope<T>;
 }
 
-export function createDeclarationManager<T extends DeclarationSemantic = DeclarationSemantic>(
+export function createDeclarationScope<T extends DeclarationSemantic = DeclarationSemantic>(
   analyzer: SemanticAnalyzer,
-  parent?: DeclarationManager<T> | Nothing,
-  imports?: DeclarationManager<T>[] | Nothing,
-): DeclarationManager<T> {
+  parent?: DeclarationScope<T> | Nothing,
+  imports?: DeclarationScope<T>[] | Nothing,
+): DeclarationScope<T> {
   return {
     imports,
     parent,
@@ -105,8 +105,8 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return filtered.first();
     },
 
-    clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationManager<T> {
-      const declarationManager = createDeclarationManager<T>(analyzer);
+    clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationScope<T> {
+      const declarationManager = createDeclarationScope<T>(analyzer);
 
       // todo simplify it. allow create declaration manager from 'declarations' field
       for (const declaration of this.all()) {
@@ -116,8 +116,8 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return declarationManager;
     },
 
-    union(other: DeclarationManager<T>): DeclarationManager<T> {
-      const newDeclarationManager = createDeclarationManager<T>(analyzer);
+    union(other: DeclarationScope<T>): DeclarationScope<T> {
+      const newDeclarationManager = createDeclarationScope<T>(analyzer);
       const allDeclarations = [...this.all(), ...other.all()];
 
       for (const declaration of allDeclarations) {
@@ -127,12 +127,12 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return newDeclarationManager;
     },
 
-    intersection(other: DeclarationManager<T>): DeclarationManager<T> {
+    intersection(other: DeclarationScope<T>): DeclarationScope<T> {
       // todo add 'intersection' logic instead of 'union'
       return this.union(other);
     },
 
-    complement(other: DeclarationManager<T>): DeclarationManager<T> {
+    complement(other: DeclarationScope<T>): DeclarationScope<T> {
       // todo add 'complement' logic instead of 'union'
       return this.union(other);
     },

@@ -1,7 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
 import {Boolean2, Nothing} from '../../../../../../../lib/types';
 import {Node} from '../../../../../node';
-import {DeclarationManager} from '../../../../declaration-manager';
+import {DeclarationScope} from '../../../../declaration-scope';
 import {NominalTypeDeclarationSemantic} from '../../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../../declaration/value/attribute/attribute-value-declaration-semantic';
 import {TypeSemantic} from '../../type-semantic';
@@ -56,7 +56,7 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
       throw new Error('Not implemented');
     },
   };

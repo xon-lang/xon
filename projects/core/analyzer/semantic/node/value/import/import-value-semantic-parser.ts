@@ -3,7 +3,7 @@ import {Nothing, String2, nothing} from '../../../../../../lib/types';
 import {textResourceFromLocation} from '../../../../../util/resource/text/text-resource';
 import {ImportNode} from '../../../../syntax/node/import/import-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {DeclarationManager} from '../../../declaration-manager';
+import {DeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
 import {unknownTypeSemantic} from '../../type/unknown/unknown-type-semantic';
 import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
@@ -47,7 +47,7 @@ export function importValueSemanticParse(
   return importValueSemantic(node, resource, unknownTypeSemantic(analyzer, node));
 }
 
-export function declarationManagerFromImportString(importString: String2): DeclarationManager | Nothing {
+export function declarationManagerFromImportString(importString: String2): DeclarationScope | Nothing {
   const location = normalizeImportString(importString);
   const resource = textResourceFromLocation(location);
 

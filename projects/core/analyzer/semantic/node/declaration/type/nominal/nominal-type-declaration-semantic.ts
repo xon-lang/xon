@@ -1,7 +1,7 @@
 import {$} from '../../../../../../$';
 import {Boolean2, Nothing, String2} from '../../../../../../../lib/types';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {createDeclarationManager, DeclarationManager} from '../../../../declaration-manager';
+import {createDeclarationScope, DeclarationScope} from '../../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {TypeSemantic} from '../../../type/type-semantic';
 import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
@@ -13,7 +13,7 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
   modifier: String2;
   baseType: TypeSemantic;
-  attributes: DeclarationManager<AttributeValueDeclarationSemantic>;
+  attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
 };
 
 export function nominalTypeDeclarationSemantic(
@@ -32,7 +32,7 @@ export function nominalTypeDeclarationSemantic(
     name,
     baseType: unknownTypeSemantic(analyzer, nodeLink),
     type: unknownTypeSemantic(analyzer, nodeLink),
-    attributes: createDeclarationManager(analyzer),
+    attributes: createDeclarationScope(analyzer),
 
     eq(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions

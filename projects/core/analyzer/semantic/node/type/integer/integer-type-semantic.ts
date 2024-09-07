@@ -1,7 +1,7 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
 import {Boolean2, Integer, Nothing} from '../../../../../../lib/types';
 import {Node} from '../../../../node';
-import {createDeclarationManager, DeclarationManager} from '../../../declaration-manager';
+import {createDeclarationScope, DeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
 import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
@@ -52,8 +52,8 @@ export function integerTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationManager<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationManager(analyzer);
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
     },
   };
 }
