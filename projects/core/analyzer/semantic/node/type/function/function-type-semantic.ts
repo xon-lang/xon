@@ -24,7 +24,7 @@ export function functionTypeSemantic(
   return {
     $: $.FunctionTypeSemantic,
     nodeLink,
-    declaration: analyzer.declarationManager.single(
+    declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.functionTypeName,
     ),

@@ -22,7 +22,7 @@ test('only a', () => {
 
   expect(Object.keys(type.attributes?.declarations ?? {}).length).toBe(1);
 
-  const attributeP = type.attributes?.single(
+  const attributeP = type.attributes?.find(
     $.ValueDeclarationSemantic,
     'p',
   ) as AttributeValueDeclarationSemantic;

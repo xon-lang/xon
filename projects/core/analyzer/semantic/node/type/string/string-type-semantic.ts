@@ -22,7 +22,7 @@ export function stringTypeSemantic(
   return {
     $: $.StringTypeSemantic,
     nodeLink,
-    declaration: analyzer.declarationManager.single(
+    declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.stringTypeName,
     ),

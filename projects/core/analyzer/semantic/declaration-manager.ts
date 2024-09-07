@@ -15,8 +15,7 @@ export interface DeclarationManager<T extends DeclarationSemantic = DeclarationS
 
   filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND][];
 
-  // todo rename to find ???
-  single<KIND extends DeclarationKind>(
+  find<KIND extends DeclarationKind>(
     kind: KIND,
     name: String2,
     generics?: TypeSemantic | Nothing[] | Nothing,
@@ -44,10 +43,7 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
     },
 
     add(declaration: T): void {
-      if (
-        is(declaration, $.ValueDeclarationSemantic) &&
-        this.single($.DeclarationSemantic, declaration.name)
-      ) {
+      if (is(declaration, $.ValueDeclarationSemantic) && this.find($.DeclarationSemantic, declaration.name)) {
         analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
           x.declarationAlreadyExists(),
         );
@@ -84,7 +80,7 @@ export function createDeclarationManager<T extends DeclarationSemantic = Declara
       return [];
     },
 
-    single<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND] | Nothing {
+    find<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND] | Nothing {
       const declarations = this.filterByName(kind, name);
 
       if (declarations.length === 0) {

@@ -18,7 +18,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
   return {
     $: $.CharTypeSemantic,
     nodeLink,
-    declaration: analyzer.declarationManager.single(
+    declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.charTypeName,
     ),

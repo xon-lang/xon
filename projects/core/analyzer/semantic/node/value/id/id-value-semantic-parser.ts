@@ -11,7 +11,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
     return nothing;
   }
 
-  const declaration = analyzer.declarationManager.single(
+  const declaration = analyzer.declarationManager.find(
     $.ValueDeclarationSemantic,
     node.text.toString(),
     nothing,

@@ -14,7 +14,7 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  const declaration = analyzer.declarationManager.single(
+  const declaration = analyzer.declarationManager.find(
     $.TypeDeclarationSemantic,
     analyzer.config.literalTypeNames.integerTypeName,
     nothing,

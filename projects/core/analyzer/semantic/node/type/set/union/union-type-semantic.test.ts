@@ -82,7 +82,7 @@ test('2 check type', () => {
 
   const getConst = (name: String2) =>
     (
-      semantic.declarationManager.single(
+      semantic.declarationManager.find(
         $.ValueDeclarationSemantic,
         name,
         nothing,

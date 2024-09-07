@@ -22,7 +22,7 @@ export function arrayTypeSemantic(
   return {
     $: $.ArrayTypeSemantic,
     nodeLink,
-    declaration: analyzer.declarationManager.single(
+    declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.arrayTypeName,
     ),

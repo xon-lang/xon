@@ -22,7 +22,7 @@ export function integerTypeSemantic(
   return {
     $: $.IntegerTypeSemantic,
     nodeLink,
-    declaration: analyzer.declarationManager.single(
+    declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.integerTypeName,
     ),
