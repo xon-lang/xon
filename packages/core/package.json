@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/nizami/xon/issues"
   },
-  "homepage": "https://github.com/nizami/xon/tree/main/projects/core#readme",
+  "homepage": "https://github.com/nizami/xon/tree/main/packages/core#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nizami/xon.git"

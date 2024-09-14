@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/nizami/xon/issues"
   },
-  "homepage": "hhttps://github.com/nizami/xon/tree/main/projects/vscode#readme",
+  "homepage": "hhttps://github.com/nizami/xon/tree/main/packages/vscode#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/nizami/xon.git"

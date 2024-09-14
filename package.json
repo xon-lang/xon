@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "jest --no-cache",
-    "build": "rm -rf projects/vscode/dist && tsc",
+    "build": "rm -rf packages/vscode/dist && tsc",
     "vscode:debug": "npm run build"
   }
 }

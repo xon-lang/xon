@@ -6,7 +6,7 @@ import {performanceIterations} from '../util/performance';
 import {textResourceFromLocation} from '../util/resource/text/text-resource';
 
 test('performance', () => {
-  const resource = textResourceFromLocation('projects/core/parser/test/performance/source.xon');
+  const resource = textResourceFromLocation('packages/core/parser/test/performance/source.xon');
 
   if (!resource) {
     return;

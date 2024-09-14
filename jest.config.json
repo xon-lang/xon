@@ -1,5 +1,5 @@
 {
-  "roots": ["<rootDir>/projects"],
+  "roots": ["<rootDir>/packages"],
   "testMatch": ["**/*.test.ts"],
   "transform": {
     "^.+\\.ts$": "ts-jest"
