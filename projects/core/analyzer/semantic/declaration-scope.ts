@@ -1,4 +1,4 @@
-import {$, is, TypeMap} from '../../$';
+import {is, TypeMap} from '../../$';
 import {Integer, Nothing, nothing, String2} from '../../../lib/types';
 import {DeclarationKind, DeclarationSemantic} from './node/declaration/declaration-semantic';
 import {TypeSemantic} from './node/type/type-semantic';
@@ -43,11 +43,11 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
     },
 
     add(declaration: T): void {
-      if (is(declaration, $.ValueDeclarationSemantic) && this.find($.DeclarationSemantic, declaration.name)) {
-        analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
-          x.declarationAlreadyExists(),
-        );
-      }
+      // if (is(declaration, $.ValueDeclarationSemantic) && this.find($.DeclarationSemantic, declaration.name)) {
+      //   analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
+      //     x.declarationAlreadyExists(),
+      //   );
+      // }
 
       if (!this.declarations[declaration.name]) {
         this.declarations[declaration.name] = [];
