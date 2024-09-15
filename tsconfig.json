@@ -27,7 +27,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    // "useDefineForClassFields": true,
+    "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true,
     "paths": {
       "#common": ["packages/common/*", "packages/common"],
