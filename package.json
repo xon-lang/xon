@@ -11,13 +11,15 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tslib": "^2.7.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vite": "^5.4.5"
   },
   "scripts": {
     "test": "jest --no-cache",
-    "build": "rm -rf packages/vscode/dist && tsc",
     "dev": "tsc --noEmit --watch",
-    "vscode:debug": "npm run build",
+    "vscode:build2": "rm -rf packages/vscode/dist && tsc",
+    "vscode:build": "rm -rf packages/vscode/dist && esbuild ./packages/vscode/src/main.ts --bundle --outfile=packages/vscode/dist/vscode/src/main.js --external:vscode --format=cjs --platform=node",
+    "vscode:debug": "npm run vscode:build",
     "barrelsby": "barrelsby -qD -e dist -e .gen -e .test -d",
     "barrels:common": "npm run barrelsby -- packages/common",
     "barrels:core": "npm run barrelsby -- packages/core",
