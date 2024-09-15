@@ -1,5 +1,5 @@
+import {nothing, Nothing, String2} from '#common';
 import {$, DeclarationSemantic, is, Semantic, TextResourceRange} from '#core';
-import {nothing, Nothing, String2} from '#lib';
 import {convertRange, convertVscodePosition, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   CancellationToken,

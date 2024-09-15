@@ -1,5 +1,5 @@
+import {nothing} from '#common';
 import {$, getCaseFnByName, is, kebabCase} from '#core';
-import {nothing} from '#lib';
 import {
   convertVscodePosition,
   EXTENSION_CONFIG,

@@ -1,3 +1,4 @@
+import {Integer, nothing, Nothing} from '#common';
 import {
   $,
   AttributeValueDeclarationSemantic,
@@ -8,7 +9,6 @@ import {
   is,
   Node,
 } from '#core';
-import {Integer, nothing, Nothing} from '#lib';
 import {
   convertVscodePosition,
   declarationSemanticHeaderToString,

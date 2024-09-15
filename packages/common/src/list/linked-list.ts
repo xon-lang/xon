@@ -1,4 +1,4 @@
-import {Nothing} from '#lib';
+import {Nothing} from '#common';
 
 export interface LinkedListNode<T> {
   data: T;

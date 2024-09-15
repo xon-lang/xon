@@ -1,5 +1,5 @@
+import {nothing, Nothing} from '#common';
 import {$, is, Semantic, ValueDeclarationSemantic} from '#core';
-import {nothing, Nothing} from '#lib';
 import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,

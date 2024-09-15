@@ -30,7 +30,7 @@
     "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true,
     "paths": {
-      "#lib": ["packages/lib/*", "packages/lib"],
+      "#common": ["packages/common/*", "packages/common"],
       "#core": ["packages/core/*", "packages/core"],
       "#vscode": ["packages/vscode/*", "packages/vscode"]
     }

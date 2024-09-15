@@ -1,4 +1,4 @@
-import {String2} from '#lib';
+import {String2} from '#common';
 import {workspace} from 'vscode';
 import * as packageJson from '../package.json';
 
