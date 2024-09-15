@@ -1,6 +1,5 @@
-import {$, is} from '../../../../../$';
-import {Boolean2} from '../../../../../../../lib/src/types';
-import {TypeSemantic} from '../type-semantic';
+import {Boolean2} from '#common';
+import {$, TypeSemantic, is} from '#core';
 
 export interface SetTypeSemantic extends TypeSemantic {}
 

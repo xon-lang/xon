@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../lib/src/types';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
-import {Semantic} from '../semantic';
-import {TypeSemantic} from '../type/type-semantic';
+import {Boolean2, Nothing, String2} from '#common';
+import {$, DeclarationNode, Semantic, TextResourceRange, TypeSemantic} from '#core';
 
 export type DeclarationKind =
   | $.DeclarationSemantic

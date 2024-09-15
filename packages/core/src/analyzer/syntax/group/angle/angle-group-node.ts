@@ -1,4 +1,3 @@
-import {$} from '../../../../$';
-import {GroupNode} from '../group-node';
+import {$, GroupNode} from '#core';
 
 export type AngleGroupNode = GroupNode<$.AngleGroupNode, $.AngleOpenNode, $.AngleCloseNode>;

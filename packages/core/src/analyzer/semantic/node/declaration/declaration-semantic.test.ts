@@ -1,12 +1,14 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {createSemanticAnalyzer} from '../../semantic-analyzer';
-import {TEST_SEMANTIC_CONFIG} from '../../semantic-analyzer-config';
-import {IdTypeSemantic} from '../type/id/id-type-semantic';
-import {NominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
-import {AttributeValueDeclarationSemantic} from './value/attribute/attribute-value-declaration-semantic';
+import {nothing} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  createSemanticAnalyzer,
+  IdTypeSemantic,
+  NominalTypeDeclarationSemantic,
+  syntaxFromResource,
+  TEST_SEMANTIC_CONFIG,
+  textResourceFromData,
+} from '#core';
 
 test('only a', () => {
   const text = 'type A\n  p: A';

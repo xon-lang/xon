@@ -1,14 +1,18 @@
-import {Nothing, nothing} from '../../../../lib/src/types';
-import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
-import {TextResource} from '../../util/resource/text/text-resource';
-import {StatementNode} from '../syntax/statement/statement-node';
-import {SyntaxAnalyzer, syntaxFromResource} from '../syntax/syntax-analyzer';
-import {SyntaxAnalyzerConfig} from '../syntax/syntax-analyzer-config';
-import {DeclarationScope, createDeclarationScope} from './declaration-scope';
-import {statementsParse} from './node/statement/statement-semantic-parser';
-import {declarationManagerFromImportString} from './node/value/import/import-value-semantic-parser';
-
-import {DEFAULT_SEMANTIC_CONFIG, SemanticAnalyzerConfig} from './semantic-analyzer-config';
+import {Nothing, nothing} from '#common';
+import {
+  AnalyzerDiagnosticManager,
+  createDeclarationScope,
+  declarationManagerFromImportString,
+  DeclarationScope,
+  DEFAULT_SEMANTIC_CONFIG,
+  SemanticAnalyzerConfig,
+  StatementNode,
+  statementsParse,
+  SyntaxAnalyzer,
+  SyntaxAnalyzerConfig,
+  syntaxFromResource,
+  TextResource,
+} from '#core';
 
 export type SemanticAnalyzer = {
   syntaxAnalyzer: SyntaxAnalyzer;

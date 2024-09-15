@@ -1,9 +1,11 @@
-import {nothing} from '../../../../../../../../lib/src/types';
-import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
-import {ParameterTypeDeclarationSemantic} from './parameter-type-declaration-semantic';
+import {nothing} from '#common';
+import {
+  DeclarationNode,
+  ParameterTypeDeclarationSemantic,
+  SemanticAnalyzer,
+  typeSemanticParse,
+  unknownTypeSemantic,
+} from '#core';
 
 export function parameterTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

@@ -1,8 +1,12 @@
-import {$} from '../../../../../$';
-import {ExpressionNode, Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {UnknownTypeSemantic, unknownTypeSemantic} from '../../type/unknown/unknown-type-semantic';
-import {ValueSemantic} from '../value-semantic';
+import {
+  $,
+  ExpressionNode,
+  Node,
+  SemanticAnalyzer,
+  UnknownTypeSemantic,
+  unknownTypeSemantic,
+  ValueSemantic,
+} from '#core';
 
 export type UnknownValueSemantic = ValueSemantic<$.UnknownValueSemantic> & {};
 

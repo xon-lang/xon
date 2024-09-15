@@ -1,10 +1,14 @@
-import {$, is} from '../../../../../../$';
-import {Nothing, nothing} from '../../../../../../../../lib/src/types';
-import {RANGE} from '../../../../../lexical/lexical-analyzer-config';
-import {Node} from '../../../../../node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {typeSemanticParse} from '../../type-semantic-parser';
-import {RangeTypeSemantic, rangeTypeSemantic} from './range-type-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  Node,
+  RANGE,
+  RangeTypeSemantic,
+  SemanticAnalyzer,
+  is,
+  rangeTypeSemantic,
+  typeSemanticParse,
+} from '#core';
 
 export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

@@ -1,10 +1,12 @@
-import {$} from '../../../../../$';
-import {nothing} from '../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {ReturnNode} from '../../../../syntax/node/return/return-node';
-import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {IntegerValueSemantic} from '../../value/integer/integer-value-semantic';
+import {nothing} from '#common';
+import {
+  $,
+  createSemanticAnalyzer,
+  IntegerValueSemantic,
+  ReturnNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('with value', () => {
   const text = `return  3`;

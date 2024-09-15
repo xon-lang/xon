@@ -1,12 +1,14 @@
-import {$} from '../../../../../$';
-import {nothing} from '../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
-import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
-import {StringTypeSemantic} from '../../type/string/string-type-semantic';
-import {typeNodeType} from '../../type/type-semantic-parser';
+import {nothing} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  createSemanticAnalyzer,
+  DeclarationNode,
+  StringTypeSemantic,
+  syntaxFromResource,
+  textResourceFromData,
+  typeNodeType,
+} from '#core';
 
 test('import core', () => {
   const text = `

@@ -1,16 +1,21 @@
-import {$} from '../../../$';
-import {Nothing} from '../../../../../lib/src/types';
-import {textData} from '../../../util/data/text-data';
-import {textPosition} from '../../../util/resource/text/text-position';
-import {textRange} from '../../../util/resource/text/text-range';
-import {textResourceRange} from '../../../util/resource/text/text-resource-range';
-import {AT} from '../../lexical/lexical-analyzer-config';
-import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
-import {DocumentationLabelNode} from '../../lexical/node/documentation-label/documentation-label-node';
-import {idNode, IdNode} from '../../lexical/node/id/id-node';
-import {operatorNode, OperatorNode} from '../../lexical/node/operator/operator-node';
-import {SyntaxNode, syntaxNode} from '../node/syntax-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
+import {Nothing} from '#common';
+import {
+  $,
+  AT,
+  DocumentationDescriptionNode,
+  DocumentationLabelNode,
+  IdNode,
+  idNode,
+  OperatorNode,
+  operatorNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+  textData,
+  textPosition,
+  textRange,
+  textResourceRange,
+} from '#core';
 
 export type DocumentationItemNode = SyntaxNode<$.DocumentationItemNode> & {
   operator: OperatorNode;

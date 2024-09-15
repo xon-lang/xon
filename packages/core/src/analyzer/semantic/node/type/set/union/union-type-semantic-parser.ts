@@ -1,10 +1,14 @@
-import {$, is} from '../../../../../../$';
-import {Nothing, nothing} from '../../../../../../../../lib/src/types';
-import {UNION} from '../../../../../lexical/lexical-analyzer-config';
-import {Node} from '../../../../../node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {typeSemanticParse} from '../../type-semantic-parser';
-import {UnionTypeSemantic, unionTypeSemantic} from './union-type-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  Node,
+  SemanticAnalyzer,
+  UNION,
+  UnionTypeSemantic,
+  is,
+  typeSemanticParse,
+  unionTypeSemantic,
+} from '#core';
 
 export function unionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

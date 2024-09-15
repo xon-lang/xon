@@ -1,13 +1,16 @@
-import {$} from '../../../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../../../lib/src/types';
-import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {createDeclarationScope, DeclarationScope} from '../../../../declaration-scope';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {TypeSemantic} from '../../../type/type-semantic';
-import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
-import {DeclarationSemantic} from '../../declaration-semantic';
-import {AttributeValueDeclarationSemantic} from '../../value/attribute/attribute-value-declaration-semantic';
-import {TypeDeclarationSemantic} from '../type-declaration-semantic';
+import {Boolean2, Nothing, String2} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  createDeclarationScope,
+  DeclarationNode,
+  DeclarationScope,
+  DeclarationSemantic,
+  SemanticAnalyzer,
+  TypeDeclarationSemantic,
+  TypeSemantic,
+  unknownTypeSemantic,
+} from '#core';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;

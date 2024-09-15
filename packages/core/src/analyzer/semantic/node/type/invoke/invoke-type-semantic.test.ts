@@ -1,11 +1,13 @@
-import {$} from '../../../../../$';
-import {nothing} from '../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {IdNode} from '../../../../lexical/node/id/id-node';
-import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
-import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
+import {nothing} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  createSemanticAnalyzer,
+  DeclarationNode,
+  IdNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('a is integer', () => {
   const text = `

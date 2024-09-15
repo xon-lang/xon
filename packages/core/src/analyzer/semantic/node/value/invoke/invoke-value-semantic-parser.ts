@@ -1,9 +1,5 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {valueSemanticParse} from '../value-semantic-parser';
-import {InvokeValueSemantic, invokeValueSemantic} from './invoke-value-semantic';
+import { Nothing, nothing } from "#common";
+import { SemanticAnalyzer, Node, InvokeValueSemantic, is, $, valueSemanticParse, invokeValueSemantic } from "#core";
 
 export function invokeValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

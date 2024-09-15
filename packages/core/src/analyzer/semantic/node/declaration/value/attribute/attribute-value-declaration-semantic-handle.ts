@@ -1,12 +1,14 @@
-import {nothing, Nothing} from '../../../../../../../../lib/src/types';
-import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersParse} from '../../../type/function/function-type-semantic-parser';
-import {TypeSemantic} from '../../../type/type-semantic';
-import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
-import {AttributeValueDeclarationSemantic} from './attribute-value-declaration-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  AttributeValueDeclarationSemantic,
+  DeclarationNode,
+  functionTypeSemantic,
+  parametersParse,
+  SemanticAnalyzer,
+  TypeSemantic,
+  typeSemanticParse,
+  unknownTypeSemantic,
+} from '#core';
 
 export function attributeValueDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

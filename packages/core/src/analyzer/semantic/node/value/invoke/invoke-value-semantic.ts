@@ -1,7 +1,4 @@
-import {$} from '../../../../../$';
-import {Node} from '../../../../node';
-import {TypeSemantic} from '../../type/type-semantic';
-import {ValueSemantic} from '../value-semantic';
+import {$, Node, TypeSemantic, ValueSemantic} from '#core';
 
 export type InvokeValueSemantic = ValueSemantic<$.InvokeValueSemantic>;
 

@@ -1,11 +1,14 @@
-import {$, is} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {StatementNode} from '../../../syntax/statement/statement-node';
-import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {statementDeclarationsParse} from '../declaration/declaration-semantic-parser';
-import {importValueSemanticParse} from '../value/import/import-value-semantic-parser';
-import {valueSemanticParse} from '../value/value-semantic-parser';
-import {returnStatementSemanticParse} from './return/return-statement-semantic-parser';
+import {nothing} from '#common';
+import {
+  $,
+  SemanticAnalyzer,
+  StatementNode,
+  importValueSemanticParse,
+  is,
+  returnStatementSemanticParse,
+  statementDeclarationsParse,
+  valueSemanticParse,
+} from '#core';
 
 export function statementsParse(analyzer: SemanticAnalyzer, statements: StatementNode[]): void {
   if (statements.length === 0) {

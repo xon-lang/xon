@@ -1,14 +1,17 @@
-import {Nothing} from '../../../../../../lib/src/types';
-import {ExpressionNode, Node} from '../../../node';
-import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {charValueSemanticTryParse} from './char/char-value-semantic-parser';
-import {idValueSemanticTryParse} from './id/id-value-semantic-parser';
-import {integerValueSemanticTryParse} from './integer/integer-value-semantic-parser';
-import {invokeValueSemanticTryParse} from './invoke/invoke-value-semantic-parser';
-import {memberValueSemanticTryParse} from './member/member-value-semantic-parser';
-import {stringValueSemanticTryParse} from './string/string-value-semantic-parser';
-import {unknownValueFromNode} from './unknown/unknown-value-semantic';
-import {ValueSemantic} from './value-semantic';
+import {Nothing} from '#common';
+import {
+  ExpressionNode,
+  Node,
+  SemanticAnalyzer,
+  ValueSemantic,
+  charValueSemanticTryParse,
+  idValueSemanticTryParse,
+  integerValueSemanticTryParse,
+  invokeValueSemanticTryParse,
+  memberValueSemanticTryParse,
+  stringValueSemanticTryParse,
+  unknownValueFromNode,
+} from '#core';
 
 type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => ValueSemantic | Nothing;
 

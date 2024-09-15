@@ -1,10 +1,14 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {StringNode} from '../../../../syntax/node/string/string-node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {stringTypeSemanticParse} from '../../type/string/string-type-semantic-parser';
-import {StringValueSemantic, stringValueSemantic} from './string-value-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  Node,
+  SemanticAnalyzer,
+  StringNode,
+  StringValueSemantic,
+  is,
+  stringTypeSemanticParse,
+  stringValueSemantic,
+} from '#core';
 
 export function stringValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

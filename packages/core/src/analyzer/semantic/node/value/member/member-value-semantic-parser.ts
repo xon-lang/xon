@@ -1,11 +1,15 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {TypeSemantic} from '../../type/type-semantic';
-import {unknownTypeSemantic} from '../../type/unknown/unknown-type-semantic';
-import {valueSemanticParse} from '../value-semantic-parser';
-import {MemberValueSemantic, memberValueSemantic} from './member-value-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  MemberValueSemantic,
+  Node,
+  SemanticAnalyzer,
+  TypeSemantic,
+  is,
+  memberValueSemantic,
+  unknownTypeSemantic,
+  valueSemanticParse,
+} from '#core';
 
 export function memberValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

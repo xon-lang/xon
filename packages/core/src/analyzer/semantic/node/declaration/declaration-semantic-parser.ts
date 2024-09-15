@@ -1,28 +1,26 @@
-import {$, is} from '../../../../$';
-import {topologicalSort} from '../../../../../../lib/src/sort/topological-sort';
-import {Nothing, String2} from '../../../../../../lib/src/types';
-import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
-import {Node} from '../../../node';
-import {GroupNode} from '../../../syntax/group/group-node';
-import {DeclarationNode} from '../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {DeclarationSemantic} from './declaration-semantic';
-import {nominalTypeDeclarationSemantic} from './type/nominal/nominal-type-declaration-semantic';
-import {nominalTypeDeclarationSemanticHandle} from './type/nominal/nominal-type-declaration-semantic-handle';
+import {Nothing, String2, topologicalSort} from '#common';
 import {
+  $,
+  attributeValueDeclarationSemantic,
+  attributeValueDeclarationSemanticHandle,
+  DeclarationNode,
+  DeclarationSemantic,
+  GroupNode,
+  is,
+  Node,
+  nominalTypeDeclarationSemantic,
+  nominalTypeDeclarationSemanticHandle,
   ParameterTypeDeclarationSemantic,
   parameterTypeDeclarationSemantic,
-} from './type/parameter/parameter-type-declaration-semantic';
-import {parameterTypeDeclarationSemanticHandle} from './type/parameter/parameter-type-declaration-semantic-handle';
-import {structuralTypeDeclarationSemantic} from './type/structural/structural-type-declaration-semantic';
-import {structuralTypeDeclarationSemanticHandle} from './type/structural/structural-type-declaration-semantic-handle';
-import {attributeValueDeclarationSemantic} from './value/attribute/attribute-value-declaration-semantic';
-import {attributeValueDeclarationSemanticHandle} from './value/attribute/attribute-value-declaration-semantic-handle';
-import {
+  parameterTypeDeclarationSemanticHandle,
   ParameterValueDeclarationSemantic,
   parameterValueDeclarationSemantic,
-} from './value/parameter/parameter-value-declaration-semantic';
-import {parameterValueDeclarationSemanticHandle} from './value/parameter/parameter-value-declaration-semantic-handle';
+  parameterValueDeclarationSemanticHandle,
+  SemanticAnalyzer,
+  structuralTypeDeclarationSemantic,
+  structuralTypeDeclarationSemanticHandle,
+  TYPE_MODIFIER,
+} from '#core';
 
 export function statementDeclarationsParse(analyzer: SemanticAnalyzer, nodes: Node[]): DeclarationSemantic[] {
   const declarationNodes = nodes.filter((node) => is(node, $.DeclarationNode));

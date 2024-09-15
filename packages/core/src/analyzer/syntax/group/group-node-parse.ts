@@ -1,12 +1,20 @@
-import {$, is} from '../../../$';
-import {Nothing, nothing, String2} from '../../../../../lib/src/types';
-import {ANGLE_CLOSE, BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
-
-import {CommaNode} from '../../lexical/node/comma/comma-node';
-import {OpenNode} from '../../lexical/node/open/open-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {groupNode, GroupNode, GroupNodeType} from './group-node';
-import {ItemNode, itemNode} from './item-node';
+import {Nothing, nothing, String2} from '#common';
+import {
+  $,
+  ANGLE_CLOSE,
+  BRACE_CLOSE,
+  BRACKET_CLOSE,
+  CommaNode,
+  GroupNode,
+  groupNode,
+  GroupNodeType,
+  is,
+  ItemNode,
+  itemNode,
+  OpenNode,
+  PAREN_CLOSE,
+  SyntaxAnalyzer,
+} from '#core';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
   if (is(openNode, $.ParenOpenNode)) {

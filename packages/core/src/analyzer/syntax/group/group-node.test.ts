@@ -1,13 +1,16 @@
-import {$, is} from '../../../$';
-import {nothing} from '../../../../../lib/src/types';
-import {predefinedDiagnostics} from '../../../diagnostic/analyzer-diagnostic-message';
-import {textResourceFromData} from '../../../util/resource/text/text-resource';
-import {InfixNode} from '../node/infix/infix-node';
-import {IntegerNode} from '../node/integer/integer-node';
-import {syntaxFromResource} from '../syntax-analyzer';
-import {BraceGroupNode} from './brace/brace-group-node';
-import {BracketGroupNode} from './bracket/bracket-group-node';
-import {ParenGroupNode} from './paren/paren-group-node';
+import {nothing} from '#common';
+import {
+  $,
+  BraceGroupNode,
+  BracketGroupNode,
+  InfixNode,
+  IntegerNode,
+  ParenGroupNode,
+  is,
+  predefinedDiagnostics,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('empty closed', () => {
   const text = '()';

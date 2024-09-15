@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {charTypeSemanticTryParse} from '../../type/char/char-type-semantic-parser';
-import {CharValueSemantic, charValueSemantic} from './char-value-semantic';
+import {Nothing, nothing} from '#common';
+import {CharValueSemantic, Node, SemanticAnalyzer, charTypeSemanticTryParse, charValueSemantic} from '#core';
 
 export function charValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

@@ -1,8 +1,4 @@
-import {$} from '../../../../$';
-import {Node} from '../../../node';
-import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {DeclarationSemantic} from '../declaration/declaration-semantic';
-import {Semantic} from '../semantic';
+import {$, DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#core';
 
 export interface DocumentationIdSemantic extends Semantic {
   $: $.DocumentationIdSemantic;

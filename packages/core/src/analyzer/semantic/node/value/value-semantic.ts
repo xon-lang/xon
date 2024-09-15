@@ -1,6 +1,4 @@
-import {$} from '../../../../$';
-import {Semantic} from '../semantic';
-import {TypeSemantic} from '../type/type-semantic';
+import {$, Semantic, TypeSemantic} from '#core';
 
 export interface ValueSemantic<T extends $ = $, TYPE extends TypeSemantic = TypeSemantic>
   extends Semantic<T> {

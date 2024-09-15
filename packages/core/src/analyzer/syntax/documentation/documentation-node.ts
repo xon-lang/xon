@@ -1,11 +1,14 @@
-import {$} from '../../../$';
-import {Nothing, String2} from '../../../../../lib/src/types';
-import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
-import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
-import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
-import {SyntaxNode, syntaxNode} from '../node/syntax-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {DocumentationItemNode} from './documentation-item-node';
+import {Nothing, String2} from '#common';
+import {
+  $,
+  DocumentationCloseNode,
+  DocumentationDescriptionNode,
+  DocumentationItemNode,
+  DocumentationOpenNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
 export type DocumentationNode = SyntaxNode<$.DocumentationNode> & {
   open: DocumentationOpenNode;

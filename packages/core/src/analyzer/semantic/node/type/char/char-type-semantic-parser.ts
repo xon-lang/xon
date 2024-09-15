@@ -1,9 +1,5 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {CharNode} from '../../../../syntax/node/char/char-node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {charTypeSemantic, CharTypeSemantic} from './char-type-semantic';
+import {Nothing, nothing} from '#common';
+import {$, CharNode, CharTypeSemantic, charTypeSemantic, is, Node, SemanticAnalyzer} from '#core';
 
 export function charTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): CharTypeSemantic | Nothing {
   if (!is(node, $.CharNode)) {

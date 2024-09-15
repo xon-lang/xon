@@ -1,11 +1,15 @@
-import {$, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {createDeclarationScope, DeclarationScope} from '../../../declaration-scope';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
-import {isInSet} from '../set/set';
-import {TypeSemantic} from '../type-semantic';
+import {Boolean2} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  DeclarationScope,
+  Node,
+  SemanticAnalyzer,
+  TypeSemantic,
+  createDeclarationScope,
+  isInSet,
+  isSetOperatorTypeSemantic,
+} from '#core';
 
 export type InvokeTypeSemantic = TypeSemantic & {
   $: $.InvokeTypeSemantic;

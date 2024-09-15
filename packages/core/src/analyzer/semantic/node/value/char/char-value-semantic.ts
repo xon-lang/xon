@@ -1,7 +1,4 @@
-import {$} from '../../../../../$';
-import {Node} from '../../../../node';
-import {CharTypeSemantic} from '../../type/char/char-type-semantic';
-import {ValueSemantic} from '../value-semantic';
+import {$, CharTypeSemantic, Node, ValueSemantic} from '#core';
 
 export type CharValueSemantic = ValueSemantic<$.CharValueSemantic, CharTypeSemantic>;
 

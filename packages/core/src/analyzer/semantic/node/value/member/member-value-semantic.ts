@@ -1,8 +1,5 @@
-import {$} from '../../../../../$';
-import {Nothing, String2} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {TypeSemantic} from '../../type/type-semantic';
-import {ValueSemantic} from '../value-semantic';
+import {Nothing, String2} from '#common';
+import {$, Node, TypeSemantic, ValueSemantic} from '#core';
 
 export type MemberValueSemantic = ValueSemantic<$.MemberValueSemantic> & {
   instance: ValueSemantic;

@@ -1,12 +1,17 @@
-import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {createDeclarationScope, DeclarationScope} from '../../../declaration-scope';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {TypeDeclarationSemantic} from '../../declaration/type/type-declaration-semantic';
-import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
-import {isInSet} from '../set/set';
-import {TypeSemantic} from '../type-semantic';
+import {Boolean2, Nothing, String2} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  DeclarationScope,
+  Node,
+  SemanticAnalyzer,
+  TypeDeclarationSemantic,
+  TypeSemantic,
+  createDeclarationScope,
+  is,
+  isInSet,
+  isSetOperatorTypeSemantic,
+} from '#core';
 
 export type IdTypeSemantic = TypeSemantic & {
   $: $.IdTypeSemantic;

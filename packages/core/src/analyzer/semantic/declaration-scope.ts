@@ -1,8 +1,5 @@
-import {is, TypeMap} from '../../$';
-import {Integer, Nothing, nothing, String2} from '../../../../lib/src/types';
-import {DeclarationKind, DeclarationSemantic} from './node/declaration/declaration-semantic';
-import {TypeSemantic} from './node/type/type-semantic';
-import {SemanticAnalyzer} from './semantic-analyzer';
+import {Integer, Nothing, String2, nothing} from '#common';
+import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeMap, TypeSemantic, is} from '#core';
 
 export interface DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> {
   imports: DeclarationScope[] | Nothing;

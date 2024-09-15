@@ -1,12 +1,15 @@
-import {$, is} from '../../../../../../$';
-import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersParse} from '../../../type/function/function-type-semantic-parser';
-import {idTypeSemantic} from '../../../type/id/id-type-semantic';
-import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {statementDeclarationsParse} from '../../declaration-semantic-parser';
-import {NominalTypeDeclarationSemantic} from './nominal-type-declaration-semantic';
+import {
+  $,
+  DeclarationNode,
+  functionTypeSemantic,
+  idTypeSemantic,
+  is,
+  NominalTypeDeclarationSemantic,
+  parametersParse,
+  SemanticAnalyzer,
+  statementDeclarationsParse,
+  typeSemanticParse,
+} from '#core';
 
 export function nominalTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

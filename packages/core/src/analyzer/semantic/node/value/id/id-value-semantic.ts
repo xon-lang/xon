@@ -1,9 +1,5 @@
-import {$} from '../../../../../$';
-import {Nothing, String2} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
-import {TypeSemantic} from '../../type/type-semantic';
-import {ValueSemantic} from '../value-semantic';
+import {Nothing, String2} from '#common';
+import {$, Node, TypeSemantic, ValueDeclarationSemantic, ValueSemantic} from '#core';
 
 export type IdValueSemantic = ValueSemantic<$.IdValueSemantic> & {
   name: String2;

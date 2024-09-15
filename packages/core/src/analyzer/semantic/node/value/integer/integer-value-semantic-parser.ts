@@ -1,8 +1,11 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {integerTypeSemanticTryParse} from '../../type/integer/integer-type-semantic-parser';
-import {IntegerValueSemantic, integerValueSemantic} from './integer-value-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  IntegerValueSemantic,
+  Node,
+  SemanticAnalyzer,
+  integerTypeSemanticTryParse,
+  integerValueSemantic,
+} from '#core';
 
 export function integerValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

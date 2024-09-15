@@ -1,18 +1,22 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {DocumentationNode} from '../../../../syntax/documentation/documentation-node';
-import {GroupNode} from '../../../../syntax/group/group-node';
-import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {DeclarationSemantic} from '../../declaration/declaration-semantic';
-import {parameterDeclarationsParse} from '../../declaration/declaration-semantic-parser';
-import {ParameterTypeDeclarationSemantic} from '../../declaration/type/parameter/parameter-type-declaration-semantic';
-import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
-import {documentationIdSemantic} from '../../documentation/documentation-id-semantic';
-import {typeSemanticParse} from '../type-semantic-parser';
-import {unknownTypeSemantic} from '../unknown/unknown-type-semantic';
-import {FunctionTypeSemantic, functionTypeSemantic} from './function-type-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  DeclarationNode,
+  DeclarationSemantic,
+  documentationIdSemantic,
+  DocumentationNode,
+  FunctionTypeSemantic,
+  functionTypeSemantic,
+  GroupNode,
+  is,
+  Node,
+  parameterDeclarationsParse,
+  ParameterTypeDeclarationSemantic,
+  ParameterValueDeclarationSemantic,
+  SemanticAnalyzer,
+  typeSemanticParse,
+  unknownTypeSemantic,
+} from '#core';
 
 export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

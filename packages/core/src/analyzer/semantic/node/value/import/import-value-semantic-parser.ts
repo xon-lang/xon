@@ -1,12 +1,16 @@
+import {Nothing, nothing, String2} from '#common';
+import {
+  createSemanticAnalyzer,
+  DeclarationScope,
+  ImportNode,
+  ImportValueSemantic,
+  importValueSemantic,
+  SemanticAnalyzer,
+  syntaxFromResource,
+  textResourceFromLocation,
+  unknownTypeSemantic,
+} from '#core';
 import {dirname, join, resolve} from 'path';
-import {Nothing, String2, nothing} from '../../../../../../../lib/src/types';
-import {textResourceFromLocation} from '../../../../../util/resource/text/text-resource';
-import {ImportNode} from '../../../../syntax/node/import/import-node';
-import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {DeclarationScope} from '../../../declaration-scope';
-import {SemanticAnalyzer, createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {unknownTypeSemantic} from '../../type/unknown/unknown-type-semantic';
-import {ImportValueSemantic, importValueSemantic} from './import-value-semantic';
 
 const LIB_FOLDER = resolve(__dirname, '../../../../../../../lib');
 

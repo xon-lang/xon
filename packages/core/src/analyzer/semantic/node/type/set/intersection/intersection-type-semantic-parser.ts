@@ -1,10 +1,14 @@
-import {$, is} from '../../../../../../$';
-import {Nothing, nothing} from '../../../../../../../../lib/src/types';
-import {INTERSECTION} from '../../../../../lexical/lexical-analyzer-config';
-import {Node} from '../../../../../node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {typeSemanticParse} from '../../type-semantic-parser';
-import {IntersectionTypeSemantic, intersectionTypeSemantic} from './intersection-type-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  INTERSECTION,
+  IntersectionTypeSemantic,
+  intersectionTypeSemantic,
+  is,
+  Node,
+  SemanticAnalyzer,
+  typeSemanticParse,
+} from '#core';
 
 export function intersectionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

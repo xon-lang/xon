@@ -1,10 +1,12 @@
-import {$} from '../../../../../../$';
-import {nothing} from '../../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../../util/resource/text/text-resource';
-import {semanticFromResource} from '../../../../semantic-analyzer';
-import {FunctionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {IdTypeSemantic} from '../../../type/id/id-type-semantic';
-import {NominalTypeDeclarationSemantic} from './nominal-type-declaration-semantic';
+import {nothing} from '#common';
+import {
+  $,
+  FunctionTypeSemantic,
+  IdTypeSemantic,
+  NominalTypeDeclarationSemantic,
+  semanticFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('no generics', () => {
   const text = `type Number`;

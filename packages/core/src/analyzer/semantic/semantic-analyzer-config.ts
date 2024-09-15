@@ -1,4 +1,4 @@
-import {String2} from '../../../../lib/src/types';
+import {String2} from '#common';
 
 export interface SemanticAnalyzerConfig {
   defaultImports: String2[];

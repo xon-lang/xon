@@ -1,12 +1,14 @@
-import {$} from '../../../../../$';
-import {nothing} from '../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {DeclarationNode} from '../../../../syntax/node/declaration/declaration-node';
-import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {createSemanticAnalyzer} from '../../../semantic-analyzer';
-import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
-import {ParameterValueDeclarationSemantic} from '../../declaration/value/parameter/parameter-value-declaration-semantic';
-import {FunctionTypeSemantic} from './function-type-semantic';
+import {nothing} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  createSemanticAnalyzer,
+  DeclarationNode,
+  FunctionTypeSemantic,
+  ParameterValueDeclarationSemantic,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('a is function', () => {
   const text = `

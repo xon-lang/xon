@@ -1,15 +1,20 @@
-import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {DeclarationScope, createDeclarationScope} from '../../../declaration-scope';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {NominalTypeDeclarationSemantic} from '../../declaration/type/nominal/nominal-type-declaration-semantic';
-import {AttributeValueDeclarationSemantic} from '../../declaration/value/attribute/attribute-value-declaration-semantic';
-import {isInSet} from '../set/set';
-import {TypeSemantic} from '../type-semantic';
+import {Boolean2, Nothing} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  DeclarationScope,
+  Node,
+  NominalTypeDeclarationSemantic,
+  SemanticAnalyzer,
+  TypeSemantic,
+  createDeclarationScope,
+  is,
+  isInSet,
+  isSetOperatorTypeSemantic,
+} from '#core';
 
 // todo use something instead of unknown ???
-// todo one Unknown doesn't equals another
+// todo one Unknown doesn't equals other unknown
 export type UnknownTypeSemantic = TypeSemantic & {
   $: $.UnknownTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;

@@ -1,8 +1,5 @@
-import {Boolean2, Nothing} from '../../../../../../lib/src/types';
-import {DeclarationScope} from '../../declaration-scope';
-import {TypeDeclarationSemantic} from '../declaration/type/type-declaration-semantic';
-import {AttributeValueDeclarationSemantic} from '../declaration/value/attribute/attribute-value-declaration-semantic';
-import {Semantic} from '../semantic';
+import {Boolean2, Nothing} from '#common';
+import {AttributeValueDeclarationSemantic, DeclarationScope, Semantic, TypeDeclarationSemantic} from '#core';
 
 export interface TypeSemantic extends Semantic {
   declaration?: TypeDeclarationSemantic | Nothing;

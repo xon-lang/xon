@@ -1,10 +1,12 @@
-import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersParse} from '../../../type/function/function-type-semantic-parser';
-import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
-import {ParameterValueDeclarationSemantic} from './parameter-value-declaration-semantic';
+import {
+  DeclarationNode,
+  functionTypeSemantic,
+  parametersParse,
+  ParameterValueDeclarationSemantic,
+  SemanticAnalyzer,
+  typeSemanticParse,
+  unknownTypeSemantic,
+} from '#core';
 
 export function parameterValueDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

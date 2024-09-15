@@ -1,9 +1,5 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {TypeSemantic} from '../type-semantic';
-import {idTypeSemantic} from './id-type-semantic';
+import {Nothing, nothing} from '#common';
+import {$, Node, SemanticAnalyzer, TypeSemantic, idTypeSemantic, is} from '#core';
 
 export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic | Nothing {
   if (!is(node, $.IdNode)) {

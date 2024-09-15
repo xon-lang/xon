@@ -1,13 +1,18 @@
-import {$, is} from '../../../$';
-import {Nothing, nothing} from '../../../../../lib/src/types';
-import {rangeFromNodes} from '../../../util/resource/text/text-range';
-import {textResourceRange} from '../../../util/resource/text/text-resource-range';
-import {documentationLexicalParsers} from '../../lexical/documentation-lexical-analyzer';
-import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
-import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {documentationItemNode, DocumentationItemNode} from './documentation-item-node';
-import {documentationNode, DocumentationNode} from './documentation-node';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  DocumentationDescriptionNode,
+  DocumentationItemNode,
+  DocumentationNode,
+  DocumentationOpenNode,
+  SyntaxAnalyzer,
+  documentationItemNode,
+  documentationLexicalParsers,
+  documentationNode,
+  is,
+  rangeFromNodes,
+  textResourceRange,
+} from '#core';
 
 export function documentationNodeParse(
   analyzer: SyntaxAnalyzer,

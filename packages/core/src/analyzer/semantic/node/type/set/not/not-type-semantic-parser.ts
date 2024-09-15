@@ -1,10 +1,5 @@
-import {$, is} from '../../../../../../$';
-import {Nothing, nothing} from '../../../../../../../../lib/src/types';
-import {NOT} from '../../../../../lexical/lexical-analyzer-config';
-import {Node} from '../../../../../node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {typeSemanticParse} from '../../type-semantic-parser';
-import {NotTypeSemantic, notTypeSemantic} from './not-type-semantic';
+import {Nothing, nothing} from '#common';
+import {$, NOT, Node, NotTypeSemantic, SemanticAnalyzer, is, notTypeSemantic, typeSemanticParse} from '#core';
 
 export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): NotTypeSemantic | Nothing {
   if (is(node, $.PrefixNode) && node.operator.text.equals(NOT)) {

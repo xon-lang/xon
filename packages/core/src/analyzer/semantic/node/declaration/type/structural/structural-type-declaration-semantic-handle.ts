@@ -1,10 +1,12 @@
-import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
-import {SemanticAnalyzer} from '../../../../semantic-analyzer';
-import {functionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {parametersParse} from '../../../type/function/function-type-semantic-parser';
-import {typeSemanticParse} from '../../../type/type-semantic-parser';
-import {unknownTypeSemantic} from '../../../type/unknown/unknown-type-semantic';
-import {StructuralTypeDeclarationSemantic} from './structural-type-declaration-semantic';
+import {
+  DeclarationNode,
+  functionTypeSemantic,
+  parametersParse,
+  SemanticAnalyzer,
+  StructuralTypeDeclarationSemantic,
+  typeSemanticParse,
+  unknownTypeSemantic,
+} from '#core';
 
 export function structuralTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

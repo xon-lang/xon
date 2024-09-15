@@ -1,4 +1,3 @@
-import {$} from '../../../../$';
-import {GroupNode} from '../group-node';
+import {$, GroupNode} from '#core';
 
 export type ParenGroupNode = GroupNode<$.ParenGroupNode, $.ParenOpenNode, $.ParenCloseNode>;

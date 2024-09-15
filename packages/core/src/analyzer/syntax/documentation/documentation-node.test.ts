@@ -1,8 +1,5 @@
-import {$} from '../../../$';
-import {nothing} from '../../../../../lib/src/types';
-import {textResourceFromData} from '../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../syntax-analyzer';
-import {DocumentationNode} from './documentation-node';
+import {nothing} from '#common';
+import {$, DocumentationNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('documentation', () => {
   const text = '===a===';

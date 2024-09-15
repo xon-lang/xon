@@ -1,10 +1,14 @@
-import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {Node} from '../../../../node';
-import {SemanticAnalyzer} from '../../../semantic-analyzer';
-import {typeSemanticParse} from '../type-semantic-parser';
-import {unknownTypeSemantic} from '../unknown/unknown-type-semantic';
-import {InvokeTypeSemantic, invokeTypeSemantic} from './invoke-type-semantic';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  InvokeTypeSemantic,
+  invokeTypeSemantic,
+  is,
+  Node,
+  SemanticAnalyzer,
+  typeSemanticParse,
+  unknownTypeSemantic,
+} from '#core';
 
 export function invokeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

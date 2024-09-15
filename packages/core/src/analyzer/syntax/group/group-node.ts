@@ -1,14 +1,17 @@
-import {$} from '../../../$';
-import {Nothing} from '../../../../../lib/src/types';
-import '../../../util/extension';
-import {rangeFromNodes} from '../../../util/resource/text/text-range';
-import {textResourceRange} from '../../../util/resource/text/text-resource-range';
-import {CloseNode, CloseNodeType} from '../../lexical/node/close/close-node';
-import {OpenNode, OpenNodeType} from '../../lexical/node/open/open-node';
-import {ExpressionNode} from '../../node';
-import {SyntaxNode} from '../node/syntax-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {ItemNode} from './item-node';
+import {Nothing} from '#common';
+import {
+  $,
+  CloseNode,
+  CloseNodeType,
+  ExpressionNode,
+  ItemNode,
+  OpenNode,
+  OpenNodeType,
+  rangeFromNodes,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  textResourceRange,
+} from '#core';
 
 export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode | $.AngleGroupNode;
 

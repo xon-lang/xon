@@ -1,21 +1,24 @@
-import {Nothing} from '../../../../../../lib/src/types';
-import {ExpressionNode, Node} from '../../../node';
-import {TypeNode} from '../../../syntax/node/type/type-node';
-import {SemanticAnalyzer} from '../../semantic-analyzer';
-import {arrayTypeSemanticTryParse} from './array/array-type-semantic-parser';
-import {charTypeSemanticTryParse} from './char/char-type-semantic-parser';
-import {functionTypeSemanticTryParse} from './function/function-type-semantic-parser';
-import {idTypeSemanticTryParse} from './id/id-type-semantic-parser';
-import {integerTypeSemanticTryParse} from './integer/integer-type-semantic-parser';
-import {invokeTypeSemanticTryParse} from './invoke/invoke-type-semantic-parser';
-import {complementTypeSemanticTryParse} from './set/complement/intersection-type-semantic-parser';
-import {intersectionTypeSemanticTryParse} from './set/intersection/intersection-type-semantic-parser';
-import {notTypeSemanticTryParse} from './set/not/not-type-semantic-parser';
-import {rangeTypeSemanticTryParse} from './set/range/range-type-semantic-parser';
-import {unionTypeSemanticTryParse} from './set/union/union-type-semantic-parser';
-import {stringTypeSemanticTryParse} from './string/string-type-semantic-parser';
-import {TypeSemantic} from './type-semantic';
-import {unknownTypeSemantic} from './unknown/unknown-type-semantic';
+import {Nothing} from '#common';
+import {
+  ExpressionNode,
+  Node,
+  SemanticAnalyzer,
+  TypeNode,
+  TypeSemantic,
+  arrayTypeSemanticTryParse,
+  charTypeSemanticTryParse,
+  complementTypeSemanticTryParse,
+  functionTypeSemanticTryParse,
+  idTypeSemanticTryParse,
+  integerTypeSemanticTryParse,
+  intersectionTypeSemanticTryParse,
+  invokeTypeSemanticTryParse,
+  notTypeSemanticTryParse,
+  rangeTypeSemanticTryParse,
+  stringTypeSemanticTryParse,
+  unionTypeSemanticTryParse,
+  unknownTypeSemantic,
+} from '#core';
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 

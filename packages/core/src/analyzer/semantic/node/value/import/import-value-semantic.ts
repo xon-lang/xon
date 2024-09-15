@@ -1,9 +1,5 @@
-import {$} from '../../../../../$';
-import {Nothing} from '../../../../../../../lib/src/types';
-import {Resource} from '../../../../../util/resource/resource';
-import {Node} from '../../../../node';
-import {TypeSemantic} from '../../type/type-semantic';
-import {ValueSemantic} from '../value-semantic';
+import {Nothing} from '#common';
+import {$, Node, Resource, TypeSemantic, ValueSemantic} from '#core';
 
 export type ImportValueSemantic = ValueSemantic<$.ImportValueSemantic> & {
   resource: Resource | Nothing;

@@ -1,3 +1,3 @@
-import {DeclarationSemantic} from '../declaration-semantic';
+import {DeclarationSemantic} from '#core';
 
 export type ValueDeclarationSemantic = DeclarationSemantic;

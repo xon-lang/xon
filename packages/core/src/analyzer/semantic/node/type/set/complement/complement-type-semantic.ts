@@ -1,10 +1,12 @@
-import {$} from '../../../../../../$';
-import {Boolean2} from '../../../../../../../../lib/src/types';
-import {Node} from '../../../../../node';
-import {DeclarationScope} from '../../../../declaration-scope';
-import {AttributeValueDeclarationSemantic} from '../../../declaration/value/attribute/attribute-value-declaration-semantic';
-import {TypeSemantic} from '../../type-semantic';
-import {SetTypeSemantic} from '../set';
+import {Boolean2} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  DeclarationScope,
+  Node,
+  SetTypeSemantic,
+  TypeSemantic,
+} from '#core';
 
 export interface ComplementTypeSemantic extends SetTypeSemantic {
   $: $.ComplementTypeSemantic;

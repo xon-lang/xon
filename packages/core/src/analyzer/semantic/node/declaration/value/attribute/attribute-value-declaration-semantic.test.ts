@@ -1,12 +1,14 @@
-import {$} from '../../../../../../$';
-import {nothing} from '../../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../../util/resource/text/text-resource';
-import {semanticFromResource} from '../../../../semantic-analyzer';
-import {TEST_SEMANTIC_CONFIG} from '../../../../semantic-analyzer-config';
-import {FunctionTypeSemantic} from '../../../type/function/function-type-semantic';
-import {IdTypeSemantic} from '../../../type/id/id-type-semantic';
-import {ParameterValueDeclarationSemantic} from '../parameter/parameter-value-declaration-semantic';
-import {AttributeValueDeclarationSemantic} from './attribute-value-declaration-semantic';
+import {nothing} from '#common';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  FunctionTypeSemantic,
+  IdTypeSemantic,
+  ParameterValueDeclarationSemantic,
+  semanticFromResource,
+  TEST_SEMANTIC_CONFIG,
+  textResourceFromData,
+} from '#core';
 
 test('only a', () => {
   const text = 'infix + (a: Integer, b: String): String ';
