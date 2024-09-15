@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {Nothing, String2} from '../../../../../../lib/types';
+import {Nothing, String2} from '../../../../../../lib/src/types';
 import {TextData} from '../../../../util/data/text-data';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {ExpressionNode} from '../../../node';

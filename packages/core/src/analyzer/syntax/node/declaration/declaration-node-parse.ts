@@ -1,5 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, Nothing, nothing} from '../../../../../../lib/types';
+import {Integer, Nothing, nothing} from '../../../../../../lib/src/types';
 import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';

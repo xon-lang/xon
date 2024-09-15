@@ -1,5 +1,5 @@
 import {$, is} from '../../../$';
-import {Nothing, nothing, String2} from '../../../../../lib/types';
+import {Nothing, nothing, String2} from '../../../../../lib/src/types';
 import {ANGLE_CLOSE, BRACE_CLOSE, BRACKET_CLOSE, PAREN_CLOSE} from '../../lexical/lexical-analyzer-config';
 
 import {CommaNode} from '../../lexical/node/comma/comma-node';

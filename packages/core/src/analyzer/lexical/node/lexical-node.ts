@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Anything, String2} from '../../../../../lib/types';
+import {Anything, String2} from '../../../../../lib/src/types';
 import {TextData} from '../../../util/data/text-data';
 import {Node} from '../../node';
 

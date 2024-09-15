@@ -1,5 +1,5 @@
 import {$, is} from '../../$';
-import {Boolean2, Nothing, nothing} from '../../../../lib/types';
+import {Boolean2, Nothing, nothing} from '../../../../lib/src/types';
 import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,

@@ -1,4 +1,4 @@
-import {nothing, Nothing} from '../../../../../../../../lib/types';
+import {nothing, Nothing} from '../../../../../../../../lib/src/types';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {functionTypeSemantic} from '../../../type/function/function-type-semantic';

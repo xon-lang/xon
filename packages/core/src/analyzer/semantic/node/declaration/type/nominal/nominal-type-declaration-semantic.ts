@@ -1,5 +1,5 @@
 import {$} from '../../../../../../$';
-import {Boolean2, Nothing, String2} from '../../../../../../../../lib/types';
+import {Boolean2, Nothing, String2} from '../../../../../../../../lib/src/types';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {createDeclarationScope, DeclarationScope} from '../../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';

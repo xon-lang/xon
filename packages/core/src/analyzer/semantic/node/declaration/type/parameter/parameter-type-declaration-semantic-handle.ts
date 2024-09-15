@@ -1,4 +1,4 @@
-import {nothing} from '../../../../../../../../lib/types';
+import {nothing} from '../../../../../../../../lib/src/types';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {SemanticAnalyzer} from '../../../../semantic-analyzer';
 import {typeSemanticParse} from '../../../type/type-semantic-parser';

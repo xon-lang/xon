@@ -1,5 +1,5 @@
 import {$} from '../../../../../../$';
-import {nothing} from '../../../../../../../../lib/types';
+import {nothing} from '../../../../../../../../lib/src/types';
 import {textResourceFromData} from '../../../../../../util/resource/text/text-resource';
 import {semanticFromResource} from '../../../../semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../semantic-analyzer-config';

@@ -1,4 +1,4 @@
-import {Boolean2, Char, Integer, Nothing, String2} from '../../../../lib/types';
+import {Boolean2, Char, Integer, Nothing, String2} from '../../../../lib/src/types';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);

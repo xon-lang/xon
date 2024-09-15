@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {nothing, Nothing} from '../../../../../../lib/types';
+import {nothing, Nothing} from '../../../../../../lib/src/types';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';

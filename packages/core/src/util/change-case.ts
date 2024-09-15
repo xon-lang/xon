@@ -1,6 +1,6 @@
 // TAKEN FROM: https://github.com/blakeembrey/change-case/blob/main/packages/change-case/src/index.ts
 
-import {Nothing, String2, nothing} from '../../../lib/types';
+import {Nothing, String2, nothing} from '../../../lib/src/types';
 
 // Regexps involved with splitting words in various case formats.
 const SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;
@@ -50,7 +50,9 @@ export interface Options {
 export function split(value: string) {
   let result = value.trim();
 
-  result = result.replace(SPLIT_LOWER_UPPER_RE, SPLIT_REPLACE_VALUE).replace(SPLIT_UPPER_UPPER_RE, SPLIT_REPLACE_VALUE);
+  result = result
+    .replace(SPLIT_LOWER_UPPER_RE, SPLIT_REPLACE_VALUE)
+    .replace(SPLIT_UPPER_UPPER_RE, SPLIT_REPLACE_VALUE);
 
   result = result.replace(DEFAULT_STRIP_REGEXP, '\0');
 
@@ -138,7 +140,9 @@ export function capitalCase(input: string, options?: Options) {
   const [prefix, words, suffix] = splitPrefixSuffix(input, options);
   const lower = lowerFactory(options?.locale);
   const upper = upperFactory(options?.locale);
-  return prefix + words.map(capitalCaseTransformFactory(lower, upper)).join(options?.delimiter ?? ' ') + suffix;
+  return (
+    prefix + words.map(capitalCaseTransformFactory(lower, upper)).join(options?.delimiter ?? ' ') + suffix
+  );
 }
 
 /**
@@ -205,11 +209,15 @@ export function trainCase(input: string, options?: Options) {
 }
 
 function lowerFactory(locale: Locale): (input: string) => string {
-  return locale === false ? (input: string) => input.toLowerCase() : (input: string) => input.toLocaleLowerCase(locale);
+  return locale === false
+    ? (input: string) => input.toLowerCase()
+    : (input: string) => input.toLocaleLowerCase(locale);
 }
 
 function upperFactory(locale: Locale): (input: string) => string {
-  return locale === false ? (input: string) => input.toUpperCase() : (input: string) => input.toLocaleUpperCase(locale);
+  return locale === false
+    ? (input: string) => input.toUpperCase()
+    : (input: string) => input.toLocaleUpperCase(locale);
 }
 
 function capitalCaseTransformFactory(lower: (input: string) => string, upper: (input: string) => string) {
@@ -244,7 +252,11 @@ function splitPrefixSuffix(input: string, options: Options = {}): [string, strin
     suffixIndex = index;
   }
 
-  return [input.slice(0, prefixIndex), splitFn(input.slice(prefixIndex, suffixIndex)), input.slice(suffixIndex)];
+  return [
+    input.slice(0, prefixIndex),
+    splitFn(input.slice(prefixIndex, suffixIndex)),
+    input.slice(suffixIndex),
+  ];
 }
 
 export type CaseFn = (input: string, options?: PascalCaseOptions) => String2;

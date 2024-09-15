@@ -1,4 +1,4 @@
-import {topologicalSort} from './topological-sort';
+import {topologicalSort} from '../src/sort/topological-sort';
 
 test('empty', () => {
   let dependencies = {};

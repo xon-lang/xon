@@ -1,4 +1,4 @@
-import {Boolean2, Integer} from '../../../lib/types';
+import {Boolean2, Integer} from '../../../lib/src/types';
 
 export type FormatterConfig = {
   insertFinalNewline: Boolean2;

@@ -1,5 +1,5 @@
 import {is, TypeMap} from '../../$';
-import {Integer, Nothing, nothing, String2} from '../../../../lib/types';
+import {Integer, Nothing, nothing, String2} from '../../../../lib/src/types';
 import {DeclarationKind, DeclarationSemantic} from './node/declaration/declaration-semantic';
 import {TypeSemantic} from './node/type/type-semantic';
 import {SemanticAnalyzer} from './semantic-analyzer';

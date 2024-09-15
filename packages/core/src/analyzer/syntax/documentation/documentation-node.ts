@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Nothing, String2} from '../../../../../lib/types';
+import {Nothing, String2} from '../../../../../lib/src/types';
 import {DocumentationCloseNode} from '../../lexical/node/documentation-close/documentation-close-node';
 import {DocumentationDescriptionNode} from '../../lexical/node/documentation-description/documentation-description-node';
 import {DocumentationOpenNode} from '../../lexical/node/documentation-open/documentation-open-node';

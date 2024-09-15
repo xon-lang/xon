@@ -1,5 +1,5 @@
 import {dirname, join, resolve} from 'path';
-import {Nothing, String2, nothing} from '../../../../../../../lib/types';
+import {Nothing, String2, nothing} from '../../../../../../../lib/src/types';
 import {textResourceFromLocation} from '../../../../../util/resource/text/text-resource';
 import {ImportNode} from '../../../../syntax/node/import/import-node';
 import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';

@@ -1,4 +1,4 @@
-import {Anything, Boolean2, Nothing} from '../../lib/types';
+import {Anything, Boolean2, Nothing} from '../../lib/src/types';
 import {CharContentNode} from './analyzer/lexical/node/char-content/char-content-node';
 import {AngleCloseNode} from './analyzer/lexical/node/close/angle-close/angle-close-node';
 import {BraceCloseNode} from './analyzer/lexical/node/close/brace-close/brace-close-node';

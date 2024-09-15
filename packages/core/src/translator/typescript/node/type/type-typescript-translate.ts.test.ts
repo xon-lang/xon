@@ -1,4 +1,4 @@
-import {nothing} from '../../../../../../lib/types';
+import {nothing} from '../../../../../../lib/src/types';
 import {ValueDeclarationSemantic} from '../../../../analyzer/semantic/node/declaration/value/value-declaration-semantic';
 import {semanticFromResource} from '../../../../analyzer/semantic/semantic-analyzer';
 import {TEST_SEMANTIC_CONFIG} from '../../../../analyzer/semantic/semantic-analyzer-config';

@@ -1,6 +1,6 @@
 import * as path from 'path';
 import {$} from '../../$';
-import {String2} from '../../../../lib/types';
+import {String2} from '../../../../lib/src/types';
 import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {Node} from '../../analyzer/node';
 import {TypeDeclarationSemantic} from '../../analyzer/semantic/node/declaration/type/type-declaration-semantic';

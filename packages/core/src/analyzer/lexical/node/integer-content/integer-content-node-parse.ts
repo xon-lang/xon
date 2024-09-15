@@ -1,4 +1,4 @@
-import {nothing, Nothing} from '../../../../../../lib/types';
+import {nothing, Nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {UNDERSCORE} from '../../lexical-analyzer-config';
 import {integerContentNode, IntegerContentNode} from './integer-content-node';

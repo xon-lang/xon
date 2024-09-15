@@ -1,6 +1,6 @@
 import {readFileSync, statSync} from 'fs';
 import {$} from '../../../$';
-import {Boolean2, Nothing, nothing, String2} from '../../../../../lib/types';
+import {Boolean2, Nothing, nothing, String2} from '../../../../../lib/src/types';
 import {textData, TextData} from '../../data/text-data';
 import {Resource} from '../resource';
 import {TextRange} from './text-range';

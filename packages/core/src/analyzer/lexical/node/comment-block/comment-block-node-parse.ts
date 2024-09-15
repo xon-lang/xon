@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-analyzer-config';
 import {CommentBlockNode, commentBlockNode} from './comment-block-node';

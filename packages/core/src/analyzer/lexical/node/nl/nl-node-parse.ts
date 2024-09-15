@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {NL, SPACE} from '../../lexical-analyzer-config';
 import {NlNode, nlNode} from './nl-node';

@@ -1,5 +1,5 @@
 import {$, is} from '../../../../../$';
-import {String2} from '../../../../../../../lib/types';
+import {String2} from '../../../../../../../lib/src/types';
 import {TypeDeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
 import {TypescriptTranslator} from '../../../typescript-translator';
 

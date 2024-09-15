@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../$';
-import {Boolean2, Integer, Nothing} from '../../../../../../../lib/types';
+import {Boolean2, Integer, Nothing} from '../../../../../../../lib/src/types';
 import {Node} from '../../../../node';
 import {createDeclarationScope, DeclarationScope} from '../../../declaration-scope';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';

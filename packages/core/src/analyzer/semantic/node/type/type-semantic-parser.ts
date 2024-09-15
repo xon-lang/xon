@@ -1,4 +1,4 @@
-import {Nothing} from '../../../../../../lib/types';
+import {Nothing} from '../../../../../../lib/src/types';
 import {ExpressionNode, Node} from '../../../node';
 import {TypeNode} from '../../../syntax/node/type/type-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';

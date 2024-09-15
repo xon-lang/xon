@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../../lib/src/types';
 import {textData} from '../../../../../util/data/text-data';
 import {LexicalAnalyzer} from '../../../lexical-analyzer';
 import {PAREN_OPEN} from '../../../lexical-analyzer-config';

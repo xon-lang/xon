@@ -1,4 +1,4 @@
-import {Boolean2, Integer, Nothing, Number2, String2, nothing} from '../../../../lib/types';
+import {Boolean2, Integer, Nothing, Number2, String2, nothing} from '../../../../lib/src/types';
 
 Array.prototype.take = function <T>(length: Integer, startIndex: Integer = 0): T[] {
   return this.slice(startIndex, startIndex + length);

@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {Nothing} from '../../../../../../lib/types';
+import {Nothing} from '../../../../../../lib/src/types';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {OperatorNode} from '../../../lexical/node/operator/operator-node';
 import {DocumentationNode} from '../../documentation/documentation-node';

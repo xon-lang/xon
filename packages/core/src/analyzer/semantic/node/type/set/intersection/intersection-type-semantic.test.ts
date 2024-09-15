@@ -1,5 +1,5 @@
 import {$} from '../../../../../../$';
-import {String2, nothing} from '../../../../../../../../lib/types';
+import {String2, nothing} from '../../../../../../../../lib/src/types';
 import {textResourceFromData} from '../../../../../../util/resource/text/text-resource';
 import {DeclarationNode} from '../../../../../syntax/node/declaration/declaration-node';
 import {syntaxFromResource} from '../../../../../syntax/syntax-analyzer';

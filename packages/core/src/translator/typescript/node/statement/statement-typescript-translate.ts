@@ -1,5 +1,5 @@
 import {$, is} from '../../../../$';
-import {String2} from '../../../../../../lib/types';
+import {String2} from '../../../../../../lib/src/types';
 import {NL} from '../../../../analyzer/lexical/lexical-analyzer-config';
 import {Semantic} from '../../../../analyzer/semantic/node/semantic';
 import {StatementNode} from '../../../../analyzer/syntax/statement/statement-node';

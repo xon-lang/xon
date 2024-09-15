@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {SPACE} from '../../lexical-analyzer-config';
 import {WhitespaceNode, whitespaceNode} from './whitespace-node';

@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {String2} from '../../../../../../lib/types';
+import {String2} from '../../../../../../lib/src/types';
 import {TextData} from '../../../../util/data/text-data';
 import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
 import {AT} from '../../lexical-analyzer-config';

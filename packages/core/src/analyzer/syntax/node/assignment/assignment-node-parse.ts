@@ -1,5 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, nothing} from '../../../../../../lib/types';
+import {Integer, nothing} from '../../../../../../lib/src/types';
 import {ASSIGN} from '../../../lexical/lexical-analyzer-config';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';

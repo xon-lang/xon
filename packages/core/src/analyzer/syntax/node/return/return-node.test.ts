@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/types';
+import {nothing} from '../../../../../../lib/src/types';
 import {evaluate} from '../../../../util/evaluate';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {RETURN} from '../../../lexical/lexical-analyzer-config';

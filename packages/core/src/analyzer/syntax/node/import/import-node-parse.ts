@@ -1,5 +1,5 @@
 import {$, is} from '../../../../$';
-import {Boolean2, Integer, nothing, String2} from '../../../../../../lib/types';
+import {Boolean2, Integer, nothing, String2} from '../../../../../../lib/src/types';
 import {Node, nodeFindMap} from '../../../node';
 import {SyntaxParseFn} from '../../statement/statement-node-collapse';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';

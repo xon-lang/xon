@@ -1,4 +1,4 @@
-import {Anything, Boolean2, Char, Integer, Nothing, Number2, String2} from '../../../../lib/types';
+import {Anything, Boolean2, Char, Integer, Nothing, Number2, String2} from '../../../../lib/src/types';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}

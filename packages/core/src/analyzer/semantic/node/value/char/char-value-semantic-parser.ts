@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../../lib/src/types';
 import {Node} from '../../../../node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';
 import {charTypeSemanticTryParse} from '../../type/char/char-type-semantic-parser';

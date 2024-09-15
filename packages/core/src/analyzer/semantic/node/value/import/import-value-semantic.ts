@@ -1,5 +1,5 @@
 import {$} from '../../../../../$';
-import {Nothing} from '../../../../../../../lib/types';
+import {Nothing} from '../../../../../../../lib/src/types';
 import {Resource} from '../../../../../util/resource/resource';
 import {Node} from '../../../../node';
 import {TypeSemantic} from '../../type/type-semantic';

@@ -1,4 +1,4 @@
-import {Integer, Nothing} from '../../../lib/types';
+import {Integer, Nothing} from '../../../lib/src/types';
 import {TextRange} from '../util/resource/text/text-range';
 import {TextResource} from '../util/resource/text/text-resource';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';

@@ -1,5 +1,5 @@
 import {$, $Model} from '../$';
-import {Boolean2, Integer, Nothing, nothing} from '../../../lib/types';
+import {Boolean2, Integer, Nothing, nothing} from '../../../lib/src/types';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {Semantic} from './semantic/node/semantic';
 

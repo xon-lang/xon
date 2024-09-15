@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/types';
+import {nothing} from '../../../../../../lib/src/types';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {IdNode} from '../../../lexical/node/id/id-node';
 import {GroupNode} from '../../group/group-node';

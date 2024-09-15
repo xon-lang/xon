@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../lib/types';
+import {Nothing, nothing} from '../../../../lib/src/types';
 import {AnalyzerDiagnosticManager} from '../../diagnostic/analyzer-diagnostic-manager';
 import {TextResource} from '../../util/resource/text/text-resource';
 import {StatementNode} from '../syntax/statement/statement-node';

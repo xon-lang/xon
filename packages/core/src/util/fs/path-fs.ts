@@ -1,7 +1,7 @@
 import {lstatSync, Stats} from 'fs';
 import {homedir} from 'os';
 import {join, resolve} from 'path';
-import {Boolean2, nothing, Nothing, String2} from '../../../../lib/types';
+import {Boolean2, nothing, Nothing, String2} from '../../../../lib/src/types';
 import {DirectoryFs} from './directory-fs';
 import {FileFs} from './file-fs';
 

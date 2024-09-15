@@ -1,5 +1,5 @@
 import {$} from '../../../../../$';
-import {Nothing, String2} from '../../../../../../../lib/types';
+import {Nothing, String2} from '../../../../../../../lib/src/types';
 import {Node} from '../../../../node';
 import {ValueDeclarationSemantic} from '../../declaration/value/value-declaration-semantic';
 import {TypeSemantic} from '../../type/type-semantic';

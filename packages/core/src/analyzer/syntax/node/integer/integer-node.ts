@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {Number2} from '../../../../../../lib/types';
+import {Number2} from '../../../../../../lib/src/types';
 import {IntegerContentNode} from '../../../lexical/node/integer-content/integer-content-node';
 import {ExpressionNode} from '../../../node';
 import {SyntaxAnalyzer} from '../../syntax-analyzer';

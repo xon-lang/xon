@@ -1,5 +1,5 @@
 import {$, is} from '../../../$';
-import {Nothing, nothing} from '../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../lib/src/types';
 import {rangeFromNodes} from '../../../util/resource/text/text-range';
 import {textResourceRange} from '../../../util/resource/text/text-resource-range';
 import {documentationLexicalParsers} from '../../lexical/documentation-lexical-analyzer';

@@ -1,4 +1,4 @@
-import {Integer, Nothing, String2} from '../../../lib/types';
+import {Integer, Nothing, String2} from '../../../lib/src/types';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {colorText, TerminalColor} from '../util/terminal/terminal-color';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';

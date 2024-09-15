@@ -1,5 +1,5 @@
 import {$, is} from '../$';
-import {Anything, Nothing, Something, String2, nothing} from '../../../lib/types';
+import {Anything, Nothing, Something, String2, nothing} from '../../../lib/src/types';
 import {Node} from '../analyzer/node';
 
 export function escapeToString<T>(value: T): String2 {

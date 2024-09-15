@@ -1,5 +1,5 @@
 import {$, is, isSetOperatorTypeSemantic} from '../../../../../../$';
-import {Boolean2, Nothing} from '../../../../../../../../lib/types';
+import {Boolean2, Nothing} from '../../../../../../../../lib/src/types';
 import {Node} from '../../../../../node';
 import {DeclarationScope} from '../../../../declaration-scope';
 import {NominalTypeDeclarationSemantic} from '../../../declaration/type/nominal/nominal-type-declaration-semantic';

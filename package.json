@@ -17,7 +17,7 @@
     "build": "rm -rf packages/vscode/dist && tsc",
     "dev": "tsc --noEmit --watch",
     "vscode:debug": "npm run build",
-    "barrelsby": "barrelsby -qHD -e dist -e .gen -e .test -d",
+    "barrelsby": "barrelsby -qD -e dist -e .gen -e .test -d",
     "barrels:lib": "npm run barrelsby -- packages/lib",
     "barrels:core": "npm run barrelsby -- packages/core",
     "barrels:vscode": "npm run barrelsby -- packages/vscode",

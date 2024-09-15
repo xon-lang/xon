@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Boolean2} from '../../../../../lib/types';
+import {Boolean2} from '../../../../../lib/src/types';
 import {TextData} from '../../data/text-data';
 import {TextRange} from './text-range';
 import {TextResource} from './text-resource';

@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/types';
+import {nothing} from '../../../../../../lib/src/types';
 import {predefinedDiagnostics} from '../../../../diagnostic/analyzer-diagnostic-message';
 import {textResourceFromData} from '../../../../util/resource/text/text-resource';
 import {syntaxFromResource} from '../../../syntax/syntax-analyzer';

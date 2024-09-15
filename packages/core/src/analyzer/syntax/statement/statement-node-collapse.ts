@@ -1,5 +1,5 @@
 import {$, is} from '../../../$';
-import {Integer, Nothing, nothing} from '../../../../../lib/types';
+import {Integer, Nothing, nothing} from '../../../../../lib/src/types';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,

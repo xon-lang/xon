@@ -1,5 +1,5 @@
 import {$, is} from '../../../../../$';
-import {Nothing, nothing} from '../../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../../lib/src/types';
 import {Node} from '../../../../node';
 import {BracketGroupNode} from '../../../../syntax/group/bracket/bracket-group-node';
 import {SemanticAnalyzer} from '../../../semantic-analyzer';

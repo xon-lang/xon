@@ -1,4 +1,4 @@
-import {String2, nothing} from '../../../lib/types';
+import {String2, nothing} from '../../../lib/src/types';
 import {TextResourceRange} from '../util/resource/text/text-resource-range';
 import {AnalyzerDiagnostic, createDiagnostic} from './analyzer-diagnostic';
 import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';

@@ -1,5 +1,5 @@
 import {$, is} from '../../../../../$';
-import {Boolean2} from '../../../../../../../lib/types';
+import {Boolean2} from '../../../../../../../lib/src/types';
 import {TypeSemantic} from '../type-semantic';
 
 export interface SetTypeSemantic extends TypeSemantic {}

@@ -1,5 +1,5 @@
 import {$, is} from '../../../../$';
-import {nothing} from '../../../../../../lib/types';
+import {nothing} from '../../../../../../lib/src/types';
 import {StatementNode} from '../../../syntax/statement/statement-node';
 import {SemanticAnalyzer} from '../../semantic-analyzer';
 import {statementDeclarationsParse} from '../declaration/declaration-semantic-parser';

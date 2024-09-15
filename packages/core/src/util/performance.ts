@@ -1,4 +1,4 @@
-import {Anything, Integer, String2} from '../../../lib/types';
+import {Anything, Integer, String2} from '../../../lib/src/types';
 
 export function performanceTimer(name: String2) {
   const start = performance.now();
@@ -16,7 +16,10 @@ export function performanceTimer(name: String2) {
   };
 }
 
-export function performanceIterations(count: Integer, fn: () => Anything): {min: Integer; max: Integer; avg: Integer} {
+export function performanceIterations(
+  count: Integer,
+  fn: () => Anything,
+): {min: Integer; max: Integer; avg: Integer} {
   let min = Infinity;
   let max = 0;
   let timespans = 0;

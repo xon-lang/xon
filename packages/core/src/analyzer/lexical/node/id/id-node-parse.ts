@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {UNDERSCORE} from '../../lexical-analyzer-config';
 import {IdNode, idNode} from './id-node';

@@ -1,5 +1,5 @@
 import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, Nothing, nothing} from '../../../../../../lib/types';
+import {Integer, Nothing, nothing} from '../../../../../../lib/src/types';
 import {ASSIGN, TYPE} from '../../../lexical/lexical-analyzer-config';
 import {ExpressionNode, Node, nodeFindMap} from '../../../node';
 import {GroupNode} from '../../group/group-node';

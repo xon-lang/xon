@@ -1,6 +1,6 @@
 import {$, is} from '../../../../$';
-import {topologicalSort} from '../../../../../../lib/sort/topological-sort';
-import {Nothing, String2} from '../../../../../../lib/types';
+import {topologicalSort} from '../../../../../../lib/src/sort/topological-sort';
+import {Nothing, String2} from '../../../../../../lib/src/types';
 import {TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
 import {Node} from '../../../node';
 import {GroupNode} from '../../../syntax/group/group-node';

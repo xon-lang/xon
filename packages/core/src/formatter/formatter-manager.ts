@@ -1,5 +1,5 @@
 import {$, is} from '../$';
-import {Boolean2, Nothing, String2} from '../../../lib/types';
+import {Boolean2, Nothing, String2} from '../../../lib/src/types';
 import {NL} from '../analyzer/lexical/lexical-analyzer-config';
 import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
 import {NlNode} from '../analyzer/lexical/node/nl/nl-node';

@@ -1,5 +1,5 @@
 import {$} from '../../../$';
-import {Nothing} from '../../../../../lib/types';
+import {Nothing} from '../../../../../lib/src/types';
 import {textData} from '../../../util/data/text-data';
 import {textPosition} from '../../../util/resource/text/text-position';
 import {textRange} from '../../../util/resource/text/text-range';

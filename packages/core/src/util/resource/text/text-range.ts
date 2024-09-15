@@ -1,5 +1,5 @@
 import {$, $Model, is} from '../../../$';
-import {Boolean2} from '../../../../../lib/types';
+import {Boolean2} from '../../../../../lib/src/types';
 import {Node} from '../../../analyzer/node';
 import {clonePosition, TextPosition, zeroPosition} from './text-position';
 

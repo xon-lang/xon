@@ -1,5 +1,5 @@
 import {$} from '../$';
-import {nothing} from '../../../lib/types';
+import {nothing} from '../../../lib/src/types';
 import {textResourceFromData} from '../util/resource/text/text-resource';
 import {InfixNode} from './syntax/node/infix/infix-node';
 import {IntegerNode} from './syntax/node/integer/integer-node';

@@ -1,4 +1,4 @@
-import {nothing, Nothing} from '../../../../../../lib/types';
+import {nothing, Nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {STRING_CLOSE} from '../../lexical-analyzer-config';
 import {StringContentNode, stringContentNode} from './string-content-node';

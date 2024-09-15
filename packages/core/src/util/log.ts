@@ -1,4 +1,4 @@
-import {String2} from '../../../lib/types';
+import {String2} from '../../../lib/src/types';
 
 // const Reset = '\x1b[0m';
 // const Bright = '\x1b[1m';
@@ -40,6 +40,10 @@ export enum LogColor {
   GRAY = 60,
 }
 
-export function log(text: String2, foreground: LogColor = LogColor.WHITE, background: LogColor = LogColor.BLACK) {
+export function log(
+  text: String2,
+  foreground: LogColor = LogColor.WHITE,
+  background: LogColor = LogColor.BLACK,
+) {
   console.log(`\x1b[${30 + foreground}m\x1b[${40 + background}m%s\x1b[0m`, text);
 }

@@ -1,5 +1,5 @@
 import {$} from '../../../../$';
-import {Char, Nothing} from '../../../../../../lib/types';
+import {Char, Nothing} from '../../../../../../lib/src/types';
 import {CharContentNode} from '../../../lexical/node/char-content/char-content-node';
 import {CharCloseNode} from '../../../lexical/node/close/char-close/char-close-node';
 import {CharOpenNode} from '../../../lexical/node/open/char-open/char-open-node';

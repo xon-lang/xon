@@ -1,5 +1,5 @@
 import {$, is} from '../../$';
-import {Boolean2, Char, Integer, String2} from '../../../../lib/types';
+import {Boolean2, Char, Integer, String2} from '../../../../lib/src/types';
 import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
 import {Predicate} from '../extension/extension';
 import {TextRange} from '../resource/text/text-range';

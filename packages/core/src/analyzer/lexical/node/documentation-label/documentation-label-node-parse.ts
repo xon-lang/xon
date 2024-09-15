@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '../../../../../../lib/types';
+import {Nothing, nothing} from '../../../../../../lib/src/types';
 import {LexicalAnalyzer} from '../../lexical-analyzer';
 import {AT} from '../../lexical-analyzer-config';
 import {DocumentationLabelNode, documentationLabelNode} from './documentation-label-node';

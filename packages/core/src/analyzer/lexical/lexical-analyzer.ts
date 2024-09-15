@@ -1,4 +1,4 @@
-import {Boolean2, Integer, nothing, Nothing, String2} from '../../../../lib/types';
+import {Boolean2, Integer, nothing, Nothing, String2} from '../../../../lib/src/types';
 import {TextData} from '../../util/data/text-data';
 import {textPosition, TextPosition, zeroPosition} from '../../util/resource/text/text-position';
 import {textRange} from '../../util/resource/text/text-range';
