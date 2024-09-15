@@ -12,7 +12,7 @@ import {
 } from '#core';
 
 export function stringNodeParse(analyzer: SyntaxAnalyzer, openNode: StringOpenNode): StringNode {
-  const iterator = analyzer.lexicalAnalyzer.iterator(stringLexicalParsers);
+  const iterator = analyzer.lexicalAnalyzer.iterator(stringLexicalParsers());
   let content: StringContentNode | Nothing = nothing;
   let closeNode: StringCloseNode | Nothing = nothing;
 
