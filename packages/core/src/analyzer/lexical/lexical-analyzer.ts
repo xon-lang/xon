@@ -43,7 +43,7 @@ export function createLexicalAnalyzer(
     position,
 
     iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
-      return iterator(this, parsers);
+      return parsersIterator(this, parsers);
     },
 
     getResourceRange(lengthOrText: Integer | TextData): TextResourceRange {
@@ -104,7 +104,7 @@ export function createLexicalAnalyzer(
   };
 }
 
-function iterator(lexer: LexicalAnalyzer, parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
+function parsersIterator(lexer: LexicalAnalyzer, parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
   return {
     next(): IteratorResult<LexicalNode> {
       if (lexer.position.index >= lexer.resource.data.length()) {

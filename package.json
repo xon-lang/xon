@@ -9,6 +9,7 @@
     "esbuild": "^0.23.1",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "tslib": "^2.7.0",
     "typescript": "^5.6.2"
   },
@@ -18,9 +19,9 @@
     "dev": "tsc --noEmit --watch",
     "vscode:debug": "npm run build",
     "barrelsby": "barrelsby -qD -e dist -e .gen -e .test -d",
-    "barrels:lib": "npm run barrelsby -- packages/lib",
+    "barrels:common": "npm run barrelsby -- packages/common",
     "barrels:core": "npm run barrelsby -- packages/core",
     "barrels:vscode": "npm run barrelsby -- packages/vscode",
-    "barrels": "npm run barrels:lib && npm run barrels:core && npm run barrels:vscode"
+    "barrels": "npm run barrels:common && npm run barrels:core && npm run barrels:vscode"
   }
 }

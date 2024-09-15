@@ -18,7 +18,7 @@ export function documentationNodeParse(
   analyzer: SyntaxAnalyzer,
   openNode: DocumentationOpenNode,
 ): DocumentationNode {
-  const iterator = analyzer.lexicalAnalyzer.iterator(documentationLexicalParsers);
+  const iterator = analyzer.lexicalAnalyzer.iterator(documentationLexicalParsers());
   let description: DocumentationDescriptionNode | Nothing = nothing;
   const items: DocumentationItemNode[] = [];
 

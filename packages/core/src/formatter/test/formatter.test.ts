@@ -1,8 +1,7 @@
+import {String2} from '#common';
+import {syntaxFromResource, textResourceFromLocation} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
-import {String2} from '../../../../lib/src/types';
-import {syntaxFromResource} from '../../analyzer/syntax/syntax-analyzer';
-import {textResourceFromLocation} from '../../util/resource/text/text-resource';
 
 test('01', () => testFormatter('1'));
 test('02', () => testFormatter('2'));

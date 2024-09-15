@@ -1,3 +1,5 @@
+import '#core';
+
 test('array min number', () => {
   const arr = [0, 1, 2, -3, 5, 7, 3];
 

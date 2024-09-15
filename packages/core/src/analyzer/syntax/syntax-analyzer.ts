@@ -88,7 +88,7 @@ export function createSyntaxAnalyzer(
         nodes = [];
       };
 
-      const iterator = analyzer.lexicalAnalyzer.iterator(codeLexicalParsers);
+      const iterator = analyzer.lexicalAnalyzer.iterator(codeLexicalParsers());
 
       for (const iterableNode of iterator) {
         let node: Node = iterableNode;

@@ -23,31 +23,33 @@ import {
 } from '#core';
 
 // todo remove all nodes if possible and use single node (e.g. 'TokenNode')
-export const codeLexicalParsers: LexicalNodeParseFn[] = [
-  parenOpenNodeParse,
-  parenCloseNodeParse,
-  bracketOpenNodeParse,
-  angleOpenNodeParse,
+export function codeLexicalParsers(): LexicalNodeParseFn[] {
+  return [
+    parenOpenNodeParse,
+    parenCloseNodeParse,
+    bracketOpenNodeParse,
+    angleOpenNodeParse,
 
-  bracketCloseNodeParse,
-  braceOpenNodeParse,
-  braceCloseNodeParse,
-  angleCloseNodeParse,
+    bracketCloseNodeParse,
+    braceOpenNodeParse,
+    braceCloseNodeParse,
+    angleCloseNodeParse,
 
-  integerContentNodeParse,
+    integerContentNodeParse,
 
-  commaNodeParse,
+    commaNodeParse,
 
-  commentLineNodeParse,
-  commentBlockNodeParse,
-  whitespaceNodeParse,
-  nlNodeParse,
-  joiningNodeParse,
+    commentLineNodeParse,
+    commentBlockNodeParse,
+    whitespaceNodeParse,
+    nlNodeParse,
+    joiningNodeParse,
 
-  // todo should we add 'documentationOpenNodeParse' in codeAnalyzer instead of documentationAnalyzer ???
-  documentationOpenNodeParse,
-  stringOpenNodeParse,
-  charOpenNodeParse,
-  operatorNodeParse,
-  idNodeParse,
-];
+    // todo should we add 'documentationOpenNodeParse' in codeAnalyzer instead of documentationAnalyzer ???
+    documentationOpenNodeParse,
+    stringOpenNodeParse,
+    charOpenNodeParse,
+    operatorNodeParse,
+    idNodeParse,
+  ];
+}
