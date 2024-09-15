@@ -1,10 +1,12 @@
-import {nothing} from '../../../../../../../lib/src/types';
-import {DeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/declaration-semantic';
-import {semanticFromResource} from '../../../../../analyzer/semantic/semantic-analyzer';
-import {TEST_SEMANTIC_CONFIG} from '../../../../../analyzer/semantic/semantic-analyzer-config';
-import {DeclarationNode} from '../../../../../analyzer/syntax/node/declaration/declaration-node';
-import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {createTypescriptTranslator} from '../../../typescript-translator';
+import {nothing} from '#common';
+import {
+  createTypescriptTranslator,
+  DeclarationNode,
+  DeclarationSemantic,
+  semanticFromResource,
+  TEST_SEMANTIC_CONFIG,
+  textResourceFromData,
+} from '#core';
 
 test('type string', () => {
   const text = 'type A';

@@ -1,24 +1,25 @@
-import * as path from 'path';
-import {$} from '../../$';
-import {String2} from '../../../../lib/src/types';
-import {NL} from '../../analyzer/lexical/lexical-analyzer-config';
-import {Node} from '../../analyzer/node';
-import {TypeDeclarationSemantic} from '../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
-import {ValueDeclarationSemantic} from '../../analyzer/semantic/node/declaration/value/value-declaration-semantic';
-import {TypeSemantic} from '../../analyzer/semantic/node/type/type-semantic';
-import {ValueSemantic} from '../../analyzer/semantic/node/value/value-semantic';
-import {SemanticAnalyzer} from '../../analyzer/semantic/semantic-analyzer';
-import {StatementNode} from '../../analyzer/syntax/statement/statement-node';
+import {String2} from '#common';
 import {
+  $,
   AnalyzerDiagnosticManager,
+  NL,
+  Node,
+  SemanticAnalyzer,
+  StatementNode,
+  Translator,
+  TypeDeclarationSemantic,
+  TypeSemantic,
+  ValueDeclarationSemantic,
+  ValueSemantic,
   createDiagnosticManager,
-} from '../../diagnostic/analyzer-diagnostic-manager';
-import {Translator} from '../translator';
-import {typeDeclarationTypescriptTranslate} from './node/declaration/type/type-declaration-typescript-translate';
-import {valueDeclarationTypescriptTranslate} from './node/declaration/value/value-declaration-typescript-translate';
-import {statementTypescriptTranslate} from './node/statement/statement-typescript-translate';
-import {typeTypescriptTranslate} from './node/type/type-typescript-translate';
-import {valueTypescriptTranslate} from './node/value/value-typescript-translate';
+  statementTypescriptTranslate,
+  typeDeclarationTypescriptTranslate,
+  typeTypescriptTranslate,
+  valueDeclarationTypescriptTranslate,
+  valueTypescriptTranslate,
+} from '#core';
+import path from 'path';
+
 export type TypescriptTranslator = Translator & {
   $: $.TypescriptTranslator;
   diagnosticManager: AnalyzerDiagnosticManager;

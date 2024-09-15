@@ -1,7 +1,5 @@
-import {$, is} from '../../../../../$';
-import {String2} from '../../../../../../../lib/src/types';
-import {ValueDeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/value/value-declaration-semantic';
-import {TypescriptTranslator} from '../../../typescript-translator';
+import {String2} from '#common';
+import {$, TypescriptTranslator, ValueDeclarationSemantic, is} from '#core';
 
 export function valueDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,

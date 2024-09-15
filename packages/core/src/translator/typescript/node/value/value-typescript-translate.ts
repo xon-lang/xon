@@ -1,7 +1,5 @@
-import {$, is} from '../../../../$';
-import {String2} from '../../../../../../lib/src/types';
-import {ValueSemantic} from '../../../../analyzer/semantic/node/value/value-semantic';
-import {TypescriptTranslator} from '../../typescript-translator';
+import {String2} from '#common';
+import {$, TypescriptTranslator, ValueSemantic, is} from '#core';
 
 export function valueTypescriptTranslate(translator: TypescriptTranslator, semantic: ValueSemantic): String2 {
   if (is(semantic, $.IntegerValueSemantic)) {

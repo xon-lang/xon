@@ -1,9 +1,5 @@
-import {$, is} from '../../../../$';
-import {String2} from '../../../../../../lib/src/types';
-import {NL} from '../../../../analyzer/lexical/lexical-analyzer-config';
-import {Semantic} from '../../../../analyzer/semantic/node/semantic';
-import {StatementNode} from '../../../../analyzer/syntax/statement/statement-node';
-import {TypescriptTranslator} from '../../typescript-translator';
+import {String2} from '#common';
+import {$, NL, Semantic, StatementNode, TypescriptTranslator, is} from '#core';
 
 export function statementTypescriptTranslate(
   translator: TypescriptTranslator,

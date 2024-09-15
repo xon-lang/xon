@@ -1,7 +1,5 @@
-import {$, is} from '../../../../$';
-import {String2} from '../../../../../../lib/src/types';
-import {TypeSemantic} from '../../../../analyzer/semantic/node/type/type-semantic';
-import {TypescriptTranslator} from '../../typescript-translator';
+import {String2} from '#common';
+import {$, is, TypescriptTranslator, TypeSemantic} from '#core';
 
 export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): String2 {
   if (is(semantic, $.IntegerTypeSemantic)) {

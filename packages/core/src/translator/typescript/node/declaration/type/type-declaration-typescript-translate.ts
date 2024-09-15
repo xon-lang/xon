@@ -1,7 +1,5 @@
-import {$, is} from '../../../../../$';
-import {String2} from '../../../../../../../lib/src/types';
-import {TypeDeclarationSemantic} from '../../../../../analyzer/semantic/node/declaration/type/type-declaration-semantic';
-import {TypescriptTranslator} from '../../../typescript-translator';
+import {String2} from '#common';
+import {$, TypeDeclarationSemantic, TypescriptTranslator, is} from '#core';
 
 export function typeDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,
