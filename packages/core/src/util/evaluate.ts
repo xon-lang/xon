@@ -27,13 +27,13 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
     const b: Anything = evaluate(node.right, argsMap);
     const operator: String2 = node.operator.text.equals('^') ? '**' : node.operator.text.toString();
 
-    return eval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
+    return customEval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
 
   if (is(node, $.PrefixNode)) {
     const a: Anything = evaluate(node.value, argsMap);
 
-    return eval(`${node.operator.text}${escapeToString(a)}`);
+    return customEval(`${node.operator.text}${escapeToString(a)}`);
   }
 
   if (is(node, $.IdNode)) {
@@ -45,4 +45,8 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   }
 
   throw new Error('Not implemented');
+}
+
+function customEval(x: String2) {
+  return (0, eval)(x);
 }
