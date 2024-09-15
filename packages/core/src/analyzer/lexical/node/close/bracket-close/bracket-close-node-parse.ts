@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {textData} from '../../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../../lexical-analyzer';
-import {BRACKET_CLOSE} from '../../../lexical-analyzer-config';
-import {bracketCloseNode, BracketCloseNode} from './bracket-close-node';
+import {Nothing, nothing} from '#common';
+import {BRACKET_CLOSE, BracketCloseNode, bracketCloseNode, LexicalAnalyzer, textData} from '#core';
 
 export function bracketCloseNodeParse(analyzer: LexicalAnalyzer): BracketCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(BRACKET_CLOSE)) {

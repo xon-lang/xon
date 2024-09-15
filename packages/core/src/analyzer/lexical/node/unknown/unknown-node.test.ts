@@ -1,10 +1,5 @@
-import {$, is} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IntegerNode} from '../../../syntax/node/integer/integer-node';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {LexicalNode} from '../lexical-node';
-import {UnknownNode} from './unknown-node';
+import {nothing} from '#common';
+import {$, IntegerNode, is, LexicalNode, syntaxFromResource, textResourceFromData, UnknownNode} from '#core';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';

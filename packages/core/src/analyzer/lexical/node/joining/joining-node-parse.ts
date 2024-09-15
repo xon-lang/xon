@@ -1,7 +1,5 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {JOINING, NL, SPACE} from '../../lexical-analyzer-config';
-import {JoiningNode, joiningNode} from './joining-node';
+import {Nothing, nothing} from '#common';
+import {JOINING, JoiningNode, LexicalAnalyzer, NL, SPACE, joiningNode} from '#core';
 
 export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothing {
   if (!analyzer.checkTextAtIndex(JOINING)) {

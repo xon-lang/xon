@@ -1,5 +1,4 @@
-import {$} from '../../../../$';
-import {LexicalNode} from '../lexical-node';
+import {$, LexicalNode} from '#core';
 
 export type CloseNodeType =
   | $.ParenCloseNode

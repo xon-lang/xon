@@ -1,12 +1,17 @@
-import {Boolean2, Integer, nothing, Nothing, String2} from '../../../../lib/src/types';
-import {TextData} from '../../util/data/text-data';
-import {textPosition, TextPosition, zeroPosition} from '../../util/resource/text/text-position';
-import {textRange} from '../../util/resource/text/text-range';
-import {TextResource} from '../../util/resource/text/text-resource';
-import {textResourceRange, TextResourceRange} from '../../util/resource/text/text-resource-range';
-import {NL} from './lexical-analyzer-config';
-import {LexicalNode} from './node/lexical-node';
-import {unknownNodeParse} from './node/unknown/unknown-node-parse';
+import {Boolean2, Integer, Nothing, nothing, String2} from '#common';
+import {
+  LexicalNode,
+  NL,
+  TextData,
+  TextPosition,
+  textPosition,
+  textRange,
+  TextResource,
+  TextResourceRange,
+  textResourceRange,
+  unknownNodeParse,
+  zeroPosition,
+} from '#core';
 
 export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | Nothing;
 

@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {textData} from '../../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../../lexical-analyzer';
-import {PAREN_CLOSE} from '../../../lexical-analyzer-config';
-import {ParenCloseNode, parenCloseNode} from './paren-close-node';
+import {Nothing, nothing} from '#common';
+import {LexicalAnalyzer, PAREN_CLOSE, ParenCloseNode, parenCloseNode, textData} from '#core';
 
 export function parenCloseNodeParse(analyzer: LexicalAnalyzer): ParenCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(PAREN_CLOSE)) {

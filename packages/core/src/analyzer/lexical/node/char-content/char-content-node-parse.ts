@@ -1,7 +1,5 @@
-import {nothing, Nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {CHAR_CLOSE} from '../../lexical-analyzer-config';
-import {CharContentNode, charContentNode} from './char-content-node';
+import {Nothing, nothing} from '#common';
+import {CHAR_CLOSE, CharContentNode, charContentNode, LexicalAnalyzer} from '#core';
 
 export function charContentNodeParse(analyzer: LexicalAnalyzer): CharContentNode | Nothing {
   if (analyzer.checkTextAtIndex(CHAR_CLOSE)) {

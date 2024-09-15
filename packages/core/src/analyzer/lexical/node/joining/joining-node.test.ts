@@ -1,12 +1,15 @@
-import {$, is} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {MemberNode} from '../../../syntax/node/member/member-node';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {JOINING} from '../../lexical-analyzer-config';
-import {IdNode} from '../id/id-node';
-import {LexicalNode} from '../lexical-node';
-import {OperatorNode} from '../operator/operator-node';
+import {nothing} from '#common';
+import {
+  $,
+  IdNode,
+  is,
+  JOINING,
+  LexicalNode,
+  MemberNode,
+  OperatorNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('no space', () => {
   const text = 'abc~.def';

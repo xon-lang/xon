@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {String2} from '../../../../../../lib/src/types';
-import {TextData} from '../../../../util/data/text-data';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {AT} from '../../lexical-analyzer-config';
-import {LexicalNode, lexicalNode} from '../lexical-node';
+import {String2} from '#common';
+import {$, AT, LexicalNode, lexicalNode, TextData, TextResourceRange} from '#core';
 
 export type DocumentationLabelNode = LexicalNode<$.DocumentationLabelNode> & {
   name: String2;

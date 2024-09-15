@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {textData} from '../../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../../lexical-analyzer';
-import {BRACKET_OPEN} from '../../../lexical-analyzer-config';
-import {BracketOpenNode, bracketOpenNode} from './bracket-open-node';
+import {Nothing, nothing} from '#common';
+import {BRACKET_OPEN, BracketOpenNode, bracketOpenNode, LexicalAnalyzer, textData} from '#core';
 
 export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(BRACKET_OPEN)) {

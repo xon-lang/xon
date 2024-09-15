@@ -1,11 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {NL} from '../../lexical-analyzer-config';
-import {IdNode} from '../id/id-node';
-import {LexicalNode} from '../lexical-node';
-import {NlNode} from './nl-node';
+import {nothing} from '#common';
+import {$, IdNode, LexicalNode, NL, NlNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('lf nl', () => {
   const text = '\n';

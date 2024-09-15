@@ -1,7 +1,5 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {AT} from '../../lexical-analyzer-config';
-import {DocumentationLabelNode, documentationLabelNode} from './documentation-label-node';
+import {Nothing, nothing} from '#common';
+import {AT, DocumentationLabelNode, documentationLabelNode, LexicalAnalyzer} from '#core';
 
 export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): DocumentationLabelNode | Nothing {
   if (!analyzer.checkTextAtIndex(AT)) {

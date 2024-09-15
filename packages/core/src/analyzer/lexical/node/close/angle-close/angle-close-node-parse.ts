@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {textData} from '../../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../../lexical-analyzer';
-import {ANGLE_CLOSE} from '../../../lexical-analyzer-config';
-import {AngleCloseNode, angleCloseNode} from './angle-close-node';
+import {Nothing, nothing} from '#common';
+import {ANGLE_CLOSE, AngleCloseNode, angleCloseNode, LexicalAnalyzer, textData} from '#core';
 
 export function angleCloseNodeParse(analyzer: LexicalAnalyzer): AngleCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(ANGLE_CLOSE)) {

@@ -1,8 +1,11 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {textData} from '../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {DOCUMENTATION_CLOSE} from '../../lexical-analyzer-config';
-import {DocumentationCloseNode, documentationCloseNode} from './documentation-close-node';
+import {Nothing, nothing} from '#common';
+import {
+  DOCUMENTATION_CLOSE,
+  DocumentationCloseNode,
+  documentationCloseNode,
+  LexicalAnalyzer,
+  textData,
+} from '#core';
 
 export function documentationCloseNodeParse(analyzer: LexicalAnalyzer): DocumentationCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(DOCUMENTATION_CLOSE)) {

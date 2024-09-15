@@ -1,8 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {CommaNode} from './comma-node';
+import {nothing} from '#common';
+import {$, CommaNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('comma', () => {
   const text = ',';

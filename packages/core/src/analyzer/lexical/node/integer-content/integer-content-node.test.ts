@@ -1,8 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IntegerNode} from '../../../syntax/node/integer/integer-node';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
+import {nothing} from '#common';
+import {$, IntegerNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('string content', () => {
   const text = '1_2_3';

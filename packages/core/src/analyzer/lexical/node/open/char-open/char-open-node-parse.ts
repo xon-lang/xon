@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {textData} from '../../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../../lexical-analyzer';
-import {CHAR_OPEN} from '../../../lexical-analyzer-config';
-import {CharOpenNode, charOpenNode} from './char-open-node';
+import {Nothing, nothing} from '#common';
+import {CHAR_OPEN, CharOpenNode, charOpenNode, LexicalAnalyzer, textData} from '#core';
 
 export function charOpenNodeParse(analyzer: LexicalAnalyzer): CharOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(CHAR_OPEN)) {

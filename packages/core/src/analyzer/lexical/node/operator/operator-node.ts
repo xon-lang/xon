@@ -1,10 +1,15 @@
-import {$} from '../../../../$';
-import {Nothing, String2} from '../../../../../../lib/src/types';
-import {TextData} from '../../../../util/data/text-data';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {ExpressionNode} from '../../../node';
-import {CONTROL_KEYWORDS, MODIFIER_KEYWORDS, OPERATOR_KEYWORDS} from '../../lexical-analyzer-config';
-import {LexicalNode, lexicalNode} from '../lexical-node';
+import {Nothing, String2} from '#common';
+import {
+  $,
+  CONTROL_KEYWORDS,
+  ExpressionNode,
+  LexicalNode,
+  lexicalNode,
+  MODIFIER_KEYWORDS,
+  OPERATOR_KEYWORDS,
+  TextData,
+  TextResourceRange,
+} from '#core';
 
 export enum KeywordType {
   OPERATOR = 'OPERATOR',

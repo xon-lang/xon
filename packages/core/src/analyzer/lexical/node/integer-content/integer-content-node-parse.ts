@@ -1,7 +1,5 @@
-import {nothing, Nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {UNDERSCORE} from '../../lexical-analyzer-config';
-import {integerContentNode, IntegerContentNode} from './integer-content-node';
+import {Nothing, nothing} from '#common';
+import {IntegerContentNode, LexicalAnalyzer, UNDERSCORE, integerContentNode} from '#core';
 
 export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerContentNode | Nothing {
   //todo simplify it

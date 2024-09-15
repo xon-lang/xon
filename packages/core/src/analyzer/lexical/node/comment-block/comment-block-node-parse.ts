@@ -1,7 +1,11 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-analyzer-config';
-import {CommentBlockNode, commentBlockNode} from './comment-block-node';
+import {Nothing, nothing} from '#common';
+import {
+  COMMENT_BLOCK_CLOSE,
+  COMMENT_BLOCK_OPEN,
+  CommentBlockNode,
+  commentBlockNode,
+  LexicalAnalyzer,
+} from '#core';
 
 export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNode | Nothing {
   if (!analyzer.checkTextAtIndex(COMMENT_BLOCK_OPEN)) {

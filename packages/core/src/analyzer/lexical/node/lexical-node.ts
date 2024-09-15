@@ -1,7 +1,5 @@
-import {$} from '../../../$';
-import {Anything, String2} from '../../../../../lib/src/types';
-import {TextData} from '../../../util/data/text-data';
-import {Node} from '../../node';
+import {Anything, String2} from '#common';
+import {$, Node, TextData} from '#core';
 
 export type LexicalNode<T extends $ = $> = Node<T> & {
   text: TextData;

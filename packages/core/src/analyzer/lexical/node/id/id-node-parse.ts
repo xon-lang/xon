@@ -1,7 +1,5 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {UNDERSCORE} from '../../lexical-analyzer-config';
-import {IdNode, idNode} from './id-node';
+import {Nothing, nothing} from '#common';
+import {IdNode, LexicalAnalyzer, UNDERSCORE, idNode} from '#core';
 
 export function idNodeParse(analyzer: LexicalAnalyzer): IdNode | Nothing {
   if (

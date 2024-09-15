@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {predefinedDiagnostics} from '../../../../diagnostic/analyzer-diagnostic-message';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {IdNode} from './id-node';
+import {nothing} from '#common';
+import {$, IdNode, predefinedDiagnostics, syntaxFromResource, textResourceFromData} from '#core';
 
 test('single id', () => {
   const text = 'abc';

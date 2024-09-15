@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../../../../lib/src/types';
-import {textData} from '../../../../../util/data/text-data';
-import {LexicalAnalyzer} from '../../../lexical-analyzer';
-import {ANGLE_OPEN} from '../../../lexical-analyzer-config';
-import {AngleOpenNode, angleOpenNode} from './angle-open-node';
+import {Nothing, nothing} from '#common';
+import {ANGLE_OPEN, AngleOpenNode, angleOpenNode, LexicalAnalyzer, textData} from '#core';
 
 export function angleOpenNodeParse(analyzer: LexicalAnalyzer): AngleOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(ANGLE_OPEN)) {

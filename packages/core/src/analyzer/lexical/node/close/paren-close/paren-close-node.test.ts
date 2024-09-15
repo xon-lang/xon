@@ -1,8 +1,5 @@
-import {$} from '../../../../../$';
-import {nothing} from '../../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../../syntax/syntax-analyzer';
-import {ParenCloseNode} from './paren-close-node';
+import {nothing} from '#common';
+import {$, ParenCloseNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('close paren', () => {
   const text = ')';

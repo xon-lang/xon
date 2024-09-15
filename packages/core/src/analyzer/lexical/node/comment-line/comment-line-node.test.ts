@@ -1,8 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {CommentLineNode} from './comment-line-node';
+import {nothing} from '#common';
+import {$, CommentLineNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('line comment', () => {
   const text = '// abc';

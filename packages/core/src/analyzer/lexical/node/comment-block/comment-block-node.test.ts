@@ -1,8 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {CommentBlockNode} from './comment-block-node';
+import {nothing} from '#common';
+import {$, CommentBlockNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('block comment', () => {
   const text = '--- abc\n\n\n def---';

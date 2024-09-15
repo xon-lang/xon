@@ -1,10 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {InfixNode} from '../../../syntax/node/infix/infix-node';
-import {PostfixNode} from '../../../syntax/node/postfix/postfix-node';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {OperatorNode} from './operator-node';
+import {nothing} from '#common';
+import {$, InfixNode, OperatorNode, PostfixNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('single operator', () => {
   const text = '!';

@@ -1,7 +1,4 @@
-import {$} from '../../../../$';
-import {TextData} from '../../../../util/data/text-data';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {LexicalNode, lexicalNode} from '../lexical-node';
+import { LexicalNode, $, TextResourceRange, TextData, lexicalNode } from "#core";
 
 export type NlNode = LexicalNode<$.NlNode>;
 

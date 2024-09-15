@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../../syntax/syntax-analyzer';
-import {LexicalNode} from '../lexical-node';
-import {WhitespaceNode} from './whitespace-node';
+import {nothing} from '#common';
+import {$, LexicalNode, syntaxFromResource, textResourceFromData, WhitespaceNode} from '#core';
 
 test('whitespace', () => {
   const text = '    ';

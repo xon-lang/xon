@@ -1,9 +1,13 @@
-import {$} from '../../../../$';
-import {String2} from '../../../../../../lib/src/types';
-import {TextData} from '../../../../util/data/text-data';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN} from '../../lexical-analyzer-config';
-import {LexicalNode, lexicalNode} from '../lexical-node';
+import {String2} from '#common';
+import {
+  $,
+  COMMENT_BLOCK_CLOSE,
+  COMMENT_BLOCK_OPEN,
+  LexicalNode,
+  lexicalNode,
+  TextData,
+  TextResourceRange,
+} from '#core';
 
 export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
   value: String2;

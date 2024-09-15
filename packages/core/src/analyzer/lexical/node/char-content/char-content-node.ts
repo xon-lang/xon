@@ -1,7 +1,4 @@
-import {$} from '../../../../$';
-import {TextData} from '../../../../util/data/text-data';
-import {TextResourceRange} from '../../../../util/resource/text/text-resource-range';
-import {lexicalNode, LexicalNode} from '../lexical-node';
+import {$, LexicalNode, TextData, TextResourceRange, lexicalNode} from '#core';
 
 export type CharContentNode = LexicalNode<$.CharContentNode>;
 

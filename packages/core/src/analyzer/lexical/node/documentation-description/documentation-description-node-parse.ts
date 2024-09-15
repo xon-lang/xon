@@ -1,7 +1,11 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {AT, DOCUMENTATION_CLOSE} from '../../lexical-analyzer-config';
-import {DocumentationDescriptionNode, documentationDescriptionNode} from './documentation-description-node';
+import {Nothing, nothing} from '#common';
+import {
+  AT,
+  DOCUMENTATION_CLOSE,
+  DocumentationDescriptionNode,
+  documentationDescriptionNode,
+  LexicalAnalyzer,
+} from '#core';
 
 export function documentationDescriptionNodeParse(
   analyzer: LexicalAnalyzer,

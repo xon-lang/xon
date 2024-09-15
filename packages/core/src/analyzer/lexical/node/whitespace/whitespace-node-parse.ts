@@ -1,7 +1,5 @@
-import {Nothing, nothing} from '../../../../../../lib/src/types';
-import {LexicalAnalyzer} from '../../lexical-analyzer';
-import {SPACE} from '../../lexical-analyzer-config';
-import {WhitespaceNode, whitespaceNode} from './whitespace-node';
+import {Nothing, nothing} from '#common';
+import {LexicalAnalyzer, SPACE, WhitespaceNode, whitespaceNode} from '#core';
 
 export function whitespaceNodeParse(analyzer: LexicalAnalyzer): WhitespaceNode | Nothing {
   if (!analyzer.checkTextAtIndex(SPACE)) {
