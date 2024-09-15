@@ -1,7 +1,7 @@
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
-import {semanticFromResource} from '../../../../core/analyzer/semantic/semantic-analyzer';
-import {createTypescriptTranslator} from '../../../../core/translator/typescript/typescript-translator';
-import {textResourceFromData} from '../../../../core/util/resource/text/text-resource';
+import {semanticFromResource} from '@xon/core/src/analyzer/semantic/semantic-analyzer';
+import {createTypescriptTranslator} from '@xon/core/src/translator/typescript/typescript-translator';
+import {textResourceFromData} from '@xon/core/src/util/resource/text/text-resource';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '../../config';
 
 import * as fs from 'fs';

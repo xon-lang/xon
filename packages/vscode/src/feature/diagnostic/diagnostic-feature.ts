@@ -10,9 +10,9 @@ import {
   window,
   workspace,
 } from 'vscode';
-import {AnalyzerDiagnostic} from '../../../../core/diagnostic/analyzer-diagnostic';
-import {AnalyzerDiagnosticSeverity} from '../../../../core/diagnostic/analyzer-diagnostic-severity';
-import {AnalyzerDiagnosticTag} from '../../../../core/diagnostic/analyzer-diagnostic-tag';
+import {AnalyzerDiagnostic} from '@xon/core/src/diagnostic/analyzer-diagnostic';
+import {AnalyzerDiagnosticSeverity} from '@xon/core/src/diagnostic/analyzer-diagnostic-severity';
+import {AnalyzerDiagnosticTag} from '@xon/core/src/diagnostic/analyzer-diagnostic-tag';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange} from '../../util/convert';
 import {getDocumentSemantic} from '../../util/util';

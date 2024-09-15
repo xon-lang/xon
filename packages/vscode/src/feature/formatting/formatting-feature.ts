@@ -12,7 +12,7 @@ import {
   TextEdit,
 } from 'vscode';
 
-import {FormatterItem} from '../../../../core/formatter/formatter-item';
+import {FormatterItem} from '@xon/core/src/formatter/formatter-item';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange} from '../../util/convert';
 import {getDocumentSemantic} from '../../util/util';

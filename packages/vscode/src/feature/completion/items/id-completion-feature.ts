@@ -10,7 +10,7 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$, is} from '../../../../../core/$';
+import {$, is} from '../../../../../core/src/$';
 import {convertVscodePosition} from '../../../util/convert';
 import {getDocumentSemantic} from '../../../util/util';
 

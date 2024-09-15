@@ -1,3 +1,5 @@
+import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
+import {Semantic} from '@xon/core/src/analyzer/semantic/node/semantic';
 import {
   CancellationToken,
   ExtensionContext,
@@ -10,9 +12,7 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {$, hasSemantic, is} from '../../../../core/$';
-import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
+import {$, hasSemantic, is} from '../../../../core/src/$';
 import {Nothing, String2, nothing} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, convertVscodePosition} from '../../util/convert';

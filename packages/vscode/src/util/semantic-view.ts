@@ -1,6 +1,6 @@
-import {$, is} from '../../../core/$';
-import {DeclarationSemantic} from '../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {TypeSemantic} from '../../../core/analyzer/semantic/node/type/type-semantic';
+import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
+import {TypeSemantic} from '@xon/core/src/analyzer/semantic/node/type/type-semantic';
+import {$, is} from '../../../core/src/$';
 import {Nothing, nothing, String2} from '../../../lib/types';
 
 export function typeSemanticToString(semantic: TypeSemantic): String2 | Nothing {

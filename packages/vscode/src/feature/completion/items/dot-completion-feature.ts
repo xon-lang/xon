@@ -1,3 +1,5 @@
+import {ValueDeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/value/value-declaration-semantic';
+import {Semantic} from '@xon/core/src/analyzer/semantic/node/semantic';
 import {
   CancellationToken,
   CompletionContext,
@@ -10,9 +12,7 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$, is} from '../../../../../core/$';
-import {ValueDeclarationSemantic} from '../../../../../core/analyzer/semantic/node/declaration/value/value-declaration-semantic';
-import {Semantic} from '../../../../../core/analyzer/semantic/node/semantic';
+import {$, is} from '../../../../../core/src/$';
 import {Nothing, nothing} from '../../../../../lib/types';
 import {convertVscodePosition} from '../../../util/convert';
 import {getDocumentSemantic} from '../../../util/util';

@@ -16,9 +16,9 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
+import {getCaseFnByName, kebabCase} from '@xon/core/src/util/change-case';
 import {dirname} from 'path';
-import {$, is} from '../../../../core/$';
-import {getCaseFnByName, kebabCase} from '../../../../core/util/change-case';
+import {$, is} from '../../../../core/src/$';
 import {nothing} from '../../../../lib/types';
 import {EXTENSION_CONFIG, FILE_EXTENSION, LANGUAGE_NAME} from '../../config';
 import {convertVscodePosition} from '../../util/convert';

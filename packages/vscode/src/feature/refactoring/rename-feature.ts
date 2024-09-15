@@ -12,10 +12,10 @@ import {
   WorkspaceEdit,
 } from 'vscode';
 
-import {$, is} from '../../../../core/$';
-import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {Semantic} from '../../../../core/analyzer/semantic/node/semantic';
-import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
+import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
+import {Semantic} from '@xon/core/src/analyzer/semantic/node/semantic';
+import {TextResourceRange} from '@xon/core/src/util/resource/text/text-resource-range';
+import {$, is} from '../../../../core/src/$';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, convertVscodePosition} from '../../util/convert';

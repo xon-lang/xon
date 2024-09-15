@@ -1,3 +1,6 @@
+import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
+import {TextRange, zeroRange} from '@xon/core/src/util/resource/text/text-range';
+import {TextResourceRange} from '@xon/core/src/util/resource/text/text-resource-range';
 import {
   CancellationToken,
   DefinitionLink,
@@ -11,10 +14,7 @@ import {
   TextDocument,
   Uri,
 } from 'vscode';
-import {$, hasSemantic, is} from '../../../../core/$';
-import {DeclarationSemantic} from '../../../../core/analyzer/semantic/node/declaration/declaration-semantic';
-import {TextRange, zeroRange} from '../../../../core/util/resource/text/text-range';
-import {TextResourceRange} from '../../../../core/util/resource/text/text-resource-range';
+import {$, hasSemantic, is} from '../../../../core/src/$';
 import {Nothing, nothing, String2} from '../../../../lib/types';
 import {LANGUAGE_NAME} from '../../config';
 import {convertRange, convertVscodePosition} from '../../util/convert';
