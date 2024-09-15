@@ -1,6 +1,5 @@
+import { TextRange, TextPosition, textRange, textPosition } from '#core';
 import {Position, Range, TextDocument} from 'vscode';
-import {textPosition, TextPosition} from '@xon/core/src/util/resource/text/text-position';
-import {textRange, TextRange} from '@xon/core/src/util/resource/text/text-range';
 
 export function convertRange(range: TextRange): Range {
   const start = convertPosition(range.start);

@@ -3,6 +3,7 @@
     "editor.defaultFormatter": "nizami.xon"
   },
   "cSpell.words": [
+    "barrelsby",
     "bfnrtv",
     "camelcase",
     "codacy",
@@ -23,8 +24,8 @@
     "vsix"
   ],
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
+    "source.organizeImports": "always"
   },
-  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib"
 }

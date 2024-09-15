@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
@@ -27,7 +28,13 @@
     "strict": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "paths": {
+      "#lib": ["packages/lib/*", "packages/lib"],
+      "#core": ["packages/core/*", "packages/core"],
+      "#vscode": ["packages/vscode"]
+    }
   },
+  // "include": ["src/**/*.ts", "../common/**/*.ts"],
   "exclude": ["**/*.gen.ts", "**/dist"]
 }

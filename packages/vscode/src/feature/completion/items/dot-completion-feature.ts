@@ -1,5 +1,6 @@
-import {ValueDeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/value/value-declaration-semantic';
-import {Semantic} from '@xon/core/src/analyzer/semantic/node/semantic';
+import { is, $, Semantic, ValueDeclarationSemantic } from '#core';
+import { nothing } from '#lib';
+import { convertVscodePosition } from 'packages/vscode/src/util/convert';
 import {
   CancellationToken,
   CompletionContext,
@@ -12,10 +13,6 @@ import {
   ProviderResult,
   TextDocument,
 } from 'vscode';
-import {$, is} from '../../../../../core/src/$';
-import {Nothing, nothing} from '../../../../../lib/types';
-import {convertVscodePosition} from '../../../util/convert';
-import {getDocumentSemantic} from '../../../util/util';
 
 export class DotCompletionItemProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
