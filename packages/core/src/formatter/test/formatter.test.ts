@@ -1,7 +1,7 @@
 import {String2} from '#common';
 import {syntaxFromResource, textResourceFromLocation} from '#core';
-import {readFileSync, writeFileSync} from 'fs';
-import {join} from 'path';
+import {readFileSync, writeFileSync} from 'node:fs';
+import {join} from 'node:path';
 
 test('01', () => testFormatter('1'));
 test('02', () => testFormatter('2'));

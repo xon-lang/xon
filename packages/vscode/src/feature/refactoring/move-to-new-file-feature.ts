@@ -7,7 +7,7 @@ import {
   getDocumentSemantic,
   LANGUAGE_NAME,
 } from '#vscode';
-import {dirname} from 'path';
+import {dirname} from 'node:path';
 import {
   CancellationToken,
   CodeAction,

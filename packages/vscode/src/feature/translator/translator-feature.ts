@@ -1,7 +1,7 @@
 import {createTypescriptTranslator, semanticFromResource, textResourceFromData} from '#core';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
 
 export function configureTranslatorFeature(context: ExtensionContext, channel: OutputChannel) {

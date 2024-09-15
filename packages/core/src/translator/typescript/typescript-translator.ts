@@ -18,7 +18,7 @@ import {
   valueDeclarationTypescriptTranslate,
   valueTypescriptTranslate,
 } from '#core';
-import path from 'path';
+import path from 'node:path';
 
 export type TypescriptTranslator = Translator & {
   $: $.TypescriptTranslator;

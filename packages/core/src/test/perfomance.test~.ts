@@ -1,7 +1,7 @@
 import {Anything, String2} from '#common';
 import {performanceIterations, syntaxFromResource, textResourceFromLocation} from '#core';
-import {readFileSync, writeFileSync} from 'fs';
-import {join} from 'path';
+import {readFileSync, writeFileSync} from 'node:fs';
+import {join} from 'node:path';
 
 test('performance', () => {
   const resource = textResourceFromLocation('packages/core/parser/test/performance/source.xon');

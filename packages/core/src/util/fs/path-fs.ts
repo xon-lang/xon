@@ -1,8 +1,8 @@
 import {Boolean2, Nothing, String2, nothing} from '#common';
 import {DirectoryFs, FileFs} from '#core';
-import {Stats, lstatSync} from 'fs';
-import {homedir} from 'os';
-import {join, resolve} from 'path';
+import {Stats, lstatSync} from 'node:fs';
+import {homedir} from 'node:os';
+import {join, resolve} from 'node:path';
 
 export class PathFs {
   fullPath: String2;

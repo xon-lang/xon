@@ -11,7 +11,7 @@ import {
   unknownTypeSemantic,
 } from '#core';
 import {libDir} from '#xon-lib';
-import {dirname, join} from 'path';
+import {dirname, join} from 'node:path';
 
 const LIB_FOLDER = libDir();
 
