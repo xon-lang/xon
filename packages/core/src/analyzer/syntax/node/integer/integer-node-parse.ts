@@ -1,6 +1,4 @@
-import {IntegerContentNode} from '../../../lexical/node/integer-content/integer-content-node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {IntegerNode, integerNode} from './integer-node';
+import {IntegerContentNode, IntegerNode, integerNode, SyntaxAnalyzer} from '#core';
 
 export function integerNodeParse(analyzer: SyntaxAnalyzer, content: IntegerContentNode): IntegerNode {
   return integerNode(analyzer, content);

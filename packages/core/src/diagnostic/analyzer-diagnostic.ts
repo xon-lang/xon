@@ -1,8 +1,11 @@
-import {Integer, Nothing, String2} from '../../../lib/src/types';
-import {TextResourceRange} from '../util/resource/text/text-resource-range';
-import {colorText, TerminalColor} from '../util/terminal/terminal-color';
-import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
-import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
+import {Integer, Nothing, String2} from '#common';
+import {
+  AnalyzerDiagnosticSeverity,
+  AnalyzerDiagnosticTag,
+  colorText,
+  TerminalColor,
+  TextResourceRange,
+} from '#core';
 
 export interface AnalyzerDiagnosticMessage {
   actual: String2;

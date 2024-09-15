@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {evaluate} from '../../../../util/evaluate';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {PostfixNode} from './postfix-node';
+import {nothing} from '#common';
+import {$, evaluate, PostfixNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('after integer', () => {
   const text = '1!';

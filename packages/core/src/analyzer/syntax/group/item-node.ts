@@ -1,12 +1,5 @@
-import {$} from '../../../$';
-import {Integer, Nothing} from '../../../../../lib/src/types';
-import {rangeFromNodes} from '../../../util/resource/text/text-range';
-import {textResourceRange} from '../../../util/resource/text/text-resource-range';
-import {CommaNode} from '../../lexical/node/comma/comma-node';
-import {Node} from '../../node';
-import {SyntaxNode} from '../node/syntax-node';
-import {StatementNode} from '../statement/statement-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
+import { Integer, Nothing } from "#common";
+import { SyntaxNode, $, Node, CommaNode, StatementNode, SyntaxAnalyzer, textResourceRange, rangeFromNodes } from "#core";
 
 export type ItemNode = SyntaxNode<$.ItemNode> & {
   index: Integer;

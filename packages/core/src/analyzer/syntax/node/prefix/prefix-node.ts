@@ -1,9 +1,4 @@
-import {$} from '../../../../$';
-import {ASSIGN, TYPE} from '../../../lexical/lexical-analyzer-config';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {ExpressionNode} from '../../../node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {$, ASSIGN, ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode, TYPE} from '#core';
 
 export type PrefixNode = SyntaxNode<$.PrefixNode> &
   ExpressionNode & {

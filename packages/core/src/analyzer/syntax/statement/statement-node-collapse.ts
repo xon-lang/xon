@@ -1,6 +1,6 @@
-import {$, is} from '../../../$';
-import {Integer, Nothing, nothing} from '../../../../../lib/src/types';
+import {Integer, Nothing, nothing} from '#common';
 import {
+  $,
   COMPLEMENT,
   CONTROL_KEYWORDS,
   DIVIDE,
@@ -19,6 +19,7 @@ import {
   MULTIPLY,
   NOT,
   NOT_EQUALS,
+  Node,
   OPERATOR_KEYWORDS,
   OPTIONAL,
   PLUS,
@@ -27,22 +28,23 @@ import {
   RANGE,
   REST,
   RETURN,
+  StatementNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
   UNION,
-} from '../../lexical/lexical-analyzer-config';
-import {Node} from '../../node';
-import {assignmentNodeParse} from '../node/assignment/assignment-node-parse';
-import {declarationNodeParse, isTypeDeclarationNode} from '../node/declaration/declaration-node-parse';
-import {importNodeParse} from '../node/import/import-node-parse';
-import {infixNodeParse} from '../node/infix/infix-node-parse';
-import {invokeNodeParse} from '../node/invoke/invoke-node-parse';
-import {lambdaNodeParse} from '../node/lambda/lambda-node-parse';
-import {memberNodeParse} from '../node/member/member-node-parse';
-import {postfixNodeParse} from '../node/postfix/postfix-node-parse';
-import {prefixNodeParse} from '../node/prefix/prefix-node-parse';
-import {returnNodeParse} from '../node/return/return-node-parse';
-import {SyntaxNode} from '../node/syntax-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {StatementNode} from './statement-node';
+  assignmentNodeParse,
+  declarationNodeParse,
+  importNodeParse,
+  infixNodeParse,
+  invokeNodeParse,
+  is,
+  isTypeDeclarationNode,
+  lambdaNodeParse,
+  memberNodeParse,
+  postfixNodeParse,
+  prefixNodeParse,
+  returnNodeParse,
+} from '#core';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (

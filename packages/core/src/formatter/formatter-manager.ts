@@ -1,14 +1,18 @@
-import {$, is} from '../$';
-import {Boolean2, Nothing, String2} from '../../../lib/src/types';
-import {NL} from '../analyzer/lexical/lexical-analyzer-config';
-import {LexicalNode} from '../analyzer/lexical/node/lexical-node';
-import {NlNode} from '../analyzer/lexical/node/nl/nl-node';
-import {Node} from '../analyzer/node';
-import {StatementNode} from '../analyzer/syntax/statement/statement-node';
-import {rangeFromNodes, rangeFromPosition} from '../util/resource/text/text-range';
-import {TextResource} from '../util/resource/text/text-resource';
-import {FormatterConfig} from './formatter-config';
-import {FormatterItem} from './formatter-item';
+import {Boolean2, Nothing, String2} from '#common';
+import {
+  $,
+  FormatterConfig,
+  FormatterItem,
+  is,
+  LexicalNode,
+  NL,
+  NlNode,
+  Node,
+  rangeFromNodes,
+  rangeFromPosition,
+  StatementNode,
+  TextResource,
+} from '#core';
 
 export type FormatterManager = {
   resource: TextResource;

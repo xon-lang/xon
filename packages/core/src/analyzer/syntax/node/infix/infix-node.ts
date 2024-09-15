@@ -1,9 +1,4 @@
-import {$} from '../../../../$';
-import {RANGE} from '../../../lexical/lexical-analyzer-config';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {ExpressionNode} from '../../../node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {$, ExpressionNode, OperatorNode, RANGE, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
 
 export type InfixNode = SyntaxNode<$.InfixNode> &
   ExpressionNode & {

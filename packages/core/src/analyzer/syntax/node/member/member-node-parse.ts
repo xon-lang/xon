@@ -1,9 +1,14 @@
-import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, nothing} from '../../../../../../lib/src/types';
-import {Node, nodeFindMap} from '../../../node';
-import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {memberNode} from './member-node';
+import {Integer, nothing} from '#common';
+import {
+  $,
+  is,
+  isNonOperatorExpression,
+  memberNode,
+  Node,
+  nodeFindMap,
+  SyntaxAnalyzer,
+  SyntaxParseFn,
+} from '#core';
 
 export function memberNodeParse(operators: String[]): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

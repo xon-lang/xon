@@ -1,13 +1,16 @@
-import {$} from '../../../../$';
-import {Nothing, String2} from '../../../../../../lib/src/types';
-import {StringCloseNode} from '../../../lexical/node/close/string-close/string-close-node';
-import {StringOpenNode} from '../../../lexical/node/open/string-open/string-open-node';
-import {StringContentNode} from '../../../lexical/node/string-content/string-content-node';
-import {ExpressionNode} from '../../../node';
-import {StringTypeSemantic} from '../../../semantic/node/type/string/string-type-semantic';
-import {StringValueSemantic} from '../../../semantic/node/value/string/string-value-semantic';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {Nothing, String2} from '#common';
+import {
+  $,
+  ExpressionNode,
+  StringCloseNode,
+  StringContentNode,
+  StringOpenNode,
+  StringTypeSemantic,
+  StringValueSemantic,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
 export type StringNode = SyntaxNode<$.StringNode> &
   ExpressionNode & {

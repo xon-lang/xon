@@ -1,11 +1,13 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {evaluate} from '../../../../util/evaluate';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {DeclarationNode} from '../declaration/declaration-node';
-import {LambdaNode} from './lambda-node';
+import {nothing} from '#common';
+import {
+  $,
+  DeclarationNode,
+  evaluate,
+  IdNode,
+  LambdaNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('function with no parameters', () => {
   const text = '(): Integer';

@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {Number2} from '../../../../../../lib/src/types';
-import {IntegerContentNode} from '../../../lexical/node/integer-content/integer-content-node';
-import {ExpressionNode} from '../../../node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {syntaxNode, SyntaxNode} from '../syntax-node';
+import {Number2} from '#common';
+import {$, ExpressionNode, IntegerContentNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
 
 // todo add also base node as 'LiteralNode' ???
 export type IntegerNode = SyntaxNode<$.IntegerNode> &

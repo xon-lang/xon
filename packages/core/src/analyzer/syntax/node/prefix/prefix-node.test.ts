@@ -1,12 +1,14 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {evaluate} from '../../../../util/evaluate';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {LexicalNode} from '../../../lexical/node/lexical-node';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {DeclarationNode} from '../declaration/declaration-node';
-import {PrefixNode} from './prefix-node';
+import {nothing} from '#common';
+import {
+  $,
+  DeclarationNode,
+  evaluate,
+  LexicalNode,
+  OperatorNode,
+  PrefixNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('negative integer', () => {
   const text = '-1';

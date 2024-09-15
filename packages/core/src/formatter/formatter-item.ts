@@ -1,5 +1,5 @@
-import {String2} from '../../../lib/src/types';
-import {TextRange} from '../util/resource/text/text-range';
+import {String2} from '#common';
+import {TextRange} from '#core';
 
 export type FormatterItem = {
   range: TextRange;

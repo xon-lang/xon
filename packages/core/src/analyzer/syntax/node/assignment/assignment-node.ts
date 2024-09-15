@@ -1,8 +1,4 @@
-import {$} from '../../../../$';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {PrefixNode} from '../prefix/prefix-node';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {$, IdNode, PrefixNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
 
 export type AssignmentNode = SyntaxNode<$.AssignmentNode> & {
   id: IdNode;

@@ -1,24 +1,29 @@
-import {$, is} from '../../$';
-import {Boolean2, Nothing, nothing} from '../../../../lib/src/types';
+import {Boolean2, Nothing, nothing} from '#common';
 import {
+  $,
   AnalyzerDiagnosticManager,
+  DEFAULT_SYNTAX_ANALYZER_CONFIG,
+  FormatterManager,
+  LexicalAnalyzer,
+  Node,
+  StatementNode,
+  SyntaxAnalyzerConfig,
+  TextPosition,
+  TextRange,
+  TextResource,
+  charNodeParse,
+  codeLexicalParsers,
   createDiagnosticManager,
-} from '../../diagnostic/analyzer-diagnostic-manager';
-import {FormatterManager, createFormatterManager} from '../../formatter/formatter-manager';
-import {TextPosition} from '../../util/resource/text/text-position';
-import {TextRange, rangeFromPosition} from '../../util/resource/text/text-range';
-import {TextResource} from '../../util/resource/text/text-resource';
-import {codeLexicalParsers} from '../lexical/code-lexical-analyzer';
-import {LexicalAnalyzer, createLexicalAnalyzer} from '../lexical/lexical-analyzer';
-import {Node} from '../node';
-import {documentationNodeParse} from './documentation/documentation-node-parse';
-import {groupNodeParse} from './group/group-node-parse';
-import {charNodeParse} from './node/char/char-node-parse';
-import {integerNodeParse} from './node/integer/integer-node-parse';
-import {stringNodeParse} from './node/string/string-node-parse';
-import {putStatementNode} from './put-statement-node';
-import {StatementNode} from './statement/statement-node';
-import {DEFAULT_SYNTAX_ANALYZER_CONFIG, SyntaxAnalyzerConfig} from './syntax-analyzer-config';
+  createFormatterManager,
+  createLexicalAnalyzer,
+  documentationNodeParse,
+  groupNodeParse,
+  integerNodeParse,
+  is,
+  putStatementNode,
+  rangeFromPosition,
+  stringNodeParse,
+} from '#core';
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;

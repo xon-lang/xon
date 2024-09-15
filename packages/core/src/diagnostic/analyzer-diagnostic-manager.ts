@@ -1,11 +1,15 @@
-import {Integer, Nothing} from '../../../lib/src/types';
-import {TextRange} from '../util/resource/text/text-range';
-import {TextResource} from '../util/resource/text/text-resource';
-import {TextResourceRange} from '../util/resource/text/text-resource-range';
-import {AnalyzerDiagnostic, AnalyzerDiagnosticMessage, createDiagnostic} from './analyzer-diagnostic';
-import {predefinedDiagnostics} from './analyzer-diagnostic-message';
-import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
-import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
+import {Integer, Nothing} from '#common';
+import {
+  AnalyzerDiagnostic,
+  AnalyzerDiagnosticMessage,
+  AnalyzerDiagnosticSeverity,
+  AnalyzerDiagnosticTag,
+  TextRange,
+  TextResource,
+  TextResourceRange,
+  createDiagnostic,
+  predefinedDiagnostics,
+} from '#core';
 
 export interface AnalyzerDiagnosticManager {
   resource: TextResource;

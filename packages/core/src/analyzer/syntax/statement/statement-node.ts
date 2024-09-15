@@ -1,11 +1,14 @@
-import {$} from '../../../$';
-import {Boolean2, Integer, Nothing} from '../../../../../lib/src/types';
-import {TextRange, rangeFromNodes} from '../../../util/resource/text/text-range';
-import {textResourceRange} from '../../../util/resource/text/text-resource-range';
-import {Node} from '../../node';
-import {SyntaxNode} from '../node/syntax-node';
-import {SyntaxAnalyzer} from '../syntax-analyzer';
-import {statementNodeCollapse} from './statement-node-collapse';
+import {Boolean2, Integer, Nothing} from '#common';
+import {
+  $,
+  Node,
+  rangeFromNodes,
+  statementNodeCollapse,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  TextRange,
+  textResourceRange,
+} from '#core';
 
 export type StatementNode = SyntaxNode<$.StatementNode> & {
   parent: StatementNode | Nothing;

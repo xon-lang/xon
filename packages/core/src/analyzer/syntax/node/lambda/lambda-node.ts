@@ -1,11 +1,14 @@
-import {$} from '../../../../$';
-import {Nothing} from '../../../../../../lib/src/types';
-import {ExpressionNode} from '../../../node';
-import {GroupNode} from '../../group/group-node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {AssignNode} from '../assign/assign-node';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
-import {TypeNode} from '../type/type-node';
+import {Nothing} from '#common';
+import {
+  $,
+  AssignNode,
+  ExpressionNode,
+  GroupNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+  TypeNode,
+} from '#core';
 
 export type LambdaNode = SyntaxNode<$.LambdaNode> &
   ExpressionNode & {

@@ -1,15 +1,24 @@
-import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, Nothing, nothing} from '../../../../../../lib/src/types';
-import {ASSIGN, TYPE} from '../../../lexical/lexical-analyzer-config';
-import {ExpressionNode, Node, nodeFindMap} from '../../../node';
-import {GroupNode} from '../../group/group-node';
-import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {AssignNode, assignNode} from '../assign/assign-node';
-import {partialToDeclaration} from '../declaration/declaration-node';
-import {InvokeNode} from '../invoke/invoke-node';
-import {TypeNode, typeNode} from '../type/type-node';
-import {lambdaNode} from './lambda-node';
+import {Integer, Nothing, nothing} from '#common';
+import {
+  $,
+  ASSIGN,
+  AssignNode,
+  ExpressionNode,
+  GroupNode,
+  InvokeNode,
+  Node,
+  SyntaxAnalyzer,
+  SyntaxParseFn,
+  TYPE,
+  TypeNode,
+  assignNode,
+  is,
+  isNonOperatorExpression,
+  lambdaNode,
+  nodeFindMap,
+  partialToDeclaration,
+  typeNode,
+} from '#core';
 
 export function lambdaNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {

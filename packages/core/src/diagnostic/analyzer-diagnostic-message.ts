@@ -1,8 +1,11 @@
-import {String2, nothing} from '../../../lib/src/types';
-import {TextResourceRange} from '../util/resource/text/text-resource-range';
-import {AnalyzerDiagnostic, createDiagnostic} from './analyzer-diagnostic';
-import {AnalyzerDiagnosticSeverity} from './analyzer-diagnostic-severity';
-import {AnalyzerDiagnosticTag} from './analyzer-diagnostic-tag';
+import {nothing, String2} from '#common';
+import {
+  AnalyzerDiagnostic,
+  AnalyzerDiagnosticSeverity,
+  AnalyzerDiagnosticTag,
+  createDiagnostic,
+  TextResourceRange,
+} from '#core';
 
 export function predefinedDiagnostics(reference: TextResourceRange) {
   return {

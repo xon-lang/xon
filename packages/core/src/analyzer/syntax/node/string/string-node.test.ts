@@ -1,8 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {StringNode} from './string-node';
+import {nothing} from '#common';
+import {$, StringNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('string', () => {
   const text = '"abc   def"';

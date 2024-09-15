@@ -1,10 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {evaluate} from '../../../../util/evaluate';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {RETURN} from '../../../lexical/lexical-analyzer-config';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {ReturnNode} from './return-node';
+import {nothing} from '#common';
+import {$, RETURN, ReturnNode, evaluate, syntaxFromResource, textResourceFromData} from '#core';
 
 test('with value', () => {
   const text = 'return 3 + 7';

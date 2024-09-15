@@ -1,8 +1,5 @@
-import {Nothing, nothing} from '../../../../lib/src/types';
-import {TextRange} from '../../util/resource/text/text-range';
-import {Node} from '../node';
-import {StatementNode, constructStatementNode} from './statement/statement-node';
-import {SyntaxAnalyzer} from './syntax-analyzer';
+import {Nothing, nothing} from '#common';
+import {Node, StatementNode, SyntaxAnalyzer, TextRange, constructStatementNode} from '#core';
 
 export function putStatementNode(
   analyzer: SyntaxAnalyzer,

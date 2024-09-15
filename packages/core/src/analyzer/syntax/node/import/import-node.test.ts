@@ -1,9 +1,5 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {StringNode} from '../string/string-node';
-import {ImportNode} from './import-node';
+import {nothing} from '#common';
+import {$, ImportNode, StringNode, syntaxFromResource, textResourceFromData} from '#core';
 
 test('import string', () => {
   const text = 'import "xon/core"';

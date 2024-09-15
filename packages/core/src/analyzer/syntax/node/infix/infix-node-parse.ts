@@ -1,9 +1,14 @@
-import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Boolean2, Integer, nothing} from '../../../../../../lib/src/types';
-import {Node, nodeFindMap} from '../../../node';
-import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {infixNode} from './infix-node';
+import {Boolean2, Integer, nothing} from '#common';
+import {
+  $,
+  infixNode,
+  is,
+  isNonOperatorExpression,
+  Node,
+  nodeFindMap,
+  SyntaxAnalyzer,
+  SyntaxParseFn,
+} from '#core';
 
 export function infixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

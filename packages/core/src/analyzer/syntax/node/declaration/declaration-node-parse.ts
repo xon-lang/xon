@@ -1,17 +1,29 @@
-import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, Nothing, nothing} from '../../../../../../lib/src/types';
-import {ASSIGN, MODIFIER_KEYWORDS, TYPE, TYPE_MODIFIER} from '../../../lexical/lexical-analyzer-config';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {ExpressionNode, Node, nodeFindMap} from '../../../node';
-import {DocumentationNode} from '../../documentation/documentation-node';
-import {GroupNode} from '../../group/group-node';
-import {StatementNode} from '../../statement/statement-node';
-import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {AssignNode, assignNode} from '../assign/assign-node';
-import {TypeNode, typeNode} from '../type/type-node';
-import {DeclarationNode, partialToDeclaration} from './declaration-node';
+import {Integer, Nothing, nothing} from '#common';
+import {
+  $,
+  ASSIGN,
+  AssignNode,
+  assignNode,
+  DeclarationNode,
+  DocumentationNode,
+  ExpressionNode,
+  GroupNode,
+  IdNode,
+  is,
+  isNonOperatorExpression,
+  MODIFIER_KEYWORDS,
+  Node,
+  nodeFindMap,
+  OperatorNode,
+  partialToDeclaration,
+  StatementNode,
+  SyntaxAnalyzer,
+  SyntaxParseFn,
+  TYPE,
+  TYPE_MODIFIER,
+  TypeNode,
+  typeNode,
+} from '#core';
 
 export function declarationNodeParse(): SyntaxParseFn {
   return (

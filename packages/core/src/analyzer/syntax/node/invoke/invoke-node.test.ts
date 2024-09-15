@@ -1,13 +1,15 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {GroupNode} from '../../group/group-node';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {IntegerNode} from '../integer/integer-node';
-import {MemberNode} from '../member/member-node';
-import {StringNode} from '../string/string-node';
-import {InvokeNode} from './invoke-node';
+import {nothing} from '#common';
+import {
+  $,
+  GroupNode,
+  IdNode,
+  IntegerNode,
+  InvokeNode,
+  MemberNode,
+  StringNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('method call', () => {
   const text = "f(3, 'str')";

@@ -1,11 +1,15 @@
-import {$, is} from '../../../../$';
-import {nothing, Nothing} from '../../../../../../lib/src/types';
-import {charLexicalParsers} from '../../../lexical/char-lexical-analyzer';
-import {CharContentNode} from '../../../lexical/node/char-content/char-content-node';
-import {CharCloseNode} from '../../../lexical/node/close/char-close/char-close-node';
-import {CharOpenNode} from '../../../lexical/node/open/char-open/char-open-node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {charNode, CharNode} from './char-node';
+import {Nothing, nothing} from '#common';
+import {
+  $,
+  CharCloseNode,
+  CharContentNode,
+  CharNode,
+  CharOpenNode,
+  SyntaxAnalyzer,
+  charLexicalParsers,
+  charNode,
+  is,
+} from '#core';
 
 export function charNodeParse(analyzer: SyntaxAnalyzer, openNode: CharOpenNode): CharNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(charLexicalParsers);

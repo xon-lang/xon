@@ -1,10 +1,5 @@
-import {$} from '../../../../$';
-import {Nothing} from '../../../../../../lib/src/types';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {ExpressionNode, Node} from '../../../node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {Nothing} from '#common';
+import {$, ExpressionNode, IdNode, Node, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
 
 export type MemberNode = SyntaxNode<$.MemberNode> &
   ExpressionNode & {

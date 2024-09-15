@@ -1,12 +1,14 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {evaluate} from '../../../../util/evaluate';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {IntegerNode} from '../integer/integer-node';
-import {PrefixNode} from '../prefix/prefix-node';
-import {InfixNode} from './infix-node';
+import {nothing} from '#common';
+import {
+  $,
+  evaluate,
+  IdNode,
+  InfixNode,
+  IntegerNode,
+  PrefixNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('several operands with different priorities', () => {
   const text = '1*1+1+2^5*2/2';

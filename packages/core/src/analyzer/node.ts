@@ -1,7 +1,5 @@
-import {$, $Model} from '../$';
-import {Boolean2, Integer, Nothing, nothing} from '../../../lib/src/types';
-import {TextResourceRange} from '../util/resource/text/text-resource-range';
-import {Semantic} from './semantic/node/semantic';
+import {Boolean2, Integer, Nothing, nothing} from '#common';
+import {$, $Model, Semantic, TextResourceRange} from '#core';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;

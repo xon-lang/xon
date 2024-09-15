@@ -1,4 +1,4 @@
-import {DEFAULT_FORMATTER_CONFIG, FormatterConfig} from '../../formatter/formatter-config';
+import {DEFAULT_FORMATTER_CONFIG, FormatterConfig} from '#core';
 
 export interface SyntaxAnalyzerConfig {
   formatting: FormatterConfig;

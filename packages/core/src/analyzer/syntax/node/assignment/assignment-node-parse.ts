@@ -1,11 +1,16 @@
-import {$, is, isNonOperatorExpression} from '../../../../$';
-import {Integer, nothing} from '../../../../../../lib/src/types';
-import {ASSIGN} from '../../../lexical/lexical-analyzer-config';
-import {Node, nodeFindMap} from '../../../node';
-import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {prefixNode} from '../prefix/prefix-node';
-import {assignmentNode} from './assignment-node';
+import {Integer, nothing} from '#common';
+import {
+  $,
+  ASSIGN,
+  assignmentNode,
+  is,
+  isNonOperatorExpression,
+  Node,
+  nodeFindMap,
+  prefixNode,
+  SyntaxAnalyzer,
+  SyntaxParseFn,
+} from '#core';
 
 export function assignmentNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

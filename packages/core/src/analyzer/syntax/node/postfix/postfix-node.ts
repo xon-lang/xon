@@ -1,8 +1,4 @@
-import {$} from '../../../../$';
-import {OperatorNode} from '../../../lexical/node/operator/operator-node';
-import {ExpressionNode} from '../../../node';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {SyntaxNode, syntaxNode} from '../syntax-node';
+import {$, ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
 
 export type PostfixNode = SyntaxNode<$.PostfixNode> &
   ExpressionNode & {

@@ -1,9 +1,5 @@
-import {$, is} from '../../../../$';
-import {Boolean2, Integer, nothing, String2} from '../../../../../../lib/src/types';
-import {Node, nodeFindMap} from '../../../node';
-import {SyntaxParseFn} from '../../statement/statement-node-collapse';
-import {SyntaxAnalyzer} from '../../syntax-analyzer';
-import {importNode} from './import-node';
+import {Boolean2, Integer, nothing, String2} from '#common';
+import {$, importNode, is, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 
 export function importNodeParse(operator: String2, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

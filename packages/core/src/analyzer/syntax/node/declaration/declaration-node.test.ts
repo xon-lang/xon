@@ -1,11 +1,13 @@
-import {$} from '../../../../$';
-import {nothing} from '../../../../../../lib/src/types';
-import {textResourceFromData} from '../../../../util/resource/text/text-resource';
-import {IdNode} from '../../../lexical/node/id/id-node';
-import {syntaxFromResource} from '../../syntax-analyzer';
-import {CharNode} from '../char/char-node';
-import {IntegerNode} from '../integer/integer-node';
-import {DeclarationNode} from './declaration-node';
+import {nothing} from '#common';
+import {
+  $,
+  CharNode,
+  DeclarationNode,
+  IdNode,
+  IntegerNode,
+  syntaxFromResource,
+  textResourceFromData,
+} from '#core';
 
 test('type A', () => {
   const text = 'type A';
