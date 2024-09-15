@@ -1,5 +1,6 @@
-import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
-import {Semantic} from '@xon/core/src/analyzer/semantic/node/semantic';
+import {$, DeclarationSemantic, Semantic, hasSemantic, is} from '#core';
+import {Nothing, String2, nothing} from '#lib';
+import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,
@@ -12,11 +13,6 @@ import {
   TextDocument,
   languages,
 } from 'vscode';
-import {$, hasSemantic, is} from '../../../../core/src/$';
-import {Nothing, String2, nothing} from '../../../../lib/types';
-import {LANGUAGE_NAME} from '../../config';
-import {convertRange, convertVscodePosition} from '../../util/convert';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

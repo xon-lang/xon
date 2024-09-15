@@ -1,3 +1,6 @@
+import {$, DeclarationSemantic, is, Semantic, TextResourceRange} from '#core';
+import {nothing, Nothing, String2} from '#lib';
+import {convertRange, convertVscodePosition, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,
@@ -11,15 +14,6 @@ import {
   Uri,
   WorkspaceEdit,
 } from 'vscode';
-
-import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
-import {Semantic} from '@xon/core/src/analyzer/semantic/node/semantic';
-import {TextResourceRange} from '@xon/core/src/util/resource/text/text-resource-range';
-import {$, is} from '../../../../core/src/$';
-import {Nothing, nothing, String2} from '../../../../lib/types';
-import {LANGUAGE_NAME} from '../../config';
-import {convertRange, convertVscodePosition} from '../../util/convert';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

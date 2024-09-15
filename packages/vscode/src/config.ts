@@ -1,5 +1,5 @@
+import {String2} from '#lib';
 import {workspace} from 'vscode';
-import {String2} from '../../lib/types';
 import * as packageJson from '../package.json';
 
 export const LANGUAGE_NAME = 'xon';

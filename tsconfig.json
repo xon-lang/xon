@@ -32,7 +32,7 @@
     "paths": {
       "#lib": ["packages/lib/*", "packages/lib"],
       "#core": ["packages/core/*", "packages/core"],
-      "#vscode": ["packages/vscode"]
+      "#vscode": ["packages/vscode/*", "packages/vscode"]
     }
   },
   // "include": ["src/**/*.ts", "../common/**/*.ts"],

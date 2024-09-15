@@ -1,7 +1,5 @@
-import {ExtensionContext, languages, OutputChannel} from 'vscode';
-import {LANGUAGE_NAME} from '../../config';
-import {DotCompletionItemProvider} from './items/dot-completion-feature';
-import {IdCompletionItemProvider} from './items/id-completion-feature';
+import {DotCompletionItemProvider, IdCompletionItemProvider, LANGUAGE_NAME} from '#vscode';
+import {ExtensionContext, OutputChannel, languages} from 'vscode';
 
 export function configureCompletionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

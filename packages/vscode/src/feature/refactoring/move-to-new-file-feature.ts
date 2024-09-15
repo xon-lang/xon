@@ -1,3 +1,13 @@
+import {$, getCaseFnByName, is, kebabCase} from '#core';
+import {nothing} from '#lib';
+import {
+  convertVscodePosition,
+  EXTENSION_CONFIG,
+  FILE_EXTENSION,
+  getDocumentSemantic,
+  LANGUAGE_NAME,
+} from '#vscode';
+import {dirname} from 'path';
 import {
   CancellationToken,
   CodeAction,
@@ -15,14 +25,6 @@ import {
   Uri,
   WorkspaceEdit,
 } from 'vscode';
-
-import {getCaseFnByName, kebabCase} from '@xon/core/src/util/change-case';
-import {dirname} from 'path';
-import {$, is} from '../../../../core/src/$';
-import {nothing} from '../../../../lib/types';
-import {EXTENSION_CONFIG, FILE_EXTENSION, LANGUAGE_NAME} from '../../config';
-import {convertVscodePosition} from '../../util/convert';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

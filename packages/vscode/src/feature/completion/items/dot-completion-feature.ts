@@ -1,6 +1,6 @@
-import { is, $, Semantic, ValueDeclarationSemantic } from '#core';
-import { nothing } from '#lib';
-import { convertVscodePosition } from 'packages/vscode/src/util/convert';
+import {$, is, Semantic, ValueDeclarationSemantic} from '#core';
+import {nothing, Nothing} from '#lib';
+import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   CompletionContext,

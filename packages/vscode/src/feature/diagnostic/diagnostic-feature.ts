@@ -1,3 +1,5 @@
+import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
+import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   Diagnostic,
   DiagnosticCollection,
@@ -10,12 +12,6 @@ import {
   window,
   workspace,
 } from 'vscode';
-import {AnalyzerDiagnostic} from '@xon/core/src/diagnostic/analyzer-diagnostic';
-import {AnalyzerDiagnosticSeverity} from '@xon/core/src/diagnostic/analyzer-diagnostic-severity';
-import {AnalyzerDiagnosticTag} from '@xon/core/src/diagnostic/analyzer-diagnostic-tag';
-import {LANGUAGE_NAME} from '../../config';
-import {convertRange} from '../../util/convert';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureDiagnosticFeature(context: ExtensionContext, channel: OutputChannel) {
   const diagnostics = languages.createDiagnosticCollection(LANGUAGE_NAME);

@@ -1,3 +1,5 @@
+import {FormatterItem} from '#core';
+import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   CancellationToken,
   DocumentFormattingEditProvider,
@@ -11,11 +13,6 @@ import {
   TextDocument,
   TextEdit,
 } from 'vscode';
-
-import {FormatterItem} from '@xon/core/src/formatter/formatter-item';
-import {LANGUAGE_NAME} from '../../config';
-import {convertRange} from '../../util/convert';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureFormattingFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

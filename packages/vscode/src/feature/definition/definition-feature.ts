@@ -1,24 +1,19 @@
-import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
-import {TextRange, zeroRange} from '@xon/core/src/util/resource/text/text-range';
-import {TextResourceRange} from '@xon/core/src/util/resource/text/text-resource-range';
+import {$, DeclarationSemantic, TextRange, TextResourceRange, hasSemantic, is, zeroRange} from '#core';
+import {Nothing, String2, nothing} from '#lib';
+import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   DefinitionLink,
   DefinitionProvider,
   ExtensionContext,
-  languages,
   LocationLink,
   OutputChannel,
   Position,
   ProviderResult,
   TextDocument,
   Uri,
+  languages,
 } from 'vscode';
-import {$, hasSemantic, is} from '../../../../core/src/$';
-import {Nothing, nothing, String2} from '../../../../lib/types';
-import {LANGUAGE_NAME} from '../../config';
-import {convertRange, convertVscodePosition} from '../../util/convert';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(

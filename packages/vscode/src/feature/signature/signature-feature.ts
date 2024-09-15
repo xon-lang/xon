@@ -1,11 +1,24 @@
-import {IdNode} from '@xon/core/src/analyzer/lexical/node/id/id-node';
-import {Node} from '@xon/core/src/analyzer/node';
-import {DeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/declaration-semantic';
-import {AttributeValueDeclarationSemantic} from '@xon/core/src/analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
-import {InvokeNode} from '@xon/core/src/analyzer/syntax/node/invoke/invoke-node';
+import {
+  $,
+  AttributeValueDeclarationSemantic,
+  DeclarationSemantic,
+  hasSemantic,
+  IdNode,
+  InvokeNode,
+  is,
+  Node,
+} from '#core';
+import {Integer, nothing, Nothing} from '#lib';
+import {
+  convertVscodePosition,
+  declarationSemanticHeaderToString,
+  getDocumentSemantic,
+  LANGUAGE_NAME,
+} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,
+  languages,
   MarkdownString,
   OutputChannel,
   ParameterInformation,
@@ -16,14 +29,7 @@ import {
   SignatureHelpProvider,
   SignatureInformation,
   TextDocument,
-  languages,
 } from 'vscode';
-import {$, hasSemantic, is} from '../../../../core/src/$';
-import {Integer, Nothing, nothing} from '../../../../lib/types';
-import {LANGUAGE_NAME} from '../../config';
-import {convertVscodePosition} from '../../util/convert';
-import {declarationSemanticHeaderToString} from '../../util/semantic-view';
-import {getDocumentSemantic} from '../../util/util';
 
 export function configureSignatureFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
