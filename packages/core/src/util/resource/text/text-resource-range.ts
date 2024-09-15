@@ -1,8 +1,5 @@
-import {$} from '../../../$';
-import {Boolean2} from '../../../../../lib/src/types';
-import {TextData} from '../../data/text-data';
-import {TextRange} from './text-range';
-import {TextResource} from './text-resource';
+import {Boolean2} from '#common';
+import {$, TextData, TextRange, TextResource} from '#core';
 
 export interface TextResourceRange {
   $: $.TextResourceRange;

@@ -1,5 +1,3 @@
-import {String2} from '../../../lib/src/types';
-
 // const Reset = '\x1b[0m';
 // const Bright = '\x1b[1m';
 // const Dim = '\x1b[2m';
@@ -7,6 +5,8 @@ import {String2} from '../../../lib/src/types';
 // const Blink = '\x1b[5m';
 // const Reverse = '\x1b[7m';
 // const Hidden = '\x1b[8m';
+
+import {String2} from '#common';
 
 // const FG_BLACK = '\x1b[30m';
 // const FG_RED = '\x1b[31m';

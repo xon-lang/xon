@@ -1,6 +1,5 @@
-import {$, is} from '../$';
-import {Anything, Nothing, Something, String2, nothing} from '../../../lib/src/types';
-import {Node} from '../analyzer/node';
+import {Anything, Nothing, Something, String2, nothing} from '#common';
+import {$, Node, is} from '#core';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

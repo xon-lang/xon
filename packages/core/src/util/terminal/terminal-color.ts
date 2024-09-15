@@ -1,4 +1,4 @@
-import {String2} from '../../../../lib/src/types';
+import {String2} from '#common';
 
 export enum TerminalColor {
   RESET = '\x1b[0m',

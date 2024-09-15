@@ -1,5 +1,5 @@
-import {$, $Model} from '../../../$';
-import {Boolean2, Integer} from '../../../../../lib/src/types';
+import {Boolean2, Integer} from '#common';
+import {$, $Model} from '#core';
 
 export type TextPosition = $Model & {
   $: $.TextPosition;

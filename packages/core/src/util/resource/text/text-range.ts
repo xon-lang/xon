@@ -1,7 +1,5 @@
-import {$, $Model, is} from '../../../$';
-import {Boolean2} from '../../../../../lib/src/types';
-import {Node} from '../../../analyzer/node';
-import {clonePosition, TextPosition, zeroPosition} from './text-position';
+import {Boolean2} from '#common';
+import {$, $Model, clonePosition, is, Node, TextPosition, zeroPosition} from '#core';
 
 export type TextRange = $Model & {
   $: $.TextRange;

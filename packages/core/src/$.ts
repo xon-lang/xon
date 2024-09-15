@@ -1,103 +1,106 @@
-import {Anything, Boolean2, Nothing} from '../../lib/src/types';
-import {CharContentNode} from './analyzer/lexical/node/char-content/char-content-node';
-import {AngleCloseNode} from './analyzer/lexical/node/close/angle-close/angle-close-node';
-import {BraceCloseNode} from './analyzer/lexical/node/close/brace-close/brace-close-node';
-import {BracketCloseNode} from './analyzer/lexical/node/close/bracket-close/bracket-close-node';
-import {CharCloseNode} from './analyzer/lexical/node/close/char-close/char-close-node';
-import {CloseNode} from './analyzer/lexical/node/close/close-node';
-import {ParenCloseNode} from './analyzer/lexical/node/close/paren-close/paren-close-node';
-import {StringCloseNode} from './analyzer/lexical/node/close/string-close/string-close-node';
-import {CommaNode} from './analyzer/lexical/node/comma/comma-node';
-import {CommentBlockNode} from './analyzer/lexical/node/comment-block/comment-block-node';
-import {CommentLineNode} from './analyzer/lexical/node/comment-line/comment-line-node';
-import {DocumentationCloseNode} from './analyzer/lexical/node/documentation-close/documentation-close-node';
-import {DocumentationDescriptionNode} from './analyzer/lexical/node/documentation-description/documentation-description-node';
-import {DocumentationLabelNode} from './analyzer/lexical/node/documentation-label/documentation-label-node';
-import {DocumentationOpenNode} from './analyzer/lexical/node/documentation-open/documentation-open-node';
-import {IdNode} from './analyzer/lexical/node/id/id-node';
-import {IntegerContentNode} from './analyzer/lexical/node/integer-content/integer-content-node';
-import {JoiningNode} from './analyzer/lexical/node/joining/joining-node';
-import {LexicalNode} from './analyzer/lexical/node/lexical-node';
-import {NlNode} from './analyzer/lexical/node/nl/nl-node';
-import {AngleOpenNode} from './analyzer/lexical/node/open/angle-open/angle-open-node';
-import {BraceOpenNode} from './analyzer/lexical/node/open/brace-open/brace-open-node';
-import {BracketOpenNode} from './analyzer/lexical/node/open/bracket-open/bracket-open-node';
-import {CharOpenNode} from './analyzer/lexical/node/open/char-open/char-open-node';
-import {OpenNode} from './analyzer/lexical/node/open/open-node';
-import {ParenOpenNode} from './analyzer/lexical/node/open/paren-open/paren-open-node';
-import {StringOpenNode} from './analyzer/lexical/node/open/string-open/string-open-node';
-import {OperatorNode} from './analyzer/lexical/node/operator/operator-node';
-import {StringContentNode} from './analyzer/lexical/node/string-content/string-content-node';
-import {UnknownNode} from './analyzer/lexical/node/unknown/unknown-node';
-import {WhitespaceNode} from './analyzer/lexical/node/whitespace/whitespace-node';
-import {ExpressionNode, Node} from './analyzer/node';
-import {DeclarationSemantic} from './analyzer/semantic/node/declaration/declaration-semantic';
-import {NominalTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
-import {ParameterTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/parameter/parameter-type-declaration-semantic';
-import {StructuralTypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/structural/structural-type-declaration-semantic';
-import {TypeDeclarationSemantic} from './analyzer/semantic/node/declaration/type/type-declaration-semantic';
-import {AttributeValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/attribute/attribute-value-declaration-semantic';
-import {ParameterValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/parameter/parameter-value-declaration-semantic';
-import {ValueDeclarationSemantic} from './analyzer/semantic/node/declaration/value/value-declaration-semantic';
-import {DocumentationIdSemantic} from './analyzer/semantic/node/documentation/documentation-id-semantic';
-import {Semantic} from './analyzer/semantic/node/semantic';
-import {ArrayTypeSemantic} from './analyzer/semantic/node/type/array/array-type-semantic';
-import {CharTypeSemantic} from './analyzer/semantic/node/type/char/char-type-semantic';
-import {FunctionTypeSemantic} from './analyzer/semantic/node/type/function/function-type-semantic';
-import {IdTypeSemantic} from './analyzer/semantic/node/type/id/id-type-semantic';
-import {IntegerTypeSemantic} from './analyzer/semantic/node/type/integer/integer-type-semantic';
-import {InvokeTypeSemantic} from './analyzer/semantic/node/type/invoke/invoke-type-semantic';
-import {ComplementTypeSemantic} from './analyzer/semantic/node/type/set/complement/complement-type-semantic';
-import {IntersectionTypeSemantic} from './analyzer/semantic/node/type/set/intersection/intersection-type-semantic';
-import {NotTypeSemantic} from './analyzer/semantic/node/type/set/not/not-type-semantic';
-import {RangeTypeSemantic} from './analyzer/semantic/node/type/set/range/range-type-semantic';
-import {SetTypeSemantic} from './analyzer/semantic/node/type/set/set';
-import {UnionTypeSemantic} from './analyzer/semantic/node/type/set/union/union-type-semantic';
-import {StringTypeSemantic} from './analyzer/semantic/node/type/string/string-type-semantic';
-import {TypeSemantic} from './analyzer/semantic/node/type/type-semantic';
-import {UnknownTypeSemantic} from './analyzer/semantic/node/type/unknown/unknown-type-semantic';
-import {CharValueSemantic} from './analyzer/semantic/node/value/char/char-value-semantic';
-import {IdValueSemantic} from './analyzer/semantic/node/value/id/id-value-semantic';
-import {ImportValueSemantic} from './analyzer/semantic/node/value/import/import-value-semantic';
-import {IntegerValueSemantic} from './analyzer/semantic/node/value/integer/integer-value-semantic';
-import {InvokeValueSemantic} from './analyzer/semantic/node/value/invoke/invoke-value-semantic';
-import {MemberValueSemantic} from './analyzer/semantic/node/value/member/member-value-semantic';
-import {StringValueSemantic} from './analyzer/semantic/node/value/string/string-value-semantic';
-import {UnknownValueSemantic} from './analyzer/semantic/node/value/unknown/unknown-value-semantic';
-import {ValueSemantic} from './analyzer/semantic/node/value/value-semantic';
-import {DocumentationItemNode} from './analyzer/syntax/documentation/documentation-item-node';
-import {DocumentationNode} from './analyzer/syntax/documentation/documentation-node';
-import {AngleGroupNode} from './analyzer/syntax/group/angle/angle-group-node';
-import {BraceGroupNode} from './analyzer/syntax/group/brace/brace-group-node';
-import {BracketGroupNode} from './analyzer/syntax/group/bracket/bracket-group-node';
-import {GroupNode} from './analyzer/syntax/group/group-node';
-import {ItemNode} from './analyzer/syntax/group/item-node';
-import {ParenGroupNode} from './analyzer/syntax/group/paren/paren-group-node';
-import {AssignNode} from './analyzer/syntax/node/assign/assign-node';
-import {AssignmentNode} from './analyzer/syntax/node/assignment/assignment-node';
-import {CharNode} from './analyzer/syntax/node/char/char-node';
-import {DeclarationNode} from './analyzer/syntax/node/declaration/declaration-node';
-import {ImportNode} from './analyzer/syntax/node/import/import-node';
-import {InfixNode} from './analyzer/syntax/node/infix/infix-node';
-import {IntegerNode} from './analyzer/syntax/node/integer/integer-node';
-import {InvokeNode} from './analyzer/syntax/node/invoke/invoke-node';
-import {LambdaNode} from './analyzer/syntax/node/lambda/lambda-node';
-import {MemberNode} from './analyzer/syntax/node/member/member-node';
-import {PostfixNode} from './analyzer/syntax/node/postfix/postfix-node';
-import {PrefixNode} from './analyzer/syntax/node/prefix/prefix-node';
-import {ReturnNode} from './analyzer/syntax/node/return/return-node';
-import {StringNode} from './analyzer/syntax/node/string/string-node';
-import {SyntaxNode} from './analyzer/syntax/node/syntax-node';
-import {TypeNode} from './analyzer/syntax/node/type/type-node';
-import {StatementNode} from './analyzer/syntax/statement/statement-node';
-import {Translator} from './translator/translator';
-import {TypescriptTranslator} from './translator/typescript/typescript-translator';
-import {TextData} from './util/data/text-data';
-import {Resource} from './util/resource/resource';
-import {TextPosition} from './util/resource/text/text-position';
-import {TextRange} from './util/resource/text/text-range';
-import {TextResource} from './util/resource/text/text-resource';
-import {TextResourceRange} from './util/resource/text/text-resource-range';
+import {Anything, Boolean2, Nothing} from '#common';
+import {
+  AngleCloseNode,
+  AngleGroupNode,
+  AngleOpenNode,
+  ArrayTypeSemantic,
+  AssignmentNode,
+  AssignNode,
+  AttributeValueDeclarationSemantic,
+  BraceCloseNode,
+  BraceGroupNode,
+  BraceOpenNode,
+  BracketCloseNode,
+  BracketGroupNode,
+  BracketOpenNode,
+  CharCloseNode,
+  CharContentNode,
+  CharNode,
+  CharOpenNode,
+  CharTypeSemantic,
+  CharValueSemantic,
+  CloseNode,
+  CommaNode,
+  CommentBlockNode,
+  CommentLineNode,
+  ComplementTypeSemantic,
+  DeclarationNode,
+  DeclarationSemantic,
+  DocumentationCloseNode,
+  DocumentationDescriptionNode,
+  DocumentationIdSemantic,
+  DocumentationItemNode,
+  DocumentationLabelNode,
+  DocumentationNode,
+  DocumentationOpenNode,
+  ExpressionNode,
+  FunctionTypeSemantic,
+  GroupNode,
+  IdNode,
+  IdTypeSemantic,
+  IdValueSemantic,
+  ImportNode,
+  ImportValueSemantic,
+  InfixNode,
+  IntegerContentNode,
+  IntegerNode,
+  IntegerTypeSemantic,
+  IntegerValueSemantic,
+  IntersectionTypeSemantic,
+  InvokeNode,
+  InvokeTypeSemantic,
+  InvokeValueSemantic,
+  ItemNode,
+  JoiningNode,
+  LambdaNode,
+  LexicalNode,
+  MemberNode,
+  MemberValueSemantic,
+  NlNode,
+  Node,
+  NominalTypeDeclarationSemantic,
+  NotTypeSemantic,
+  OpenNode,
+  OperatorNode,
+  ParameterTypeDeclarationSemantic,
+  ParameterValueDeclarationSemantic,
+  ParenCloseNode,
+  ParenGroupNode,
+  ParenOpenNode,
+  PostfixNode,
+  PrefixNode,
+  RangeTypeSemantic,
+  Resource,
+  ReturnNode,
+  Semantic,
+  SetTypeSemantic,
+  StatementNode,
+  StringCloseNode,
+  StringContentNode,
+  StringNode,
+  StringOpenNode,
+  StringTypeSemantic,
+  StringValueSemantic,
+  StructuralTypeDeclarationSemantic,
+  SyntaxNode,
+  TextData,
+  TextPosition,
+  TextRange,
+  TextResource,
+  TextResourceRange,
+  Translator,
+  TypeDeclarationSemantic,
+  TypeNode,
+  TypescriptTranslator,
+  TypeSemantic,
+  UnionTypeSemantic,
+  UnknownNode,
+  UnknownTypeSemantic,
+  UnknownValueSemantic,
+  ValueDeclarationSemantic,
+  ValueSemantic,
+  WhitespaceNode,
+} from '#core';
 
 export enum $ {
   Node = ' Node ',

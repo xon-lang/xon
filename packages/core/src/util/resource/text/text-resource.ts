@@ -1,10 +1,6 @@
+import {Boolean2, Nothing, String2, nothing} from '#common';
+import {$, Resource, TextData, TextRange, TextResourceRange, textData, textResourceRange} from '#core';
 import {readFileSync, statSync} from 'fs';
-import {$} from '../../../$';
-import {Boolean2, Nothing, nothing, String2} from '../../../../../lib/src/types';
-import {textData, TextData} from '../../data/text-data';
-import {Resource} from '../resource';
-import {TextRange} from './text-range';
-import {textResourceRange, TextResourceRange} from './text-resource-range';
 
 export interface TextResource extends Resource {
   $: $.TextResource;

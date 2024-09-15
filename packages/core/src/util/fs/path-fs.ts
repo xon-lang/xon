@@ -1,9 +1,8 @@
-import {lstatSync, Stats} from 'fs';
+import {Boolean2, Nothing, String2, nothing} from '#common';
+import {DirectoryFs, FileFs} from '#core';
+import {Stats, lstatSync} from 'fs';
 import {homedir} from 'os';
 import {join, resolve} from 'path';
-import {Boolean2, nothing, Nothing, String2} from '../../../../lib/src/types';
-import {DirectoryFs} from './directory-fs';
-import {FileFs} from './file-fs';
 
 export class PathFs {
   fullPath: String2;

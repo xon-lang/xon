@@ -1,5 +1,5 @@
-import {$Model} from '../$';
-import {String2} from '../../../lib/src/types';
+import {String2} from '#common';
+import {$Model} from '#core';
 
 export type Translator = $Model & {
   translate(): String2;
