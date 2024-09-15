@@ -32,7 +32,8 @@
     "paths": {
       "#common": ["packages/common/*", "packages/common"],
       "#core": ["packages/core/*", "packages/core"],
-      "#vscode": ["packages/vscode/*", "packages/vscode"]
+      "#vscode": ["packages/vscode/*", "packages/vscode"],
+      "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib"]
     }
   },
   // "include": ["src/**/*.ts", "../common/**/*.ts"],

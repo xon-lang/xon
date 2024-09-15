@@ -22,23 +22,8 @@ import {
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
-const parsers: TypeSemanticTryParseFn[] = [
-  integerTypeSemanticTryParse,
-  charTypeSemanticTryParse,
-  stringTypeSemanticTryParse,
-  rangeTypeSemanticTryParse,
-  arrayTypeSemanticTryParse,
-  idTypeSemanticTryParse,
-  functionTypeSemanticTryParse,
-  invokeTypeSemanticTryParse,
-  intersectionTypeSemanticTryParse,
-  unionTypeSemanticTryParse,
-  complementTypeSemanticTryParse,
-  notTypeSemanticTryParse,
-];
-
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): TypeSemantic {
-  const semantic = parsers.findMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
+  const semantic = parsers().findMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
   node.semantic = semantic;
 
   return semantic;
@@ -51,4 +36,21 @@ export function typeNodeType(analyzer: SemanticAnalyzer, node: TypeNode): TypeSe
   }
 
   return unknownTypeSemantic(analyzer, node);
+}
+
+function parsers(): TypeSemanticTryParseFn[] {
+  return [
+    integerTypeSemanticTryParse,
+    charTypeSemanticTryParse,
+    stringTypeSemanticTryParse,
+    rangeTypeSemanticTryParse,
+    arrayTypeSemanticTryParse,
+    idTypeSemanticTryParse,
+    functionTypeSemanticTryParse,
+    invokeTypeSemanticTryParse,
+    intersectionTypeSemanticTryParse,
+    unionTypeSemanticTryParse,
+    complementTypeSemanticTryParse,
+    notTypeSemanticTryParse,
+  ];
 }

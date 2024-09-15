@@ -10,9 +10,10 @@ import {
   textResourceFromLocation,
   unknownTypeSemantic,
 } from '#core';
-import {dirname, join, resolve} from 'path';
+import {libDir} from '#xon-lib';
+import {dirname, join} from 'path';
 
-const LIB_FOLDER = resolve(__dirname, '../../../../../../../lib');
+const LIB_FOLDER = libDir();
 
 export function importValueSemanticParse(
   analyzer: SemanticAnalyzer,

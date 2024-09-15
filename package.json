@@ -22,6 +22,7 @@
     "barrels:common": "npm run barrelsby -- packages/common",
     "barrels:core": "npm run barrelsby -- packages/core",
     "barrels:vscode": "npm run barrelsby -- packages/vscode",
-    "barrels": "npm run barrels:common && npm run barrels:core && npm run barrels:vscode"
+    "barrels:xon-lib": "npm run barrelsby -- packages/xon-lib",
+    "barrels": "npm run barrels:common && npm run barrels:core && npm run barrels:vscode && npm run barrels:xon-lib"
   }
 }
