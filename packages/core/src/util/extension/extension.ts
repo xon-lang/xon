@@ -5,7 +5,7 @@ declare global {
   interface String extends StringExtension {}
 }
 
-export interface ArrayExtension<T = Anything> {
+interface ArrayExtension<T = Anything> {
   first(predicate?: Predicate<T>): T | Nothing;
   first<V extends T>(predicate?: PredicateTypeSafe<T, V>): V | Nothing;
   last(predicate?: Predicate<T>): T | Nothing;
@@ -41,12 +41,12 @@ export interface ArrayExtension<T = Anything> {
   toDictionary<Key extends String2 | Number2>(select: Select<T, Key>): Record<Key, T>;
 }
 
-export interface StringExtension extends ArrayExtension<Char> {
+interface StringExtension {
   removeFirst(): String2;
   removeLast(): String2;
 
   take(length: Integer, startIndex?: Integer): String2;
-  takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): String2;
+  takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): String2;
 
   toCharCodes(): Uint8Array;
   isLetter(index: Integer): Boolean2;
@@ -58,6 +58,6 @@ export interface StringExtension extends ArrayExtension<Char> {
 }
 
 export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: T[]) => V;
-export type PredicateTypeSafe<T, V> = (value: T, index: Integer, array: T[]) => value is V;
+export type PredicateTypeSafe<T, V extends T> = (value: T, index: Integer, array: T[]) => value is V;
 export type Select<T, V> = (value: T, index: Integer, array: T[]) => V;
 export type PredicateSelect<T, V> = (value: T, index: Integer, array: T[]) => V | Nothing;
