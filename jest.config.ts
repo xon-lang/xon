@@ -1,13 +1,3 @@
-// {
-//   "roots": ["<rootDir>/packages"],
-//   "testMatch": ["**/*.test.ts"],
-//   "transform": {
-//     "^.+\\.ts$": "ts-jest"
-//   },
-//   "moduleNameMapper": {
-//   "~/(.*)": "<rootDir>/src/$1"
-// }
-// }
 import {Config} from 'jest';
 
 const config: Config = {
@@ -18,7 +8,7 @@ const config: Config = {
   },
   modulePaths: ['<rootDir>'],
   moduleFileExtensions: ['js', 'json', 'ts', 'd.ts'],
-  testMatch: ['**/*.test.ts'],
+  testMatch: ['**/*.test.ts', '!**/dist/*'],
   transform: {'^.+\\.ts$': 'ts-jest'},
   roots: ['<rootDir>/packages'],
 };
