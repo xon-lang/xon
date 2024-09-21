@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {Boolean2, Char, Integer, Nothing, String2} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);

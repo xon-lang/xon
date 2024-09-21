@@ -1,14 +1,6 @@
 import {Boolean2, Integer, nothing} from '#common';
-import {
-  $,
-  is,
-  isNonOperatorExpression,
-  Node,
-  nodeFindMap,
-  postfixNode,
-  SyntaxAnalyzer,
-  SyntaxParseFn,
-} from '#core';
+import {Node, nodeFindMap, postfixNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function postfixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

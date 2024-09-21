@@ -1,14 +1,13 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   INTERSECTION,
   IntersectionTypeSemantic,
   intersectionTypeSemantic,
-  is,
   Node,
   SemanticAnalyzer,
   typeSemanticParse,
 } from '#core';
+import {$, is} from '#typing';
 
 export function intersectionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#common';
-import {LexicalAnalyzer, PAREN_OPEN, ParenOpenNode, parenOpenNode, textData} from '#core';
+import {Nothing, nothing, textData} from '#common';
+import {LexicalAnalyzer, PAREN_OPEN, ParenOpenNode, parenOpenNode} from '#core';
 
 export function parenOpenNodeParse(analyzer: LexicalAnalyzer): ParenOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(PAREN_OPEN)) {

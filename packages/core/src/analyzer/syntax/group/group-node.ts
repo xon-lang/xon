@@ -1,17 +1,15 @@
-import {Nothing} from '#common';
+import {Nothing, rangeFromNodes, textResourceRange} from '#common';
 import {
-  $,
   CloseNode,
   CloseNodeType,
   ExpressionNode,
   ItemNode,
   OpenNode,
   OpenNodeType,
-  rangeFromNodes,
   SyntaxAnalyzer,
   SyntaxNode,
-  textResourceRange,
 } from '#core';
+import {$} from '#typing';
 
 export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode | $.AngleGroupNode;
 

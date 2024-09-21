@@ -1,4 +1,4 @@
-import {$, is} from '#core';
+import {$, is} from '#typing';
 import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,

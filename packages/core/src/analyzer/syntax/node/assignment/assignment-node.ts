@@ -1,4 +1,5 @@
-import {$, IdNode, PrefixNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {IdNode, PrefixNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 export type AssignmentNode = SyntaxNode<$.AssignmentNode> & {
   id: IdNode;

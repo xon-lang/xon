@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#common';
-import {BRACKET_OPEN, BracketOpenNode, bracketOpenNode, LexicalAnalyzer, textData} from '#core';
+import {Nothing, nothing, textData} from '#common';
+import {BRACKET_OPEN, BracketOpenNode, bracketOpenNode, LexicalAnalyzer} from '#core';
 
 export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(BRACKET_OPEN)) {

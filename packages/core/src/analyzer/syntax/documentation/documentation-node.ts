@@ -1,6 +1,5 @@
 import {Nothing, String2} from '#common';
 import {
-  $,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
   DocumentationItemNode,
@@ -9,6 +8,7 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
+import {$} from '#typing';
 
 export type DocumentationNode = SyntaxNode<$.DocumentationNode> & {
   open: DocumentationOpenNode;

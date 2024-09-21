@@ -1,6 +1,5 @@
-import {Nothing} from '#common';
+import {Nothing, textData, textPosition, textRange, textResourceRange} from '#common';
 import {
-  $,
   AT,
   DocumentationDescriptionNode,
   DocumentationLabelNode,
@@ -11,11 +10,8 @@ import {
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
-  textData,
-  textPosition,
-  textRange,
-  textResourceRange,
 } from '#core';
+import {$} from '#typing';
 
 export type DocumentationItemNode = SyntaxNode<$.DocumentationItemNode> & {
   operator: OperatorNode;

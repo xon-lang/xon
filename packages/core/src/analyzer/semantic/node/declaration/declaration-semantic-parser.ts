@@ -1,12 +1,10 @@
 import {Nothing, String2, topologicalSort} from '#common';
 import {
-  $,
   attributeValueDeclarationSemantic,
   attributeValueDeclarationSemanticHandle,
   DeclarationNode,
   DeclarationSemantic,
   GroupNode,
-  is,
   Node,
   nominalTypeDeclarationSemantic,
   nominalTypeDeclarationSemanticHandle,
@@ -21,6 +19,7 @@ import {
   structuralTypeDeclarationSemanticHandle,
   TYPE_MODIFIER,
 } from '#core';
+import {$, is} from '#typing';
 
 export function statementDeclarationsParse(analyzer: SemanticAnalyzer, nodes: Node[]): DeclarationSemantic[] {
   const declarationNodes = nodes.filter((node) => is(node, $.DeclarationNode));

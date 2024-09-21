@@ -1,6 +1,5 @@
 import {Boolean2} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
@@ -9,8 +8,8 @@ import {
   SemanticAnalyzer,
   TypeSemantic,
   isInSet,
-  isSetOperatorTypeSemantic,
 } from '#core';
+import {$, isSetOperatorTypeSemantic} from '#typing';
 
 export interface FunctionTypeSemantic extends TypeSemantic {
   $: $.FunctionTypeSemantic;

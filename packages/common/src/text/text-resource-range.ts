@@ -1,5 +1,5 @@
-import {Boolean2} from '#common';
-import {$, TextData, TextRange, TextResource} from '#core';
+import {Boolean2, TextData, TextRange, TextResource} from '#common';
+import { $ } from '#typing';
 
 export interface TextResourceRange {
   $: $.TextResourceRange;

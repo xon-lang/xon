@@ -1,15 +1,6 @@
-import {nothing} from '#common';
-import {
-  $,
-  IdNode,
-  is,
-  JOINING,
-  LexicalNode,
-  MemberNode,
-  OperatorNode,
-  syntaxFromResource,
-  textResourceFromData,
-} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {IdNode, JOINING, LexicalNode, MemberNode, OperatorNode, syntaxFromResource} from '#core';
+import {$, is} from '#typing';
 
 test('no space', () => {
   const text = 'abc~.def';

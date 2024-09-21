@@ -1,15 +1,13 @@
-import {Nothing, String2} from '#common';
+import {Nothing, String2, TextData, TextResourceRange} from '#common';
 import {
-  $,
   CONTROL_KEYWORDS,
   ExpressionNode,
   LexicalNode,
   lexicalNode,
   MODIFIER_KEYWORDS,
   OPERATOR_KEYWORDS,
-  TextData,
-  TextResourceRange,
 } from '#core';
+import {$} from '#typing';
 
 export enum KeywordType {
   OPERATOR = 'OPERATOR',

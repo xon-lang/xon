@@ -1,5 +1,6 @@
 import {String2} from '#common';
-import {$, TypescriptTranslator, ValueSemantic, is} from '#core';
+import {TypescriptTranslator, ValueSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function valueTypescriptTranslate(translator: TypescriptTranslator, semantic: ValueSemantic): String2 {
   if (is(semantic, $.IntegerValueSemantic)) {

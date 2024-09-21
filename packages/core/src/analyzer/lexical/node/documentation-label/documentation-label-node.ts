@@ -1,5 +1,6 @@
-import {String2} from '#common';
-import {$, AT, LexicalNode, lexicalNode, TextData, TextResourceRange} from '#core';
+import {String2, TextData, TextResourceRange} from '#common';
+import {AT, LexicalNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 export type DocumentationLabelNode = LexicalNode<$.DocumentationLabelNode> & {
   name: String2;

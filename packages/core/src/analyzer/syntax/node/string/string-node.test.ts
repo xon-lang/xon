@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, StringNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {StringNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('string', () => {
   const text = '"abc   def"';

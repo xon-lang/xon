@@ -1,5 +1,6 @@
 import {Nothing, nothing} from '#common';
-import {$, Node, SemanticAnalyzer, StringNode, StringTypeSemantic, is, stringTypeSemantic} from '#core';
+import {Node, SemanticAnalyzer, StringNode, StringTypeSemantic, stringTypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function stringTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

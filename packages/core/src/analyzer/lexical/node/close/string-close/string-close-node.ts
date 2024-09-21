@@ -1,4 +1,6 @@
-import {$, CloseNode, TextData, TextResourceRange, lexicalNode} from '#core';
+import {TextData, TextResourceRange} from '#common';
+import {CloseNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 export type StringCloseNode = CloseNode<$.StringCloseNode>;
 

@@ -1,12 +1,6 @@
-import {nothing} from '#common';
-import {
-  $,
-  createSemanticAnalyzer,
-  IntegerValueSemantic,
-  ReturnNode,
-  syntaxFromResource,
-  textResourceFromData,
-} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {createSemanticAnalyzer, IntegerValueSemantic, ReturnNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('with value', () => {
   const text = `return  3`;

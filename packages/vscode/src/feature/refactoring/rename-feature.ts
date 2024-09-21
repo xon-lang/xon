@@ -1,10 +1,10 @@
-import {nothing, Nothing, String2} from '#common';
-import {$, DeclarationSemantic, is, Semantic, TextResourceRange} from '#core';
-import {convertRange, convertVscodePosition, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
+import {Nothing, String2, TextResourceRange, nothing} from '#common';
+import {DeclarationSemantic, Semantic} from '#core';
+import {$, is} from '#typing';
+import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,
-  languages,
   OutputChannel,
   Position,
   ProviderResult,
@@ -13,6 +13,7 @@ import {
   TextDocument,
   Uri,
   WorkspaceEdit,
+  languages,
 } from 'vscode';
 
 export function configureRenameFeature(context: ExtensionContext, channel: OutputChannel) {

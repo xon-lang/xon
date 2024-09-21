@@ -1,4 +1,6 @@
-import {$, LexicalNode, TextData, TextResourceRange, lexicalNode} from '#core';
+import {TextData, TextResourceRange} from '#common';
+import {LexicalNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 export type CommentLineNode = LexicalNode<$.CommentLineNode>;
 

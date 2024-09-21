@@ -1,15 +1,6 @@
-import {nothing} from '#common';
-import {
-  $,
-  GroupNode,
-  IdNode,
-  IntegerNode,
-  InvokeNode,
-  MemberNode,
-  StringNode,
-  syntaxFromResource,
-  textResourceFromData,
-} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {GroupNode, IdNode, IntegerNode, InvokeNode, MemberNode, StringNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('method call', () => {
   const text = "f(3, 'str')";

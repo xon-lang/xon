@@ -1,4 +1,5 @@
-import {$, IntegerTypeSemantic, Node, ValueSemantic} from '#core';
+import {IntegerTypeSemantic, Node, ValueSemantic} from '#core';
+import {$} from '#typing';
 
 export type IntegerValueSemantic = ValueSemantic<$.IntegerValueSemantic, IntegerTypeSemantic>;
 

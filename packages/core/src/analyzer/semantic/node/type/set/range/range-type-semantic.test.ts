@@ -1,6 +1,5 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
@@ -8,9 +7,9 @@ import {
   RangeTypeSemantic,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
-  textResourceFromData,
   typeNodeType,
 } from '#core';
+import {$} from '#typing';
 
 test('a is range', () => {
   const text = `

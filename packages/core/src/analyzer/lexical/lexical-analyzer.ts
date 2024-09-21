@@ -1,7 +1,9 @@
-import {Boolean2, Integer, Nothing, nothing, String2} from '#common';
 import {
-  LexicalNode,
-  NL,
+  Boolean2,
+  Integer,
+  Nothing,
+  nothing,
+  String2,
   TextData,
   TextPosition,
   textPosition,
@@ -9,9 +11,9 @@ import {
   TextResource,
   TextResourceRange,
   textResourceRange,
-  unknownNodeParse,
   zeroPosition,
-} from '#core';
+} from '#common';
+import {LexicalNode, NL, unknownNodeParse} from '#core';
 
 export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | Nothing;
 
@@ -104,7 +106,10 @@ export function createLexicalAnalyzer(
   };
 }
 
-function parsersIterator(lexer: LexicalAnalyzer, parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
+function parsersIterator(
+  lexer: LexicalAnalyzer,
+  parsers: LexicalNodeParseFn[],
+): IterableIterator<LexicalNode> {
   return {
     next(): IteratorResult<LexicalNode> {
       if (lexer.position.index >= lexer.resource.data.length()) {

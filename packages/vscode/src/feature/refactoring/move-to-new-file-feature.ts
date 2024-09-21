@@ -1,13 +1,13 @@
-import {nothing} from '#common';
-import {$, getCaseFnByName, is, kebabCase} from '#core';
+import {getCaseFnByName, kebabCase, nothing} from '#common';
+import {$, is} from '#typing';
 import {
-  convertVscodePosition,
   EXTENSION_CONFIG,
   FILE_EXTENSION,
-  getDocumentSemantic,
   LANGUAGE_NAME,
+  convertVscodePosition,
+  getDocumentSemantic,
 } from '#vscode';
-import {dirname} from 'node:path';
+import {dirname} from 'path';
 import {
   CancellationToken,
   CodeAction,
@@ -16,7 +16,6 @@ import {
   CodeActionProvider,
   Command,
   ExtensionContext,
-  languages,
   OutputChannel,
   ProviderResult,
   Range,
@@ -24,6 +23,7 @@ import {
   TextDocument,
   Uri,
   WorkspaceEdit,
+  languages,
 } from 'vscode';
 
 export function configureMoveToNewFileFeature(context: ExtensionContext, channel: OutputChannel) {

@@ -1,4 +1,5 @@
-import {$, Node, StringTypeSemantic, ValueSemantic} from '#core';
+import {Node, StringTypeSemantic, ValueSemantic} from '#core';
+import {$} from '#typing';
 
 export type StringValueSemantic = ValueSemantic<$.StringValueSemantic, StringTypeSemantic>;
 

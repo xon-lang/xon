@@ -1,15 +1,14 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
   IntegerTypeSemantic,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
-  textResourceFromData,
   typeNodeType,
 } from '#core';
+import {$} from '#typing';
 
 test('a is integer', () => {
   const text = `

@@ -1,12 +1,9 @@
-import {Integer, Nothing} from '#common';
+import {Integer, Nothing, TextRange, TextResource, TextResourceRange} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticMessage,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticTag,
-  TextRange,
-  TextResource,
-  TextResourceRange,
   createDiagnostic,
   predefinedDiagnostics,
 } from '#core';

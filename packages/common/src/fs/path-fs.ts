@@ -1,5 +1,4 @@
-import {Boolean2, Nothing, String2, nothing} from '#common';
-import {DirectoryFs, FileFs} from '#core';
+import {Boolean2, DirectoryFs, FileFs, Nothing, String2, nothing} from '#common';
 import {Stats, lstatSync} from 'node:fs';
 import {homedir} from 'node:os';
 import {join, resolve} from 'node:path';

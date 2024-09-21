@@ -1,4 +1,5 @@
-import {$, DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#core';
+import {DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#core';
+import {$} from '#typing';
 
 export interface DocumentationIdSemantic extends Semantic {
   $: $.DocumentationIdSemantic;

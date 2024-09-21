@@ -1,11 +1,5 @@
-import {Nothing, nothing} from '#common';
-import {
-  DOCUMENTATION_OPEN,
-  DocumentationOpenNode,
-  documentationOpenNode,
-  LexicalAnalyzer,
-  textData,
-} from '#core';
+import {Nothing, nothing, textData} from '#common';
+import {DOCUMENTATION_OPEN, DocumentationOpenNode, documentationOpenNode, LexicalAnalyzer} from '#core';
 
 export function documentationOpenNodeParse(analyzer: LexicalAnalyzer): DocumentationOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(DOCUMENTATION_OPEN)) {

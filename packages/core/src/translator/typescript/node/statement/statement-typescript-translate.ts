@@ -1,5 +1,6 @@
 import {String2} from '#common';
-import {$, NL, Semantic, StatementNode, TypescriptTranslator, is} from '#core';
+import {NL, Semantic, StatementNode, TypescriptTranslator} from '#core';
+import {$, is} from '#typing';
 
 export function statementTypescriptTranslate(
   translator: TypescriptTranslator,

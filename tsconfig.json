@@ -29,6 +29,7 @@
     "paths": {
       "#common": ["packages/common/*", "packages/common"],
       "#core": ["packages/core/*", "packages/core"],
+      "#typing": ["packages/typing/*", "packages/typing"],
       "#vscode": ["packages/vscode/*", "packages/vscode"],
       "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib"]
     },

@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, IntegerNode, is, LexicalNode, syntaxFromResource, textResourceFromData, UnknownNode} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {IntegerNode, LexicalNode, syntaxFromResource, UnknownNode} from '#core';
+import {$, is} from '#typing';
 
 test('unknown 1', () => {
   const text = '123 §•∞•456';

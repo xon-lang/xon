@@ -1,5 +1,4 @@
 import {
-  $,
   ExpressionNode,
   Node,
   SemanticAnalyzer,
@@ -7,6 +6,7 @@ import {
   unknownTypeSemantic,
   ValueSemantic,
 } from '#core';
+import {$} from '#typing';
 
 export type UnknownValueSemantic = ValueSemantic<$.UnknownValueSemantic> & {};
 

@@ -1,29 +1,24 @@
-import {Boolean2, Nothing, nothing} from '#common';
+import {Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
 import {
-  $,
   AnalyzerDiagnosticManager,
-  DEFAULT_SYNTAX_ANALYZER_CONFIG,
-  FormatterManager,
-  LexicalAnalyzer,
-  Node,
-  StatementNode,
-  SyntaxAnalyzerConfig,
-  TextPosition,
-  TextRange,
-  TextResource,
   charNodeParse,
   codeLexicalParsers,
   createDiagnosticManager,
   createFormatterManager,
   createLexicalAnalyzer,
+  DEFAULT_SYNTAX_ANALYZER_CONFIG,
   documentationNodeParse,
+  FormatterManager,
   groupNodeParse,
   integerNodeParse,
-  is,
+  LexicalAnalyzer,
+  Node,
   putStatementNode,
-  rangeFromPosition,
+  StatementNode,
   stringNodeParse,
+  SyntaxAnalyzerConfig,
 } from '#core';
+import {$, is} from '#typing';
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;

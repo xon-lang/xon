@@ -1,6 +1,6 @@
-import {nothing} from '#common';
-import {$, ImportNode, StringNode, syntaxFromResource, textResourceFromData} from '#core';
-
+import {nothing, textResourceFromData} from '#common';
+import {ImportNode, StringNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 test('import string', () => {
   const text = 'import "xon/core"';
   const source = textResourceFromData(nothing, text);

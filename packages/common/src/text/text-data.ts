@@ -1,6 +1,6 @@
-import { Char, Integer, String2, Boolean2 } from "#common";
-import { $, TextRange, Predicate, is, NL } from "#core";
-
+import {Boolean2, Char, Integer, String2, TextRange} from '#common';
+import { Predicate, NL } from '#core';
+import { $, is } from '#typing';
 
 export type TextData = {
   $: $.TextData;

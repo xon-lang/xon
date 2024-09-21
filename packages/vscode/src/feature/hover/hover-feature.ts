@@ -1,5 +1,6 @@
 import {Nothing, String2, nothing} from '#common';
-import {$, DeclarationSemantic, Semantic, hasSemantic, is} from '#core';
+import {DeclarationSemantic, Semantic} from '#core';
+import {$, hasSemantic, is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,

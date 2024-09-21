@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, LexicalNode, syntaxFromResource, textResourceFromData, WhitespaceNode} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {LexicalNode, syntaxFromResource, WhitespaceNode} from '#core';
+import {$} from '#typing';
 
 test('whitespace', () => {
   const text = '    ';

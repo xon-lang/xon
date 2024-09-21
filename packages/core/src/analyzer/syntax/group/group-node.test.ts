@@ -1,16 +1,14 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   BraceGroupNode,
   BracketGroupNode,
   InfixNode,
   IntegerNode,
   ParenGroupNode,
-  is,
   predefinedDiagnostics,
   syntaxFromResource,
-  textResourceFromData,
 } from '#core';
+import {$, is} from '#typing';
 
 test('empty closed', () => {
   const text = '()';

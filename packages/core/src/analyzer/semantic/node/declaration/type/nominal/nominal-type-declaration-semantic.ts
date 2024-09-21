@@ -1,6 +1,5 @@
 import {Boolean2, Nothing, String2} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   createDeclarationScope,
   DeclarationNode,
@@ -11,6 +10,7 @@ import {
   TypeSemantic,
   unknownTypeSemantic,
 } from '#core';
+import {$} from '#typing';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;

@@ -1,14 +1,13 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   InvokeTypeSemantic,
   invokeTypeSemantic,
-  is,
   Node,
   SemanticAnalyzer,
   typeSemanticParse,
   unknownTypeSemantic,
 } from '#core';
+import {$, is} from '#typing';
 
 export function invokeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

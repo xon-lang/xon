@@ -1,5 +1,6 @@
 import {Integer, Nothing, String2, nothing} from '#common';
-import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeMap, TypeSemantic, is} from '#core';
+import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
+import {TypeMap, is} from '#typing';
 
 export interface DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> {
   imports: DeclarationScope[] | Nothing;

@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#common';
+import {Nothing, nothing, textData} from '#common';
 import {
   AFFIX_MODIFIERS,
   idNode,
@@ -7,7 +7,6 @@ import {
   LexicalNode,
   operatorNode,
   OPERATORS_SORTED,
-  textData,
 } from '#core';
 
 export function operatorNodeParse(analyzer: LexicalAnalyzer): LexicalNode | Nothing {

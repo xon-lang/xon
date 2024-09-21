@@ -1,6 +1,5 @@
 import {Nothing, nothing, String2} from '#common';
 import {
-  $,
   ANGLE_CLOSE,
   BRACE_CLOSE,
   BRACKET_CLOSE,
@@ -8,13 +7,13 @@ import {
   GroupNode,
   groupNode,
   GroupNodeType,
-  is,
   ItemNode,
   itemNode,
   OpenNode,
   PAREN_CLOSE,
   SyntaxAnalyzer,
 } from '#core';
+import {$, is} from '#typing';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
   if (is(openNode, $.ParenOpenNode)) {

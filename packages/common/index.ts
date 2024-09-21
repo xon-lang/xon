@@ -3,5 +3,20 @@
  */
 
 export * from './src/types';
+export * from './src/array/array-data.factory';
+export * from './src/array/array-data';
+export * from './src/fs/directory-fs';
+export * from './src/fs/file-fs';
+export * from './src/fs/path-fs';
 export * from './src/list/linked-list';
+export * from './src/perfomance/performance-timer';
+export * from './src/resource/resource';
 export * from './src/sort/topological-sort';
+export * from './src/terminal/terminal-color';
+export * from './src/terminal/terminal-log';
+export * from './src/text/text-case';
+export * from './src/text/text-data';
+export * from './src/text/text-position';
+export * from './src/text/text-range';
+export * from './src/text/text-resource-range';
+export * from './src/text/text-resource';

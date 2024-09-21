@@ -1,10 +1,9 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
-  textResourceFromData,
   ValueDeclarationSemantic,
 } from '#core';
 

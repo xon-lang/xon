@@ -1,6 +1,5 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   CharCloseNode,
   CharContentNode,
   CharNode,
@@ -8,8 +7,8 @@ import {
   SyntaxAnalyzer,
   charLexicalParsers,
   charNode,
-  is,
 } from '#core';
+import {$, is} from '#typing';
 
 export function charNodeParse(analyzer: SyntaxAnalyzer, openNode: CharOpenNode): CharNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(charLexicalParsers());

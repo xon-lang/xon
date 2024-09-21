@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, RETURN, ReturnNode, evaluate, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {RETURN, ReturnNode, evaluate, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('with value', () => {
   const text = 'return 3 + 7';

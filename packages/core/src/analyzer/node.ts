@@ -1,5 +1,6 @@
-import {Boolean2, Integer, Nothing, nothing} from '#common';
-import {$, $Model, Semantic, TextResourceRange} from '#core';
+import {Boolean2, Integer, Nothing, nothing, TextResourceRange} from '#common';
+import { Semantic } from '#core';
+import { $, $Model } from '#typing';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;

@@ -1,14 +1,13 @@
 import {nothing} from '#common';
 import {
-  $,
   SemanticAnalyzer,
   StatementNode,
   importValueSemanticParse,
-  is,
   returnStatementSemanticParse,
   statementDeclarationsParse,
   valueSemanticParse,
 } from '#core';
+import {$, is} from '#typing';
 
 export function statementsParse(analyzer: SemanticAnalyzer, statements: StatementNode[]): void {
   if (statements.length === 0) {

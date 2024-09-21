@@ -1,6 +1,5 @@
 import {Char, Nothing} from '#common';
 import {
-  $,
   CharCloseNode,
   CharContentNode,
   CharOpenNode,
@@ -11,6 +10,7 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
+import {$} from '#typing';
 
 export type CharNode = SyntaxNode<$.CharNode> &
   ExpressionNode & {

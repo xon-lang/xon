@@ -1,5 +1,6 @@
 import {Nothing} from '#common';
-import {$, ExpressionNode, IdNode, Node, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {ExpressionNode, IdNode, Node, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 export type MemberNode = SyntaxNode<$.MemberNode> &
   ExpressionNode & {

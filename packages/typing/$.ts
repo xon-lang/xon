@@ -1,4 +1,14 @@
-import {Anything, Boolean2, Nothing} from '#common';
+import {
+  Anything,
+  Boolean2,
+  Nothing,
+  Resource,
+  TextData,
+  TextPosition,
+  TextRange,
+  TextResource,
+  TextResourceRange,
+} from '#common';
 import {
   AngleCloseNode,
   AngleGroupNode,
@@ -70,7 +80,6 @@ import {
   PostfixNode,
   PrefixNode,
   RangeTypeSemantic,
-  Resource,
   ReturnNode,
   Semantic,
   SetTypeSemantic,
@@ -83,11 +92,6 @@ import {
   StringValueSemantic,
   StructuralTypeDeclarationSemantic,
   SyntaxNode,
-  TextData,
-  TextPosition,
-  TextRange,
-  TextResource,
-  TextResourceRange,
   Translator,
   TypeDeclarationSemantic,
   TypeNode,

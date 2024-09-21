@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, CommaNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {CommaNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('comma', () => {
   const text = ',';

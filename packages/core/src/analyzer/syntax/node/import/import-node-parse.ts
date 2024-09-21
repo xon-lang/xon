@@ -1,5 +1,6 @@
 import {Boolean2, Integer, nothing, String2} from '#common';
-import {$, importNode, is, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {importNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {$, is} from '#typing';
 
 export function importNodeParse(operator: String2, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

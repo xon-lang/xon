@@ -1,6 +1,5 @@
 import {Boolean2} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
@@ -8,8 +7,8 @@ import {
   TypeSemantic,
   createDeclarationScope,
   isInSet,
-  isSetOperatorTypeSemantic,
 } from '#core';
+import {$, isSetOperatorTypeSemantic} from '#typing';
 
 export type InvokeTypeSemantic = TypeSemantic & {
   $: $.InvokeTypeSemantic;

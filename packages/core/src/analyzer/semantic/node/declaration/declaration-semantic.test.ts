@@ -1,14 +1,13 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
   IdTypeSemantic,
   NominalTypeDeclarationSemantic,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
-  textResourceFromData,
 } from '#core';
+import {$} from '#typing';
 
 test('only a', () => {
   const text = 'type A\n  p: A';

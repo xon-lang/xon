@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, InfixNode, IntegerNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {InfixNode, IntegerNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('comma', () => {
   const text = '1';

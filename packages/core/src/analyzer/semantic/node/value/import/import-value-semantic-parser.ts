@@ -1,4 +1,4 @@
-import {Nothing, nothing, String2} from '#common';
+import {Nothing, nothing, String2, textResourceFromLocation} from '#common';
 import {
   createSemanticAnalyzer,
   DeclarationScope,
@@ -7,7 +7,6 @@ import {
   importValueSemantic,
   SemanticAnalyzer,
   syntaxFromResource,
-  textResourceFromLocation,
   unknownTypeSemantic,
 } from '#core';
 import {libDir} from '#xon-lib';

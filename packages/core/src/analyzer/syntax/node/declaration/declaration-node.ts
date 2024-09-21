@@ -6,7 +6,6 @@
 
 import {Nothing} from '#common';
 import {
-  $,
   AssignNode,
   DocumentationNode,
   GroupNode,
@@ -17,6 +16,7 @@ import {
   syntaxNode,
   TypeNode,
 } from '#core';
+import {$} from '#typing';
 
 //   // values
 //   AttributeValue = 'AttributeValue',

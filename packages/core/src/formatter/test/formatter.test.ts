@@ -1,5 +1,5 @@
-import {String2} from '#common';
-import {syntaxFromResource, textResourceFromLocation} from '#core';
+import {String2, textResourceFromLocation} from '#common';
+import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 

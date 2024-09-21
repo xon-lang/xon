@@ -1,5 +1,6 @@
 import {Nothing, nothing, String2} from '#common';
-import {$, DeclarationSemantic, is, TypeSemantic} from '#core';
+import {DeclarationSemantic, TypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function typeSemanticToString(semantic: TypeSemantic): String2 | Nothing {
   if (is(semantic, $.IdTypeSemantic) && semantic.declaration) {

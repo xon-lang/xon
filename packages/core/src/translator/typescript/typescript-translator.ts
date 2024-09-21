@@ -1,6 +1,5 @@
 import {String2} from '#common';
 import {
-  $,
   AnalyzerDiagnosticManager,
   NL,
   Node,
@@ -18,6 +17,7 @@ import {
   valueDeclarationTypescriptTranslate,
   valueTypescriptTranslate,
 } from '#core';
+import {$} from '#typing';
 import path from 'node:path';
 
 export type TypescriptTranslator = Translator & {

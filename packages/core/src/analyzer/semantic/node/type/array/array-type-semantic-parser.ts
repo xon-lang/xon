@@ -1,15 +1,14 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   ArrayTypeSemantic,
   arrayTypeSemantic,
   BracketGroupNode,
-  is,
   Node,
   SemanticAnalyzer,
   typeSemanticParse,
   unknownTypeSemantic,
 } from '#core';
+import {$, is} from '#typing';
 
 export function arrayTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

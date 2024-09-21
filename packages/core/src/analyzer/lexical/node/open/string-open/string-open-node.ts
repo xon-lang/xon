@@ -1,4 +1,6 @@
-import {$, OpenNode, TextData, TextResourceRange, lexicalNode} from '#core';
+import {TextData, TextResourceRange} from '#common';
+import {OpenNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 export type StringOpenNode = OpenNode<$.StringOpenNode>;
 

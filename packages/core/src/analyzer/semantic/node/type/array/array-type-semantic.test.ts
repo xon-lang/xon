@@ -1,6 +1,5 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   ArrayTypeSemantic,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -9,9 +8,9 @@ import {
   StringTypeSemantic,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
-  textResourceFromData,
   typeNodeType,
 } from '#core';
+import {$} from '#typing';
 
 test('a is array', () => {
   const text = `

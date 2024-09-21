@@ -1,12 +1,12 @@
 import {Boolean2} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   SetTypeSemantic,
   TypeSemantic,
 } from '#core';
+import {$} from '#typing';
 
 export interface IntersectionTypeSemantic extends SetTypeSemantic {
   $: $.IntersectionTypeSemantic;

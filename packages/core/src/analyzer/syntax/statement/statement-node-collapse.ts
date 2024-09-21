@@ -1,6 +1,5 @@
 import {Integer, Nothing, nothing} from '#common';
 import {
-  $,
   COMPLEMENT,
   CONTROL_KEYWORDS,
   DIVIDE,
@@ -37,7 +36,6 @@ import {
   importNodeParse,
   infixNodeParse,
   invokeNodeParse,
-  is,
   isTypeDeclarationNode,
   lambdaNodeParse,
   memberNodeParse,
@@ -45,6 +43,7 @@ import {
   prefixNodeParse,
   returnNodeParse,
 } from '#core';
+import {$, is} from '#typing';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (

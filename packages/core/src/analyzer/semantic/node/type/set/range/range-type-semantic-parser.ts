@@ -1,14 +1,6 @@
 import {Nothing, nothing} from '#common';
-import {
-  $,
-  Node,
-  RANGE,
-  RangeTypeSemantic,
-  SemanticAnalyzer,
-  is,
-  rangeTypeSemantic,
-  typeSemanticParse,
-} from '#core';
+import {Node, RANGE, RangeTypeSemantic, SemanticAnalyzer, rangeTypeSemantic, typeSemanticParse} from '#core';
+import {$, is} from '#typing';
 
 export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

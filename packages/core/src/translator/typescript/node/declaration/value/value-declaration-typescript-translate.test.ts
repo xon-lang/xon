@@ -1,11 +1,10 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
   DeclarationSemantic,
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
-  textResourceFromData,
 } from '#core';
 
 test('type union', () => {

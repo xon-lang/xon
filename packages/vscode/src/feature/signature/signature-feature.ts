@@ -1,14 +1,6 @@
 import {Integer, nothing, Nothing} from '#common';
-import {
-  $,
-  AttributeValueDeclarationSemantic,
-  DeclarationSemantic,
-  hasSemantic,
-  IdNode,
-  InvokeNode,
-  is,
-  Node,
-} from '#core';
+import {AttributeValueDeclarationSemantic, DeclarationSemantic, IdNode, InvokeNode, Node} from '#core';
+import {$, hasSemantic, is} from '#typing';
 import {
   convertVscodePosition,
   declarationSemanticHeaderToString,

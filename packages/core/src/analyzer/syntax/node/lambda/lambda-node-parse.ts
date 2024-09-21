@@ -1,6 +1,5 @@
 import {Integer, Nothing, nothing} from '#common';
 import {
-  $,
   ASSIGN,
   AssignNode,
   ExpressionNode,
@@ -12,13 +11,12 @@ import {
   TYPE,
   TypeNode,
   assignNode,
-  is,
-  isNonOperatorExpression,
   lambdaNode,
   nodeFindMap,
   partialToDeclaration,
   typeNode,
 } from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function lambdaNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {

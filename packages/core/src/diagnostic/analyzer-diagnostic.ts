@@ -1,11 +1,5 @@
-import {Integer, Nothing, String2} from '#common';
-import {
-  AnalyzerDiagnosticSeverity,
-  AnalyzerDiagnosticTag,
-  colorText,
-  TerminalColor,
-  TextResourceRange,
-} from '#core';
+import {colorText, Integer, Nothing, String2, TerminalColor, TextResourceRange} from '#common';
+import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export interface AnalyzerDiagnosticMessage {
   actual: String2;

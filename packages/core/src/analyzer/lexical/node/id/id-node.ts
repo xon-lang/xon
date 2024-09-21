@@ -1,16 +1,14 @@
-import {Nothing} from '#common';
+import {Nothing, TextData, TextResourceRange} from '#common';
 import {
-  $,
   DeclarationSemantic,
   DocumentationIdSemantic,
   ExpressionNode,
   IdTypeSemantic,
   IdValueSemantic,
   LexicalNode,
-  TextData,
-  TextResourceRange,
   lexicalNode,
 } from '#core';
+import {$} from '#typing';
 
 export type IdNode = LexicalNode<$.IdNode> &
   ExpressionNode & {

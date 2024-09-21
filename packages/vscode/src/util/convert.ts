@@ -1,4 +1,4 @@
-import { TextRange, TextPosition, textRange, textPosition } from '#core';
+import {TextPosition, textPosition, TextRange, textRange} from '#common';
 import {Position, Range, TextDocument} from 'vscode';
 
 export function convertRange(range: TextRange): Range {

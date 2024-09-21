@@ -1,12 +1,12 @@
 import {Boolean2, Nothing, String2} from '#common';
 import {
-  $,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
   unknownTypeSemantic,
   ValueDeclarationSemantic,
 } from '#core';
+import {$} from '#typing';
 
 export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic & {
   $: $.ParameterValueDeclarationSemantic;

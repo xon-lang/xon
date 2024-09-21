@@ -1,4 +1,5 @@
-import {$, $Model, Node} from '#core';
+import {Node} from '#core';
+import {$, $Model} from '#typing';
 
 export type Semantic<T extends $ = $> = $Model & {
   $: T;

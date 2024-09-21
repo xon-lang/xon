@@ -1,16 +1,14 @@
 import {Boolean2, Nothing} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SetTypeSemantic,
   TypeSemantic,
-  is,
   isInSet,
-  isSetOperatorTypeSemantic,
 } from '#core';
+import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 export interface RangeTypeSemantic extends SetTypeSemantic {
   $: $.RangeTypeSemantic;

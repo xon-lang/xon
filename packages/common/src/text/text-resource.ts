@@ -1,5 +1,16 @@
-import {Boolean2, Nothing, String2, nothing} from '#common';
-import {$, Resource, TextData, TextRange, TextResourceRange, textData, textResourceRange} from '#core';
+import {
+  Boolean2,
+  Nothing,
+  Resource,
+  String2,
+  TextData,
+  TextRange,
+  TextResourceRange,
+  nothing,
+  textData,
+  textResourceRange,
+} from '#common';
+import {$} from '#typing';
 import {readFileSync, statSync} from 'node:fs';
 
 export interface TextResource extends Resource {

@@ -1,4 +1,5 @@
-import { SemanticAnalyzer, textResourceFromData, semanticFromResource } from '#core';
+import {textResourceFromData} from '#common';
+import {SemanticAnalyzer, semanticFromResource} from '#core';
 import {OutputChannel, TextDocument} from 'vscode';
 
 export function getDocumentSemantic(document: TextDocument, channel: OutputChannel): SemanticAnalyzer {

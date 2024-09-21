@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, IntegerNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {IntegerNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('integer', () => {
   const text = '123';

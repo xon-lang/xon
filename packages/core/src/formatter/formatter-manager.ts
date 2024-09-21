@@ -1,18 +1,6 @@
-import {Boolean2, Nothing, String2} from '#common';
-import {
-  $,
-  FormatterConfig,
-  FormatterItem,
-  is,
-  LexicalNode,
-  NL,
-  NlNode,
-  Node,
-  rangeFromNodes,
-  rangeFromPosition,
-  StatementNode,
-  TextResource,
-} from '#core';
+import {Boolean2, Nothing, rangeFromNodes, rangeFromPosition, String2, TextResource} from '#common';
+import {FormatterConfig, FormatterItem, LexicalNode, NL, NlNode, Node, StatementNode} from '#core';
+import {$, is} from '#typing';
 
 export type FormatterManager = {
   resource: TextResource;

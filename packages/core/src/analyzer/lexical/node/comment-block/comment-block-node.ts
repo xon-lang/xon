@@ -1,13 +1,6 @@
-import {String2} from '#common';
-import {
-  $,
-  COMMENT_BLOCK_CLOSE,
-  COMMENT_BLOCK_OPEN,
-  LexicalNode,
-  lexicalNode,
-  TextData,
-  TextResourceRange,
-} from '#core';
+import {String2, TextData, TextResourceRange} from '#common';
+import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN, LexicalNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
   value: String2;

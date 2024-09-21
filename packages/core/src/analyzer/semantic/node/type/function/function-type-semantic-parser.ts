@@ -1,6 +1,5 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   DeclarationNode,
   DeclarationSemantic,
   documentationIdSemantic,
@@ -8,7 +7,6 @@ import {
   FunctionTypeSemantic,
   functionTypeSemantic,
   GroupNode,
-  is,
   Node,
   parameterDeclarationsParse,
   ParameterTypeDeclarationSemantic,
@@ -17,6 +15,7 @@ import {
   typeSemanticParse,
   unknownTypeSemantic,
 } from '#core';
+import {$, is} from '#typing';
 
 export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

@@ -1,5 +1,6 @@
-import {Boolean2, Nothing, String2} from '#common';
-import {$, DeclarationNode, Semantic, TextResourceRange, TypeSemantic} from '#core';
+import {Boolean2, Nothing, String2, TextResourceRange} from '#common';
+import {DeclarationNode, Semantic, TypeSemantic} from '#core';
+import {$} from '#typing';
 
 export type DeclarationKind =
   | $.DeclarationSemantic

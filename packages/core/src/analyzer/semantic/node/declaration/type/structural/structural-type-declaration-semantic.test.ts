@@ -1,13 +1,12 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   FunctionTypeSemantic,
   IdTypeSemantic,
   semanticFromResource,
   StructuralTypeDeclarationSemantic,
-  textResourceFromData,
   UnionTypeSemantic,
 } from '#core';
+import { $ } from '#typing';
 
 test('no generics', () => {
   const text = `type Number = 3 | 7`;

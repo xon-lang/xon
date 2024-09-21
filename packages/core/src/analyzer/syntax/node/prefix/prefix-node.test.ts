@@ -1,14 +1,6 @@
-import {nothing} from '#common';
-import {
-  $,
-  DeclarationNode,
-  evaluate,
-  LexicalNode,
-  OperatorNode,
-  PrefixNode,
-  syntaxFromResource,
-  textResourceFromData,
-} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {DeclarationNode, evaluate, LexicalNode, OperatorNode, PrefixNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('negative integer', () => {
   const text = '-1';

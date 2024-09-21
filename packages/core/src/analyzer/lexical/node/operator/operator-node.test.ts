@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, InfixNode, OperatorNode, PostfixNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {InfixNode, OperatorNode, PostfixNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('single operator', () => {
   const text = '!';

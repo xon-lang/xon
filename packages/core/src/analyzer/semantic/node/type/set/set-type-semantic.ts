@@ -1,5 +1,6 @@
 import {Boolean2} from '#common';
-import {$, TypeSemantic, is} from '#core';
+import {TypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export interface SetTypeSemantic extends TypeSemantic {}
 

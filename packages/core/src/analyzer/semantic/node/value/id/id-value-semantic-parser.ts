@@ -1,5 +1,6 @@
 import {Nothing, nothing} from '#common';
-import {$, IdValueSemantic, idValueSemantic, is, Node, SemanticAnalyzer, unknownTypeSemantic} from '#core';
+import {IdValueSemantic, idValueSemantic, Node, SemanticAnalyzer, unknownTypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): IdValueSemantic | Nothing {
   if (!is(node, $.IdNode)) {

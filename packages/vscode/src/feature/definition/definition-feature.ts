@@ -1,5 +1,6 @@
-import {Nothing, String2, nothing} from '#common';
-import {$, DeclarationSemantic, TextRange, TextResourceRange, hasSemantic, is, zeroRange} from '#core';
+import {Nothing, String2, TextRange, TextResourceRange, nothing, zeroRange} from '#common';
+import {DeclarationSemantic} from '#core';
+import {$, hasSemantic, is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,

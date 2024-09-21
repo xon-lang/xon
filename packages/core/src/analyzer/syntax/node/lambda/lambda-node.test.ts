@@ -1,13 +1,6 @@
-import {nothing} from '#common';
-import {
-  $,
-  DeclarationNode,
-  evaluate,
-  IdNode,
-  LambdaNode,
-  syntaxFromResource,
-  textResourceFromData,
-} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {DeclarationNode, evaluate, IdNode, LambdaNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('function with no parameters', () => {
   const text = '(): Integer';

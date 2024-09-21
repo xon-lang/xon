@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#common';
-import {CHAR_CLOSE, CharCloseNode, charCloseNode, LexicalAnalyzer, textData} from '#core';
+import {Nothing, nothing, textData} from '#common';
+import {CHAR_CLOSE, CharCloseNode, charCloseNode, LexicalAnalyzer} from '#core';
 
 export function charCloseNodeParse(analyzer: LexicalAnalyzer): CharCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(CHAR_CLOSE)) {

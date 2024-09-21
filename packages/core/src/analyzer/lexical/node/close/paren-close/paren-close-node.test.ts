@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, ParenCloseNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {ParenCloseNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('close paren', () => {
   const text = ')';

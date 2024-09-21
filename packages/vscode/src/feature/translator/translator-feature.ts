@@ -1,4 +1,5 @@
-import {createTypescriptTranslator, semanticFromResource, textResourceFromData} from '#core';
+import {textResourceFromData} from '#common';
+import {createTypescriptTranslator, semanticFromResource} from '#core';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
 import * as fs from 'node:fs';
 import * as path from 'node:path';

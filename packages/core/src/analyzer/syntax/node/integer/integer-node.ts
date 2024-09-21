@@ -1,5 +1,6 @@
 import {Number2} from '#common';
-import {$, ExpressionNode, IntegerContentNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {ExpressionNode, IntegerContentNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 // todo add also base node as 'LiteralNode' ???
 export type IntegerNode = SyntaxNode<$.IntegerNode> &

@@ -1,5 +1,6 @@
-import {Anything, String2, nothing} from '#common';
-import {$, Node, SyntaxAnalyzer, is, rangeFromNodes, textResourceRange} from '#core';
+import {Anything, String2, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {Node, SyntaxAnalyzer} from '#core';
+import {$, is} from '#typing';
 
 export type SyntaxNode<T extends $ = $> = Node<T> & {
   children: Node[];

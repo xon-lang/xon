@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, AngleCloseNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {AngleCloseNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('close paren', () => {
   const text = ':>';

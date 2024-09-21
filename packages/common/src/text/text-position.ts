@@ -1,5 +1,5 @@
 import {Boolean2, Integer} from '#common';
-import {$, $Model} from '#core';
+import {$, $Model} from '#typing';
 
 export type TextPosition = $Model & {
   $: $.TextPosition;

@@ -1,6 +1,5 @@
 import {Boolean2, Nothing, String2} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
@@ -8,10 +7,9 @@ import {
   TypeDeclarationSemantic,
   TypeSemantic,
   createDeclarationScope,
-  is,
   isInSet,
-  isSetOperatorTypeSemantic,
 } from '#core';
+import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 export type IdTypeSemantic = TypeSemantic & {
   $: $.IdTypeSemantic;

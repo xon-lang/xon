@@ -1,15 +1,14 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   MemberValueSemantic,
   Node,
   SemanticAnalyzer,
   TypeSemantic,
-  is,
   memberValueSemantic,
   unknownTypeSemantic,
   valueSemanticParse,
 } from '#core';
+import {$, is} from '#typing';
 
 export function memberValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

@@ -1,15 +1,14 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   StringCloseNode,
   StringContentNode,
   StringNode,
   StringOpenNode,
   SyntaxAnalyzer,
-  is,
   stringLexicalParsers,
   stringNode,
 } from '#core';
+import {$, is} from '#typing';
 
 export function stringNodeParse(analyzer: SyntaxAnalyzer, openNode: StringOpenNode): StringNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(stringLexicalParsers());

@@ -1,5 +1,6 @@
-import {Nothing} from '#common';
-import {$, Node, Resource, TypeSemantic, ValueSemantic} from '#core';
+import {Nothing, Resource} from '#common';
+import {Node, TypeSemantic, ValueSemantic} from '#core';
+import {$} from '#typing';
 
 export type ImportValueSemantic = ValueSemantic<$.ImportValueSemantic> & {
   resource: Resource | Nothing;

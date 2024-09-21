@@ -1,14 +1,13 @@
-import {nothing} from '#common';
+import {nothing, textResourceFromData} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
   FunctionTypeSemantic,
   ParameterValueDeclarationSemantic,
   syntaxFromResource,
-  textResourceFromData,
 } from '#core';
+import {$} from '#typing';
 
 test('a is function', () => {
   const text = `

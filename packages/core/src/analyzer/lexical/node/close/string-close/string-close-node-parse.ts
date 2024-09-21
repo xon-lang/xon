@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#common';
-import {LexicalAnalyzer, STRING_CLOSE, StringCloseNode, stringCloseNode, textData} from '#core';
+import {Nothing, nothing, textData} from '#common';
+import {LexicalAnalyzer, STRING_CLOSE, StringCloseNode, stringCloseNode} from '#core';
 
 export function stringCloseNodeParse(analyzer: LexicalAnalyzer): StringCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(STRING_CLOSE)) {

@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, IdNode, predefinedDiagnostics, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {IdNode, predefinedDiagnostics, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('single id', () => {
   const text = 'abc';

@@ -1,6 +1,5 @@
 import {Nothing, String2} from '#common';
 import {
-  $,
   ExpressionNode,
   StringCloseNode,
   StringContentNode,
@@ -11,6 +10,7 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
+import {$} from '#typing';
 
 export type StringNode = SyntaxNode<$.StringNode> &
   ExpressionNode & {

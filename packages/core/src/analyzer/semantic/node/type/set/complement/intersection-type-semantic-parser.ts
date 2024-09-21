@@ -1,14 +1,13 @@
 import {Nothing, nothing} from '#common';
 import {
-  $,
   COMPLEMENT,
   ComplementTypeSemantic,
   complementTypeSemantic,
-  is,
   Node,
   SemanticAnalyzer,
   typeSemanticParse,
 } from '#core';
+import {$, is} from '#typing';
 
 export function complementTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

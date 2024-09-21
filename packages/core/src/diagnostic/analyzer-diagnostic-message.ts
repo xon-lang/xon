@@ -1,11 +1,5 @@
-import {nothing, String2} from '#common';
-import {
-  AnalyzerDiagnostic,
-  AnalyzerDiagnosticSeverity,
-  AnalyzerDiagnosticTag,
-  createDiagnostic,
-  TextResourceRange,
-} from '#core';
+import {nothing, String2, TextResourceRange} from '#common';
+import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
 export function predefinedDiagnostics(reference: TextResourceRange) {
   return {

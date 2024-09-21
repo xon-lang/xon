@@ -1,6 +1,5 @@
-import {Nothing, nothing} from '#common';
+import {Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
 import {
-  $,
   DocumentationDescriptionNode,
   DocumentationItemNode,
   DocumentationNode,
@@ -9,10 +8,8 @@ import {
   documentationItemNode,
   documentationLexicalParsers,
   documentationNode,
-  is,
-  rangeFromNodes,
-  textResourceRange,
 } from '#core';
+import {$, is} from '#typing';
 
 export function documentationNodeParse(
   analyzer: SyntaxAnalyzer,

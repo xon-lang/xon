@@ -1,15 +1,14 @@
 import {
-  $,
   DeclarationNode,
   functionTypeSemantic,
   idTypeSemantic,
-  is,
   NominalTypeDeclarationSemantic,
   parametersParse,
   SemanticAnalyzer,
   statementDeclarationsParse,
   typeSemanticParse,
 } from '#core';
+import {$, is} from '#typing';
 
 export function nominalTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

@@ -1,6 +1,5 @@
 import {Boolean2, Char, Nothing} from '#common';
 import {
-  $,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
@@ -8,10 +7,9 @@ import {
   SemanticAnalyzer,
   TypeSemantic,
   createDeclarationScope,
-  is,
   isInSet,
-  isSetOperatorTypeSemantic,
 } from '#core';
+import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 export interface CharTypeSemantic extends TypeSemantic {
   $: $.CharTypeSemantic;

@@ -1,5 +1,6 @@
-import {nothing} from '#common';
-import {$, LexicalNode, MemberNode, syntaxFromResource, textResourceFromData} from '#core';
+import {nothing, textResourceFromData} from '#common';
+import {LexicalNode, MemberNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('member with id instance', () => {
   const text = 'abc.def';

@@ -1,5 +1,6 @@
-import {Boolean2} from '#common';
-import {$, $Model, clonePosition, is, Node, TextPosition, zeroPosition} from '#core';
+import {Boolean2, clonePosition, TextPosition, zeroPosition} from '#common';
+import { Node } from '#core';
+import { $Model, $, is } from '#typing';
 
 export type TextRange = $Model & {
   $: $.TextRange;

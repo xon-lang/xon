@@ -1,4 +1,6 @@
-import {$, LexicalNode, TextData, TextResourceRange, lexicalNode} from '#core';
+import {TextData, TextResourceRange} from '#common';
+import {LexicalNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 // todo should we move 'DocumentationCloseNode' to open folder near other nodes ???
 export type DocumentationCloseNode = LexicalNode<$.DocumentationCloseNode>;
