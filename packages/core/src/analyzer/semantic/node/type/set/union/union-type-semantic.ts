@@ -8,11 +8,11 @@ import {
 } from '#core';
 import {$} from '#typing';
 
-export interface UnionTypeSemantic extends SetTypeSemantic {
+export type UnionTypeSemantic = SetTypeSemantic & {
   $: $.UnionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
-}
+};
 
 export function unionTypeSemantic(
   nodeLink: Node,

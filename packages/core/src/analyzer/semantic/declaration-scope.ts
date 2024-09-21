@@ -2,7 +2,7 @@ import {Integer, Nothing, String2, nothing} from '#common';
 import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
 import {TypeMap, is} from '#typing';
 
-export interface DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> {
+export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = {
   imports: DeclarationScope[] | Nothing;
   parent: DeclarationScope | Nothing;
   declarations: Record<String2, T[]>;
@@ -24,7 +24,7 @@ export interface DeclarationScope<T extends DeclarationSemantic = DeclarationSem
   union(other: DeclarationScope<T>): DeclarationScope<T>;
   intersection(other: DeclarationScope<T>): DeclarationScope<T>;
   complement(other: DeclarationScope<T>): DeclarationScope<T>;
-}
+};
 
 export function createDeclarationScope<T extends DeclarationSemantic = DeclarationSemantic>(
   analyzer: SemanticAnalyzer,

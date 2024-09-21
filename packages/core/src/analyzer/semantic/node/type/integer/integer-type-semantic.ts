@@ -11,11 +11,11 @@ import {
 } from '#core';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export interface IntegerTypeSemantic extends TypeSemantic {
+export type IntegerTypeSemantic = TypeSemantic & {
   $: $.IntegerTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: Integer;
-}
+};
 
 export function integerTypeSemantic(
   analyzer: SemanticAnalyzer,

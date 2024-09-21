@@ -27,14 +27,14 @@ export type Locale = string[] | string | false | undefined;
 /**
  * Options used for converting strings to pascal/camel case.
  */
-export interface PascalCaseOptions extends Options {
+export type PascalCaseOptions = Options & {
   mergeAmbiguousCharacters?: boolean;
-}
+};
 
 /**
  * Options used for converting strings to any case.
  */
-export interface Options {
+export type Options = {
   locale?: Locale;
   split?: (value: string) => string[];
   /** @deprecated Pass `split: splitSeparateNumbers` instead. */
@@ -42,7 +42,7 @@ export interface Options {
   delimiter?: string;
   prefixCharacters?: string;
   suffixCharacters?: string;
-}
+};
 
 /**
  * Split any cased input strings into an array of words.

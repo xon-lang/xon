@@ -10,11 +10,11 @@ import {
 } from '#core';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export interface ArrayTypeSemantic extends TypeSemantic {
+export type ArrayTypeSemantic = TypeSemantic & {
   $: $.ArrayTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   items: TypeSemantic[];
-}
+};
 
 export function arrayTypeSemantic(
   analyzer: SemanticAnalyzer,

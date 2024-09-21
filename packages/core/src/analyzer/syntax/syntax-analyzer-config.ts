@@ -1,8 +1,8 @@
 import {DEFAULT_FORMATTER_CONFIG, FormatterConfig} from '#core';
 
-export interface SyntaxAnalyzerConfig {
+export type SyntaxAnalyzerConfig = {
   formatting: FormatterConfig;
-}
+};
 
 export function DEFAULT_SYNTAX_ANALYZER_CONFIG(): SyntaxAnalyzerConfig {
   return {

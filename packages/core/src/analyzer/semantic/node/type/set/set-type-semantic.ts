@@ -2,7 +2,7 @@ import {Boolean2} from '#common';
 import {TypeSemantic} from '#core';
 import {$, is} from '#typing';
 
-export interface SetTypeSemantic extends TypeSemantic {}
+export type SetTypeSemantic = TypeSemantic;
 
 export function isInSet(type: TypeSemantic, setType: TypeSemantic): Boolean2 {
   if (is(setType, $.IntersectionTypeSemantic)) {

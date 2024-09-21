@@ -1,10 +1,10 @@
 import {DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#core';
 import {$} from '#typing';
 
-export interface DocumentationIdSemantic extends Semantic {
+export type DocumentationIdSemantic = Semantic & {
   $: $.DocumentationIdSemantic;
   declaration: DeclarationSemantic;
-}
+};
 
 export function documentationIdSemantic(
   analyzer: SemanticAnalyzer,

@@ -8,11 +8,11 @@ import {
 } from '#core';
 import {$} from '#typing';
 
-export interface ComplementTypeSemantic extends SetTypeSemantic {
+export type ComplementTypeSemantic = SetTypeSemantic & {
   $: $.ComplementTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
-}
+};
 
 export function complementTypeSemantic(
   nodeLink: Node,

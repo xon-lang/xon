@@ -11,11 +11,11 @@ import {
 } from '#core';
 import {$, isSetOperatorTypeSemantic} from '#typing';
 
-export interface FunctionTypeSemantic extends TypeSemantic {
+export type FunctionTypeSemantic = TypeSemantic & {
   $: $.FunctionTypeSemantic;
   parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[];
   result: TypeSemantic;
-}
+};
 
 export function functionTypeSemantic(
   analyzer: SemanticAnalyzer,

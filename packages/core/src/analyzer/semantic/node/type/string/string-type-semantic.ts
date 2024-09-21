@@ -11,11 +11,11 @@ import {
 } from '#core';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export interface StringTypeSemantic extends TypeSemantic {
+export type StringTypeSemantic = TypeSemantic & {
   $: $.StringTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: String2;
-}
+};
 
 export function stringTypeSemantic(
   analyzer: SemanticAnalyzer,

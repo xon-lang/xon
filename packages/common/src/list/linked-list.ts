@@ -1,13 +1,13 @@
 import {Nothing} from '#common';
 
-export interface LinkedListNode<T> {
+export type LinkedListNode<T> = {
   data: T;
   prev: LinkedListNode<T> | Nothing;
   next: LinkedListNode<T> | Nothing;
-}
+};
 
-export interface LinkedList<T> {
+export type LinkedList<T> = {
   firstNode: LinkedListNode<T>;
   lastNode: LinkedListNode<T>;
   nodes: LinkedListNode<T>[];
-}
+};

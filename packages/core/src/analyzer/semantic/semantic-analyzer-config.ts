@@ -1,6 +1,6 @@
 import {String2} from '#common';
 
-export interface SemanticAnalyzerConfig {
+export type SemanticAnalyzerConfig = {
   defaultImports: String2[];
   literalTypeNames: {
     unknownTypeName: String2;
@@ -14,7 +14,7 @@ export interface SemanticAnalyzerConfig {
     arrayTypeName: String2;
     functionTypeName: String2;
   };
-}
+};
 
 export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   defaultImports: [],

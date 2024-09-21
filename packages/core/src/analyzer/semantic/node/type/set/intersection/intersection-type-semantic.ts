@@ -8,11 +8,11 @@ import {
 } from '#core';
 import {$} from '#typing';
 
-export interface IntersectionTypeSemantic extends SetTypeSemantic {
+export type IntersectionTypeSemantic = SetTypeSemantic & {
   $: $.IntersectionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
-}
+};
 
 export function intersectionTypeSemantic(
   nodeLink: Node,

@@ -11,11 +11,11 @@ import {
 } from '#core';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export interface CharTypeSemantic extends TypeSemantic {
+export type CharTypeSemantic = TypeSemantic & {
   $: $.CharTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: Char;
-}
+};
 
 export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
   return {

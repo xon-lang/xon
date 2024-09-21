@@ -55,6 +55,7 @@ interface StringExtension {
   isDigit(index: Integer): Boolean2;
   isLetterOrDigit(index: Integer): Boolean2;
   setPadding(padding: Integer): String2;
+  equals(other: String2): Boolean2;
 }
 
 export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: T[]) => V;

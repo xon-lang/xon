@@ -8,10 +8,10 @@ import {
 } from '#core';
 import {$} from '#typing';
 
-export interface NotTypeSemantic extends SetTypeSemantic {
+export type NotTypeSemantic = SetTypeSemantic & {
   $: $.NotTypeSemantic;
   value: TypeSemantic;
-}
+};
 
 export function notTypeSemantic(nodeLink: Node, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {

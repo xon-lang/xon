@@ -1,7 +1,7 @@
 import {Boolean2, TextData, TextRange, TextResource} from '#common';
 import { $ } from '#typing';
 
-export interface TextResourceRange {
+export type TextResourceRange = {
   $: $.TextResourceRange;
   resource: TextResource;
   range: TextRange;

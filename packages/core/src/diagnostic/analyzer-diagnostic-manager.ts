@@ -8,7 +8,7 @@ import {
   predefinedDiagnostics,
 } from '#core';
 
-export interface AnalyzerDiagnosticManager {
+export type AnalyzerDiagnosticManager = {
   resource: TextResource;
   diagnostics: AnalyzerDiagnostic[];
 
@@ -26,7 +26,7 @@ export interface AnalyzerDiagnosticManager {
   ): AnalyzerDiagnostic;
 
   log(diagnostic: AnalyzerDiagnostic): void;
-}
+};
 
 export function createDiagnosticManager(
   resource: TextResource,

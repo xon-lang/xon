@@ -1,13 +1,13 @@
 import {colorText, Integer, Nothing, String2, TerminalColor, TextResourceRange} from '#common';
 import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
-export interface AnalyzerDiagnosticMessage {
+export type AnalyzerDiagnosticMessage = {
   actual: String2;
   expect: String2 | Nothing;
-}
+};
 
 // todo rename 'AnalyzerDiagnostic' to 'Diagnostic'
-export interface AnalyzerDiagnostic {
+export type AnalyzerDiagnostic = {
   reference: TextResourceRange;
   severity: AnalyzerDiagnosticSeverity;
   message: AnalyzerDiagnosticMessage;
@@ -15,7 +15,7 @@ export interface AnalyzerDiagnostic {
   tags?: AnalyzerDiagnosticTag[] | Nothing;
 
   terminalFormat(): String2;
-}
+};
 
 export function createDiagnostic(
   reference: TextResourceRange,

@@ -125,3 +125,7 @@ String.prototype.toCharCodes = function (): Uint8Array {
   return utf8Encoder.encode(this as string);
   // return Array.from(this).map((x) => x.charCodeAt(0));
 };
+
+String.prototype.equals = function (other: String2): Boolean2 {
+  return this === other;
+};

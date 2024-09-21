@@ -1,7 +1,6 @@
 import {Semantic, TypeSemantic} from '#core';
 import {$} from '#typing';
 
-export interface ValueSemantic<T extends $ = $, TYPE extends TypeSemantic = TypeSemantic>
-  extends Semantic<T> {
+export type ValueSemantic<T extends $ = $, TYPE extends TypeSemantic = TypeSemantic> = Semantic<T> & {
   type: TYPE;
-}
+};

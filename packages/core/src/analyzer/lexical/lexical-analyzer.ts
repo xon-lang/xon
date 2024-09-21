@@ -17,7 +17,7 @@ import {LexicalNode, NL, unknownNodeParse} from '#core';
 
 export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | Nothing;
 
-export interface LexicalAnalyzer {
+export type LexicalAnalyzer = {
   resource: TextResource;
   position: TextPosition;
   previousNode?: LexicalNode | Nothing;
@@ -34,7 +34,7 @@ export interface LexicalAnalyzer {
 
   checkTextsAtIndex(text: String2[]): String2 | Nothing;
   checkTextsAtIndex(text: String2[], index: Integer): String2 | Nothing;
-}
+};
 
 export function createLexicalAnalyzer(
   resource: TextResource,

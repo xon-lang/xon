@@ -13,13 +13,12 @@ import {
 import {$} from '#typing';
 import {readFileSync, statSync} from 'node:fs';
 
-export interface TextResource extends Resource {
+export type TextResource = Resource<TextData> & {
   $: $.TextResource;
-  data: TextData;
 
-  equals(other: Resource): Boolean2;
+  equals(other: Resource<TextData>): Boolean2;
   reference(range: TextRange): TextResourceRange;
-}
+};
 
 export function textResourceFromData(location: String2 | Nothing, data: String2): TextResource {
   return {
@@ -27,7 +26,7 @@ export function textResourceFromData(location: String2 | Nothing, data: String2)
     location,
     data: textData(data),
 
-    equals(other: Resource): Boolean2 {
+    equals(other: Resource<TextData>): Boolean2 {
       if (this.location) {
         return this.location === other.location;
       }

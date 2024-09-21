@@ -10,13 +10,13 @@ import {
 } from '#core';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export interface RangeTypeSemantic extends SetTypeSemantic {
+export type RangeTypeSemantic = SetTypeSemantic & {
   $: $.RangeTypeSemantic;
   declaration: NominalTypeDeclarationSemantic;
   from: TypeSemantic;
   to: TypeSemantic;
   step: TypeSemantic | Nothing;
-}
+};
 
 export function rangeTypeSemantic(
   nodeLink: Node,
