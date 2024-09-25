@@ -1,10 +1,14 @@
-import {TextData, TextReference} from '#common';
-import {LexicalNode, lexicalNode} from '#core';
+import {String2, TextData, TextReference} from '#common';
+import {AT, LexicalNode, lexicalNode} from '#core';
 import {$} from '#typing';
 
-// todo make syntax node
-export type DocumentationLabelNode = LexicalNode<$.DocumentationLabelNode> & {};
+// make syntax node
+export type DocumentationLabelNode = LexicalNode<$.DocumentationLabelNode> & {
+  name: String2;
+};
 
 export function documentationLabelNode(reference: TextReference, text: TextData): DocumentationLabelNode {
-  return lexicalNode($.DocumentationLabelNode, {reference, text});
+  const name = text.slice(AT.length).toString();
+
+  return lexicalNode($.DocumentationLabelNode, {reference, text, name});
 }

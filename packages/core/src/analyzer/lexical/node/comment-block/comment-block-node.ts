@@ -3,7 +3,7 @@ import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN, LexicalNode, lexicalNode} from 
 import {$} from '#typing';
 
 export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
-  // value: String2;
+  value: String2;
 };
 
 export function commentBlockNode(reference: TextReference, text: TextData): CommentBlockNode {
@@ -16,5 +16,5 @@ export function commentBlockNode(reference: TextReference, text: TextData): Comm
     value = text.slice(COMMENT_BLOCK_OPEN.length).toString();
   }
 
-  return lexicalNode($.CommentBlockNode, {reference, text, isHidden: true});
+  return lexicalNode($.CommentBlockNode, {reference, text, isHidden: true, value});
 }
