@@ -5,20 +5,14 @@ import {
   String2,
   TextData,
   TextRange,
-  TextResourceRange,
+  TextReference,
+  TextResource,
   nothing,
   textData,
   textResourceRange,
 } from '#common';
 import {$} from '#typing';
 import {readFileSync, statSync} from 'node:fs';
-
-export type TextResource = Resource<TextData> & {
-  $: $.TextResource;
-
-  equals(other: Resource<TextData>): Boolean2;
-  reference(range: TextRange): TextResourceRange;
-};
 
 export function textResourceFromData(location: String2 | Nothing, data: String2): TextResource {
   return {
@@ -34,7 +28,7 @@ export function textResourceFromData(location: String2 | Nothing, data: String2)
       return this.data === other.data;
     },
 
-    reference(range: TextRange): TextResourceRange {
+    reference(range: TextRange): TextReference {
       return textResourceRange(this, range);
     },
   };

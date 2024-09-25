@@ -1,14 +1,4 @@
-import {
-  Anything,
-  Boolean2,
-  Nothing,
-  Resource,
-  TextData,
-  TextPosition,
-  TextRange,
-  TextResource,
-  TextResourceRange,
-} from '#common';
+import {Resource, TextData, TextPosition, TextRange, TextReference, TextResource} from '#common';
 import {
   AngleCloseNode,
   AngleGroupNode,
@@ -345,40 +335,8 @@ export type TypeMap = {
 
   [$.Resource]: Resource;
   [$.TextResource]: TextResource;
-  [$.TextResourceRange]: TextResourceRange;
+  [$.TextResourceRange]: TextReference;
 
   [$.Translator]: Translator;
   [$.TypescriptTranslator]: TypescriptTranslator;
 };
-
-export type $Model = {
-  $: $;
-};
-
-// type KeyMatching<T, V> = {[K in keyof T]: T[K] extends V ? K : never}[keyof T];
-// export type EnumKey<TValue extends `${$}`> = {-readonly [K in keyof typeof $ as (typeof $)[K]]: K};
-// export type TypeKey<T> = KeyMatching<TypeMap, T>;
-
-export function is<T extends $>(model: Anything, $: T): model is TypeMap[T] {
-  if (model && typeof model === 'object' && '$' in model && typeof model['$'] === 'string') {
-    return model.$.includes($);
-  }
-
-  return false;
-}
-
-export function isSetOperatorTypeSemantic(semantic: Semantic): Boolean2 {
-  return semantic.$.includes($.SetTypeSemantic);
-}
-
-export function isNonOperatorExpression(node: Node): node is ExpressionNode {
-  return is(node, $.ExpressionNode) && !is(node, $.OperatorNode);
-}
-
-export function hasSemantic<T extends Node>(node: T | Nothing): node is T & {semantic: Semantic} {
-  if (!node) {
-    return false;
-  }
-
-  return 'semantic' in node && !!node.semantic;
-}

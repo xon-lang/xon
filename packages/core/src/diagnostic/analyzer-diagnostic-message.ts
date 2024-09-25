@@ -1,7 +1,7 @@
-import {nothing, String2, TextResourceRange} from '#common';
+import {nothing, String2, TextReference} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
-export function predefinedDiagnostics(reference: TextResourceRange) {
+export function predefinedDiagnostics(reference: TextReference) {
   return {
     notImplemented: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {

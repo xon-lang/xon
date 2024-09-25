@@ -1,4 +1,4 @@
-import {Anything, String2, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {Anything, Boolean2, String2, nothing, rangeFromNodes, textResourceRange} from '#common';
 import {Node, SyntaxAnalyzer} from '#core';
 import {$, is} from '#typing';
 
@@ -21,6 +21,10 @@ export function syntaxNode<
     reference,
     children,
     semantic: nothing,
+
+    equals(other: SyntaxNode): Boolean2 {
+      return this.reference.equals(other.reference);
+    },
   };
 
   const first = children.first();

@@ -1,4 +1,4 @@
-import {Integer, Nothing, TextRange, TextResource, TextResourceRange} from '#common';
+import {Integer, Nothing, TextRange, TextReference, TextResource} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticMessage,
@@ -21,7 +21,7 @@ export type AnalyzerDiagnosticManager = {
   ): AnalyzerDiagnostic;
 
   addPredefinedDiagnostic(
-    reference: TextResourceRange,
+    reference: TextReference,
     select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
   ): AnalyzerDiagnostic;
 
@@ -53,7 +53,7 @@ export function createDiagnosticManager(
     },
 
     addPredefinedDiagnostic(
-      reference: TextResourceRange,
+      reference: TextReference,
       select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
     ): AnalyzerDiagnostic {
       const diagnostic = select(predefinedDiagnostics(reference));

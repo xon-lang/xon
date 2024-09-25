@@ -1,4 +1,4 @@
-import {Nothing, String2, TextResourceRange, nothing} from '#common';
+import {Nothing, String2, TextReference, nothing} from '#common';
 import {DeclarationSemantic, Semantic} from '#core';
 import {$, is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
@@ -101,7 +101,7 @@ function renameDeclarationAndUsages(
 
 function renameWithWorkspace(
   workspace: WorkspaceEdit,
-  reference: TextResourceRange,
+  reference: TextReference,
   oldName: String2,
   newName: String2,
 ): void {

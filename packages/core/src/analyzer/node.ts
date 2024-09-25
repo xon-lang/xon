@@ -1,11 +1,10 @@
-import {Boolean2, Integer, Nothing, nothing, TextResourceRange} from '#common';
-import { Semantic } from '#core';
-import { $, $Model } from '#typing';
+import {Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
+import {Semantic} from '#core';
+import {$, $Model} from '#typing';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;
-  // todo use 'reference' or 'TextResourceRange' instead of 'TextRange'
-  reference: TextResourceRange;
+  reference: TextReference;
   parent?: Node | Nothing;
   isHidden?: Boolean2 | Nothing;
   hiddenNodes?: Node[] | Nothing;

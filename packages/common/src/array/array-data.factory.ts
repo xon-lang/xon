@@ -38,8 +38,8 @@ export function arrayData<T>(array: T[] = []): ArrayData<T> {
       return this._array.some((v, i) => predicate(v, i, this));
     },
 
-    slice(start?: Integer, end?: Integer): ArrayData<T> {
-      return arrayData(this._array.slice(start, end));
+    slice(startIndex: Integer, stopIndex?: Integer | Nothing): ArrayData<T> {
+      return arrayData(this._array.slice(startIndex, stopIndex ?? undefined));
     },
 
     take(length: Integer, startIndex: Integer = 0): ArrayData<T> {

@@ -1,19 +1,6 @@
-import {Boolean2, clonePosition, TextPosition, zeroPosition} from '#common';
-import { Node } from '#core';
-import { $Model, $, is } from '#typing';
-
-export type TextRange = $Model & {
-  $: $.TextRange;
-  start: TextPosition;
-  stop: TextPosition;
-
-  clone(): TextRange;
-  equals(other: TextRange): Boolean2;
-  contains(position: TextPosition): Boolean2;
-  contains(range: TextRange): Boolean2;
-  contains(positionOrRange: TextPosition | TextRange): Boolean2;
-  union(range: TextRange): TextRange;
-};
+import {Boolean2, TextPosition, TextRange, clonePosition, zeroPosition} from '#common';
+import {Node} from '#core';
+import {$, is} from '#typing';
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {

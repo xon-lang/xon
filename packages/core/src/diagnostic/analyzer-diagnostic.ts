@@ -1,4 +1,4 @@
-import {colorText, Integer, Nothing, String2, TerminalColor, TextResourceRange} from '#common';
+import {colorText, Integer, Nothing, String2, TerminalColor, TextReference} from '#common';
 import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export type AnalyzerDiagnosticMessage = {
@@ -8,7 +8,7 @@ export type AnalyzerDiagnosticMessage = {
 
 // todo rename 'AnalyzerDiagnostic' to 'Diagnostic'
 export type AnalyzerDiagnostic = {
-  reference: TextResourceRange;
+  reference: TextReference;
   severity: AnalyzerDiagnosticSeverity;
   message: AnalyzerDiagnosticMessage;
   code?: Integer | Nothing;
@@ -18,7 +18,7 @@ export type AnalyzerDiagnostic = {
 };
 
 export function createDiagnostic(
-  reference: TextResourceRange,
+  reference: TextReference,
   severity: AnalyzerDiagnosticSeverity,
   message: AnalyzerDiagnosticMessage,
   code?: Integer | Nothing,
@@ -42,7 +42,7 @@ const gray = (x: String2): String2 => colorText(x, TerminalColor.FG_GRAY);
 const red = (x: String2): String2 => colorText(x, TerminalColor.FG_RED);
 
 // todo rename 'terminalFormat'
-export function terminalFormat(message: String2, {resource, range}: TextResourceRange): String2 {
+export function terminalFormat(message: String2, {resource, range}: TextReference): String2 {
   const msg = red(message);
   const lineText = resource.data.lineText(range.start.line).toString();
   const nodeText = resource.data.slice(range).toString();

@@ -1,6 +1,6 @@
 import {Anything, Boolean2, Integer, Nothing, Number2, String2} from '#common';
 
-export type ArrayData<T = Anything> = {
+export interface ArrayData<T = Anything>  {
   _array: T[];
   get length(): Integer;
   at(index: Integer): T | Nothing;
@@ -8,7 +8,7 @@ export type ArrayData<T = Anything> = {
   push(...items: T[]): void;
   every(predicate: ArrayPredicate<T>): Boolean2;
   some(predicate: ArrayPredicate<T>): Boolean2;
-  slice(start?: Integer, end?: Integer): ArrayData<T>;
+  slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
 
   first(predicate?: ArrayPredicate<T>): T | Nothing;
   first<V extends T>(predicate?: ArraySafePredicate<T, V>): V | Nothing;
@@ -18,15 +18,15 @@ export type ArrayData<T = Anything> = {
   firstIndex(predicate?: ArrayPredicate<T>, startIndex?: Integer): Integer;
   lastIndex(predicate?: ArrayPredicate<T>, startIndex?: Integer): Integer;
 
-  removeFirst(): ArrayData<T>;
-  removeLast(): ArrayData<T>;
+  removeFirst(): this;
+  removeLast(): this;
 
   takeWhile(
     predicate?: ArrayPredicate<T>,
     startIndex?: Integer,
     includeConditionItem?: Boolean2,
-  ): ArrayData<T>;
-  take(length: Integer, startIndex?: Integer): ArrayData<T>;
+  ): this;
+  take(length: Integer, startIndex?: Integer): this;
 
   count(predicate?: ArrayPredicate<T>): Integer;
   sum(select: ArraySelect<T, Number2>): Number2;
@@ -37,7 +37,7 @@ export type ArrayData<T = Anything> = {
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
   filterMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
 
-  sortBy(select: (value: T) => Number2, ascending?: Boolean2): ArrayData<T>;
+  sortBy(select: (value: T) => Number2, ascending?: Boolean2): this;
   // sortStrings(): ArrayData<T>;
 
   splitBy(predicate: ArrayPredicate<T>): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}>;
@@ -45,7 +45,7 @@ export type ArrayData<T = Anything> = {
     predicate: ArraySafePredicate<T, V>,
   ): ArrayData<{splitter: V | Nothing; items: ArrayData<T>}>;
 
-  equals(other: ArrayData<T>): Boolean2;
+  equals(other: this): Boolean2;
   toDictionary<Key extends String2 | Number2>(select: ArraySelect<T, Key>): Record<Key, T>;
 };
 

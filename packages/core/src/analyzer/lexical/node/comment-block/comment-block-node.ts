@@ -1,12 +1,12 @@
-import {String2, TextData, TextResourceRange} from '#common';
+import {String2, TextData, TextReference} from '#common';
 import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN, LexicalNode, lexicalNode} from '#core';
 import {$} from '#typing';
 
 export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
-  value: String2;
+  // value: String2;
 };
 
-export function commentBlockNode(reference: TextResourceRange, text: TextData): CommentBlockNode {
+export function commentBlockNode(reference: TextReference, text: TextData): CommentBlockNode {
   let value = '';
   const lastCloseIndex = text.firstIndex(COMMENT_BLOCK_CLOSE);
 
@@ -16,5 +16,5 @@ export function commentBlockNode(reference: TextResourceRange, text: TextData): 
     value = text.slice(COMMENT_BLOCK_OPEN.length).toString();
   }
 
-  return lexicalNode({$: $.CommentBlockNode, reference, text, value, isHidden: true});
+  return lexicalNode($.CommentBlockNode, {reference, text, isHidden: true});
 }

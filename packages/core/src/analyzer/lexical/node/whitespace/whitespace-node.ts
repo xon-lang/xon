@@ -1,9 +1,9 @@
-import {TextData, TextResourceRange} from '#common';
+import {TextData, TextReference} from '#common';
 import {LexicalNode, lexicalNode} from '#core';
 import {$} from '#typing';
 
 export type WhitespaceNode = LexicalNode<$.WhitespaceNode>;
 
-export function whitespaceNode(reference: TextResourceRange, text: TextData): WhitespaceNode {
-  return lexicalNode({$: $.WhitespaceNode, reference, text, isHidden: true});
+export function whitespaceNode(reference: TextReference, text: TextData): WhitespaceNode {
+  return lexicalNode($.WhitespaceNode, {reference, text, isHidden: true});
 }

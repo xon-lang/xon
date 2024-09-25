@@ -1,37 +1,6 @@
-import {Boolean2, Char, Integer, String2, TextRange} from '#common';
-import { Predicate, NL } from '#core';
-import { $, is } from '#typing';
-
-export type TextData = {
-  $: $.TextData;
-  characters: Char[];
-
-  slice(startIndex: Integer, stopIndex?: Integer): TextData;
-  slice(range: TextRange): TextData;
-  lineText(line: Integer): TextData;
-  firstIndex(characters: Char[], startIndex?: Integer): Integer;
-  firstIndex(string: String2, startIndex?: Integer): Integer;
-  firstIndex(data: TextData, startIndex?: Integer): Integer;
-  lastIndex(characters: Char[], startIndex?: Integer): Integer;
-  lastIndex(string: String2, startIndex?: Integer): Integer;
-  lastIndex(data: TextData, startIndex?: Integer): Integer;
-
-  takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): TextData;
-  take(length: Integer, startIndex?: Integer): TextData;
-
-  append(characters: Char[]): TextData;
-  append(string: String2): TextData;
-  prepend(characters: Char[]): TextData;
-  prepend(string: String2): TextData;
-
-  clone(): TextData;
-  length(): Integer;
-  equals(other: String2): Boolean2;
-  equals(other: TextData): Boolean2;
-
-  // todo should we use only 'TextData' without 'String' ???
-  toString(): String2;
-};
+import {Boolean2, Char, Integer, String2, stringToCharacters, TextData, TextRange} from '#common';
+import {NL, Predicate} from '#core';
+import {$, is} from '#typing';
 
 export function textData(characters: Char[]): TextData;
 export function textData(string: String2): TextData;
@@ -40,10 +9,11 @@ export function textData(stringOrCharacters: String2 | Char[]): TextData {
     typeof stringOrCharacters === 'string' ? stringToCharacters(stringOrCharacters) : stringOrCharacters;
 
   return {
-    $: $.TextData,
+    // ...array,
     characters,
+    $: $.TextData,
 
-    slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer): TextData {
+    slice(rangeOrStartIndex?: TextRange | Integer, stopIndex?: Integer): TextData {
       if (is(rangeOrStartIndex, $.TextRange)) {
         const {start, stop} = rangeOrStartIndex;
 
@@ -61,7 +31,7 @@ export function textData(stringOrCharacters: String2 | Char[]): TextData {
           return this.clone();
         }
 
-        return this.slice(0, stopIndex);
+        return (this as TextData).slice(0, stopIndex);
       }
 
       let startIndex = 0;
@@ -157,8 +127,4 @@ export function textData(stringOrCharacters: String2 | Char[]): TextData {
       return characters.join('');
     },
   };
-}
-
-function stringToCharacters(string: String2) {
-  return string.match(/.|\s/gu) ?? [];
 }

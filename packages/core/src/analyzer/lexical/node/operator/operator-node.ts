@@ -1,4 +1,4 @@
-import {Nothing, String2, TextData, TextResourceRange} from '#common';
+import {Nothing, String2, TextData, TextReference} from '#common';
 import {
   CONTROL_KEYWORDS,
   ExpressionNode,
@@ -20,8 +20,8 @@ export type OperatorNode = LexicalNode<$.OperatorNode> & ExpressionNode;
 //   keywordType: KeywordType | Nothing;
 // };
 
-export function operatorNode(reference: TextResourceRange, text: TextData): OperatorNode {
-  return lexicalNode({$: $.OperatorNode, reference, text}); //, keywordType: getKeywordType(text)
+export function operatorNode(reference: TextReference, text: TextData): OperatorNode {
+  return lexicalNode($.OperatorNode, {reference, text}); //, keywordType: getKeywordType(text)
 }
 
 function getKeywordType(text: String2): KeywordType | Nothing {

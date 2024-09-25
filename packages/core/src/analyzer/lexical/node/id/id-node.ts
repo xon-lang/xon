@@ -1,4 +1,4 @@
-import {Nothing, TextData, TextResourceRange} from '#common';
+import {Nothing, TextData, TextReference} from '#common';
 import {
   DeclarationSemantic,
   DocumentationIdSemantic,
@@ -15,6 +15,6 @@ export type IdNode = LexicalNode<$.IdNode> &
     semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | DocumentationIdSemantic | Nothing;
   };
 
-export function idNode(reference: TextResourceRange, text: TextData): IdNode {
-  return lexicalNode({$: $.IdNode, reference, text});
+export function idNode(reference: TextReference, text: TextData): IdNode {
+  return lexicalNode($.IdNode, {reference, text});
 }

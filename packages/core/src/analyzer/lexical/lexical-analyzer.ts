@@ -8,8 +8,8 @@ import {
   TextPosition,
   textPosition,
   textRange,
+  TextReference,
   TextResource,
-  TextResourceRange,
   textResourceRange,
   zeroPosition,
 } from '#common';
@@ -25,10 +25,10 @@ export type LexicalAnalyzer = {
 
   iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode>;
 
-  getResourceRange(length: Integer): TextResourceRange;
-  getResourceRange(text: TextData): TextResourceRange;
-  getResourceRangeWithNL(length: Integer): TextResourceRange;
-  getResourceRangeWithNL(text: TextData): TextResourceRange;
+  getResourceRange(length: Integer): TextReference;
+  getResourceRange(text: TextData): TextReference;
+  getResourceRangeWithNL(length: Integer): TextReference;
+  getResourceRangeWithNL(text: TextData): TextReference;
   checkTextAtIndex(text: String2): Boolean2;
   checkTextAtIndex(text: String2, index: Integer | Nothing): Boolean2;
 
@@ -48,7 +48,7 @@ export function createLexicalAnalyzer(
       return parsersIterator(this, parsers);
     },
 
-    getResourceRange(lengthOrText: Integer | TextData): TextResourceRange {
+    getResourceRange(lengthOrText: Integer | TextData): TextReference {
       if (typeof lengthOrText === 'number') {
         const range = textRange(
           textPosition(this.position.index, this.position.line, this.position.column),
@@ -65,7 +65,7 @@ export function createLexicalAnalyzer(
       return this.getResourceRange(lengthOrText.length());
     },
 
-    getResourceRangeWithNL(lengthOrText: Integer | TextData): TextResourceRange {
+    getResourceRangeWithNL(lengthOrText: Integer | TextData): TextReference {
       if (typeof lengthOrText !== 'number') {
         return this.getResourceRangeWithNL(lengthOrText.length());
       }

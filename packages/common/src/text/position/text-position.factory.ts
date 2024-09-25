@@ -1,14 +1,5 @@
-import {Boolean2, Integer} from '#common';
-import {$, $Model} from '#typing';
-
-export type TextPosition = $Model & {
-  $: $.TextPosition;
-  index: Integer;
-  line: Integer;
-  column: Integer;
-
-  equals(other: TextPosition): Boolean2;
-};
+import {Boolean2, Integer, TextPosition} from '#common';
+import {$} from '#typing';
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
   return {

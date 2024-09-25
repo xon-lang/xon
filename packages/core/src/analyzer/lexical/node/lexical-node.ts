@@ -6,6 +6,18 @@ export type LexicalNode<T extends $ = $> = Node<T> & {
   text: TextData;
 };
 
-export function lexicalNode<T extends LexicalNode & Record<String2, Anything>>(params: T): T {
-  return params;
+type RequiredFields<T> = Omit<T, 'equals' | '$'>;
+
+export function lexicalNode<T extends $, V >(
+  $: T,
+  params: V,
+) {
+  return {
+    ...params,
+
+    $,
+    // equals(other: LexicalNode): Boolean2 {
+    //   return this.reference.equals(other.reference);
+    // },
+  };
 }

@@ -9,4 +9,4 @@ export type OpenNodeType =
   | $.StringOpenNode
   | $.CharOpenNode;
 
-export type OpenNode<T extends $ = OpenNodeType> = LexicalNode<T>;
+export type OpenNode<T extends OpenNodeType = OpenNodeType> = LexicalNode<T>;

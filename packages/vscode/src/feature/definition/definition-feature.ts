@@ -1,4 +1,4 @@
-import {Nothing, String2, TextRange, TextResourceRange, nothing, zeroRange} from '#common';
+import {Nothing, String2, TextRange, TextReference, nothing, zeroRange} from '#common';
 import {DeclarationSemantic} from '#core';
 import {$, hasSemantic, is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
@@ -103,7 +103,7 @@ function navigateToUsages(
 
 function navigateToReference(
   originalRange: TextRange,
-  reference: TextResourceRange,
+  reference: TextReference,
 ): ProviderResult<LocationLink[]> {
   if (!reference.resource.location) {
     return nothing;
