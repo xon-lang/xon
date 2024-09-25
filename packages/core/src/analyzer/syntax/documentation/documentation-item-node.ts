@@ -50,6 +50,8 @@ function idFromLabel(label: DocumentationLabelNode): IdNode {
   const idStart = textPosition(labelStart.index + AT.length, labelStart.line, labelStart.column + AT.length);
   const range = textRange(idStart, label.reference.range.stop);
   const reference = textResourceRange(label.reference.resource, range);
+  // todo move to syntax node (make doc label as syntax node)
+  const labelName = label.text.slice(AT.length).toString();
 
-  return idNode(reference, textData(label.name));
+  return idNode(reference, textData(labelName));
 }
