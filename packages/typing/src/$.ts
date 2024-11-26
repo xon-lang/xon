@@ -1,4 +1,4 @@
-import {
+import type {
   ArrayData,
   CharData,
   Dictionary,
@@ -10,7 +10,7 @@ import {
   TextReference,
   TextResource,
 } from '#common';
-import {
+import type {
   AngleCloseNode,
   AngleGroupNode,
   AngleOpenNode,
@@ -107,7 +107,7 @@ import {
   ValueSemantic,
   WhitespaceNode,
 } from '#core';
-import {$Model} from '#typing';
+import type {$Model} from '#typing';
 
 export enum $ {
   $Model = ' $Model ',

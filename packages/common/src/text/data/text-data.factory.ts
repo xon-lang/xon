@@ -4,6 +4,7 @@ import {
   Char,
   CharData,
   Integer,
+  newArrayData,
   Nothing,
   Number2,
   String2,
@@ -11,14 +12,19 @@ import {
   TextData,
   TextRange,
 } from '#common';
-import {NL} from '#core';
 import {$, is} from '#typing';
+
+const NL = newTextData('\n');
 
 export function newTextData(characters: ArrayData<CharData>): TextData;
 export function newTextData(string: String2): TextData;
-export function newTextData(stringOrCharacters: String2 | ArrayData<CharData>): TextData {
-  const array =
-    typeof stringOrCharacters === 'string' ? stringToCharDataArray(stringOrCharacters) : stringOrCharacters;
+export function newTextData(): TextData;
+export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>): TextData {
+  const array = stringOrCharacters
+    ? typeof stringOrCharacters === 'string'
+      ? stringToCharDataArray(stringOrCharacters)
+      : stringOrCharacters
+    : newArrayData<CharData>();
 
   return {
     ...array,

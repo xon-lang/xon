@@ -153,7 +153,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
 
       const itemsLength = items.length();
 
-      if (itemsLength < this.length()) {
+      if (itemsLength > this.length()) {
         return -1;
       }
 

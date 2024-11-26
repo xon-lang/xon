@@ -1,5 +1,5 @@
-import {Boolean2, String2} from '#common';
-import {$} from '#typing';
+import type {Boolean2, String2} from '#common';
+import type {$} from '#typing';
 
 export interface $Model {
   $: $;
