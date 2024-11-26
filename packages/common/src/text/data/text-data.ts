@@ -1,34 +1,34 @@
-import {Boolean2, Char, Integer, Nothing, String2, TextRange} from '#common';
-import {Predicate} from '#core';
-import {$} from '#typing';
+import {ArrayData, Boolean2, Char, CharData, Integer, Nothing, Number2, String2, TextRange} from '#common';
 
-export type TextData = {
-  characters: Char[];
-  $: $.TextData;
-
+// todo fix it. remove @ts-ignore
+// @ts-ignore
+export interface TextData extends ArrayData<CharData> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): TextData;
   slice(range: TextRange): TextData;
   lineText(line: Integer): TextData;
-  firstIndex(characters: Char[], startIndex?: Integer): Integer;
-  firstIndex(string: String2, startIndex?: Integer): Integer;
-  firstIndex(data: TextData, startIndex?: Integer): Integer;
-  lastIndex(characters: Char[], startIndex?: Integer): Integer;
-  lastIndex(string: String2, startIndex?: Integer): Integer;
-  lastIndex(data: TextData, startIndex?: Integer): Integer;
+  addFirst(...items: CharData[]): TextData;
+  addLast(...items: CharData[]): TextData;
+  removeFirst(length?: Integer | Nothing): TextData;
+  removeLast(length?: Integer | Nothing): TextData;
 
-  takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): TextData;
+  takeWhile(
+    predicate?: (value: CharData, index: Integer) => Boolean2,
+    startIndex?: Integer,
+    includeConditionItem?: Boolean2,
+  ): TextData;
   take(length: Integer, startIndex?: Integer): TextData;
 
-  append(characters: Char[]): TextData;
-  append(string: String2): TextData;
-  prepend(characters: Char[]): TextData;
-  prepend(string: String2): TextData;
+  sort(compareFn?: (a: CharData, b: CharData) => Number2): this;
+  sortBy(select: (item: CharData) => Number2, ascending?: Boolean2): TextData;
 
-  clone(): TextData;
-  length(): Integer;
-  equals(other: String2): Boolean2;
+  setPadding(padding: Integer): TextData;
+  trim(): TextData;
+  repeat(count: Integer): TextData;
+
   equals(other: TextData): Boolean2;
-
-  // todo should we use only 'TextData' without 'String' ???
+  equals(other: ArrayData<CharData>): Boolean2;
+  equals(other: String2): Boolean2;
+  equals(other: Char[]): Boolean2;
+  clone(): TextData;
   toString(): String2;
-};
+}

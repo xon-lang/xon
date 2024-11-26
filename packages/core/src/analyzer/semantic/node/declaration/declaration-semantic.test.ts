@@ -1,4 +1,4 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -10,11 +10,13 @@ import {
 import {$} from '#typing';
 
 test('only a', () => {
-  const text = 'type A\n  p: A';
+  const text = newTextData('type A\n  p: A');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
-  const type = semanticAnalyzer.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  const type = semanticAnalyzer.declarationManager.declarations
+    .get(newTextData('A'))
+    ?.at2(0) as NominalTypeDeclarationSemantic;
 
   expect(semanticAnalyzer.declarationManager.count()).toBe(1);
   expect(type.$).toBe($.NominalTypeDeclarationSemantic);
@@ -25,7 +27,7 @@ test('only a', () => {
 
   const attributeP = type.attributes?.find(
     $.ValueDeclarationSemantic,
-    'p',
+    newTextData('p'),
   ) as AttributeValueDeclarationSemantic;
   expect(attributeP.$).toBe($.AttributeValueDeclarationSemantic);
   expect(attributeP.name).toBe('p');
@@ -33,56 +35,64 @@ test('only a', () => {
 });
 
 test('declare b then a, a extends b', () => {
-  const text = 'type B\ntype A: B';
+  const text = newTextData('type B\ntype A: B');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const typeA = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  const typeA = semantic.declarationManager.declarations
+    .get(newTextData('A'))
+    ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeA.modifier).toBe('type');
   expect(typeA.name).toBe('A');
   expect(typeA.baseType?.$).toBe($.IdTypeSemantic);
   expect((typeA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
-  const typeB = semantic.declarationManager.declarations['B'][0] as NominalTypeDeclarationSemantic;
+  const typeB = semantic.declarationManager.declarations
+    .get(newTextData('B'))
+    ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeB.modifier).toBe('type');
   expect(typeB.name).toBe('B');
 });
 
 test('declare a then b, a extends b', () => {
-  const text = 'type A: B\ntype B';
+  const text = newTextData('type A: B\ntype B');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(2);
 
-  const typeA = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  const typeA = semantic.declarationManager.declarations
+    .get(newTextData('A'))
+    ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeA.modifier).toBe('type');
   expect(typeA.name).toBe('A');
   expect(typeA.baseType?.$).toBe($.IdTypeSemantic);
   expect((typeA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
-  const typeB = semantic.declarationManager.declarations['B'][0] as NominalTypeDeclarationSemantic;
+  const typeB = semantic.declarationManager.declarations
+    .get(newTextData('B'))
+    ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeB.modifier).toBe('type');
   expect(typeB.name).toBe('B');
 });
 
 test('infix plus operator', () => {
-  const text = 'infix + (a: Integer, b: Integer): Integer';
+  const text = newTextData('infix + (a: Integer, b: Integer): Integer');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
 
-  // const typeA = semantic.declarationManager.declarations['A'][0] as NominalTypeDeclarationSemantic;
+  // const typeA = semantic.declarationManager.declarations.get(newTextData('A'))?.at2(0) as NominalTypeDeclarationSemantic;
   // expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
   // expect(typeA.modifier).toBe('type');
   // expect(typeA.name).toBe('A');

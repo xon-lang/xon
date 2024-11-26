@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('lf nl', () => {
-  const text = '\n';
+  const text = newTextData('\n');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -15,7 +15,7 @@ test('lf nl', () => {
 });
 
 test('several', () => {
-  const text = '  \n    \n   abc';
+  const text = newTextData('  \n    \n   abc');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

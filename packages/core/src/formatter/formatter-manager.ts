@@ -108,7 +108,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         if (text.length > 0) {
           if (isFirstStatement) {
             text = text.trimStart();
-          } else if (text[0] !== NL) {
+          } else if (text[0] !== NL.toString()) {
             text = ' ' + text;
           }
         }
@@ -153,7 +153,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
         this.addItem({
           range: rangeFromPosition(lastStatement.reference.range.stop),
-          text: NL,
+          text: NL.toString(),
         });
 
         return;
@@ -170,7 +170,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
           text += NL;
         }
 
-        if (text[0] !== NL) {
+        if (text[0] !== NL.toString()) {
           text = ' ' + text;
         }
       }
@@ -208,7 +208,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
       const nlCount = node.reference.range.stop.line - node.reference.range.start.line;
 
-      return NL.repeat(Math.min(nlCount, this.config.maxNewLines));
+      return NL.repeat(Math.min(nlCount, this.config.maxNewLines)).toString();
     },
 
     isSameContent(hiddenNodes: Node[], text: String2): Boolean2 {

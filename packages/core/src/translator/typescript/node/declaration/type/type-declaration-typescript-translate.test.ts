@@ -1,4 +1,4 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
@@ -8,7 +8,7 @@ import {
 } from '#core';
 
 test('type string', () => {
-  const text = 'type A';
+  const text = newTextData('type A');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -20,7 +20,7 @@ test('type string', () => {
 });
 
 test('parameter type', () => {
-  const text = 'type A<:T: Number = Integer:>';
+  const text = newTextData('type A<:T: Number = Integer:>');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;

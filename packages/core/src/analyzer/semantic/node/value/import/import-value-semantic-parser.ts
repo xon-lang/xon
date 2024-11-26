@@ -1,4 +1,12 @@
-import {Nothing, nothing, String2, textResourceFromLocation} from '#common';
+import {
+  newArrayData,
+  newTextData,
+  Nothing,
+  nothing,
+  String2,
+  TextData,
+  textResourceFromLocation,
+} from '#common';
 import {
   createSemanticAnalyzer,
   DeclarationScope,
@@ -31,7 +39,7 @@ export function importValueSemanticParse(
 
   if (!resource) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.reference, (x) =>
-      x.cannotFindResource(location),
+      x.cannotFindResource(location.toString()),
     );
 
     return;
@@ -42,10 +50,10 @@ export function importValueSemanticParse(
   const {declarationManager} = createSemanticAnalyzer(syntaxAnalyzer);
 
   if (!analyzer.declarationManager.imports) {
-    analyzer.declarationManager.imports = [];
+    analyzer.declarationManager.imports = newArrayData();
   }
 
-  analyzer.declarationManager.imports.push(declarationManager);
+  analyzer.declarationManager.imports.addLast(declarationManager);
 
   // todo fix import type. should not be unknown
   return importValueSemantic(node, resource, unknownTypeSemantic(analyzer, node));
@@ -65,18 +73,18 @@ export function declarationManagerFromImportString(importString: String2): Decla
   return declarationManager;
 }
 
-function normalizeImportString(location: String2, targetSourceLocation?: String2 | Nothing): String2 {
+function normalizeImportString(location: String2, targetSourceLocation?: TextData | Nothing): TextData {
   // todo get extension '.xon' from config
   const locationWithExtension = location + '.xon';
 
   if (location.startsWith('/') || location.startsWith('.')) {
     if (targetSourceLocation) {
-      return join(dirname(targetSourceLocation), locationWithExtension);
+      return newTextData(join(dirname(targetSourceLocation.toString()), locationWithExtension));
     }
 
-    return locationWithExtension;
+    return newTextData(locationWithExtension);
   }
 
   // todo handle additional extension or other formats (json, other data files...)
-  return join(LIB_FOLDER, locationWithExtension);
+  return newTextData(join(LIB_FOLDER, locationWithExtension));
 }

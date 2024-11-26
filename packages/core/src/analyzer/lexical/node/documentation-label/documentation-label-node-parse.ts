@@ -9,11 +9,11 @@ export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): Document
   const text = analyzer.resource.data
     // todo simplify it '.characters[i].isLetterOrDigit(0)'
     .takeWhile(
-      (x, i) => x === AT || analyzer.resource.data.characters[i].isLetterOrDigit(0),
+      (x, i) => x.equals(AT) || analyzer.resource.data.at2(i).isLetterOrDigit(),
       analyzer.position.index,
     );
 
-  if (text.length() <= AT.length) {
+  if (text.length() <= AT.length()) {
     return nothing;
   }
 

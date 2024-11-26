@@ -41,21 +41,21 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
 
 function getAttributes(semantic: Semantic): ValueDeclarationSemantic[] | Nothing {
   if (is(semantic, $.TypeSemantic)) {
-    return semantic.attributes().all();
+    return semantic.attributes().all().toArray();
   }
 
   if (is(semantic, $.ValueSemantic) && semantic.type) {
-    return semantic.type.attributes().all();
+    return semantic.type.attributes().all().toArray();
   }
 
   return nothing;
 }
 
 function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): CompletionItem {
-  const item = new CompletionItem(semantic.name, getCompletionItemKind(semantic));
+  const item = new CompletionItem(semantic.name.toString(), getCompletionItemKind(semantic));
 
   if (is(semantic.type, $.IdTypeSemantic) && semantic.type.declaration) {
-    item.detail = semantic.type.declaration.name;
+    item.detail = semantic.type.declaration.name.toString();
   }
 
   return item;

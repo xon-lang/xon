@@ -1,4 +1,15 @@
-import {Resource, TextData, TextPosition, TextRange, TextReference, TextResource} from '#common';
+import {
+  ArrayData,
+  CharData,
+  Dictionary,
+  KeyValue,
+  MinMax,
+  Resource,
+  TextPosition,
+  TextRange,
+  TextReference,
+  TextResource,
+} from '#common';
 import {
   AngleCloseNode,
   AngleGroupNode,
@@ -25,6 +36,7 @@ import {
   CommentLineNode,
   ComplementTypeSemantic,
   DeclarationNode,
+  DeclarationScope,
   DeclarationSemantic,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
@@ -95,9 +107,12 @@ import {
   ValueSemantic,
   WhitespaceNode,
 } from '#core';
+import {$Model} from '#typing';
 
 export enum $ {
-  Node = ' Node ',
+  $Model = ' $Model ',
+
+  Node = ' Node ' + $.$Model,
   ExpressionNode = ' ExpressionNode ' + $.Node,
 
   LexicalNode = ' LexicalNode ' + $.Node,
@@ -209,19 +224,29 @@ export enum $ {
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
 
-  TextPosition = ' TextPosition ',
-  TextRange = ' TextRange ',
-  TextData = ' TextData ',
+  ArrayData = ' ArrayData ' + $.$Model,
+  CharData = ' CharData ' + $.$Model,
+  KeyValue = ' KeyValue ' + $.$Model,
+  Dictionary = ' Dictionary ' + $.ArrayData,
+  MinMax = ' MinMax ' + $.$Model,
 
-  Resource = ' Resource ',
+  TextPosition = ' TextPosition ' + $.$Model,
+  TextRange = ' TextRange ' + $.$Model,
+  TextData = ' TextData ' + $.ArrayData,
+
+  Resource = ' Resource ' + $.$Model,
   TextResource = ' TextResource ' + $.Resource,
   TextResourceRange = ' TextResourceRange ' + $.Resource,
 
-  Translator = ' Translator ',
+  Translator = ' Translator ' + $.$Model,
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
+
+  DeclarationScope = ' DeclarationScope ' + $.$Model,
 }
 
 export type TypeMap = {
+  [$.$Model]: $Model;
+
   [$.Node]: Node;
   [$.LexicalNode]: LexicalNode;
   [$.SyntaxNode]: SyntaxNode;
@@ -329,9 +354,15 @@ export type TypeMap = {
   [$.MemberValueSemantic]: MemberValueSemantic;
   [$.ImportValueSemantic]: ImportValueSemantic;
 
+  [$.ArrayData]: ArrayData;
+  [$.Dictionary]: Dictionary;
+  [$.KeyValue]: KeyValue;
+  [$.MinMax]: MinMax;
+  [$.CharData]: CharData;
+
   [$.TextPosition]: TextPosition;
   [$.TextRange]: TextRange;
-  [$.TextData]: TextData;
+  [$.TextData]: import('#common').TextData;
 
   [$.Resource]: Resource;
   [$.TextResource]: TextResource;
@@ -339,4 +370,10 @@ export type TypeMap = {
 
   [$.Translator]: Translator;
   [$.TypescriptTranslator]: TypescriptTranslator;
+
+  [$.DeclarationScope]: DeclarationScope;
 };
+
+// todo do not delete. For type checking
+let modelCheck: TypeMap[$] = 0 as any;
+let modelCheck2: $Model = modelCheck;

@@ -1,4 +1,4 @@
-import {Nothing, nothing, textData} from '#common';
+import {newTextData, Nothing, nothing} from '#common';
 import {BRACKET_OPEN, BracketOpenNode, bracketOpenNode, LexicalAnalyzer} from '#core';
 
 export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode | Nothing {
@@ -6,7 +6,7 @@ export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode
     return nothing;
   }
 
-  const text = textData(BRACKET_OPEN);
+  const text = newTextData(BRACKET_OPEN);
   const reference = analyzer.getResourceRange(text);
 
   return bracketOpenNode(reference, text);

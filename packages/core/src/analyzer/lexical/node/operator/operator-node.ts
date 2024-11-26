@@ -1,4 +1,4 @@
-import {Nothing, String2, TextData, TextReference} from '#common';
+import {Nothing, TextData, TextReference} from '#common';
 import {
   CONTROL_KEYWORDS,
   ExpressionNode,
@@ -24,16 +24,16 @@ export function operatorNode(reference: TextReference, text: TextData): Operator
   return lexicalNode($.OperatorNode, {reference, text}); //, keywordType: getKeywordType(text)
 }
 
-function getKeywordType(text: String2): KeywordType | Nothing {
-  if (MODIFIER_KEYWORDS.includes(text)) {
+function getKeywordType(text: TextData): KeywordType | Nothing {
+  if (MODIFIER_KEYWORDS.hasItem(text)) {
     return KeywordType.MODIFIER;
   }
 
-  if (CONTROL_KEYWORDS.includes(text)) {
+  if (CONTROL_KEYWORDS.hasItem(text)) {
     return KeywordType.CONTROL;
   }
 
-  if (OPERATOR_KEYWORDS.includes(text)) {
+  if (OPERATOR_KEYWORDS.hasItem(text)) {
     return KeywordType.OPERATOR;
   }
 }

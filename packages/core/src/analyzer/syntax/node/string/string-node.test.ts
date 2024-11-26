@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {StringNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('string', () => {
-  const text = '"abc   def"';
+  const text = newTextData('"abc   def"');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -16,7 +16,7 @@ test('string', () => {
 });
 
 test('multiline string', () => {
-  const text = '"some\nmultiline\n\n\nstring\n"';
+  const text = newTextData('"some\nmultiline\n\n\nstring\n"');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -29,7 +29,7 @@ test('multiline string', () => {
 });
 
 test('empty string', () => {
-  const text = '"';
+  const text = newTextData('"');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -42,7 +42,7 @@ test('empty string', () => {
 });
 
 test('not closed', () => {
-  const text = '"abc';
+  const text = newTextData('"abc');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -55,7 +55,7 @@ test('not closed', () => {
 });
 
 test('emoji', () => {
-  const text = '"🙂"';
+  const text = newTextData('"🙂"');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -69,7 +69,7 @@ test('emoji', () => {
 });
 
 test('emoji 2', () => {
-  const text = '"👩‍❤️‍💋‍👩"';
+  const text = newTextData('"👩‍❤️‍💋‍👩"');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

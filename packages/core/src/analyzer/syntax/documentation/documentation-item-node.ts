@@ -1,4 +1,4 @@
-import {Nothing, textData, textPosition, textRange, textResourceRange} from '#common';
+import {newTextData, Nothing, textPosition, textRange, textResourceRange} from '#common';
 import {
   AT,
   DocumentationDescriptionNode,
@@ -34,22 +34,26 @@ function operatorFromLabel(label: DocumentationLabelNode): OperatorNode {
   const labelStart = label.reference.range.start;
 
   const operatorStop = textPosition(
-    labelStart.index + AT.length,
+    labelStart.index + AT.length(),
     labelStart.line,
-    labelStart.column + AT.length,
+    labelStart.column + AT.length(),
   );
 
   const range = textRange(label.reference.range.start, operatorStop);
   const reference = textResourceRange(label.reference.resource, range);
 
-  return operatorNode(reference, label.text.slice(0, AT.length));
+  return operatorNode(reference, label.text.slice(0, AT.length()));
 }
 
 function idFromLabel(label: DocumentationLabelNode): IdNode {
   const labelStart = label.reference.range.start;
-  const idStart = textPosition(labelStart.index + AT.length, labelStart.line, labelStart.column + AT.length);
+  const idStart = textPosition(
+    labelStart.index + AT.length(),
+    labelStart.line,
+    labelStart.column + AT.length(),
+  );
   const range = textRange(idStart, label.reference.range.stop);
   const reference = textResourceRange(label.reference.resource, range);
 
-  return idNode(reference, textData(label.name));
+  return idNode(reference, newTextData(label.name));
 }

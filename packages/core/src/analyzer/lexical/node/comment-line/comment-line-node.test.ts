@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {CommentLineNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('line comment', () => {
-  const text = '// abc';
+  const text = newTextData('// abc');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

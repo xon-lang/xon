@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2, TextReference} from '#common';
+import {Boolean2, Nothing, TextData, TextReference} from '#common';
 import {DeclarationNode, Semantic, TypeSemantic} from '#core';
 import {$} from '#typing';
 
@@ -16,10 +16,10 @@ export type DeclarationKind =
 
 export type DeclarationSemantic = Semantic & {
   nodeLink: DeclarationNode;
-  documentation?: String2 | Nothing;
+  documentation?: TextData | Nothing;
   usages: TextReference[];
-  modifier?: String2 | Nothing;
-  name: String2;
+  modifier?: TextData | Nothing;
+  name: TextData;
   type: TypeSemantic;
 
   eq(other: DeclarationSemantic): Boolean2;

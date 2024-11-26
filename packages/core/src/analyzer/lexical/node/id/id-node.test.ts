@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {IdNode, predefinedDiagnostics, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('single id', () => {
-  const text = 'abc';
+  const text = newTextData('abc');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -15,7 +15,7 @@ test('single id', () => {
 });
 
 test('several id', () => {
-  const text = 'abc edf_    _ghi1_23';
+  const text = newTextData('abc edf_    _ghi1_23');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

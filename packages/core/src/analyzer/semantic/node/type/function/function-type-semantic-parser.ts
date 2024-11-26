@@ -66,5 +66,5 @@ function parameterDocumentationHandle(
     item.id.semantic = documentationIdSemantic(analyzer, item.id, parameter);
   }
 
-  parameter.documentation = filteredItems.first()?.description?.text.toString().setPadding(0).trim();
+  parameter.documentation = filteredItems.first()?.description?.text.setPadding(0).trim();
 }

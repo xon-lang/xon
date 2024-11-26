@@ -20,8 +20,8 @@ export function prefixNode(
 }
 
 function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {
-  const keepSingleWhitespace = node.operator.text.characters.some(
-    (x) => x.isLetter(0) || x === TYPE || x === ASSIGN,
+  const keepSingleWhitespace = node.operator.text.some(
+    (x) => x.isLetter() || x.equals(TYPE) || x.equals(ASSIGN),
   );
   analyzer.formatterManager.formatChildNode(node.value, keepSingleWhitespace);
 }

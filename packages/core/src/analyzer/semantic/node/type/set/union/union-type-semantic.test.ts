@@ -1,4 +1,4 @@
-import {nothing, String2, textResourceFromData} from '#common';
+import {newTextData, nothing, TextData, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -12,19 +12,21 @@ import {
 import {$} from '#typing';
 
 test('a is integer or float', () => {
-  const text = `
+  const text = newTextData(`
     type Integer
     type Float
 
     const a: Integer | Float
-  `;
+  `);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.AttributeValueDeclarationSemantic);
-  expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe(
+    $.AttributeValueDeclarationSemantic,
+  );
+  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
@@ -44,14 +46,14 @@ test('a is integer or float', () => {
 });
 
 test('1 check type', () => {
-  const text = `
+  const text = newTextData(`
     type Number
     type Integer: Number
     type Float
 
     const a: Integer
     const b: Integer | Float
-  `;
+  `);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
@@ -67,7 +69,7 @@ test('1 check type', () => {
 });
 
 test('2 check type', () => {
-  const text = `
+  const text = newTextData(`
     type Number
     type Integer: Number
     type Float: Number
@@ -76,12 +78,12 @@ test('2 check type', () => {
     const a: Integer | Float
     const b: Float
     const c: String
-  `;
+  `);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
-  const getConst = (name: String2) =>
+  const getConst = (name: TextData) =>
     (
       semantic.declarationManager.find(
         $.ValueDeclarationSemantic,
@@ -91,9 +93,9 @@ test('2 check type', () => {
       ) as AttributeValueDeclarationSemantic
     ).type as TypeSemantic;
 
-  const aType = getConst('a');
-  const bType = getConst('b');
-  const cType = getConst('c');
+  const aType = getConst(newTextData('a'));
+  const bType = getConst(newTextData('b'));
+  const cType = getConst(newTextData('c'));
 
   expect(aType.$).toBe($.UnionTypeSemantic);
   expect(bType.$).toBe($.IdTypeSemantic);

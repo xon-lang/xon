@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {IdNode, JOINING, LexicalNode, MemberNode, OperatorNode, syntaxFromResource} from '#core';
 import {$, is} from '#typing';
 
 test('no space', () => {
-  const text = 'abc~.def';
+  const text = newTextData('abc~.def');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -18,7 +18,7 @@ test('no space', () => {
 });
 
 test('spaces', () => {
-  const text = 'abc~  .def';
+  const text = newTextData('abc~  .def');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -33,7 +33,7 @@ test('spaces', () => {
 });
 
 test('with new line', () => {
-  const text = 'abc~   \n  .def';
+  const text = newTextData('abc~   \n  .def');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

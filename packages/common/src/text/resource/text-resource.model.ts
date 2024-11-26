@@ -4,6 +4,9 @@ import {$} from '#typing';
 export type TextResource = Resource<TextData> & {
   $: $.TextResource;
 
-  equals(other: Resource<TextData>): Boolean2;
   reference(range: TextRange): TextReference;
+  // todo remove 'equals'
+  equals(other: Resource<TextData>): Boolean2;
+  // todo remove 'clone'
+  clone(): TextResource;
 };

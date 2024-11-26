@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {IntegerNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('string content', () => {
-  const text = '1_2_3';
+  const text = newTextData('1_2_3');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

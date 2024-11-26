@@ -60,7 +60,7 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
     error(node: Node): String2 {
       this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
       const location = node.reference.resource.location;
-      const basename = path.basename(location ?? '<code>');
+      const basename = path.basename(location?.toString() ?? '<code>');
       const line = node.reference.range.start.line + 1;
       const column = node.reference.range.start.column + 1;
 
@@ -72,8 +72,18 @@ export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): 
         semanticAnalyzer.statements
           .map((node) => this.statement(node))
           .filter((translatedNode) => translatedNode.length > 0)
-          .join(NL + NL) + NL
+          .join(NL.addLast(...NL).toString()) + NL
       );
+    },
+
+    // todo fix equals
+    equals(other) {
+      return false;
+    },
+
+    clone() {
+      // todo fix clone
+      return this;
     },
   };
 }

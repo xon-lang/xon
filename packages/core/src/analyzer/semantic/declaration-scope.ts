@@ -1,26 +1,36 @@
-import {Integer, Nothing, String2, nothing} from '#common';
+import {
+  ArrayData,
+  Dictionary,
+  Integer,
+  Nothing,
+  TextData,
+  newArrayData,
+  newDictionary,
+  newTextData,
+  nothing,
+} from '#common';
 import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
-import {TypeMap, is} from '#typing';
+import {$, $Model, TypeMap, is} from '#typing';
 
-export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = {
-  imports: DeclarationScope[] | Nothing;
+export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = $Model & {
+  imports: ArrayData<DeclarationScope> | Nothing;
   parent: DeclarationScope | Nothing;
-  declarations: Record<String2, T[]>;
+  declarations: Dictionary<TextData, ArrayData<T>>;
 
   count(): Integer;
   add(declaration: T): void;
-  all(): T[];
+  all(): ArrayData<T>;
 
-  filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND][];
+  filterByName<KIND extends DeclarationKind>(kind: KIND, name: TextData): ArrayData<TypeMap[KIND]>;
 
   find<KIND extends DeclarationKind>(
     kind: KIND,
-    name: String2,
-    generics?: TypeSemantic | Nothing[] | Nothing,
-    parameters?: TypeSemantic | Nothing[] | Nothing,
+    name: TextData,
+    generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
+    parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
   ): TypeMap[KIND] | Nothing;
 
-  clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationScope<T>;
+  clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T>;
   union(other: DeclarationScope<T>): DeclarationScope<T>;
   intersection(other: DeclarationScope<T>): DeclarationScope<T>;
   complement(other: DeclarationScope<T>): DeclarationScope<T>;
@@ -29,12 +39,13 @@ export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic
 export function createDeclarationScope<T extends DeclarationSemantic = DeclarationSemantic>(
   analyzer: SemanticAnalyzer,
   parent?: DeclarationScope<T> | Nothing,
-  imports?: DeclarationScope<T>[] | Nothing,
+  imports?: ArrayData<DeclarationScope<T>> | Nothing,
 ): DeclarationScope<T> {
   return {
+    $: $.DeclarationScope,
     imports,
     parent,
-    declarations: {},
+    declarations: newDictionary(),
 
     count(): Integer {
       return Object.keys(this.declarations).length;
@@ -47,41 +58,52 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
       //   );
       // }
 
-      if (!this.declarations[declaration.name]) {
-        this.declarations[declaration.name] = [];
+      if (!this.declarations.has(declaration.name)) {
+        this.declarations.set(declaration.name, newArrayData());
       }
 
-      this.declarations[declaration.name].push(declaration);
+      this.declarations.get(declaration.name)?.addLast(declaration);
     },
 
-    all(): T[] {
-      return Object.values(this.declarations).flat();
+    all(): ArrayData<T> {
+      return this.declarations.values().flat();
     },
 
-    filterByName<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND][] {
-      const declarations = (this.declarations[name] ?? this.parent?.filterByName<KIND>(kind, name))?.filter(
-        (x) => is(x, kind),
-      );
+    filterByName<K extends DeclarationKind>(kind: K, name: TextData): ArrayData<TypeMap[K]> {
+      const thisDeclarations = this.declarations.get(name);
+      const parentDeclarations = this.parent?.filterByName<K>(kind, name);
+      const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, kind));
 
-      if (declarations && declarations.length > 0) {
+      if (declarations && declarations.length() > 0) {
         return declarations;
       }
 
-      const importDeclarations = this.imports?.flatMap((x) =>
-        x.declarations[name]?.filter((x) => is(x, kind)),
+      const importDeclarations = this.imports?.toArray()?.flatMap(
+        (x) =>
+          x.declarations
+            .get(name)
+            ?.toArray()
+            ?.filter((x) => is(x, kind)) ?? [],
       );
 
-      if (importDeclarations && importDeclarations?.length > 0) {
-        return importDeclarations;
+      if (importDeclarations && importDeclarations.length > 0) {
+        // todo remove 'as'
+        return newArrayData(importDeclarations) as ArrayData<TypeMap[K]>;
       }
 
-      return [];
+      // todo remove 'as'
+      return newArrayData() as ArrayData<TypeMap[K]>;
     },
 
-    find<KIND extends DeclarationKind>(kind: KIND, name: String2): TypeMap[KIND] | Nothing {
-      const declarations = this.filterByName(kind, name);
+    find<KIND extends DeclarationKind>(
+      kind: KIND,
+      name: TextData,
+      generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
+      parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
+    ): TypeMap[KIND] | Nothing {
+      const declarations = this.filterByName(kind, newTextData(name));
 
-      if (declarations.length === 0) {
+      if (declarations.length() === 0) {
         // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
         //   x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
         // );
@@ -94,7 +116,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
       //   generics && x.generics ? x.generics.length === generics.length : true,
       // );
 
-      if (filtered.length !== 1) {
+      if (filtered.length() !== 1) {
         // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
 
         return nothing;
@@ -103,7 +125,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
       return filtered.first();
     },
 
-    clone(generics?: TypeSemantic | Nothing[] | Nothing): DeclarationScope<T> {
+    clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T> {
       const declarationManager = createDeclarationScope<T>(analyzer);
 
       // todo simplify it. allow create declaration manager from 'declarations' field

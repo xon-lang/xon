@@ -1,13 +1,13 @@
-import {Boolean2, Integer, nothing} from '#common';
+import {ArrayData, Boolean2, Integer, nothing, TextData} from '#common';
 import {Node, nodeFindMap, postfixNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 import {$, is, isNonOperatorExpression} from '#typing';
 
-export function postfixNodeParse(operators: String[], isLeftRecursive: Boolean2): SyntaxParseFn {
+export function postfixNodeParse(operators: ArrayData<TextData>, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
         !is(node, $.OperatorNode) ||
-        !operators.includes(node.text.toString()) ||
+        !operators.hasItem(node.text) ||
         (index !== nodes.length - 1 && !is(nodes[index + 1], $.OperatorNode))
       ) {
         return nothing;

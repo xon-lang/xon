@@ -1,4 +1,4 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   FunctionTypeSemantic,
@@ -10,13 +10,15 @@ import {
 import {$} from '#typing';
 
 test('only a', () => {
-  const text = 'infix + (a: Integer, b: String): String ';
+  const text = newTextData('infix + (a: Integer, b: String): String ');
   const source = textResourceFromData(nothing, text);
   const semantic = semanticFromResource(source, nothing, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
 
-  const declaration = semantic.declarationManager.declarations['+'][0] as AttributeValueDeclarationSemantic;
+  const declaration = semantic.declarationManager.declarations
+    .get(newTextData('+'))
+    ?.at2(0) as AttributeValueDeclarationSemantic;
   expect(declaration.$).toBe($.AttributeValueDeclarationSemantic);
   expect(declaration.modifier).toBe('infix');
   expect(declaration.name).toBe('+');

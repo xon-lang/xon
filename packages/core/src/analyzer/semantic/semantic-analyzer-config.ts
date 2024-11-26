@@ -1,34 +1,34 @@
-import {String2} from '#common';
+import {newTextData, String2, TextData} from '#common';
 
 export type SemanticAnalyzerConfig = {
   defaultImports: String2[];
   literalTypeNames: {
-    unknownTypeName: String2;
-    anythingTypeName: String2;
-    somethingTypeName: String2;
-    nothingTypeName: String2;
-    integerTypeName: String2;
-    charTypeName: String2;
-    stringTypeName: String2;
-    rangeTypeName: String2;
-    arrayTypeName: String2;
-    functionTypeName: String2;
+    unknownTypeName: TextData;
+    anythingTypeName: TextData;
+    somethingTypeName: TextData;
+    nothingTypeName: TextData;
+    integerTypeName: TextData;
+    charTypeName: TextData;
+    stringTypeName: TextData;
+    rangeTypeName: TextData;
+    arrayTypeName: TextData;
+    functionTypeName: TextData;
   };
 };
 
 export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   defaultImports: [],
   literalTypeNames: {
-    unknownTypeName: 'Unknown',
-    anythingTypeName: 'Anything',
-    somethingTypeName: 'Something',
-    nothingTypeName: 'Nothing',
-    integerTypeName: 'Integer',
-    charTypeName: 'Char',
-    stringTypeName: 'String',
-    rangeTypeName: 'Range',
-    arrayTypeName: 'Array',
-    functionTypeName: 'Function',
+    unknownTypeName: newTextData('Unknown'),
+    anythingTypeName: newTextData('Anything'),
+    somethingTypeName: newTextData('Something'),
+    nothingTypeName: newTextData('Nothing'),
+    integerTypeName: newTextData('Integer'),
+    charTypeName: newTextData('Char'),
+    stringTypeName: newTextData('String'),
+    rangeTypeName: newTextData('Range'),
+    arrayTypeName: newTextData('Array'),
+    functionTypeName: newTextData('Function'),
   },
 };
 

@@ -1,4 +1,13 @@
-import {Nothing, String2, topologicalSort} from '#common';
+import {
+  ArrayData,
+  Dictionary,
+  newArrayData,
+  newDictionary,
+  newKeyValue,
+  Nothing,
+  TextData,
+  topologicalSort,
+} from '#common';
 import {
   attributeValueDeclarationSemantic,
   attributeValueDeclarationSemanticHandle,
@@ -31,7 +40,7 @@ export function statementDeclarationsParse(analyzer: SemanticAnalyzer, nodes: No
     return declaration;
   });
 
-  declarationsParse(analyzer, declarationNodes);
+  declarationsParse(analyzer, newArrayData(declarationNodes));
 
   return declarations;
 }
@@ -61,23 +70,23 @@ export function parameterDeclarationsParse(
     return declaration;
   });
 
-  declarationsParse(analyzer, declarationNodes);
+  declarationsParse(analyzer, newArrayData(declarationNodes));
 
   return declarations;
 }
 
-function declarationsParse(analyzer: SemanticAnalyzer, nodes: DeclarationNode[]): void {
+function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<DeclarationNode>): void {
   const dependencies = declarationNodeDependencies(nodes);
   const {order, cycle} = topologicalSort(dependencies);
 
-  if (cycle.length > 0) {
-    throw new Error(`Not implemented: cycle dependencies '${cycle.join(', ')}'`);
+  if (cycle.length() > 0) {
+    throw new Error(`Not implemented: cycle dependencies '${cycle.toString(', ')}'`);
   }
 
-  const nodesDict = nodes.toDictionary((x) => x.id.text.toString());
+  const nodesDict = newDictionary(nodes.map((x) => newKeyValue(x.id.text, x)));
 
   for (const name of order) {
-    declarationDeepParse(analyzer, nodesDict[name]);
+    declarationDeepParse(analyzer, nodesDict.get2(name));
   }
 }
 
@@ -107,49 +116,51 @@ function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode)
   }
 }
 
-function declarationNodeDependencies(nodes: DeclarationNode[]): Record<string, string[]> {
-  return nodes.reduce((o: Record<String2, String2[]>, node) => {
-    const name = node.id.text.toString();
+function declarationNodeDependencies(
+  nodes: ArrayData<DeclarationNode>,
+): Dictionary<TextData, ArrayData<TextData>> {
+  return nodes.reduce((o, node) => {
+    const name = node.id.text;
 
-    if (!o[name]) {
-      o[name] = [];
+    if (!o.get(name)) {
+      o.set(name, newArrayData());
     }
 
     const dependencies = nodeDependencies(node.type ?? node.assign);
 
     for (const dependency of dependencies) {
-      if (!o[name].includes(dependency)) {
-        o[name].push(dependency);
+      if (!o.get(name)?.hasItem(dependency)) {
+        o.get(name)?.addLast(dependency);
       }
     }
 
     return o;
-  }, {});
+  }, newDictionary() as Dictionary<TextData, ArrayData<TextData>>);
 }
 
-function nodeDependencies(node: Node | Nothing): String2[] {
+function nodeDependencies(node: Node | Nothing): ArrayData<TextData> {
   if (!node) {
-    return [];
+    return newArrayData();
   }
 
   // todo add other types (literals, operators, ...)
   if (is(node, $.IdNode)) {
-    return [node.text.toString()];
+    return newArrayData([node.text]);
   }
 
   if (is(node, $.SyntaxNode)) {
-    return node.children.flatMap(nodeDependencies);
+    return node.children.flatMap((x) => nodeDependencies(x).toArray()).toArrayData();
   }
 
-  return [];
+  return newArrayData();
 }
 
 function createStatementDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
-  const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
-  const modifier = node.modifier?.text.toString();
-  const name = node.id.text.toString();
+  const documentation = node.documentation?.description?.text.setPadding(0).trim();
+  const modifier = node.modifier?.text;
+  const name = node.id.text;
 
-  if (modifier === TYPE_MODIFIER) {
+  if (modifier?.equals(TYPE_MODIFIER)) {
     if (node.assign) {
       return structuralTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
     }
@@ -164,9 +175,9 @@ function createParameterTypeDeclaration(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
 ): ParameterTypeDeclarationSemantic {
-  const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
-  const modifier = node.modifier?.text.toString();
-  const name = node.id.text.toString();
+  const documentation = node.documentation?.description?.text.setPadding(0).trim();
+  const modifier = node.modifier?.text;
+  const name = node.id.text;
 
   return parameterTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
 }
@@ -175,9 +186,9 @@ function createParameterValueDeclaration(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
 ): ParameterValueDeclarationSemantic {
-  const documentation = node.documentation?.description?.text.toString().setPadding(0).trim();
-  const modifier = node.modifier?.text.toString();
-  const name = node.id.text.toString();
+  const documentation = node.documentation?.description?.text.setPadding(0).trim();
+  const modifier = node.modifier?.text;
+  const name = node.id.text;
 
   return parameterValueDeclarationSemantic(analyzer, node, documentation, modifier, name);
 }

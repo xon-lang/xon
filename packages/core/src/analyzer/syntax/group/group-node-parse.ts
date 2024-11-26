@@ -1,4 +1,4 @@
-import {Nothing, nothing, String2} from '#common';
+import {Nothing, nothing, TextData} from '#common';
 import {
   ANGLE_CLOSE,
   BRACE_CLOSE,
@@ -35,7 +35,7 @@ function groupNodeParseInner(
   analyzer: SyntaxAnalyzer,
   groupType: GroupNodeType,
   openNode: OpenNode,
-  closeText: String2,
+  closeText: TextData,
 ): GroupNode {
   const items: ItemNode[] = [];
 

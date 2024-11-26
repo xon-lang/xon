@@ -7,11 +7,11 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
   }
 
   const text = analyzer.resource.data
-    .takeWhile((x) => x === SPACE, analyzer.position.index + JOINING.length)
-    .prepend(JOINING);
+    .takeWhile((x) => x.equals(SPACE), analyzer.position.index + JOINING.length())
+    .addFirst(...JOINING);
 
-  if (analyzer.resource.data.characters[analyzer.position.index + text.length()] === NL) {
-    text.append(NL);
+  if (analyzer.resource.data.at2(analyzer.position.index + text.length()).equals(NL)) {
+    text.addLast(...NL);
   }
 
   const reference = analyzer.getResourceRangeWithNL(text);

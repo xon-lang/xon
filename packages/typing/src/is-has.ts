@@ -1,8 +1,8 @@
-import {Anything, Boolean2, Nothing} from '#common';
+import {Boolean2, Nothing} from '#common';
 import {ExpressionNode, Node, Semantic} from '#core';
 import {$, TypeMap} from '#typing';
 
-export function is<T extends $>(model: Anything, $: T): model is TypeMap[T] {
+export function is<T extends $>(model: any, $: T): model is TypeMap[T] {
   if (model && typeof model === 'object' && '$' in model && typeof model['$'] === 'string') {
     return model.$.includes($);
   }

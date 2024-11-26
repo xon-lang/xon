@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Boolean2, Char, Integer, Nothing, String2} from '#common';
+import {Boolean2, Char, Integer, newTextData, Nothing, String2, TextData} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -128,4 +128,8 @@ String.prototype.toCharCodes = function (): Uint8Array {
 
 String.prototype.equals = function (other: String2): Boolean2 {
   return this === other;
+};
+
+String.prototype.toText = function (): TextData {
+  return newTextData(this);
 };

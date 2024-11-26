@@ -1,20 +1,20 @@
-import {String2} from '#common';
+import {ArrayData, Dictionary, newArrayData, newTextData, TextData} from '#common';
 
-export function topologicalSort(dependencies: Record<String2, String2[]>): {
-  order: String2[];
-  cycle: String2[];
+export function topologicalSort(dependencies: Dictionary<TextData, ArrayData<TextData>>): {
+  order: ArrayData<TextData>;
+  cycle: ArrayData<TextData>;
 } {
   const used = new Set();
-  const order: String2[] = [];
-  const keys = Object.keys(dependencies);
+  const order: ArrayData<TextData> = newArrayData();
+  const keys = newArrayData(Object.keys(dependencies).map((x) => newTextData(x)));
   let cycle = keys;
 
   while (cycle.length) {
-    const items: String2[] = [];
+    const items: TextData[] = [];
     const length = cycle.length;
 
     cycle = cycle.filter((k) => {
-      if (dependencies[k].every((x) => used.has(x) || !keys.includes(x))) {
+      if (dependencies.get(k)?.every((x) => used.has(x) || !keys.hasItem(x))) {
         items.push(k);
 
         return false;
@@ -23,7 +23,7 @@ export function topologicalSort(dependencies: Record<String2, String2[]>): {
       return true;
     });
 
-    order.push(...items);
+    order.addLast(...items);
     items.forEach((x) => used.add(x));
 
     if (cycle.length === length) {

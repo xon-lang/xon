@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {DocumentationNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('documentation', () => {
-  const text = '===a===';
+  const text = newTextData('===a===');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -18,7 +18,7 @@ test('documentation', () => {
 });
 
 test('documentation 2', () => {
-  const text = '=== abc\n\n\n def==';
+  const text = newTextData('=== abc\n\n\n def==');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -33,7 +33,7 @@ test('documentation 2', () => {
 });
 
 test('documentation labels', () => {
-  const text = '=== abc\n\n\n def @in a1 b2 c 3     @return _123 _ ===';
+  const text = newTextData('=== abc\n\n\n def @in a1 b2 c 3     @return _123 _ ===');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -57,7 +57,7 @@ test('documentation labels', () => {
 });
 
 test('documentation operator id', () => {
-  const text = '===@abc desc===';
+  const text = newTextData('===@abc desc===');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

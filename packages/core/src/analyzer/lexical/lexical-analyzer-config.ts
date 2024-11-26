@@ -1,96 +1,99 @@
-export const COMMENT_LINE = '//';
+import {newArrayData} from '#common';
+import {newTextData} from '../../../../common/src/text/data/text-data.factory';
 
-export const COMMENT_BLOCK_OPEN = '---';
-export const COMMENT_BLOCK_CLOSE = '---';
+export const COMMENT_LINE = newTextData('//');
 
-export const DOCUMENTATION_OPEN = '===';
-export const DOCUMENTATION_CLOSE = '===';
+export const COMMENT_BLOCK_OPEN = newTextData('---');
+export const COMMENT_BLOCK_CLOSE = newTextData('---');
 
-export const STRING_OPEN = '"';
-export const STRING_CLOSE = '"';
+export const DOCUMENTATION_OPEN = newTextData('===');
+export const DOCUMENTATION_CLOSE = newTextData('===');
 
-export const CHAR_OPEN = "'";
-export const CHAR_CLOSE = "'";
+export const STRING_OPEN = newTextData('"');
+export const STRING_CLOSE = newTextData('"');
 
-export const NL = '\n';
-export const COMMA = ',';
-export const JOINING = '~';
-export const SPACE = ' ';
-export const UNDERSCORE = '_';
-export const TYPE = ':';
-export const ASSIGN = '=';
-export const MEMBER = '.';
-export const META_MEMBER = '::';
-export const RANGE = '..';
+export const CHAR_OPEN = newTextData("'");
+export const CHAR_CLOSE = newTextData("'");
 
-export const AT = '@';
+export const NL = newTextData('\n');
+export const COMMA = newTextData(',');
+export const JOINING = newTextData('~');
+export const SPACE = newTextData(' ');
+export const UNDERSCORE = newTextData('_');
+export const TYPE = newTextData(':');
+export const ASSIGN = newTextData('=');
+export const MEMBER = newTextData('.');
+export const META_MEMBER = newTextData('::');
+export const RANGE = newTextData('..');
 
-export const INTERSECTION = '&';
-export const UNION = '|';
-export const COMPLEMENT = '\\';
-export const NOT = '!';
+export const AT = newTextData('@');
 
-export const PAREN_OPEN = '(';
-export const PAREN_CLOSE = ')';
+export const INTERSECTION = newTextData('&');
+export const UNION = newTextData('|');
+export const COMPLEMENT = newTextData('\\');
+export const NOT = newTextData('!');
 
-export const BRACKET_OPEN = '[';
-export const BRACKET_CLOSE = ']';
+export const PAREN_OPEN = newTextData('(');
+export const PAREN_CLOSE = newTextData(')');
 
-export const BRACE_OPEN = '{';
-export const BRACE_CLOSE = '}';
+export const BRACKET_OPEN = newTextData('[');
+export const BRACKET_CLOSE = newTextData(']');
+
+export const BRACE_OPEN = newTextData('{');
+export const BRACE_CLOSE = newTextData('}');
 
 // todo should we use '()' generics instead of '<::>' ???
-export const ANGLE_OPEN = '<:';
-export const ANGLE_CLOSE = ':>';
+export const ANGLE_OPEN = newTextData('<:');
+export const ANGLE_CLOSE = newTextData(':>');
 
-export const IMPORT = 'import';
-export const EXPORT = 'export';
-export const RETURN = 'return';
+export const IMPORT = newTextData('import');
+export const EXPORT = newTextData('export');
+export const RETURN = newTextData('return');
 
-export const CONST = 'const';
-export const IDEM = 'idem';
-export const VAR = 'var';
+export const CONST = newTextData('const');
+export const IDEM = newTextData('idem');
+export const VAR = newTextData('var');
 
-export const INFIX = 'infix';
-export const PREFIX = 'prefix';
-export const POSTFIX = 'postfix';
-export const AFFIX_MODIFIERS = [PREFIX, INFIX, POSTFIX];
+export const INFIX = newTextData('infix');
+export const PREFIX = newTextData('prefix');
+export const POSTFIX = newTextData('postfix');
+export const AFFIX_MODIFIERS = newArrayData([PREFIX, INFIX, POSTFIX]);
 
-export const TYPE_MODIFIER = 'type';
-export const VALUE_MODIFIERS = [CONST, VAR, ...AFFIX_MODIFIERS];
+export const TYPE_MODIFIER = newTextData('type');
+export const VALUE_MODIFIERS = newArrayData([CONST, VAR, ...AFFIX_MODIFIERS]);
 
-export const MODIFIER_KEYWORDS = [TYPE_MODIFIER, ...VALUE_MODIFIERS];
-export const OPERATOR_KEYWORDS = ['is', 'as', 'in'];
-export const CONTROL_KEYWORDS = [
-  'if',
-  'then',
-  'else',
-  'for',
-  'do',
-  'while',
-  'break',
-  'continue',
+export const MODIFIER_KEYWORDS = newArrayData([TYPE_MODIFIER, ...VALUE_MODIFIERS]);
+export const OPERATOR_KEYWORDS = newArrayData([newTextData('is'), newTextData('as'), newTextData('in')]);
+export const CONTROL_KEYWORDS = newArrayData([
+  newTextData('if'),
+  newTextData('then'),
+  newTextData('else'),
+  newTextData('for'),
+  newTextData('do'),
+  newTextData('while'),
+  newTextData('break'),
+  newTextData('continue'),
   RETURN,
   EXPORT,
-];
+]);
 
-export const REST = '...';
-export const PLUS = '+';
-export const MINUS = '-';
-export const OPTIONAL = '?';
-export const PROMISE = '!';
-export const POW = '^';
-export const MULTIPLY = '*';
-export const DIVIDE = '/';
-export const MOD = '%';
-export const GREAT = '>';
-export const GREAT_EQUALS = '>=';
-export const LESS = '<';
-export const LESS_EQUALS = '<=';
-export const EQUALS = '==';
-export const NOT_EQUALS = '!=';
+export const REST = newTextData('...');
+export const PLUS = newTextData('+');
+export const MINUS = newTextData('-');
+export const OPTIONAL = newTextData('?');
+export const PROMISE = newTextData('!');
+export const POW = newTextData('^');
+export const MULTIPLY = newTextData('*');
+export const DIVIDE = newTextData('/');
+export const MOD = newTextData('%');
+export const GREAT = newTextData('>');
+export const GREAT_EQUALS = newTextData('>=');
+export const LESS = newTextData('<');
+export const LESS_EQUALS = newTextData('<=');
+export const EQUALS = newTextData('==');
+export const NOT_EQUALS = newTextData('!=');
 
-export const OPERATORS_SORTED = [
+export const OPERATORS_SORTED = newArrayData([
   IMPORT,
   MEMBER,
   META_MEMBER,
@@ -122,4 +125,4 @@ export const OPERATORS_SORTED = [
   ...MODIFIER_KEYWORDS,
   ...CONTROL_KEYWORDS,
   ...OPERATOR_KEYWORDS,
-].sort((a, b) => a.length - b.length);
+]).sort((a, b) => a.length() - b.length());

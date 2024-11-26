@@ -10,7 +10,7 @@ export function statementTypescriptTranslate(
 
   const bodyTranslated = statement.body
     .map((node) => translator.statement(node))
-    .join(NL)
+    .join(NL.toString())
     .setPadding(2);
 
   if (bodyTranslated.length > 0) {

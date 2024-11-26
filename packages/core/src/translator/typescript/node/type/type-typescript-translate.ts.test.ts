@@ -1,4 +1,4 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
@@ -8,7 +8,7 @@ import {
 } from '#core';
 
 test('type string', () => {
-  const text = 'const a: "string"';
+  const text = newTextData('const a: "string"');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -20,7 +20,7 @@ test('type string', () => {
 });
 
 test('type integer', () => {
-  const text = 'const a: 123';
+  const text = newTextData('const a: 123');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -32,7 +32,7 @@ test('type integer', () => {
 });
 
 test('type union', () => {
-  const text = 'const a: 123 | "abc" | 1 | "a"';
+  const text = newTextData('const a: 123 | "abc" | 1 | "a"');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -44,7 +44,7 @@ test('type union', () => {
 });
 
 test('type array', () => {
-  const text = 'const a: [1, 2, "abc", "a" | 1 & 2]';
+  const text = newTextData('const a: [1, 2, "abc", "a" | 1 & 2]');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;

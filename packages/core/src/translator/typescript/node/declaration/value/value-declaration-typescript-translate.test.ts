@@ -1,4 +1,4 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
@@ -8,7 +8,7 @@ import {
 } from '#core';
 
 test('type union', () => {
-  const text = 'a: Integer | String';
+  const text = newTextData('a: Integer | String');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -20,7 +20,7 @@ test('type union', () => {
 });
 
 test('type function', () => {
-  const text = 'infix + (a: Integer, b: Integer): Integer';
+  const text = newTextData('infix + (a: Integer, b: Integer): Integer');
   const resource = textResourceFromData(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;

@@ -29,11 +29,11 @@ export type LexicalAnalyzer = {
   getResourceRange(text: TextData): TextReference;
   getResourceRangeWithNL(length: Integer): TextReference;
   getResourceRangeWithNL(text: TextData): TextReference;
-  checkTextAtIndex(text: String2): Boolean2;
-  checkTextAtIndex(text: String2, index: Integer | Nothing): Boolean2;
+  checkTextAtIndex(text: TextData): Boolean2;
+  checkTextAtIndex(text: TextData, index: Integer | Nothing): Boolean2;
 
-  checkTextsAtIndex(text: String2[]): String2 | Nothing;
-  checkTextsAtIndex(text: String2[], index: Integer): String2 | Nothing;
+  // checkTextsAtIndex(text: String2[]): String2 | Nothing;
+  // checkTextsAtIndex(text: String2[], index: Integer): String2 | Nothing;
 };
 
 export function createLexicalAnalyzer(
@@ -74,9 +74,9 @@ export function createLexicalAnalyzer(
       let columnIndent = this.position.column;
 
       for (let i = this.position.index; i < this.position.index + lengthOrText; i++) {
-        const char = this.resource.data.characters[i];
+        const char = this.resource.data.at(i);
 
-        if (char === NL) {
+        if (char?.equals(NL)) {
           nlCount += 1;
           columnIndent = 0;
 
@@ -94,15 +94,15 @@ export function createLexicalAnalyzer(
       return textResourceRange(this.resource, range);
     },
 
-    checkTextAtIndex(text: String2, index?: Integer): Boolean2 {
-      return this.resource.data.take(text.length, index ?? this.position.index).equals(text);
+    checkTextAtIndex(text: TextData, index?: Integer): Boolean2 {
+      return this.resource.data.take(text.length(), index ?? this.position.index).equals(text);
     },
 
-    checkTextsAtIndex(texts: String2[], index?: Integer): String2 | Nothing {
-      const startIndex = index ?? this.position.index;
+    // checkTextsAtIndex(texts: String2[], index?: Integer): String2 | Nothing {
+    //   const startIndex = index ?? this.position.index;
 
-      return texts.find((x) => this.resource.data.take(x.length, startIndex).equals(x));
-    },
+    //   return texts.find((x) => this.resource.data.take(x.length, startIndex).equals(x));
+    // },
   };
 }
 

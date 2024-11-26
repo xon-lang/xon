@@ -7,7 +7,7 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     return nothing;
   }
 
-  const name = node.text.toString();
+  const name = node.text;
   const declaration = analyzer.declarationManager.find($.TypeDeclarationSemantic, name, nothing, nothing);
 
   if (!declaration) {
@@ -16,5 +16,5 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotBeUsedAsAType());
   }
 
-  return idTypeSemantic(analyzer, node, name, declaration);
+  return idTypeSemantic(analyzer, node, name.toString(), declaration);
 }

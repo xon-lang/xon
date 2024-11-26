@@ -1,110 +1,130 @@
-import {topologicalSort} from '#common';
+import {
+  ArrayData,
+  newArrayData,
+  newDictionary,
+  newKeyValue,
+  newTextData,
+  TextData,
+  topologicalSort,
+} from '#common';
 
 test('empty', () => {
-  let dependencies = {};
-
+  const dependencies = newDictionary<TextData, ArrayData<TextData>>();
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(0);
   expect(cycle.length).toBe(0);
 });
 
 test('no dependencies', () => {
-  let dependencies = {
-    A: [],
-  };
+  const dependencies = newDictionary(newArrayData([newKeyValue(newTextData('A'), newArrayData<TextData>())]));
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(1);
-  expect(order[0]).toBe('A');
+  expect(order.at(0)).toBe('A');
 
   expect(cycle.length).toBe(0);
 });
 
 test('non existence', () => {
-  let dependencies = {
-    A: ['B'],
-  };
+  const dependencies = newDictionary(
+    newArrayData([newKeyValue(newTextData('A'), newArrayData([newTextData('B')]))]),
+  );
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(1);
-  expect(order[0]).toBe('A');
+  expect(order.at(0)).toBe('A');
 
   expect(cycle.length).toBe(0);
 });
 
 test('self', () => {
-  let dependencies = {
-    A: ['A'],
-  };
+  const dependencies = newDictionary(
+    newArrayData([newKeyValue(newTextData('A'), newArrayData([newTextData('A')]))]),
+  );
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(0);
 
   expect(cycle.length).toBe(1);
-  expect(cycle[0]).toBe('A');
+  expect(cycle.at(0)).toBe('A');
 });
 
 test('no cycle', () => {
-  let dependencies = {
-    A: [],
-    B: ['A'],
-    C: ['A', 'B'],
-    D: ['F'],
-    E: ['D', 'C'],
-    F: [],
-  };
+  const dependencies = newDictionary(
+    newArrayData([
+      newKeyValue(newTextData('A'), newArrayData<TextData>()),
+      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
+      newKeyValue(newTextData('C'), newArrayData([newTextData('A'), newTextData('B')])),
+      newKeyValue(newTextData('D'), newArrayData([newTextData('F')])),
+      newKeyValue(newTextData('E'), newArrayData([newTextData('D'), newTextData('C')])),
+      newKeyValue(newTextData('F'), newArrayData<TextData>()),
+    ]),
+  );
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(6);
-  expect(order[0]).toBe('A');
-  expect(order[1]).toBe('F');
-  expect(order[2]).toBe('B');
+  expect(order.at(0)).toBe('A');
+  expect(order.at(1)).toBe('F');
+  expect(order.at(2)).toBe('B');
 
   expect(cycle.length).toBe(0);
 });
 
 test('with cycle', () => {
-  let dependencies = {
-    A: [],
-    E: ['D', 'C'],
-    C: ['A', 'B'],
-    B: ['A'],
-    D: ['F'],
-    F: [],
-    G: ['H'],
-    H: ['G'],
-  };
+  const dependencies = newDictionary(
+    newArrayData([
+      newKeyValue(newTextData('A'), newArrayData<TextData>()),
+      newKeyValue(newTextData('E'), newArrayData([newTextData('D'), newTextData('C')])),
+      newKeyValue(newTextData('C'), newArrayData([newTextData('A'), newTextData('B')])),
+      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
+      newKeyValue(newTextData('D'), newArrayData([newTextData('F')])),
+      newKeyValue(newTextData('F'), newArrayData<TextData>()),
+      newKeyValue(newTextData('G'), newArrayData([newTextData('H')])),
+      newKeyValue(newTextData('H'), newArrayData([newTextData('G')])),
+    ]),
+  );
 
-  const {order: order, cycle: cycle} = topologicalSort(dependencies);
+  const {order, cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(6);
-  expect(order[0]).toBe('A');
-  expect(order[1]).toBe('F');
-  expect(order[2]).toBe('B');
+  expect(order.at(0)).toBe('A');
+  expect(order.at(1)).toBe('F');
+  expect(order.at(2)).toBe('B');
 
   expect(cycle.length).toBe(2);
-  expect(cycle[0]).toBe('G');
-  expect(cycle[1]).toBe('H');
+  expect(cycle.at(0)).toBe('G');
+  expect(cycle.at(1)).toBe('H');
 });
 
 test('cycle 2', () => {
-  let dependencies = {A: ['B'], B: ['A'], C: []};
+  const dependencies = newDictionary(
+    newArrayData([
+      newKeyValue(newTextData('A'), newArrayData([newTextData('B')])),
+      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
+      newKeyValue(newTextData('C'), newArrayData<TextData>()),
+    ]),
+  );
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(1);
-  expect(order[0]).toBe('C');
+  expect(order.at(0)).toBe('C');
 
   expect(cycle.length).toBe(2);
-  expect(cycle[0]).toBe('A');
-  expect(cycle[1]).toBe('B');
+  expect(cycle.at(0)).toBe('A');
+  expect(cycle.at(1)).toBe('B');
 });
 
 test('cycle 3', () => {
-  let dependencies = {A: ['A'], B: ['A']};
+  const dependencies = newDictionary(
+    newArrayData([
+      newKeyValue(newTextData('A'), newArrayData([newTextData('A')])),
+      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
+    ]),
+  );
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(0);
 
   expect(cycle.length).toBe(2);
-  expect(cycle[0]).toBe('A');
-  expect(cycle[1]).toBe('B');
+  expect(cycle.at(0)).toBe('A');
+  expect(cycle.at(1)).toBe('B');
 });

@@ -26,10 +26,10 @@ export function memberValueSemanticTryParse(
   if (instanceSemantic && node.id) {
     const attributes = instanceSemantic.type
       ?.attributes()
-      .filterByName($.ValueDeclarationSemantic, node.id.text.toString());
+      .filterByName($.ValueDeclarationSemantic, node.id.text);
 
-    if (attributes && attributes.length === 1) {
-      memberType = attributes[0].type;
+    if (attributes && attributes.length() === 1) {
+      memberType = attributes.at2(0).type;
     } else {
       analyzer.diagnosticManager.addPredefinedDiagnostic(node.id.reference, (x) => x.notImplemented());
     }

@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {DeclarationNode, evaluate, IdNode, LambdaNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('function with no parameters', () => {
-  const text = '(): Integer';
+  const text = newTextData('(): Integer');
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -17,7 +17,7 @@ test('function with no parameters', () => {
 });
 
 test('function with generic', () => {
-  const text = '{T}(): T';
+  const text = newTextData('{T}(): T');
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -32,7 +32,7 @@ test('function with generic', () => {
 });
 
 test('function with generic and parameter', () => {
-  const text = '{T}(a: T): T';
+  const text = newTextData('{T}(a: T): T');
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -51,7 +51,7 @@ test('function with generic and parameter', () => {
 });
 
 test('has argument and value', () => {
-  const text = '(x) = x + 42';
+  const text = newTextData('(x) = x + 42');
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -70,7 +70,7 @@ test('has argument and value', () => {
 });
 
 test('two parameter', () => {
-  const text = '(a, b) = a+b';
+  const text = newTextData('(a, b) = a+b');
   const resource = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;

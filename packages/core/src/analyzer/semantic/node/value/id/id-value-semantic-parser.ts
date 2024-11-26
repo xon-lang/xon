@@ -9,7 +9,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
 
   const declaration = analyzer.declarationManager.find(
     $.ValueDeclarationSemantic,
-    node.text.toString(),
+    node.text,
     nothing,
     nothing,
   );

@@ -1,8 +1,8 @@
-import {Boolean2, Integer, nothing, String2} from '#common';
+import {Boolean2, Integer, nothing, TextData} from '#common';
 import {importNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 import {$, is} from '#typing';
 
-export function importNodeParse(operator: String2, isLeftRecursive: Boolean2): SyntaxParseFn {
+export function importNodeParse(operator: TextData, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (!is(node, $.OperatorNode) || !node.text.equals(operator)) {

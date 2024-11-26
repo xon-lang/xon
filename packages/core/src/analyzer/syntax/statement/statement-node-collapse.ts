@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '#common';
+import {Integer, newArrayData, Nothing, nothing} from '#common';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,
@@ -55,19 +55,19 @@ export type SyntaxParseFn = (
 
 const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
   {min: 2, parse: importNodeParse(IMPORT, false)},
-  {min: 2, parse: memberNodeParse([MEMBER, META_MEMBER])},
+  {min: 2, parse: memberNodeParse(newArrayData([MEMBER, META_MEMBER]))},
   {min: 2, parse: invokeNodeParse()},
-  {min: 2, parse: prefixNodeParse([REST, PLUS, MINUS, PLUS, NOT], true)},
-  {min: 2, parse: postfixNodeParse([OPTIONAL, PROMISE], true)},
-  {min: 3, parse: infixNodeParse([POW], true)},
-  {min: 3, parse: infixNodeParse([MULTIPLY, DIVIDE, MOD], true)},
-  {min: 3, parse: infixNodeParse([PLUS, MINUS], true)},
-  {min: 3, parse: infixNodeParse([RANGE], true)},
-  {min: 3, parse: infixNodeParse([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT], true)},
-  {min: 3, parse: infixNodeParse([EQUALS, NOT_EQUALS], true)},
+  {min: 2, parse: prefixNodeParse(newArrayData([REST, PLUS, MINUS, PLUS, NOT]), true)},
+  {min: 2, parse: postfixNodeParse(newArrayData([OPTIONAL, PROMISE]), true)},
+  {min: 3, parse: infixNodeParse((newArrayData([POW])), true)},
+  {min: 3, parse: infixNodeParse(newArrayData([MULTIPLY, DIVIDE, MOD]), true)},
+  {min: 3, parse: infixNodeParse(newArrayData([PLUS, MINUS]), true)},
+  {min: 3, parse: infixNodeParse(newArrayData([RANGE]), true)},
+  {min: 3, parse: infixNodeParse(newArrayData([LESS, LESS_EQUALS, GREAT_EQUALS, GREAT]), true)},
+  {min: 3, parse: infixNodeParse(newArrayData([EQUALS, NOT_EQUALS]), true)},
   {min: 3, parse: infixNodeParse(OPERATOR_KEYWORDS, true)},
-  {min: 3, parse: infixNodeParse([INTERSECTION], true)},
-  {min: 3, parse: infixNodeParse([UNION, COMPLEMENT], true)},
+  {min: 3, parse: infixNodeParse(newArrayData([INTERSECTION]), true)},
+  {min: 3, parse: infixNodeParse(newArrayData([UNION, COMPLEMENT]), true)},
   {min: 2, parse: prefixNodeParse(MODIFIER_KEYWORDS, false)},
   {min: 2, parse: returnNodeParse(RETURN, false)},
   // todo remove and use another node than 'prefixNodeParse' for 'CONTROL_KEYWORDS'

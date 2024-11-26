@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {InfixNode, IntegerNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('comma', () => {
-  const text = '1';
+  const text = newTextData('1');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -53,9 +53,9 @@ test('comma', () => {
 // });
 
 test('debug 3', () => {
-  const text = `a
+  const text = newTextData(`a
  b
-c`;
+c`);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -68,7 +68,7 @@ c`;
 });
 
 test('debug 4', () => {
-  const text = '  a\n   b\n   b';
+  const text = newTextData('  a\n   b\n   b');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -82,7 +82,7 @@ test('debug 4', () => {
 });
 
 test('multiple expression', () => {
-  const text = '\n  x = 1\n  y = 2\n  z = 3';
+  const text = newTextData('\n  x = 1\n  y = 2\n  z = 3');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

@@ -11,7 +11,7 @@ export function documentationDescriptionNodeParse(
   analyzer: LexicalAnalyzer,
 ): DocumentationDescriptionNode | Nothing {
   const text = analyzer.resource.data.takeWhile(
-    (x, i) => x !== AT && !analyzer.checkTextAtIndex(DOCUMENTATION_CLOSE, i),
+    (x, i) => !x.equals(AT) && !analyzer.checkTextAtIndex(DOCUMENTATION_CLOSE, i),
     analyzer.position.index,
   );
 

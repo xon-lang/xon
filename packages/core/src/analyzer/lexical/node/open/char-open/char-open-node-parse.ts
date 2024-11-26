@@ -1,4 +1,4 @@
-import {Nothing, nothing, textData} from '#common';
+import {newTextData, Nothing, nothing} from '#common';
 import {CHAR_OPEN, CharOpenNode, charOpenNode, LexicalAnalyzer} from '#core';
 
 export function charOpenNodeParse(analyzer: LexicalAnalyzer): CharOpenNode | Nothing {
@@ -6,7 +6,7 @@ export function charOpenNodeParse(analyzer: LexicalAnalyzer): CharOpenNode | Not
     return nothing;
   }
 
-  const text = textData(CHAR_OPEN);
+  const text = newTextData(CHAR_OPEN);
   const reference = analyzer.getResourceRange(text);
 
   return charOpenNode(reference, text);

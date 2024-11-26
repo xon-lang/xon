@@ -1,31 +1,43 @@
-import {Boolean2, Char, Integer, String2, stringToCharacters, TextData, TextRange} from '#common';
-import {NL, Predicate} from '#core';
+import {
+  ArrayData,
+  Boolean2,
+  Char,
+  CharData,
+  Integer,
+  Nothing,
+  Number2,
+  String2,
+  stringToCharDataArray,
+  TextData,
+  TextRange,
+} from '#common';
+import {NL} from '#core';
 import {$, is} from '#typing';
 
-export function textData(characters: Char[]): TextData;
-export function textData(string: String2): TextData;
-export function textData(stringOrCharacters: String2 | Char[]): TextData {
-  const characters =
-    typeof stringOrCharacters === 'string' ? stringToCharacters(stringOrCharacters) : stringOrCharacters;
+export function newTextData(characters: ArrayData<CharData>): TextData;
+export function newTextData(string: String2): TextData;
+export function newTextData(stringOrCharacters: String2 | ArrayData<CharData>): TextData {
+  const array =
+    typeof stringOrCharacters === 'string' ? stringToCharDataArray(stringOrCharacters) : stringOrCharacters;
 
   return {
-    // ...array,
-    characters,
+    ...array,
+
     $: $.TextData,
 
-    slice(rangeOrStartIndex?: TextRange | Integer, stopIndex?: Integer): TextData {
+    slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): TextData {
       if (is(rangeOrStartIndex, $.TextRange)) {
         const {start, stop} = rangeOrStartIndex;
 
-        return textData(this.characters.slice(start.index, stop.index));
+        return newTextData(array.slice(start.index, stop.index));
       }
 
-      return textData(this.characters.slice(rangeOrStartIndex, stopIndex));
+      return newTextData(array.slice(rangeOrStartIndex, stopIndex));
     },
 
     lineText(line: Integer): TextData {
       if (line === 0) {
-        const stopIndex = this.firstIndex(NL);
+        const stopIndex = this.firstItemsIndex(NL);
 
         if (stopIndex < 0) {
           return this.clone();
@@ -37,8 +49,10 @@ export function textData(stringOrCharacters: String2 | Char[]): TextData {
       let startIndex = 0;
       let lineIndex = 0;
 
-      for (let i = 0; i < this.characters.length; i++) {
-        if (this.characters[i] === NL) {
+      for (let i = 0; i < this.length(); i++) {
+        // todo fix it. NL can be more than one character
+        // todo do not use '_string'
+        if (this.at2(i).equals(NL)) {
           if (line === lineIndex) {
             return this.slice(startIndex, i);
           }
@@ -48,83 +62,83 @@ export function textData(stringOrCharacters: String2 | Char[]): TextData {
         }
       }
 
-      return textData([]);
+      return newTextData('');
     },
 
-    firstIndex(data: Char[] | String2 | TextData, startIndex?: Integer): Integer {
-      if (Array.isArray(data)) {
-        return this.characters.firstIndex((_, i, arr) => data.every((z, j) => z === arr[i + j]), startIndex);
-      }
-
-      if (typeof data === 'string') {
-        return this.firstIndex(stringToCharacters(data), startIndex);
-      }
-
-      return this.firstIndex(data.characters, startIndex);
+    addFirst(...items: CharData[]): TextData {
+      return newTextData(array.addFirst(...items));
     },
 
-    lastIndex(data: Char[] | String2 | TextData, startIndex?: Integer): Integer {
-      if (Array.isArray(data)) {
-        return this.characters.lastIndex((_, i, arr) => data.every((z, j) => z === arr[i + j]), startIndex);
-      }
-
-      if (typeof data === 'string') {
-        return this.lastIndex(stringToCharacters(data), startIndex);
-      }
-
-      return this.lastIndex(data.characters, startIndex);
+    addLast(...items: CharData[]): TextData {
+      return newTextData(array.addLast(...items));
     },
 
-    takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): TextData {
-      const characters = this.characters.takeWhile(predicate, startIndex, includeConditionItem);
+    removeFirst(length?: Integer | Nothing): TextData {
+      return newTextData(array.removeFirst(length));
+    },
 
-      return textData(characters);
+    removeLast(length?: Integer | Nothing): TextData {
+      return newTextData(array.removeLast(length));
+    },
+
+    takeWhile(
+      predicate?: (value: CharData, index: Integer) => Boolean2,
+      startIndex?: Integer,
+      includeConditionItem?: Boolean2,
+    ): TextData {
+      return newTextData(array.takeWhile(predicate, startIndex, includeConditionItem));
     },
 
     take(length: Integer, startIndex?: Integer): TextData {
-      const characters = this.characters.take(length, startIndex);
-
-      return textData(characters);
+      return newTextData(array.take(length, startIndex));
     },
 
-    append(stringOrCharacters: String2 | String2[]): TextData {
-      if (Array.isArray(stringOrCharacters)) {
-        this.characters.push(...stringOrCharacters);
-      } else {
-        this.characters.push(...stringToCharacters(stringOrCharacters));
-      }
-
-      return this;
+    sort(compareFn?: (a: CharData, b: CharData) => Number2): TextData {
+      return newTextData(array.sort(compareFn));
     },
 
-    prepend(stringOrCharacters: String2 | String2[]): TextData {
-      if (Array.isArray(stringOrCharacters)) {
-        this.characters.unshift(...stringOrCharacters);
-      } else {
-        this.characters.unshift(...stringToCharacters(stringOrCharacters));
-      }
+    sortBy(select: (item: CharData) => Number2, ascending?: Boolean2): TextData {
+      return newTextData(array.sortBy(select, ascending));
+    },
 
-      return this;
+    setPadding(padding: Integer): TextData {
+      return newTextData(this.toString().setPadding(padding));
+    },
+
+    trim(): TextData {
+      return newTextData(this.toString().trim());
+    },
+
+    repeat(count: Integer): TextData {
+      return newTextData(this.toString().repeat(count));
     },
 
     clone(): TextData {
-      return textData(this.characters);
+      return newTextData(array.clone());
     },
 
-    length(): Integer {
-      return this.characters.length;
-    },
-
-    equals(other: String2 | TextData): Boolean2 {
+    equals(other: TextData | ArrayData<CharData> | String2 | Char[]): Boolean2 {
       if (typeof other === 'string') {
-        return this.characters.join('') === other;
+        return this.toString() === other;
       }
 
-      return this.characters.equals(other.characters);
+      if (Array.isArray(other)) {
+        return this.toString() === other.join('');
+      }
+
+      if (is(other, $.TextData)) {
+        return this.toString() === other.toString();
+      }
+
+      if (is(other, $.ArrayData)) {
+        return this.toString() === other._items.join('');
+      }
+
+      return false;
     },
 
     toString(): String2 {
-      return characters.join('');
+      return this._items.join('');
     },
   };
 }

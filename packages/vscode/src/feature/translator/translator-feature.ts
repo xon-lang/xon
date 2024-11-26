@@ -1,4 +1,4 @@
-import {textResourceFromData} from '#common';
+import {newTextData, textResourceFromData} from '#common';
 import {createTypescriptTranslator, semanticFromResource} from '#core';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
 import * as fs from 'node:fs';
@@ -34,7 +34,7 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
 function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
   try {
     const filepath = document.uri.fsPath;
-    const resource = textResourceFromData(filepath, document.getText());
+    const resource = textResourceFromData(newTextData(filepath), newTextData(document.getText()));
     const semanticAnalyzer = semanticFromResource(resource);
     const translator = createTypescriptTranslator(semanticAnalyzer);
 

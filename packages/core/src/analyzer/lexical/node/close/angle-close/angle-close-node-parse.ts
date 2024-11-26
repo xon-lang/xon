@@ -1,4 +1,4 @@
-import {Nothing, nothing, textData} from '#common';
+import {newTextData, Nothing, nothing} from '#common';
 import {ANGLE_CLOSE, AngleCloseNode, angleCloseNode, LexicalAnalyzer} from '#core';
 
 export function angleCloseNodeParse(analyzer: LexicalAnalyzer): AngleCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function angleCloseNodeParse(analyzer: LexicalAnalyzer): AngleCloseNode |
     return nothing;
   }
 
-  const text = textData(ANGLE_CLOSE);
+  const text = newTextData(ANGLE_CLOSE);
   const reference = analyzer.getResourceRange(text);
 
   return angleCloseNode(reference, text);

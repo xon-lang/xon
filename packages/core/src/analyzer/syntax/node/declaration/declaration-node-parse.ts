@@ -1,6 +1,27 @@
-import { Integer, Nothing, nothing } from "#common";
-import { SyntaxParseFn, SyntaxAnalyzer, Node, StatementNode, partialToDeclaration, OperatorNode, IdNode, GroupNode, TypeNode, AssignNode, nodeFindMap, TYPE, ExpressionNode, typeNode, ASSIGN, assignNode, DocumentationNode, MODIFIER_KEYWORDS, DeclarationNode, TYPE_MODIFIER } from "#core";
-import { is, $, isNonOperatorExpression } from "#typing";
+import {Integer, Nothing, nothing} from '#common';
+import {
+  ASSIGN,
+  AssignNode,
+  assignNode,
+  DeclarationNode,
+  DocumentationNode,
+  ExpressionNode,
+  GroupNode,
+  IdNode,
+  MODIFIER_KEYWORDS,
+  Node,
+  nodeFindMap,
+  OperatorNode,
+  partialToDeclaration,
+  StatementNode,
+  SyntaxAnalyzer,
+  SyntaxParseFn,
+  TYPE,
+  TYPE_MODIFIER,
+  TypeNode,
+  typeNode,
+} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function declarationNodeParse(): SyntaxParseFn {
   return (
@@ -135,7 +156,7 @@ function getHeader(
   | Nothing {
   const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $.DocumentationNode));
 
-  if (is(node, $.PrefixNode) && MODIFIER_KEYWORDS.includes(node.operator.text.toString())) {
+  if (is(node, $.PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {

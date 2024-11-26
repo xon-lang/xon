@@ -1,4 +1,4 @@
-import {Nothing, nothing, textData} from '#common';
+import {newTextData, Nothing, nothing} from '#common';
 import {BRACE_CLOSE, BraceCloseNode, braceCloseNode, LexicalAnalyzer} from '#core';
 
 export function braceCloseNodeParse(analyzer: LexicalAnalyzer): BraceCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function braceCloseNodeParse(analyzer: LexicalAnalyzer): BraceCloseNode |
     return nothing;
   }
 
-  const text = textData(BRACE_CLOSE);
+  const text = newTextData(BRACE_CLOSE);
   const reference = analyzer.getResourceRange(text);
 
   return braceCloseNode(reference, text);

@@ -1,4 +1,4 @@
-import {Nothing, nothing, textData} from '#common';
+import {newTextData, Nothing, nothing} from '#common';
 import {LexicalAnalyzer, PAREN_OPEN, ParenOpenNode, parenOpenNode} from '#core';
 
 export function parenOpenNodeParse(analyzer: LexicalAnalyzer): ParenOpenNode | Nothing {
@@ -6,7 +6,7 @@ export function parenOpenNodeParse(analyzer: LexicalAnalyzer): ParenOpenNode | N
     return nothing;
   }
 
-  const text = textData(PAREN_OPEN);
+  const text = newTextData(PAREN_OPEN);
   const reference = analyzer.getResourceRange(text);
 
   return parenOpenNode(reference, text);

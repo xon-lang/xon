@@ -1,6 +1,15 @@
 // TAKEN FROM: https://github.com/blakeembrey/change-case/blob/main/packages/change-case/src/index.ts
 
-import {Nothing, nothing, String2} from '#common';
+import {
+  Dictionary,
+  newArrayData,
+  newDictionary,
+  newKeyValue,
+  newTextData,
+  nothing,
+  Nothing,
+  TextData,
+} from '#common';
 
 // Regexps involved with splitting words in various case formats.
 const SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;
@@ -259,23 +268,31 @@ function splitPrefixSuffix(input: string, options: Options = {}): [string, strin
   ];
 }
 
-export type CaseFn = (input: string, options?: PascalCaseOptions) => String2;
+export type CaseFn = (input: string, options?: PascalCaseOptions) => string;
 
-export function getCaseFnByName(name: String2): CaseFn | Nothing {
-  const match: Record<String2, CaseFn> = {
-    camel: camelCase,
-    capital: capitalCase,
-    constant: constantCase,
-    dot: dotCase,
-    kebab: kebabCase,
-    no: noCase,
-    pascal: pascalCase,
-    pascalSnake: pascalSnakeCase,
-    path: pathCase,
-    sentence: sentenceCase,
-    snake: snakeCase,
-    train: trainCase,
-  };
+const caseFunctions: Dictionary<TextData, CaseFn> = newDictionary(
+  newArrayData([
+    newKeyValue(newTextData('camel'), camelCase),
+    newKeyValue(newTextData('capital'), capitalCase),
+    newKeyValue(newTextData('constant'), constantCase),
+    newKeyValue(newTextData('dot'), dotCase),
+    newKeyValue(newTextData('kebab'), kebabCase),
+    newKeyValue(newTextData('no'), noCase),
+    newKeyValue(newTextData('pascal'), pascalCase),
+    newKeyValue(newTextData('pascalSnake'), pascalSnakeCase),
+    newKeyValue(newTextData('path'), pathCase),
+    newKeyValue(newTextData('sentence'), sentenceCase),
+    newKeyValue(newTextData('snake'), snakeCase),
+    newKeyValue(newTextData('train'), trainCase),
+  ]),
+);
 
-  return match[name] ?? nothing;
+export function changeTextCase(caseName: TextData, text: TextData): TextData | Nothing {
+  const fn = caseFunctions.get(caseName);
+
+  if (fn) {
+    return newTextData(fn(text.toString()));
+  }
+
+  return nothing;
 }

@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {LexicalNode, MemberNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('member with id instance', () => {
-  const text = 'abc.def';
+  const text = newTextData('abc.def');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -22,7 +22,7 @@ test('member with id instance', () => {
 });
 
 test('member without id', () => {
-  const text = 'abc.';
+  const text = newTextData('abc.');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

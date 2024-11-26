@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2} from '#common';
+import {Boolean2, Nothing, TextData} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -17,10 +17,10 @@ export type ParameterTypeDeclarationSemantic = TypeDeclarationSemantic & {
 export function parameterTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: DeclarationNode,
-  documentation: String2 | Nothing,
+  documentation: TextData | Nothing,
   // todo we always know 'type' modifier
-  modifier: String2 | Nothing,
-  name: String2,
+  modifier: TextData | Nothing,
+  name: TextData,
 ): ParameterTypeDeclarationSemantic {
   return {
     $: $.ParameterTypeDeclarationSemantic,

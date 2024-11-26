@@ -1,9 +1,9 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {evaluate, IdNode, InfixNode, IntegerNode, PrefixNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('several operands with different priorities', () => {
-  const text = '1*1+1+2^5*2/2';
+  const text = newTextData('1*1+1+2^5*2/2');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -16,7 +16,7 @@ test('several operands with different priorities', () => {
 });
 
 test('num plus str', () => {
-  const text = '1  + "str"';
+  const text = newTextData('1  + "str"');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -29,7 +29,7 @@ test('num plus str', () => {
 });
 
 test('num is number', () => {
-  const text = '1 & Number';
+  const text = newTextData('1 & Number');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -43,7 +43,7 @@ test('num is number', () => {
 });
 
 test('equals', () => {
-  const text = 'this.text == 123';
+  const text = newTextData('this.text == 123');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -76,7 +76,7 @@ test('equals', () => {
 // });
 
 test('several operators', () => {
-  const text = '1 /+ 2';
+  const text = newTextData('1 /+ 2');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -94,7 +94,7 @@ test('several operators', () => {
 });
 
 test('range', () => {
-  const text = '0..3';
+  const text = newTextData('0..3');
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

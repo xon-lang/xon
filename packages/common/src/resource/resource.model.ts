@@ -1,7 +1,7 @@
-import {Anything, Nothing, String2} from '#common';
+import {Anything, Nothing, TextData} from '#common';
 import {$Model} from '#typing';
 
 export type Resource<T = Anything> = $Model & {
-  location: String2 | Nothing;
+  location: TextData | Nothing;
   data: T;
 };

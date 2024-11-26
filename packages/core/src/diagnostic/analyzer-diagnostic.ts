@@ -1,4 +1,13 @@
-import {colorText, Integer, Nothing, String2, TerminalColor, TextReference} from '#common';
+import {
+  colorText,
+  Integer,
+  newTextData,
+  Nothing,
+  String2,
+  TerminalColor,
+  TextData,
+  TextReference,
+} from '#common';
 import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export type AnalyzerDiagnosticMessage = {
@@ -32,27 +41,28 @@ export function createDiagnostic(
     tags,
 
     terminalFormat(): String2 {
-      return terminalFormat(this.message.actual, this.reference);
+      return terminalFormat(newTextData(this.message.actual), this.reference);
     },
   };
 }
 
-const cyan = (x: String2): String2 => colorText(x, TerminalColor.FG_CYAN);
-const gray = (x: String2): String2 => colorText(x, TerminalColor.FG_GRAY);
-const red = (x: String2): String2 => colorText(x, TerminalColor.FG_RED);
+const cyan = (x: TextData): TextData => colorText(x, TerminalColor.FG_CYAN);
+const gray = (x: TextData): TextData => colorText(x, TerminalColor.FG_GRAY);
+const red = (x: TextData): TextData => colorText(x, TerminalColor.FG_RED);
 
 // todo rename 'terminalFormat'
-export function terminalFormat(message: String2, {resource, range}: TextReference): String2 {
+export function terminalFormat(message: TextData, {resource, range}: TextReference): String2 {
   const msg = red(message);
   const lineText = resource.data.lineText(range.start.line).toString();
   const nodeText = resource.data.slice(range).toString();
-  const location = cyan(resource.location ?? '<code>');
-  const line = cyan(`:${range.start.line + 1}`);
-  const column = cyan(`:${range.start.column + 1}`);
-  const lineNumberBeforeGrayed = `${range.start.line + 1} | `;
+  const location = cyan(resource.location ?? newTextData('<code>'));
+  const line = cyan(newTextData(`:${range.start.line + 1}`));
+  const column = cyan(newTextData(`:${range.start.column + 1}`));
+  const lineNumberBeforeGrayed = newTextData(`${range.start.line + 1} | `);
   const lineNumber = gray(lineNumberBeforeGrayed);
-  const caret =
-    ' '.repeat(range.start.column + lineNumberBeforeGrayed.length) + red('~'.repeat(nodeText.length));
+  const caret = newTextData(' ')
+    .repeat(range.start.column + lineNumberBeforeGrayed.length())
+    .addLast(...red(newTextData('~').repeat(nodeText.length)));
 
   return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
 }

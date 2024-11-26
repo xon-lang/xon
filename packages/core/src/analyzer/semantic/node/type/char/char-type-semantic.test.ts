@@ -1,4 +1,4 @@
-import {nothing, textResourceFromData} from '#common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   CharTypeSemantic,
@@ -11,16 +11,18 @@ import {
 import {$} from '#typing';
 
 test('a is string value', () => {
-  const text = `
+  const text = newTextData(`
     const a: 'a' = 'a'
-  `;
+  `);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations['a'][0].$).toBe($.AttributeValueDeclarationSemantic);
-  expect(semantic.declarationManager.declarations['a'][0].name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe(
+    $.AttributeValueDeclarationSemantic,
+  );
+  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
@@ -37,8 +39,8 @@ test('a is string value', () => {
 });
 
 test('a is string literal', () => {
-  const text = `
-    const a: 'a`;
+  const text = newTextData(`
+    const a: 'a`);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
@@ -52,9 +54,9 @@ test('a is string literal', () => {
 });
 
 test('emoji', () => {
-  const text = `
+  const text = newTextData(`
     const a: '👩‍❤️‍💋‍👩'
-    const b: '👍'`;
+    const b: '👍'`);
   const source = textResourceFromData(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);

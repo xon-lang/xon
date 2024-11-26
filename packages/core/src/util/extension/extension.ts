@@ -1,4 +1,4 @@
-import {Anything, Boolean2, Char, Integer, Nothing, Number2, String2} from '#common';
+import {Anything, ArrayData, Boolean2, Char, Integer, Nothing, Number2, String2, TextData} from '#common';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}
@@ -39,6 +39,8 @@ interface ArrayExtension<T = Anything> {
 
   equals(other: T[]): Boolean2;
   toDictionary<Key extends String2 | Number2>(select: Select<T, Key>): Record<Key, T>;
+  // todo remove 'toArrayData'
+  toArrayData(): ArrayData<T>;
 }
 
 interface StringExtension {
@@ -56,6 +58,8 @@ interface StringExtension {
   isLetterOrDigit(index: Integer): Boolean2;
   setPadding(padding: Integer): String2;
   equals(other: String2): Boolean2;
+  // todo remove 'toArrayData'
+  toText(): TextData;
 }
 
 export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: T[]) => V;

@@ -1,8 +1,12 @@
-import {Boolean2} from '#common';
+import {Boolean2, String2} from '#common';
 import {$} from '#typing';
 
 export interface $Model {
   $: $;
 
-  // equals(other: this): Boolean2;
+  // todo make non nullable
+  // hash?(): Integer;
+  equals?(other: this): Boolean2;
+  clone?(): this;
+  toString(): String2;
 }

@@ -1,4 +1,4 @@
-import {Nothing, String2, TextRange, TextReference, nothing, zeroRange} from '#common';
+import {Nothing, TextData, TextRange, TextReference, nothing, zeroRange} from '#common';
 import {DeclarationSemantic} from '#core';
 import {$, hasSemantic, is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
@@ -86,7 +86,7 @@ function navigateToUsages(
       continue;
     }
 
-    const uri = Uri.parse(usage.resource.location);
+    const uri = Uri.parse(usage.resource.location.toString());
     const range = convertRange(usage.range);
 
     const link: LocationLink = {
@@ -114,10 +114,10 @@ function navigateToReference(
 
 function navigateToLocation(
   originalRange: TextRange,
-  location: String2,
+  location: TextData,
   sourceRange?: TextRange | Nothing,
 ): ProviderResult<LocationLink[]> {
-  const uri = Uri.parse(location);
+  const uri = Uri.parse(location.toString());
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
 
   return [

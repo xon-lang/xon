@@ -7,11 +7,11 @@ export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
   }
 
   const textWithIndents = analyzer.resource.data.takeWhile(
-    (x) => x === NL || x === SPACE,
+    (x) => x.equals(NL) || x.equals(SPACE),
     analyzer.position.index,
   );
 
-  const lastNlIndex = textWithIndents.lastIndex(NL);
+  const lastNlIndex = textWithIndents.lastItemsIndex(NL);
 
   const text = textWithIndents.slice(0, lastNlIndex + 1);
   const reference = analyzer.getResourceRangeWithNL(text);

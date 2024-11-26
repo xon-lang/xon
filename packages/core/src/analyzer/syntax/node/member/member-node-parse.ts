@@ -1,11 +1,11 @@
-import {Integer, nothing} from '#common';
+import {ArrayData, Integer, nothing, TextData} from '#common';
 import {memberNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 import {$, is, isNonOperatorExpression} from '#typing';
 
-export function memberNodeParse(operators: String[]): SyntaxParseFn {
+export function memberNodeParse(operators: ArrayData<TextData>): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (!is(node, $.OperatorNode) || !operators.includes(node.text.toString())) {
+      if (!is(node, $.OperatorNode) || !operators.hasItem(node.text)) {
         return nothing;
       }
 

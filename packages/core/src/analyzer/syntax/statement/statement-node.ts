@@ -30,6 +30,17 @@ export function statementNode(
     parent: parentStatement,
     value: children[0],
     body: [],
+
+
+    // todo fix equals
+    equals(other) {
+      return false;
+    },
+
+    clone() {
+      // todo fix clone
+      return this;
+    },
   };
 
   children[0].hiddenNodes = [];

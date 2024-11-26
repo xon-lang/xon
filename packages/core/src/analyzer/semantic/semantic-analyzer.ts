@@ -1,4 +1,4 @@
-import {Nothing, nothing, TextResource} from '#common';
+import {newArrayData, Nothing, nothing, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   createDeclarationScope,
@@ -59,7 +59,11 @@ export function createSemanticAnalyzer(
   };
 
   // todo fix it
-  semanticAnalyzer.declarationManager = createDeclarationScope(semanticAnalyzer, nothing, imports);
+  semanticAnalyzer.declarationManager = createDeclarationScope(
+    semanticAnalyzer,
+    nothing,
+    newArrayData(imports),
+  );
 
   statementsParse(semanticAnalyzer, semanticAnalyzer.statements);
 
