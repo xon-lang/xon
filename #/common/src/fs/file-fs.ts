@@ -1,4 +1,4 @@
-import {String2} from '#/common';
+import {String2} from '#common';
 import {Stats} from 'node:fs';
 
 export class FileFs {

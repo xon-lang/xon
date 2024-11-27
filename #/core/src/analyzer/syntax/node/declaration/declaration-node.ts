@@ -4,7 +4,7 @@
 //   StructuralType = 'StructuralType',
 //   ParameterType = 'ParameterType',
 
-import {Nothing} from '#/common';
+import {Nothing} from '#common';
 import {
   AssignNode,
   DocumentationNode,
@@ -15,8 +15,8 @@ import {
   SyntaxNode,
   syntaxNode,
   TypeNode,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 //   // values
 //   AttributeValue = 'AttributeValue',

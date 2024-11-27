@@ -1,4 +1,4 @@
-import {ArrayData, Boolean2, Char, CharData, Integer, Nothing, Number2, String2, TextRange} from '#/common';
+import {ArrayData, Boolean2, Char, CharData, Integer, Nothing, Number2, String2, TextRange} from '#common';
 
 // todo fix it. remove @ts-ignore
 // @ts-ignore

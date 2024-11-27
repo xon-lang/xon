@@ -10,8 +10,8 @@ import {
   newTextData,
   nothing,
   textResourceRange,
-} from '#/common';
-import {$} from '#/typing';
+} from '#common';
+import {$} from '#typing';
 import {readFileSync, statSync} from 'node:fs';
 
 export function textResourceFromData(location: TextData | Nothing, data: TextData): TextResource {

@@ -1,12 +1,12 @@
-import {changeTextCase, kebabCase, newTextData, nothing} from '#/common';
-import {$, is} from '#/typing';
+import {changeTextCase, kebabCase, newTextData, nothing} from '#common';
+import {$, is} from '#typing';
 import {
   EXTENSION_CONFIG,
   FILE_EXTENSION,
   LANGUAGE_NAME,
   convertVscodePosition,
   getDocumentSemantic,
-} from '#/vscode';
+} from '#vscode';
 import {dirname} from 'path';
 import {
   CancellationToken,

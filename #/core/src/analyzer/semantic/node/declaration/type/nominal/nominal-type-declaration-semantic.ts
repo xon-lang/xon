@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, TextData} from '#/common';
+import {Boolean2, Nothing, TextData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createDeclarationScope,
@@ -9,8 +9,8 @@ import {
   TypeDeclarationSemantic,
   TypeSemantic,
   unknownTypeSemantic,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;

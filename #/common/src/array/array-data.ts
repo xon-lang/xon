@@ -1,5 +1,5 @@
-import {Anything, Boolean2, Dictionary, Integer, Nothing, Number2, String2} from '#/common';
-import {$Model} from '#/typing';
+import {Anything, Boolean2, Dictionary, Integer, Nothing, Number2, String2} from '#common';
+import {$Model} from '#typing';
 
 export interface ArrayData<T = Anything> extends $Model, Iterable<T> {
   _items: T[];

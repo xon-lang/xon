@@ -1,6 +1,6 @@
-import {TextData} from '#/common';
-import {Node} from '#/core';
-import {$} from '#/typing';
+import {TextData} from '#common';
+import {Node} from '#core';
+import {$} from '#typing';
 
 export type LexicalNode<T extends $ = $> = Node<T> & {
   text: TextData;

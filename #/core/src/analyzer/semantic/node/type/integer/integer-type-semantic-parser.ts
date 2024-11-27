@@ -1,6 +1,6 @@
-import {Nothing, nothing} from '#/common';
-import {IntegerNode, IntegerTypeSemantic, integerTypeSemantic, Node, SemanticAnalyzer} from '#/core';
-import {$, is} from '#/typing';
+import {Nothing, nothing} from '#common';
+import {IntegerNode, IntegerTypeSemantic, integerTypeSemantic, Node, SemanticAnalyzer} from '#core';
+import {$, is} from '#typing';
 
 export function integerTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

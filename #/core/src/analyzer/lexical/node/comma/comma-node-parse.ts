@@ -1,5 +1,5 @@
-import {newTextData, Nothing, nothing} from '#/common';
-import {COMMA, CommaNode, commaNode, LexicalAnalyzer} from '#/core';
+import {newTextData, Nothing, nothing} from '#common';
+import {COMMA, CommaNode, commaNode, LexicalAnalyzer} from '#core';
 
 export function commaNodeParse(analyzer: LexicalAnalyzer): CommaNode | Nothing {
   if (!analyzer.checkTextAtIndex(COMMA)) {

@@ -1,5 +1,5 @@
-import {Boolean2, KeyValue, String2} from '#/common';
-import {$} from '#/typing';
+import {Boolean2, KeyValue, String2} from '#common';
+import {$} from '#typing';
 
 export function newKeyValue<K, V>(key: K, value: V): KeyValue<K, V> {
   return {

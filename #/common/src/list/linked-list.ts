@@ -1,4 +1,4 @@
-import {Nothing} from '#/common';
+import {Nothing} from '#common';
 
 export type LinkedListNode<T> = {
   data: T;

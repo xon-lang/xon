@@ -1,6 +1,6 @@
-import {Boolean2} from '#/common';
-import {TypeSemantic} from '#/core';
-import {$, is} from '#/typing';
+import {Boolean2} from '#common';
+import {TypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export type SetTypeSemantic = TypeSemantic;
 

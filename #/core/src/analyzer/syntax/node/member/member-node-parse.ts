@@ -1,6 +1,6 @@
-import {ArrayData, Integer, nothing, TextData} from '#/common';
-import {memberNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#/core';
-import {$, is, isNonOperatorExpression} from '#/typing';
+import {ArrayData, Integer, nothing, TextData} from '#common';
+import {memberNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function memberNodeParse(operators: ArrayData<TextData>): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

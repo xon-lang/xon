@@ -1,6 +1,6 @@
-import {ArrayData, Boolean2, Integer, nothing, TextData} from '#/common';
-import {infixNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#/core';
-import {$, is, isNonOperatorExpression} from '#/typing';
+import {ArrayData, Boolean2, Integer, nothing, TextData} from '#common';
+import {infixNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function infixNodeParse(operators: ArrayData<TextData>, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

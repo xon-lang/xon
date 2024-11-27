@@ -1,5 +1,5 @@
-import {Boolean2, Integer} from '#/common';
-import {$Model} from '#/typing';
+import {Boolean2, Integer} from '#common';
+import {$Model} from '#typing';
 
 // todo is MinMax a vector ???
 export type MinMax = $Model & {

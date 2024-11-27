@@ -1,4 +1,4 @@
-import {Boolean2, Nothing} from '#/common';
+import {Boolean2, Nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   DeclarationScope,
@@ -7,8 +7,8 @@ import {
   SemanticAnalyzer,
   TypeSemantic,
   isInSet,
-} from '#/core';
-import {$, is, isSetOperatorTypeSemantic} from '#/typing';
+} from '#core';
+import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 export type ArrayTypeSemantic = TypeSemantic & {
   $: $.ArrayTypeSemantic;

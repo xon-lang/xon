@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {CharNode, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {CharNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('char content', () => {
   const text = newTextData("'a'");

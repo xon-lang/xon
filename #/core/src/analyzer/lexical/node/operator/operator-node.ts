@@ -1,4 +1,4 @@
-import {Nothing, TextData, TextReference} from '#/common';
+import {Nothing, TextData, TextReference} from '#common';
 import {
   CONTROL_KEYWORDS,
   ExpressionNode,
@@ -6,8 +6,8 @@ import {
   lexicalNode,
   MODIFIER_KEYWORDS,
   OPERATOR_KEYWORDS,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 export enum KeywordType {
   OPERATOR = 'OPERATOR',

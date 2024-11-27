@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {IdNode, JOINING, LexicalNode, MemberNode, OperatorNode, syntaxFromResource} from '#/core';
-import {$, is} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {IdNode, JOINING, LexicalNode, MemberNode, OperatorNode, syntaxFromResource} from '#core';
+import {$, is} from '#typing';
 
 test('no space', () => {
   const text = newTextData('abc~.def');

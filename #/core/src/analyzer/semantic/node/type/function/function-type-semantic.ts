@@ -1,4 +1,4 @@
-import {Boolean2} from '#/common';
+import {Boolean2} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   DeclarationScope,
@@ -8,8 +8,8 @@ import {
   SemanticAnalyzer,
   TypeSemantic,
   isInSet,
-} from '#/core';
-import {$, isSetOperatorTypeSemantic} from '#/typing';
+} from '#core';
+import {$, isSetOperatorTypeSemantic} from '#typing';
 
 export type FunctionTypeSemantic = TypeSemantic & {
   $: $.FunctionTypeSemantic;

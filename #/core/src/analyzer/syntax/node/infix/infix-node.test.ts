@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {evaluate, IdNode, InfixNode, IntegerNode, PrefixNode, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {evaluate, IdNode, InfixNode, IntegerNode, PrefixNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('several operands with different priorities', () => {
   const text = newTextData('1*1+1+2^5*2/2');

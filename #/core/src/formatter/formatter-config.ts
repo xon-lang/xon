@@ -1,4 +1,4 @@
-import {Boolean2, Integer} from '#/common';
+import {Boolean2, Integer} from '#common';
 
 export type FormatterConfig = {
   insertFinalNewline: Boolean2;

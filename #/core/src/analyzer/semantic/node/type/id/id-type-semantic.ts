@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2} from '#/common';
+import {Boolean2, Nothing, String2} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   DeclarationScope,
@@ -8,8 +8,8 @@ import {
   TypeSemantic,
   createDeclarationScope,
   isInSet,
-} from '#/core';
-import {$, is, isSetOperatorTypeSemantic} from '#/typing';
+} from '#core';
+import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 export type IdTypeSemantic = TypeSemantic & {
   $: $.IdTypeSemantic;

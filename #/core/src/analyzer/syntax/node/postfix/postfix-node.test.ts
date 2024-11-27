@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {PostfixNode, evaluate, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {PostfixNode, evaluate, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('after integer', () => {
   const text = newTextData('1!');

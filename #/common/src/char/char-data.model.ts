@@ -1,5 +1,5 @@
-import {Boolean2, String2, TextData} from '#/common';
-import {$, $Model} from '#/typing';
+import {Boolean2, String2, TextData} from '#common';
+import {$, $Model} from '#typing';
 
 export interface CharData extends $Model {
   $: $.CharData;

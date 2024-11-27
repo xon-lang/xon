@@ -1,5 +1,5 @@
-import {Boolean2, TextData, TextRange, TextReference, TextResource} from '#/common';
-import {$} from '#/typing';
+import {Boolean2, TextData, TextRange, TextReference, TextResource} from '#common';
+import {$} from '#typing';
 
 export function textResourceRange(resource: TextResource, range: TextRange): TextReference {
   return {

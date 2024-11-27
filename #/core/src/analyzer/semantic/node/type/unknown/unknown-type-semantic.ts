@@ -1,4 +1,4 @@
-import {Boolean2, Nothing} from '#/common';
+import {Boolean2, Nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   DeclarationScope,
@@ -8,8 +8,8 @@ import {
   TypeSemantic,
   createDeclarationScope,
   isInSet,
-} from '#/core';
-import {$, is, isSetOperatorTypeSemantic} from '#/typing';
+} from '#core';
+import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 // todo use something instead of unknown ???
 // todo one Unknown doesn't equals other unknown

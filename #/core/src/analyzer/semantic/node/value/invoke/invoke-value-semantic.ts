@@ -1,5 +1,5 @@
-import {Node, TypeSemantic, ValueSemantic} from '#/core';
-import {$} from '#/typing';
+import {Node, TypeSemantic, ValueSemantic} from '#core';
+import {$} from '#typing';
 
 export type InvokeValueSemantic = ValueSemantic<$.InvokeValueSemantic>;
 

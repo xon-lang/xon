@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#/common';
-import {IntegerContentNode, LexicalAnalyzer, UNDERSCORE, integerContentNode} from '#/core';
+import {Nothing, nothing} from '#common';
+import {IntegerContentNode, LexicalAnalyzer, UNDERSCORE, integerContentNode} from '#core';
 
 export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerContentNode | Nothing {
   //todo simplify it

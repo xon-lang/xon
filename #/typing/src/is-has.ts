@@ -1,7 +1,7 @@
-import type {Boolean2, Nothing} from '#/common';
-import type {ExpressionNode, Node, Semantic} from '#/core';
-import type {TypeMap} from '#/typing';
-import {$} from '#/typing';
+import type {Boolean2, Nothing} from '#common';
+import type {ExpressionNode, Node, Semantic} from '#core';
+import type {TypeMap} from '#typing';
+import {$} from '#typing';
 
 export function is<T extends $>(model: any, $: T): model is TypeMap[T] {
   if (model && typeof model === 'object' && '$' in model && typeof model['$'] === 'string') {

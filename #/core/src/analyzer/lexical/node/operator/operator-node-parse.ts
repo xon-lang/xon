@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#/common';
+import {newTextData, Nothing, nothing} from '#common';
 import {
   AFFIX_MODIFIERS,
   idNode,
@@ -7,7 +7,7 @@ import {
   LexicalNode,
   operatorNode,
   OPERATORS_SORTED,
-} from '#/core';
+} from '#core';
 
 export function operatorNodeParse(analyzer: LexicalAnalyzer): LexicalNode | Nothing {
   const operator = OPERATORS_SORTED.last((x) => analyzer.checkTextAtIndex(x));

@@ -1,5 +1,5 @@
-import {Boolean2} from '#/common';
-import {$Model} from '#/typing';
+import {Boolean2} from '#common';
+import {$Model} from '#typing';
 
 export type KeyValue<K = unknown, V = unknown> = $Model & {
   key: K;

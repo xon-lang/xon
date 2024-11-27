@@ -1,4 +1,4 @@
-import {nothing} from '#/common';
+import {nothing} from '#common';
 import {
   SemanticAnalyzer,
   StatementNode,
@@ -6,8 +6,8 @@ import {
   returnStatementSemanticParse,
   statementDeclarationsParse,
   valueSemanticParse,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function statementsParse(analyzer: SemanticAnalyzer, statements: StatementNode[]): void {
   if (statements.length === 0) {

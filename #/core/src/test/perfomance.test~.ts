@@ -1,5 +1,5 @@
-import {Anything, newTextData, performanceIterations, String2, textResourceFromLocation} from '#/common';
-import {syntaxFromResource} from '#/core';
+import {Anything, newTextData, performanceIterations, String2, textResourceFromLocation} from '#common';
+import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 

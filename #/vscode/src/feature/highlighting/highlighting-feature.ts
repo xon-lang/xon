@@ -1,4 +1,4 @@
-import {LANGUAGE_NAME} from '#/vscode';
+import {LANGUAGE_NAME} from '#vscode';
 import {
   CancellationToken,
   DocumentSemanticTokensProvider,

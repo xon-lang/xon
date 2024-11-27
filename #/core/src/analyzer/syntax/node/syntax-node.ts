@@ -1,6 +1,6 @@
-import {Anything, Boolean2, String2, nothing, rangeFromNodes, textResourceRange} from '#/common';
-import {Node, SyntaxAnalyzer} from '#/core';
-import {$, is} from '#/typing';
+import {Anything, Boolean2, String2, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {Node, SyntaxAnalyzer} from '#core';
+import {$, is} from '#typing';
 
 export type SyntaxNode<T extends $ = $> = Node<T> & {
   children: Node[];

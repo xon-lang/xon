@@ -1,6 +1,6 @@
-import {String2} from '#/common';
-import {TypescriptTranslator, TypeSemantic} from '#/core';
-import {$, is} from '#/typing';
+import {String2} from '#common';
+import {TypescriptTranslator, TypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): String2 {
   if (is(semantic, $.IntegerTypeSemantic)) {

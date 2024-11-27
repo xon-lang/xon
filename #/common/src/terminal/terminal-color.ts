@@ -1,4 +1,4 @@
-import {newTextData, TextData} from '#/common';
+import {newTextData, TextData} from '#common';
 
 export enum TerminalColor {
   RESET = '\x1b[0m',

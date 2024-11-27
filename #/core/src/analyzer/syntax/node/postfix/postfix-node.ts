@@ -1,5 +1,5 @@
-import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#/core';
-import {$} from '#/typing';
+import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 export type PostfixNode = SyntaxNode<$.PostfixNode> &
   ExpressionNode & {

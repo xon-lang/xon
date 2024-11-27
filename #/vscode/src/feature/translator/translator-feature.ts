@@ -1,6 +1,6 @@
-import {newTextData, textResourceFromData} from '#/common';
-import {createTypescriptTranslator, semanticFromResource} from '#/core';
-import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#/vscode';
+import {newTextData, textResourceFromData} from '#common';
+import {createTypescriptTranslator, semanticFromResource} from '#core';
+import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';

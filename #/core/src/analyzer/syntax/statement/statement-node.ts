@@ -1,6 +1,6 @@
-import {Boolean2, Integer, Nothing, TextRange, rangeFromNodes, textResourceRange} from '#/common';
-import {Node, SyntaxAnalyzer, SyntaxNode, statementNodeCollapse} from '#/core';
-import {$} from '#/typing';
+import {Boolean2, Integer, Nothing, TextRange, rangeFromNodes, textResourceRange} from '#common';
+import {Node, SyntaxAnalyzer, SyntaxNode, statementNodeCollapse} from '#core';
+import {$} from '#typing';
 
 export type StatementNode = SyntaxNode<$.StatementNode> & {
   parent: StatementNode | Nothing;

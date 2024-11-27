@@ -1,12 +1,12 @@
-import {Integer, nothing, Nothing} from '#/common';
-import {AttributeValueDeclarationSemantic, DeclarationSemantic, IdNode, InvokeNode, Node} from '#/core';
-import {$, hasSemantic, is} from '#/typing';
+import {Integer, nothing, Nothing} from '#common';
+import {AttributeValueDeclarationSemantic, DeclarationSemantic, IdNode, InvokeNode, Node} from '#core';
+import {$, hasSemantic, is} from '#typing';
 import {
   convertVscodePosition,
   declarationSemanticHeaderToString,
   getDocumentSemantic,
   LANGUAGE_NAME,
-} from '#/vscode';
+} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,

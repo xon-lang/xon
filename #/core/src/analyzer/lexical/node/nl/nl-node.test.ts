@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('lf nl', () => {
   const text = newTextData('\n');

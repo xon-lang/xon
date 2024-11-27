@@ -1,6 +1,6 @@
-import {Integer, Nothing, rangeFromNodes, textResourceRange} from '#/common';
-import {CommaNode, Node, StatementNode, SyntaxAnalyzer, SyntaxNode} from '#/core';
-import {$} from '#/typing';
+import {Integer, Nothing, rangeFromNodes, textResourceRange} from '#common';
+import {CommaNode, Node, StatementNode, SyntaxAnalyzer, SyntaxNode} from '#core';
+import {$} from '#typing';
 
 export type ItemNode = SyntaxNode<$.ItemNode> & {
   index: Integer;

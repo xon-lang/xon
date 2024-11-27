@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#/common';
-import {LexicalAnalyzer, NL, NlNode, SPACE, nlNode} from '#/core';
+import {Nothing, nothing} from '#common';
+import {LexicalAnalyzer, NL, NlNode, SPACE, nlNode} from '#core';
 
 export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
   if (!analyzer.checkTextAtIndex(NL)) {

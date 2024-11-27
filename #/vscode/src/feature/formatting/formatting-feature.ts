@@ -1,5 +1,5 @@
-import {FormatterItem} from '#/core';
-import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#/vscode';
+import {FormatterItem} from '#core';
+import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   CancellationToken,
   DocumentFormattingEditProvider,

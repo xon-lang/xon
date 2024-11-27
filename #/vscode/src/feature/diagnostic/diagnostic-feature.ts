@@ -1,5 +1,5 @@
-import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#/core';
-import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#/vscode';
+import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
+import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   Diagnostic,
   DiagnosticCollection,

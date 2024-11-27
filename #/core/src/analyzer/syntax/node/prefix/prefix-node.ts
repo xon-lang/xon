@@ -1,5 +1,5 @@
-import {ASSIGN, ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode, TYPE} from '#/core';
-import {$} from '#/typing';
+import {ASSIGN, ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode, TYPE} from '#core';
+import {$} from '#typing';
 
 export type PrefixNode = SyntaxNode<$.PrefixNode> &
   ExpressionNode & {

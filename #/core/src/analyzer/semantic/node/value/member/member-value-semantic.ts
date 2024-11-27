@@ -1,6 +1,6 @@
-import {Nothing, String2} from '#/common';
-import {Node, TypeSemantic, ValueSemantic} from '#/core';
-import {$} from '#/typing';
+import {Nothing, String2} from '#common';
+import {Node, TypeSemantic, ValueSemantic} from '#core';
+import {$} from '#typing';
 
 export type MemberValueSemantic = ValueSemantic<$.MemberValueSemantic> & {
   instance: ValueSemantic;

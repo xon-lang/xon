@@ -1,5 +1,5 @@
-import {ArrayData, Boolean2, Integer, KeyValue, Nothing, Number2, String2} from '#/common';
-import {$Model} from '#/typing';
+import {ArrayData, Boolean2, Integer, KeyValue, Nothing, Number2, String2} from '#common';
+import {$Model} from '#typing';
 
 // @ts-ignore
 export interface Dictionary<K extends $Model = $Model, V = unknown> extends ArrayData<KeyValue<K, V>> {

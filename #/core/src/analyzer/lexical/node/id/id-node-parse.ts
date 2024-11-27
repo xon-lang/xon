@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#/common';
-import {IdNode, LexicalAnalyzer, UNDERSCORE, idNode} from '#/core';
+import {Nothing, nothing} from '#common';
+import {IdNode, LexicalAnalyzer, UNDERSCORE, idNode} from '#core';
 
 export function idNodeParse(analyzer: LexicalAnalyzer): IdNode | Nothing {
   if (

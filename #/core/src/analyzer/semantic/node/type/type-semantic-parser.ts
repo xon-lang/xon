@@ -1,4 +1,4 @@
-import {Nothing} from '#/common';
+import {Nothing} from '#common';
 import {
   ExpressionNode,
   Node,
@@ -18,7 +18,7 @@ import {
   stringTypeSemanticTryParse,
   unionTypeSemanticTryParse,
   unknownTypeSemantic,
-} from '#/core';
+} from '#core';
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 

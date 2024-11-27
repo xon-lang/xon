@@ -1,10 +1,5 @@
-import {nothing, String2, TextReference} from '#/common';
-import {
-  AnalyzerDiagnostic,
-  AnalyzerDiagnosticSeverity,
-  AnalyzerDiagnosticTag,
-  createDiagnostic,
-} from '#/core';
+import {nothing, String2, TextReference} from '#common';
+import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
 export function predefinedDiagnostics(reference: TextReference) {
   return {

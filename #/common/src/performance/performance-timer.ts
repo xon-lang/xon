@@ -1,4 +1,4 @@
-import {Anything, Integer, String2} from '#/common';
+import {Anything, Integer, String2} from '#common';
 
 export function performanceTimer(name: String2) {
   const start = performance.now();

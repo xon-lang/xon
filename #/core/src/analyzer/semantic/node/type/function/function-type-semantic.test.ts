@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -6,8 +6,8 @@ import {
   FunctionTypeSemantic,
   ParameterValueDeclarationSemantic,
   syntaxFromResource,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 test('a is function', () => {
   const text = newTextData(`

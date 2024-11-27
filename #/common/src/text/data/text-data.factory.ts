@@ -11,8 +11,8 @@ import {
   stringToCharDataArray,
   TextData,
   TextRange,
-} from '#/common';
-import {$, is} from '#/typing';
+} from '#common';
+import {$, is} from '#typing';
 
 const NL = newTextData('\n');
 

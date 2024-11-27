@@ -1,4 +1,4 @@
-import {Anything, ArrayData, Boolean2, Char, Integer, Nothing, Number2, String2, TextData} from '#/common';
+import {Anything, ArrayData, Boolean2, Char, Integer, Nothing, Number2, String2, TextData} from '#common';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}

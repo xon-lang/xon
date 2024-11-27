@@ -12,8 +12,8 @@ import {
   nothing,
   Number2,
   String2,
-} from '#/common';
-import {$, $Model, is} from '#/typing';
+} from '#common';
+import {$, $Model, is} from '#typing';
 
 export function newArrayData<T>(array: T[] = []): ArrayData<T> {
   return {

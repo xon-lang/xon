@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#/common';
-import {AT, DocumentationLabelNode, documentationLabelNode, LexicalAnalyzer} from '#/core';
+import {Nothing, nothing} from '#common';
+import {AT, DocumentationLabelNode, documentationLabelNode, LexicalAnalyzer} from '#core';
 
 export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): DocumentationLabelNode | Nothing {
   if (!analyzer.checkTextAtIndex(AT)) {

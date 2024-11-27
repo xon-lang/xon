@@ -1,6 +1,6 @@
-import {Nothing, nothing} from '#/common';
-import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#/core';
-import {$} from '#/typing';
+import {Nothing, nothing} from '#common';
+import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 export type ReturnNode = SyntaxNode<$.ReturnNode> & {
   semantic: Nothing;

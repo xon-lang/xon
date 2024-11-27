@@ -1,4 +1,4 @@
-import {Integer, Nothing, newArrayData, nothing} from '#/common';
+import {Integer, Nothing, newArrayData, nothing} from '#common';
 import {
   COMPLEMENT,
   CONTROL_KEYWORDS,
@@ -42,8 +42,8 @@ import {
   postfixNodeParse,
   prefixNodeParse,
   returnNodeParse,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (

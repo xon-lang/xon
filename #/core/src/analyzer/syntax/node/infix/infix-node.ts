@@ -1,5 +1,5 @@
-import {ExpressionNode, OperatorNode, RANGE, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#/core';
-import {$} from '#/typing';
+import {ExpressionNode, OperatorNode, RANGE, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 export type InfixNode = SyntaxNode<$.InfixNode> &
   ExpressionNode & {

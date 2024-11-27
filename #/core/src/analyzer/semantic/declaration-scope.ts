@@ -8,9 +8,9 @@ import {
   newDictionary,
   newTextData,
   nothing,
-} from '#/common';
-import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#/core';
-import {$, $Model, TypeMap, is} from '#/typing';
+} from '#common';
+import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
+import {$, $Model, TypeMap, is} from '#typing';
 
 export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = $Model & {
   imports: ArrayData<DeclarationScope> | Nothing;

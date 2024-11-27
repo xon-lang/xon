@@ -1,4 +1,4 @@
-import {Nothing, String2} from '#/common';
+import {Nothing, String2} from '#common';
 import {
   DocumentationCloseNode,
   DocumentationDescriptionNode,
@@ -7,8 +7,8 @@ import {
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 export type DocumentationNode = SyntaxNode<$.DocumentationNode> & {
   open: DocumentationOpenNode;

@@ -1,4 +1,4 @@
-import {ArrayData, Dictionary, newArrayData, newTextData, TextData} from '#/common';
+import {ArrayData, Dictionary, newArrayData, newTextData, TextData} from '#common';
 
 export function topologicalSort(dependencies: Dictionary<TextData, ArrayData<TextData>>): {
   order: ArrayData<TextData>;

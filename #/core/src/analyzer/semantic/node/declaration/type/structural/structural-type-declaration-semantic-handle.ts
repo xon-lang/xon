@@ -6,7 +6,7 @@ import {
   StructuralTypeDeclarationSemantic,
   typeSemanticParse,
   unknownTypeSemantic,
-} from '#/core';
+} from '#core';
 
 export function structuralTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

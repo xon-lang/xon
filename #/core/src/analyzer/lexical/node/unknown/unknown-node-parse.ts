@@ -1,4 +1,4 @@
-import {LexicalAnalyzer, UnknownNode, unknownNode} from '#/core';
+import {LexicalAnalyzer, UnknownNode, unknownNode} from '#core';
 
 export function unknownNodeParse(analyzer: LexicalAnalyzer): UnknownNode {
   const text = analyzer.resource.data.slice(analyzer.position.index, analyzer.position.index + 1);

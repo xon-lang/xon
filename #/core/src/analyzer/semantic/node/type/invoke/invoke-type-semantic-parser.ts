@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   InvokeTypeSemantic,
   invokeTypeSemantic,
@@ -6,8 +6,8 @@ import {
   SemanticAnalyzer,
   typeSemanticParse,
   unknownTypeSemantic,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function invokeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

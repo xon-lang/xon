@@ -1,5 +1,5 @@
-import {Nothing, nothing, TextRange} from '#/common';
-import {constructStatementNode, Node, StatementNode, SyntaxAnalyzer} from '#/core';
+import {Nothing, nothing, TextRange} from '#common';
+import {constructStatementNode, Node, StatementNode, SyntaxAnalyzer} from '#core';
 
 export function putStatementNode(
   analyzer: SyntaxAnalyzer,

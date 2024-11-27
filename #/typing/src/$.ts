@@ -9,7 +9,7 @@ import type {
   TextRange,
   TextReference,
   TextResource,
-} from '#/common';
+} from '#common';
 import type {
   AngleCloseNode,
   AngleGroupNode,
@@ -106,8 +106,8 @@ import type {
   ValueDeclarationSemantic,
   ValueSemantic,
   WhitespaceNode,
-} from '#/core';
-import type {$Model} from '#/typing';
+} from '#core';
+import type {$Model} from '#typing';
 
 export enum $ {
   $Model = ' $Model ',

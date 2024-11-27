@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   FunctionTypeSemantic,
@@ -6,8 +6,8 @@ import {
   ParameterValueDeclarationSemantic,
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 test('only a', () => {
   const text = newTextData('infix + (a: Integer, b: String): String ');

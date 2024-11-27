@@ -6,7 +6,7 @@ import {
   String2,
   TextData,
   textResourceFromLocation,
-} from '#/common';
+} from '#common';
 import {
   createSemanticAnalyzer,
   DeclarationScope,
@@ -16,8 +16,8 @@ import {
   SemanticAnalyzer,
   syntaxFromResource,
   unknownTypeSemantic,
-} from '#/core';
-import {libDir} from '#/xon-lib';
+} from '#core';
+import {libDir} from '#xon-lib';
 import {dirname, join} from 'node:path';
 
 const LIB_FOLDER = libDir();

@@ -1,11 +1,11 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
   ValueDeclarationSemantic,
-} from '#/core';
+} from '#core';
 
 test('type string', () => {
   const text = newTextData('const a: "string"');

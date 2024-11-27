@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   MemberValueSemantic,
   Node,
@@ -7,8 +7,8 @@ import {
   memberValueSemantic,
   unknownTypeSemantic,
   valueSemanticParse,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function memberValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

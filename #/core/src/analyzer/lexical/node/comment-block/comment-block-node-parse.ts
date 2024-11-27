@@ -1,11 +1,11 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   COMMENT_BLOCK_CLOSE,
   COMMENT_BLOCK_OPEN,
   CommentBlockNode,
   commentBlockNode,
   LexicalAnalyzer,
-} from '#/core';
+} from '#core';
 
 export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNode | Nothing {
   if (!analyzer.checkTextAtIndex(COMMENT_BLOCK_OPEN)) {

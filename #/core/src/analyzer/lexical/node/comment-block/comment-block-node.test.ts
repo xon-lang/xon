@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {CommentBlockNode, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {CommentBlockNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('block comment', () => {
   const text = newTextData('--- abc\n\n\n def---');

@@ -1,11 +1,11 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   AT,
   DOCUMENTATION_CLOSE,
   DocumentationDescriptionNode,
   documentationDescriptionNode,
   LexicalAnalyzer,
-} from '#/core';
+} from '#core';
 
 export function documentationDescriptionNodeParse(
   analyzer: LexicalAnalyzer,

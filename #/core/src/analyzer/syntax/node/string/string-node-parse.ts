@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   StringCloseNode,
   StringContentNode,
@@ -7,8 +7,8 @@ import {
   SyntaxAnalyzer,
   stringLexicalParsers,
   stringNode,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function stringNodeParse(analyzer: SyntaxAnalyzer, openNode: StringOpenNode): StringNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(stringLexicalParsers());

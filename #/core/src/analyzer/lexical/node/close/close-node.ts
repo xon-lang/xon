@@ -1,5 +1,5 @@
-import {LexicalNode} from '#/core';
-import {$} from '#/typing';
+import {LexicalNode} from '#core';
+import {$} from '#typing';
 
 export type CloseNodeType =
   | $.ParenCloseNode

@@ -1,5 +1,5 @@
-import {newTextData, Nothing, nothing} from '#/common';
-import {ANGLE_CLOSE, AngleCloseNode, angleCloseNode, LexicalAnalyzer} from '#/core';
+import {newTextData, Nothing, nothing} from '#common';
+import {ANGLE_CLOSE, AngleCloseNode, angleCloseNode, LexicalAnalyzer} from '#core';
 
 export function angleCloseNodeParse(analyzer: LexicalAnalyzer): AngleCloseNode | Nothing {
   if (!analyzer.checkTextAtIndex(ANGLE_CLOSE)) {

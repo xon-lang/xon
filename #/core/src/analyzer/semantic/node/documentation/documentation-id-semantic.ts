@@ -1,5 +1,5 @@
-import {DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#/core';
-import {$} from '#/typing';
+import {DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#core';
+import {$} from '#typing';
 
 export type DocumentationIdSemantic = Semantic & {
   $: $.DocumentationIdSemantic;

@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   Node,
   SemanticAnalyzer,
@@ -6,8 +6,8 @@ import {
   StringValueSemantic,
   stringTypeSemanticParse,
   stringValueSemantic,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function stringValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#/common';
-import {COMMENT_LINE, CommentLineNode, LexicalAnalyzer, NL, commentLineNode} from '#/core';
+import {Nothing, nothing} from '#common';
+import {COMMENT_LINE, CommentLineNode, LexicalAnalyzer, NL, commentLineNode} from '#core';
 
 export function commentLineNodeParse(analyzer: LexicalAnalyzer): CommentLineNode | Nothing {
   if (!analyzer.checkTextAtIndex(COMMENT_LINE)) {

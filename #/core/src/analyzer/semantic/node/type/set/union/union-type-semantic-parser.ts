@@ -1,6 +1,6 @@
-import {Nothing, nothing} from '#/common';
-import {Node, SemanticAnalyzer, UNION, UnionTypeSemantic, typeSemanticParse, unionTypeSemantic} from '#/core';
-import {$, is} from '#/typing';
+import {Nothing, nothing} from '#common';
+import {Node, SemanticAnalyzer, UNION, UnionTypeSemantic, typeSemanticParse, unionTypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function unionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

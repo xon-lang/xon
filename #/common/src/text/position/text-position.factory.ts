@@ -1,5 +1,5 @@
-import {Boolean2, Integer, TextPosition} from '#/common';
-import {$} from '#/typing';
+import {Boolean2, Integer, TextPosition} from '#common';
+import {$} from '#typing';
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
   return {

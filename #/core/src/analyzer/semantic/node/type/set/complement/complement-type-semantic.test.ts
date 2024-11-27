@@ -1,4 +1,4 @@
-import {newTextData, nothing, TextData, textResourceFromData} from '#/common';
+import {newTextData, nothing, TextData, textResourceFromData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   ComplementTypeSemantic,
@@ -8,8 +8,8 @@ import {
   syntaxFromResource,
   typeNodeType,
   TypeSemantic,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 test('a is integer or float', () => {
   const text = newTextData(`

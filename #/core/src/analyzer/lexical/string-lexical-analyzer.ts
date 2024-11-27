@@ -1,4 +1,4 @@
-import {LexicalNodeParseFn, stringCloseNodeParse, stringContentNodeParse} from '#/core';
+import {LexicalNodeParseFn, stringCloseNodeParse, stringContentNodeParse} from '#core';
 
 export function stringLexicalParsers(): LexicalNodeParseFn[] {
   return [

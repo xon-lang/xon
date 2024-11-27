@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {DocumentationNode, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {DocumentationNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('documentation', () => {
   const text = newTextData('===a===');

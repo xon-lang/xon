@@ -1,6 +1,6 @@
-import {String2} from '#/common';
-import {TypeDeclarationSemantic, TypescriptTranslator} from '#/core';
-import {$, is} from '#/typing';
+import {String2} from '#common';
+import {TypeDeclarationSemantic, TypescriptTranslator} from '#core';
+import {$, is} from '#typing';
 
 export function typeDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,

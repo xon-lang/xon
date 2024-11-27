@@ -1,5 +1,5 @@
-import {Boolean2, TextData, TextRange, TextResource} from '#/common';
-import {$} from '#/typing';
+import {Boolean2, TextData, TextRange, TextResource} from '#common';
+import {$} from '#typing';
 
 export type TextReference = {
   $: $.TextResourceRange;

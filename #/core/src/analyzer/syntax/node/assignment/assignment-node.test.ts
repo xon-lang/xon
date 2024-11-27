@@ -1,6 +1,6 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
-import {AssignmentNode, IntegerNode, syntaxFromResource} from '#/core';
-import {$} from '#/typing';
+import {newTextData, nothing, textResourceFromData} from '#common';
+import {AssignmentNode, IntegerNode, syntaxFromResource} from '#core';
+import {$} from '#typing';
 
 test('a = 1', () => {
   const text = newTextData('a= 1');

@@ -1,5 +1,5 @@
-import {Nothing, nothing} from '#/common';
-import {CharValueSemantic, Node, SemanticAnalyzer, charTypeSemanticTryParse, charValueSemantic} from '#/core';
+import {Nothing, nothing} from '#common';
+import {CharValueSemantic, Node, SemanticAnalyzer, charTypeSemanticTryParse, charValueSemantic} from '#core';
 
 export function charValueSemanticTryParse(
   analyzer: SemanticAnalyzer,

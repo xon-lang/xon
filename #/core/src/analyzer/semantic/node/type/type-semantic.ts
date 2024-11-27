@@ -1,5 +1,5 @@
-import {Boolean2, Nothing} from '#/common';
-import {AttributeValueDeclarationSemantic, DeclarationScope, Semantic, TypeDeclarationSemantic} from '#/core';
+import {Boolean2, Nothing} from '#common';
+import {AttributeValueDeclarationSemantic, DeclarationScope, Semantic, TypeDeclarationSemantic} from '#core';
 
 export type TypeSemantic = Semantic & {
   declaration?: TypeDeclarationSemantic | Nothing;

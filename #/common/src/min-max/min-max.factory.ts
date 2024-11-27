@@ -1,5 +1,5 @@
-import {Boolean2, Integer, MinMax, String2} from '#/common';
-import {$} from '#/typing';
+import {Boolean2, Integer, MinMax, String2} from '#common';
+import {$} from '#typing';
 
 export function newMinMax(min: Integer, max: Integer): MinMax {
   return {

@@ -1,14 +1,6 @@
-import {Nothing} from '#/common';
-import {
-  AssignNode,
-  ExpressionNode,
-  GroupNode,
-  SyntaxAnalyzer,
-  SyntaxNode,
-  syntaxNode,
-  TypeNode,
-} from '#/core';
-import {$} from '#/typing';
+import {Nothing} from '#common';
+import {AssignNode, ExpressionNode, GroupNode, SyntaxAnalyzer, SyntaxNode, syntaxNode, TypeNode} from '#core';
+import {$} from '#typing';
 
 export type LambdaNode = SyntaxNode<$.LambdaNode> &
   ExpressionNode & {

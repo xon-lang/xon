@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -14,8 +14,8 @@ import {
   SemanticAnalyzer,
   typeSemanticParse,
   unknownTypeSemantic,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,

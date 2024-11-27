@@ -1,6 +1,6 @@
-import {Boolean2, TextPosition, TextRange, clonePosition, zeroPosition} from '#/common';
-import {Node} from '#/core';
-import {$, is} from '#/typing';
+import {Boolean2, TextPosition, TextRange, clonePosition, zeroPosition} from '#common';
+import {Node} from '#core';
+import {$, is} from '#typing';
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {

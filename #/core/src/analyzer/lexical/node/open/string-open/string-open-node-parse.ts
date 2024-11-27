@@ -1,5 +1,5 @@
-import {newTextData, Nothing, nothing} from '#/common';
-import {LexicalAnalyzer, STRING_OPEN, StringOpenNode, stringOpenNode} from '#/core';
+import {newTextData, Nothing, nothing} from '#common';
+import {LexicalAnalyzer, STRING_OPEN, StringOpenNode, stringOpenNode} from '#core';
 
 export function stringOpenNodeParse(analyzer: LexicalAnalyzer): StringOpenNode | Nothing {
   if (!analyzer.checkTextAtIndex(STRING_OPEN)) {

@@ -1,4 +1,4 @@
-import {ReturnNode, SemanticAnalyzer, valueSemanticParse} from '#/core';
+import {ReturnNode, SemanticAnalyzer, valueSemanticParse} from '#core';
 
 export function returnStatementSemanticParse(analyzer: SemanticAnalyzer, node: ReturnNode): void {
   if (node.value) {

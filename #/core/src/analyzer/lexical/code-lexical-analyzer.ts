@@ -20,7 +20,7 @@ import {
   parenOpenNodeParse,
   stringOpenNodeParse,
   whitespaceNodeParse,
-} from '#/core';
+} from '#core';
 
 // todo remove all nodes if possible and use single node (e.g. 'TokenNode')
 export function codeLexicalParsers(): LexicalNodeParseFn[] {

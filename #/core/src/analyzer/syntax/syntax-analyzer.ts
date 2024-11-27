@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#/common';
+import {Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   charNodeParse,
@@ -17,8 +17,8 @@ import {
   StatementNode,
   stringNodeParse,
   SyntaxAnalyzerConfig,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;

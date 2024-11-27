@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#/common';
+import {Nothing, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   DeclarationNode,
@@ -8,7 +8,7 @@ import {
   TypeSemantic,
   typeSemanticParse,
   unknownTypeSemantic,
-} from '#/core';
+} from '#core';
 
 export function attributeValueDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

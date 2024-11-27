@@ -1,11 +1,11 @@
-import {nothing} from '#/common';
+import {nothing} from '#common';
 import {
   DeclarationNode,
   ParameterTypeDeclarationSemantic,
   SemanticAnalyzer,
   typeSemanticParse,
   unknownTypeSemantic,
-} from '#/core';
+} from '#core';
 
 export function parameterTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

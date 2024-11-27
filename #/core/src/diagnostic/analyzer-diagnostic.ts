@@ -7,8 +7,8 @@ import {
   TerminalColor,
   TextData,
   TextReference,
-} from '#/common';
-import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#/core';
+} from '#common';
+import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export type AnalyzerDiagnosticMessage = {
   actual: String2;

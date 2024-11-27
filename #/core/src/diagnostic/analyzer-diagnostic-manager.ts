@@ -1,4 +1,4 @@
-import {Integer, Nothing, TextRange, TextReference, TextResource} from '#/common';
+import {Integer, Nothing, TextRange, TextReference, TextResource} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticMessage,
@@ -6,7 +6,7 @@ import {
   AnalyzerDiagnosticTag,
   createDiagnostic,
   predefinedDiagnostics,
-} from '#/core';
+} from '#core';
 
 export type AnalyzerDiagnosticManager = {
   resource: TextResource;

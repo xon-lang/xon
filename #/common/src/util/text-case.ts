@@ -9,7 +9,7 @@ import {
   nothing,
   Nothing,
   TextData,
-} from '#/common';
+} from '#common';
 
 // Regexps involved with splitting words in various case formats.
 const SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;

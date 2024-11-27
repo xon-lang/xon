@@ -1,7 +1,7 @@
-import {nothing, Nothing} from '#/common';
-import {Semantic, ValueDeclarationSemantic} from '#/core';
-import {$, is} from '#/typing';
-import {convertVscodePosition, getDocumentSemantic} from '#/vscode';
+import {nothing, Nothing} from '#common';
+import {Semantic, ValueDeclarationSemantic} from '#core';
+import {$, is} from '#typing';
+import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   CompletionContext,

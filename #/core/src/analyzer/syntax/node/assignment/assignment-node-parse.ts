@@ -1,6 +1,6 @@
-import {Integer, nothing} from '#/common';
-import {ASSIGN, assignmentNode, Node, nodeFindMap, prefixNode, SyntaxAnalyzer, SyntaxParseFn} from '#/core';
-import {$, is, isNonOperatorExpression} from '#/typing';
+import {Integer, nothing} from '#common';
+import {ASSIGN, assignmentNode, Node, nodeFindMap, prefixNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function assignmentNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

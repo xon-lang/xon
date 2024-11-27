@@ -6,7 +6,7 @@
 // const Reverse = '\x1b[7m';
 // const Hidden = '\x1b[8m';
 
-import {TextData} from '#/common';
+import {TextData} from '#common';
 
 // const FG_BLACK = '\x1b[30m';
 // const FG_RED = '\x1b[31m';

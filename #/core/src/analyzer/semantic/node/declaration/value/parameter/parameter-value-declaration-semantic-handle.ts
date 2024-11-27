@@ -6,7 +6,7 @@ import {
   SemanticAnalyzer,
   typeSemanticParse,
   unknownTypeSemantic,
-} from '#/core';
+} from '#core';
 
 export function parameterValueDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

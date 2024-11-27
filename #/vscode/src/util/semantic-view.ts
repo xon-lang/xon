@@ -1,6 +1,6 @@
-import {newTextData, Nothing, nothing, TextData} from '#/common';
-import {DeclarationSemantic, TypeSemantic} from '#/core';
-import {$, is} from '#/typing';
+import {newTextData, Nothing, nothing, TextData} from '#common';
+import {DeclarationSemantic, TypeSemantic} from '#core';
+import {$, is} from '#typing';
 
 export function typeSemanticToString(semantic: TypeSemantic): TextData | Nothing {
   if (is(semantic, $.IdTypeSemantic) && semantic.declaration) {

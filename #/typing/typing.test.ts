@@ -1,4 +1,4 @@
-import {$AnyText, $Text2, is2, newAnyText, newText2} from '#/typing/src/new-types';
+import {$AnyText, $Text2, is2, newAnyText, newText2} from '#typing';
 
 test('0', () => {
   const t2 = newText2();

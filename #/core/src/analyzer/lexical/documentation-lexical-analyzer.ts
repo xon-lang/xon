@@ -3,7 +3,7 @@ import {
   documentationCloseNodeParse,
   documentationDescriptionNodeParse,
   documentationLabelNodeParse,
-} from '#/core';
+} from '#core';
 
 export function documentationLexicalParsers(): LexicalNodeParseFn[] {
   return [

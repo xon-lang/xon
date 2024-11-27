@@ -1,4 +1,4 @@
-import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, Number2, String2} from '#/common';
+import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, Number2, String2} from '#common';
 
 Array.prototype.take = function <T>(length: Integer, startIndex: Integer = 0): T[] {
   return this.slice(startIndex, startIndex + length);

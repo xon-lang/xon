@@ -1,4 +1,4 @@
-import {String2, TextRange} from '#/common';
+import {String2, TextRange} from '#common';
 
 export type FormatterItem = {
   range: TextRange;

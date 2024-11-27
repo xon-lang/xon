@@ -1,4 +1,4 @@
-import {newTextData, Nothing, textPosition, textRange, textResourceRange} from '#/common';
+import {newTextData, Nothing, textPosition, textRange, textResourceRange} from '#common';
 import {
   AT,
   DocumentationDescriptionNode,
@@ -10,8 +10,8 @@ import {
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 export type DocumentationItemNode = SyntaxNode<$.DocumentationItemNode> & {
   operator: OperatorNode;

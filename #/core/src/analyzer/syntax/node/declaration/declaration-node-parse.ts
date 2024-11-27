@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '#/common';
+import {Integer, Nothing, nothing} from '#common';
 import {
   ASSIGN,
   AssignNode,
@@ -20,8 +20,8 @@ import {
   TYPE_MODIFIER,
   TypeNode,
   typeNode,
-} from '#/core';
-import {$, is, isNonOperatorExpression} from '#/typing';
+} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function declarationNodeParse(): SyntaxParseFn {
   return (

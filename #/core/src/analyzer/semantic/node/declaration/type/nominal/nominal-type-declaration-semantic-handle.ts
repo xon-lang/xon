@@ -7,8 +7,8 @@ import {
   SemanticAnalyzer,
   statementDeclarationsParse,
   typeSemanticParse,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 export function nominalTypeDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,

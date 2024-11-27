@@ -1,5 +1,5 @@
-import {$, is} from '#/typing';
-import {convertVscodePosition, getDocumentSemantic} from '#/vscode';
+import {$, is} from '#typing';
+import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   CompletionContext,

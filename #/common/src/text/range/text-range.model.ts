@@ -1,5 +1,5 @@
-import {Boolean2, TextPosition} from '#/common';
-import {$, $Model} from '#/typing';
+import {Boolean2, TextPosition} from '#common';
+import {$, $Model} from '#typing';
 
 export type TextRange = $Model & {
   $: $.TextRange;

@@ -10,7 +10,7 @@ import {
   configureRenameFeature,
   configureSignatureFeature,
   configureTranslatorFeature,
-} from '#/vscode';
+} from '#vscode';
 import {ExtensionContext, window} from 'vscode';
 
 export function activate(context: ExtensionContext) {

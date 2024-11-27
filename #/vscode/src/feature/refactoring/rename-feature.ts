@@ -1,7 +1,7 @@
-import {Nothing, String2, TextReference, nothing} from '#/common';
-import {DeclarationSemantic, Semantic} from '#/core';
-import {$, is} from '#/typing';
-import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#/vscode';
+import {Nothing, String2, TextReference, nothing} from '#common';
+import {DeclarationSemantic, Semantic} from '#core';
+import {$, is} from '#typing';
+import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,

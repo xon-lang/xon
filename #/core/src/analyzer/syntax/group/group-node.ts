@@ -1,4 +1,4 @@
-import {Nothing, rangeFromNodes, textResourceRange} from '#/common';
+import {Nothing, rangeFromNodes, textResourceRange} from '#common';
 import {
   CloseNode,
   CloseNodeType,
@@ -8,8 +8,8 @@ import {
   OpenNodeType,
   SyntaxAnalyzer,
   SyntaxNode,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode | $.AngleGroupNode;
 

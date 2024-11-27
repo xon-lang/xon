@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '#/common';
+import {Integer, Nothing, nothing} from '#common';
 import {
   ASSIGN,
   AssignNode,
@@ -15,8 +15,8 @@ import {
   nodeFindMap,
   partialToDeclaration,
   typeNode,
-} from '#/core';
-import {$, is, isNonOperatorExpression} from '#/typing';
+} from '#core';
+import {$, is, isNonOperatorExpression} from '#typing';
 
 export function lambdaNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {

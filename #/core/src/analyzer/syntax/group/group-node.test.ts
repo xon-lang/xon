@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#/common';
+import {newTextData, nothing, textResourceFromData} from '#common';
 import {
   BraceGroupNode,
   BracketGroupNode,
@@ -7,8 +7,8 @@ import {
   ParenGroupNode,
   predefinedDiagnostics,
   syntaxFromResource,
-} from '#/core';
-import {$, is} from '#/typing';
+} from '#core';
+import {$, is} from '#typing';
 
 test('empty closed', () => {
   const text = newTextData('()');

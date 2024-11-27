@@ -11,8 +11,8 @@ import {
   TextResource,
   textResourceRange,
   zeroPosition,
-} from '#/common';
-import {LexicalNode, NL, unknownNodeParse} from '#/core';
+} from '#common';
+import {LexicalNode, NL, unknownNodeParse} from '#core';
 
 export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | Nothing;
 

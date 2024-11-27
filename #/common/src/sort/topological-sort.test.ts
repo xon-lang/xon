@@ -6,7 +6,7 @@ import {
   newTextData,
   TextData,
   topologicalSort,
-} from '#/common';
+} from '#common';
 
 test('empty', () => {
   const dependencies = newDictionary<TextData, ArrayData<TextData>>();

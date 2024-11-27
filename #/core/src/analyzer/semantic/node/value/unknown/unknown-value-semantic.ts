@@ -5,8 +5,8 @@ import {
   UnknownTypeSemantic,
   unknownTypeSemantic,
   ValueSemantic,
-} from '#/core';
-import {$} from '#/typing';
+} from '#core';
+import {$} from '#typing';
 
 export type UnknownValueSemantic = ValueSemantic<$.UnknownValueSemantic> & {};
 

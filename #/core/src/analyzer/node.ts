@@ -1,6 +1,6 @@
-import {Boolean2, Integer, Nothing, nothing, TextReference} from '#/common';
-import {Semantic} from '#/core';
-import {$, $Model} from '#/typing';
+import {Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
+import {Semantic} from '#core';
+import {$, $Model} from '#typing';
 
 export type Node<T extends $ = $> = $Model & {
   $: T;

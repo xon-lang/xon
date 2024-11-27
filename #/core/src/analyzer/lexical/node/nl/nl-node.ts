@@ -1,6 +1,6 @@
-import {TextData, TextReference} from '#/common';
-import {LexicalNode, lexicalNode} from '#/core';
-import {$} from '#/typing';
+import {TextData, TextReference} from '#common';
+import {LexicalNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 export type NlNode = LexicalNode<$.NlNode>;
 

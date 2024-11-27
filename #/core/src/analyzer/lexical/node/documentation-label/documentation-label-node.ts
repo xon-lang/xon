@@ -1,6 +1,6 @@
-import {TextData, TextReference} from '#/common';
-import {AT, LexicalNode, lexicalNode} from '#/core';
-import {$} from '#/typing';
+import {TextData, TextReference} from '#common';
+import {AT, LexicalNode, lexicalNode} from '#core';
+import {$} from '#typing';
 
 // make syntax node
 export type DocumentationLabelNode = LexicalNode<$.DocumentationLabelNode> & {

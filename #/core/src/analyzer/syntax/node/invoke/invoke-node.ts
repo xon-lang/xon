@@ -1,5 +1,5 @@
-import {ExpressionNode, GroupNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#/core';
-import {$} from '#/typing';
+import {ExpressionNode, GroupNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
+import {$} from '#typing';
 
 export type InvokeNode = SyntaxNode<$.InvokeNode> &
   ExpressionNode & {

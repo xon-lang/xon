@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Boolean2, Char, Integer, newTextData, Nothing, String2, TextData} from '#/common';
+import {Boolean2, Char, Integer, newTextData, Nothing, String2, TextData} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
