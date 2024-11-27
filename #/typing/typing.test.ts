@@ -1,9 +1,10 @@
-import {$AnyText, $Text2, is2, newAnyText, newText2} from '#typing';
+import {is_v2} from '#common';
+import {$TextA, $TextB, newTextA, newTextB} from '#typing';
 
 test('0', () => {
-  const t2 = newText2();
-  const anyT = newAnyText();
-  expect(is2(t2, $Text2)).toBe(true);
-  expect(is2(anyT, $AnyText)).toBe(true);
-  expect(is2(anyT, $Text2)).toBe(true);
+  const a = newTextA();
+  const b = newTextB();
+  expect(is_v2(a, $TextA)).toBe(true);
+  expect(is_v2(b, $TextB)).toBe(true);
+  expect(is_v2(b, $TextA)).toBe(true);
 });

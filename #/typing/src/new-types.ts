@@ -1,65 +1,21 @@
-import {Nothing, String2} from '#common';
+import {Model_V2, commonPackageType} from '#common';
 
-interface $Model2 {
-  $: $Type;
-}
+export interface TextA extends Model_V2 {}
 
-interface $Package {
-  name: String2;
-}
+export const $TextA = commonPackageType<TextA>('TextA');
 
-const $CommonPackage: $Package = {
-  name: 'common',
-};
-
-interface $Type<T = $Model2> {
-  name: String2;
-  type?: T;
-  parent?: $Type;
-  package?: $Package;
-}
-
-export interface Text2 extends $Model2 {}
-
-export const $Text2: $Type<Text2> = {
-  name: 'Text2',
-  package: $CommonPackage,
-};
-
-export function newText2(): Text2 {
+export function newTextA(): TextA {
   return {
-    $: $Text2,
+    $: $TextA,
   };
 }
 
-export interface AnyText extends Text2 {}
+export interface TextB extends TextA {}
 
-export const $AnyText: $Type<AnyText> = {
-  name: 'AnyText',
-  parent: $Text2,
-  package: $CommonPackage,
-};
+export const $TextB = commonPackageType<TextB>('TextB', $TextA);
 
-export function newAnyText(): AnyText {
+export function newTextB(): TextB {
   return {
-    $: $AnyText,
+    $: $TextB,
   };
-}
-
-function isType<T extends $Type>($: $Type | Nothing, type: T): $ is T {
-  if (!$) {
-    return false;
-  }
-
-  if (isType($.parent, type)) {
-    return true;
-  }
-
-  return $.package == type.package && $.name === type.name;
-}
-export function is2<T extends $Type>(
-  object: $Model2 | Nothing,
-  type: T,
-): object is Exclude<T['type'], undefined> {
-  return isType(object?.$, type);
 }
