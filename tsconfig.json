@@ -27,11 +27,11 @@
     // "noUnusedParameters": true,
     "outDir": "packages/vscode/dist",
     "paths": {
-      "#common": ["packages/common/*", "packages/common"],
-      "#core": ["packages/core/*", "packages/core"],
-      "#typing": ["packages/typing/index"],
-      "#vscode": ["packages/vscode/*", "packages/vscode"],
-      "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib"]
+      "#common": ["#/common/*", "#/common"],
+      "#core": ["#/core/*", "#/core"],
+      "#typing": ["#/typing/index"],
+      "#vscode": ["#/vscode/*", "#/vscode"],
+      "#xon-lib": ["#/xon-lib/*", "#/xon-lib"]
     },
     "resolveJsonModule": true,
     // todo should be "skipLibCheck": false,
