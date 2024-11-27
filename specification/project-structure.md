@@ -1,6 +1,4 @@
-# Project
-
-## Structure
+# Project structure
 
 - Each `project` has a one or many local `packages`
 
