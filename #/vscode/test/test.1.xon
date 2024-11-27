@@ -1,0 +1,21 @@
+model A
+// model Grass
+//   height: Integer
+//   temp: Integer
+
+
+// const grass = Grass()
+
+// grass.height
+
+
+===
+  Some _f_ function
+  @a Some parameter
+  @a sdf sdkf msl
+  @b2 B parameter **very** usefull
+===
+fsdfsfe(a: A, b2: A): A
+  return a + a
+
+fsdfsfe(,,,,,,,) 
