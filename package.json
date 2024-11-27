@@ -17,15 +17,15 @@
   "scripts": {
     "test": "jest --no-cache",
     "dev": "tsc --noEmit --watch",
-    "vscode:build2": "rm -rf packages/vscode/dist && tsc",
-    "vscode:build": "rm -rf packages/vscode/dist && esbuild ./packages/vscode/src/main.ts --bundle --outfile=packages/vscode/dist/vscode/src/main.js --external:vscode --format=cjs --platform=node",
+    "vscode:build2": "rm -rf '#/vscode/dist' && tsc",
+    "vscode:build": "rm -rf '#/vscode/dist' && esbuild '#/vscode/src/main.ts' --bundle --outfile='#/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
     "vscode:debug": "npm run vscode:build",
     "barrelsby": "barrelsby -qD -e dist -e .gen -e .test -d",
-    "barrels:common": "npm run barrelsby -- packages/common",
-    "barrels:core": "npm run barrelsby -- packages/core",
-    "barrels:typing": "npm run barrelsby -- packages/typing",
-    "barrels:vscode": "npm run barrelsby -- packages/vscode",
-    "barrels:xon-lib": "npm run barrelsby -- packages/xon-lib",
+    "barrels:common": "npm run barrelsby -- '#/common'",
+    "barrels:core": "npm run barrelsby -- '#/core'",
+    "barrels:typing": "npm run barrelsby -- '#/typing'",
+    "barrels:vscode": "npm run barrelsby -- '#/vscode'",
+    "barrels:xon-lib": "npm run barrelsby -- '#/xon-lib'",
     "barrels": "npm run barrels:common && npm run barrels:core && npm run barrels:typing && npm run barrels:vscode && npm run barrels:xon-lib"
   }
 }

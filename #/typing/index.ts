@@ -5,3 +5,4 @@
 export * from './src/$';
 export * from './src/is-has';
 export * from './src/model';
+export * from './src/new-types';
