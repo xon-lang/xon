@@ -1,9 +1,9 @@
-import {$CharData, is_v2, newChar} from '#common';
+import {$Char, is_v2, newChar} from '#common';
 
 test('char', () => {
   const a = newChar('A');
 
-  expect(is_v2(a, $CharData)).toBe(true);
+  expect(is_v2(a, $Char)).toBe(true);
   expect(a.isDigit()).toBe(false);
   expect(a.isLetter()).toBe(true);
   expect(a.isLetterOrDigit()).toBe(true);

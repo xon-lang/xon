@@ -1,6 +1,6 @@
 import {
   $ArrayData,
-  $CharData,
+  $Char,
   $TextData,
   $TextRange,
   ArrayData,
@@ -12,7 +12,7 @@ import {
   Nothing,
   Number2,
   String2,
-  stringToCharDataArray,
+  stringToCharArray,
   TextData,
   TextRange,
 } from '#common';
@@ -25,7 +25,7 @@ export function newTextData(): TextData;
 export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): TextData {
   const array = stringOrCharacters
     ? typeof stringOrCharacters === 'string'
-      ? stringToCharDataArray(stringOrCharacters)
+      ? stringToCharArray(stringOrCharacters)
       : stringOrCharacters
     : newArrayData<Char>();
 
@@ -139,7 +139,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
         return this.toString() === other.toString();
       }
 
-      if (is_v2(other, $ArrayData($CharData))) {
+      if (is_v2(other, $ArrayData($Char))) {
         return this.toString() === other._items.join('');
       }
 

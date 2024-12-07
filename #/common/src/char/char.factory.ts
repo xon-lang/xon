@@ -1,14 +1,4 @@
-import {
-  $CharData,
-  $TextData,
-  ArrayData,
-  Boolean2,
-  Char,
-  is_v2,
-  newArrayData,
-  String2,
-  TextData,
-} from '#common';
+import {$Char, $TextData, ArrayData, Boolean2, Char, is_v2, newArrayData, String2, TextData} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -19,7 +9,7 @@ const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 export function newChar(charString: String2): Char {
   return {
-    $: $CharData,
+    $: $Char,
     _string: charString,
 
     isUpperLetter(): Boolean2 {
@@ -74,7 +64,7 @@ export function newChar(charString: String2): Char {
   };
 }
 
-export function stringToCharDataArray(string: String2): ArrayData<Char> {
+export function stringToCharArray(string: String2): ArrayData<Char> {
   const characters = string.match(/.|\s/gu)?.map((x) => newChar(x)) ?? [];
 
   return newArrayData(characters);

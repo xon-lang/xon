@@ -1,6 +1,6 @@
 import {
   $ArrayData,
-  $CharData,
+  $Char,
   ArrayData,
   Boolean2,
   Char,
@@ -45,4 +45,4 @@ export interface TextData extends ArrayData<Char> {
   toString(): String2;
 }
 
-export const $TextData = commonPackageType<TextData>('TextData', $ArrayData($CharData));
+export const $TextData = commonPackageType<TextData>('TextData', $ArrayData($Char));

@@ -14,4 +14,4 @@ export interface Char extends Model_V2 {
   toString(): String2;
 }
 
-export const $CharData = commonPackageType<Char>('CharData');
+export const $Char = commonPackageType<Char>('Char');
