@@ -17,8 +17,7 @@ const LOWER_Z_CODE = 'z'.charCodeAt(0);
 const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
-// todo rename to 'newCharData'
-export function charData(charString: String2): CharData {
+export function newCharData(charString: String2): CharData {
   return {
     $: $CharData,
     _string: charString,
@@ -76,7 +75,7 @@ export function charData(charString: String2): CharData {
 }
 
 export function stringToCharDataArray(string: String2): ArrayData<CharData> {
-  const characters = string.match(/.|\s/gu)?.map((x) => charData(x)) ?? [];
+  const characters = string.match(/.|\s/gu)?.map((x) => newCharData(x)) ?? [];
 
   return newArrayData(characters);
 }

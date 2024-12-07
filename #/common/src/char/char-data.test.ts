@@ -1,7 +1,7 @@
-import {$CharData, charData, is_v2} from '#common';
+import {$CharData, is_v2, newCharData} from '#common';
 
 test('char', () => {
-  const a = charData('A');
+  const a = newCharData('A');
 
   expect(is_v2(a, $CharData)).toBe(true);
   expect(a.isDigit()).toBe(false);
