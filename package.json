@@ -21,11 +21,6 @@
     "vscode:build": "rm -rf '#/vscode/dist' && esbuild '#/vscode/src/main.ts' --bundle --outfile='#/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
     "vscode:debug": "npm run vscode:build",
     "barrelsby": "barrelsby -qD -e dist -e .gen -e .test -d",
-    "barrels:common": "npm run barrelsby -- '#/common'",
-    "barrels:core": "npm run barrelsby -- '#/core'",
-    "barrels:typing": "npm run barrelsby -- '#/typing'",
-    "barrels:vscode": "npm run barrelsby -- '#/vscode'",
-    "barrels:xon-lib": "npm run barrelsby -- '#/xon-lib'",
-    "barrels": "npm run barrels:common && npm run barrels:core && npm run barrels:typing && npm run barrels:vscode && npm run barrels:xon-lib"
+    "barrels": "npm run barrelsby -- '#/common' '#/core' '#/typing' '#/semantics' '#/vscode' '#/xon-lib'"
   }
 }

@@ -30,6 +30,7 @@
       "#common": ["#/common/*", "#/common"],
       "#core": ["#/core/*", "#/core"],
       "#typing": ["#/typing/*", "#/typing"],
+      "#semantics": ["#/semantics/*", "#/semantics"],
       "#vscode": ["#/vscode/*", "#/vscode"],
       "#xon-lib": ["#/xon-lib/*", "#/xon-lib"]
     },
