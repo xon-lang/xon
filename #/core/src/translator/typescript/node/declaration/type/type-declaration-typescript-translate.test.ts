@@ -1,8 +1,8 @@
 import {newTextData, newTextResource, nothing} from '#common';
 import {
-  createTypescriptTranslator,
   DeclarationNode,
   DeclarationSemantic,
+  newTypescriptTranslator,
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
 } from '#core';
@@ -13,7 +13,7 @@ test('type string', () => {
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as DeclarationSemantic;
-  const translator = createTypescriptTranslator(semanticAnalyzer);
+  const translator = newTypescriptTranslator(semanticAnalyzer);
   const translated = translator.typeDeclaration(semantic);
 
   expect(translated).toBe('export type A = {}');
@@ -25,7 +25,7 @@ test('parameter type', () => {
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as DeclarationSemantic;
-  const translator = createTypescriptTranslator(semanticAnalyzer);
+  const translator = newTypescriptTranslator(semanticAnalyzer);
   const translated = translator.typeDeclaration(semantic);
 
   expect(translated).toBe('export type A<T extends Number = Integer> = {}');

@@ -32,7 +32,7 @@ export type TypescriptTranslator = Translator & {
   error(node: Node): String2;
 };
 
-export function createTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
+export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
   return {
     $: $.TypescriptTranslator,
     diagnosticManager: createDiagnosticManager(semanticAnalyzer.resource),
