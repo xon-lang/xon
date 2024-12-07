@@ -5,7 +5,6 @@ import {
   $TextRange,
   ArrayData,
   Boolean2,
-  Char,
   CharData,
   Integer,
   is_v2,
@@ -127,7 +126,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
       return newTextData(array.clone());
     },
 
-    equals(other: TextData | ArrayData<CharData> | String2 | Char[]): Boolean2 {
+    equals(other: TextData | ArrayData<CharData> | String2): Boolean2 {
       if (typeof other === 'string') {
         return this.toString() === other;
       }

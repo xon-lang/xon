@@ -3,7 +3,6 @@ import {
   $CharData,
   ArrayData,
   Boolean2,
-  Char,
   CharData,
   commonPackageType,
   Integer,
@@ -42,7 +41,6 @@ export interface TextData extends ArrayData<CharData> {
   equals(other: TextData): Boolean2;
   equals(other: ArrayData<CharData>): Boolean2;
   equals(other: String2): Boolean2;
-  equals(other: Char[]): Boolean2;
   clone(): TextData;
   toString(): String2;
 }
