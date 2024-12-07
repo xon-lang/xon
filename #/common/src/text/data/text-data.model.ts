@@ -1,6 +1,20 @@
-import {ArrayData, Boolean2, Char, CharData, Integer, Nothing, Number2, String2, TextRange} from '#common';
+import {
+  $ArrayData,
+  $CharData,
+  ArrayData,
+  Boolean2,
+  Char,
+  CharData,
+  commonPackageType,
+  Integer,
+  Nothing,
+  Number2,
+  String2,
+  TextRange,
+} from '#common';
 
 // todo fix it. remove @ts-ignore
+// todo rename to 'StringData' ???
 // @ts-ignore
 export interface TextData extends ArrayData<CharData> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): TextData;
@@ -32,3 +46,5 @@ export interface TextData extends ArrayData<CharData> {
   clone(): TextData;
   toString(): String2;
 }
+
+export const $TextData = commonPackageType<TextData>('TextData', $ArrayData($CharData));

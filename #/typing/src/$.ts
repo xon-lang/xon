@@ -1,16 +1,4 @@
 import type {
-  ArrayData,
-  CharData,
-  Dictionary,
-  KeyValue,
-  MinMax,
-  Resource,
-  TextPosition,
-  TextRange,
-  TextReference,
-  TextResource,
-} from '#common';
-import type {
   AngleCloseNode,
   AngleGroupNode,
   AngleOpenNode,
@@ -224,20 +212,6 @@ export enum $ {
   MemberValueSemantic = ' MemberValueSemantic ' + $.ValueSemantic,
   ImportValueSemantic = ' ImportValueSemantic ' + $.ValueSemantic,
 
-  ArrayData = ' ArrayData ' + $.$Model,
-  CharData = ' CharData ' + $.$Model,
-  KeyValue = ' KeyValue ' + $.$Model,
-  Dictionary = ' Dictionary ' + $.ArrayData,
-  MinMax = ' MinMax ' + $.$Model,
-
-  TextPosition = ' TextPosition ' + $.$Model,
-  TextRange = ' TextRange ' + $.$Model,
-  TextData = ' TextData ' + $.ArrayData,
-
-  Resource = ' Resource ' + $.$Model,
-  TextResource = ' TextResource ' + $.Resource,
-  TextResourceRange = ' TextResourceRange ' + $.Resource,
-
   Translator = ' Translator ' + $.$Model,
   TypescriptTranslator = ' TypescriptTranslator ' + $.Translator,
 
@@ -353,20 +327,6 @@ export type TypeMap = {
   [$.StringValueSemantic]: StringValueSemantic;
   [$.MemberValueSemantic]: MemberValueSemantic;
   [$.ImportValueSemantic]: ImportValueSemantic;
-
-  [$.ArrayData]: ArrayData;
-  [$.Dictionary]: Dictionary;
-  [$.KeyValue]: KeyValue;
-  [$.MinMax]: MinMax;
-  [$.CharData]: CharData;
-
-  [$.TextPosition]: TextPosition;
-  [$.TextRange]: TextRange;
-  [$.TextData]: import('#/common').TextData;
-
-  [$.Resource]: Resource;
-  [$.TextResource]: TextResource;
-  [$.TextResourceRange]: TextReference;
 
   [$.Translator]: Translator;
   [$.TypescriptTranslator]: TypescriptTranslator;

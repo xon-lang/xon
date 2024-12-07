@@ -1,8 +1,6 @@
-import {Boolean2, String2, TextData} from '#common';
-import {$, $Model} from '#typing';
+import {Boolean2, commonPackageType, Model_V2, String2, TextData} from '#common';
 
-export interface CharData extends $Model {
-  $: $.CharData;
+export interface CharData extends Model_V2 {
   _string: String2;
 
   isUpperLetter(): Boolean2;
@@ -15,3 +13,5 @@ export interface CharData extends $Model {
   equals(other: String2): Boolean2;
   toString(): String2;
 }
+
+export const $CharData = commonPackageType<CharData>('CharData');

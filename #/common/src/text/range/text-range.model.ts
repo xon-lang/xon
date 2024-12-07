@@ -1,8 +1,6 @@
-import {Boolean2, TextPosition} from '#common';
-import {$, $Model} from '#typing';
+import {Boolean2, commonPackageType, Model_V2, TextPosition} from '#common';
 
-export type TextRange = $Model & {
-  $: $.TextRange;
+export type TextRange = Model_V2 & {
   start: TextPosition;
   stop: TextPosition;
 
@@ -13,3 +11,5 @@ export type TextRange = $Model & {
   contains(positionOrRange: TextPosition | TextRange): Boolean2;
   union(range: TextRange): TextRange;
 };
+
+export const $TextRange = commonPackageType<TextRange>('TextRange');

@@ -1,9 +1,9 @@
-import {Boolean2, TextData, TextRange, TextReference, TextResource} from '#common';
-import {$} from '#typing';
+import {$TextReference, Boolean2, TextData, TextRange, TextReference, TextResource} from '#common';
 
+// todo rename to 'textReference'
 export function textResourceRange(resource: TextResource, range: TextRange): TextReference {
   return {
-    $: $.TextResourceRange,
+    $: $TextReference,
     resource,
     range,
 

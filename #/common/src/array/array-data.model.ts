@@ -1,7 +1,17 @@
-import {Anything, Boolean2, Dictionary, Integer, Nothing, Number2, String2} from '#common';
-import {$Model} from '#typing';
+import {
+  $Model_V2,
+  $Type,
+  Anything_V2,
+  Boolean2,
+  commonPackageType,
+  Integer,
+  Model_V2,
+  Nothing,
+  Number2,
+  String2,
+} from '#common';
 
-export interface ArrayData<T = Anything> extends $Model, Iterable<T> {
+export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model_V2, Iterable<T> {
   _items: T[];
 
   [Symbol.iterator](): IterableIterator<T>;
@@ -29,7 +39,7 @@ export interface ArrayData<T = Anything> extends $Model, Iterable<T> {
   filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V>;
   filter(predicate: ArrayPredicate<T>): ArrayData<T>;
 
-  map<V>(select: ArraySelect<T, V>): ArrayData<V>;
+  map<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V>;
 
   // todo rename to 'has' ???
   hasItem(item: T): Boolean2;
@@ -50,20 +60,21 @@ export interface ArrayData<T = Anything> extends $Model, Iterable<T> {
   minMax(select: ArraySelect<T, Number2>): {min: T; max: T} | Nothing;
 
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
-  filterMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
+  filterMap<V extends Model_V2>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): this;
   // sortStrings(): ArrayData<T>;
   sort(compareFn?: (a: T, b: T) => number): this;
 
   // todo fix it. 'T' generic
-  flat(): T;
-  flatMap<V>(select: ArraySelect<T, V>): ArrayData<V>;
+  // flat(): T;
+  flatMap<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V>;
 
-  splitBy(predicate: ArrayPredicate<T>): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}>;
-  splitBy<V extends T>(
-    predicate: ArraySafePredicate<T, V>,
-  ): ArrayData<{splitter: V | Nothing; items: ArrayData<T>}>;
+  // todo uncomment
+  // splitBy(predicate: ArrayPredicate<T>): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}>;
+  // splitBy<V extends T>(
+  //   predicate: ArraySafePredicate<T, V>,
+  // ): ArrayData<{splitter: V | Nothing; items: ArrayData<T>}>;
 
   reduce(select: (previous: T, current: T, index: Integer) => T): T;
   reduce(select: (previous: T, current: T, index: Integer) => T, initialValue: T): T;
@@ -71,7 +82,6 @@ export interface ArrayData<T = Anything> extends $Model, Iterable<T> {
   clone(): this;
   equals(other: this): Boolean2;
   // todo remove 'toDictionary'
-  toDictionary<Key extends $Model>(selectKey: ArraySelect<T, Key>): Dictionary<Key, T>;
   toArray(): T[];
   toString(separator?: String2 | Nothing): String2;
 }
@@ -80,3 +90,6 @@ export type ArrayPredicate<T> = (value: T, index: Integer) => Boolean2;
 export type ArraySafePredicate<T, V extends T> = (value: T, index: Integer) => value is V;
 export type ArraySelect<T, V> = (value: T, index: Integer) => V;
 export type ArrayPredicateSelect<T, V> = ArraySelect<T, V | Nothing>;
+
+export const $ArrayData = <T extends Anything_V2>($T: $Type = $Model_V2) =>
+  commonPackageType<ArrayData<T>>('ArrayData', null, [$T]);

@@ -1,10 +1,18 @@
-import {Boolean2, TextPosition, TextRange, clonePosition, zeroPosition} from '#common';
+import {
+  $TextPosition,
+  $TextRange,
+  Boolean2,
+  TextPosition,
+  TextRange,
+  clonePosition,
+  is_v2,
+  zeroPosition,
+} from '#common';
 import {Node} from '#core';
-import {$, is} from '#typing';
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {
-    $: $.TextRange,
+    $: $TextRange,
     start,
     stop,
 
@@ -17,7 +25,7 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     },
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
-      if (is(positionOrRange, $.TextPosition)) {
+      if (is_v2(positionOrRange, $TextPosition)) {
         return positionOrRange.index >= this.start.index && positionOrRange.index <= this.stop.index;
       }
 
@@ -25,7 +33,7 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     },
 
     union(range: TextRange): TextRange {
-      const {min, max} = [this.start, this.stop].minMax((x) => x.index)!; // todo how to fix '!'
+      const {min, max} = [this.start, this.stop].minMax((x) => x.index)!; // todo how to fix '!' ???
 
       return textRange(min, max);
     },

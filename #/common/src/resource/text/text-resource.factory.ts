@@ -1,4 +1,5 @@
 import {
+  $TextResource,
   Boolean2,
   Nothing,
   Resource,
@@ -11,12 +12,11 @@ import {
   nothing,
   textResourceRange,
 } from '#common';
-import {$} from '#typing';
 import {readFileSync, statSync} from 'node:fs';
 
 export function textResourceFromData(location: TextData | Nothing, data: TextData): TextResource {
   return {
-    $: $.TextResource,
+    $: $TextResource,
     location,
     data,
 

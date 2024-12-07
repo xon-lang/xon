@@ -1,23 +1,25 @@
 import {
+  $ArrayData,
+  $Model_V2,
+  Anything_V2,
   ArrayData,
   ArrayPredicate,
   ArraySafePredicate,
   ArraySelect,
   Boolean2,
-  Dictionary,
   Integer,
-  newDictionary,
-  newKeyValue,
+  is_v2,
+  Model_V2,
   Nothing,
   nothing,
   Number2,
   String2,
 } from '#common';
-import {$, $Model, is} from '#typing';
 
-export function newArrayData<T>(array: T[] = []): ArrayData<T> {
+export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<T> {
   return {
-    $: $.ArrayData,
+    // todo use generic from parameter
+    $: $ArrayData($Model_V2),
     _items: array,
 
     [Symbol.iterator](): IterableIterator<T> {
@@ -166,7 +168,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
             }
 
             // todo fix it
-            if (is(z, $.$Model) && is(x, $.$Model) && z.equals) {
+            if (is_v2(z, $Model_V2) && is_v2(x, $Model_V2) && z.equals) {
               return z.equals(x);
             }
 
@@ -230,7 +232,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
             }
 
             // todo fix it
-            if (is(z, $.$Model) && is(x, $.$Model) && z.equals) {
+            if (is_v2(z, $Model_V2) && is_v2(x, $Model_V2) && z.equals) {
               return z.equals(x);
             }
 
@@ -243,7 +245,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return newArrayData(this._items.filter(predicate));
     },
 
-    map<V>(select: ArraySelect<T, V>): ArrayData<V> {
+    map<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V> {
       return newArrayData(this._items.map(select));
     },
 
@@ -287,7 +289,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return nothing;
     },
 
-    filterMap<V>(
+    filterMap<V extends Model_V2>(
       predicateSelect: (value: T, index: Integer, array: ArrayData<T>) => V | Nothing,
     ): ArrayData<V> {
       const newArray: V[] = [];
@@ -407,38 +409,38 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
     },
 
     // todo fix it
-    flat(): T {
-      return newArrayData(this._items.flat()) as T;
-    },
+    // flat(): T {
+    //   return newArrayData(this._items.flat()) as T;
+    // },
 
-    flatMap<V>(select: ArraySelect<T, V>): ArrayData<V> {
+    flatMap<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V> {
       return newArrayData(this._items.flatMap(select));
     },
 
     // [1, 2, 3, 0, 5].splitBy(x=>x===0) is [{splitter: nothing, items: [1, 2, 3]}, {splitter: 0, items: [5]}]
-    splitBy(
-      predicate: (value: T, index: Integer, array: ArrayData<T>) => Boolean2,
-    ): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}> {
-      const result: ArrayData<{splitter: T | Nothing; items: ArrayData<T>}> = newArrayData();
+    // splitBy(
+    //   predicate: (value: T, index: Integer, array: ArrayData<T>) => Boolean2,
+    // ): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}> {
+    //   const result: ArrayData<{splitter: T | Nothing; items: ArrayData<T>}> = newArrayData();
 
-      for (let index = 0; index < this.length(); index++) {
-        const item = this.at2(index);
+    //   for (let index = 0; index < this.length(); index++) {
+    //     const item = this.at2(index);
 
-        if (predicate(item, index, this)) {
-          result.addLast({splitter: item, items: newArrayData([])});
+    //     if (predicate(item, index, this)) {
+    //       result.addLast({splitter: item, items: newArrayData([])});
 
-          continue;
-        }
+    //       continue;
+    //     }
 
-        if (result.length() === 0) {
-          result.addLast({splitter: nothing, items: newArrayData([])});
-        }
+    //     if (result.length() === 0) {
+    //       result.addLast({splitter: nothing, items: newArrayData([])});
+    //     }
 
-        result.last()?.items.addLast(item);
-      }
+    //     result.last()?.items.addLast(item);
+    //   }
 
-      return result;
-    },
+    //   return result;
+    // },
 
     // todo fix 'reduce'
     reduce<V>(select: (previous: any, current: any, index: Integer) => any, initialValue?: V | Nothing): V {
@@ -457,11 +459,11 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return this.length() === other.length() && this.every((x, i) => other.at(i) === x);
     },
 
-    toDictionary<Key extends $Model>(selectKey: ArraySelect<T, Key>): Dictionary<Key, T> {
-      const items = this._items.map((x, i) => newKeyValue(selectKey(x, i), x));
+    // toDictionary<Key extends Model_V2>(selectKey: ArraySelect<T, Key>): Dictionary<Key, T> {
+    //   const items = this._items.map((x, i) => newKeyValue(selectKey(x, i), x));
 
-      return newDictionary(newArrayData(items));
-    },
+    //   return newDictionary(newArrayData(items));
+    // },
 
     toArray(): T[] {
       return [...this._items];

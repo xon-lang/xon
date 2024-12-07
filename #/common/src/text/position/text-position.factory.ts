@@ -1,9 +1,8 @@
-import {Boolean2, Integer, TextPosition} from '#common';
-import {$} from '#typing';
+import {$TextPosition, Boolean2, Integer, TextPosition} from '#common';
 
 export function textPosition(index: Integer, line: Integer, column: Integer): TextPosition {
   return {
-    $: $.TextPosition,
+    $: $TextPosition,
     index,
     line,
     column,

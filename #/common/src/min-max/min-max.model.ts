@@ -1,12 +1,12 @@
-import {Boolean2, Integer} from '#common';
-import {$Model} from '#typing';
+import {Boolean2, commonPackageType, Integer, Model_V2} from '#common';
 
 // todo is MinMax a vector ???
-export type MinMax = $Model & {
+export type MinMax = Model_V2 & {
   min: Integer;
   max: Integer;
 
-  // todo remove clone and equals use from $Model
   clone(): MinMax;
   equals(other: MinMax): Boolean2;
 };
+
+export const $MinMax = commonPackageType<MinMax>('MinMax');

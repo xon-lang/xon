@@ -1,9 +1,8 @@
-import {Boolean2, Integer, MinMax, String2} from '#common';
-import {$} from '#typing';
+import {$MinMax, Boolean2, Integer, MinMax, String2} from '#common';
 
 export function newMinMax(min: Integer, max: Integer): MinMax {
   return {
-    $: $.MinMax,
+    $: $MinMax,
     min,
     max,
 

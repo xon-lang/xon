@@ -1,9 +1,9 @@
-import {Boolean2, KeyValue, String2} from '#common';
-import {$} from '#typing';
+import {$KeyValue, Boolean2, KeyValue, Model_V2, String2} from '#common';
 
-export function newKeyValue<K, V>(key: K, value: V): KeyValue<K, V> {
+export function newKeyValue<K extends Model_V2, V extends Model_V2>(key: K, value: V): KeyValue<K, V> {
   return {
-    $: $.KeyValue,
+    // todo set valid types
+    $: $KeyValue(),
     key,
     value,
 

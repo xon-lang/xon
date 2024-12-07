@@ -1,9 +1,14 @@
 import {
+  $ArrayData,
+  $CharData,
+  $TextData,
+  $TextRange,
   ArrayData,
   Boolean2,
   Char,
   CharData,
   Integer,
+  is_v2,
   newArrayData,
   Nothing,
   Number2,
@@ -12,7 +17,6 @@ import {
   TextData,
   TextRange,
 } from '#common';
-import {$, is} from '#typing';
 
 const NL = newTextData('\n');
 
@@ -29,10 +33,10 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
   return {
     ...array,
 
-    $: $.TextData,
+    $: $TextData,
 
     slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): TextData {
-      if (is(rangeOrStartIndex, $.TextRange)) {
+      if (is_v2(rangeOrStartIndex, $TextRange)) {
         const {start, stop} = rangeOrStartIndex;
 
         return newTextData(array.slice(start.index, stop.index));
@@ -132,11 +136,11 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
         return this.toString() === other.join('');
       }
 
-      if (is(other, $.TextData)) {
+      if (is_v2(other, $TextData)) {
         return this.toString() === other.toString();
       }
 
-      if (is(other, $.ArrayData)) {
+      if (is_v2(other, $ArrayData($CharData))) {
         return this.toString() === other._items.join('');
       }
 

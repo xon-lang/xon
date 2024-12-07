@@ -1,24 +1,27 @@
 import {
+  $Dictionary,
+  Anything_V2,
   ArrayData,
   Boolean2,
   Dictionary,
   Integer,
   KeyValue,
+  Model_V2,
   newArrayData,
   Nothing,
   Number2,
   String2,
 } from '#common';
-import {$, $Model} from '#typing';
 
-export function newDictionary<K extends $Model, V>(
+export function newDictionary<K extends Model_V2, V extends Anything_V2>(
   array: ArrayData<KeyValue<K, V>> = newArrayData(),
 ): Dictionary<K, V> {
   return {
     ...array,
     base: array,
 
-    $: $.Dictionary,
+    // todo set generics
+    $: $Dictionary(),
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): Dictionary<K, V> {
       return newDictionary(this.base.slice(startIndex, stopIndex));

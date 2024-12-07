@@ -1,5 +1,6 @@
 import {$CommonPackage} from '#common';
 
+// todo create $Anything
 export type Anything = Something | Nothing;
 export type Something = boolean | number | string | object;
 export type Nothing = null | undefined;
@@ -31,7 +32,13 @@ export interface $Type<T = Model_V2> {
 
 export interface Model_V2 {
   $: $Type;
+
+  equals(other: this): Boolean2;
+  // clone(): this;
+  toString(): String2;
 }
+
+export type Anything_V2 = Model_V2 | Nothing;
 
 export const $Model_V2: $Type<Model_V2> = {
   pkg: $CommonPackage,
@@ -59,7 +66,8 @@ export function isType<T extends $Type>($: $Type | Nothing, type: T): $ is T {
 }
 
 export function is_v2<T extends $Type>(
-  object: Model_V2 | Nothing,
+  // todo fix any type
+  object: any,
   type: T,
 ): object is Exclude<T['type'], undefined> {
   return isType(object?.$, type);

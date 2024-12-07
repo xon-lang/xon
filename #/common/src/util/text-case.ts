@@ -2,8 +2,10 @@
 
 import {
   Dictionary,
+  FunctionData,
   newArrayData,
   newDictionary,
+  newFunctionData,
   newKeyValue,
   newTextData,
   nothing,
@@ -270,20 +272,20 @@ function splitPrefixSuffix(input: string, options: Options = {}): [string, strin
 
 export type CaseFn = (input: string, options?: PascalCaseOptions) => string;
 
-const caseFunctions: Dictionary<TextData, CaseFn> = newDictionary(
+const caseFunctions: Dictionary<TextData, FunctionData> = newDictionary(
   newArrayData([
-    newKeyValue(newTextData('camel'), camelCase),
-    newKeyValue(newTextData('capital'), capitalCase),
-    newKeyValue(newTextData('constant'), constantCase),
-    newKeyValue(newTextData('dot'), dotCase),
-    newKeyValue(newTextData('kebab'), kebabCase),
-    newKeyValue(newTextData('no'), noCase),
-    newKeyValue(newTextData('pascal'), pascalCase),
-    newKeyValue(newTextData('pascalSnake'), pascalSnakeCase),
-    newKeyValue(newTextData('path'), pathCase),
-    newKeyValue(newTextData('sentence'), sentenceCase),
-    newKeyValue(newTextData('snake'), snakeCase),
-    newKeyValue(newTextData('train'), trainCase),
+    newKeyValue(newTextData('camel'), newFunctionData(camelCase)),
+    newKeyValue(newTextData('capital'), newFunctionData(capitalCase)),
+    newKeyValue(newTextData('constant'), newFunctionData(constantCase)),
+    newKeyValue(newTextData('dot'), newFunctionData(dotCase)),
+    newKeyValue(newTextData('kebab'), newFunctionData(kebabCase)),
+    newKeyValue(newTextData('no'), newFunctionData(noCase)),
+    newKeyValue(newTextData('pascal'), newFunctionData(pascalCase)),
+    newKeyValue(newTextData('pascalSnake'), newFunctionData(pascalSnakeCase)),
+    newKeyValue(newTextData('path'), newFunctionData(pathCase)),
+    newKeyValue(newTextData('sentence'), newFunctionData(sentenceCase)),
+    newKeyValue(newTextData('snake'), newFunctionData(snakeCase)),
+    newKeyValue(newTextData('train'), newFunctionData(trainCase)),
   ]),
 );
 
@@ -291,7 +293,7 @@ export function changeTextCase(caseName: TextData, text: TextData): TextData | N
   const fn = caseFunctions.get(caseName);
 
   if (fn) {
-    return newTextData(fn(text.toString()));
+    return newTextData(fn.invoke(text.toString()));
   }
 
   return nothing;

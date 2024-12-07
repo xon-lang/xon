@@ -1,5 +1,14 @@
-import {ArrayData, Boolean2, CharData, newArrayData, String2, TextData} from '#common';
-import {$, is} from '#typing';
+import {
+  $CharData,
+  $TextData,
+  ArrayData,
+  Boolean2,
+  CharData,
+  is_v2,
+  newArrayData,
+  String2,
+  TextData,
+} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -8,9 +17,10 @@ const LOWER_Z_CODE = 'z'.charCodeAt(0);
 const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
+// todo rename to 'newCharData'
 export function charData(charString: String2): CharData {
   return {
-    $: $.CharData,
+    $: $CharData,
     _string: charString,
 
     isUpperLetter(): Boolean2 {
@@ -52,7 +62,7 @@ export function charData(charString: String2): CharData {
         return this._string === other;
       }
 
-      if (is(other, $.TextData)) {
+      if (is_v2(other, $TextData)) {
         return this._string === other.toString();
       }
 
