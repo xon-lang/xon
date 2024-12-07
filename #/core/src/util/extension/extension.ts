@@ -1,4 +1,4 @@
-import {Anything, ArrayData, Boolean2, Char, Integer, Nothing, Number2, String2, TextData} from '#common';
+import {Anything, ArrayData, Boolean2, Integer, Nothing, Number2, String2, TextData} from '#common';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}
@@ -20,7 +20,7 @@ interface ArrayExtension<T = Anything> {
   takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): T[];
   take(length: Integer, startIndex?: Integer): T[];
 
-  some(predicate: Predicate<Char>): Boolean2;
+  some(predicate: Predicate<string>): Boolean2;
 
   count(predicate?: Predicate<T>): Integer;
   sum(select: Select<T, Number2>): Number2;
@@ -48,7 +48,7 @@ interface StringExtension {
   removeLast(): String2;
 
   take(length: Integer, startIndex?: Integer): String2;
-  takeWhile(predicate?: Predicate<Char>, startIndex?: Integer, includeConditionItem?: Boolean2): String2;
+  takeWhile(predicate?: Predicate<string>, startIndex?: Integer, includeConditionItem?: Boolean2): String2;
 
   toCharCodes(): Uint8Array;
   isLetter(index: Integer): Boolean2;
