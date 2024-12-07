@@ -13,8 +13,6 @@ export type String2 = string;
 
 export type Boolean2 = boolean;
 
-export type Range2<FROM, TO> = {from: FROM; to: TO};
-
 export const nothing = null;
 
 export interface $Package {
