@@ -27,6 +27,5 @@
     "source.organizeImports": "always"
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "git.postCommitCommand": "none"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
