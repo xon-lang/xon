@@ -4,10 +4,24 @@ export const $CommonPackage: $Package = {
   name: 'common',
 };
 
-export function commonPackageType<T extends Model_V2>(name: String2, parent?: $Type | Nothing): $Type<T> {
+export function packageType<T extends Model_V2>(
+  pkg: $Package,
+  name: String2,
+  parent?: $Type | Nothing,
+  generics?: $Type[] | Nothing,
+): $Type<T> {
   return {
+    pkg,
     name,
-    parent: parent ? parent : $Model_V2,
-    package: $CommonPackage,
+    parent: parent ?? $Model_V2,
+    generics,
   };
+}
+
+export function commonPackageType<T extends Model_V2>(
+  name: String2,
+  parent?: $Type | Nothing,
+  generics?: $Type[] | Nothing,
+): $Type<T> {
+  return packageType<T>($CommonPackage, name, parent, generics);
 }

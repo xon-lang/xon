@@ -22,10 +22,11 @@ export interface $Package {
 }
 
 export interface $Type<T = Model_V2> {
+  pkg: $Package;
   name: String2;
   type?: T;
-  package?: $Package;
-  parent?: $Type;
+  parent?: $Type | Nothing;
+  generics?: $Type[] | Nothing;
 }
 
 export interface Model_V2 {
@@ -33,8 +34,8 @@ export interface Model_V2 {
 }
 
 export const $Model_V2: $Type<Model_V2> = {
+  pkg: $CommonPackage,
   name: 'Model',
-  package: $CommonPackage,
 };
 
 export function isType<T extends $Type>($: $Type | Nothing, type: T): $ is T {
@@ -46,7 +47,15 @@ export function isType<T extends $Type>($: $Type | Nothing, type: T): $ is T {
     return true;
   }
 
-  return $.package == type.package && $.name === type.name;
+  if (type.generics && type.generics?.length > 0) {
+    if ($.generics && $.generics.length === type.generics.length) {
+      return $.generics.every((x, i) => isType(x, type.generics![i]));
+    }
+
+    return false;
+  }
+
+  return $.name === type.name && $.pkg == type.pkg;
 }
 
 export function is_v2<T extends $Type>(
