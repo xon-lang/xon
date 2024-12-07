@@ -1,13 +1,13 @@
 import {Nothing, TextData, TextReference} from '#common';
 import {
+  $LexicalNode,
   CONTROL_KEYWORDS,
-  ExpressionNode,
+  corePackageType,
   LexicalNode,
   lexicalNode,
   MODIFIER_KEYWORDS,
   OPERATOR_KEYWORDS,
 } from '#core';
-import {$} from '#typing';
 
 export enum KeywordType {
   OPERATOR = 'OPERATOR',
@@ -15,13 +15,13 @@ export enum KeywordType {
   CONTROL = 'CONTROL',
 }
 
-export type OperatorNode = LexicalNode<$.OperatorNode> & ExpressionNode;
-// & {
-//   keywordType: KeywordType | Nothing;
-// };
+// todo should be as OperatorContentNode ???
+export type OperatorNode = LexicalNode;
+
+export const $OperatorNode = corePackageType<OperatorNode>('OperatorNode', $LexicalNode);
 
 export function operatorNode(reference: TextReference, text: TextData): OperatorNode {
-  return lexicalNode($.OperatorNode, {reference, text}); //, keywordType: getKeywordType(text)
+  return lexicalNode({$: $LexicalNode, reference, text, isExpression: true});
 }
 
 function getKeywordType(text: TextData): KeywordType | Nothing {

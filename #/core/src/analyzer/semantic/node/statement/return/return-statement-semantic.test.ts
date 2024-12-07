@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {createSemanticAnalyzer, IntegerValueSemantic, ReturnNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('with value', () => {
   const text = newTextData(`return  3`);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
 

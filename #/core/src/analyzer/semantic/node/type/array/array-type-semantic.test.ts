@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   ArrayTypeSemantic,
   AttributeValueDeclarationSemantic,
@@ -16,7 +16,7 @@ test('a is array', () => {
   const text = newTextData(`
     const a: [1, 2, "A"]
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 

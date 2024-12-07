@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   FunctionTypeSemantic,
   IdTypeSemantic,
@@ -10,7 +10,7 @@ import {$} from '#typing';
 
 test('no generics', () => {
   const text = newTextData(`type Number = 3 | 7`);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const semantic = semanticFromResource(source, nothing);
 
   expect(semantic.declarationManager.count()).toBe(1);
@@ -30,7 +30,7 @@ test('no generics', () => {
 
 test('has generics', () => {
   const text = newTextData(`type Number<:T, V,U:> = T | V | U`);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const semantic = semanticFromResource(source, nothing);
 
   expect(semantic.declarationManager.count()).toBe(1);

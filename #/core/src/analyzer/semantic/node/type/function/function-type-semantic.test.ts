@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -15,7 +15,7 @@ test('a is function', () => {
     type String
     const a: (x: Integer): String
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 

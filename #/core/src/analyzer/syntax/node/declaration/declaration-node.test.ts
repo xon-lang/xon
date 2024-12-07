@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {CharNode, DeclarationNode, IdNode, IntegerNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('type A', () => {
   const text = newTextData('type A');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -17,7 +17,7 @@ test('type A', () => {
 
 test('type A: B', () => {
   const text = newTextData('type A: B');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -32,7 +32,7 @@ test('type A: B', () => {
 
 test('with generics extends b', () => {
   const text = newTextData('type A<:T: Array = String, U:>: B');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -53,7 +53,7 @@ test('with generics extends b', () => {
 
 test('with parameters extends b', () => {
   const text = newTextData("type A(a: Integer = 123, b: Boolean, c = 'C'): B");
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -86,7 +86,7 @@ test('with parameters extends b', () => {
 
 test('with generics and parameters extends b', () => {
   const text = newTextData("type A<:T: Array = String, U:>(a: Integer = 123, b: Boolean, c = 'C'): B");
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -133,7 +133,7 @@ test('has attributes', () => {
   e(a, b, c: Char, d = 2): Nothing
   f{T, U, V}(a, b, c: Char, d = 2) = a + b + d
   `);
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -148,7 +148,7 @@ test('has attributes', () => {
 
 test('type string with base class', () => {
   const text = newTextData('type Array\ntype String: Array');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[1].value as DeclarationNode;
@@ -162,7 +162,7 @@ test('type string with base class', () => {
 
 test('lambda type', () => {
   const text = newTextData('const a: (x: Integer): Integer');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -181,7 +181,7 @@ test('declaration documentation', () => {
   Some description
 ===
 type A`);
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;
@@ -196,7 +196,7 @@ type A`);
 
 test('infix plus operator', () => {
   const text = newTextData('infix + (a: Integer, b: Integer): Integer');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as DeclarationNode;

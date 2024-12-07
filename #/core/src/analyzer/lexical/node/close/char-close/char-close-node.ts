@@ -1,9 +1,10 @@
 import {TextData, TextReference} from '#common';
-import {CloseNode, lexicalNode} from '#core';
-import {$} from '#typing';
+import {$CloseNode, CloseNode, corePackageType, lexicalNode} from '#core';
 
-export type CharCloseNode = CloseNode<$.CharCloseNode>;
+export type CharCloseNode = CloseNode;
+
+export const $CharCloseNode = corePackageType<CharCloseNode>('CharCloseNode', $CloseNode);
 
 export function charCloseNode(reference: TextReference, text: TextData): CharCloseNode {
-  return lexicalNode($.CharCloseNode, {reference, text});
+  return lexicalNode({$: $CharCloseNode, reference, text});
 }

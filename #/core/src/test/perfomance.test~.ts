@@ -1,10 +1,12 @@
-import {Anything, newTextData, performanceIterations, String2, textResourceFromLocation} from '#common';
+import {Anything, newTextData, newTextResourceFromLocation, performanceIterations, String2} from '#common';
 import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 
 test('performance', () => {
-  const resource = textResourceFromLocation(newTextData('packages/core/parser/test/performance/source.xon'));
+  const resource = newTextResourceFromLocation(
+    newTextData('packages/core/parser/test/performance/source.xon'),
+  );
 
   if (!resource) {
     return;
@@ -22,7 +24,7 @@ test('performance', () => {
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
-  const source = textResourceFromLocation(newTextData(join(dirPath, 'source.xon')));
+  const source = newTextResourceFromLocation(newTextData(join(dirPath, 'source.xon')));
 
   expect(source).toBeTruthy();
 

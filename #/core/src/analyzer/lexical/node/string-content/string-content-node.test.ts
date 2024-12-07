@@ -1,15 +1,14 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
-import {StringNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {is_v2, newTextData, newTextResource, nothing} from '#common';
+import {$StringContentNode, createLexicalAnalyzer, StringContentNode, stringLexicalParsers} from '#core';
 
 test('string content', () => {
   const text = newTextData('"a"');
-  const source = textResourceFromData(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const source = newTextResource(nothing, text);
+  const analyzer = createLexicalAnalyzer(source);
+  const nodes = analyzer.nodes(stringLexicalParsers());
+  const node = nodes.at(0) as StringContentNode;
 
-  expect(statements.length).toBe(1);
-  expect(node.$).toBe($.StringNode);
-  expect(node.content?.text.toString()).toBe('a');
+  expect(nodes.length()).toBe(1);
+  expect(is_v2(node, $StringContentNode)).toBe(true);
+  expect(node.text.toString()).toBe('a');
 });

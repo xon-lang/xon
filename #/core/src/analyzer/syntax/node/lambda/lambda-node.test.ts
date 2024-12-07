@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {DeclarationNode, evaluate, IdNode, LambdaNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('function with no parameters', () => {
   const text = newTextData('(): Integer');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
@@ -18,7 +18,7 @@ test('function with no parameters', () => {
 
 test('function with generic', () => {
   const text = newTextData('{T}(): T');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
@@ -33,7 +33,7 @@ test('function with generic', () => {
 
 test('function with generic and parameter', () => {
   const text = newTextData('{T}(a: T): T');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
@@ -52,7 +52,7 @@ test('function with generic and parameter', () => {
 
 test('has argument and value', () => {
   const text = newTextData('(x) = x + 42');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;
@@ -71,7 +71,7 @@ test('has argument and value', () => {
 
 test('two parameter', () => {
   const text = newTextData('(a, b) = a+b');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as LambdaNode;

@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {DocumentationNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('documentation', () => {
   const text = newTextData('===a===');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
@@ -19,7 +19,7 @@ test('documentation', () => {
 
 test('documentation 2', () => {
   const text = newTextData('=== abc\n\n\n def==');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
@@ -34,7 +34,7 @@ test('documentation 2', () => {
 
 test('documentation labels', () => {
   const text = newTextData('=== abc\n\n\n def @in a1 b2 c 3     @return _123 _ ===');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
@@ -58,7 +58,7 @@ test('documentation labels', () => {
 
 test('documentation operator id', () => {
   const text = newTextData('===@abc desc===');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;

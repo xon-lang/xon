@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   createTypescriptTranslator,
   DeclarationNode,
@@ -9,7 +9,7 @@ import {
 
 test('type string', () => {
   const text = newTextData('const a: "string"');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
@@ -21,7 +21,7 @@ test('type string', () => {
 
 test('type integer', () => {
   const text = newTextData('const a: 123');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
@@ -33,7 +33,7 @@ test('type integer', () => {
 
 test('type union', () => {
   const text = newTextData('const a: 123 | "abc" | 1 | "a"');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
@@ -45,7 +45,7 @@ test('type union', () => {
 
 test('type array', () => {
   const text = newTextData('const a: [1, 2, "abc", "a" | 1 & 2]');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;

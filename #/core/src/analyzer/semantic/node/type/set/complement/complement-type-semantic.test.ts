@@ -1,4 +1,4 @@
-import {newTextData, nothing, TextData, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing, TextData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   ComplementTypeSemantic,
@@ -18,7 +18,7 @@ test('a is integer or float', () => {
 
     const a: Integer \\ Float
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -56,7 +56,7 @@ test('check type', () => {
     const b: Integer
     const c: Float
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 

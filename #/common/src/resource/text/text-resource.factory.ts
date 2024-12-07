@@ -14,7 +14,7 @@ import {
 } from '#common';
 import {readFileSync, statSync} from 'node:fs';
 
-export function textResourceFromData(location: TextData | Nothing, data: TextData): TextResource {
+export function newTextResource(location: TextData | Nothing, data: TextData): TextResource {
   return {
     $: $TextResource,
     location,
@@ -32,9 +32,9 @@ export function textResourceFromData(location: TextData | Nothing, data: TextDat
       return this.data === other.data;
     },
 
-    clone(): TextResource {
-      return textResourceFromData(this.location, this.data);
-    },
+    // clone(): TextResource {
+    //   return newTextResourceFromData(this.location, this.data);
+    // },
 
     toString(): String2 {
       return `{ location: ${this.location}, data: ${this.data}}`;
@@ -42,7 +42,7 @@ export function textResourceFromData(location: TextData | Nothing, data: TextDat
   };
 }
 
-export function textResourceFromLocation(location: TextData): TextResource | Nothing {
+export function newTextResourceFromLocation(location: TextData): TextResource | Nothing {
   try {
     if (!statSync(location.toString()).isFile()) {
       return nothing;
@@ -50,7 +50,7 @@ export function textResourceFromLocation(location: TextData): TextResource | Not
 
     const data = newTextData(readFileSync(location.toString()).toString());
 
-    return textResourceFromData(location, data);
+    return newTextResource(location, data);
   } catch (error) {
     return nothing;
   }

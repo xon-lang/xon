@@ -1,9 +1,10 @@
 import {TextData, TextReference} from '#common';
-import {CloseNode, lexicalNode} from '#core';
-import {$} from '#typing';
+import {$CloseNode, CloseNode, corePackageType, lexicalNode} from '#core';
 
-export type AngleCloseNode = CloseNode<$.AngleCloseNode>;
+export type AngleCloseNode = CloseNode;
+
+export const $AngleCloseNode = corePackageType<AngleCloseNode>('AngleCloseNode', $CloseNode);
 
 export function angleCloseNode(reference: TextReference, text: TextData): AngleCloseNode {
-  return lexicalNode($.AngleCloseNode, {reference, text});
+  return lexicalNode({$: $AngleCloseNode, reference, text});
 }

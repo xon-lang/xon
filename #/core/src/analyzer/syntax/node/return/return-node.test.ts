@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {RETURN, ReturnNode, evaluate, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('with value', () => {
   const text = newTextData('return 3 + 7');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ReturnNode;

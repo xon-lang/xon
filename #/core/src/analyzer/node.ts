@@ -1,19 +1,18 @@
-import {Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
-import {Semantic} from '#core';
-import {$, $Model} from '#typing';
+import {Boolean2, Integer, Model_V2, Nothing, nothing, TextReference} from '#common';
+import {corePackageType, Semantic} from '#core';
 
-export type Node<T extends $ = $> = $Model & {
-  $: T;
+export type Node = Model_V2 & {
   reference: TextReference;
   parent?: Node | Nothing;
   isHidden?: Boolean2 | Nothing;
+  // todo remove 'semantic' field ???
+  semantic?: Semantic | Nothing;
   hiddenNodes?: Node[] | Nothing;
 };
 
-export type ExpressionNode = Node & {
-  semantic?: Semantic | Nothing;
-};
+export const $Node = corePackageType<Node>('Node');
 
+// todo move it out of node.ts
 export function nodeFindMap<T>(
   nodes: Node[],
   startIndex: Integer,

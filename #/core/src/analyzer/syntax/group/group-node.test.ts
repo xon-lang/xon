@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   BraceGroupNode,
   BracketGroupNode,
@@ -12,7 +12,7 @@ import {$, is} from '#typing';
 
 test('empty closed', () => {
   const text = newTextData('()');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ParenGroupNode;
@@ -26,7 +26,7 @@ test('empty closed', () => {
 
 test('validate close pair', () => {
   const text = newTextData('(');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ParenGroupNode;
@@ -48,7 +48,7 @@ test('validate close pair', () => {
 
 test('a in group', () => {
   const text = newTextData('(a)');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as ParenGroupNode;
@@ -59,7 +59,7 @@ test('a in group', () => {
 
 test('empty object', () => {
   const text = newTextData('{}');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BraceGroupNode;
@@ -71,7 +71,7 @@ test('empty object', () => {
 
 test('single item', () => {
   const text = newTextData('[123 456]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -84,7 +84,7 @@ test('single item', () => {
 
 test('single comma', () => {
   const text = newTextData('[,]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -98,7 +98,7 @@ test('single comma', () => {
 
 test('empty not closed', () => {
   const text = newTextData('[');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -112,7 +112,7 @@ test('empty not closed', () => {
 
 test('inner group', () => {
   const text = newTextData('[()]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -128,7 +128,7 @@ test('inner group', () => {
 
 test('inner empty group', () => {
   const text = newTextData('[[[]]]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -148,7 +148,7 @@ test('inner empty group', () => {
 
 test('two integers no comma and ws at the end', () => {
   const text = newTextData('[1, 2]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -162,7 +162,7 @@ test('two integers no comma and ws at the end', () => {
 
 test('two integers and comma no ws at the end', () => {
   const text = newTextData('[1, 2,]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -176,7 +176,7 @@ test('two integers and comma no ws at the end', () => {
 
 test('two integers and comma and ws', () => {
   const text = newTextData('[1, 2, ]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -193,7 +193,7 @@ test('array on several lines', () => {
                 2+2
                 3,
      4,    6+6]`);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -207,7 +207,7 @@ test('array on several lines', () => {
 
 test('debug 1', () => {
   const text = newTextData('[1, , 2 ]');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BracketGroupNode;
@@ -221,7 +221,7 @@ test('debug 1', () => {
 
 test('empty object', () => {
   const text = newTextData('{}');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as BraceGroupNode;

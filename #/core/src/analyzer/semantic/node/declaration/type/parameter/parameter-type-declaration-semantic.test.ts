@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   FunctionTypeSemantic,
@@ -14,7 +14,7 @@ test('only a', () => {
 type Number
 const a<:T:Number, V:T:>(p: T): V
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const semantic = semanticFromResource(source, nothing);
 
   expect(semantic.declarationManager.count()).toBe(2);

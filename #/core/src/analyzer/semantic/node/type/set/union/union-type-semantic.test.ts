@@ -1,4 +1,4 @@
-import {newTextData, nothing, TextData, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing, TextData} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -18,7 +18,7 @@ test('a is integer or float', () => {
 
     const a: Integer | Float
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -54,7 +54,7 @@ test('1 check type', () => {
     const a: Integer
     const b: Integer | Float
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -79,7 +79,7 @@ test('2 check type', () => {
     const b: Float
     const c: String
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 

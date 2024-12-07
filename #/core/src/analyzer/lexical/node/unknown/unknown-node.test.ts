@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {IntegerNode, LexicalNode, syntaxFromResource, UnknownNode} from '#core';
 import {$, is} from '#typing';
 
 test('unknown 1', () => {
   const text = newTextData('123 §•∞•456');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node0 = statements[0].value as IntegerNode;
@@ -22,7 +22,7 @@ test('unknown 1', () => {
 
 test('unknown 2', () => {
   const text = newTextData('ºª¶');
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
   const node = statements[0].value as UnknownNode;

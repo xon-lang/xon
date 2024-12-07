@@ -1,4 +1,4 @@
-import {newTextData, textResourceFromData} from '#common';
+import {newTextData, newTextResource} from '#common';
 import {SemanticAnalyzer, semanticFromResource} from '#core';
 import {OutputChannel, TextDocument} from 'vscode';
 
@@ -6,7 +6,7 @@ export function getDocumentSemantic(document: TextDocument, channel: OutputChann
   try {
     const text = newTextData(document.getText());
     const location = newTextData(document.uri.fsPath);
-    const resource = textResourceFromData(location, text);
+    const resource = newTextResource(location, text);
 
     return semanticFromResource(resource);
   } catch (error) {

@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -14,7 +14,7 @@ test('import core', () => {
     import "xon/core"
     const a: "abc"
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 

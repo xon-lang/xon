@@ -1,12 +1,5 @@
-import {LexicalNode} from '#core';
-import {$} from '#typing';
+import {$LexicalNode, corePackageType, LexicalNode} from '#core';
 
-export type CloseNodeType =
-  | $.ParenCloseNode
-  | $.BracketCloseNode
-  | $.BraceCloseNode
-  | $.AngleCloseNode
-  | $.StringCloseNode
-  | $.CharCloseNode;
+export type CloseNode = LexicalNode;
 
-export type CloseNode<T extends $ = CloseNodeType> = LexicalNode<T>;
+export const $CloseNode = corePackageType<CloseNode>('CloseNode', $LexicalNode);

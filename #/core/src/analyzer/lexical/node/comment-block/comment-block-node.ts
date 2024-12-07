@@ -1,10 +1,13 @@
 import {TextData, TextReference} from '#common';
-import {COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN, LexicalNode, lexicalNode} from '#core';
+import {$LexicalNode, COMMENT_BLOCK_CLOSE, COMMENT_BLOCK_OPEN, corePackageType, LexicalNode, lexicalNode} from '#core';
 import {$} from '#typing';
 
-export type CommentBlockNode = LexicalNode<$.CommentBlockNode> & {
+export type CommentBlockNode = LexicalNode & {
   value: TextData;
 };
+
+export const $CommentBlockNode = corePackageType<CommentBlockNode>('CommentBlockNode', $LexicalNode);
+
 
 export function commentBlockNode(reference: TextReference, text: TextData): CommentBlockNode {
   let value: TextData;
@@ -16,5 +19,5 @@ export function commentBlockNode(reference: TextReference, text: TextData): Comm
     value = text.slice(COMMENT_BLOCK_OPEN.length());
   }
 
-  return lexicalNode($.CommentBlockNode, {reference, text, isHidden: true, value});
+  return lexicalNode( {$:$CommentBlockNode, reference, text, isHidden: true, value});
 }

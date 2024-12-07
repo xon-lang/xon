@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('lf nl', () => {
   const text = newTextData('\n');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = syntax.hiddenNodes[0] as NlNode;
@@ -16,7 +16,7 @@ test('lf nl', () => {
 
 test('several', () => {
   const text = newTextData('  \n    \n   abc');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
 

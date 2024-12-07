@@ -1,20 +1,22 @@
 import {Nothing, TextData, TextReference} from '#common';
 import {
+  $LexicalNode,
+  corePackageType,
   DeclarationSemantic,
   DocumentationIdSemantic,
-  ExpressionNode,
   IdTypeSemantic,
   IdValueSemantic,
   LexicalNode,
   lexicalNode,
 } from '#core';
-import {$} from '#typing';
 
-export type IdNode = LexicalNode<$.IdNode> &
-  ExpressionNode & {
-    semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | DocumentationIdSemantic | Nothing;
-  };
+// todo should be as IdContentNode ???
+export type IdNode = LexicalNode & {
+  semantic?: IdValueSemantic | IdTypeSemantic | DeclarationSemantic | DocumentationIdSemantic | Nothing;
+};
+
+export const $IdNode = corePackageType<IdNode>('IdNode', $LexicalNode);
 
 export function idNode(reference: TextReference, text: TextData): IdNode {
-  return lexicalNode($.IdNode, {reference, text});
+  return lexicalNode({$: $IdNode, reference, text, semantic: null});
 }

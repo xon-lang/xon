@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -18,7 +18,7 @@ test('a is integer', () => {
     type Integer
     const a: Integer
   `);
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -47,7 +47,7 @@ test('a is array', () => {
     type Array<:T:>
     const a: Array<:3:>
   `);
-  const resource = textResourceFromData(nothing, text);
+  const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
 

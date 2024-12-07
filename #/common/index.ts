@@ -33,6 +33,6 @@ export * from './src/text/position/text-position.factory';
 export * from './src/text/position/text-position.model';
 export * from './src/text/range/text-range.factory';
 export * from './src/text/range/text-range.model';
-export * from './src/text/reference/text-reference.factory';
-export * from './src/text/reference/text-reference.model';
+export * from './src/text/text-resource-range/text-resource-range.factory';
+export * from './src/text/text-resource-range/text-resource-range.model';
 export * from './src/util/text-case';

@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {LexicalNode, MemberNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('member with id instance', () => {
   const text = newTextData('abc.def');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as MemberNode;
@@ -23,7 +23,7 @@ test('member with id instance', () => {
 
 test('member without id', () => {
   const text = newTextData('abc.');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as MemberNode;

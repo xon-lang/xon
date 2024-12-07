@@ -1,11 +1,11 @@
 import {
   newArrayData,
   newTextData,
+  newTextResourceFromLocation,
   Nothing,
   nothing,
   String2,
   TextData,
-  textResourceFromLocation,
 } from '#common';
 import {
   createSemanticAnalyzer,
@@ -35,7 +35,7 @@ export function importValueSemanticParse(
     node.value.content?.text.toString() ?? '',
     analyzer.resource.location,
   );
-  const resource = textResourceFromLocation(location);
+  const resource = newTextResourceFromLocation(location);
 
   if (!resource) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.reference, (x) =>
@@ -61,7 +61,7 @@ export function importValueSemanticParse(
 
 export function declarationManagerFromImportString(importString: String2): DeclarationScope | Nothing {
   const location = normalizeImportString(importString);
-  const resource = textResourceFromLocation(location);
+  const resource = newTextResourceFromLocation(location);
 
   if (!resource) {
     return nothing;

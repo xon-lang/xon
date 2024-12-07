@@ -1,4 +1,4 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -11,7 +11,7 @@ import {$} from '#typing';
 
 test('only a', () => {
   const text = newTextData('type A\n  p: A');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
   const type = semanticAnalyzer.declarationManager.declarations
@@ -36,7 +36,7 @@ test('only a', () => {
 
 test('declare b then a, a extends b', () => {
   const text = newTextData('type B\ntype A: B');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -61,7 +61,7 @@ test('declare b then a, a extends b', () => {
 
 test('declare a then b, a extends b', () => {
   const text = newTextData('type A: B\ntype B');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
@@ -86,7 +86,7 @@ test('declare a then b, a extends b', () => {
 
 test('infix plus operator', () => {
   const text = newTextData('infix + (a: Integer, b: Integer): Integer');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 

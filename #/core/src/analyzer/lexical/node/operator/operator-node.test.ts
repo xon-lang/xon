@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {InfixNode, OperatorNode, PostfixNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('single operator', () => {
   const text = newTextData('!');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as OperatorNode;
@@ -16,7 +16,7 @@ test('single operator', () => {
 
 test('after integer', () => {
   const text = newTextData('1!');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as PostfixNode;
@@ -28,7 +28,7 @@ test('after integer', () => {
 
 test('x + x', () => {
   const text = newTextData('x is Number');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as InfixNode;

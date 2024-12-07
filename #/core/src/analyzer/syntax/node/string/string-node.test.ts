@@ -1,10 +1,10 @@
-import {newTextData, nothing, textResourceFromData} from '#common';
+import {newTextData, newTextResource, nothing} from '#common';
 import {StringNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('string', () => {
   const text = newTextData('"abc   def"');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as StringNode;
@@ -17,7 +17,7 @@ test('string', () => {
 
 test('multiline string', () => {
   const text = newTextData('"some\nmultiline\n\n\nstring\n"');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as StringNode;
@@ -30,7 +30,7 @@ test('multiline string', () => {
 
 test('empty string', () => {
   const text = newTextData('"');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as StringNode;
@@ -43,7 +43,7 @@ test('empty string', () => {
 
 test('not closed', () => {
   const text = newTextData('"abc');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as StringNode;
@@ -56,7 +56,7 @@ test('not closed', () => {
 
 test('emoji', () => {
   const text = newTextData('"🙂"');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as StringNode;
@@ -70,7 +70,7 @@ test('emoji', () => {
 
 test('emoji 2', () => {
   const text = newTextData('"👩‍❤️‍💋‍👩"');
-  const source = textResourceFromData(nothing, text);
+  const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
   const node = statements[0].value as StringNode;

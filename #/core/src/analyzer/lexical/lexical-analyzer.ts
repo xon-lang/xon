@@ -1,6 +1,8 @@
 import {
+  ArrayData,
   Boolean2,
   Integer,
+  newArrayData,
   Nothing,
   nothing,
   TextData,
@@ -23,16 +25,13 @@ export type LexicalAnalyzer = {
   previousNonHiddenNode?: LexicalNode | Nothing;
 
   iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode>;
-
+  nodes(parsers: LexicalNodeParseFn[]): ArrayData<LexicalNode>;
   getResourceRange(length: Integer): TextReference;
   getResourceRange(text: TextData): TextReference;
   getResourceRangeWithNL(length: Integer): TextReference;
   getResourceRangeWithNL(text: TextData): TextReference;
   checkTextAtIndex(text: TextData): Boolean2;
   checkTextAtIndex(text: TextData, index: Integer | Nothing): Boolean2;
-
-  // checkTextsAtIndex(text: String2[]): String2 | Nothing;
-  // checkTextsAtIndex(text: String2[], index: Integer): String2 | Nothing;
 };
 
 export function createLexicalAnalyzer(
@@ -45,6 +44,12 @@ export function createLexicalAnalyzer(
 
     iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
       return parsersIterator(this, parsers);
+    },
+
+    nodes(parsers: LexicalNodeParseFn[]): ArrayData<LexicalNode> {
+      const array = Array.from(this.iterator(parsers));
+
+      return newArrayData(array);
     },
 
     getResourceRange(lengthOrText: Integer | TextData): TextReference {

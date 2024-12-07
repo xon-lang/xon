@@ -35,6 +35,8 @@ export interface Model_V2 {
 
   equals(other: this): Boolean2;
   // clone(): this;
+
+  // todo use TextData as return type
   toString(): String2;
 }
 
@@ -66,7 +68,7 @@ export function isType<T extends $Type>($: $Type | Nothing, type: T): $ is T {
 }
 
 export function is_v2<T extends $Type>(
-  // todo fix any type
+  // todo fix 'any' type
   object: any,
   type: T,
 ): object is Exclude<T['type'], undefined> {
