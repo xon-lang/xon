@@ -1,0 +1,23 @@
+import {Nothing, String2} from '#common';
+import {Node, TypeSemantics, ValueSemantic} from '#semantics';
+import {$} from '#typing';
+
+export type MemberValueSemantic = ValueSemantic<$.MemberValueSemantic> & {
+  instance: ValueSemantic;
+  name: String2 | Nothing;
+};
+
+export function memberValueSemantic(
+  nodeLink: Node,
+  instance: ValueSemantic,
+  name: String2 | Nothing,
+  type: TypeSemantics,
+): MemberValueSemantic {
+  return {
+    $: $.MemberValueSemantic,
+    nodeLink,
+    instance,
+    name,
+    type,
+  };
+}

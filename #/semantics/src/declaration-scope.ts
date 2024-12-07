@@ -1,18 +1,7 @@
-import {
-  ArrayData,
-  Dictionary,
-  Integer,
-  Nothing,
-  TextData,
-  newArrayData,
-  newDictionary,
-  newTextData,
-  nothing,
-} from '#common';
-import {DeclarationKind, DeclarationSemantic, TypeSemantic} from '#semantics';
-import {$, $Model, TypeMap, is} from '#typing';
+import {$Type, ArrayData, Dictionary, Integer, Model_V2, Nothing, TextData} from '#common';
+import {DeclarationSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
 
-export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = $Model & {
+export type DeclarationScope<T extends DeclarationSemantics = DeclarationSemantics> = Model_V2 & {
   imports: ArrayData<DeclarationScope> | Nothing;
   parent: DeclarationScope | Nothing;
   declarations: Dictionary<TextData, ArrayData<T>>;
@@ -21,140 +10,142 @@ export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic
   add(declaration: T): void;
   all(): ArrayData<T>;
 
-  filterByName<KIND extends DeclarationKind>(kind: KIND, name: TextData): ArrayData<TypeMap[KIND]>;
+  filterByName(type: $Type, name: TextData): ArrayData<DeclarationSemantics>;
 
-  find<KIND extends DeclarationKind>(
-    kind: KIND,
+  find(
+    type: $Type,
     name: TextData,
-    generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
-    parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
-  ): TypeMap[KIND] | Nothing;
+    generics?: ArrayData<TypeSemantics | Nothing> | Nothing,
+    parameters?: ArrayData<TypeSemantics | Nothing> | Nothing,
+  ): DeclarationSemantics | Nothing;
 
-  clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T>;
+  clone(generics?: ArrayData<TypeSemantics | Nothing> | Nothing): DeclarationScope<T>;
   union(other: DeclarationScope<T>): DeclarationScope<T>;
   intersection(other: DeclarationScope<T>): DeclarationScope<T>;
   complement(other: DeclarationScope<T>): DeclarationScope<T>;
 };
 
-export function createDeclarationScope<T extends DeclarationSemantic = DeclarationSemantic>(
-  analyzer: SemanticAnalyzer,
-  parent?: DeclarationScope<T> | Nothing,
-  imports?: ArrayData<DeclarationScope<T>> | Nothing,
-): DeclarationScope<T> {
-  return {
-    $: $.DeclarationScope,
-    imports,
-    parent,
-    declarations: newDictionary(),
+export const $DeclarationScope = semanticsPackageType<DeclarationScope>('DeclarationScope');
 
-    count(): Integer {
-      return Object.keys(this.declarations).length;
-    },
+// export function createDeclarationScope<T extends DeclarationSemantics = DeclarationSemantics>(
+//   analyzer: SemanticAnalyzer,
+//   parent?: DeclarationScope<T> | Nothing,
+//   imports?: ArrayData<DeclarationScope<T>> | Nothing,
+// ): DeclarationScope<T> {
+//   return {
+//     $: $.DeclarationScope,
+//     imports,
+//     parent,
+//     declarations: newDictionary(),
 
-    add(declaration: T): void {
-      // if (is(declaration, $.ValueDeclarationSemantic) && this.find($.DeclarationSemantic, declaration.name)) {
-      //   analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
-      //     x.declarationAlreadyExists(),
-      //   );
-      // }
+//     count(): Integer {
+//       return Object.keys(this.declarations).length;
+//     },
 
-      if (!this.declarations.has(declaration.name)) {
-        this.declarations.set(declaration.name, newArrayData());
-      }
+//     add(declaration: T): void {
+//       // if (is(declaration, $.ValueDeclarationSemantic) && this.find($.DeclarationSemantic, declaration.name)) {
+//       //   analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
+//       //     x.declarationAlreadyExists(),
+//       //   );
+//       // }
 
-      this.declarations.get(declaration.name)?.addLast(declaration);
-    },
+//       if (!this.declarations.has(declaration.name)) {
+//         this.declarations.set(declaration.name, newArrayData());
+//       }
 
-    all(): ArrayData<T> {
-      return this.declarations.values().flat();
-    },
+//       this.declarations.get(declaration.name)?.addLast(declaration);
+//     },
 
-    filterByName<K extends DeclarationKind>(kind: K, name: TextData): ArrayData<TypeMap[K]> {
-      const thisDeclarations = this.declarations.get(name);
-      const parentDeclarations = this.parent?.filterByName<K>(kind, name);
-      const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, kind));
+//     all(): ArrayData<T> {
+//       return this.declarations.values().flat();
+//     },
 
-      if (declarations && declarations.length() > 0) {
-        return declarations;
-      }
+//     filterByName<K extends DeclarationKind>(kind: K, name: TextData): ArrayData<TypeMap[K]> {
+//       const thisDeclarations = this.declarations.get(name);
+//       const parentDeclarations = this.parent?.filterByName<K>(kind, name);
+//       const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, kind));
 
-      const importDeclarations = this.imports?.toArray()?.flatMap(
-        (x) =>
-          x.declarations
-            .get(name)
-            ?.toArray()
-            ?.filter((x) => is(x, kind)) ?? [],
-      );
+//       if (declarations && declarations.length() > 0) {
+//         return declarations;
+//       }
 
-      if (importDeclarations && importDeclarations.length > 0) {
-        // todo remove 'as'
-        return newArrayData(importDeclarations) as ArrayData<TypeMap[K]>;
-      }
+//       const importDeclarations = this.imports?.toArray()?.flatMap(
+//         (x) =>
+//           x.declarations
+//             .get(name)
+//             ?.toArray()
+//             ?.filter((x) => is(x, kind)) ?? [],
+//       );
 
-      // todo remove 'as'
-      return newArrayData() as ArrayData<TypeMap[K]>;
-    },
+//       if (importDeclarations && importDeclarations.length > 0) {
+//         // todo remove 'as'
+//         return newArrayData(importDeclarations) as ArrayData<TypeMap[K]>;
+//       }
 
-    find<KIND extends DeclarationKind>(
-      kind: KIND,
-      name: TextData,
-      generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
-      parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
-    ): TypeMap[KIND] | Nothing {
-      const declarations = this.filterByName(kind, newTextData(name));
+//       // todo remove 'as'
+//       return newArrayData() as ArrayData<TypeMap[K]>;
+//     },
 
-      if (declarations.length() === 0) {
-        // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
-        //   x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
-        // );
+//     find<KIND extends DeclarationKind>(
+//       kind: KIND,
+//       name: TextData,
+//       generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
+//       parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
+//     ): TypeMap[KIND] | Nothing {
+//       const declarations = this.filterByName(kind, newTextData(name));
 
-        return nothing;
-      }
+//       if (declarations.length() === 0) {
+//         // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
+//         //   x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
+//         // );
 
-      // todo fix it
-      const filtered = declarations; // .filter((x) =>
-      //   generics && x.generics ? x.generics.length === generics.length : true,
-      // );
+//         return nothing;
+//       }
 
-      if (filtered.length() !== 1) {
-        // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
+//       // todo fix it
+//       const filtered = declarations; // .filter((x) =>
+//       //   generics && x.generics ? x.generics.length === generics.length : true,
+//       // );
 
-        return nothing;
-      }
+//       if (filtered.length() !== 1) {
+//         // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
 
-      return filtered.first();
-    },
+//         return nothing;
+//       }
 
-    clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T> {
-      const declarationManager = createDeclarationScope<T>(analyzer);
+//       return filtered.first();
+//     },
 
-      // todo simplify it. allow create declaration manager from 'declarations' field
-      for (const declaration of this.all()) {
-        declarationManager.add(declaration);
-      }
+//     clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T> {
+//       const declarationManager = createDeclarationScope<T>(analyzer);
 
-      return declarationManager;
-    },
+//       // todo simplify it. allow create declaration manager from 'declarations' field
+//       for (const declaration of this.all()) {
+//         declarationManager.add(declaration);
+//       }
 
-    union(other: DeclarationScope<T>): DeclarationScope<T> {
-      const newDeclarationManager = createDeclarationScope<T>(analyzer);
-      const allDeclarations = [...this.all(), ...other.all()];
+//       return declarationManager;
+//     },
 
-      for (const declaration of allDeclarations) {
-        newDeclarationManager.add(declaration);
-      }
+//     union(other: DeclarationScope<T>): DeclarationScope<T> {
+//       const newDeclarationManager = createDeclarationScope<T>(analyzer);
+//       const allDeclarations = [...this.all(), ...other.all()];
 
-      return newDeclarationManager;
-    },
+//       for (const declaration of allDeclarations) {
+//         newDeclarationManager.add(declaration);
+//       }
 
-    intersection(other: DeclarationScope<T>): DeclarationScope<T> {
-      // todo add 'intersection' logic instead of 'union'
-      return this.union(other);
-    },
+//       return newDeclarationManager;
+//     },
 
-    complement(other: DeclarationScope<T>): DeclarationScope<T> {
-      // todo add 'complement' logic instead of 'union'
-      return this.union(other);
-    },
-  };
-}
+//     intersection(other: DeclarationScope<T>): DeclarationScope<T> {
+//       // todo add 'intersection' logic instead of 'union'
+//       return this.union(other);
+//     },
+
+//     complement(other: DeclarationScope<T>): DeclarationScope<T> {
+//       // todo add 'complement' logic instead of 'union'
+//       return this.union(other);
+//     },
+//   };
+// }
