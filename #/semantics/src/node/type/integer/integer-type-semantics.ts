@@ -1,30 +1,29 @@
 import {Boolean2, Integer, Nothing} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  NominalTypeDeclarationSemantic,
-  SemanticAnalyzer,
+  NominalTypeDeclarationSemantics,
   TypeSemantics,
-  createDeclarationScope,
   isInSet,
+  newDeclarationScope,
+  semanticsPackageType,
 } from '#semantics';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export type IntegerTypeSemantic = TypeSemantics & {
-  $: $.IntegerTypeSemantic;
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+export type IntegerTypeSemantics = TypeSemantics & {
+  declaration?: NominalTypeDeclarationSemantics | Nothing;
   value: Integer;
 };
 
-export function integerTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  value: Integer,
-): IntegerTypeSemantic {
+export const $IntegerTypeSemantics = semanticsPackageType<IntegerTypeSemantics>(
+  'IntegerTypeSemantics',
+  $TypeSemantics,
+);
+
+export function newIntegerTypeSemantics(value: Integer): IntegerTypeSemantics {
   return {
-    $: $.IntegerTypeSemantic,
-    nodeLink,
+    $: $IntegerTypeSemantics,
     declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.integerTypeName,
@@ -36,7 +35,7 @@ export function integerTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
@@ -47,7 +46,7 @@ export function integerTypeSemantic(
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
+    equals(other: TypeSemantics): Boolean2 {
       if (is(other, $.IntegerTypeSemantic)) {
         return this.value === other.value;
       }
@@ -55,8 +54,8 @@ export function integerTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
+      return this.declaration?.attributes?.clone() ?? newDeclarationScope(analyzer);
     },
   };
 }

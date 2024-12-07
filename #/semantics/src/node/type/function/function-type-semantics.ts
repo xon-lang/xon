@@ -1,31 +1,33 @@
-import {Boolean2} from '#common';
+import {Boolean2, is_v2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  ParameterTypeDeclarationSemantic,
+  ParameterTypeDeclarationSemantics,
   ParameterValueDeclarationSemantics,
-  SemanticAnalyzer,
   TypeSemantics,
   isInSet,
+  semanticsPackageType,
 } from '#semantics';
-import {$, isSetOperatorTypeSemantic} from '#typing';
+import {$} from '#typing';
 
-export type FunctionTypeSemantic = TypeSemantics & {
-  $: $.FunctionTypeSemantic;
-  parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantics)[];
+export type FunctionTypeSemantics = TypeSemantics & {
+  parameters: (ParameterTypeDeclarationSemantics | ParameterValueDeclarationSemantics)[];
   result: TypeSemantics;
 };
 
-export function functionTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantics)[],
+export const $FunctionTypeSemantics = semanticsPackageType<FunctionTypeSemantics>(
+  'FunctionTypeSemantics',
+  $TypeSemantics,
+);
+
+export function newFunctionTypeSemantics(
+  parameters: (ParameterTypeDeclarationSemantics | ParameterValueDeclarationSemantics)[],
   result: TypeSemantics,
-): FunctionTypeSemantic {
+): FunctionTypeSemantics {
   return {
-    $: $.FunctionTypeSemantic,
-    nodeLink,
+    $: $FunctionTypeSemantics,
     declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.functionTypeName,
@@ -34,22 +36,22 @@ export function functionTypeSemantic(
     result,
 
     is(other: TypeSemantics): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is_v2(other, $SetTypeSemantics)) {
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
       return false;
     },
 
-    eq(_other: TypeSemantics): Boolean2 {
+    equals(_other: TypeSemantics): Boolean2 {
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       throw new Error('Not implemented');
     },
   };

@@ -1,35 +1,37 @@
 import {Boolean2, Nothing, String2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  SemanticAnalyzer,
-  TypeDeclarationSemantic,
+  TypeDeclarationSemantics,
   TypeSemantics,
-  createDeclarationScope,
   isInSet,
+  newDeclarationScope,
+  semanticsPackageType,
 } from '#semantics';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export type IdTypeSemantic = TypeSemantics & {
-  $: $.IdTypeSemantic;
+export type IdTypeSemantics = TypeSemantics & {
   name: String2;
 };
 
+export const $IdTypeSemantics = semanticsPackageType<IdTypeSemantics>(
+  'IdTypeSemantics',
+  $TypeSemantics,
+);
+
+
 // todo should we remove it ???
-export function idTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
+export function newIdTypeSemantics(
   name: String2,
-  declaration: TypeDeclarationSemantic | Nothing,
-): IdTypeSemantic {
+  declaration: TypeDeclarationSemantics | Nothing,
+): IdTypeSemantics {
   if (declaration) {
     declaration.usages.push(nodeLink.reference);
   }
 
   return {
-    $: $.IdTypeSemantic,
-    nodeLink,
+    $: $IdTypeSemantics,
     name: name,
     declaration,
 
@@ -50,7 +52,7 @@ export function idTypeSemantic(
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
+    equals(other: TypeSemantics): Boolean2 {
       // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
       if (
         is(this.declaration, $.NominalTypeDeclarationSemantic) &&
@@ -63,12 +65,12 @@ export function idTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
         return this.declaration.attributes;
       }
 
-      return createDeclarationScope(analyzer);
+      return newDeclarationScope(analyzer);
     },
   };
 }

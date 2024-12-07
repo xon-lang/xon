@@ -1,49 +1,51 @@
-import {Boolean2, Nothing} from '#common';
+import {Boolean2, is_v2, Nothing} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  NominalTypeDeclarationSemantic,
-  SetTypeSemantic,
-  TypeSemantics,
   isInSet,
+  NominalTypeDeclarationSemantics,
+  semanticsPackageType,
+  SetTypeSemantics,
+  TypeSemantics,
 } from '#semantics';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export type RangeTypeSemantic = SetTypeSemantic & {
-  $: $.RangeTypeSemantic;
-  declaration: NominalTypeDeclarationSemantic;
+export type RangeTypeSemantics = SetTypeSemantics & {
+  declaration: NominalTypeDeclarationSemantics;
   from: TypeSemantics;
   to: TypeSemantics;
   step: TypeSemantics | Nothing;
 };
 
-export function rangeTypeSemantic(
-  nodeLink: Node,
-  declaration: NominalTypeDeclarationSemantic,
-  from: RangeTypeSemantic['from'],
-  to: RangeTypeSemantic['to'],
-  step: RangeTypeSemantic['step'],
-): RangeTypeSemantic {
-  const semantic: RangeTypeSemantic = {
-    $: $.RangeTypeSemantic,
-    nodeLink,
+export const $RangeTypeSemantics = semanticsPackageType<RangeTypeSemantics>(
+  'RangeTypeSemantics',
+  $SetTypeSemantics,
+);
+
+export function newRangeTypeSemantics(
+  declaration: NominalTypeDeclarationSemantics,
+  from: RangeTypeSemantics['from'],
+  to: RangeTypeSemantics['to'],
+  step: RangeTypeSemantics['step'],
+): RangeTypeSemantics {
+  const semantic: RangeTypeSemantics = {
+    $: $RangeTypeSemantics,
     declaration,
     from,
     to,
     step,
 
     is(other: TypeSemantics): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is_v2(other, $SetTypeSemantics)) {
         return isInSet(this, other);
       }
 
-      if (is(other, $.RangeTypeSemantic)) {
+      if (is_v2(other, $RangeTypeSemantics)) {
         if (
-          is(this.from, $.IntegerTypeSemantic) &&
-          is(other.from, $.IntegerTypeSemantic) &&
-          is(this.to, $.IntegerTypeSemantic) &&
-          is(other.to, $.IntegerTypeSemantic)
+          is_v2(this.from, $IntegerTypeSemantics) &&
+          is_v2(other.from, $IntegerTypeSemantics) &&
+          is_v2(this.to, $IntegerTypeSemantics) &&
+          is_v2(other.to, $IntegerTypeSemantics)
         )
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
       }
@@ -51,15 +53,15 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
-      if (is(other, $.RangeTypeSemantic)) {
+    equals(other: TypeSemantics): Boolean2 {
+      if (is_v2(other, $.RangeTypeSemantic)) {
         return this.from === other.from && this.to === other.to && this.step === other.step;
       }
 
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       throw new Error('Not implemented');
     },
   };

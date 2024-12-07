@@ -1,39 +1,41 @@
 import {Boolean2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  SetTypeSemantic,
+  semanticsPackageType,
+  SetTypeSemantics,
   TypeSemantics,
 } from '#semantics';
-import {$} from '#typing';
 
-export type ComplementTypeSemantic = SetTypeSemantic & {
-  $: $.ComplementTypeSemantic;
+export type ComplementTypeSemantics = SetTypeSemantics & {
   left: TypeSemantics;
   right: TypeSemantics;
 };
 
-export function complementTypeSemantic(
-  nodeLink: Node,
+export const $ComplementTypeSemantics = semanticsPackageType<ComplementTypeSemantics>(
+  'ComplementTypeSemantics',
+  $SetTypeSemantics,
+);
+
+export function newComplementTypeSemantics(
   left: TypeSemantics,
   right: TypeSemantics,
-): ComplementTypeSemantic {
-  const semantic: ComplementTypeSemantic = {
-    $: $.ComplementTypeSemantic,
-    nodeLink,
+): ComplementTypeSemantics {
+  const semantic: ComplementTypeSemantics = {
+    $: $ComplementTypeSemantics,
     left,
     right,
 
     is(other: TypeSemantics): Boolean2 {
-      return this.eq(other);
+      return this.equals(other);
     },
 
-    eq(_other: TypeSemantics): Boolean2 {
+    equals(_other: TypeSemantics): Boolean2 {
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       return this.left.attributes().complement(this.right.attributes());
     },
   };

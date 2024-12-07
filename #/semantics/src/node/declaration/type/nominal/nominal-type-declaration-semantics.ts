@@ -1,48 +1,43 @@
 import {Boolean2, Nothing, TextData} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
-  createDeclarationScope,
-  DeclarationNode,
+  $TypeDeclarationSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
   DeclarationSemantics,
-  SemanticAnalyzer,
-  TypeDeclarationSemantic,
+  newDeclarationScope,
+  newUnknownTypeSemantics,
+  semanticsPackageType,
+  TypeDeclarationSemantics,
   TypeSemantics,
-  unknownTypeSemantic,
 } from '#semantics';
-import {$} from '#typing';
 
-export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
-  $: $.NominalTypeDeclarationSemantic;
+export type NominalTypeDeclarationSemantics = TypeDeclarationSemantics & {
   modifier: TextData;
   baseType: TypeSemantics;
-  attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
+  attributes: DeclarationScope<AttributeValueDeclarationSemantics>;
 };
 
-export function nominalTypeDeclarationSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: DeclarationNode,
+export const $NominalTypeDeclarationSemantics = semanticsPackageType<NominalTypeDeclarationSemantics>(
+  'NominalTypeDeclarationSemantics',
+  $TypeDeclarationSemantics,
+);
+
+export function newNominalTypeDeclarationSemantic(
   documentation: TextData | Nothing,
   modifier: TextData,
   name: TextData,
-): NominalTypeDeclarationSemantic {
+): NominalTypeDeclarationSemantics {
   return {
-    $: $.NominalTypeDeclarationSemantic,
-    nodeLink,
+    $: $NominalTypeDeclarationSemantics,
     usages: [],
     documentation,
     modifier,
     name,
-    baseType: unknownTypeSemantic(analyzer, nodeLink),
-    type: unknownTypeSemantic(analyzer, nodeLink),
-    attributes: createDeclarationScope(analyzer),
+    baseType: newUnknownTypeSemantics(),
+    type: newUnknownTypeSemantics(),
+    attributes: newDeclarationScope(),
 
-    eq(other: DeclarationSemantics): Boolean2 {
-      // todo recheck 'eq' conditions
-      if (this.nodeLink && other.nodeLink) {
-        return this.nodeLink.reference.equals(other.nodeLink.reference);
-      }
-
+    equals(other: DeclarationSemantics): Boolean2 {
       return false;
     },
   };

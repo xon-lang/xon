@@ -1,37 +1,37 @@
 import {Boolean2, newTextData, Nothing, TextData} from '#common';
 import {
-  DeclarationNode,
+  $ValueDeclarationSemantics,
   DeclarationSemantics,
-  SemanticAnalyzer,
-  unknownTypeSemantic,
+  newUnknownTypeSemantics,
+  semanticsPackageType,
   ValueDeclarationSemantics,
 } from '#semantics';
-import {$} from '#typing';
 
-export type AttributeValueDeclarationSemantic = ValueDeclarationSemantics & {
-  $: $.AttributeValueDeclarationSemantic;
+export type AttributeValueDeclarationSemantics = ValueDeclarationSemantics & {
   // todo move it to new 'OperatorDeclarationSemantic'
   alternativeName: TextData;
 };
 
-export function attributeValueDeclarationSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: DeclarationNode,
+export const $AttributeValueDeclarationSemantics = semanticsPackageType<AttributeValueDeclarationSemantics>(
+  'AttributeValueDeclarationSemantics',
+  $ValueDeclarationSemantics,
+);
+
+export function newAttributeValueDeclarationSemantics(
   documentation: TextData | Nothing,
   modifier: TextData | Nothing,
   name: TextData,
-): AttributeValueDeclarationSemantic {
+): AttributeValueDeclarationSemantics {
   return {
-    $: $.AttributeValueDeclarationSemantic,
-    nodeLink,
+    $: $AttributeValueDeclarationSemantics,
     usages: [],
     documentation,
     modifier,
     name,
     alternativeName: alternativeName(name),
-    type: unknownTypeSemantic(analyzer, nodeLink),
+    type: newUnknownTypeSemantics(),
 
-    eq(other: DeclarationSemantics): Boolean2 {
+    equals(other: DeclarationSemantics): Boolean2 {
       // todo recheck 'eq' conditions
       if (this.nodeLink && other.nodeLink) {
         return this.nodeLink.reference.equals(other.nodeLink.reference);

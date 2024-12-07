@@ -1,19 +1,18 @@
 import {Boolean2, Nothing} from '#common';
 import {
   $Semantics,
-  AttributeValueDeclarationSemantic,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
   Semantics,
   semanticsPackageType,
-  TypeDeclarationSemantic,
+  TypeDeclarationSemantics,
 } from '#semantics';
 
 export type TypeSemantics = Semantics & {
-  declaration?: TypeDeclarationSemantic | Nothing;
+  declaration?: TypeDeclarationSemantics | Nothing;
 
-  attributes(): DeclarationScope<AttributeValueDeclarationSemantic>;
+  attributes(): DeclarationScope<AttributeValueDeclarationSemantics>;
   is(other: TypeSemantics): Boolean2;
-  eq(other: TypeSemantics): Boolean2;
 };
 
 export const $TypeSemantics = semanticsPackageType<TypeSemantics>('TypeSemantics', $Semantics);

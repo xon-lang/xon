@@ -1,31 +1,29 @@
 import {Boolean2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  SemanticAnalyzer,
   TypeSemantics,
-  createDeclarationScope,
   isInSet,
+  newDeclarationScope,
+  semanticsPackageType,
 } from '#semantics';
-import {$, isSetOperatorTypeSemantic} from '#typing';
+import {isSetOperatorTypeSemantic} from '#typing';
 
-export type InvokeTypeSemantic = TypeSemantics & {
-  $: $.InvokeTypeSemantic;
+export type InvokeTypeSemantics = TypeSemantics & {
   instance: TypeSemantics;
   // todo use a separate semantic than array
   args: TypeSemantics[];
 };
 
-export function invokeTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  instance: TypeSemantics,
-  args: TypeSemantics[],
-): InvokeTypeSemantic {
+export const $InvokeTypeSemantics = semanticsPackageType<InvokeTypeSemantics>(
+  'InvokeTypeSemantics',
+  $TypeSemantics,
+);
+
+export function newInvokeTypeSemantics(instance: TypeSemantics, args: TypeSemantics[]): InvokeTypeSemantics {
   return {
-    $: $.InvokeTypeSemantic,
-    nodeLink,
+    $: $InvokeTypeSemantics,
     instance,
     args,
 
@@ -34,19 +32,19 @@ export function invokeTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
+    equals(other: TypeSemantics): Boolean2 {
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return createDeclarationScope(analyzer);
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
+      return newDeclarationScope();
       // throw new Error('Not implemented');
     },
   };

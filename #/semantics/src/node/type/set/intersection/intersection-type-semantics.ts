@@ -1,39 +1,41 @@
 import {Boolean2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  SetTypeSemantic,
+  semanticsPackageType,
+  SetTypeSemantics,
   TypeSemantics,
 } from '#semantics';
-import {$} from '#typing';
 
-export type IntersectionTypeSemantic = SetTypeSemantic & {
-  $: $.IntersectionTypeSemantic;
+export type IntersectionTypeSemantics = SetTypeSemantics & {
   left: TypeSemantics;
   right: TypeSemantics;
 };
 
-export function intersectionTypeSemantic(
-  nodeLink: Node,
+export const $IntersectionTypeSemantics = semanticsPackageType<IntersectionTypeSemantics>(
+  'IntersectionTypeSemantics',
+  $SetTypeSemantics,
+);
+
+export function newIntersectionTypeSemantics(
   left: TypeSemantics,
   right: TypeSemantics,
-): IntersectionTypeSemantic {
-  const semantic: IntersectionTypeSemantic = {
-    $: $.IntersectionTypeSemantic,
-    nodeLink,
+): IntersectionTypeSemantics {
+  const semantic: IntersectionTypeSemantics = {
+    $: $IntersectionTypeSemantics,
     left,
     right,
 
     is(other: TypeSemantics): Boolean2 {
-      return this.eq(other);
+      return this.equals(other);
     },
 
-    eq(_other: TypeSemantics): Boolean2 {
+    equals(_other: TypeSemantics): Boolean2 {
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       return this.left.attributes().intersection(this.right.attributes());
     },
   };

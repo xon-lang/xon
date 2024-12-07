@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, TextData, TextReference} from '#common';
+import {Nothing, TextData, TextReference} from '#common';
 import {$Semantics, Semantics, semanticsPackageType, TypeSemantics} from '#semantics';
 
 export type DeclarationSemantics = Semantics & {
@@ -7,8 +7,6 @@ export type DeclarationSemantics = Semantics & {
   modifier?: TextData | Nothing;
   name: TextData;
   type: TypeSemantics;
-
-  eq(other: DeclarationSemantics): Boolean2;
 };
 
 export const $DeclarationSemantics = semanticsPackageType<DeclarationSemantics>(

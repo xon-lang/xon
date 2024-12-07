@@ -1,19 +1,21 @@
-import {DeclarationSemantics, Node, SemanticAnalyzer, Semantics} from '#semantics';
-import {$} from '#typing';
+import {$Semantics, DeclarationSemantics, Semantics, semanticsPackageType} from '#semantics';
 
-export type DocumentationIdSemantic = Semantics & {
-  $: $.DocumentationIdSemantic;
+export type DocumentationIdSemantics = Semantics & {
   declaration: DeclarationSemantics;
 };
 
-export function documentationIdSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  declaration: DeclarationSemantics,
-): DocumentationIdSemantic {
+export const $DocumentationIdSemantics = semanticsPackageType<DocumentationIdSemantics>(
+  'DocumentationIdSemantics',
+  $Semantics,
+);
+
+export function newDocumentationIdSemantics(declaration: DeclarationSemantics): DocumentationIdSemantics {
   return {
-    $: $.DocumentationIdSemantic,
-    nodeLink,
+    $: $DocumentationIdSemantics,
     declaration,
+
+    equals(other) {
+      return false;
+    },
   };
 }

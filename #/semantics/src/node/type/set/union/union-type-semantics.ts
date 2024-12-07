@@ -1,39 +1,38 @@
 import {Boolean2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  SetTypeSemantic,
+  semanticsPackageType,
+  SetTypeSemantics,
   TypeSemantics,
 } from '#semantics';
-import {$} from '#typing';
 
-export type UnionTypeSemantic = SetTypeSemantic & {
-  $: $.UnionTypeSemantic;
+export type UnionTypeSemantics = SetTypeSemantics & {
   left: TypeSemantics;
   right: TypeSemantics;
 };
 
-export function unionTypeSemantic(
-  nodeLink: Node,
-  left: TypeSemantics,
-  right: TypeSemantics,
-): UnionTypeSemantic {
-  const semantic: UnionTypeSemantic = {
-    $: $.UnionTypeSemantic,
-    nodeLink,
+export const $UnionTypeSemantics = semanticsPackageType<UnionTypeSemantics>(
+  'UnionTypeSemantics',
+  $SetTypeSemantics,
+);
+
+export function newUnionTypeSemantics(left: TypeSemantics, right: TypeSemantics): UnionTypeSemantics {
+  const semantic: UnionTypeSemantics = {
+    $: $UnionTypeSemantics,
     left,
     right,
 
     is(other: TypeSemantics): Boolean2 {
-      return this.eq(other);
+      return this.equals(other);
     },
 
-    eq(_other: TypeSemantics): Boolean2 {
+    equals(_other: TypeSemantics): Boolean2 {
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       return this.left.attributes().union(this.right.attributes());
     },
   };

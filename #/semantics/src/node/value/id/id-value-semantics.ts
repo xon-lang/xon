@@ -1,27 +1,36 @@
 import {Nothing, String2} from '#common';
-import {Node, TypeSemantics, ValueDeclarationSemantics, ValueSemantic} from '#semantics';
-import {$} from '#typing';
+import {
+  $ValueSemantics,
+  semanticsPackageType,
+  TypeSemantics,
+  ValueDeclarationSemantics,
+  ValueSemantics,
+} from '#semantics';
 
-export type IdValueSemantic = ValueSemantic<$.IdValueSemantic> & {
+export type IdValueSemantics = ValueSemantics & {
   name: String2;
   declaration?: ValueDeclarationSemantics | Nothing;
 };
 
-export function idValueSemantic(
-  nodeLink: Node,
+export const $IdValueSemantics = semanticsPackageType<IdValueSemantics>('IdValueSemantics', $ValueSemantics);
+
+export function newIdValueSemantics(
   name: String2,
   declaration: ValueDeclarationSemantics | Nothing,
   type: TypeSemantics,
-): IdValueSemantic {
-  if (declaration) {
-    declaration.usages.push(nodeLink.reference);
-  }
+): IdValueSemantics {
+  // if (declaration) {
+  //   declaration.usages.push(nodeLink.reference);
+  // }
 
   return {
-    $: $.IdValueSemantic,
-    nodeLink,
+    $: $IdValueSemantics,
     name,
     type,
     declaration,
+
+    equals(other) {
+      return false;
+    },
   };
 }

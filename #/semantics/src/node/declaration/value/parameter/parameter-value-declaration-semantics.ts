@@ -2,8 +2,8 @@ import {Boolean2, Nothing, TextData} from '#common';
 import {
   $ValueDeclarationSemantics,
   DeclarationSemantics,
+  newUnknownTypeSemantics,
   semanticsPackageType,
-  unknownTypeSemantic,
   ValueDeclarationSemantics,
 } from '#semantics';
 
@@ -25,7 +25,7 @@ export function newParameterValueDeclarationSemantics(
     documentation,
     modifier,
     name,
-    type: unknownTypeSemantic(analyzer, nodeLink),
+    type: newUnknownTypeSemantics(analyzer, nodeLink),
 
     eq(other: DeclarationSemantics): Boolean2 {
       // todo recheck 'eq' conditions

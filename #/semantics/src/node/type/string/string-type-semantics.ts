@@ -1,30 +1,29 @@
-import {Boolean2, Nothing, String2} from '#common';
+import {Boolean2, is_v2, Nothing, String2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  NominalTypeDeclarationSemantic,
-  SemanticAnalyzer,
+  NominalTypeDeclarationSemantics,
   TypeSemantics,
-  createDeclarationScope,
   isInSet,
+  newDeclarationScope,
+  semanticsPackageType,
 } from '#semantics';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export type StringTypeSemantic = TypeSemantics & {
-  $: $.StringTypeSemantic;
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+export type StringTypeSemantics = TypeSemantics & {
+  declaration?: NominalTypeDeclarationSemantics | Nothing;
   value: String2;
 };
 
-export function stringTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  value: String2,
-): StringTypeSemantic {
+export const $StringTypeSemantics = semanticsPackageType<StringTypeSemantics>(
+  'StringTypeSemantics',
+  $TypeSemantics,
+);
+
+export function newStringTypeSemantics(value: String2): StringTypeSemantics {
   return {
-    $: $.StringTypeSemantic,
-    nodeLink,
+    $: $StringTypeSemantics,
+
     declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.stringTypeName,
@@ -36,27 +35,27 @@ export function stringTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
-      if (is(other, $.IdTypeSemantic) && other.declaration) {
-        return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
+      if (is_v2(other, $IdTypeSemantics) && other.declaration) {
+        return this.declaration?.equals(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
-      if (is(other, $.StringTypeSemantic)) {
+    equals(other: TypeSemantics): Boolean2 {
+      if (is_v2(other, $StringTypeSemantics)) {
         return this.value === other.value;
       }
 
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
+      return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };
 }

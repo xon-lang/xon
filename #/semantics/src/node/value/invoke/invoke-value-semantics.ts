@@ -1,12 +1,19 @@
-import {Node, TypeSemantics, ValueSemantic} from '#semantics';
-import {$} from '#typing';
+import {$ValueSemantics, semanticsPackageType, TypeSemantics, ValueSemantics} from '#semantics';
 
-export type InvokeValueSemantic = ValueSemantic<$.InvokeValueSemantic>;
+export type InvokeValueSemantics = ValueSemantics;
 
-export function invokeValueSemantic(nodeLink: Node, type: TypeSemantics): InvokeValueSemantic {
+export const $InvokeValueSemantics = semanticsPackageType<InvokeValueSemantics>(
+  'InvokeValueSemantics',
+  $ValueSemantics,
+);
+
+export function newInvokeValueSemantics(type: TypeSemantics): InvokeValueSemantics {
   return {
-    $: $.InvokeValueSemantic,
-    nodeLink,
+    $: $InvokeValueSemantics,
     type,
+
+    equals(other) {
+      return false;
+    },
   };
 }

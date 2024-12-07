@@ -1,26 +1,29 @@
 import {Boolean2, Char, Nothing} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  NominalTypeDeclarationSemantic,
-  SemanticAnalyzer,
+  NominalTypeDeclarationSemantics,
   TypeSemantics,
-  createDeclarationScope,
   isInSet,
+  newDeclarationScope,
+  semanticsPackageType,
 } from '#semantics';
 import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export type CharTypeSemantic = TypeSemantics & {
-  $: $.CharTypeSemantic;
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+export type CharTypeSemantics = TypeSemantics & {
+  declaration?: NominalTypeDeclarationSemantics | Nothing;
   value: Char;
 };
 
-export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
+export const $CharTypeSemantics = semanticsPackageType<CharTypeSemantics>(
+  'CharTypeSemantics',
+  $TypeSemantics,
+);
+
+export function newCharTypeSemantics(value: Char): CharTypeSemantics {
   return {
-    $: $.CharTypeSemantic,
-    nodeLink,
+    $: $CharTypeSemantics,
     declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.charTypeName,
@@ -32,18 +35,18 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
       if (is(other, $.IdTypeSemantic) && other.declaration) {
-        return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
+        return this.declaration?.equals(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
+    equals(other: TypeSemantics): Boolean2 {
       if (is(other, $.CharTypeSemantic)) {
         return this.value === other.value;
       }
@@ -51,8 +54,8 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
+      return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };
 }

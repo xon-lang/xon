@@ -1,6 +1,7 @@
-import {Semantics, TypeSemantics} from '#semantics';
-import {$} from '#typing';
+import {$Semantics, Semantics, semanticsPackageType, TypeSemantics} from '#semantics';
 
-export type ValueSemantic<T extends $ = $, TYPE extends TypeSemantics = TypeSemantics> = Semantics<T> & {
-  type: TYPE;
+export type ValueSemantics = Semantics & {
+  type: TypeSemantics;
 };
+
+export const $ValueSemantics = semanticsPackageType<ValueSemantics>('ValueSemantics', $Semantics);

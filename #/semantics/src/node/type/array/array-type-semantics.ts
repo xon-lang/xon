@@ -1,29 +1,28 @@
-import {Boolean2, Nothing} from '#common';
+import {Boolean2, is_v2, Nothing} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  $TypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  NominalTypeDeclarationSemantic,
-  SemanticAnalyzer,
-  TypeSemantics,
   isInSet,
+  NominalTypeDeclarationSemantics,
+  semanticsPackageType,
+  TypeSemantics,
 } from '#semantics';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
-export type ArrayTypeSemantic = TypeSemantics & {
-  $: $.ArrayTypeSemantic;
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+export type ArrayTypeSemantics = TypeSemantics & {
+  declaration?: NominalTypeDeclarationSemantics | Nothing;
   items: TypeSemantics[];
 };
 
-export function arrayTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  items: TypeSemantics[],
-): ArrayTypeSemantic {
+export const $ArrayTypeSemantics = semanticsPackageType<ArrayTypeSemantics>(
+  'ArrayTypeSemantics',
+  $TypeSemantics,
+);
+
+export function newArrayTypeSemantics(items: TypeSemantics[]): ArrayTypeSemantics {
   return {
-    $: $.ArrayTypeSemantic,
-    nodeLink,
+    $: $ArrayTypeSemantics,
     declaration: analyzer.declarationManager.find(
       $.NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.arrayTypeName,
@@ -31,30 +30,30 @@ export function arrayTypeSemantic(
     items,
 
     is(other: TypeSemantics): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is_v2(other, $SetTypeSemantics)) {
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
       if (is(other, $.TypeDeclarationSemantic)) {
-        return this.declaration?.eq(other) || (this.declaration?.type?.is(other) ?? false);
+        return this.declaration?.equals(other) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
-      if (is(other, $.ArrayTypeSemantic)) {
+    equals(other: TypeSemantics): Boolean2 {
+      if (is_v2(other, $ArrayTypeSemantics)) {
         return this.items === other.items;
       }
 
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       throw new Error('Not implemented');
     },
   };

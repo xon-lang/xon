@@ -1,23 +1,29 @@
 import {Nothing, String2} from '#common';
-import {Node, TypeSemantics, ValueSemantic} from '#semantics';
-import {$} from '#typing';
+import {$ValueSemantics, semanticsPackageType, TypeSemantics, ValueSemantics} from '#semantics';
 
-export type MemberValueSemantic = ValueSemantic<$.MemberValueSemantic> & {
-  instance: ValueSemantic;
+export type MemberValueSemantics = ValueSemantics & {
+  instance: ValueSemantics;
   name: String2 | Nothing;
 };
 
-export function memberValueSemantic(
-  nodeLink: Node,
-  instance: ValueSemantic,
+export const $MemberValueSemantics = semanticsPackageType<MemberValueSemantics>(
+  'MemberValueSemantics',
+  $ValueSemantics,
+);
+
+export function newMemberValueSemantics(
+  instance: ValueSemantics,
   name: String2 | Nothing,
   type: TypeSemantics,
-): MemberValueSemantic {
+): MemberValueSemantics {
   return {
-    $: $.MemberValueSemantic,
-    nodeLink,
+    $: $MemberValueSemantics,
     instance,
     name,
     type,
+
+    equals(other) {
+      return false;
+    },
   };
 }

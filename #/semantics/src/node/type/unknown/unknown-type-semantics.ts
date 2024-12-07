@@ -1,23 +1,20 @@
-import {Boolean2, Nothing} from '#common';
+import {Boolean2, is_v2, Nothing} from '#common';
 import {
+  $NominalTypeDeclarationSemantics,
   $TypeSemantics,
-  AttributeValueDeclarationSemantic,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  NominalTypeDeclarationSemantic,
-  SemanticAnalyzer,
-  TypeSemantics,
-  createDeclarationScope,
   isInSet,
+  newDeclarationScope,
+  NominalTypeDeclarationSemantics,
   semanticsPackageType,
+  TypeSemantics,
 } from '#semantics';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
 
 // todo use something instead of unknown ???
 // todo one Unknown doesn't equals other unknown
 export type UnknownTypeSemantics = TypeSemantics & {
-  $: $.UnknownTypeSemantic;
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+  declaration?: NominalTypeDeclarationSemantics | Nothing;
 };
 
 export const $UnknownTypeSemantics = semanticsPackageType<UnknownTypeSemantics>(
@@ -26,7 +23,7 @@ export const $UnknownTypeSemantics = semanticsPackageType<UnknownTypeSemantics>(
 );
 
 // todo use 'Anything' type as unknown
-export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node): UnknownTypeSemantics {
+export function newUnknownTypeSemantics(): UnknownTypeSemantics {
   const {unknownTypeName} = analyzer.config.literalTypeNames;
   const declaration = analyzer.declarationManager.find($.NominalTypeDeclarationSemantic, unknownTypeName);
 
@@ -35,8 +32,7 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
   }
 
   return {
-    $: $.UnknownTypeSemantic,
-    nodeLink,
+    $: $UnknownTypeSemantics,
     declaration,
 
     is(other: TypeSemantics): Boolean2 {
@@ -44,30 +40,30 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
-      if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
+      if (is_v2(this.declaration, $NominalTypeDeclarationSemantics)) {
         return this.declaration.type?.is(other) ?? false;
       }
 
       return false;
     },
 
-    eq(other: TypeSemantics): Boolean2 {
+    equals(other: TypeSemantics): Boolean2 {
       // todo handle special 'unknown' type
       // 'unknown' not equals 'other' unknown
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       // todo review body of this function
       if (this.declaration) {
-        return this.declaration.attributes?.clone() ?? createDeclarationScope(analyzer);
+        return this.declaration.attributes?.clone() ?? newDeclarationScope();
       }
 
-      return createDeclarationScope(analyzer);
+      return newDeclarationScope();
     },
   };
 }

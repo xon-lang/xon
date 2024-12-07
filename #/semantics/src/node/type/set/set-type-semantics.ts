@@ -1,8 +1,10 @@
 import {Boolean2} from '#common';
-import {TypeSemantics} from '#semantics';
+import {$TypeSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
 import {$, is} from '#typing';
 
-export type SetTypeSemantic = TypeSemantics;
+export type SetTypeSemantics = TypeSemantics;
+
+export const $SetTypeSemantics = semanticsPackageType<SetTypeSemantics>('SetTypeSemantics', $TypeSemantics);
 
 export function isInSet(type: TypeSemantics, setType: TypeSemantics): Boolean2 {
   if (is(setType, $.IntersectionTypeSemantic)) {

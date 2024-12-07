@@ -1,12 +1,21 @@
-import {CharTypeSemantic, Node, ValueSemantic} from '#semantics';
-import {$} from '#typing';
+import {$ValueSemantics, CharTypeSemantics, semanticsPackageType, ValueSemantics} from '#semantics';
 
-export type CharValueSemantic = ValueSemantic<$.CharValueSemantic, CharTypeSemantic>;
+export type CharValueSemantics = ValueSemantics & {
+  type: CharTypeSemantics;
+};
 
-export function charValueSemantic(nodeLink: Node, type: CharTypeSemantic): CharValueSemantic {
+export const $CharValueSemantics = semanticsPackageType<CharValueSemantics>(
+  'CharValueSemantics',
+  $ValueSemantics,
+);
+
+export function newCharValueSemantics(type: CharTypeSemantics): CharValueSemantics {
   return {
-    $: $.CharValueSemantic,
-    nodeLink,
+    $: $CharValueSemantics,
     type,
+
+    equals(other) {
+      return false;
+    },
   };
 }

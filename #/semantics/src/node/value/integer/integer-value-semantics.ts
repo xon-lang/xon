@@ -1,12 +1,21 @@
-import {IntegerTypeSemantic, Node, ValueSemantic} from '#semantics';
-import {$} from '#typing';
+import {$ValueSemantics, IntegerTypeSemantics, semanticsPackageType, ValueSemantics} from '#semantics';
 
-export type IntegerValueSemantic = ValueSemantic<$.IntegerValueSemantic, IntegerTypeSemantic>;
+export type IntegerValueSemantics = ValueSemantics & {
+  type: IntegerTypeSemantics;
+};
 
-export function integerValueSemantic(nodeLink: Node, type: IntegerTypeSemantic): IntegerValueSemantic {
+export const $IntegerValueSemantics = semanticsPackageType<IntegerValueSemantics>(
+  'IntegerValueSemantics',
+  $ValueSemantics,
+);
+
+export function newIntegerValueSemantics(type: IntegerTypeSemantics): IntegerValueSemantics {
   return {
-    $: $.IntegerValueSemantic,
-    nodeLink,
+    $: $IntegerValueSemantics,
     type,
+
+    equals(other) {
+      return false;
+    },
   };
 }

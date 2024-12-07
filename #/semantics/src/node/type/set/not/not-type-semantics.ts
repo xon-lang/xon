@@ -1,33 +1,36 @@
 import {Boolean2} from '#common';
 import {
-  AttributeValueDeclarationSemantic,
+  $SetTypeSemantics,
+  AttributeValueDeclarationSemantics,
   DeclarationScope,
-  Node,
-  SetTypeSemantic,
+  semanticsPackageType,
+  SetTypeSemantics,
   TypeSemantics,
 } from '#semantics';
-import {$} from '#typing';
 
-export type NotTypeSemantic = SetTypeSemantic & {
-  $: $.NotTypeSemantic;
+export type NotTypeSemantics = SetTypeSemantics & {
   value: TypeSemantics;
 };
 
-export function notTypeSemantic(nodeLink: Node, value: TypeSemantics): NotTypeSemantic {
-  const semantic: NotTypeSemantic = {
-    $: $.NotTypeSemantic,
-    nodeLink,
+export const $NotTypeSemantics = semanticsPackageType<NotTypeSemantics>(
+  'NotTypeSemantics',
+  $SetTypeSemantics,
+);
+
+export function newNotTypeSemantics(value: TypeSemantics): NotTypeSemantics {
+  const semantic: NotTypeSemantics = {
+    $: $NotTypeSemantics,
     value,
 
     is(other: TypeSemantics): Boolean2 {
-      return this.eq(other);
+      return this.equals(other);
     },
 
-    eq(_other: TypeSemantics): Boolean2 {
+    equals(_other: TypeSemantics): Boolean2 {
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeValueDeclarationSemantics> {
       // todo investigate
       throw new Error('Not implemented');
     },
