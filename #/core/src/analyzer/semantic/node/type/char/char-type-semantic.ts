@@ -1,4 +1,4 @@
-import {Boolean2, CharData, Nothing} from '#common';
+import {Boolean2, Char, Nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   DeclarationScope,
@@ -14,14 +14,10 @@ import {$, is, isSetOperatorTypeSemantic} from '#typing';
 export type CharTypeSemantic = TypeSemantic & {
   $: $.CharTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
-  value: CharData;
+  value: Char;
 };
 
-export function charTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  value: CharData,
-): CharTypeSemantic {
+export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
   return {
     $: $.CharTypeSemantic,
     nodeLink,

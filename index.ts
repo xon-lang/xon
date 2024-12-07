@@ -4,8 +4,8 @@
 
 export * from './#/common/src/array/array-data.factory';
 export * from './#/common/src/array/array-data.model';
-export * from './#/common/src/char/char-data.factory';
-export * from './#/common/src/char/char-data.model';
+export * from './#/common/src/char/char.factory';
+export * from './#/common/src/char/char.model';
 export * from './#/common/src/dictionary/dictionary.factory';
 export * from './#/common/src/dictionary/dictionary.model';
 export * from './#/common/src/fs/directory-fs';

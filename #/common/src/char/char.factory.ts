@@ -3,7 +3,7 @@ import {
   $TextData,
   ArrayData,
   Boolean2,
-  CharData,
+  Char,
   is_v2,
   newArrayData,
   String2,
@@ -17,7 +17,7 @@ const LOWER_Z_CODE = 'z'.charCodeAt(0);
 const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
-export function newCharData(charString: String2): CharData {
+export function newChar(charString: String2): Char {
   return {
     $: $CharData,
     _string: charString,
@@ -56,7 +56,7 @@ export function newCharData(charString: String2): CharData {
       );
     },
 
-    equals(other: CharData | TextData | String2): Boolean2 {
+    equals(other: Char | TextData | String2): Boolean2 {
       if (typeof other === 'string') {
         return this._string === other;
       }
@@ -74,8 +74,8 @@ export function newCharData(charString: String2): CharData {
   };
 }
 
-export function stringToCharDataArray(string: String2): ArrayData<CharData> {
-  const characters = string.match(/.|\s/gu)?.map((x) => newCharData(x)) ?? [];
+export function stringToCharDataArray(string: String2): ArrayData<Char> {
+  const characters = string.match(/.|\s/gu)?.map((x) => newChar(x)) ?? [];
 
   return newArrayData(characters);
 }

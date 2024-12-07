@@ -3,7 +3,7 @@ import {
   $CharData,
   ArrayData,
   Boolean2,
-  CharData,
+  Char,
   commonPackageType,
   Integer,
   Nothing,
@@ -15,31 +15,31 @@ import {
 // todo fix it. remove @ts-ignore
 // todo rename to 'StringData' ???
 // @ts-ignore
-export interface TextData extends ArrayData<CharData> {
+export interface TextData extends ArrayData<Char> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): TextData;
   slice(range: TextRange): TextData;
   lineText(line: Integer): TextData;
-  addFirst(...items: CharData[]): TextData;
-  addLast(...items: CharData[]): TextData;
+  addFirst(...items: Char[]): TextData;
+  addLast(...items: Char[]): TextData;
   removeFirst(length?: Integer | Nothing): TextData;
   removeLast(length?: Integer | Nothing): TextData;
 
   takeWhile(
-    predicate?: (value: CharData, index: Integer) => Boolean2,
+    predicate?: (value: Char, index: Integer) => Boolean2,
     startIndex?: Integer,
     includeConditionItem?: Boolean2,
   ): TextData;
   take(length: Integer, startIndex?: Integer): TextData;
 
-  sort(compareFn?: (a: CharData, b: CharData) => Number2): this;
-  sortBy(select: (item: CharData) => Number2, ascending?: Boolean2): TextData;
+  sort(compareFn?: (a: Char, b: Char) => Number2): this;
+  sortBy(select: (item: Char) => Number2, ascending?: Boolean2): TextData;
 
   setPadding(padding: Integer): TextData;
   trim(): TextData;
   repeat(count: Integer): TextData;
 
   equals(other: TextData): Boolean2;
-  equals(other: ArrayData<CharData>): Boolean2;
+  equals(other: ArrayData<Char>): Boolean2;
   equals(other: String2): Boolean2;
   clone(): TextData;
   toString(): String2;

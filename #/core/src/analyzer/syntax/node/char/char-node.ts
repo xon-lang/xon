@@ -1,4 +1,4 @@
-import {CharData, Nothing} from '#common';
+import {Char, Nothing} from '#common';
 import {
   CharCloseNode,
   CharContentNode,
@@ -13,7 +13,7 @@ import {$} from '#typing';
 
 export type CharNode = SyntaxNode<$.CharNode> & {
   semantic?: CharTypeSemantic | CharValueSemantic | Nothing;
-  value: CharData;
+  value: Char;
 
   open: CharOpenNode;
   content?: CharContentNode | Nothing;

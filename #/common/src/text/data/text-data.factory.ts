@@ -5,7 +5,7 @@ import {
   $TextRange,
   ArrayData,
   Boolean2,
-  CharData,
+  Char,
   Integer,
   is_v2,
   newArrayData,
@@ -19,15 +19,15 @@ import {
 
 const NL = newTextData('\n');
 
-export function newTextData(characters: ArrayData<CharData>): TextData;
+export function newTextData(characters: ArrayData<Char>): TextData;
 export function newTextData(string: String2): TextData;
 export function newTextData(): TextData;
-export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>): TextData {
+export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): TextData {
   const array = stringOrCharacters
     ? typeof stringOrCharacters === 'string'
       ? stringToCharDataArray(stringOrCharacters)
       : stringOrCharacters
-    : newArrayData<CharData>();
+    : newArrayData<Char>();
 
   return {
     ...array,
@@ -74,11 +74,11 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
       return newTextData('');
     },
 
-    addFirst(...items: CharData[]): TextData {
+    addFirst(...items: Char[]): TextData {
       return newTextData(array.addFirst(...items));
     },
 
-    addLast(...items: CharData[]): TextData {
+    addLast(...items: Char[]): TextData {
       return newTextData(array.addLast(...items));
     },
 
@@ -91,7 +91,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
     },
 
     takeWhile(
-      predicate?: (value: CharData, index: Integer) => Boolean2,
+      predicate?: (value: Char, index: Integer) => Boolean2,
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): TextData {
@@ -102,11 +102,11 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
       return newTextData(array.take(length, startIndex));
     },
 
-    sort(compareFn?: (a: CharData, b: CharData) => Number2): TextData {
+    sort(compareFn?: (a: Char, b: Char) => Number2): TextData {
       return newTextData(array.sort(compareFn));
     },
 
-    sortBy(select: (item: CharData) => Number2, ascending?: Boolean2): TextData {
+    sortBy(select: (item: Char) => Number2, ascending?: Boolean2): TextData {
       return newTextData(array.sortBy(select, ascending));
     },
 
@@ -126,7 +126,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<CharData>):
       return newTextData(array.clone());
     },
 
-    equals(other: TextData | ArrayData<CharData> | String2): Boolean2 {
+    equals(other: TextData | ArrayData<Char> | String2): Boolean2 {
       if (typeof other === 'string') {
         return this.toString() === other;
       }
