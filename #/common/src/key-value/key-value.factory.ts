@@ -3,7 +3,7 @@ import {$KeyValue, Boolean2, KeyValue, Model, String2} from '#common';
 export function newKeyValue<K extends Model, V extends Model>(key: K, value: V): KeyValue<K, V> {
   return {
     // todo set valid types
-    $: $KeyValue(),
+    $: $KeyValue(key.$, value.$),
     key,
     value,
 
