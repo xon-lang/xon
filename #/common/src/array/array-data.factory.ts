@@ -1,6 +1,6 @@
 import {
   $ArrayData,
-  $Model_V2,
+  $Model,
   Anything_V2,
   ArrayData,
   ArrayPredicate,
@@ -19,7 +19,7 @@ import {
 export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<T> {
   return {
     // todo use generic from parameter
-    $: $ArrayData($Model_V2),
+    $: $ArrayData(array[0]?.$ ?? $Model),
     _items: array,
 
     [Symbol.iterator](): IterableIterator<T> {
@@ -168,7 +168,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
             }
 
             // todo fix it
-            if (is(z, $Model_V2) && is(x, $Model_V2) && z.equals) {
+            if (is(z, $Model) && is(x, $Model) && z.equals) {
               return z.equals(x);
             }
 
@@ -232,7 +232,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
             }
 
             // todo fix it
-            if (is(z, $Model_V2) && is(x, $Model_V2) && z.equals) {
+            if (is(z, $Model) && is(x, $Model) && z.equals) {
               return z.equals(x);
             }
 

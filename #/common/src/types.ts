@@ -39,7 +39,7 @@ export interface Model {
 
 export type Anything_V2 = Model | Nothing;
 
-export const $Model_V2: $Type<Model> = {
+export const $Model: $Type<Model> = {
   pkg: $CommonPackage,
   name: 'Model',
 };

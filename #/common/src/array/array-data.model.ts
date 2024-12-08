@@ -1,5 +1,5 @@
 import {
-  $Model_V2,
+  $Model,
   $Type,
   Anything_V2,
   Boolean2,
@@ -90,5 +90,5 @@ export type ArraySafePredicate<T, V extends T> = (value: T, index: Integer) => v
 export type ArraySelect<T, V> = (value: T, index: Integer) => V;
 export type ArrayPredicateSelect<T, V> = ArraySelect<T, V | Nothing>;
 
-export const $ArrayData = <T extends Anything_V2>($T: $Type = $Model_V2) =>
+export const $ArrayData = <T extends Anything_V2>($T: $Type = $Model) =>
   commonPackageType<ArrayData<T>>('ArrayData', null, [$T]);

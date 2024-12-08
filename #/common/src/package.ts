@@ -1,4 +1,4 @@
-import {$Model_V2, $Package, $Type, Model, Nothing, String2} from '#common';
+import {$Model, $Package, $Type, Model, Nothing, String2} from '#common';
 
 export const $CommonPackage: $Package = {
   name: 'common',
@@ -13,7 +13,7 @@ export function packageType<T extends Model>(
   return {
     pkg,
     name,
-    parent: parent ?? $Model_V2,
+    parent: parent ?? $Model,
     generics,
   };
 }

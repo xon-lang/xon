@@ -1,7 +1,7 @@
 import {
   $ArrayData,
   $KeyValue,
-  $Model_V2,
+  $Model,
   $Type,
   Anything_V2,
   ArrayData,
@@ -49,5 +49,5 @@ export interface Dictionary<K extends Model = Model, V extends Anything_V2 = Any
   set(key: K, value: V): Boolean2;
 }
 
-export const $Dictionary = <T extends Model, V extends Model>($T: $Type = $Model_V2, $V: $Type = $Model_V2) =>
+export const $Dictionary = <T extends Model, V extends Model>($T: $Type = $Model, $V: $Type = $Model) =>
   commonPackageType<Dictionary<T, V>>('Dictionary', $ArrayData($KeyValue($T, $V)), [$T, $V]);
