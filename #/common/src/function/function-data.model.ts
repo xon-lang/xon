@@ -1,6 +1,6 @@
-import {commonPackageType, Model_V2} from '#common';
+import {commonPackageType, Model} from '#common';
 
-export interface FunctionData extends Model_V2 {
+export interface FunctionData extends Model {
   _fn: Function;
 
   // todo fix typings

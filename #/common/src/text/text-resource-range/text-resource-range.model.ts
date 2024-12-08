@@ -1,6 +1,6 @@
-import {Boolean2, commonPackageType, Model_V2, TextData, TextRange, TextResource} from '#common';
+import {Boolean2, commonPackageType, Model, TextData, TextRange, TextResource} from '#common';
 
-export type TextReference = Model_V2 & {
+export type TextReference = Model & {
   resource: TextResource;
   range: TextRange;
 

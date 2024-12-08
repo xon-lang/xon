@@ -1,4 +1,4 @@
-import {is_v2, Nothing, nothing} from '#common';
+import {is, Nothing, nothing} from '#common';
 import {
   $CharCloseNode,
   $CharContentNode,
@@ -17,13 +17,13 @@ export function charNodeParse(analyzer: SyntaxAnalyzer, openNode: CharOpenNode):
   let closeNode: CharCloseNode | Nothing = nothing;
 
   for (const node of iterator) {
-    if (is_v2(node, $CharContentNode)) {
+    if (is(node, $CharContentNode)) {
       content = node;
 
       continue;
     }
 
-    if (is_v2(node, $CharCloseNode)) {
+    if (is(node, $CharCloseNode)) {
       closeNode = node;
 
       break;

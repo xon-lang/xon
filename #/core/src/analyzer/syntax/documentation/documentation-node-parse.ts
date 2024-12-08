@@ -1,4 +1,4 @@
-import {is_v2, Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {is, Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
 import {
   $DocumentationCloseNode,
   $DocumentationDescriptionNode,
@@ -22,7 +22,7 @@ export function documentationNodeParse(
   const items: DocumentationItemNode[] = [];
 
   for (const node of iterator) {
-    if (is_v2(node, $DocumentationDescriptionNode)) {
+    if (is(node, $DocumentationDescriptionNode)) {
       if (items.length === 0) {
         description = node;
       } else {
@@ -36,13 +36,13 @@ export function documentationNodeParse(
       continue;
     }
 
-    if (is_v2(node, $DocumentationLabelNode)) {
+    if (is(node, $DocumentationLabelNode)) {
       items.push(documentationItemNode(analyzer, node));
 
       continue;
     }
 
-    if (is_v2(node, $DocumentationCloseNode)) {
+    if (is(node, $DocumentationCloseNode)) {
       return documentationNode(analyzer, openNode, description, items, node);
     }
   }

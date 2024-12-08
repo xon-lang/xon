@@ -1,4 +1,4 @@
-import {is_v2, Nothing, nothing} from '#common';
+import {is, Nothing, nothing} from '#common';
 import {
   $StringCloseNode,
   $StringContentNode,
@@ -17,13 +17,13 @@ export function stringNodeParse(analyzer: SyntaxAnalyzer, openNode: StringOpenNo
   let closeNode: StringCloseNode | Nothing = nothing;
 
   for (const node of iterator) {
-    if (is_v2(node, $StringContentNode)) {
+    if (is(node, $StringContentNode)) {
       content = node;
 
       continue;
     }
 
-    if (is_v2(node, $StringCloseNode)) {
+    if (is(node, $StringCloseNode)) {
       closeNode = node;
 
       break;

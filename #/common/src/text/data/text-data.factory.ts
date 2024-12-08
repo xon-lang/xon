@@ -7,7 +7,7 @@ import {
   Boolean2,
   Char,
   Integer,
-  is_v2,
+  is,
   newArrayData,
   Nothing,
   Number2,
@@ -35,7 +35,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
     $: $TextData,
 
     slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): TextData {
-      if (is_v2(rangeOrStartIndex, $TextRange)) {
+      if (is(rangeOrStartIndex, $TextRange)) {
         const {start, stop} = rangeOrStartIndex;
 
         return newTextData(array.slice(start.index, stop.index));
@@ -135,11 +135,11 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
         return this.toString() === other.join('');
       }
 
-      if (is_v2(other, $TextData)) {
+      if (is(other, $TextData)) {
         return this.toString() === other.toString();
       }
 
-      if (is_v2(other, $ArrayData($Char))) {
+      if (is(other, $ArrayData($Char))) {
         return this.toString() === other._items.join('');
       }
 

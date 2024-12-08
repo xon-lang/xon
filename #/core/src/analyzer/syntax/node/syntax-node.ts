@@ -1,4 +1,4 @@
-import {Anything, Boolean2, is_v2, nothing, rangeFromNodes, String2, textResourceRange} from '#common';
+import {Anything, Boolean2, is, nothing, rangeFromNodes, String2, textResourceRange} from '#common';
 import {$Node, corePackageType, Node, SyntaxAnalyzer} from '#core';
 
 export type SyntaxNode = Node & {
@@ -12,7 +12,7 @@ export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Any
   params: T,
 ): SyntaxNode & T {
   const children = Object.values(params)
-    .filter((x) => is_v2(x, $Node))
+    .filter((x) => is(x, $Node))
     .flat();
 
   const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));

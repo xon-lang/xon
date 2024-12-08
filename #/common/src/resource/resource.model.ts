@@ -1,6 +1,6 @@
-import {$Model_V2, Anything_V2, commonPackageType, Model_V2, Nothing, TextData} from '#common';
+import {$Model_V2, Anything_V2, commonPackageType, Model, Nothing, TextData} from '#common';
 
-export type Resource<T = Anything_V2> = Model_V2 & {
+export type Resource<T = Anything_V2> = Model & {
   location: TextData | Nothing;
   data: T;
 };

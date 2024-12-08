@@ -19,7 +19,7 @@ export interface $Package {
   name: String2;
 }
 
-export interface $Type<T = Model_V2> {
+export interface $Type<T = Model> {
   pkg: $Package;
   name: String2;
   type?: T;
@@ -27,7 +27,7 @@ export interface $Type<T = Model_V2> {
   generics?: $Type[] | Nothing;
 }
 
-export interface Model_V2 {
+export interface Model {
   $: $Type;
 
   equals(other: this): Boolean2;
@@ -37,9 +37,9 @@ export interface Model_V2 {
   toString(): String2;
 }
 
-export type Anything_V2 = Model_V2 | Nothing;
+export type Anything_V2 = Model | Nothing;
 
-export const $Model_V2: $Type<Model_V2> = {
+export const $Model_V2: $Type<Model> = {
   pkg: $CommonPackage,
   name: 'Model',
 };
@@ -64,7 +64,7 @@ export function isType<T extends $Type>($: $Type | Nothing, type: T): $ is T {
   return $.name === type.name && $.pkg == type.pkg;
 }
 
-export function is_v2<T extends $Type>(
+export function is<T extends $Type>(
   // todo fix 'any' type
   object: any,
   type: T,

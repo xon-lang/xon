@@ -1,4 +1,4 @@
-import {Boolean2, is_v2, Nothing} from '#common';
+import {Boolean2, is, Nothing} from '#common';
 import {
   $NominalTypeDeclarationSemantics,
   $TypeSemantics,
@@ -44,7 +44,7 @@ export function newUnknownTypeSemantics(): UnknownTypeSemantics {
         return true;
       }
 
-      if (is_v2(this.declaration, $NominalTypeDeclarationSemantics)) {
+      if (is(this.declaration, $NominalTypeDeclarationSemantics)) {
         return this.declaration.type?.is(other) ?? false;
       }
 

@@ -1,7 +1,7 @@
 import {
   $Type,
   Boolean2,
-  is_v2,
+  is,
   Nothing,
   nothing,
   rangeFromPosition,
@@ -108,28 +108,28 @@ export function createSyntaxAnalyzer(
       for (const iterableNode of iterator) {
         let node: Node = iterableNode;
 
-        if (is_v2(node, $UnknownNode)) {
+        if (is(node, $UnknownNode)) {
           this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unknownSymbol());
         }
 
-        if (is_v2(node, $IntegerContentNode)) {
+        if (is(node, $IntegerContentNode)) {
           node = integerNodeParse(this, node);
         }
 
-        if (is_v2(node, $StringOpenNode)) {
+        if (is(node, $StringOpenNode)) {
           node = stringNodeParse(this, node);
         }
 
-        if (is_v2(node, $CharOpenNode)) {
+        if (is(node, $CharOpenNode)) {
           node = charNodeParse(this, node);
         }
 
-        if (is_v2(node, $DocumentationOpenNode)) {
+        if (is(node, $DocumentationOpenNode)) {
           node = documentationNodeParse(this, node);
         }
 
         // todo order above is important so fix it. Should we join all open nodes ???
-        if (is_v2(node, $OpenNode)) {
+        if (is(node, $OpenNode)) {
           node = groupNodeParse(this, node);
         }
 
@@ -140,12 +140,12 @@ export function createSyntaxAnalyzer(
         }
 
         if (nodes.length === 0) {
-          if (is_v2(node, $WhitespaceNode)) {
+          if (is(node, $WhitespaceNode)) {
           }
         }
 
         if (node.isHidden) {
-          if (is_v2(node, $NlNode)) {
+          if (is(node, $NlNode)) {
             handleStatement();
           }
 
@@ -205,7 +205,7 @@ export function createSyntaxAnalyzer(
         return nothing;
       }
 
-      if (!is_v2(child, $SyntaxNode)) {
+      if (!is(child, $SyntaxNode)) {
         return child;
       }
 
@@ -229,7 +229,7 @@ export function createSyntaxAnalyzer(
         return nothing;
       }
 
-      while (!is_v2(node, $)) {
+      while (!is(node, $)) {
         node = (node as unknown as Node).parent;
 
         if (!node) {
@@ -253,19 +253,19 @@ function getStatementIndent(nodes: Node[], hiddenNodes: Node[]): TextRange | Not
     return nothing;
   }
 
-  const lastNlIndex = hiddenNodes.lastIndex((x) => is_v2(x, $NlNode));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is(x, $NlNode));
 
   if (lastNlIndex >= 0) {
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
-    if (is_v2(whiteSpaceNode, $WhitespaceNode)) {
+    if (is(whiteSpaceNode, $WhitespaceNode)) {
       return whiteSpaceNode.reference.range.clone();
     }
 
     return rangeFromPosition(hiddenNodes[lastNlIndex].reference.range.stop);
   }
 
-  if (is_v2(hiddenNodes[0], $WhitespaceNode)) {
+  if (is(hiddenNodes[0], $WhitespaceNode)) {
     return hiddenNodes[0].reference.range.clone();
   }
 

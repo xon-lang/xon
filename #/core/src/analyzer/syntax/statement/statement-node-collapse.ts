@@ -1,4 +1,4 @@
-import {Integer, Nothing, is_v2, newArrayData, nothing} from '#common';
+import {Integer, Nothing, is, newArrayData, nothing} from '#common';
 import {
   $DeclarationNode,
   COMPLEMENT,
@@ -118,7 +118,7 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
       return;
     }
 
-    if (!is_v2(node, $DeclarationNode)) {
+    if (!is(node, $DeclarationNode)) {
       analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
         x.shouldBeDeclarationStatement(),
       );

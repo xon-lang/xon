@@ -1,4 +1,4 @@
-import {Boolean2, is_v2, Nothing} from '#common';
+import {Boolean2, is, Nothing} from '#common';
 import {
   $SetTypeSemantics,
   AttributeValueDeclarationSemantics,
@@ -36,16 +36,16 @@ export function newRangeTypeSemantics(
     step,
 
     is(other: TypeSemantics): Boolean2 {
-      if (is_v2(other, $SetTypeSemantics)) {
+      if (is(other, $SetTypeSemantics)) {
         return isInSet(this, other);
       }
 
-      if (is_v2(other, $RangeTypeSemantics)) {
+      if (is(other, $RangeTypeSemantics)) {
         if (
-          is_v2(this.from, $IntegerTypeSemantics) &&
-          is_v2(other.from, $IntegerTypeSemantics) &&
-          is_v2(this.to, $IntegerTypeSemantics) &&
-          is_v2(other.to, $IntegerTypeSemantics)
+          is(this.from, $IntegerTypeSemantics) &&
+          is(other.from, $IntegerTypeSemantics) &&
+          is(this.to, $IntegerTypeSemantics) &&
+          is(other.to, $IntegerTypeSemantics)
         )
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
       }
@@ -54,7 +54,7 @@ export function newRangeTypeSemantics(
     },
 
     equals(other: TypeSemantics): Boolean2 {
-      if (is_v2(other, $.RangeTypeSemantic)) {
+      if (is(other, $.RangeTypeSemantic)) {
         return this.from === other.from && this.to === other.to && this.step === other.step;
       }
 

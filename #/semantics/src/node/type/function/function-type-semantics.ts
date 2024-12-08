@@ -1,4 +1,4 @@
-import {Boolean2, is_v2} from '#common';
+import {Boolean2, is} from '#common';
 import {
   $SetTypeSemantics,
   $TypeSemantics,
@@ -36,7 +36,7 @@ export function newFunctionTypeSemantics(
     result,
 
     is(other: TypeSemantics): Boolean2 {
-      if (is_v2(other, $SetTypeSemantics)) {
+      if (is(other, $SetTypeSemantics)) {
         return isInSet(this, other);
       }
 

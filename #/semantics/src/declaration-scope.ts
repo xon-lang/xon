@@ -4,8 +4,8 @@ import {
   Boolean2,
   Dictionary,
   Integer,
-  is_v2,
-  Model_V2,
+  is,
+  Model,
   newArrayData,
   newDictionary,
   newTextData,
@@ -15,7 +15,7 @@ import {
 } from '#common';
 import {DeclarationSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
 
-export type DeclarationScope<T extends DeclarationSemantics = DeclarationSemantics> = Model_V2 & {
+export type DeclarationScope<T extends DeclarationSemantics = DeclarationSemantics> = Model & {
   imports: ArrayData<DeclarationScope> | Nothing;
   parent: DeclarationScope | Nothing;
   declarations: Dictionary<TextData, ArrayData<T>>;
@@ -76,7 +76,7 @@ export function newDeclarationScope<T extends DeclarationSemantics = Declaration
     filterByName(type: $Type, name: TextData): ArrayData<DeclarationSemantics> {
       const thisDeclarations = this.declarations.get(name);
       const parentDeclarations = this.parent?.filterByName(type, name);
-      const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is_v2(x, type));
+      const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, type));
 
       if (declarations && declarations.length() > 0) {
         return declarations;
@@ -87,7 +87,7 @@ export function newDeclarationScope<T extends DeclarationSemantics = Declaration
           x.declarations
             .get(name)
             ?.toArray()
-            ?.filter((x) => is_v2(x, type)) ?? [],
+            ?.filter((x) => is(x, type)) ?? [],
       );
 
       if (importDeclarations && importDeclarations.length > 0) {

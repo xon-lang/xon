@@ -1,7 +1,7 @@
-import {Boolean2, commonPackageType, Integer, Model_V2} from '#common';
+import {Boolean2, commonPackageType, Integer, Model} from '#common';
 
 // todo is MinMax a vector ???
-export type MinMax = Model_V2 & {
+export type MinMax = Model & {
   min: Integer;
   max: Integer;
 

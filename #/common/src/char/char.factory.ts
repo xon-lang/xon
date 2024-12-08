@@ -1,4 +1,4 @@
-import {$Char, $TextData, ArrayData, Boolean2, Char, is_v2, newArrayData, String2, TextData} from '#common';
+import {$Char, $TextData, ArrayData, Boolean2, Char, is, newArrayData, String2, TextData} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -51,7 +51,7 @@ export function newChar(charString: String2): Char {
         return this._string === other;
       }
 
-      if (is_v2(other, $TextData)) {
+      if (is(other, $TextData)) {
         return this._string === other.toString();
       }
 

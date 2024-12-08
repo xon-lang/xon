@@ -1,10 +1,10 @@
-import {Integer, is_v2, nothing} from '#common';
+import {Integer, is, nothing} from '#common';
 import {$GroupNode, invokeNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 
 export function invokeNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (index === 0 || !is_v2(node, $GroupNode)) {
+      if (index === 0 || !is(node, $GroupNode)) {
         return nothing;
       }
 

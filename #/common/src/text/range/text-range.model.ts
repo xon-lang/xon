@@ -1,6 +1,6 @@
-import {Boolean2, commonPackageType, Model_V2, TextPosition} from '#common';
+import {Boolean2, commonPackageType, Model, TextPosition} from '#common';
 
-export type TextRange = Model_V2 & {
+export type TextRange = Model & {
   start: TextPosition;
   stop: TextPosition;
 

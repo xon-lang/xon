@@ -9,14 +9,14 @@ import {
   commonPackageType,
   Integer,
   KeyValue,
-  Model_V2,
+  Model,
   Nothing,
   Number2,
   String2,
 } from '#common';
 
 // @ts-ignore
-export interface Dictionary<K extends Model_V2 = Model_V2, V extends Anything_V2 = Anything_V2>
+export interface Dictionary<K extends Model = Model, V extends Anything_V2 = Anything_V2>
   extends ArrayData<KeyValue<K, V>> {
   base: ArrayData<KeyValue<K, V>>;
 
@@ -49,7 +49,5 @@ export interface Dictionary<K extends Model_V2 = Model_V2, V extends Anything_V2
   set(key: K, value: V): Boolean2;
 }
 
-export const $Dictionary = <T extends Model_V2, V extends Model_V2>(
-  $T: $Type = $Model_V2,
-  $V: $Type = $Model_V2,
-) => commonPackageType<Dictionary<T, V>>('Dictionary', $ArrayData($KeyValue($T, $V)), [$T, $V]);
+export const $Dictionary = <T extends Model, V extends Model>($T: $Type = $Model_V2, $V: $Type = $Model_V2) =>
+  commonPackageType<Dictionary<T, V>>('Dictionary', $ArrayData($KeyValue($T, $V)), [$T, $V]);

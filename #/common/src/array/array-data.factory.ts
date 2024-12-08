@@ -8,8 +8,8 @@ import {
   ArraySelect,
   Boolean2,
   Integer,
-  is_v2,
-  Model_V2,
+  is,
+  Model,
   Nothing,
   nothing,
   Number2,
@@ -168,7 +168,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
             }
 
             // todo fix it
-            if (is_v2(z, $Model_V2) && is_v2(x, $Model_V2) && z.equals) {
+            if (is(z, $Model_V2) && is(x, $Model_V2) && z.equals) {
               return z.equals(x);
             }
 
@@ -232,7 +232,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
             }
 
             // todo fix it
-            if (is_v2(z, $Model_V2) && is_v2(x, $Model_V2) && z.equals) {
+            if (is(z, $Model_V2) && is(x, $Model_V2) && z.equals) {
               return z.equals(x);
             }
 
@@ -289,7 +289,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return nothing;
     },
 
-    filterMap<V extends Model_V2>(
+    filterMap<V extends Model>(
       predicateSelect: (value: T, index: Integer, array: ArrayData<T>) => V | Nothing,
     ): ArrayData<V> {
       const newArray: V[] = [];

@@ -1,6 +1,6 @@
-import {Model_V2} from '#common';
+import {Model} from '#common';
 import {semanticsPackageType} from '#semantics';
 
-export type Semantics = Model_V2;
+export type Semantics = Model;
 
 export const $Semantics = semanticsPackageType<Semantics>('Semantics');

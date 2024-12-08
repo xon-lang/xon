@@ -1,4 +1,4 @@
-import {Integer, is_v2, Nothing, nothing} from '#common';
+import {Integer, is, Nothing, nothing} from '#common';
 import {
   $BraceGroupNode,
   $IdNode,
@@ -55,13 +55,13 @@ function getLambdaParts(
   | Nothing {
   const typeOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
-      is_v2(node, $OperatorNode) &&
+      is(node, $OperatorNode) &&
       node.text.equals(TYPE) &&
       nodes[index + 1].isExpression &&
-      (is_v2(nodes[index - 1], $ParenGroupNode) ||
-        (is_v2(nodes[index - 1], $InvokeNode) &&
-          is_v2((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
-          is_v2((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
+      (is(nodes[index - 1], $ParenGroupNode) ||
+        (is(nodes[index - 1], $InvokeNode) &&
+          is((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
+          is((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
     ) {
       return {node, index};
     }
@@ -76,11 +76,7 @@ function getLambdaParts(
     const assignValue = nodes[typeOperatorFound.index + 3];
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
-    if (
-      is_v2(assignOperator, $OperatorNode) &&
-      assignOperator.text.equals(ASSIGN) &&
-      assignValue.isExpression
-    ) {
+    if (is(assignOperator, $OperatorNode) && assignOperator.text.equals(ASSIGN) && assignValue.isExpression) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
 
       return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
@@ -91,13 +87,13 @@ function getLambdaParts(
 
   const assignOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
-      is_v2(node, $OperatorNode) &&
+      is(node, $OperatorNode) &&
       node.text.equals(ASSIGN) &&
       nodes[index + 1].isExpression &&
-      (is_v2(nodes[index - 1], $ParenGroupNode) ||
-        (is_v2(nodes[index - 1], $InvokeNode) &&
-          is_v2((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
-          is_v2((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
+      (is(nodes[index - 1], $ParenGroupNode) ||
+        (is(nodes[index - 1], $InvokeNode) &&
+          is((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
+          is((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
     ) {
       return {node, index};
     }
@@ -124,13 +120,13 @@ function getGenericsParameters(
   generics?: GroupNode | Nothing;
   parameters?: GroupNode | Nothing;
 } {
-  if (is_v2(node, $ParenGroupNode)) {
+  if (is(node, $ParenGroupNode)) {
     parseDeclarations(analyzer, node);
 
     return {parameters: node};
   }
 
-  if (is_v2(node, $InvokeNode) && is_v2(node.instance, $BraceGroupNode)) {
+  if (is(node, $InvokeNode) && is(node.instance, $BraceGroupNode)) {
     parseDeclarations(analyzer, node.instance);
     parseDeclarations(analyzer, node.group);
 
@@ -142,7 +138,7 @@ function getGenericsParameters(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
   for (const item of group.items) {
-    if (is_v2(item.value, $IdNode)) {
+    if (is(item.value, $IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }

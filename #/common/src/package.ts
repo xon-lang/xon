@@ -1,10 +1,10 @@
-import {$Model_V2, $Package, $Type, Model_V2, Nothing, String2} from '#common';
+import {$Model_V2, $Package, $Type, Model, Nothing, String2} from '#common';
 
 export const $CommonPackage: $Package = {
   name: 'common',
 };
 
-export function packageType<T extends Model_V2>(
+export function packageType<T extends Model>(
   pkg: $Package,
   name: String2,
   parent?: $Type | Nothing,
@@ -18,7 +18,7 @@ export function packageType<T extends Model_V2>(
   };
 }
 
-export function commonPackageType<T extends Model_V2>(
+export function commonPackageType<T extends Model>(
   name: String2,
   parent?: $Type | Nothing,
   generics?: $Type[] | Nothing,

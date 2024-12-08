@@ -1,4 +1,4 @@
-import {Integer, is_v2, Nothing, nothing} from '#common';
+import {Integer, is, Nothing, nothing} from '#common';
 import {
   $AngleGroupNode,
   $DeclarationNode,
@@ -36,7 +36,7 @@ export function declarationNodeParse(): SyntaxParseFn {
     _startIndex: Integer,
     parentStatement: StatementNode | Nothing,
   ) => {
-    if (is_v2(nodes[0], $DeclarationNode)) {
+    if (is(nodes[0], $DeclarationNode)) {
       return nothing;
     }
 
@@ -89,7 +89,7 @@ function getDeclarationParts(
   const typeOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is_v2(node, $OperatorNode) &&
+      is(node, $OperatorNode) &&
       node.text.equals(TYPE) &&
       nodes[index + 1].isExpression
     ) {
@@ -106,11 +106,7 @@ function getDeclarationParts(
 
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
-    if (
-      is_v2(assignOperator, $OperatorNode) &&
-      assignOperator.text.equals(ASSIGN) &&
-      assignValue.isExpression
-    ) {
+    if (is(assignOperator, $OperatorNode) && assignOperator.text.equals(ASSIGN) && assignValue.isExpression) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
 
       return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
@@ -126,7 +122,7 @@ function getDeclarationParts(
   const assignOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is_v2(node, $OperatorNode) &&
+      is(node, $OperatorNode) &&
       node.text.equals(ASSIGN) &&
       nodes[index + 1].isExpression
     ) {
@@ -160,9 +156,9 @@ function getHeader(
       parameters?: GroupNode | Nothing;
     }
   | Nothing {
-  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is_v2(x, $DocumentationNode));
+  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode));
 
-  if (is_v2(node, $PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
+  if (is(node, $PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {
@@ -192,16 +188,16 @@ function getUnderModifier(
     return nothing;
   }
 
-  if (is_v2(node, $IdNode)) {
+  if (is(node, $IdNode)) {
     return {idHiddenNodes: node.hiddenNodes, id: node};
   }
 
-  if (is_v2(node, $InvokeNode)) {
+  if (is(node, $InvokeNode)) {
     if (
-      is_v2(node.instance, $InvokeNode) &&
-      is_v2(node.instance.instance, $IdNode) &&
-      is_v2(node.instance.group, $AngleGroupNode) &&
-      is_v2(node.group, $ParenGroupNode)
+      is(node.instance, $InvokeNode) &&
+      is(node.instance.instance, $IdNode) &&
+      is(node.instance.group, $AngleGroupNode) &&
+      is(node.group, $ParenGroupNode)
     ) {
       parseDeclarations(analyzer, node.instance.group);
       parseDeclarations(analyzer, node.group);
@@ -214,14 +210,14 @@ function getUnderModifier(
       };
     }
 
-    if (is_v2(node.instance, $IdNode)) {
+    if (is(node.instance, $IdNode)) {
       parseDeclarations(analyzer, node.group);
 
-      if (is_v2(node.group, $AngleGroupNode)) {
+      if (is(node.group, $AngleGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
-      if (is_v2(node.group, $ParenGroupNode)) {
+      if (is(node.group, $ParenGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
@@ -232,7 +228,7 @@ function getUnderModifier(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
   for (const item of group.items) {
-    if (is_v2(item.value, $IdNode)) {
+    if (is(item.value, $IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }
@@ -240,7 +236,7 @@ function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
 
 export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
   if (
-    is_v2(declarationNode, $DeclarationNode) &&
+    is(declarationNode, $DeclarationNode) &&
     declarationNode.modifier?.text &&
     declarationNode.modifier.text.equals(TYPE_MODIFIER)
   ) {

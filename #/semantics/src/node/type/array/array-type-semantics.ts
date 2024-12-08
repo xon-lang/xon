@@ -1,4 +1,4 @@
-import {Boolean2, is_v2, Nothing} from '#common';
+import {Boolean2, is, Nothing} from '#common';
 import {
   $SetTypeSemantics,
   $TypeSemantics,
@@ -30,7 +30,7 @@ export function newArrayTypeSemantics(items: TypeSemantics[]): ArrayTypeSemantic
     items,
 
     is(other: TypeSemantics): Boolean2 {
-      if (is_v2(other, $SetTypeSemantics)) {
+      if (is(other, $SetTypeSemantics)) {
         return isInSet(this, other);
       }
 
@@ -46,7 +46,7 @@ export function newArrayTypeSemantics(items: TypeSemantics[]): ArrayTypeSemantic
     },
 
     equals(other: TypeSemantics): Boolean2 {
-      if (is_v2(other, $ArrayTypeSemantics)) {
+      if (is(other, $ArrayTypeSemantics)) {
         return this.items === other.items;
       }
 

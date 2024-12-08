@@ -1,13 +1,13 @@
-import {Boolean2, is_v2, Nothing, String2} from '#common';
+import {Boolean2, is, Nothing, String2} from '#common';
 import {
   $TypeSemantics,
   AttributeValueDeclarationSemantics,
   DeclarationScope,
-  NominalTypeDeclarationSemantics,
-  TypeSemantics,
   isInSet,
   newDeclarationScope,
+  NominalTypeDeclarationSemantics,
   semanticsPackageType,
+  TypeSemantics,
 } from '#semantics';
 
 export type StringTypeSemantics = TypeSemantics & {
@@ -39,7 +39,7 @@ export function newStringTypeSemantics(value: String2): StringTypeSemantics {
         return true;
       }
 
-      if (is_v2(other, $IdTypeSemantics) && other.declaration) {
+      if (is(other, $IdTypeSemantics) && other.declaration) {
         return this.declaration?.equals(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
@@ -47,7 +47,7 @@ export function newStringTypeSemantics(value: String2): StringTypeSemantics {
     },
 
     equals(other: TypeSemantics): Boolean2 {
-      if (is_v2(other, $StringTypeSemantics)) {
+      if (is(other, $StringTypeSemantics)) {
         return this.value === other.value;
       }
 

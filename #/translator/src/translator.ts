@@ -1,7 +1,7 @@
-import {Model_V2, String2} from '#common';
+import {Model, String2} from '#common';
 import {translatorPackageType} from '#translator';
 
-export type Translator = Model_V2 & {
+export type Translator = Model & {
   translate(): String2;
 };
 

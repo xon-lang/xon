@@ -1,4 +1,4 @@
-import {Boolean2, is_v2, Nothing, rangeFromNodes, rangeFromPosition, String2, TextResource} from '#common';
+import {Boolean2, is, Nothing, rangeFromNodes, rangeFromPosition, String2, TextResource} from '#common';
 import {
   $LexicalNode,
   $NlNode,
@@ -68,7 +68,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      if (node.hiddenNodes.length === 1 && is_v2(node.hiddenNodes[0], $WhitespaceNode)) {
+      if (node.hiddenNodes.length === 1 && is(node.hiddenNodes[0], $WhitespaceNode)) {
         const whitespace = node.hiddenNodes[0];
 
         if (!keepSingleSpace) {
@@ -109,7 +109,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is_v2(x, $NlNode));
+      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode));
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
@@ -134,7 +134,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       const indentText = ' '.repeat(this.config.indentSpaceLength * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
       const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
-        (x): x is LexicalNode => is_v2(x, $LexicalNode) && !is_v2(x, $WhitespaceNode),
+        (x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode),
       );
       const text =
         indentText +

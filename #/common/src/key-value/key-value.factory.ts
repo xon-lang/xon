@@ -1,6 +1,6 @@
-import {$KeyValue, Boolean2, KeyValue, Model_V2, String2} from '#common';
+import {$KeyValue, Boolean2, KeyValue, Model, String2} from '#common';
 
-export function newKeyValue<K extends Model_V2, V extends Model_V2>(key: K, value: V): KeyValue<K, V> {
+export function newKeyValue<K extends Model, V extends Model>(key: K, value: V): KeyValue<K, V> {
   return {
     // todo set valid types
     $: $KeyValue(),

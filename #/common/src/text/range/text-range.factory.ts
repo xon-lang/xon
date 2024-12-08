@@ -5,7 +5,7 @@ import {
   TextPosition,
   TextRange,
   clonePosition,
-  is_v2,
+  is,
   zeroPosition,
 } from '#common';
 import {Node} from '#core';
@@ -25,7 +25,7 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     },
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
-      if (is_v2(positionOrRange, $TextPosition)) {
+      if (is(positionOrRange, $TextPosition)) {
         return positionOrRange.index >= this.start.index && positionOrRange.index <= this.stop.index;
       }
 

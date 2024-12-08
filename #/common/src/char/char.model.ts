@@ -1,6 +1,6 @@
-import {Boolean2, commonPackageType, Model_V2, String2, TextData} from '#common';
+import {Boolean2, commonPackageType, Model, String2, TextData} from '#common';
 
-export interface Char extends Model_V2 {
+export interface Char extends Model {
   _string: String2;
 
   isUpperLetter(): Boolean2;

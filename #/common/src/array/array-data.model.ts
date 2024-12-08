@@ -5,13 +5,13 @@ import {
   Boolean2,
   commonPackageType,
   Integer,
-  Model_V2,
+  Model,
   Nothing,
   Number2,
   String2,
 } from '#common';
 
-export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model_V2, Iterable<T> {
+export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, Iterable<T> {
   _items: T[];
 
   [Symbol.iterator](): IterableIterator<T>;
@@ -60,7 +60,7 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model_V2
   minMax(select: ArraySelect<T, Number2>): {min: T; max: T} | Nothing;
 
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
-  filterMap<V extends Model_V2>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
+  filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): this;
   // sortStrings(): ArrayData<T>;
