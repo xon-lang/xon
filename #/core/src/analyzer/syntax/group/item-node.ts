@@ -1,13 +1,22 @@
-import {Integer, Nothing, rangeFromNodes, textResourceRange} from '#common';
-import {CommaNode, Node, StatementNode, SyntaxAnalyzer, SyntaxNode} from '#core';
-import {$} from '#typing';
+import {Boolean2, Integer, Nothing, rangeFromNodes, textResourceRange} from '#common';
+import {
+  $SyntaxNode,
+  CommaNode,
+  corePackageType,
+  Node,
+  StatementNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+} from '#core';
 
-export type ItemNode = SyntaxNode<$.ItemNode> & {
+export type ItemNode = SyntaxNode & {
   index: Integer;
   value: Node | Nothing;
   comma: CommaNode | Nothing;
   statements: StatementNode[];
 };
+
+export const $ItemNode = corePackageType<ItemNode>('ItemNode', $SyntaxNode);
 
 export function itemNode(
   analyzer: SyntaxAnalyzer,
@@ -19,13 +28,17 @@ export function itemNode(
   const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
 
   const node: ItemNode = {
-    $: $.ItemNode,
+    $: $ItemNode,
     reference,
     children,
     index,
     value: statements.first()?.value,
     comma,
     statements,
+
+    equals(other: ItemNode): Boolean2 {
+      return this.reference.equals(other.reference);
+    },
   };
 
   children.forEach((x) => (x.parent = node));

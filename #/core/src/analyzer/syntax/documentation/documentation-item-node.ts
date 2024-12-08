@@ -1,6 +1,8 @@
 import {newTextData, Nothing, textPosition, textRange, textResourceRange} from '#common';
 import {
+  $SyntaxNode,
   AT,
+  corePackageType,
   DocumentationDescriptionNode,
   DocumentationLabelNode,
   IdNode,
@@ -11,13 +13,17 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
-import {$} from '#typing';
 
-export type DocumentationItemNode = SyntaxNode<$.DocumentationItemNode> & {
+export type DocumentationItemNode = SyntaxNode & {
   operator: OperatorNode;
   id: IdNode;
   description?: DocumentationDescriptionNode | Nothing;
 };
+
+export const $DocumentationItemNode = corePackageType<DocumentationItemNode>(
+  'DocumentationItemNode',
+  $SyntaxNode,
+);
 
 export function documentationItemNode(
   analyzer: SyntaxAnalyzer,
@@ -27,7 +33,7 @@ export function documentationItemNode(
   const id = idFromLabel(label);
   const operator = operatorFromLabel(label);
 
-  return syntaxNode(analyzer, {$: $.DocumentationItemNode, operator, id, description});
+  return syntaxNode(analyzer, {$: $DocumentationItemNode, operator, id, description});
 }
 
 function operatorFromLabel(label: DocumentationLabelNode): OperatorNode {

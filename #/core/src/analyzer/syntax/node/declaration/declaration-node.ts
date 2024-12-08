@@ -6,7 +6,9 @@
 
 import {Nothing} from '#common';
 import {
+  $SyntaxNode,
   AssignNode,
+  corePackageType,
   DocumentationNode,
   GroupNode,
   IdNode,
@@ -16,7 +18,6 @@ import {
   syntaxNode,
   TypeNode,
 } from '#core';
-import {$} from '#typing';
 
 //   // values
 //   AttributeValue = 'AttributeValue',
@@ -34,6 +35,8 @@ export type DeclarationNode = SyntaxNode & {
   attributes?: DeclarationNode[] | Nothing;
 };
 
+export const $DeclarationNode = corePackageType<DeclarationNode>('DeclarationNode', $SyntaxNode);
+
 export function declarationNode(
   analyzer: SyntaxAnalyzer,
   documentation: DocumentationNode | Nothing,
@@ -45,7 +48,7 @@ export function declarationNode(
   assign: AssignNode | Nothing,
 ): DeclarationNode {
   const node = syntaxNode(analyzer, {
-    $: $.DeclarationNode,
+    $: $DeclarationNode,
     documentation,
     modifier,
     id,

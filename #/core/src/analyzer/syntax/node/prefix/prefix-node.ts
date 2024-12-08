@@ -1,18 +1,24 @@
-import {ASSIGN, ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode, TYPE} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  ASSIGN,
+  corePackageType,
+  Node,
+  OperatorNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+  TYPE,
+} from '#core';
 
-export type PrefixNode = SyntaxNode<$.PrefixNode> &
-  ExpressionNode & {
-    operator: OperatorNode;
-    value: ExpressionNode;
-  };
+export type PrefixNode = SyntaxNode & {
+  operator: OperatorNode;
+  value: Node;
+};
 
-export function prefixNode(
-  analyzer: SyntaxAnalyzer,
-  operator: OperatorNode,
-  value: ExpressionNode,
-): PrefixNode {
-  const node = syntaxNode(analyzer, {$: $.PrefixNode, operator, value});
+export const $PrefixNode = corePackageType<PrefixNode>('PrefixNode', $SyntaxNode);
+
+export function prefixNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: Node): PrefixNode {
+  const node = syntaxNode(analyzer, {$: $PrefixNode, operator, value, isExpression: true});
 
   format(analyzer, node);
 

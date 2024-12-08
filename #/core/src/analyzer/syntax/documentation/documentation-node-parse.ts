@@ -1,15 +1,17 @@
-import {Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {is_v2, Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
 import {
+  $DocumentationCloseNode,
+  $DocumentationDescriptionNode,
+  $DocumentationLabelNode,
   DocumentationDescriptionNode,
   DocumentationItemNode,
-  DocumentationNode,
-  DocumentationOpenNode,
-  SyntaxAnalyzer,
   documentationItemNode,
   documentationLexicalParsers,
+  DocumentationNode,
   documentationNode,
+  DocumentationOpenNode,
+  SyntaxAnalyzer,
 } from '#core';
-import {$, is} from '#typing';
 
 export function documentationNodeParse(
   analyzer: SyntaxAnalyzer,
@@ -20,7 +22,7 @@ export function documentationNodeParse(
   const items: DocumentationItemNode[] = [];
 
   for (const node of iterator) {
-    if (is(node, $.DocumentationDescriptionNode)) {
+    if (is_v2(node, $DocumentationDescriptionNode)) {
       if (items.length === 0) {
         description = node;
       } else {
@@ -34,13 +36,13 @@ export function documentationNodeParse(
       continue;
     }
 
-    if (is(node, $.DocumentationLabelNode)) {
+    if (is_v2(node, $DocumentationLabelNode)) {
       items.push(documentationItemNode(analyzer, node));
 
       continue;
     }
 
-    if (is(node, $.DocumentationCloseNode)) {
+    if (is_v2(node, $DocumentationCloseNode)) {
       return documentationNode(analyzer, openNode, description, items, node);
     }
   }

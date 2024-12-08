@@ -1,13 +1,22 @@
-import {IdNode, PrefixNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  corePackageType,
+  IdNode,
+  PrefixNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
-export type AssignmentNode = SyntaxNode<$.AssignmentNode> & {
+export type AssignmentNode = SyntaxNode & {
   id: IdNode;
   assign: PrefixNode;
 };
 
+export const $AssignmentNode = corePackageType<AssignmentNode>('AssignmentNode', $SyntaxNode);
+
 export function assignmentNode(analyzer: SyntaxAnalyzer, id: IdNode, assign: PrefixNode): AssignmentNode {
-  const node = syntaxNode(analyzer, {$: $.AssignmentNode, id, assign});
+  const node = syntaxNode(analyzer, {$: $AssignmentNode, id, assign});
 
   format(analyzer, node);
 

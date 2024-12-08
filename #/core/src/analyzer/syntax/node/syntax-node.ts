@@ -1,17 +1,18 @@
-import {Anything, Boolean2, String2, nothing, rangeFromNodes, textResourceRange} from '#common';
-import {Node, SyntaxAnalyzer} from '#core';
-import {$, is} from '#typing';
+import {Anything, Boolean2, is_v2, nothing, rangeFromNodes, String2, textResourceRange} from '#common';
+import {$Node, corePackageType, Node, SyntaxAnalyzer} from '#core';
 
-export type SyntaxNode<T extends $ = $> = Node<T> & {
+export type SyntaxNode = Node & {
   children: Node[];
 };
 
-export function syntaxNode<
-  T extends Omit<SyntaxNode, 'reference' | 'children' | 'hiddenNodes' | 'semantic'> &
-    Record<String2, Anything>,
->(analyzer: SyntaxAnalyzer, params: T): SyntaxNode & T {
+export const $SyntaxNode = corePackageType<SyntaxNode>('SyntaxNode');
+
+export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Anything>>(
+  analyzer: SyntaxAnalyzer,
+  params: T,
+): SyntaxNode & T {
   const children = Object.values(params)
-    .filter((x) => is(x, $.Node))
+    .filter((x) => is_v2(x, $Node))
     .flat();
 
   const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));

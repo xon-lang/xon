@@ -1,12 +1,14 @@
 import {Boolean2, Integer, Model_V2, Nothing, nothing, TextReference} from '#common';
-import {corePackageType, Semantic} from '#core';
+import {corePackageType} from '#core';
+import {Semantics} from '#semantics';
 
 export type Node = Model_V2 & {
   reference: TextReference;
   parent?: Node | Nothing;
   isHidden?: Boolean2 | Nothing;
+  isExpression?: Boolean2 | Nothing;
   // todo remove 'semantic' field ???
-  semantic?: Semantic | Nothing;
+  semantics?: Semantics | Nothing;
   hiddenNodes?: Node[] | Nothing;
 };
 

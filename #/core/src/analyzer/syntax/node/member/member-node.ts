@@ -1,13 +1,22 @@
 import {Nothing} from '#common';
-import {ExpressionNode, IdNode, Node, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  corePackageType,
+  IdNode,
+  Node,
+  OperatorNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
-export type MemberNode = SyntaxNode<$.MemberNode> &
-  ExpressionNode & {
-    instance: ExpressionNode;
-    operator: OperatorNode;
-    id: IdNode | Nothing;
-  };
+export type MemberNode = SyntaxNode & {
+  instance: Node;
+  operator: OperatorNode;
+  id: IdNode | Nothing;
+};
+
+export const $MemberNode = corePackageType<MemberNode>('MemberNode', $SyntaxNode);
 
 export function memberNode(
   analyzer: SyntaxAnalyzer,
@@ -15,7 +24,7 @@ export function memberNode(
   operator: OperatorNode,
   id: IdNode | Nothing,
 ): MemberNode {
-  const node = syntaxNode(analyzer, {$: $.MemberNode, instance, operator, id});
+  const node = syntaxNode(analyzer, {$: $MemberNode, instance, operator, id, isExpression: true});
 
   validate(analyzer, node);
   format(analyzer, node);

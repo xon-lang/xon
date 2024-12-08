@@ -1,18 +1,22 @@
-import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  corePackageType,
+  Node,
+  OperatorNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
-export type PostfixNode = SyntaxNode<$.PostfixNode> &
-  ExpressionNode & {
-    value: ExpressionNode;
-    operator: OperatorNode;
-  };
+export type PostfixNode = SyntaxNode & {
+  value: Node;
+  operator: OperatorNode;
+};
 
-export function postfixNode(
-  analyzer: SyntaxAnalyzer,
-  value: ExpressionNode,
-  operator: OperatorNode,
-): PostfixNode {
-  const node = syntaxNode(analyzer, {$: $.PostfixNode, value, operator});
+export const $PostfixNode = corePackageType<PostfixNode>('PostfixNode', $SyntaxNode);
+
+export function postfixNode(analyzer: SyntaxAnalyzer, value: Node, operator: OperatorNode): PostfixNode {
+  const node = syntaxNode(analyzer, {$: $PostfixNode, value, operator, isExpression: true});
 
   format(analyzer, node);
 

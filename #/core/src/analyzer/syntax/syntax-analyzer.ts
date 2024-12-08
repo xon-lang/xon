@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
+import {$Type, Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   charNodeParse,
@@ -18,7 +18,6 @@ import {
   stringNodeParse,
   SyntaxAnalyzerConfig,
 } from '#core';
-import {$, is} from '#typing';
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;
@@ -41,8 +40,10 @@ export type SyntaxAnalyzer = {
   ): StatementNode | Nothing;
 
   findNodeInChildren(children: Node[], positionOrRange: TextPosition | TextRange): Node | Nothing;
+  // todo create overload
   findNode(positionOrRange: TextPosition | TextRange): Node | Nothing;
-  findClosestNode(positionOrRange: TextPosition | TextRange, $: $): Node | Nothing;
+  // todo create overload
+  findClosestNode(positionOrRange: TextPosition | TextRange, $: $Type): Node | Nothing;
 };
 
 export function createSyntaxAnalyzer(

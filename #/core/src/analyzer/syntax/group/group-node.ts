@@ -1,50 +1,35 @@
-import {Nothing, rangeFromNodes, textResourceRange} from '#common';
-import {
-  CloseNode,
-  CloseNodeType,
-  ExpressionNode,
-  ItemNode,
-  OpenNode,
-  OpenNodeType,
-  SyntaxAnalyzer,
-  SyntaxNode,
-} from '#core';
-import {$} from '#typing';
+import {Boolean2, Nothing, rangeFromNodes, textResourceRange} from '#common';
+import {$SyntaxNode, CloseNode, corePackageType, ItemNode, OpenNode, SyntaxAnalyzer, SyntaxNode} from '#core';
 
-export type GroupNodeType = $.ParenGroupNode | $.BracketGroupNode | $.BraceGroupNode | $.AngleGroupNode;
+export type GroupNode = SyntaxNode & {
+  open: OpenNode;
+  items: ItemNode[];
+  close: CloseNode | Nothing;
+};
 
-export type GroupNode<
-  GroupType extends GroupNodeType = GroupNodeType,
-  OpenType extends OpenNodeType = OpenNodeType,
-  CloseType extends CloseNodeType = CloseNodeType,
-> = SyntaxNode<GroupType> &
-  ExpressionNode & {
-    open: OpenNode<OpenType>;
-    items: ItemNode[];
-    close: CloseNode<CloseType> | Nothing;
-  };
+export const $GroupNode = corePackageType<GroupNode>('GroupNode', $SyntaxNode);
 
-export function groupNode<
-  GroupType extends GroupNodeType,
-  OpenType extends OpenNodeType,
-  CloseType extends CloseNodeType,
->(
+export function groupNode(
   analyzer: SyntaxAnalyzer,
-  $: GroupType,
-  open: OpenNode<OpenType>,
+  open: OpenNode,
   items: ItemNode[],
-  close: CloseNode<CloseType> | Nothing,
-): GroupNode<GroupType, OpenType, CloseType> {
+  close: CloseNode | Nothing,
+): GroupNode {
   const children = close ? [open, ...items, close] : [open, ...items];
   const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
 
-  const node: GroupNode<GroupType, OpenType, CloseType> = {
-    $,
+  const node: GroupNode = {
+    $: $GroupNode,
     reference,
     children,
     open,
     items,
     close,
+    isExpression: true,
+
+    equals(other: GroupNode): Boolean2 {
+      return this.reference.equals(other.reference);
+    },
   };
 
   children.forEach((x) => (x.parent = node));

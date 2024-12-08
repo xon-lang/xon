@@ -1,4 +1,5 @@
-import {GroupNode} from '#core';
-import {$} from '#typing';
+import {$GroupNode, corePackageType, GroupNode} from '#core';
 
-export type ParenGroupNode = GroupNode<$.ParenGroupNode, $.ParenOpenNode, $.ParenCloseNode>;
+export type ParenGroupNode = GroupNode;
+
+export const $ParenGroupNode = corePackageType<ParenGroupNode>('ParenGroupNode', $GroupNode);

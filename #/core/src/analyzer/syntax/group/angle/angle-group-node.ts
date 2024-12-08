@@ -1,4 +1,5 @@
-import {GroupNode} from '#core';
-import {$} from '#typing';
+import {$GroupNode, corePackageType, GroupNode} from '#core';
 
-export type AngleGroupNode = GroupNode<$.AngleGroupNode, $.AngleOpenNode, $.AngleCloseNode>;
+export type AngleGroupNode = GroupNode;
+
+export const $AngleGroupNode = corePackageType<AngleGroupNode>('AngleGroupNode', $GroupNode);

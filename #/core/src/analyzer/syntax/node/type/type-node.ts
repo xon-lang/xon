@@ -1,15 +1,24 @@
 import {Nothing, nothing} from '#common';
-import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  corePackageType,
+  Node,
+  OperatorNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
-export type TypeNode = SyntaxNode<$.TypeNode> & {
-  semantic: Nothing;
+export type TypeNode = SyntaxNode & {
+  semantics: Nothing;
   operator: OperatorNode;
-  value: ExpressionNode;
+  value: Node;
 };
 
-export function typeNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: ExpressionNode): TypeNode {
-  const node = syntaxNode(analyzer, {$: $.TypeNode, operator, value, semantic: nothing});
+export const $TypeNode = corePackageType<TypeNode>('TypeNode', $SyntaxNode);
+
+export function typeNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: Node): TypeNode {
+  const node = syntaxNode(analyzer, {$: $TypeNode, operator, value, semantics: nothing});
 
   format(analyzer, node);
 

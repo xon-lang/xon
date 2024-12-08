@@ -1,4 +1,5 @@
-import {GroupNode} from '#core';
-import {$} from '#typing';
+import {$GroupNode, corePackageType, GroupNode} from '#core';
 
-export type BracketGroupNode = GroupNode<$.BracketGroupNode, $.BracketOpenNode, $.BracketCloseNode>;
+export type BracketGroupNode = GroupNode;
+
+export const $BracketGroupNode = corePackageType<BracketGroupNode>('BracketGroupNode', $GroupNode);

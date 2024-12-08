@@ -1,5 +1,7 @@
 import {Nothing, String2} from '#common';
 import {
+  $SyntaxNode,
+  corePackageType,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
   DocumentationItemNode,
@@ -8,14 +10,15 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
-import {$} from '#typing';
 
-export type DocumentationNode = SyntaxNode<$.DocumentationNode> & {
+export type DocumentationNode = SyntaxNode & {
   open: DocumentationOpenNode;
   description?: DocumentationDescriptionNode | Nothing;
   items: DocumentationItemNode[];
   close?: DocumentationCloseNode | Nothing;
 };
+
+export const $DocumentationNode = corePackageType<DocumentationNode>('DocumentationNode', $SyntaxNode);
 
 export function documentationNode(
   analyzer: SyntaxAnalyzer,
@@ -25,7 +28,7 @@ export function documentationNode(
   close?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
   const node = syntaxNode(analyzer, {
-    $: $.DocumentationNode,
+    $: $DocumentationNode,
     isHidden: true,
     open,
     description,

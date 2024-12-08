@@ -1,19 +1,24 @@
 import {Nothing, nothing} from '#common';
-import {ExpressionNode, OperatorNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  corePackageType,
+  Node,
+  OperatorNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
-export type AssignNode = SyntaxNode<$.AssignNode> & {
+export type AssignNode = SyntaxNode & {
   semantic: Nothing;
   operator: OperatorNode;
-  value: ExpressionNode;
+  value: Node;
 };
 
-export function assignNode(
-  analyzer: SyntaxAnalyzer,
-  operator: OperatorNode,
-  value: ExpressionNode,
-): AssignNode {
-  const node = syntaxNode(analyzer, {$: $.AssignNode, operator, value, semantic: nothing});
+export const $AssignNode = corePackageType<AssignNode>('AssignNode', $SyntaxNode);
+
+export function assignNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: Node): AssignNode {
+  const node = syntaxNode(analyzer, {$: $AssignNode, operator, value, semantic: nothing});
 
   format(analyzer, node);
 

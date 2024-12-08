@@ -1,14 +1,15 @@
-import {Nothing, nothing} from '#common';
+import {is_v2, Nothing, nothing} from '#common';
 import {
+  $StringCloseNode,
+  $StringContentNode,
   StringCloseNode,
   StringContentNode,
+  stringLexicalParsers,
   StringNode,
+  stringNode,
   StringOpenNode,
   SyntaxAnalyzer,
-  stringLexicalParsers,
-  stringNode,
 } from '#core';
-import {$, is} from '#typing';
 
 export function stringNodeParse(analyzer: SyntaxAnalyzer, openNode: StringOpenNode): StringNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(stringLexicalParsers());
@@ -16,13 +17,13 @@ export function stringNodeParse(analyzer: SyntaxAnalyzer, openNode: StringOpenNo
   let closeNode: StringCloseNode | Nothing = nothing;
 
   for (const node of iterator) {
-    if (is(node, $.StringContentNode)) {
+    if (is_v2(node, $StringContentNode)) {
       content = node;
 
       continue;
     }
 
-    if (is(node, $.StringCloseNode)) {
+    if (is_v2(node, $StringCloseNode)) {
       closeNode = node;
 
       break;

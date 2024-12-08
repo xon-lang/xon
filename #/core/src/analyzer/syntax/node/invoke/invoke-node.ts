@@ -1,14 +1,14 @@
-import {ExpressionNode, GroupNode, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {$SyntaxNode, corePackageType, GroupNode, Node, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
 
-export type InvokeNode = SyntaxNode<$.InvokeNode> &
-  ExpressionNode & {
-    instance: ExpressionNode;
-    group: GroupNode;
-  };
+export type InvokeNode = SyntaxNode & {
+  instance: Node;
+  group: GroupNode;
+};
 
-export function invokeNode(analyzer: SyntaxAnalyzer, instance: ExpressionNode, group: GroupNode): InvokeNode {
-  const node = syntaxNode(analyzer, {$: $.InvokeNode, instance, group});
+export const $InvokeNode = corePackageType<InvokeNode>('InvokeNode', $SyntaxNode);
+
+export function invokeNode(analyzer: SyntaxAnalyzer, instance: Node, group: GroupNode): InvokeNode {
+  const node = syntaxNode(analyzer, {$: $InvokeNode, instance, group, isExpression: true});
 
   format(analyzer, node);
 

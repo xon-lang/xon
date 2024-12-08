@@ -1,22 +1,25 @@
-import {Integer, Nothing, nothing} from '#common';
+import {Integer, is_v2, Nothing, nothing} from '#common';
 import {
+  $BraceGroupNode,
+  $IdNode,
+  $InvokeNode,
+  $OperatorNode,
+  $ParenGroupNode,
   ASSIGN,
   AssignNode,
-  ExpressionNode,
+  assignNode,
   GroupNode,
   InvokeNode,
+  lambdaNode,
   Node,
+  nodeFindMap,
+  partialToDeclaration,
   SyntaxAnalyzer,
   SyntaxParseFn,
   TYPE,
   TypeNode,
-  assignNode,
-  lambdaNode,
-  nodeFindMap,
-  partialToDeclaration,
   typeNode,
 } from '#core';
-import {$, is, isNonOperatorExpression} from '#typing';
 
 export function lambdaNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {
@@ -52,13 +55,13 @@ function getLambdaParts(
   | Nothing {
   const typeOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
-      is(node, $.OperatorNode) &&
+      is_v2(node, $OperatorNode) &&
       node.text.equals(TYPE) &&
-      isNonOperatorExpression(nodes[index + 1]) &&
-      (is(nodes[index - 1], $.ParenGroupNode) ||
-        (is(nodes[index - 1], $.InvokeNode) &&
-          is((nodes[index - 1] as InvokeNode).instance, $.BraceGroupNode) &&
-          is((nodes[index - 1] as InvokeNode).group, $.ParenGroupNode)))
+      nodes[index + 1].isExpression &&
+      (is_v2(nodes[index - 1], $ParenGroupNode) ||
+        (is_v2(nodes[index - 1], $InvokeNode) &&
+          is_v2((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
+          is_v2((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
     ) {
       return {node, index};
     }
@@ -68,15 +71,15 @@ function getLambdaParts(
 
   if (typeOperatorFound) {
     const header = getGenericsParameters(analyzer, nodes[typeOperatorFound.index - 1]);
-    const typeValue = nodes[typeOperatorFound.index + 1] as ExpressionNode;
+    const typeValue = nodes[typeOperatorFound.index + 1];
     const assignOperator = nodes[typeOperatorFound.index + 2];
     const assignValue = nodes[typeOperatorFound.index + 3];
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (
-      is(assignOperator, $.OperatorNode) &&
+      is_v2(assignOperator, $OperatorNode) &&
       assignOperator.text.equals(ASSIGN) &&
-      isNonOperatorExpression(assignValue)
+      assignValue.isExpression
     ) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
 
@@ -88,13 +91,13 @@ function getLambdaParts(
 
   const assignOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
-      is(node, $.OperatorNode) &&
+      is_v2(node, $OperatorNode) &&
       node.text.equals(ASSIGN) &&
-      isNonOperatorExpression(nodes[index + 1]) &&
-      (is(nodes[index - 1], $.ParenGroupNode) ||
-        (is(nodes[index - 1], $.InvokeNode) &&
-          is((nodes[index - 1] as InvokeNode).instance, $.BraceGroupNode) &&
-          is((nodes[index - 1] as InvokeNode).group, $.ParenGroupNode)))
+      nodes[index + 1].isExpression &&
+      (is_v2(nodes[index - 1], $ParenGroupNode) ||
+        (is_v2(nodes[index - 1], $InvokeNode) &&
+          is_v2((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
+          is_v2((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
     ) {
       return {node, index};
     }
@@ -104,7 +107,7 @@ function getLambdaParts(
 
   if (assignOperatorFound) {
     const header = getGenericsParameters(analyzer, nodes[assignOperatorFound.index - 1]);
-    const assignValue = nodes[assignOperatorFound.index + 1] as ExpressionNode;
+    const assignValue = nodes[assignOperatorFound.index + 1];
     const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
@@ -121,13 +124,13 @@ function getGenericsParameters(
   generics?: GroupNode | Nothing;
   parameters?: GroupNode | Nothing;
 } {
-  if (is(node, $.ParenGroupNode)) {
+  if (is_v2(node, $ParenGroupNode)) {
     parseDeclarations(analyzer, node);
 
     return {parameters: node};
   }
 
-  if (is(node, $.InvokeNode) && is(node.instance, $.BraceGroupNode)) {
+  if (is_v2(node, $InvokeNode) && is_v2(node.instance, $BraceGroupNode)) {
     parseDeclarations(analyzer, node.instance);
     parseDeclarations(analyzer, node.group);
 
@@ -139,7 +142,7 @@ function getGenericsParameters(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
   for (const item of group.items) {
-    if (is(item.value, $.IdNode)) {
+    if (is_v2(item.value, $IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }

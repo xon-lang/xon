@@ -1,24 +1,26 @@
-import {Char, Nothing} from '#common';
+import {nothing, Nothing} from '#common';
 import {
+  $SyntaxNode,
   CharCloseNode,
   CharContentNode,
   CharOpenNode,
-  CharTypeSemantic,
-  CharValueSemantic,
+  corePackageType,
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
 } from '#core';
-import {$} from '#typing';
+import {CharTypeSemantics, CharValueSemantics} from '#semantics';
 
-export type CharNode = SyntaxNode<$.CharNode> & {
-  semantic?: CharTypeSemantic | CharValueSemantic | Nothing;
-  value: Char;
+export type CharNode = SyntaxNode & {
+  semantic?: CharTypeSemantics | CharValueSemantics | Nothing;
+  value: string;
 
   open: CharOpenNode;
   content?: CharContentNode | Nothing;
   close?: CharCloseNode | Nothing;
 };
+
+export const $CharNode = corePackageType<CharNode>('CharNode', $SyntaxNode);
 
 export function charNode(
   analyzer: SyntaxAnalyzer,
@@ -28,5 +30,13 @@ export function charNode(
 ): CharNode {
   const value = content?.text.toString() ?? '';
 
-  return syntaxNode(analyzer, {$: $.CharNode, open, content, close, value, isExpression: true});
+  return syntaxNode(analyzer, {
+    $: $CharNode,
+    open,
+    content,
+    close,
+    value,
+    semantics: nothing,
+    isExpression: true,
+  });
 }

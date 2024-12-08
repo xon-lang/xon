@@ -1,20 +1,29 @@
-import {ExpressionNode, OperatorNode, RANGE, SyntaxAnalyzer, SyntaxNode, syntaxNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  corePackageType,
+  Node,
+  OperatorNode,
+  RANGE,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+} from '#core';
 
-export type InfixNode = SyntaxNode<$.InfixNode> &
-  ExpressionNode & {
-    left: ExpressionNode;
-    operator: OperatorNode;
-    right: ExpressionNode;
-  };
+export type InfixNode = SyntaxNode & {
+  left: Node;
+  operator: OperatorNode;
+  right: Node;
+};
+
+export const $InfixNode = corePackageType<InfixNode>('InfixNode', $SyntaxNode);
 
 export function infixNode(
   analyzer: SyntaxAnalyzer,
-  left: ExpressionNode,
+  left: Node,
   operator: OperatorNode,
-  right: ExpressionNode,
+  right: Node,
 ): InfixNode {
-  const node = syntaxNode(analyzer, {$: $.InfixNode, left, operator, right});
+  const node = syntaxNode(analyzer, {$: $InfixNode, left, operator, right, isExpression: true});
 
   format(analyzer, node);
 

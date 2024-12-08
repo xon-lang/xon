@@ -1,26 +1,26 @@
-import {Nothing, String2} from '#common';
+import {nothing, Nothing, String2} from '#common';
 import {
-  ExpressionNode,
+  $SyntaxNode,
+  corePackageType,
   StringCloseNode,
   StringContentNode,
   StringOpenNode,
-  StringTypeSemantic,
-  StringValueSemantic,
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
 } from '#core';
-import {$} from '#typing';
+import {StringTypeSemantics, StringValueSemantics} from '#semantics';
 
-export type StringNode = SyntaxNode<$.StringNode> &
-  ExpressionNode & {
-    semantic?: StringTypeSemantic | StringValueSemantic | Nothing;
-    value: String2;
+export type StringNode = SyntaxNode & {
+  semantics?: StringTypeSemantics | StringValueSemantics | Nothing;
+  value: String2;
 
-    open: StringOpenNode;
-    content?: StringContentNode | Nothing;
-    close?: StringCloseNode | Nothing;
-  };
+  open: StringOpenNode;
+  content?: StringContentNode | Nothing;
+  close?: StringCloseNode | Nothing;
+};
+
+export const $StringNode = corePackageType<StringNode>('StringNode', $SyntaxNode);
 
 export function stringNode(
   analyzer: SyntaxAnalyzer,
@@ -30,5 +30,5 @@ export function stringNode(
 ): StringNode {
   const value = content?.text.toString() ?? '';
 
-  return syntaxNode(analyzer, {$: $.StringNode, open, content, close, value});
+  return syntaxNode(analyzer, {$: $StringNode, open, content, close, value, semantics: nothing, isExpression: true});
 }

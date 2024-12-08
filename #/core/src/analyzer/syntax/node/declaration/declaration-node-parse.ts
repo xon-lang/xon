@@ -1,11 +1,18 @@
-import {Integer, Nothing, nothing} from '#common';
+import {Integer, is_v2, Nothing, nothing} from '#common';
 import {
+  $AngleGroupNode,
+  $DeclarationNode,
+  $DocumentationNode,
+  $IdNode,
+  $InvokeNode,
+  $OperatorNode,
+  $ParenGroupNode,
+  $PrefixNode,
   ASSIGN,
   AssignNode,
   assignNode,
   DeclarationNode,
   DocumentationNode,
-  ExpressionNode,
   GroupNode,
   IdNode,
   MODIFIER_KEYWORDS,
@@ -21,7 +28,6 @@ import {
   TypeNode,
   typeNode,
 } from '#core';
-import {$, is, isNonOperatorExpression} from '#typing';
 
 export function declarationNodeParse(): SyntaxParseFn {
   return (
@@ -30,7 +36,7 @@ export function declarationNodeParse(): SyntaxParseFn {
     _startIndex: Integer,
     parentStatement: StatementNode | Nothing,
   ) => {
-    if (is(nodes[0], $.DeclarationNode)) {
+    if (is_v2(nodes[0], $DeclarationNode)) {
       return nothing;
     }
 
@@ -83,9 +89,9 @@ function getDeclarationParts(
   const typeOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is(node, $.OperatorNode) &&
+      is_v2(node, $OperatorNode) &&
       node.text.equals(TYPE) &&
-      isNonOperatorExpression(nodes[index + 1])
+      nodes[index + 1].isExpression
     ) {
       return {node, index};
     }
@@ -94,16 +100,16 @@ function getDeclarationParts(
   });
 
   if (typeOperatorFound) {
-    const typeValue = nodes[typeOperatorFound.index + 1] as ExpressionNode;
+    const typeValue = nodes[typeOperatorFound.index + 1];
     const assignOperator = nodes[typeOperatorFound.index + 2];
     const assignValue = nodes[typeOperatorFound.index + 3];
 
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (
-      is(assignOperator, $.OperatorNode) &&
+      is_v2(assignOperator, $OperatorNode) &&
       assignOperator.text.equals(ASSIGN) &&
-      isNonOperatorExpression(assignValue)
+      assignValue.isExpression
     ) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
 
@@ -120,9 +126,9 @@ function getDeclarationParts(
   const assignOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is(node, $.OperatorNode) &&
+      is_v2(node, $OperatorNode) &&
       node.text.equals(ASSIGN) &&
-      isNonOperatorExpression(nodes[index + 1])
+      nodes[index + 1].isExpression
     ) {
       return {node, index};
     }
@@ -131,7 +137,7 @@ function getDeclarationParts(
   });
 
   if (assignOperatorFound) {
-    const assignValue = nodes[assignOperatorFound.index + 1] as ExpressionNode;
+    const assignValue = nodes[assignOperatorFound.index + 1];
     const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
@@ -154,9 +160,9 @@ function getHeader(
       parameters?: GroupNode | Nothing;
     }
   | Nothing {
-  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $.DocumentationNode));
+  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is_v2(x, $DocumentationNode));
 
-  if (is(node, $.PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
+  if (is_v2(node, $PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {
@@ -186,16 +192,16 @@ function getUnderModifier(
     return nothing;
   }
 
-  if (is(node, $.IdNode)) {
+  if (is_v2(node, $IdNode)) {
     return {idHiddenNodes: node.hiddenNodes, id: node};
   }
 
-  if (is(node, $.InvokeNode)) {
+  if (is_v2(node, $InvokeNode)) {
     if (
-      is(node.instance, $.InvokeNode) &&
-      is(node.instance.instance, $.IdNode) &&
-      is(node.instance.group, $.AngleGroupNode) &&
-      is(node.group, $.ParenGroupNode)
+      is_v2(node.instance, $InvokeNode) &&
+      is_v2(node.instance.instance, $IdNode) &&
+      is_v2(node.instance.group, $AngleGroupNode) &&
+      is_v2(node.group, $ParenGroupNode)
     ) {
       parseDeclarations(analyzer, node.instance.group);
       parseDeclarations(analyzer, node.group);
@@ -208,14 +214,14 @@ function getUnderModifier(
       };
     }
 
-    if (is(node.instance, $.IdNode)) {
+    if (is_v2(node.instance, $IdNode)) {
       parseDeclarations(analyzer, node.group);
 
-      if (is(node.group, $.AngleGroupNode)) {
+      if (is_v2(node.group, $AngleGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
-      if (is(node.group, $.ParenGroupNode)) {
+      if (is_v2(node.group, $ParenGroupNode)) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
@@ -226,7 +232,7 @@ function getUnderModifier(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
   for (const item of group.items) {
-    if (is(item.value, $.IdNode)) {
+    if (is_v2(item.value, $IdNode)) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }
@@ -234,7 +240,7 @@ function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
 
 export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
   if (
-    is(declarationNode, $.DeclarationNode) &&
+    is_v2(declarationNode, $DeclarationNode) &&
     declarationNode.modifier?.text &&
     declarationNode.modifier.text.equals(TYPE_MODIFIER)
   ) {

@@ -1,17 +1,16 @@
-import {Boolean2, Integer, nothing, TextData} from '#common';
-import {Node, nodeFindMap, returnNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
-import {$, is} from '#typing';
+import {Boolean2, Integer, is_v2, nothing, TextData} from '#common';
+import {$OperatorNode, Node, nodeFindMap, returnNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 
 export function returnNodeParse(operator: TextData, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
-      if (!is(node, $.OperatorNode) || !node.text.equals(operator)) {
+      if (!is_v2(node, $OperatorNode) || !node.text.equals(operator)) {
         return nothing;
       }
 
       const value = nodes[index + 1];
 
-      if (!is(value, $.ExpressionNode)) {
+      if (!value.isExpression) {
         return {node: returnNode(analyzer, node, nothing), index};
       }
 

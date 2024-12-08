@@ -1,14 +1,15 @@
-import {Nothing, nothing} from '#common';
+import {is_v2, Nothing, nothing} from '#common';
 import {
+  $CharCloseNode,
+  $CharContentNode,
   CharCloseNode,
   CharContentNode,
+  charLexicalParsers,
   CharNode,
+  charNode,
   CharOpenNode,
   SyntaxAnalyzer,
-  charLexicalParsers,
-  charNode,
 } from '#core';
-import {$, is} from '#typing';
 
 export function charNodeParse(analyzer: SyntaxAnalyzer, openNode: CharOpenNode): CharNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(charLexicalParsers());
@@ -16,13 +17,13 @@ export function charNodeParse(analyzer: SyntaxAnalyzer, openNode: CharOpenNode):
   let closeNode: CharCloseNode | Nothing = nothing;
 
   for (const node of iterator) {
-    if (is(node, $.CharContentNode)) {
+    if (is_v2(node, $CharContentNode)) {
       content = node;
 
       continue;
     }
 
-    if (is(node, $.CharCloseNode)) {
+    if (is_v2(node, $CharCloseNode)) {
       closeNode = node;
 
       break;

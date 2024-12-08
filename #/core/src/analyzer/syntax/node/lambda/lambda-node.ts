@@ -1,14 +1,23 @@
 import {Nothing} from '#common';
-import {AssignNode, ExpressionNode, GroupNode, SyntaxAnalyzer, SyntaxNode, syntaxNode, TypeNode} from '#core';
-import {$} from '#typing';
+import {
+  $SyntaxNode,
+  AssignNode,
+  corePackageType,
+  GroupNode,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  syntaxNode,
+  TypeNode,
+} from '#core';
 
-export type LambdaNode = SyntaxNode<$.LambdaNode> &
-  ExpressionNode & {
-    generics: GroupNode | Nothing;
-    parameters: GroupNode;
-    type: TypeNode | Nothing;
-    assign: AssignNode | Nothing;
-  };
+export type LambdaNode = SyntaxNode & {
+  generics: GroupNode | Nothing;
+  parameters: GroupNode;
+  type: TypeNode | Nothing;
+  assign: AssignNode | Nothing;
+};
+
+export const $LambdaNode = corePackageType<LambdaNode>('LambdaNode', $SyntaxNode);
 
 export function lambdaNode(
   analyzer: SyntaxAnalyzer,
@@ -17,7 +26,7 @@ export function lambdaNode(
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): LambdaNode {
-  const node = syntaxNode(analyzer, {$: $.LambdaNode, generics, parameters, type, assign});
+  const node = syntaxNode(analyzer, {$: $LambdaNode, generics, parameters, type, assign, isExpression: true});
 
   format(analyzer, node);
 
