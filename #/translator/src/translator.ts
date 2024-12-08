@@ -1,5 +1,5 @@
 import {Model_V2, String2} from '#common';
-import {corePackageType} from '#core';
+import {translatorPackageType} from '#translator';
 
 export type Translator = Model_V2 & {
   translate(): String2;
