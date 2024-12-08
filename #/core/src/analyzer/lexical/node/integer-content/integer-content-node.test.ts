@@ -1,6 +1,5 @@
-import {newTextData, newTextResource, nothing} from '#common';
-import {IntegerNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {is, newTextData, newTextResource, nothing} from '#common';
+import {$IntegerNode, IntegerNode, syntaxFromResource} from '#core';
 
 test('string content', () => {
   const text = newTextData('1_2_3');
@@ -10,7 +9,7 @@ test('string content', () => {
   const node = statements[0].value as IntegerNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.IntegerNode);
+  expect(is(node, $IntegerNode)).toBe(true);
   expect(node.content?.text.toString()).toBe('1_2_3');
   expect(node.value).toBe(123);
 });
