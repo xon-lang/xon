@@ -31,9 +31,6 @@ export interface Model {
   $: $Type;
 
   equals(other: this): Boolean2;
-  // clone(): this;
-
-  // todo use TextData as return type
   toString(): String2;
 }
 

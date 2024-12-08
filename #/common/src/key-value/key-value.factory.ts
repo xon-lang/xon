@@ -15,9 +15,9 @@ export function newKeyValue<K extends Model, V extends Model>(key: K, value: V):
       return this.key === other.key && this.value === other.value;
     },
 
-    clone(): KeyValue<K, V> {
-      return newKeyValue(this.key, this.value);
-    },
+    // clone(): KeyValue<K, V> {
+    //   return newKeyValue(this.key, this.value);
+    // },
 
     toString(): String2 {
       return `{key: ${this.key}, value: ${this.value}}`;
