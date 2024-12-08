@@ -1,5 +1,6 @@
-import {Integer, Nothing, newArrayData, nothing} from '#common';
+import {Integer, Nothing, is_v2, newArrayData, nothing} from '#common';
 import {
+  $DeclarationNode,
   COMPLEMENT,
   CONTROL_KEYWORDS,
   DIVIDE,
@@ -43,7 +44,6 @@ import {
   prefixNodeParse,
   returnNodeParse,
 } from '#core';
-import {$, is} from '#typing';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (
@@ -118,7 +118,7 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
       return;
     }
 
-    if (!is(node, $.DeclarationNode)) {
+    if (!is_v2(node, $DeclarationNode)) {
       analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
         x.shouldBeDeclarationStatement(),
       );

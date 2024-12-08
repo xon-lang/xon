@@ -1,5 +1,24 @@
-import {$Type, Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
 import {
+  $Type,
+  Boolean2,
+  is_v2,
+  Nothing,
+  nothing,
+  rangeFromPosition,
+  TextPosition,
+  TextRange,
+  TextResource,
+} from '#common';
+import {
+  $CharOpenNode,
+  $DocumentationOpenNode,
+  $IntegerContentNode,
+  $NlNode,
+  $OpenNode,
+  $StringOpenNode,
+  $SyntaxNode,
+  $UnknownNode,
+  $WhitespaceNode,
   AnalyzerDiagnosticManager,
   charNodeParse,
   codeLexicalParsers,
@@ -89,28 +108,28 @@ export function createSyntaxAnalyzer(
       for (const iterableNode of iterator) {
         let node: Node = iterableNode;
 
-        if (is(node, $.UnknownNode)) {
+        if (is_v2(node, $UnknownNode)) {
           this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unknownSymbol());
         }
 
-        if (is(node, $.IntegerContentNode)) {
+        if (is_v2(node, $IntegerContentNode)) {
           node = integerNodeParse(this, node);
         }
 
-        if (is(node, $.StringOpenNode)) {
+        if (is_v2(node, $StringOpenNode)) {
           node = stringNodeParse(this, node);
         }
 
-        if (is(node, $.CharOpenNode)) {
+        if (is_v2(node, $CharOpenNode)) {
           node = charNodeParse(this, node);
         }
 
-        if (is(node, $.DocumentationOpenNode)) {
+        if (is_v2(node, $DocumentationOpenNode)) {
           node = documentationNodeParse(this, node);
         }
 
         // todo order above is important so fix it. Should we join all open nodes ???
-        if (is(node, $.OpenNode)) {
+        if (is_v2(node, $OpenNode)) {
           node = groupNodeParse(this, node);
         }
 
@@ -121,12 +140,12 @@ export function createSyntaxAnalyzer(
         }
 
         if (nodes.length === 0) {
-          if (is(node, $.WhitespaceNode)) {
+          if (is_v2(node, $WhitespaceNode)) {
           }
         }
 
         if (node.isHidden) {
-          if (is(node, $.NlNode)) {
+          if (is_v2(node, $NlNode)) {
             handleStatement();
           }
 
@@ -186,7 +205,7 @@ export function createSyntaxAnalyzer(
         return nothing;
       }
 
-      if (!is(child, $.SyntaxNode)) {
+      if (!is_v2(child, $SyntaxNode)) {
         return child;
       }
 
@@ -203,14 +222,14 @@ export function createSyntaxAnalyzer(
       return this.findNodeInChildren(statement.children, positionOrRange);
     },
 
-    findClosestNode(positionOrRange: TextPosition | TextRange, $: $): Node | Nothing {
+    findClosestNode(positionOrRange: TextPosition | TextRange, $: $Type): Node | Nothing {
       let node = this.findNode(positionOrRange);
 
       if (!node) {
         return nothing;
       }
 
-      while (!is(node, $)) {
+      while (!is_v2(node, $)) {
         node = (node as unknown as Node).parent;
 
         if (!node) {
@@ -234,19 +253,19 @@ function getStatementIndent(nodes: Node[], hiddenNodes: Node[]): TextRange | Not
     return nothing;
   }
 
-  const lastNlIndex = hiddenNodes.lastIndex((x) => is(x, $.NlNode));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is_v2(x, $NlNode));
 
   if (lastNlIndex >= 0) {
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
 
-    if (is(whiteSpaceNode, $.WhitespaceNode)) {
+    if (is_v2(whiteSpaceNode, $WhitespaceNode)) {
       return whiteSpaceNode.reference.range.clone();
     }
 
     return rangeFromPosition(hiddenNodes[lastNlIndex].reference.range.stop);
   }
 
-  if (is(hiddenNodes[0], $.WhitespaceNode)) {
+  if (is_v2(hiddenNodes[0], $WhitespaceNode)) {
     return hiddenNodes[0].reference.range.clone();
   }
 

@@ -1,6 +1,16 @@
-import {Boolean2, Nothing, rangeFromNodes, rangeFromPosition, String2, TextResource} from '#common';
-import {FormatterConfig, FormatterItem, LexicalNode, NL, NlNode, Node, StatementNode} from '#core';
-import {$, is} from '#typing';
+import {Boolean2, is_v2, Nothing, rangeFromNodes, rangeFromPosition, String2, TextResource} from '#common';
+import {
+  $LexicalNode,
+  $NlNode,
+  $WhitespaceNode,
+  FormatterConfig,
+  FormatterItem,
+  LexicalNode,
+  NL,
+  NlNode,
+  Node,
+  StatementNode,
+} from '#core';
 
 export type FormatterManager = {
   resource: TextResource;
@@ -58,7 +68,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      if (node.hiddenNodes.length === 1 && is(node.hiddenNodes[0], $.WhitespaceNode)) {
+      if (node.hiddenNodes.length === 1 && is_v2(node.hiddenNodes[0], $WhitespaceNode)) {
         const whitespace = node.hiddenNodes[0];
 
         if (!keepSingleSpace) {
@@ -99,7 +109,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         return;
       }
 
-      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $.NlNode));
+      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is_v2(x, $NlNode));
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
@@ -124,7 +134,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       const indentText = ' '.repeat(this.config.indentSpaceLength * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
       const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
-        (x): x is LexicalNode => is(x, $.LexicalNode) && !is(x, $.WhitespaceNode),
+        (x): x is LexicalNode => is_v2(x, $LexicalNode) && !is_v2(x, $WhitespaceNode),
       );
       const text =
         indentText +
@@ -186,19 +196,21 @@ export function createFormatterManager(resource: TextResource, config: Formatter
     },
 
     formatHiddenNodes(hiddenNodes: Node[], isNoFirstChildNode: Boolean2): String2 {
-      const splittedByNl = hiddenNodes
-        .filter((x): x is LexicalNode => is(x, $.LexicalNode) && !is(x, $.WhitespaceNode))
-        .splitBy<NlNode>((x) => is(x, $.NlNode));
+      // todo fix 'splitBy'
+      return '';
+      // const splittedByNl = hiddenNodes
+      //   .filter((x): x is LexicalNode => is_v2(x, $LexicalNode) && !is_v2(x, $WhitespaceNode))
+      //   .splitBy<NlNode>((x) => is_v2(x, $NlNode));
 
-      const text = splittedByNl
-        .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => z.text).join(' '))
-        .join('');
+      // const text = splittedByNl
+      //   .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => z.text).join(' '))
+      //   .join('');
 
-      if (text.length > 0 && isNoFirstChildNode) {
-        return ` ${text} `;
-      }
+      // if (text.length > 0 && isNoFirstChildNode) {
+      //   return ` ${text} `;
+      // }
 
-      return text;
+      // return text;
     },
 
     formatNlNode(node: NlNode | Nothing): String2 {

@@ -1,8 +1,7 @@
 import {Boolean2, Integer, Nothing, TextRange, rangeFromNodes, textResourceRange} from '#common';
-import {Node, SyntaxAnalyzer, SyntaxNode, statementNodeCollapse} from '#core';
-import {$} from '#typing';
+import {$SyntaxNode, Node, SyntaxAnalyzer, SyntaxNode, corePackageType, statementNodeCollapse} from '#core';
 
-export type StatementNode = SyntaxNode<$.StatementNode> & {
+export type StatementNode = SyntaxNode & {
   parent: StatementNode | Nothing;
   indentLevel: Integer;
   indent: TextRange;
@@ -10,6 +9,8 @@ export type StatementNode = SyntaxNode<$.StatementNode> & {
   value: Node;
   body: StatementNode[];
 };
+
+export const $StatementNode = corePackageType<StatementNode>('StatementNode', $SyntaxNode);
 
 export function statementNode(
   analyzer: SyntaxAnalyzer,
@@ -21,7 +22,7 @@ export function statementNode(
   const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
 
   const statement: StatementNode = {
-    $: $.StatementNode,
+    $: $StatementNode,
     reference,
     hiddenNodes: children[0].hiddenNodes,
     children,
@@ -34,11 +35,6 @@ export function statementNode(
     // todo fix equals
     equals(other) {
       return false;
-    },
-
-    clone() {
-      // todo fix clone
-      return this;
     },
   };
 

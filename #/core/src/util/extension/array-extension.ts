@@ -1,4 +1,4 @@
-import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, Number2, String2} from '#common';
+import {Boolean2, Integer, Nothing, nothing, Number2, String2} from '#common';
 
 Array.prototype.take = function <T>(length: Integer, startIndex: Integer = 0): T[] {
   return this.slice(startIndex, startIndex + length);
@@ -305,8 +305,4 @@ Array.prototype.toDictionary = function <T, Key extends String2 | Number2>(
 
     return o;
   }, {});
-};
-
-Array.prototype.toArrayData = function <T>(): ArrayData<T> {
-  return newArrayData(this);
 };

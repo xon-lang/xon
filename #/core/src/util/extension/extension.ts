@@ -1,4 +1,4 @@
-import {Anything, ArrayData, Boolean2, Integer, Nothing, Number2, String2, TextData} from '#common';
+import {Anything, Boolean2, Integer, Nothing, Number2, String2, TextData} from '#common';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}
@@ -39,8 +39,6 @@ interface ArrayExtension<T = Anything> {
 
   equals(other: T[]): Boolean2;
   toDictionary<Key extends String2 | Number2>(select: Select<T, Key>): Record<Key, T>;
-  // todo remove 'toArrayData'
-  toArrayData(): ArrayData<T>;
 }
 
 interface StringExtension {
