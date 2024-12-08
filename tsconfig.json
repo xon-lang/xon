@@ -29,14 +29,13 @@
     "paths": {
       "#common": ["#/common/*", "#/common"],
       "#core": ["#/core/*", "#/core"],
-      "#typing": ["#/typing/*", "#/typing"],
       "#semantics": ["#/semantics/*", "#/semantics"],
       "#translator": ["#/translator/*", "#/translator"],
+      "#typing": ["#/typing/*", "#/typing"],
       "#vscode": ["#/vscode/*", "#/vscode"],
       "#xon-lib": ["#/xon-lib/*", "#/xon-lib"]
     },
     "resolveJsonModule": true,
-    // todo should be "skipLibCheck": false,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

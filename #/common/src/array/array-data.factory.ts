@@ -465,7 +465,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     //   return newDictionary(newArrayData(items));
     // },
 
-    toArray(): T[] {
+    toNativeArray(): T[] {
       return [...this._items];
     },
 

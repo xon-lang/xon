@@ -21,6 +21,7 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   // todo remove 'at2'
   at2(index: Integer): T;
   every(predicate: ArrayPredicate<T>): Boolean2;
+  // todo rename 'some' to has
   some(predicate: ArrayPredicate<T>): Boolean2;
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
 
@@ -41,7 +42,6 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
 
   map<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V>;
 
-  // todo rename to 'has' ???
   hasItem(item: T): Boolean2;
   hasItems(items: ArrayData<T>): Boolean2;
 
@@ -81,8 +81,7 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   reduce<V>(select: (previous: V, current: T, index: Integer) => V, initialValue: V): V;
   clone(): this;
   equals(other: this): Boolean2;
-  // todo remove 'toDictionary'
-  toArray(): T[];
+  toNativeArray(): T[];
   toString(separator?: String2 | Nothing): String2;
 }
 

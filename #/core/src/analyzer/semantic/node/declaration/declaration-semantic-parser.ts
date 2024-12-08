@@ -149,7 +149,7 @@ function nodeDependencies(node: Node | Nothing): ArrayData<TextData> {
   }
 
   if (is(node, $.SyntaxNode)) {
-    return node.children.flatMap((x) => nodeDependencies(x).toArray()).toArrayData();
+    return node.children.flatMap((x) => nodeDependencies(x).toNativeArray()).toArrayData();
   }
 
   return newArrayData();

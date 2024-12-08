@@ -82,11 +82,11 @@ export function newDeclarationScope<T extends DeclarationSemantics = Declaration
         return declarations;
       }
 
-      const importDeclarations = this.imports?.toArray()?.flatMap(
+      const importDeclarations = this.imports?.toNativeArray()?.flatMap(
         (x) =>
           x.declarations
             .get(name)
-            ?.toArray()
+            ?.toNativeArray()
             ?.filter((x) => is(x, type)) ?? [],
       );
 
