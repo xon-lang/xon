@@ -1,4 +1,4 @@
-import {$Char, $TextData, ArrayData, Boolean2, Char, newArrayData, String2, Text} from '#common';
+import {$Char, $Text, ArrayData, Boolean2, Char, newArrayData, String2, Text} from '#common';
 import {is} from '#typing';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
@@ -52,7 +52,7 @@ export function newChar(charString: String2): Char {
         return this._string === other;
       }
 
-      if (is(other, $TextData)) {
+      if (is(other, $Text)) {
         return this._string === other.toString();
       }
 

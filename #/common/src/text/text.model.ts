@@ -46,4 +46,4 @@ export interface Text extends ArrayData<Char> {
   toString(): String2;
 }
 
-export const $TextData = commonPackageType<Text>('TextData', $ArrayData($Char));
+export const $Text = commonPackageType<Text>('TextData', $ArrayData($Char));

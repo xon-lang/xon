@@ -1,10 +1,8 @@
 import {
-  ArrayData,
+  $Text,
   Boolean2,
   Integer,
-  newArrayData,
   newTextPosition,
-  Nothing,
   nothing,
   Text,
   TextPosition,
@@ -13,59 +11,38 @@ import {
   TextResource,
   textResourceRange,
 } from '#common';
-import {LexicalNode, NL, unknownNodeParse} from '#core';
+import {LexicalAnalyzer, LexicalNode, LexicalNodeParseFn, NL, unknownNodeParse} from '#core';
+import {is} from '#typing';
 
-export type LexicalNodeParseFn = (analyzer: LexicalAnalyzer) => LexicalNode | Nothing;
-
-export type LexicalAnalyzer = {
-  resource: TextResource;
-  position: TextPosition;
-  previousNode?: LexicalNode | Nothing;
-  previousNonHiddenNode?: LexicalNode | Nothing;
-
-  iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode>;
-  nodes(parsers: LexicalNodeParseFn[]): ArrayData<LexicalNode>;
-  getResourceRange(length: Integer): TextReference;
-  getResourceRange(text: Text): TextReference;
-  getResourceRangeWithNL(length: Integer): TextReference;
-  getResourceRangeWithNL(text: Text): TextReference;
-  checkTextAtIndex(text: Text): Boolean2;
-  checkTextAtIndex(text: Text, index: Integer | Nothing): Boolean2;
-};
-
-export function createLexicalAnalyzer(
+export function newLexicalAnalyzer(
   resource: TextResource,
-  position: TextPosition = newTextPosition(),
+  position: TextPosition,
+  parsers: LexicalNodeParseFn[],
 ): LexicalAnalyzer {
   return {
     resource,
     position,
+    parsers,
 
-    iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode> {
+    iterator(): IterableIterator<LexicalNode> {
       return parsersIterator(this, parsers);
     },
 
-    nodes(parsers: LexicalNodeParseFn[]): ArrayData<LexicalNode> {
-      const array = Array.from(this.iterator(parsers));
-
-      return newArrayData(array);
-    },
-
     getResourceRange(lengthOrText: Integer | Text): TextReference {
-      if (typeof lengthOrText === 'number') {
-        const range = textRange(
-          newTextPosition(this.position.index, this.position.line, this.position.column),
-          newTextPosition(
-            this.position.index + lengthOrText,
-            this.position.line,
-            this.position.column + lengthOrText,
-          ),
-        );
-
-        return textResourceRange(this.resource, range);
+      if (is(lengthOrText, $Text)) {
+        return this.getResourceRange(lengthOrText.length());
       }
 
-      return this.getResourceRange(lengthOrText.length());
+      const range = textRange(
+        newTextPosition(this.position.index, this.position.line, this.position.column),
+        newTextPosition(
+          this.position.index + lengthOrText,
+          this.position.line,
+          this.position.column + lengthOrText,
+        ),
+      );
+
+      return textResourceRange(this.resource, range);
     },
 
     getResourceRangeWithNL(lengthOrText: Integer | Text): TextReference {

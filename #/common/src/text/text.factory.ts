@@ -1,7 +1,7 @@
 import {
   $ArrayData,
   $Char,
-  $TextData,
+  $Text,
   $TextRange,
   ArrayData,
   Boolean2,
@@ -32,7 +32,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
   return {
     ...array,
 
-    $: $TextData,
+    $: $Text,
 
     slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): Text {
       if (is(rangeOrStartIndex, $TextRange)) {
@@ -135,7 +135,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
         return this.toString() === other.join('');
       }
 
-      if (is(other, $TextData)) {
+      if (is(other, $Text)) {
         return this.toString() === other.toString();
       }
 

@@ -1,20 +1,16 @@
 import {$FunctionData, Boolean2, FunctionData, String2} from '#common';
 
-export function newFunctionData(fn: Function): FunctionData {
+export function newFunctionData<T extends Function>(fn: T): FunctionData<T> {
   return {
     $: $FunctionData,
-    _fn: fn,
-
-    invoke(...args: any[]): any {
-      return this._fn(args);
-    },
+    invoke: fn,
 
     equals(other: FunctionData): Boolean2 {
-      return this._fn === other._fn;
+      return this.invoke === other.invoke;
     },
 
     toString(): String2 {
-      return this._fn.toString();
+      return this.invoke.toString();
     },
   };
 }

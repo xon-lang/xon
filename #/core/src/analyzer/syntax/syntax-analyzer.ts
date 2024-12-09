@@ -14,13 +14,13 @@ import {
   codeLexicalParsers,
   createDiagnosticManager,
   createFormatterManager,
-  createLexicalAnalyzer,
   DEFAULT_SYNTAX_ANALYZER_CONFIG,
   documentationNodeParse,
   FormatterManager,
   groupNodeParse,
   integerNodeParse,
   LexicalAnalyzer,
+  newLexicalAnalyzer,
   Node,
   putStatementNode,
   StatementNode,
@@ -267,7 +267,7 @@ export function syntaxFromResource(
   resource: TextResource,
   syntaxConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
 ): SyntaxAnalyzer {
-  const lexicalAnalyzer = createLexicalAnalyzer(resource);
+  const lexicalAnalyzer = newLexicalAnalyzer(resource);
   const syntaxAnalyzer = createSyntaxAnalyzer(lexicalAnalyzer, syntaxConfig);
 
   // todo fill semantic before return
