@@ -16,8 +16,8 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
       return positionOrRange.start.index >= this.start.index && positionOrRange.stop.index <= this.stop.index;
     },
 
-    union(range: TextRange): TextRange {
-      const {min, max} = [this.start, this.stop].minMax((x) => x.index)!; // todo how to fix '!' ???
+    union(other: TextRange): TextRange {
+      const {min, max} = [this.start, other.stop].minMax((x) => x.index)!; // todo how to fix '!' ???
 
       return textRange(min, max);
     },
