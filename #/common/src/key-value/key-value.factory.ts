@@ -1,4 +1,5 @@
-import {$KeyValue, Boolean2, KeyValue, Model, String2} from '#common';
+import {$KeyValue, Boolean2, KeyValue, String2} from '#common';
+import {Model} from '#typing';
 
 export function newKeyValue<K extends Model, V extends Model>(key: K, value: V): KeyValue<K, V> {
   return {

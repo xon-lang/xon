@@ -1,5 +1,5 @@
-import {Boolean2, is, Nothing, String2} from '#common';
 import {
+  $IdTypeSemantics,
   $TypeSemantics,
   AttributeValueDeclarationSemantics,
   DeclarationScope,
@@ -9,6 +9,7 @@ import {
   semanticsPackageType,
   TypeSemantics,
 } from '#semantics';
+import {Boolean2, is, Nothing, String2} from '#typing';
 
 export type StringTypeSemantics = TypeSemantics & {
   declaration?: NominalTypeDeclarationSemantics | Nothing;

@@ -5,10 +5,10 @@ import {
   TextPosition,
   TextRange,
   clonePosition,
-  is,
   zeroPosition,
 } from '#common';
 import {Node} from '#core';
+import {is} from '#typing';
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {

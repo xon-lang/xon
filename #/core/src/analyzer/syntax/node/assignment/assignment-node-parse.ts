@@ -1,4 +1,4 @@
-import {Integer, is, nothing} from '#common';
+import {Integer, nothing} from '#common';
 import {
   $IdNode,
   $OperatorNode,
@@ -10,6 +10,7 @@ import {
   SyntaxAnalyzer,
   SyntaxParseFn,
 } from '#core';
+import {is} from '#typing';
 
 export function assignmentNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

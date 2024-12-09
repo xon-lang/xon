@@ -1,4 +1,5 @@
-import {Boolean2, commonPackageType, Integer, Model} from '#common';
+import {Boolean2, commonPackageType, Integer} from '#common';
+import {Model} from '#typing';
 
 export type TextPosition = Model & {
   index: Integer;

@@ -1,4 +1,4 @@
-import {newArrayData, Nothing, nothing, TextResource} from '#common';
+import {newArrayData, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   createDeclarationScope,
@@ -12,6 +12,7 @@ import {
   SyntaxAnalyzerConfig,
   syntaxFromResource,
 } from '#core';
+import {Nothing, nothing} from '#typing';
 
 export type SemanticAnalyzer = {
   syntaxAnalyzer: SyntaxAnalyzer;

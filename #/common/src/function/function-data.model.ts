@@ -1,4 +1,5 @@
-import {commonPackageType, Model} from '#common';
+import {commonPackageType} from '#common';
+import {Model} from '#typing';
 
 export interface FunctionData extends Model {
   _fn: Function;

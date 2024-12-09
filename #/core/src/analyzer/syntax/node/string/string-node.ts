@@ -1,4 +1,4 @@
-import {nothing, Nothing, String2} from '#common';
+import {Nothing, nothing, String2} from '#common';
 import {
   $SyntaxNode,
   corePackageType,
@@ -30,5 +30,13 @@ export function stringNode(
 ): StringNode {
   const value = content?.text.toString() ?? '';
 
-  return syntaxNode(analyzer, {$: $StringNode, open, content, close, value, semantics: nothing, isExpression: true});
+  return syntaxNode(analyzer, {
+    $: $StringNode,
+    open,
+    content,
+    close,
+    value,
+    semantics: nothing,
+    isExpression: true,
+  });
 }

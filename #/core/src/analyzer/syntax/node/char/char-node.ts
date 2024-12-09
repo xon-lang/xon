@@ -1,4 +1,4 @@
-import {nothing, Nothing} from '#common';
+import {Nothing, nothing} from '#common';
 import {
   $SyntaxNode,
   CharCloseNode,

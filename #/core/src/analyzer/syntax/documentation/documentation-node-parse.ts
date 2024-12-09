@@ -1,4 +1,4 @@
-import {is, Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
 import {
   $DocumentationCloseNode,
   $DocumentationDescriptionNode,
@@ -12,6 +12,7 @@ import {
   DocumentationOpenNode,
   SyntaxAnalyzer,
 } from '#core';
+import {is} from '#typing';
 
 export function documentationNodeParse(
   analyzer: SyntaxAnalyzer,

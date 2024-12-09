@@ -1,4 +1,4 @@
-import {$Resource, $TextData, commonPackageType, Resource, TextData, TextRange, TextReference} from '#common';
+import {$Resource, $TextData, Resource, TextData, TextRange, TextReference, commonPackageType} from '#common';
 
 export type TextResource = Resource<TextData> & {
   reference(range: TextRange): TextReference;

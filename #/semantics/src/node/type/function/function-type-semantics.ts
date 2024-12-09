@@ -1,4 +1,3 @@
-import {Boolean2, is} from '#common';
 import {
   $SetTypeSemantics,
   $TypeSemantics,
@@ -10,7 +9,7 @@ import {
   isInSet,
   semanticsPackageType,
 } from '#semantics';
-import {$} from '#typing';
+import {Boolean2, is} from '#typing';
 
 export type FunctionTypeSemantics = TypeSemantics & {
   parameters: (ParameterTypeDeclarationSemantics | ParameterValueDeclarationSemantics)[];

@@ -1,5 +1,6 @@
-import {ArrayData, Integer, is, nothing, TextData} from '#common';
+import {ArrayData, Integer, nothing, TextData} from '#common';
 import {$IdNode, $OperatorNode, memberNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {is} from '#typing';
 
 export function memberNodeParse(operators: ArrayData<TextData>): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

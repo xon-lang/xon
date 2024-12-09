@@ -1,4 +1,5 @@
-import {$Char, is, newChar} from '#common';
+import {$Char, newChar} from '#common';
+import {is} from '#typing';
 
 test('char', () => {
   const a = newChar('A');

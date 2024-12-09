@@ -1,4 +1,4 @@
-import {Anything, Nothing, Something, String2, is, nothing} from '#common';
+import {Anything, Nothing, nothing, Something, String2} from '#common';
 import {
   $CharNode,
   $IdNode,
@@ -9,6 +9,7 @@ import {
   $StringNode,
   Node,
 } from '#core';
+import {is} from '#typing';
 
 export function escapeToString<T>(value: T): String2 {
   return (typeof value === 'string' && `\`${value}\``) || String(value);

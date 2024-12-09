@@ -1,5 +1,5 @@
-import {Boolean2, is, Nothing} from '#common';
 import {
+  $IntegerTypeSemantics,
   $SetTypeSemantics,
   AttributeValueDeclarationSemantics,
   DeclarationScope,
@@ -9,6 +9,7 @@ import {
   SetTypeSemantics,
   TypeSemantics,
 } from '#semantics';
+import { Nothing, Boolean2, is } from '#typing';
 
 export type RangeTypeSemantics = SetTypeSemantics & {
   declaration: NominalTypeDeclarationSemantics;

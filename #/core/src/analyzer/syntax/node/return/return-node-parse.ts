@@ -1,5 +1,6 @@
-import {Boolean2, Integer, is, nothing, TextData} from '#common';
+import {Boolean2, Integer, nothing, TextData} from '#common';
 import {$OperatorNode, Node, nodeFindMap, returnNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
+import {is} from '#typing';
 
 export function returnNodeParse(operator: TextData, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {

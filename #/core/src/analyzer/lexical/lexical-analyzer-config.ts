@@ -1,5 +1,4 @@
-import {newArrayData} from '#common';
-import {newTextData} from '../../../../common/src/text/data/text-data.factory';
+import {newArrayData, newTextData} from '#common';
 
 export const COMMENT_LINE = newTextData('//');
 

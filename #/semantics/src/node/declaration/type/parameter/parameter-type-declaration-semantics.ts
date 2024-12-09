@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, TextData} from '#common';
+import {TextData} from '#common';
 import {
   $TypeDeclarationSemantics,
   DeclarationSemantics,
@@ -7,6 +7,7 @@ import {
   newUnknownTypeSemantics,
   semanticsPackageType,
 } from '#semantics';
+import {Boolean2, Nothing} from '#typing';
 
 export type ParameterTypeDeclarationSemantics = TypeDeclarationSemantics & {
   value?: TypeSemantics | Nothing;

@@ -1,4 +1,3 @@
-import {Boolean2, is, Nothing} from '#common';
 import {
   $NominalTypeDeclarationSemantics,
   $TypeSemantics,
@@ -10,6 +9,7 @@ import {
   semanticsPackageType,
   TypeSemantics,
 } from '#semantics';
+import {Boolean2, is, Nothing} from '#typing';
 
 // todo use something instead of unknown ???
 // todo one Unknown doesn't equals other unknown

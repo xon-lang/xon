@@ -1,6 +1,7 @@
-import {Boolean2, Integer, Model, Nothing, nothing, TextReference} from '#common';
+import {Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
 import {corePackageType} from '#core';
 import {Semantics} from '#semantics';
+import {Model} from '#typing';
 
 export type Node = Model & {
   reference: TextReference;

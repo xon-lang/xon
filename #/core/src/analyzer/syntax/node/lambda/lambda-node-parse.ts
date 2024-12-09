@@ -1,4 +1,4 @@
-import {Integer, is, Nothing, nothing} from '#common';
+import {Integer, nothing, Nothing} from '#common';
 import {
   $BraceGroupNode,
   $IdNode,
@@ -20,6 +20,7 @@ import {
   TypeNode,
   typeNode,
 } from '#core';
+import {is} from '#typing';
 
 export function lambdaNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {

@@ -1,16 +1,6 @@
-import {
-  ArrayData,
-  Dictionary,
-  Integer,
-  Nothing,
-  TextData,
-  newArrayData,
-  newDictionary,
-  newTextData,
-  nothing,
-} from '#common';
+import {ArrayData, Dictionary, TextData, newArrayData, newDictionary, newTextData} from '#common';
 import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
-import {$, $Model, TypeMap, is} from '#typing';
+import {Integer, Nothing, is, nothing} from '#typing';
 
 export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = $Model & {
   imports: ArrayData<DeclarationScope> | Nothing;

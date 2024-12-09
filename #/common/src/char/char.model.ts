@@ -1,4 +1,5 @@
-import {Boolean2, commonPackageType, Model, String2, TextData} from '#common';
+import {Boolean2, String2, TextData, commonPackageType} from '#common';
+import {Model} from '#typing';
 
 export interface Char extends Model {
   _string: String2;

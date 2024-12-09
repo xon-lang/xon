@@ -1,4 +1,4 @@
-import {Boolean2, Char, Nothing} from '#common';
+import {Char} from '#common';
 import {
   $TypeSemantics,
   AttributeValueDeclarationSemantics,
@@ -9,7 +9,7 @@ import {
   newDeclarationScope,
   semanticsPackageType,
 } from '#semantics';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {Boolean2, Nothing, is} from '#typing';
 
 export type CharTypeSemantics = TypeSemantics & {
   declaration?: NominalTypeDeclarationSemantics | Nothing;

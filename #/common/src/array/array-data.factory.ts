@@ -1,6 +1,5 @@
 import {
   $ArrayData,
-  $Model,
   Anything_V2,
   ArrayData,
   ArrayPredicate,
@@ -8,13 +7,12 @@ import {
   ArraySelect,
   Boolean2,
   Integer,
-  is,
-  Model,
   Nothing,
   nothing,
   Number2,
   String2,
 } from '#common';
+import {$Model, is, Model} from '#typing';
 
 export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<T> {
   return {

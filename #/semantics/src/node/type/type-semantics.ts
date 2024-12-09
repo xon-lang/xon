@@ -1,4 +1,3 @@
-import {Boolean2, Nothing} from '#common';
 import {
   $Semantics,
   AttributeValueDeclarationSemantics,
@@ -7,6 +6,7 @@ import {
   semanticsPackageType,
   TypeDeclarationSemantics,
 } from '#semantics';
+import {Boolean2, Nothing} from '#typing';
 
 export type TypeSemantics = Semantics & {
   declaration?: TypeDeclarationSemantics | Nothing;

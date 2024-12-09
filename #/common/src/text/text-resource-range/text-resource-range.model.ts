@@ -1,4 +1,5 @@
-import {Boolean2, commonPackageType, Model, TextData, TextRange, TextResource} from '#common';
+import {Boolean2, TextData, TextRange, TextResource, commonPackageType} from '#common';
+import {Model} from '#typing';
 
 export type TextReference = Model & {
   resource: TextResource;

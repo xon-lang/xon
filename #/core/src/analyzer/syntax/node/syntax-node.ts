@@ -1,5 +1,6 @@
-import {Anything, Boolean2, is, nothing, rangeFromNodes, String2, textResourceRange} from '#common';
+import {Anything, Boolean2, nothing, rangeFromNodes, String2, textResourceRange} from '#common';
 import {$Node, corePackageType, Node, SyntaxAnalyzer} from '#core';
+import {is} from '#typing';
 
 export type SyntaxNode = Node & {
   children: Node[];

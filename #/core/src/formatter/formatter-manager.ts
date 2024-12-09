@@ -1,4 +1,4 @@
-import {Boolean2, is, Nothing, rangeFromNodes, rangeFromPosition, String2, TextResource} from '#common';
+import {Boolean2, Nothing, String2, TextResource, rangeFromNodes, rangeFromPosition} from '#common';
 import {
   $LexicalNode,
   $NlNode,
@@ -11,6 +11,7 @@ import {
   Node,
   StatementNode,
 } from '#core';
+import {is} from '#typing';
 
 export type FormatterManager = {
   resource: TextResource;

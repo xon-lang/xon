@@ -1,4 +1,4 @@
-import {Boolean2, newTextData, Nothing, TextData} from '#common';
+import {newTextData, TextData} from '#common';
 import {
   $ValueDeclarationSemantics,
   DeclarationSemantics,
@@ -6,6 +6,7 @@ import {
   semanticsPackageType,
   ValueDeclarationSemantics,
 } from '#semantics';
+import {Boolean2, Nothing} from '#typing';
 
 export type AttributeValueDeclarationSemantics = ValueDeclarationSemantics & {
   // todo move it to new 'OperatorDeclarationSemantic'

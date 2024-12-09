@@ -1,5 +1,5 @@
-import {Nothing, String2} from '#common';
 import {$ValueSemantics, semanticsPackageType, TypeSemantics, ValueSemantics} from '#semantics';
+import {Nothing, String2} from '#typing';
 
 export type MemberValueSemantics = ValueSemantics & {
   instance: ValueSemantics;

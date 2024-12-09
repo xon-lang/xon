@@ -1,4 +1,3 @@
-import {Boolean2} from '#common';
 import {
   $SetTypeSemantics,
   AttributeValueDeclarationSemantics,
@@ -7,6 +6,7 @@ import {
   SetTypeSemantics,
   TypeSemantics,
 } from '#semantics';
+import {Boolean2} from '#typing';
 
 export type UnionTypeSemantics = SetTypeSemantics & {
   left: TypeSemantics;

@@ -6,12 +6,12 @@ import {
   Dictionary,
   Integer,
   KeyValue,
-  Model,
   newArrayData,
   Nothing,
   Number2,
   String2,
 } from '#common';
+import {Model} from '#typing';
 
 export function newDictionary<K extends Model, V extends Anything_V2>(
   array: ArrayData<KeyValue<K, V>> = newArrayData(),

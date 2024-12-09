@@ -1,6 +1,5 @@
-import {Boolean2} from '#common';
 import {$TypeSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
-import {$, is} from '#typing';
+import { Boolean2 } from '#typing';
 
 export type SetTypeSemantics = TypeSemantics;
 

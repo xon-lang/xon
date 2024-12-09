@@ -7,15 +7,15 @@ import {
   Boolean2,
   Char,
   Integer,
-  is,
-  newArrayData,
   Nothing,
   Number2,
   String2,
-  stringToCharArray,
   TextData,
   TextRange,
+  newArrayData,
+  stringToCharArray,
 } from '#common';
+import {is} from '#typing';
 
 const NL = newTextData('\n');
 

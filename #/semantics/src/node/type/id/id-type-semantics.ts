@@ -1,4 +1,3 @@
-import {Boolean2, Nothing, String2} from '#common';
 import {
   $TypeSemantics,
   AttributeValueDeclarationSemantics,
@@ -9,17 +8,13 @@ import {
   newDeclarationScope,
   semanticsPackageType,
 } from '#semantics';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {Boolean2, Nothing, String2, is} from '#typing';
 
 export type IdTypeSemantics = TypeSemantics & {
   name: String2;
 };
 
-export const $IdTypeSemantics = semanticsPackageType<IdTypeSemantics>(
-  'IdTypeSemantics',
-  $TypeSemantics,
-);
-
+export const $IdTypeSemantics = semanticsPackageType<IdTypeSemantics>('IdTypeSemantics', $TypeSemantics);
 
 // todo should we remove it ???
 export function newIdTypeSemantics(

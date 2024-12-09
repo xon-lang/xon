@@ -1,4 +1,3 @@
-import {Boolean2} from '#common';
 import {
   $TypeSemantics,
   AttributeValueDeclarationSemantics,
@@ -8,7 +7,7 @@ import {
   newDeclarationScope,
   semanticsPackageType,
 } from '#semantics';
-import {isSetOperatorTypeSemantic} from '#typing';
+import {Boolean2} from '#typing';
 
 export type InvokeTypeSemantics = TypeSemantics & {
   instance: TypeSemantics;

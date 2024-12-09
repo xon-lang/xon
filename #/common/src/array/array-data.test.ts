@@ -1,4 +1,5 @@
-import {$ArrayData, $Char, $Model, is, newArrayData, newChar} from '#common';
+import {$ArrayData, $Char, newArrayData, newChar} from '#common';
+import {$Model, is} from '#typing';
 
 test('array', () => {
   const a = newArrayData([newChar('1')]);

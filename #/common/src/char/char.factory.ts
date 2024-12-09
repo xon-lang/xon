@@ -1,4 +1,5 @@
-import {$Char, $TextData, ArrayData, Boolean2, Char, is, newArrayData, String2, TextData} from '#common';
+import {$Char, $TextData, ArrayData, Boolean2, Char, newArrayData, String2, TextData} from '#common';
+import {is} from '#typing';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);

@@ -1,4 +1,4 @@
-import {Integer, is, Nothing, nothing} from '#common';
+import {Integer, Nothing, nothing} from '#common';
 import {
   $AngleGroupNode,
   $DeclarationNode,
@@ -28,6 +28,7 @@ import {
   TypeNode,
   typeNode,
 } from '#core';
+import {is} from '#typing';
 
 export function declarationNodeParse(): SyntaxParseFn {
   return (

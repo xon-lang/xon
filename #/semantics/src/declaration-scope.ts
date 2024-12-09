@@ -1,19 +1,6 @@
-import {
-  $Type,
-  ArrayData,
-  Boolean2,
-  Dictionary,
-  Integer,
-  is,
-  Model,
-  newArrayData,
-  newDictionary,
-  newTextData,
-  nothing,
-  Nothing,
-  TextData,
-} from '#common';
+import {ArrayData, Dictionary, newArrayData, newDictionary, newTextData, TextData} from '#common';
 import {DeclarationSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
+import {$Type, Boolean2, Integer, is, Model, Nothing, nothing} from '#typing';
 
 export type DeclarationScope<T extends DeclarationSemantics = DeclarationSemantics> = Model & {
   imports: ArrayData<DeclarationScope> | Nothing;

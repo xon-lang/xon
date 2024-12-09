@@ -1,5 +1,6 @@
-import {Nothing, Resource} from '#common';
+import {Resource} from '#common';
 import {$ValueSemantics, semanticsPackageType, TypeSemantics, ValueSemantics} from '#semantics';
+import {Nothing} from '#typing';
 
 export type ImportValueSemantics = ValueSemantics & {
   resource: Resource | Nothing;

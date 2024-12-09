@@ -1,4 +1,3 @@
-import {Nothing, String2} from '#common';
 import {
   $ValueSemantics,
   semanticsPackageType,
@@ -6,6 +5,7 @@ import {
   ValueDeclarationSemantics,
   ValueSemantics,
 } from '#semantics';
+import {Nothing, String2} from '#typing';
 
 export type IdValueSemantics = ValueSemantics & {
   name: String2;

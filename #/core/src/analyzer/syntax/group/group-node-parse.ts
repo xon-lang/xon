@@ -1,4 +1,4 @@
-import {is, Nothing, nothing, TextData} from '#common';
+import {Nothing, nothing, TextData} from '#common';
 import {
   $BraceOpenNode,
   $BracketOpenNode,
@@ -17,6 +17,7 @@ import {
   PAREN_CLOSE,
   SyntaxAnalyzer,
 } from '#core';
+import {is} from '#typing';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
   if (is(openNode, $ParenOpenNode)) {

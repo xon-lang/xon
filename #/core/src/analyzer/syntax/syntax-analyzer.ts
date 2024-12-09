@@ -1,14 +1,4 @@
-import {
-  $Type,
-  Boolean2,
-  is,
-  Nothing,
-  nothing,
-  rangeFromPosition,
-  TextPosition,
-  TextRange,
-  TextResource,
-} from '#common';
+import {Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
 import {
   $CharOpenNode,
   $DocumentationOpenNode,
@@ -37,6 +27,7 @@ import {
   stringNodeParse,
   SyntaxAnalyzerConfig,
 } from '#core';
+import {$Type, is} from '#typing';
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;

@@ -1,4 +1,3 @@
-import {Boolean2, is, Nothing} from '#common';
 import {
   $SetTypeSemantics,
   $TypeSemantics,
@@ -9,6 +8,7 @@ import {
   semanticsPackageType,
   TypeSemantics,
 } from '#semantics';
+import {Boolean2, is, Nothing} from '#typing';
 
 export type ArrayTypeSemantics = TypeSemantics & {
   declaration?: NominalTypeDeclarationSemantics | Nothing;

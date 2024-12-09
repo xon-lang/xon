@@ -1,5 +1,5 @@
-import {Model} from '#common';
 import {semanticsPackageType} from '#semantics';
+import {Model} from '#typing';
 
 export type Semantics = Model;
 

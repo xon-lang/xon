@@ -1,4 +1,4 @@
-import {Integer, Nothing, is, newArrayData, nothing} from '#common';
+import {Integer, Nothing, newArrayData, nothing} from '#common';
 import {
   $DeclarationNode,
   COMPLEMENT,
@@ -44,6 +44,7 @@ import {
   prefixNodeParse,
   returnNodeParse,
 } from '#core';
+import {is} from '#typing';
 
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (

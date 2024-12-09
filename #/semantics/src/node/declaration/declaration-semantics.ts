@@ -1,5 +1,6 @@
-import {Nothing, TextData, TextReference} from '#common';
+import {TextData, TextReference} from '#common';
 import {$Semantics, Semantics, semanticsPackageType, TypeSemantics} from '#semantics';
+import {Nothing} from '#typing';
 
 export type DeclarationSemantics = Semantics & {
   documentation?: TextData | Nothing;

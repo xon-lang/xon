@@ -1,4 +1,5 @@
-import {$Model, Anything_V2, commonPackageType, Model, Nothing, TextData} from '#common';
+import {Anything_V2, Nothing, TextData, commonPackageType} from '#common';
+import {$Model, Model} from '#typing';
 
 export type Resource<T = Anything_V2> = Model & {
   location: TextData | Nothing;

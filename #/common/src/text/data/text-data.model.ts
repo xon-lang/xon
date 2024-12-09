@@ -1,3 +1,6 @@
+// todo fix it. remove @ts-ignore
+// todo rename to 'StringData' ???
+
 import {
   $ArrayData,
   $Char,
@@ -12,8 +15,6 @@ import {
   TextRange,
 } from '#common';
 
-// todo fix it. remove @ts-ignore
-// todo rename to 'StringData' ???
 // @ts-ignore
 export interface TextData extends ArrayData<Char> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): TextData;
