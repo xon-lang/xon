@@ -1,12 +1,4 @@
-import {
-  $TextPosition,
-  $TextRange,
-  Boolean2,
-  TextPosition,
-  TextRange,
-  clonePosition,
-  zeroPosition,
-} from '#common';
+import {$TextPosition, $TextRange, Boolean2, TextPosition, TextRange, newTextPosition} from '#common';
 import {Node} from '#core';
 import {is} from '#typing';
 
@@ -15,14 +7,6 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     $: $TextRange,
     start,
     stop,
-
-    clone(): TextRange {
-      return textRange(clonePosition(this.start), clonePosition(this.stop));
-    },
-
-    equals(other: TextRange): Boolean2 {
-      return this.start.equals(other.start) && this.stop.equals(other.stop);
-    },
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
       if (is(positionOrRange, $TextPosition)) {
@@ -37,6 +21,14 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
 
       return textRange(min, max);
     },
+
+    clone(): TextRange {
+      return textRange(this.start.clone(), this.stop.clone());
+    },
+
+    equals(other: TextRange): Boolean2 {
+      return this.start.equals(other.start) && this.stop.equals(other.stop);
+    },
   };
 }
 
@@ -48,16 +40,13 @@ export function rangeFromNodes(nodes: Node[]): TextRange {
     return zeroRange();
   }
 
-  return textRange(
-    clonePosition(startNode.reference.range.start),
-    clonePosition(stopNode.reference.range.stop),
-  );
+  return textRange(startNode.reference.range.start.clone(), stopNode.reference.range.stop.clone());
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {
-  return textRange(clonePosition(position), clonePosition(position));
+  return textRange(position.clone(), position.clone());
 }
 
 export function zeroRange(): TextRange {
-  return textRange(zeroPosition(), zeroPosition());
+  return textRange(newTextPosition(), newTextPosition());
 }

@@ -1,4 +1,4 @@
-import {TextPosition, textPosition, TextRange, textRange} from '#common';
+import {newTextPosition, TextPosition, TextRange, textRange} from '#common';
 import {Position, Range, TextDocument} from 'vscode';
 
 export function convertRange(range: TextRange): Range {
@@ -22,5 +22,5 @@ export function convertVscodeRange(document: TextDocument, range: Range): TextRa
 export function convertVscodePosition(document: TextDocument, position: Position): TextPosition {
   const index = document.offsetAt(position);
 
-  return textPosition(index, position.line, position.character);
+  return newTextPosition(index, position.line, position.character);
 }

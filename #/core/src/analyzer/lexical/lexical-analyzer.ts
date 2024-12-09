@@ -3,16 +3,15 @@ import {
   Boolean2,
   Integer,
   newArrayData,
+  newTextPosition,
   Nothing,
   nothing,
   Text,
   TextPosition,
-  textPosition,
   textRange,
   TextReference,
   TextResource,
   textResourceRange,
-  zeroPosition,
 } from '#common';
 import {LexicalNode, NL, unknownNodeParse} from '#core';
 
@@ -36,7 +35,7 @@ export type LexicalAnalyzer = {
 
 export function createLexicalAnalyzer(
   resource: TextResource,
-  position: TextPosition = zeroPosition(),
+  position: TextPosition = newTextPosition(),
 ): LexicalAnalyzer {
   return {
     resource,
@@ -55,8 +54,8 @@ export function createLexicalAnalyzer(
     getResourceRange(lengthOrText: Integer | Text): TextReference {
       if (typeof lengthOrText === 'number') {
         const range = textRange(
-          textPosition(this.position.index, this.position.line, this.position.column),
-          textPosition(
+          newTextPosition(this.position.index, this.position.line, this.position.column),
+          newTextPosition(
             this.position.index + lengthOrText,
             this.position.line,
             this.position.column + lengthOrText,
@@ -91,8 +90,8 @@ export function createLexicalAnalyzer(
       }
 
       const range = textRange(
-        textPosition(this.position.index, this.position.line, this.position.column),
-        textPosition(this.position.index + lengthOrText, nlCount, columnIndent),
+        newTextPosition(this.position.index, this.position.line, this.position.column),
+        newTextPosition(this.position.index + lengthOrText, nlCount, columnIndent),
       );
 
       return textResourceRange(this.resource, range);
