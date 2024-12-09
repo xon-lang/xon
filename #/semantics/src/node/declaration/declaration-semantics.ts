@@ -1,12 +1,12 @@
-import {TextData, TextReference} from '#common';
+import {Text, TextReference} from '#common';
 import {$Semantics, Semantics, semanticsPackageType, TypeSemantics} from '#semantics';
 import {Nothing} from '#typing';
 
 export type DeclarationSemantics = Semantics & {
-  documentation?: TextData | Nothing;
+  documentation?: Text | Nothing;
   usages: TextReference[];
-  modifier?: TextData | Nothing;
-  name: TextData;
+  modifier?: Text | Nothing;
+  name: Text;
   type: TypeSemantics;
 };
 

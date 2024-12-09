@@ -1,4 +1,4 @@
-import {Boolean2, TextData, TextRange, TextResource, commonPackageType} from '#common';
+import {Boolean2, Text, TextRange, TextResource, commonPackageType} from '#common';
 import {Model} from '#typing';
 
 export type TextReference = Model & {
@@ -6,7 +6,7 @@ export type TextReference = Model & {
   range: TextRange;
 
   equals(reference: TextReference): Boolean2;
-  text(): TextData;
+  text(): Text;
 };
 
 export const $TextReference = commonPackageType<TextReference>('TextReference');

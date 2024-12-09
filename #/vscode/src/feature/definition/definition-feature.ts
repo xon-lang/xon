@@ -1,4 +1,4 @@
-import {Nothing, TextData, TextRange, TextReference, nothing, zeroRange} from '#common';
+import {Nothing, Text, TextRange, TextReference, nothing, zeroRange} from '#common';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -31,7 +31,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!(node).semantics) {
+    if (!node.semantics) {
       return nothing;
     }
 
@@ -112,7 +112,7 @@ function navigateToReference(
 
 function navigateToLocation(
   originalRange: TextRange,
-  location: TextData,
+  location: Text,
   sourceRange?: TextRange | Nothing,
 ): ProviderResult<LocationLink[]> {
   const uri = Uri.parse(location.toString());

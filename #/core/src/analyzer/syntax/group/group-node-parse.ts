@@ -1,4 +1,4 @@
-import {Nothing, nothing, TextData} from '#common';
+import {Nothing, nothing, Text} from '#common';
 import {
   $BraceOpenNode,
   $BracketOpenNode,
@@ -35,7 +35,7 @@ export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Gr
   return groupNodeParseInner(analyzer, openNode, ANGLE_CLOSE);
 }
 
-function groupNodeParseInner(analyzer: SyntaxAnalyzer, openNode: OpenNode, closeText: TextData): GroupNode {
+function groupNodeParseInner(analyzer: SyntaxAnalyzer, openNode: OpenNode, closeText: Text): GroupNode {
   const items: ItemNode[] = [];
 
   let itemIndex = 0;

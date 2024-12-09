@@ -10,7 +10,7 @@ import {
   Nothing,
   Number2,
   String2,
-  TextData,
+  Text,
   TextRange,
   newArrayData,
   stringToCharArray,
@@ -19,10 +19,10 @@ import {is} from '#typing';
 
 const NL = newTextData('\n');
 
-export function newTextData(characters: ArrayData<Char>): TextData;
-export function newTextData(string: String2): TextData;
-export function newTextData(): TextData;
-export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): TextData {
+export function newTextData(characters: ArrayData<Char>): Text;
+export function newTextData(string: String2): Text;
+export function newTextData(): Text;
+export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Text {
   const array = stringOrCharacters
     ? typeof stringOrCharacters === 'string'
       ? stringToCharArray(stringOrCharacters)
@@ -34,7 +34,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
 
     $: $TextData,
 
-    slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): TextData {
+    slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): Text {
       if (is(rangeOrStartIndex, $TextRange)) {
         const {start, stop} = rangeOrStartIndex;
 
@@ -44,7 +44,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
       return newTextData(array.slice(rangeOrStartIndex, stopIndex));
     },
 
-    lineText(line: Integer): TextData {
+    lineText(line: Integer): Text {
       if (line === 0) {
         const stopIndex = this.firstItemsIndex(NL);
 
@@ -52,7 +52,7 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
           return this.clone();
         }
 
-        return (this as TextData).slice(0, stopIndex);
+        return (this as Text).slice(0, stopIndex);
       }
 
       let startIndex = 0;
@@ -74,19 +74,19 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
       return newTextData('');
     },
 
-    addFirst(...items: Char[]): TextData {
+    addFirst(...items: Char[]): Text {
       return newTextData(array.addFirst(...items));
     },
 
-    addLast(...items: Char[]): TextData {
+    addLast(...items: Char[]): Text {
       return newTextData(array.addLast(...items));
     },
 
-    removeFirst(length?: Integer | Nothing): TextData {
+    removeFirst(length?: Integer | Nothing): Text {
       return newTextData(array.removeFirst(length));
     },
 
-    removeLast(length?: Integer | Nothing): TextData {
+    removeLast(length?: Integer | Nothing): Text {
       return newTextData(array.removeLast(length));
     },
 
@@ -94,39 +94,39 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
       predicate?: (value: Char, index: Integer) => Boolean2,
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
-    ): TextData {
+    ): Text {
       return newTextData(array.takeWhile(predicate, startIndex, includeConditionItem));
     },
 
-    take(length: Integer, startIndex?: Integer): TextData {
+    take(length: Integer, startIndex?: Integer): Text {
       return newTextData(array.take(length, startIndex));
     },
 
-    sort(compareFn?: (a: Char, b: Char) => Number2): TextData {
+    sort(compareFn?: (a: Char, b: Char) => Number2): Text {
       return newTextData(array.sort(compareFn));
     },
 
-    sortBy(select: (item: Char) => Number2, ascending?: Boolean2): TextData {
+    sortBy(select: (item: Char) => Number2, ascending?: Boolean2): Text {
       return newTextData(array.sortBy(select, ascending));
     },
 
-    setPadding(padding: Integer): TextData {
+    setPadding(padding: Integer): Text {
       return newTextData(this.toString().setPadding(padding));
     },
 
-    trim(): TextData {
+    trim(): Text {
       return newTextData(this.toString().trim());
     },
 
-    repeat(count: Integer): TextData {
+    repeat(count: Integer): Text {
       return newTextData(this.toString().repeat(count));
     },
 
-    clone(): TextData {
+    clone(): Text {
       return newTextData(array.clone());
     },
 
-    equals(other: TextData | ArrayData<Char> | String2): Boolean2 {
+    equals(other: Text | ArrayData<Char> | String2): Boolean2 {
       if (typeof other === 'string') {
         return this.toString() === other;
       }

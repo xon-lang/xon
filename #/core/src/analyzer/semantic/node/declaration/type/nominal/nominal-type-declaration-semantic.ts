@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, TextData} from '#common';
+import {Boolean2, Nothing, Text} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createDeclarationScope,
@@ -14,7 +14,7 @@ import {$} from '#typing';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   $: $.NominalTypeDeclarationSemantic;
-  modifier: TextData;
+  modifier: Text;
   baseType: TypeSemantic;
   attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
 };
@@ -22,9 +22,9 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
 export function nominalTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: DeclarationNode,
-  documentation: TextData | Nothing,
-  modifier: TextData,
-  name: TextData,
+  documentation: Text | Nothing,
+  modifier: Text,
+  name: Text,
 ): NominalTypeDeclarationSemantic {
   return {
     $: $.NominalTypeDeclarationSemantic,

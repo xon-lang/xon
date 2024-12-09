@@ -1,4 +1,4 @@
-import {TextData, TextReference} from '#common';
+import {Text, TextReference} from '#common';
 import {
   $LexicalNode,
   COMMENT_BLOCK_CLOSE,
@@ -9,13 +9,13 @@ import {
 } from '#core';
 
 export type CommentBlockNode = LexicalNode & {
-  value: TextData;
+  value: Text;
 };
 
 export const $CommentBlockNode = corePackageType<CommentBlockNode>('CommentBlockNode', $LexicalNode);
 
-export function commentBlockNode(reference: TextReference, text: TextData): CommentBlockNode {
-  let value: TextData;
+export function commentBlockNode(reference: TextReference, text: Text): CommentBlockNode {
+  let value: Text;
   const lastCloseIndex = text.firstItemsIndex(COMMENT_BLOCK_CLOSE);
 
   if (lastCloseIndex > 0) {

@@ -1,16 +1,16 @@
-import {ArrayData, Dictionary, newArrayData, newTextData, TextData} from '#common';
+import {ArrayData, Dictionary, newArrayData, newTextData, Text} from '#common';
 
-export function topologicalSort(dependencies: Dictionary<TextData, ArrayData<TextData>>): {
-  order: ArrayData<TextData>;
-  cycle: ArrayData<TextData>;
+export function topologicalSort(dependencies: Dictionary<Text, ArrayData<Text>>): {
+  order: ArrayData<Text>;
+  cycle: ArrayData<Text>;
 } {
   const used = new Set();
-  const order: ArrayData<TextData> = newArrayData();
+  const order: ArrayData<Text> = newArrayData();
   const keys = newArrayData(Object.keys(dependencies).map((x) => newTextData(x)));
   let cycle = keys;
 
   while (cycle.length) {
-    const items: TextData[] = [];
+    const items: Text[] = [];
     const length = cycle.length;
 
     cycle = cycle.filter((k) => {

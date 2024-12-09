@@ -5,7 +5,7 @@ import {
   newDictionary,
   newKeyValue,
   Nothing,
-  TextData,
+  Text,
   topologicalSort,
 } from '#common';
 import {
@@ -116,9 +116,7 @@ function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode)
   }
 }
 
-function declarationNodeDependencies(
-  nodes: ArrayData<DeclarationNode>,
-): Dictionary<TextData, ArrayData<TextData>> {
+function declarationNodeDependencies(nodes: ArrayData<DeclarationNode>): Dictionary<Text, ArrayData<Text>> {
   return nodes.reduce((o, node) => {
     const name = node.id.text;
 
@@ -135,10 +133,10 @@ function declarationNodeDependencies(
     }
 
     return o;
-  }, newDictionary() as Dictionary<TextData, ArrayData<TextData>>);
+  }, newDictionary() as Dictionary<Text, ArrayData<Text>>);
 }
 
-function nodeDependencies(node: Node | Nothing): ArrayData<TextData> {
+function nodeDependencies(node: Node | Nothing): ArrayData<Text> {
   if (!node) {
     return newArrayData();
   }

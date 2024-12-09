@@ -1,4 +1,4 @@
-import {TextData} from '#common';
+import {Text} from '#common';
 import {
   $TypeDeclarationSemantics,
   DeclarationSemantics,
@@ -16,10 +16,10 @@ export const $StructuralTypeDeclarationSemantics = semanticsPackageType<Structur
 );
 
 export function newStructuralTypeDeclarationSemantics(
-  documentation: TextData | Nothing,
+  documentation: Text | Nothing,
   // todo we always know 'type' modifier
-  modifier: TextData | Nothing,
-  name: TextData,
+  modifier: Text | Nothing,
+  name: Text,
 ): StructuralTypeDeclarationSemantics {
   return {
     $: $StructuralTypeDeclarationSemantics,

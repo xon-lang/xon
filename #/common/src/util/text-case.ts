@@ -10,7 +10,7 @@ import {
   newTextData,
   nothing,
   Nothing,
-  TextData,
+  Text,
 } from '#common';
 
 // Regexps involved with splitting words in various case formats.
@@ -272,7 +272,7 @@ function splitPrefixSuffix(input: string, options: Options = {}): [string, strin
 
 export type CaseFn = (input: string, options?: PascalCaseOptions) => string;
 
-const caseFunctions: Dictionary<TextData, FunctionData> = newDictionary(
+const caseFunctions: Dictionary<Text, FunctionData> = newDictionary(
   newArrayData([
     newKeyValue(newTextData('camel'), newFunctionData(camelCase)),
     newKeyValue(newTextData('capital'), newFunctionData(capitalCase)),
@@ -289,7 +289,7 @@ const caseFunctions: Dictionary<TextData, FunctionData> = newDictionary(
   ]),
 );
 
-export function changeTextCase(caseName: TextData, text: TextData): TextData | Nothing {
+export function changeTextCase(caseName: Text, text: Text): Text | Nothing {
   const fn = caseFunctions.get(caseName);
 
   if (fn) {

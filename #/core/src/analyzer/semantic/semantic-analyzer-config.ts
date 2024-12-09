@@ -1,19 +1,19 @@
-import {TextData, newTextData} from '#common';
+import {Text, newTextData} from '#common';
 import {String2} from '#typing';
 
 export type SemanticAnalyzerConfig = {
   defaultImports: String2[];
   literalTypeNames: {
-    unknownTypeName: TextData;
-    anythingTypeName: TextData;
-    somethingTypeName: TextData;
-    nothingTypeName: TextData;
-    integerTypeName: TextData;
-    charTypeName: TextData;
-    stringTypeName: TextData;
-    rangeTypeName: TextData;
-    arrayTypeName: TextData;
-    functionTypeName: TextData;
+    unknownTypeName: Text;
+    anythingTypeName: Text;
+    somethingTypeName: Text;
+    nothingTypeName: Text;
+    integerTypeName: Text;
+    charTypeName: Text;
+    stringTypeName: Text;
+    rangeTypeName: Text;
+    arrayTypeName: Text;
+    functionTypeName: Text;
   };
 };
 

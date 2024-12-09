@@ -1,4 +1,4 @@
-import {Boolean2, newTextData, Nothing, TextData} from '#common';
+import {Boolean2, newTextData, Nothing, Text} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -11,15 +11,15 @@ import {$} from '#typing';
 export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
   $: $.AttributeValueDeclarationSemantic;
   // todo move it to new 'OperatorDeclarationSemantic'
-  alternativeName: TextData;
+  alternativeName: Text;
 };
 
 export function attributeValueDeclarationSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: DeclarationNode,
-  documentation: TextData | Nothing,
-  modifier: TextData | Nothing,
-  name: TextData,
+  documentation: Text | Nothing,
+  modifier: Text | Nothing,
+  name: Text,
 ): AttributeValueDeclarationSemantic {
   return {
     $: $.AttributeValueDeclarationSemantic,
@@ -43,7 +43,7 @@ export function attributeValueDeclarationSemantic(
 }
 
 // todo fix or remove it
-function alternativeName(name: TextData): TextData {
+function alternativeName(name: Text): Text {
   if (name.equals(newTextData('+'))) {
     return newTextData('__plus__');
   }

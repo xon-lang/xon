@@ -1,3 +1,4 @@
+import { Nothing, Integer, Boolean2 } from '#common';
 import {
   $TypeSemantics,
   AttributeValueDeclarationSemantics,
@@ -8,7 +9,7 @@ import {
   newDeclarationScope,
   semanticsPackageType,
 } from '#semantics';
-import {Boolean2, Integer, Nothing, is} from '#typing';
+import { is } from '#typing';
 
 export type IntegerTypeSemantics = TypeSemantics & {
   declaration?: NominalTypeDeclarationSemantics | Nothing;

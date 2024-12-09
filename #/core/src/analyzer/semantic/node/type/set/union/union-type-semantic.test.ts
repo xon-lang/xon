@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing, TextData} from '#common';
+import {newTextData, newTextResource, nothing, Text} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -83,7 +83,7 @@ test('2 check type', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
-  const getConst = (name: TextData) =>
+  const getConst = (name: Text) =>
     (
       semantic.declarationManager.find(
         $.ValueDeclarationSemantic,

@@ -1,10 +1,10 @@
-import {TextData, TextReference} from '#common';
+import {Text, TextReference} from '#common';
 import {$OpenNode, OpenNode, corePackageType, lexicalNode} from '#core';
 
 export type CharOpenNode = OpenNode;
 
 export const $CharOpenNode = corePackageType<CharOpenNode>('CharOpenNode', $OpenNode);
 
-export function charOpenNode(reference: TextReference, text: TextData): CharOpenNode {
+export function charOpenNode(reference: TextReference, text: Text): CharOpenNode {
   return lexicalNode({$: $CharOpenNode, reference, text});
 }

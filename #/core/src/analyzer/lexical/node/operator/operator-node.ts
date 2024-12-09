@@ -1,4 +1,4 @@
-import {Nothing, TextData, TextReference} from '#common';
+import {Nothing, Text, TextReference} from '#common';
 import {
   $LexicalNode,
   CONTROL_KEYWORDS,
@@ -20,11 +20,11 @@ export type OperatorNode = LexicalNode;
 
 export const $OperatorNode = corePackageType<OperatorNode>('OperatorNode', $LexicalNode);
 
-export function operatorNode(reference: TextReference, text: TextData): OperatorNode {
+export function operatorNode(reference: TextReference, text: Text): OperatorNode {
   return lexicalNode({$: $LexicalNode, reference, text});
 }
 
-function getKeywordType(text: TextData): KeywordType | Nothing {
+function getKeywordType(text: Text): KeywordType | Nothing {
   if (MODIFIER_KEYWORDS.hasItem(text)) {
     return KeywordType.MODIFIER;
   }

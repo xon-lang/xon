@@ -1,9 +1,9 @@
-import {TextData, TextReference} from '#common';
+import {Text, TextReference} from '#common';
 import {$LexicalNode, AT, corePackageType, LexicalNode, lexicalNode} from '#core';
 
 // make syntax node
 export type DocumentationLabelNode = LexicalNode & {
-  name: TextData;
+  name: Text;
 };
 
 export const $DocumentationLabelNode = corePackageType<DocumentationLabelNode>(
@@ -11,7 +11,7 @@ export const $DocumentationLabelNode = corePackageType<DocumentationLabelNode>(
   $LexicalNode,
 );
 
-export function documentationLabelNode(reference: TextReference, text: TextData): DocumentationLabelNode {
+export function documentationLabelNode(reference: TextReference, text: Text): DocumentationLabelNode {
   const name = text.slice(AT.length());
 
   return lexicalNode({$: $DocumentationLabelNode, reference, text, name});

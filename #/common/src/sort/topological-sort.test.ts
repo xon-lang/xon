@@ -4,19 +4,19 @@ import {
   newDictionary,
   newKeyValue,
   newTextData,
-  TextData,
+  Text,
   topologicalSort,
 } from '#common';
 
 test('empty', () => {
-  const dependencies = newDictionary<TextData, ArrayData<TextData>>();
+  const dependencies = newDictionary<Text, ArrayData<Text>>();
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(0);
   expect(cycle.length).toBe(0);
 });
 
 test('no dependencies', () => {
-  const dependencies = newDictionary(newArrayData([newKeyValue(newTextData('A'), newArrayData<TextData>())]));
+  const dependencies = newDictionary(newArrayData([newKeyValue(newTextData('A'), newArrayData<Text>())]));
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(1);
@@ -52,12 +52,12 @@ test('self', () => {
 test('no cycle', () => {
   const dependencies = newDictionary(
     newArrayData([
-      newKeyValue(newTextData('A'), newArrayData<TextData>()),
+      newKeyValue(newTextData('A'), newArrayData<Text>()),
       newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
       newKeyValue(newTextData('C'), newArrayData([newTextData('A'), newTextData('B')])),
       newKeyValue(newTextData('D'), newArrayData([newTextData('F')])),
       newKeyValue(newTextData('E'), newArrayData([newTextData('D'), newTextData('C')])),
-      newKeyValue(newTextData('F'), newArrayData<TextData>()),
+      newKeyValue(newTextData('F'), newArrayData<Text>()),
     ]),
   );
 
@@ -73,12 +73,12 @@ test('no cycle', () => {
 test('with cycle', () => {
   const dependencies = newDictionary(
     newArrayData([
-      newKeyValue(newTextData('A'), newArrayData<TextData>()),
+      newKeyValue(newTextData('A'), newArrayData<Text>()),
       newKeyValue(newTextData('E'), newArrayData([newTextData('D'), newTextData('C')])),
       newKeyValue(newTextData('C'), newArrayData([newTextData('A'), newTextData('B')])),
       newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
       newKeyValue(newTextData('D'), newArrayData([newTextData('F')])),
-      newKeyValue(newTextData('F'), newArrayData<TextData>()),
+      newKeyValue(newTextData('F'), newArrayData<Text>()),
       newKeyValue(newTextData('G'), newArrayData([newTextData('H')])),
       newKeyValue(newTextData('H'), newArrayData([newTextData('G')])),
     ]),
@@ -100,7 +100,7 @@ test('cycle 2', () => {
     newArrayData([
       newKeyValue(newTextData('A'), newArrayData([newTextData('B')])),
       newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
-      newKeyValue(newTextData('C'), newArrayData<TextData>()),
+      newKeyValue(newTextData('C'), newArrayData<Text>()),
     ]),
   );
 

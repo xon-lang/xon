@@ -1,4 +1,4 @@
-import {newTextData, TextData} from '#common';
+import {newTextData, Text} from '#common';
 
 export enum TerminalColor {
   RESET = '\x1b[0m',
@@ -30,6 +30,6 @@ export enum TerminalColor {
   BG_GRAY = '\x1b[100m',
 }
 
-export function colorText(text: TextData, color: TerminalColor): TextData {
+export function colorText(text: Text, color: TerminalColor): Text {
   return newTextData(`${color}${text}${TerminalColor.RESET}`);
 }

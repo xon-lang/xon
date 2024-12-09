@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, TextData} from '#common';
+import {Boolean2, Nothing, Text} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -15,10 +15,10 @@ export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic & {
 export function structuralTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: DeclarationNode,
-  documentation: TextData | Nothing,
+  documentation: Text | Nothing,
   // todo we always know 'type' modifier
-  modifier: TextData | Nothing,
-  name: TextData,
+  modifier: Text | Nothing,
+  name: Text,
 ): StructuralTypeDeclarationSemantic {
   return {
     $: $.StructuralTypeDeclarationSemantic,

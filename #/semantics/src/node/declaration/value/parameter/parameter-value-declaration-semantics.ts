@@ -1,4 +1,4 @@
-import {TextData} from '#common';
+import {Text} from '#common';
 import {
   $ValueDeclarationSemantics,
   DeclarationSemantics,
@@ -16,9 +16,9 @@ export const $ParameterValueDeclarationSemantics = semanticsPackageType<Paramete
 );
 
 export function newParameterValueDeclarationSemantics(
-  documentation: TextData | Nothing,
-  modifier: TextData | Nothing,
-  name: TextData,
+  documentation: Text | Nothing,
+  modifier: Text | Nothing,
+  name: Text,
 ): ParameterValueDeclarationSemantics {
   return {
     $: $ParameterValueDeclarationSemantics,

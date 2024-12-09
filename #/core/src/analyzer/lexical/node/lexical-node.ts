@@ -1,8 +1,8 @@
-import {Boolean2, String2, TextData} from '#common';
+import {Boolean2, String2, Text} from '#common';
 import {$Node, corePackageType, Node} from '#core';
 
 export type LexicalNode = Node & {
-  text: TextData;
+  text: Text;
 };
 
 export const $LexicalNode = corePackageType<LexicalNode>('LexicalNode', $Node);

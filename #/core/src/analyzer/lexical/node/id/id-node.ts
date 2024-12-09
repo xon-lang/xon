@@ -1,4 +1,4 @@
-import {Nothing, TextData, TextReference} from '#common';
+import {Nothing, Text, TextReference} from '#common';
 import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#core';
 import {DeclarationSemantics, DocumentationIdSemantics, IdTypeSemantics, IdValueSemantics} from '#semantics';
 
@@ -9,6 +9,6 @@ export type IdNode = LexicalNode & {
 
 export const $IdNode = corePackageType<IdNode>('IdNode', $LexicalNode);
 
-export function idNode(reference: TextReference, text: TextData): IdNode {
+export function idNode(reference: TextReference, text: Text): IdNode {
   return lexicalNode({$: $IdNode, reference, text, semantic: null, isExpression: true});
 }

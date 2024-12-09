@@ -1,21 +1,21 @@
-import {ArrayData, Dictionary, TextData, newArrayData, newDictionary, newTextData} from '#common';
+import {ArrayData, Dictionary, Text, newArrayData, newDictionary, newTextData} from '#common';
 import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
 import {Integer, Nothing, is, nothing} from '#typing';
 
 export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = $Model & {
   imports: ArrayData<DeclarationScope> | Nothing;
   parent: DeclarationScope | Nothing;
-  declarations: Dictionary<TextData, ArrayData<T>>;
+  declarations: Dictionary<Text, ArrayData<T>>;
 
   count(): Integer;
   add(declaration: T): void;
   all(): ArrayData<T>;
 
-  filterByName<KIND extends DeclarationKind>(kind: KIND, name: TextData): ArrayData<TypeMap[KIND]>;
+  filterByName<KIND extends DeclarationKind>(kind: KIND, name: Text): ArrayData<TypeMap[KIND]>;
 
   find<KIND extends DeclarationKind>(
     kind: KIND,
-    name: TextData,
+    name: Text,
     generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
     parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
   ): TypeMap[KIND] | Nothing;
@@ -59,7 +59,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
       return this.declarations.values().flat();
     },
 
-    filterByName<K extends DeclarationKind>(kind: K, name: TextData): ArrayData<TypeMap[K]> {
+    filterByName<K extends DeclarationKind>(kind: K, name: Text): ArrayData<TypeMap[K]> {
       const thisDeclarations = this.declarations.get(name);
       const parentDeclarations = this.parent?.filterByName<K>(kind, name);
       const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, kind));
@@ -87,7 +87,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
 
     find<KIND extends DeclarationKind>(
       kind: KIND,
-      name: TextData,
+      name: Text,
       generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
       parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
     ): TypeMap[KIND] | Nothing {

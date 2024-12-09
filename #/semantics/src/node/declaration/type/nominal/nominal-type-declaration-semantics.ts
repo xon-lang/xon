@@ -1,4 +1,4 @@
-import {TextData} from '#common';
+import {Text} from '#common';
 import {
   $TypeDeclarationSemantics,
   AttributeValueDeclarationSemantics,
@@ -13,7 +13,7 @@ import {
 import {Boolean2, Nothing} from '#typing';
 
 export type NominalTypeDeclarationSemantics = TypeDeclarationSemantics & {
-  modifier: TextData;
+  modifier: Text;
   baseType: TypeSemantics;
   attributes: DeclarationScope<AttributeValueDeclarationSemantics>;
 };
@@ -24,9 +24,9 @@ export const $NominalTypeDeclarationSemantics = semanticsPackageType<NominalType
 );
 
 export function newNominalTypeDeclarationSemantic(
-  documentation: TextData | Nothing,
-  modifier: TextData,
-  name: TextData,
+  documentation: Text | Nothing,
+  modifier: Text,
+  name: Text,
 ): NominalTypeDeclarationSemantics {
   return {
     $: $NominalTypeDeclarationSemantics,

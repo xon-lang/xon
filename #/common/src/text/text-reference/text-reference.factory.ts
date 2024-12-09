@@ -1,4 +1,4 @@
-import {$TextReference, Boolean2, TextData, TextRange, TextReference, TextResource} from '#common';
+import {$TextReference, Boolean2, Text, TextRange, TextReference, TextResource} from '#common';
 
 export function textResourceRange(resource: TextResource, range: TextRange): TextReference {
   return {
@@ -10,7 +10,7 @@ export function textResourceRange(resource: TextResource, range: TextRange): Tex
       return this.resource.equals(other.resource) && this.range.equals(other.range);
     },
 
-    text(): TextData {
+    text(): Text {
       return this.resource.data.slice(this.range);
     },
   };

@@ -5,7 +5,7 @@ import {
   Nothing,
   nothing,
   String2,
-  TextData,
+  Text,
 } from '#common';
 import {
   createSemanticAnalyzer,
@@ -73,7 +73,7 @@ export function declarationManagerFromImportString(importString: String2): Decla
   return declarationManager;
 }
 
-function normalizeImportString(location: String2, targetSourceLocation?: TextData | Nothing): TextData {
+function normalizeImportString(location: String2, targetSourceLocation?: Text | Nothing): Text {
   // todo get extension '.xon' from config
   const locationWithExtension = location + '.xon';
 

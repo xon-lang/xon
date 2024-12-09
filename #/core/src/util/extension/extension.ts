@@ -1,4 +1,4 @@
-import {Anything, Boolean2, Integer, Nothing, Number2, String2, TextData} from '#common';
+import {Anything, Boolean2, Integer, Nothing, Number2, String2, Text} from '#common';
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}
@@ -57,7 +57,7 @@ interface StringExtension {
   setPadding(padding: Integer): String2;
   equals(other: String2): Boolean2;
   // todo remove 'toArrayData'
-  toText(): TextData;
+  toText(): Text;
 }
 
 export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: T[]) => V;

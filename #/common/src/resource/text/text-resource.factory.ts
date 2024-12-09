@@ -4,7 +4,7 @@ import {
   Nothing,
   Resource,
   String2,
-  TextData,
+  Text,
   TextRange,
   TextReference,
   TextResource,
@@ -14,7 +14,7 @@ import {
 } from '#common';
 import {readFileSync, statSync} from 'node:fs';
 
-export function newTextResource(location: TextData | Nothing, data: TextData): TextResource {
+export function newTextResource(location: Text | Nothing, data: Text): TextResource {
   return {
     $: $TextResource,
     location,
@@ -24,7 +24,7 @@ export function newTextResource(location: TextData | Nothing, data: TextData): T
       return textResourceRange(this, range);
     },
 
-    equals(other: Resource<TextData>): Boolean2 {
+    equals(other: Resource<Text>): Boolean2 {
       if (this.location) {
         return this.location === other.location;
       }
@@ -42,7 +42,7 @@ export function newTextResource(location: TextData | Nothing, data: TextData): T
   };
 }
 
-export function newTextResourceFromLocation(location: TextData): TextResource | Nothing {
+export function newTextResourceFromLocation(location: Text): TextResource | Nothing {
   try {
     if (!statSync(location.toString()).isFile()) {
       return nothing;

@@ -1,21 +1,21 @@
-import {ArrayData, Dictionary, newArrayData, newDictionary, newTextData, TextData} from '#common';
+import {ArrayData, Dictionary, newArrayData, newDictionary, newTextData, Text} from '#common';
 import {DeclarationSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
 import {$Type, Boolean2, Integer, is, Model, Nothing, nothing} from '#typing';
 
 export type DeclarationScope<T extends DeclarationSemantics = DeclarationSemantics> = Model & {
   imports: ArrayData<DeclarationScope> | Nothing;
   parent: DeclarationScope | Nothing;
-  declarations: Dictionary<TextData, ArrayData<T>>;
+  declarations: Dictionary<Text, ArrayData<T>>;
 
   count(): Integer;
   add(declaration: T): void;
   all(): ArrayData<T>;
 
-  filterByName(type: $Type, name: TextData): ArrayData<DeclarationSemantics>;
+  filterByName(type: $Type, name: Text): ArrayData<DeclarationSemantics>;
 
   find(
     type: $Type,
-    name: TextData,
+    name: Text,
     generics?: ArrayData<TypeSemantics | Nothing> | Nothing,
     parameters?: ArrayData<TypeSemantics | Nothing> | Nothing,
   ): DeclarationSemantics | Nothing;
@@ -60,7 +60,7 @@ export function newDeclarationScope<T extends DeclarationSemantics = Declaration
       return this.declarations.values().flat();
     },
 
-    filterByName(type: $Type, name: TextData): ArrayData<DeclarationSemantics> {
+    filterByName(type: $Type, name: Text): ArrayData<DeclarationSemantics> {
       const thisDeclarations = this.declarations.get(name);
       const parentDeclarations = this.parent?.filterByName(type, name);
       const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, type));
@@ -86,7 +86,7 @@ export function newDeclarationScope<T extends DeclarationSemantics = Declaration
 
     find(
       type: $Type,
-      name: TextData,
+      name: Text,
       generics?: ArrayData<TypeSemantics | Nothing> | Nothing,
       parameters?: ArrayData<TypeSemantics | Nothing> | Nothing,
     ): DeclarationSemantics | Nothing {

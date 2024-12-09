@@ -1,8 +1,8 @@
-import {ArrayData, Boolean2, Integer, nothing, TextData} from '#common';
+import {ArrayData, Boolean2, Integer, nothing, Text} from '#common';
 import {$OperatorNode, Node, nodeFindMap, postfixNode, SyntaxAnalyzer, SyntaxParseFn} from '#core';
 import {is} from '#typing';
 
-export function postfixNodeParse(operators: ArrayData<TextData>, isLeftRecursive: Boolean2): SyntaxParseFn {
+export function postfixNodeParse(operators: ArrayData<Text>, isLeftRecursive: Boolean2): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (

@@ -5,7 +5,7 @@ import {
   newArrayData,
   Nothing,
   nothing,
-  TextData,
+  Text,
   TextPosition,
   textPosition,
   textRange,
@@ -27,11 +27,11 @@ export type LexicalAnalyzer = {
   iterator(parsers: LexicalNodeParseFn[]): IterableIterator<LexicalNode>;
   nodes(parsers: LexicalNodeParseFn[]): ArrayData<LexicalNode>;
   getResourceRange(length: Integer): TextReference;
-  getResourceRange(text: TextData): TextReference;
+  getResourceRange(text: Text): TextReference;
   getResourceRangeWithNL(length: Integer): TextReference;
-  getResourceRangeWithNL(text: TextData): TextReference;
-  checkTextAtIndex(text: TextData): Boolean2;
-  checkTextAtIndex(text: TextData, index: Integer | Nothing): Boolean2;
+  getResourceRangeWithNL(text: Text): TextReference;
+  checkTextAtIndex(text: Text): Boolean2;
+  checkTextAtIndex(text: Text, index: Integer | Nothing): Boolean2;
 };
 
 export function createLexicalAnalyzer(
@@ -52,7 +52,7 @@ export function createLexicalAnalyzer(
       return newArrayData(array);
     },
 
-    getResourceRange(lengthOrText: Integer | TextData): TextReference {
+    getResourceRange(lengthOrText: Integer | Text): TextReference {
       if (typeof lengthOrText === 'number') {
         const range = textRange(
           textPosition(this.position.index, this.position.line, this.position.column),
@@ -69,7 +69,7 @@ export function createLexicalAnalyzer(
       return this.getResourceRange(lengthOrText.length());
     },
 
-    getResourceRangeWithNL(lengthOrText: Integer | TextData): TextReference {
+    getResourceRangeWithNL(lengthOrText: Integer | Text): TextReference {
       if (typeof lengthOrText !== 'number') {
         return this.getResourceRangeWithNL(lengthOrText.length());
       }
@@ -98,7 +98,7 @@ export function createLexicalAnalyzer(
       return textResourceRange(this.resource, range);
     },
 
-    checkTextAtIndex(text: TextData, index?: Integer): Boolean2 {
+    checkTextAtIndex(text: Text, index?: Integer): Boolean2 {
       return this.resource.data.take(text.length(), index ?? this.position.index).equals(text);
     },
 

@@ -1,8 +1,8 @@
-import {newTextData, Nothing, nothing, TextData} from '#common';
+import {newTextData, Nothing, nothing, Text} from '#common';
 import {DeclarationSemantic, TypeSemantic} from '#core';
 import {$, is} from '#typing';
 
-export function typeSemanticToString(semantic: TypeSemantic): TextData | Nothing {
+export function typeSemanticToString(semantic: TypeSemantic): Text | Nothing {
   if (is(semantic, $.IdTypeSemantic) && semantic.declaration) {
     return semantic.declaration.name;
   }
@@ -16,7 +16,7 @@ export function typeSemanticToString(semantic: TypeSemantic): TextData | Nothing
   return nothing;
 }
 
-export function declarationSemanticHeaderToString(semantic: DeclarationSemantic): TextData | Nothing {
+export function declarationSemanticHeaderToString(semantic: DeclarationSemantic): Text | Nothing {
   if (is(semantic, $.NominalTypeDeclarationSemantic)) {
     const baseType = semantic.baseType ? ': ' + typeSemanticToString(semantic.baseType) : '';
 

@@ -1,10 +1,10 @@
-import {TextData, TextReference} from '#common';
+import {Text, TextReference} from '#common';
 import {$OpenNode, OpenNode, corePackageType, lexicalNode} from '#core';
 
 export type AngleOpenNode = OpenNode;
 
 export const $AngleOpenNode = corePackageType<AngleOpenNode>('AngleOpenNode', $OpenNode);
 
-export function angleOpenNode(reference: TextReference, text: TextData): AngleOpenNode {
+export function angleOpenNode(reference: TextReference, text: Text): AngleOpenNode {
   return lexicalNode({$: $AngleOpenNode, reference, text});
 }
