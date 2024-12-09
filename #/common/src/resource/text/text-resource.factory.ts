@@ -9,8 +9,8 @@ import {
   TextReference,
   TextResource,
   newTextData,
+  newTextReference,
   nothing,
-  textResourceRange,
 } from '#common';
 import {readFileSync, statSync} from 'node:fs';
 
@@ -21,7 +21,7 @@ export function newTextResource(location: Text | Nothing, data: Text): TextResou
     data,
 
     reference(range: TextRange): TextReference {
-      return textResourceRange(this, range);
+      return newTextReference(this, range);
     },
 
     equals(other: Resource<Text>): Boolean2 {

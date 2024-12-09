@@ -1,4 +1,4 @@
-import {Anything, Boolean2, nothing, rangeFromNodes, String2, textResourceRange} from '#common';
+import {Anything, Boolean2, newTextReference, nothing, rangeFromNodes, String2} from '#common';
 import {$Node, corePackageType, Node, SyntaxAnalyzer} from '#core';
 import {is} from '#typing';
 
@@ -16,7 +16,7 @@ export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Any
     .filter((x) => is(x, $Node))
     .flat();
 
-  const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
 
   const node: SyntaxNode & T = {
     ...params,

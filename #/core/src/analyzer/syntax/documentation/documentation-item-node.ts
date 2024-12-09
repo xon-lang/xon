@@ -1,4 +1,4 @@
-import {newTextData, newTextPosition, Nothing, textRange, textResourceRange} from '#common';
+import {newTextData, newTextPosition, newTextReference, Nothing, textRange} from '#common';
 import {
   $SyntaxNode,
   AT,
@@ -46,7 +46,7 @@ function operatorFromLabel(label: DocumentationLabelNode): OperatorNode {
   );
 
   const range = textRange(label.reference.range.start, operatorStop);
-  const reference = textResourceRange(label.reference.resource, range);
+  const reference = newTextReference(label.reference.resource, range);
 
   return operatorNode(reference, label.text.slice(0, AT.length()));
 }
@@ -59,7 +59,7 @@ function idFromLabel(label: DocumentationLabelNode): IdNode {
     labelStart.column + AT.length(),
   );
   const range = textRange(idStart, label.reference.range.stop);
-  const reference = textResourceRange(label.reference.resource, range);
+  const reference = newTextReference(label.reference.resource, range);
 
   return idNode(reference, newTextData(label.name));
 }

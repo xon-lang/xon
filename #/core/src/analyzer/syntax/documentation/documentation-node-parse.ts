@@ -1,4 +1,4 @@
-import {Nothing, nothing, rangeFromNodes, textResourceRange} from '#common';
+import {newTextReference, Nothing, nothing, rangeFromNodes} from '#common';
 import {
   $DocumentationCloseNode,
   $DocumentationDescriptionNode,
@@ -31,7 +31,7 @@ export function documentationNodeParse(
         lastItem.description = node;
         lastItem.children.push(node);
         const range = rangeFromNodes(lastItem.children);
-        lastItem.reference = textResourceRange(analyzer.resource, range);
+        lastItem.reference = newTextReference(analyzer.resource, range);
       }
 
       continue;

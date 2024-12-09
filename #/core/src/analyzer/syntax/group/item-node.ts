@@ -1,4 +1,4 @@
-import {Boolean2, Integer, Nothing, rangeFromNodes, textResourceRange} from '#common';
+import {Boolean2, Integer, newTextReference, Nothing, rangeFromNodes} from '#common';
 import {
   $SyntaxNode,
   CommaNode,
@@ -25,7 +25,7 @@ export function itemNode(
   statements: StatementNode[],
 ): ItemNode {
   const children = comma ? [comma, ...statements] : [...statements];
-  const reference = textResourceRange(analyzer.resource, rangeFromNodes(children));
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
 
   const node: ItemNode = {
     $: $ItemNode,

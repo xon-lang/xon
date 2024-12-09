@@ -1,18 +1,17 @@
 import {
-  $Text,
   Boolean2,
   Integer,
   newTextPosition,
+  newTextReference,
+  Nothing,
   nothing,
   Text,
   TextPosition,
   textRange,
   TextReference,
   TextResource,
-  textResourceRange,
 } from '#common';
 import {LexicalAnalyzer, LexicalNode, LexicalNodeParseFn, NL, unknownNodeParse} from '#core';
-import {is} from '#typing';
 
 export function newLexicalAnalyzer(
   resource: TextResource,
@@ -25,35 +24,26 @@ export function newLexicalAnalyzer(
     parsers,
 
     iterator(): IterableIterator<LexicalNode> {
-      return parsersIterator(this, parsers);
+      return parsersIterator(this, this.parsers);
     },
 
-    getResourceRange(lengthOrText: Integer | Text): TextReference {
-      if (is(lengthOrText, $Text)) {
-        return this.getResourceRange(lengthOrText.length());
-      }
-
-      const range = textRange(
-        newTextPosition(this.position.index, this.position.line, this.position.column),
-        newTextPosition(
-          this.position.index + lengthOrText,
-          this.position.line,
-          this.position.column + lengthOrText,
-        ),
+    getResourceRange(text: Text): TextReference {
+      const start = newTextPosition(this.position.index, this.position.line, this.position.column);
+      const stop = newTextPosition(
+        this.position.index + text.length(),
+        this.position.line,
+        this.position.column + text.length(),
       );
+      const range = textRange(start, stop);
 
-      return textResourceRange(this.resource, range);
+      return newTextReference(this.resource, range);
     },
 
-    getResourceRangeWithNL(lengthOrText: Integer | Text): TextReference {
-      if (typeof lengthOrText !== 'number') {
-        return this.getResourceRangeWithNL(lengthOrText.length());
-      }
-
+    getResourceRangeWithNL(text: Text): TextReference {
       let nlCount = this.position.line;
       let columnIndent = this.position.column;
 
-      for (let i = this.position.index; i < this.position.index + lengthOrText; i++) {
+      for (let i = this.position.index; i < this.position.index + text.length(); i++) {
         const char = this.resource.data.at(i);
 
         if (char?.equals(NL)) {
@@ -66,23 +56,16 @@ export function newLexicalAnalyzer(
         columnIndent += 1;
       }
 
-      const range = textRange(
-        newTextPosition(this.position.index, this.position.line, this.position.column),
-        newTextPosition(this.position.index + lengthOrText, nlCount, columnIndent),
-      );
+      const start = newTextPosition(this.position.index, this.position.line, this.position.column);
+      const stop = newTextPosition(this.position.index + text.length(), nlCount, columnIndent);
+      const range = textRange(start, stop);
 
-      return textResourceRange(this.resource, range);
+      return newTextReference(this.resource, range);
     },
 
-    checkTextAtIndex(text: Text, index?: Integer): Boolean2 {
+    checkTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {
       return this.resource.data.take(text.length(), index ?? this.position.index).equals(text);
     },
-
-    // checkTextsAtIndex(texts: String2[], index?: Integer): String2 | Nothing {
-    //   const startIndex = index ?? this.position.index;
-
-    //   return texts.find((x) => this.resource.data.take(x.length, startIndex).equals(x));
-    // },
   };
 }
 

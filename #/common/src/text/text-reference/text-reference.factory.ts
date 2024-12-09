@@ -1,6 +1,6 @@
 import {$TextReference, Boolean2, Text, TextRange, TextReference, TextResource} from '#common';
 
-export function textResourceRange(resource: TextResource, range: TextRange): TextReference {
+export function newTextReference(resource: TextResource, range: TextRange): TextReference {
   return {
     $: $TextReference,
     resource,
