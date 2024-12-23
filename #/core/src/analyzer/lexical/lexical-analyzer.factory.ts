@@ -1,5 +1,7 @@
 import {
+  ArrayData,
   Boolean2,
+  FunctionData,
   Integer,
   newTextPosition,
   newTextReference,
@@ -11,12 +13,12 @@ import {
   TextReference,
   TextResource,
 } from '#common';
-import {LexicalAnalyzer, LexicalNode, LexicalNodeParseFn, NL, unknownNodeParse} from '#core';
+import {LexicalAnalyzer, LexicalNode, LexicalNodeParseFn, NL} from '#core';
 
 export function newLexicalAnalyzer(
   resource: TextResource,
   position: TextPosition,
-  parsers: LexicalNodeParseFn[],
+  parsers: ArrayData<FunctionData<LexicalNodeParseFn>>,
 ): LexicalAnalyzer {
   return {
     resource,
@@ -24,22 +26,22 @@ export function newLexicalAnalyzer(
     parsers,
 
     iterator(): IterableIterator<LexicalNode> {
-      return parsersIterator(this, this.parsers);
+      return lexicalIterator(this, this.parsers);
     },
-
-    getResourceRange(text: Text): TextReference {
-      const start = newTextPosition(this.position.index, this.position.line, this.position.column);
+    textReference(text: Text): TextReference {
+      const start = this.position.clone();
       const stop = newTextPosition(
         this.position.index + text.length(),
         this.position.line,
         this.position.column + text.length(),
       );
+
       const range = textRange(start, stop);
 
       return newTextReference(this.resource, range);
     },
 
-    getResourceRangeWithNL(text: Text): TextReference {
+    textReferenceWithNewLine(text: Text): TextReference {
       let nlCount = this.position.line;
       let columnIndent = this.position.column;
 
@@ -56,22 +58,22 @@ export function newLexicalAnalyzer(
         columnIndent += 1;
       }
 
-      const start = newTextPosition(this.position.index, this.position.line, this.position.column);
+      const start = this.position.clone();
       const stop = newTextPosition(this.position.index + text.length(), nlCount, columnIndent);
       const range = textRange(start, stop);
 
       return newTextReference(this.resource, range);
     },
 
-    checkTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {
+    hasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {
       return this.resource.data.take(text.length(), index ?? this.position.index).equals(text);
     },
   };
 }
 
-function parsersIterator(
+function lexicalIterator(
   lexer: LexicalAnalyzer,
-  parsers: LexicalNodeParseFn[],
+  parsers: ArrayData<FunctionData<LexicalNodeParseFn>>,
 ): IterableIterator<LexicalNode> {
   return {
     next(): IteratorResult<LexicalNode> {
@@ -82,7 +84,15 @@ function parsersIterator(
         };
       }
 
-      const node = parsers.findMap((parse) => parse(lexer)) ?? unknownNodeParse(lexer);
+      const node = parsers.findMap((parse) => parse.invoke(lexer));
+
+      if (!node) {
+        return {
+          done: true,
+          value: nothing,
+        };
+      }
+
       lexer.position = node.reference.range.stop;
       lexer.previousNode = node;
 
