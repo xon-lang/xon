@@ -17,17 +17,16 @@ import {LexicalAnalyzer, LexicalNode, LexicalNodeParseFn, NL} from '#core';
 
 export function newLexicalAnalyzer(
   resource: TextResource,
-  position: TextPosition,
-  parsers: ArrayData<FunctionData<LexicalNodeParseFn>>,
+  position: TextPosition = newTextPosition(),
 ): LexicalAnalyzer {
   return {
     resource,
     position,
-    parsers,
 
-    iterator(): IterableIterator<LexicalNode> {
-      return lexicalIterator(this, this.parsers);
+    iterator(parsers: ArrayData<FunctionData<LexicalNodeParseFn>>): IterableIterator<LexicalNode> {
+      return lexicalIterator(this, parsers);
     },
+
     textReference(text: Text): TextReference {
       const start = this.position.clone();
       const stop = newTextPosition(

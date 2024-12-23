@@ -1,3 +1,4 @@
+import {ArrayData, FunctionData, newArrayData, newFunctionData} from '#common';
 import {
   LexicalNodeParseFn,
   documentationCloseNodeParse,
@@ -5,12 +6,13 @@ import {
   documentationLabelNodeParse,
 } from '#core';
 
-export function documentationLexicalParsers(): LexicalNodeParseFn[] {
-  return [
+// todo remove function and use static field
+export function documentationLexicalParsers(): ArrayData<FunctionData<LexicalNodeParseFn>> {
+  return newArrayData([
     // todo should we use 'documentationOpenNodeParse' here or in the main code lexer ???
     // documentationOpenNodeParse,
-    documentationCloseNodeParse,
-    documentationLabelNodeParse,
-    documentationDescriptionNodeParse,
-  ];
+    newFunctionData(documentationCloseNodeParse),
+    newFunctionData(documentationLabelNodeParse),
+    newFunctionData(documentationDescriptionNodeParse),
+  ]);
 }

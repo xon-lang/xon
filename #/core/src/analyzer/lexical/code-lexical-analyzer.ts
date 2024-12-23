@@ -1,3 +1,4 @@
+import {ArrayData, FunctionData, newArrayData, newFunctionData} from '#common';
 import {
   angleCloseNodeParse,
   angleOpenNodeParse,
@@ -22,34 +23,35 @@ import {
   whitespaceNodeParse,
 } from '#core';
 
+// todo remove function and use static field
 // todo remove all nodes if possible and use single node (e.g. 'TokenNode')
-export function codeLexicalParsers(): LexicalNodeParseFn[] {
-  return [
-    parenOpenNodeParse,
-    parenCloseNodeParse,
-    bracketOpenNodeParse,
-    angleOpenNodeParse,
+export function codeLexicalParsers(): ArrayData<FunctionData<LexicalNodeParseFn>> {
+  return newArrayData([
+    newFunctionData(parenOpenNodeParse),
+    newFunctionData(parenCloseNodeParse),
+    newFunctionData(bracketOpenNodeParse),
+    newFunctionData(angleOpenNodeParse),
 
-    bracketCloseNodeParse,
-    braceOpenNodeParse,
-    braceCloseNodeParse,
-    angleCloseNodeParse,
+    newFunctionData(bracketCloseNodeParse),
+    newFunctionData(braceOpenNodeParse),
+    newFunctionData(braceCloseNodeParse),
+    newFunctionData(angleCloseNodeParse),
 
-    integerContentNodeParse,
+    newFunctionData(integerContentNodeParse),
 
-    commaNodeParse,
+    newFunctionData(commaNodeParse),
 
-    commentLineNodeParse,
-    commentBlockNodeParse,
-    whitespaceNodeParse,
-    nlNodeParse,
-    joiningNodeParse,
+    newFunctionData(commentLineNodeParse),
+    newFunctionData(commentBlockNodeParse),
+    newFunctionData(whitespaceNodeParse),
+    newFunctionData(nlNodeParse),
+    newFunctionData(joiningNodeParse),
 
     // todo should we add 'documentationOpenNodeParse' in codeAnalyzer instead of documentationAnalyzer ???
-    documentationOpenNodeParse,
-    stringOpenNodeParse,
-    charOpenNodeParse,
-    operatorNodeParse,
-    idNodeParse,
-  ];
+    newFunctionData(documentationOpenNodeParse),
+    newFunctionData(stringOpenNodeParse),
+    newFunctionData(charOpenNodeParse),
+    newFunctionData(operatorNodeParse),
+    newFunctionData(idNodeParse),
+  ]);
 }
