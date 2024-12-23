@@ -2,7 +2,7 @@ import {Nothing, nothing} from '#common';
 import {JOINING, JoiningNode, LexicalAnalyzer, NL, SPACE, joiningNode} from '#core';
 
 export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothing {
-  if (!analyzer.checkTextAtIndex(JOINING)) {
+  if (!analyzer.hasTextAtIndex(JOINING)) {
     return nothing;
   }
 
@@ -14,7 +14,7 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
     text.addLast(...NL);
   }
 
-  const reference = analyzer.getResourceRangeWithNL(text);
+  const reference = analyzer.textReferenceWithNewLine(text);
 
   return joiningNode(reference, text);
 }

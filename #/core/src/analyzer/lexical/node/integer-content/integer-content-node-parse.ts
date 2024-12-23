@@ -14,7 +14,7 @@ export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerConte
       analyzer.position.index,
     );
 
-  const reference = analyzer.getResourceRange(text);
+  const reference = analyzer.textReference(text);
 
   return integerContentNode(reference, text);
 }
