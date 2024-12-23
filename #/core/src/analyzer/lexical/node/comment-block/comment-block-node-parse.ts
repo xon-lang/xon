@@ -8,7 +8,7 @@ import {
 } from '#core';
 
 export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNode | Nothing {
-  if (!analyzer.checkTextAtIndex(COMMENT_BLOCK_OPEN)) {
+  if (!analyzer.hasTextAtIndex(COMMENT_BLOCK_OPEN)) {
     return nothing;
   }
 
@@ -21,7 +21,7 @@ export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNo
 
   const text = analyzer.resource.data.slice(analyzer.position.index, endSlice);
   // todo should we calculate nl count in place ???
-  const reference = analyzer.getResourceRangeWithNL(text);
+  const reference = analyzer.textReferenceWithNewLine(text);
 
   return commentBlockNode(reference, text);
 }

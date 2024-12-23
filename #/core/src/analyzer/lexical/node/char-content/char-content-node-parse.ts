@@ -2,7 +2,7 @@ import {Nothing, nothing} from '#common';
 import {CHAR_CLOSE, CharContentNode, charContentNode, LexicalAnalyzer} from '#core';
 
 export function charContentNodeParse(analyzer: LexicalAnalyzer): CharContentNode | Nothing {
-  if (analyzer.checkTextAtIndex(CHAR_CLOSE)) {
+  if (analyzer.hasTextAtIndex(CHAR_CLOSE)) {
     return nothing;
   }
 
@@ -13,7 +13,7 @@ export function charContentNodeParse(analyzer: LexicalAnalyzer): CharContentNode
     endIndex > 0 ? endIndex : analyzer.resource.data.length(),
   );
 
-  const reference = analyzer.getResourceRange(text);
+  const reference = analyzer.textReference(text);
 
   return charContentNode(reference, text);
 }

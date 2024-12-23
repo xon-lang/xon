@@ -2,7 +2,7 @@ import {Nothing, nothing} from '#common';
 import {AT, DocumentationLabelNode, documentationLabelNode, LexicalAnalyzer} from '#core';
 
 export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): DocumentationLabelNode | Nothing {
-  if (!analyzer.checkTextAtIndex(AT)) {
+  if (!analyzer.hasTextAtIndex(AT)) {
     return nothing;
   }
 
@@ -17,7 +17,7 @@ export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): Document
     return nothing;
   }
 
-  const reference = analyzer.getResourceRange(text);
+  const reference = analyzer.textReference(text);
 
   return documentationLabelNode(reference, text);
 }

@@ -11,7 +11,7 @@ export function documentationDescriptionNodeParse(
   analyzer: LexicalAnalyzer,
 ): DocumentationDescriptionNode | Nothing {
   const text = analyzer.resource.data.takeWhile(
-    (x, i) => !x.equals(AT) && !analyzer.checkTextAtIndex(DOCUMENTATION_CLOSE, i),
+    (x, i) => !x.equals(AT) && !analyzer.hasTextAtIndex(DOCUMENTATION_CLOSE, i),
     analyzer.position.index,
   );
 
@@ -19,7 +19,7 @@ export function documentationDescriptionNodeParse(
     return nothing;
   }
 
-  const reference = analyzer.getResourceRangeWithNL(text);
+  const reference = analyzer.textReferenceWithNewLine(text);
 
   return documentationDescriptionNode(reference, text);
 }

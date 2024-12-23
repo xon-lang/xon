@@ -3,7 +3,7 @@ import {IdNode, LexicalAnalyzer, UNDERSCORE, idNode} from '#core';
 
 export function idNodeParse(analyzer: LexicalAnalyzer): IdNode | Nothing {
   if (
-    !analyzer.checkTextAtIndex(UNDERSCORE) &&
+    !analyzer.hasTextAtIndex(UNDERSCORE) &&
     // todo simplify it
     !analyzer.resource.data.at2(analyzer.position.index).isLetter()
   ) {
@@ -16,7 +16,7 @@ export function idNodeParse(analyzer: LexicalAnalyzer): IdNode | Nothing {
     analyzer.position.index,
   );
 
-  const reference = analyzer.getResourceRange(text);
+  const reference = analyzer.textReference(text);
 
   return idNode(reference, text);
 }
