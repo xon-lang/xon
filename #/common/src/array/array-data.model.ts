@@ -56,8 +56,7 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   // sortStrings(): ArrayData<T>;
   sort(compareFn?: (a: T, b: T) => number): this;
 
-  // todo fix it. 'T' generic
-  // flat(): T;
+  flat<A extends Anything_V2>(this: ArrayData<ArrayData<A>>): ArrayData<A>;
   flatMap<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V>;
 
   // todo uncomment

@@ -406,10 +406,11 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return newArrayData([...this._items].sort((a, b) => select(b) - select(a)));
     },
 
-    // todo fix it
-    // flat(): T {
-    //   return newArrayData(this._items.flat()) as T;
-    // },
+    flat<A extends Anything_V2>(this: ArrayData<ArrayData<A>>): ArrayData<A> {
+      const flatItems = this._items.flatMap((x) => x._items);
+
+      return newArrayData(flatItems);
+    },
 
     flatMap<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V> {
       return newArrayData(this._items.flatMap(select));
