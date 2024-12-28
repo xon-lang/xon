@@ -8,8 +8,10 @@ import {
   TypeDeclarationSemantic,
   unknownTypeSemantic,
 } from '#core';
+import {Brand} from '#typing';
 
-export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic & {__branding?: null};
+export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic &
+  Brand<'StructuralTypeDeclarationSemantic'>;
 
 export const $StructuralTypeDeclarationSemantic = corePackageType<StructuralTypeDeclarationSemantic>(
   'StructuralTypeDeclarationSemantic',

@@ -2,7 +2,6 @@ import {
   $TextResource,
   Boolean2,
   Nothing,
-  Resource,
   Text,
   TextRange,
   TextReference,
@@ -23,7 +22,7 @@ export function newTextResource(location: Text | Nothing, data: Text): TextResou
       return newTextReference(this, range);
     },
 
-    equals(other: Resource<Text>): Boolean2 {
+    equals(other: TextResource): Boolean2 {
       if (this.location) {
         return this.location === other.location;
       }

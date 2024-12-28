@@ -9,9 +9,9 @@ import {
   $InvokeTypeSemantic,
   $StringTypeSemantic,
   $UnionTypeSemantic,
-  TypescriptTranslator,
   TypeSemantic,
 } from '#core';
+import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 
 export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): String2 {

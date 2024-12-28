@@ -1,6 +1,13 @@
 import {String2} from '#common';
-import {$FunctionTypeSemantic, $NominalTypeDeclarationSemantic, $ParameterTypeDeclarationSemantic, $StructuralTypeDeclarationSemantic, TypeDeclarationSemantic, TypescriptTranslator} from '#core';
-import { is } from '#typing';
+import {
+  $FunctionTypeSemantic,
+  $NominalTypeDeclarationSemantic,
+  $ParameterTypeDeclarationSemantic,
+  $StructuralTypeDeclarationSemantic,
+  TypeDeclarationSemantic,
+} from '#core';
+import {TypescriptTranslator} from '#translator';
+import {is} from '#typing';
 
 export function typeDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,

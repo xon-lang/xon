@@ -47,6 +47,7 @@ export function newType<T extends Model>(
 export interface Model {
   $: $Type;
 
+  // todo remove 'equals' ???
   equals?(other: this): boolean;
   // is?<T extends $Type>($type: T): this is Exclude<T['type'], undefined>;
 }
@@ -57,3 +58,6 @@ export const $Model = newType<Model>('Typing', 'Model');
 export function is<T extends $Type>(model: any, type: T): model is Exclude<T['type'], undefined> {
   return (model?.$ as $Type)?.is(type) ?? false;
 }
+
+const brand = Symbol('brand');
+export type Brand<T extends string> = {[brand]?: T};
