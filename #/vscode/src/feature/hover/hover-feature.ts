@@ -1,6 +1,6 @@
 import {Nothing, String2, nothing} from '#common';
-import {DeclarationSemantic, Semantic} from '#core';
-import {$, hasSemantic, is} from '#typing';
+import {$CharTypeSemantic, $DeclarationSemantic, $IdTypeSemantic, $IntegerTypeSemantic, $StringTypeSemantic, $ValueSemantic, DeclarationSemantic, Semantic} from '#core';
+import { is } from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -29,10 +29,10 @@ class LanguageHoverProvider implements HoverProvider {
 
     const node = semantic.syntaxAnalyzer.findClosestNode(
       convertVscodePosition(document, position),
-      $.ExpressionNode,
+      $ExpressionNode,
     );
 
-    if (!hasSemantic(node)) {
+    if (!(node?.semantic)) {
       return nothing;
     }
 
@@ -63,31 +63,31 @@ function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
     return '';
   }
 
-  if (is(semantic, $.DeclarationSemantic)) {
+  if (is(semantic, $DeclarationSemantic)) {
     return declarationToText(semantic);
   }
 
-  if (is(semantic, $.ValueSemantic)) {
+  if (is(semantic, $ValueSemantic)) {
     return semanticToText(semantic.type);
   }
 
-  if (is(semantic, $.IdTypeSemantic)) {
+  if (is(semantic, $IdTypeSemantic)) {
     return declarationToText(semantic.declaration);
   }
 
-  if (is(semantic, $.CharTypeSemantic)) {
+  if (is(semantic, $CharTypeSemantic)) {
     const declaration = declarationToText(semantic.declaration);
 
     return `${declaration}('${semantic.value}')`;
   }
 
-  if (is(semantic, $.StringTypeSemantic)) {
+  if (is(semantic, $StringTypeSemantic)) {
     const declaration = declarationToText(semantic.declaration);
 
     return `${declaration}("${semantic.value}")`;
   }
 
-  if (is(semantic, $.IntegerTypeSemantic)) {
+  if (is(semantic, $IntegerTypeSemantic)) {
     const declaration = declarationToText(semantic.declaration);
 
     return `${declaration}(${semantic.value})`;

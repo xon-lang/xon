@@ -1,4 +1,6 @@
 import {Nothing, Text, TextRange, TextReference, nothing, zeroRange} from '#common';
+import { $ImportValueSemantic, $DeclarationSemantic, $IdTypeSemantic, $DocumentationIdSemantic, $ValueSemantic, DeclarationSemantic } from '#core';
+import { is } from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -31,11 +33,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!node.semantics) {
+    if (!node?.semantic) {
       return nothing;
     }
 
-    if (is(node.semantic, $.ImportValueSemantic)) {
+    if (is(node.semantic, $ImportValueSemantic)) {
       if (node.semantic.resource?.location) {
         return navigateToLocation(node.reference.range, node.semantic.resource.location);
       }
@@ -43,11 +45,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is(node.semantic, $.DeclarationSemantic)) {
+    if (is(node.semantic, $DeclarationSemantic)) {
       return navigateToUsages(node.reference.range, node.semantic);
     }
 
-    if (is(node.semantic, $.IdTypeSemantic)) {
+    if (is(node.semantic, $IdTypeSemantic)) {
       if (!node.semantic.declaration) {
         return nothing;
       }
@@ -55,11 +57,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return navigateToReference(node.reference.range, node.semantic.declaration.nodeLink.reference);
     }
 
-    if (is(node.semantic, $.DocumentationIdSemantic)) {
+    if (is(node.semantic, $DocumentationIdSemantic)) {
       return navigateToReference(node.reference.range, node.semantic.declaration.nodeLink.reference);
     }
 
-    if (is(node.semantic, $.ValueSemantic)) {
+    if (is(node.semantic, $ValueSemantic)) {
       const declaration = node.semantic.type?.declaration;
 
       if (!declaration) {

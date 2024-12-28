@@ -1,6 +1,23 @@
 import {Integer, nothing, Nothing} from '#common';
-import {AttributeValueDeclarationSemantic, DeclarationSemantic, IdNode, InvokeNode, Node} from '#core';
-import {$, hasSemantic, is} from '#typing';
+import {
+  $AttributeValueDeclarationSemantic,
+  $CommaNode,
+  $DeclarationSemantic,
+  $FunctionTypeSemantic,
+  $GroupNode,
+  $IdNode,
+  $IdTypeSemantic,
+  $IdValueSemantic,
+  $InvokeNode,
+  $ItemNode,
+  $OpenNode,
+  AttributeValueDeclarationSemantic,
+  DeclarationSemantic,
+  IdNode,
+  InvokeNode,
+  Node,
+} from '#core';
+import {is} from '#typing';
 import {
   convertVscodePosition,
   declarationSemanticHeaderToString,
@@ -42,14 +59,14 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     const nodeAtPosition = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
     const invokeParameterIndex = getInvokeNodeAndParameterIndex(nodeAtPosition);
 
-    if (!hasSemantic(invokeParameterIndex?.invokeNode)) {
+    if (!invokeParameterIndex?.invokeNode.semantic) {
       return nothing;
     }
 
-    if (is(invokeParameterIndex.invokeNode.instance, $.IdNode)) {
+    if (is(invokeParameterIndex.invokeNode.instance, $IdNode)) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
-      if (is(declaration, $.AttributeValueDeclarationSemantic)) {
+      if (is(declaration, $AttributeValueDeclarationSemantic)) {
         return getSignatureHelp(declaration, invokeParameterIndex.parameterIndex);
       }
     }
@@ -65,8 +82,8 @@ function getInvokeNodeAndParameterIndex(
     return nothing;
   }
 
-  if (is(nodeAtPosition, $.OpenNode)) {
-    if (is(nodeAtPosition.parent, $.GroupNode) && is(nodeAtPosition.parent.parent, $.InvokeNode)) {
+  if (is(nodeAtPosition, $OpenNode)) {
+    if (is(nodeAtPosition.parent, $GroupNode) && is(nodeAtPosition.parent.parent, $InvokeNode)) {
       return {
         invokeNode: nodeAtPosition.parent.parent,
         parameterIndex: 0,
@@ -74,11 +91,11 @@ function getInvokeNodeAndParameterIndex(
     }
   }
 
-  if (is(nodeAtPosition, $.CommaNode)) {
+  if (is(nodeAtPosition, $CommaNode)) {
     if (
-      is(nodeAtPosition.parent, $.ItemNode) &&
-      is(nodeAtPosition.parent.parent, $.GroupNode) &&
-      is(nodeAtPosition.parent.parent.parent, $.InvokeNode)
+      is(nodeAtPosition.parent, $ItemNode) &&
+      is(nodeAtPosition.parent.parent, $GroupNode) &&
+      is(nodeAtPosition.parent.parent.parent, $InvokeNode)
     ) {
       return {
         invokeNode: nodeAtPosition.parent.parent.parent,
@@ -91,11 +108,11 @@ function getInvokeNodeAndParameterIndex(
 }
 
 function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
-  if (is(node.semantic, $.IdTypeSemantic) || is(node.semantic, $.IdValueSemantic)) {
+  if (is(node.semantic, $IdTypeSemantic) || is(node.semantic, $IdValueSemantic)) {
     return node.semantic.declaration;
   }
 
-  if (is(node.semantic, $.DeclarationSemantic)) {
+  if (is(node.semantic, $DeclarationSemantic)) {
     return node.semantic;
   }
 
@@ -123,7 +140,7 @@ function getSignatureInformation(declaration: AttributeValueDeclarationSemantic)
   const descriptionMarkdown = new MarkdownString(description);
   const signature = new SignatureInformation(declarationHeader, descriptionMarkdown);
 
-  if (is(declaration.type, $.FunctionTypeSemantic)) {
+  if (is(declaration.type, $FunctionTypeSemantic)) {
     signature.parameters = declaration.type.parameters?.map((x) => getParameterInformation(x)) ?? [];
   }
 

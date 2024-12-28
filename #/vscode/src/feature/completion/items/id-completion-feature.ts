@@ -1,4 +1,5 @@
-import {$, is} from '#typing';
+import {$LexicalNode} from '#core';
+import {is} from '#typing';
 import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -25,7 +26,7 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (is(node, $.LexicalNode)) {
+    if (is(node, $LexicalNode)) {
       const item = new CompletionItem(node.text.toString(), CompletionItemKind.Property);
     }
 

@@ -1,5 +1,6 @@
 import {changeTextCase, kebabCase, newText, nothing} from '#common';
-import {$, is} from '#typing';
+import {$IdNode} from '#core';
+import {is} from '#typing';
 import {
   EXTENSION_CONFIG,
   FILE_EXTENSION,
@@ -44,7 +45,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, range.start));
 
-    if (!is(node, $.IdNode)) {
+    if (!is(node, $IdNode)) {
       return nothing;
     }
 

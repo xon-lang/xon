@@ -1,6 +1,6 @@
 import {Nothing, String2, TextReference, nothing} from '#common';
-import {DeclarationSemantic, Semantic} from '#core';
-import {$, is} from '#typing';
+import {$DeclarationSemantic, $DocumentationIdSemantic, $IdNode, $IdTypeSemantic, $ValueSemantic, DeclarationSemantic, Semantic} from '#core';
+import { is } from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -34,7 +34,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is(node, $.IdNode) || !node.semantic) {
+    if (!is(node, $IdNode) || !node.semantic) {
       return nothing;
     }
 
@@ -55,7 +55,7 @@ class LanguageRenameProvider implements RenameProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
 
-    if (!is(node, $.IdNode)) {
+    if (!is(node, $IdNode)) {
       throw new Error('You cannot rename this element');
     }
 
@@ -64,19 +64,19 @@ class LanguageRenameProvider implements RenameProvider {
 }
 
 function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
-  if (is(semantic, $.DeclarationSemantic)) {
+  if (is(semantic, $DeclarationSemantic)) {
     return semantic;
   }
 
-  if (is(semantic, $.DocumentationIdSemantic)) {
+  if (is(semantic, $DocumentationIdSemantic)) {
     return semantic.declaration;
   }
 
-  if (is(semantic, $.IdTypeSemantic)) {
+  if (is(semantic, $IdTypeSemantic)) {
     return semantic.declaration;
   }
 
-  if (is(semantic, $.ValueSemantic) && is(semantic.type, $.IdTypeSemantic)) {
+  if (is(semantic, $ValueSemantic) && is(semantic.type, $IdTypeSemantic)) {
     return semantic.type.declaration;
   }
 }
