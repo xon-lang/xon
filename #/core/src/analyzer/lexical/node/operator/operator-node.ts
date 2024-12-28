@@ -8,6 +8,7 @@ import {
   MODIFIER_KEYWORDS,
   OPERATOR_KEYWORDS,
 } from '#core';
+import {Brand} from '#typing';
 
 export enum KeywordType {
   OPERATOR = 'OPERATOR',
@@ -16,7 +17,7 @@ export enum KeywordType {
 }
 
 // todo should be as OperatorContentNode ???
-export type OperatorNode = LexicalNode & {__branding?: null};
+export type OperatorNode = LexicalNode & Brand<'Core.OperatorNode'>;
 
 export const $OperatorNode = corePackageType<OperatorNode>('OperatorNode', $LexicalNode);
 

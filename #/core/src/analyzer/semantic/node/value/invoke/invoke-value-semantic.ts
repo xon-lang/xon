@@ -1,6 +1,7 @@
 import {$ValueSemantic, corePackageType, Node, TypeSemantic, ValueSemantic} from '#core';
+import {Brand} from '#typing';
 
-export type InvokeValueSemantic = ValueSemantic & {__branding?: null};
+export type InvokeValueSemantic = ValueSemantic & Brand<'Core.InvokeValueSemantic'>;
 
 export const $InvokeValueSemantic = corePackageType<InvokeValueSemantic>(
   'InvokeValueSemantic',

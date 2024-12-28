@@ -1,7 +1,8 @@
 import {Text, TextReference} from '#common';
 import {$LexicalNode, CloseNode, corePackageType, lexicalNode} from '#core';
+import {Brand} from '#typing';
 
-export type StringCloseNode = CloseNode & {__branding?: null};
+export type StringCloseNode = CloseNode & Brand<'Core.StringCloseNode'>;
 
 export const $StringCloseNode = corePackageType<StringCloseNode>('StringCloseNode', $LexicalNode);
 

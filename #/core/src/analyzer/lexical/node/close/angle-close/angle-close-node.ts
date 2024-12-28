@@ -1,7 +1,8 @@
 import {Text, TextReference} from '#common';
 import {$CloseNode, CloseNode, corePackageType, lexicalNode} from '#core';
+import {Brand} from '#typing';
 
-export type AngleCloseNode = CloseNode & {__branding?: null};
+export type AngleCloseNode = CloseNode & Brand<'Core.AngleCloseNode'>;
 
 export const $AngleCloseNode = corePackageType<AngleCloseNode>('AngleCloseNode', $CloseNode);
 

@@ -7,8 +7,14 @@ import {
   unknownTypeSemantic,
   ValueSemantic,
 } from '#core';
+import {Brand} from '#typing';
 
-export type UnknownValueSemantic = ValueSemantic & {__branding?: null};
+export type UnknownValueSemantic = ValueSemantic & Brand<'Core.UnknownValueSemantic'>;
+
+export const $UnknownValueSemantic = corePackageType<UnknownValueSemantic>(
+  'UnknownValueSemantic',
+  $ValueSemantic,
+);
 
 export function unknownValueSemantic(nodeLink: Node, type: UnknownTypeSemantic): UnknownValueSemantic {
   return {
@@ -21,11 +27,6 @@ export function unknownValueSemantic(nodeLink: Node, type: UnknownTypeSemantic):
     },
   };
 }
-
-export const $UnknownValueSemantic = corePackageType<UnknownValueSemantic>(
-  'UnknownValueSemantic',
-  $ValueSemantic,
-);
 
 export function unknownValueFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownValueSemantic {
   const type = unknownTypeSemantic(analyzer, node);

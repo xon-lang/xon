@@ -60,4 +60,5 @@ export function is<T extends $Type>(model: any, type: T): model is Exclude<T['ty
 }
 
 const brand = Symbol('brand');
-export type Brand<T extends string> = {[brand]?: T};
+
+export type Brand<T extends `${string}.${string}`> = {[brand]?: T};

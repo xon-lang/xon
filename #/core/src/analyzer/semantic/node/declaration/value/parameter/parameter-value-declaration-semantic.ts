@@ -8,8 +8,10 @@ import {
   unknownTypeSemantic,
   ValueDeclarationSemantic,
 } from '#core';
+import {Brand} from '#typing';
 
-export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic & {__branding?: null};
+export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic &
+  Brand<'Core.ParameterValueDeclarationSemantic'>;
 
 export const $ParameterValueDeclarationSemantic = corePackageType<ParameterValueDeclarationSemantic>(
   'ParameterValueDeclarationSemantic',

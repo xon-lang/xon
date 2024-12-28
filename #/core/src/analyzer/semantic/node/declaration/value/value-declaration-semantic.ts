@@ -1,6 +1,7 @@
 import {$DeclarationSemantic, corePackageType, DeclarationSemantic} from '#core';
+import {Brand} from '#typing';
 
-export type ValueDeclarationSemantic = DeclarationSemantic & {__branding?: null};
+export type ValueDeclarationSemantic = DeclarationSemantic & Brand<'Core.ValueDeclarationSemantic'>;
 
 export const $ValueDeclarationSemantic = corePackageType<ValueDeclarationSemantic>(
   'ValueDeclarationSemantic',

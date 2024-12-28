@@ -1,7 +1,8 @@
 import {Text, TextReference} from '#common';
 import {$CloseNode, CloseNode, corePackageType, lexicalNode} from '#core';
+import {Brand} from '#typing';
 
-export type BracketCloseNode = CloseNode & {__branding?: null};
+export type BracketCloseNode = CloseNode & Brand<'Core.BracketCloseNode'>;
 
 export const $BracketCloseNode = corePackageType<BracketCloseNode>('BracketCloseNode', $CloseNode);
 

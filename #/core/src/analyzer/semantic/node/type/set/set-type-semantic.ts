@@ -10,9 +10,9 @@ import {
   corePackageType,
   TypeSemantic,
 } from '#core';
-import {is} from '#typing';
+import {Brand, is} from '#typing';
 
-export type SetTypeSemantic = TypeSemantic & {__branding?: null};
+export type SetTypeSemantic = TypeSemantic & Brand<'Core.SetTypeSemantic'>;
 
 export const $SetTypeSemantic = corePackageType<SetTypeSemantic>('SetTypeSemantic', $TypeSemantic);
 
