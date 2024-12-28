@@ -10,7 +10,7 @@ test('string', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($StringNode);
-  expect(node.content?.text.toString()).toBe(text.slice(1, -1));
+  expect(node.content?.text.equals(text.slice(1, -1))).toBe(true);
   expect(node.value).toBe('abc   def');
 });
 
@@ -23,7 +23,7 @@ test('multiline string', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($StringNode);
-  expect(node.content?.text.toString()).toBe(text.slice(1, -1));
+  expect(node.content?.text.equals(text.slice(1, -1))).toBe(true);
   expect(node.value).toBe('some\nmultiline\n\n\nstring\n');
 });
 
