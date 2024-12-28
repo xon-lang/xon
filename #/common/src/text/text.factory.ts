@@ -19,6 +19,7 @@ import {is} from '#typing';
 
 const NL = newTextData('\n');
 
+// todo rename to newText
 export function newTextData(characters: ArrayData<Char>): Text;
 export function newTextData(string: String2): Text;
 export function newTextData(): Text;

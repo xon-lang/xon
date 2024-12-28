@@ -1,15 +1,15 @@
-import {newTextData, newTextResource, nothing} from '#common';
-import {AngleCloseNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {newArrayData, newTextData, newTextResource, nothing} from '#common';
+import {$AngleCloseNode, AngleCloseNode, charLexicalParsers, codeLexicalParsers, newLexicalAnalyzer} from '#core';
+import {is} from '#typing';
 
 test('close paren', () => {
   const text = newTextData(':>');
   const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements[0].value as AngleCloseNode;
+  const analyzer = newLexicalAnalyzer(source);
+  const nodes = newArrayData(Array.from(analyzer.iterator(codeLexicalParsers())));
+  const node = nodes.at(0) as AngleCloseNode;
 
-  expect(statements.length).toBe(1);
-  expect(node.$).toBe($.AngleCloseNode);
-  expect(node.text.toString()).toBe(':>');
+  expect(nodes.length()).toBe(3);
+  expect(is(node, $AngleCloseNode)).toBe(true);
+  expect(node.text.toString()).toBe('(');
 });
