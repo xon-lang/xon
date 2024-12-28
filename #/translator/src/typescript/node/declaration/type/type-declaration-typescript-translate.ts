@@ -1,6 +1,6 @@
 import {String2} from '#common';
-import {TypeDeclarationSemantic, TypescriptTranslator} from '#core';
-import {$, is} from '#typing';
+import {$FunctionTypeSemantic, $NominalTypeDeclarationSemantic, $ParameterTypeDeclarationSemantic, $StructuralTypeDeclarationSemantic, TypeDeclarationSemantic, TypescriptTranslator} from '#core';
+import { is } from '#typing';
 
 export function typeDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,
@@ -8,8 +8,8 @@ export function typeDeclarationTypescriptTranslate(
 ): String2 {
   const exportText = true ? 'export ' : '';
 
-  if (is(semantic, $.NominalTypeDeclarationSemantic)) {
-    const parameters = is(semantic.type, $.FunctionTypeSemantic)
+  if (is(semantic, $NominalTypeDeclarationSemantic)) {
+    const parameters = is(semantic.type, $FunctionTypeSemantic)
       ? `<${semantic.type.parameters.map((x) => translator.typeDeclaration(x)).join(', ')}>`
       : '';
 
@@ -22,13 +22,13 @@ export function typeDeclarationTypescriptTranslate(
     return `${exportText}type ${semantic.name}${parameters} = ${baseType}{}`;
   }
 
-  if (is(semantic, $.StructuralTypeDeclarationSemantic)) {
+  if (is(semantic, $StructuralTypeDeclarationSemantic)) {
     const type = translator.type(semantic.type);
 
     return `${exportText}type ${semantic.name} = ${type}`;
   }
 
-  if (is(semantic, $.ParameterTypeDeclarationSemantic)) {
+  if (is(semantic, $ParameterTypeDeclarationSemantic)) {
     const type = semantic.nodeLink.type ? ' extends ' + translator.type(semantic.type) : '';
     const value = semantic.value ? ' = ' + translator.type(semantic.value) : '';
 

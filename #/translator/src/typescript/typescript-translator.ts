@@ -21,7 +21,6 @@ import {$} from '#typing';
 import path from 'node:path';
 
 export type TypescriptTranslator = Translator & {
-  $: $.TypescriptTranslator;
   diagnosticManager: AnalyzerDiagnosticManager;
 
   type(semantic: TypeSemantic): String2;
@@ -34,7 +33,7 @@ export type TypescriptTranslator = Translator & {
 
 export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
   return {
-    $: $.TypescriptTranslator,
+    $: $TypescriptTranslator,
     diagnosticManager: createDiagnosticManager(semanticAnalyzer.resource),
 
     type(semantic: TypeSemantic): String2 {

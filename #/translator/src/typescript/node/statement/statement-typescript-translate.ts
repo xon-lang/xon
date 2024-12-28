@@ -1,6 +1,16 @@
 import {String2} from '#common';
-import {NL, Semantic, StatementNode, TypescriptTranslator} from '#core';
-import {$, is} from '#typing';
+import {
+  $DeclarationNode,
+  $ReturnNode,
+  $TypeDeclarationSemantic,
+  $ValueDeclarationSemantic,
+  $ValueSemantic,
+  NL,
+  Semantic,
+  StatementNode,
+  TypescriptTranslator,
+} from '#core';
+import {is} from '#typing';
 
 export function statementTypescriptTranslate(
   translator: TypescriptTranslator,
@@ -23,7 +33,7 @@ export function statementTypescriptTranslate(
 function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): String2 {
   const node = statement.value;
 
-  if (is(node, $.DeclarationNode)) {
+  if (is(node, $DeclarationNode)) {
     if (!node.id.semantic) {
       return translator.error(node.id);
     }
@@ -31,9 +41,9 @@ function statementTranslate(translator: TypescriptTranslator, statement: Stateme
     return declarationTranslate(translator, node.id.semantic);
   }
 
-  if (is(node, $.ReturnNode)) {
+  if (is(node, $ReturnNode)) {
     if (node.value) {
-      const value = is(node.value.semantic, $.ValueSemantic)
+      const value = is(node.value.semantic, $ValueSemantic)
         ? translator.value(node.value.semantic)
         : translator.error(node.value);
 
@@ -43,7 +53,7 @@ function statementTranslate(translator: TypescriptTranslator, statement: Stateme
     return `return`;
   }
 
-  if (is(node, $.ExpressionNode) && is(node.semantic, $.ValueSemantic)) {
+  if (node.isExpression && is(node.semantic, $ValueSemantic)) {
     return translator.value(node.semantic);
   }
 
@@ -54,11 +64,11 @@ function declarationTranslate(
   translator: TypescriptTranslator,
   semantic: Semantic, // DeclarationSemantic
 ): String2 {
-  if (is(semantic, $.TypeDeclarationSemantic)) {
+  if (is(semantic, $TypeDeclarationSemantic)) {
     return translator.typeDeclaration(semantic);
   }
 
-  if (is(semantic, $.ValueDeclarationSemantic)) {
+  if (is(semantic, $ValueDeclarationSemantic)) {
     return 'const ' + translator.valueDeclaration(semantic);
   }
 
