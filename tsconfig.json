@@ -29,7 +29,6 @@
     "paths": {
       "#common": ["#/common/*", "#/common"],
       "#core": ["#/core/*", "#/core"],
-      "#semantics": ["#/semantics/*", "#/semantics"],
       "#translator": ["#/translator/*", "#/translator"],
       "#typing": ["#/typing/*", "#/typing"],
       "#vscode": ["#/vscode/*", "#/vscode"],
