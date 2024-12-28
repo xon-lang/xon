@@ -1,4 +1,5 @@
-import {$Text, is, newText} from '#common';
+import {$Text, newText} from '#common';
+import {is} from '#typing';
 
 test('text data', () => {
   const a = newText('ABC');

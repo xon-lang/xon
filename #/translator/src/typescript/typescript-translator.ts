@@ -1,23 +1,26 @@
 import {String2} from '#common';
 import {
   AnalyzerDiagnosticManager,
+  createDiagnosticManager,
   NL,
   Node,
   SemanticAnalyzer,
   StatementNode,
-  Translator,
   TypeDeclarationSemantic,
   TypeSemantic,
   ValueDeclarationSemantic,
   ValueSemantic,
-  createDiagnosticManager,
+} from '#core';
+import {
+  $Translator,
   statementTypescriptTranslate,
+  Translator,
+  translatorPackageType,
   typeDeclarationTypescriptTranslate,
   typeTypescriptTranslate,
   valueDeclarationTypescriptTranslate,
   valueTypescriptTranslate,
-} from '#core';
-import {$} from '#typing';
+} from '#translator';
 import path from 'node:path';
 
 export type TypescriptTranslator = Translator & {
@@ -30,6 +33,8 @@ export type TypescriptTranslator = Translator & {
   statement(node: StatementNode): String2;
   error(node: Node): String2;
 };
+
+export const $TypescriptTranslator = translatorPackageType('TypescriptTranslator', $Translator);
 
 export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
   return {
@@ -73,16 +78,6 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
           .filter((translatedNode) => translatedNode.length > 0)
           .join(NL.addLast(...NL).toString()) + NL
       );
-    },
-
-    // todo fix equals
-    equals(other) {
-      return false;
-    },
-
-    clone() {
-      // todo fix clone
-      return this;
     },
   };
 }

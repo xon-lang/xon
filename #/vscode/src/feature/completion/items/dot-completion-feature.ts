@@ -49,11 +49,11 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
 
 function getAttributes(semantic: Semantic): ValueDeclarationSemantic[] | Nothing {
   if (is(semantic, $TypeSemantic)) {
-    return semantic.attributes().all().toArray();
+    return semantic.attributes().all().toNativeArray();
   }
 
   if (is(semantic, $ValueSemantic) && semantic.type) {
-    return semantic.type.attributes().all().toArray();
+    return semantic.type.attributes().all().toNativeArray();
   }
 
   return nothing;

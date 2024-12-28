@@ -3,7 +3,6 @@ import {
   Boolean2,
   Nothing,
   Resource,
-  String2,
   Text,
   TextRange,
   TextReference,
@@ -35,10 +34,6 @@ export function newTextResource(location: Text | Nothing, data: Text): TextResou
     // clone(): TextResource {
     //   return newTextResourceFromData(this.location, this.data);
     // },
-
-    toString(): String2 {
-      return `{ location: ${this.location}, data: ${this.data}}`;
-    },
   };
 }
 

@@ -1,10 +1,9 @@
-import {Nothing, Text, TextReference} from '#common';
+import {Text, TextReference} from '#common';
 import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#core';
-import {DeclarationSemantics, DocumentationIdSemantics, IdTypeSemantics, IdValueSemantics} from '#semantics';
 
 // todo should be as IdContentNode ???
 export type IdNode = LexicalNode & {
-  semantic?: IdValueSemantics | IdTypeSemantics | DeclarationSemantics | DocumentationIdSemantics | Nothing;
+  __branding?: null;
 };
 
 export const $IdNode = corePackageType<IdNode>('IdNode', $LexicalNode);

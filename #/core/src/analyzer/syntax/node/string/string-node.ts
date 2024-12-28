@@ -9,10 +9,8 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
-import {StringTypeSemantics, StringValueSemantics} from '#semantics';
 
 export type StringNode = SyntaxNode & {
-  semantics?: StringTypeSemantics | StringValueSemantics | Nothing;
   value: String2;
 
   open: StringOpenNode;

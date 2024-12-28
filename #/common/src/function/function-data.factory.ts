@@ -1,4 +1,4 @@
-import {$FunctionData, Boolean2, FunctionData, String2} from '#common';
+import {$FunctionData, Boolean2, FunctionData} from '#common';
 
 export function newFunctionData<T extends Function>(fn: T): FunctionData<T> {
   return {
@@ -7,10 +7,6 @@ export function newFunctionData<T extends Function>(fn: T): FunctionData<T> {
 
     equals(other: FunctionData): Boolean2 {
       return this.invoke === other.invoke;
-    },
-
-    toString(): String2 {
-      return this.invoke.toString();
     },
   };
 }

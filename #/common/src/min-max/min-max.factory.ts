@@ -1,4 +1,4 @@
-import {$MinMax, Boolean2, Integer, MinMax, String2} from '#common';
+import {$MinMax, Boolean2, Integer, MinMax} from '#common';
 
 export function newMinMax(min: Integer, max: Integer): MinMax {
   return {
@@ -12,10 +12,6 @@ export function newMinMax(min: Integer, max: Integer): MinMax {
 
     clone(): MinMax {
       return newMinMax(this.min, this.max);
-    },
-
-    toString(): String2 {
-      return `{min: ${this.min}, max: ${this.max}}`;
     },
   };
 }
