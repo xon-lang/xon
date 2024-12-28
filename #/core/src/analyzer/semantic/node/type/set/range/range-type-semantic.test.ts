@@ -1,5 +1,7 @@
 import {newText, newTextResource, nothing} from '#common';
 import {
+  $AttributeValueDeclarationSemantic,
+  $RangeTypeSemantic,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
@@ -9,7 +11,6 @@ import {
   TEST_SEMANTIC_CONFIG,
   typeNodeType,
 } from '#core';
-import {$} from '#typing';
 
 test('a is range', () => {
   const text = newText(`
@@ -21,13 +22,13 @@ test('a is range', () => {
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $.AttributeValueDeclarationSemantic,
+    $AttributeValueDeclarationSemantic,
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.AttributeValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
@@ -36,7 +37,7 @@ test('a is range', () => {
     ? (typeNodeType(semantic, constNode.type) as RangeTypeSemantic)
     : nothing;
 
-  expect(typeSemantic?.$).toBe($.RangeTypeSemantic);
+  expect(typeSemantic?.$).toBe($RangeTypeSemantic);
   expect((typeSemantic?.from as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic?.to as IntegerTypeSemantic).value).toBe(3);
 });

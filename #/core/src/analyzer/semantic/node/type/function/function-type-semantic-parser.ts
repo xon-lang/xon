@@ -1,5 +1,6 @@
 import {Nothing, nothing} from '#common';
 import {
+  $LambdaNode,
   DeclarationNode,
   DeclarationSemantic,
   documentationIdSemantic,
@@ -15,13 +16,13 @@ import {
   typeSemanticParse,
   unknownTypeSemantic,
 } from '#core';
-import {$, is} from '#typing';
+import {is} from '#typing';
 
 export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): FunctionTypeSemantic | Nothing {
-  if (!is(node, $.LambdaNode)) {
+  if (!is(node, $LambdaNode)) {
     return nothing;
   }
 

@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {PostfixNode, evaluate, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$PostfixNode, PostfixNode, evaluate, syntaxFromResource} from '#core';
 
 test('after integer', () => {
   const text = newText('1!');
@@ -10,7 +9,7 @@ test('after integer', () => {
   const node = statements[0].value as PostfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.PostfixNode);
+  expect(node.$).toBe($PostfixNode);
   expect(node.operator.text.toString()).toBe('!');
   expect(evaluate(node.value)).toBe(1);
 });

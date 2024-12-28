@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$IdNode, $NlNode, IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#core';
 
 test('lf nl', () => {
   const text = newText('\n');
@@ -10,7 +9,7 @@ test('lf nl', () => {
   const node = syntax.hiddenNodes[0] as NlNode;
 
   expect(statements.length).toBe(0);
-  expect(node.$).toBe($.NlNode);
+  expect(node.$).toBe($NlNode);
   expect(node.text.toString()).toBe(NL);
 });
 
@@ -21,7 +20,7 @@ test('several', () => {
   const statements = syntax.statements;
 
   expect(statements.length).toBe(1);
-  expect(statements[0].value.$).toBe($.IdNode);
+  expect(statements[0].value.$).toBe($IdNode);
   expect((statements[0].value as IdNode).text.toString()).toBe('abc');
 
   const node0 = statements[0].hiddenNodes?.at(0) as LexicalNode;

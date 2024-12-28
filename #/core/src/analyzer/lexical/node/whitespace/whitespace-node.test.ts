@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {LexicalNode, syntaxFromResource, WhitespaceNode} from '#core';
-import {$} from '#typing';
+import {$WhitespaceNode, LexicalNode, syntaxFromResource, WhitespaceNode} from '#core';
 
 test('whitespace', () => {
   const text = newText('    ');
@@ -11,6 +10,6 @@ test('whitespace', () => {
 
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
-  expect(node.$).toBe($.WhitespaceNode);
+  expect(node.$).toBe($WhitespaceNode);
   expect((node as LexicalNode).text.toString()).toBe('    ');
 });

@@ -1,7 +1,7 @@
 import {Text, TextReference} from '#common';
 import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#core';
 
-export type JoiningNode = LexicalNode;
+export type JoiningNode = LexicalNode & {__branding?: null};
 
 export const $JoiningNode = corePackageType<JoiningNode>('JoiningNode', $LexicalNode);
 

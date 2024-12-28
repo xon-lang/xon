@@ -1,5 +1,6 @@
 import {Nothing, nothing} from '#common';
 import {
+  $StringNode,
   Node,
   SemanticAnalyzer,
   StringNode,
@@ -7,13 +8,13 @@ import {
   stringTypeSemanticParse,
   stringValueSemantic,
 } from '#core';
-import {$, is} from '#typing';
+import {is} from '#typing';
 
 export function stringValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): StringValueSemantic | Nothing {
-  if (!is(node, $.StringNode)) {
+  if (!is(node, $StringNode)) {
     return nothing;
   }
 

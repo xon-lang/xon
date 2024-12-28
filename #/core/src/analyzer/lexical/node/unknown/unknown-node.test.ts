@@ -1,6 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
-import {IntegerNode, LexicalNode, syntaxFromResource, UnknownNode} from '#core';
-import {$, is} from '#typing';
+import {$IntegerNode, $LexicalNode, IntegerNode, LexicalNode, syntaxFromResource, UnknownNode} from '#core';
+import {is} from '#typing';
 
 test('unknown 1', () => {
   const text = newText('123 §•∞•456');
@@ -11,11 +11,11 @@ test('unknown 1', () => {
   const node1 = statements[0].children[1] as UnknownNode;
 
   expect(statements.length).toBe(1);
-  expect(node0.$).toBe($.IntegerNode);
+  expect(node0.$).toBe($IntegerNode);
   expect(node0.content.text.toString()).toBe('123');
 
   expect(node1.hiddenNodes?.length).toBe(1);
-  expect(is(node1.hiddenNodes?.at(0), $.LexicalNode)).toBe(true);
+  expect(is(node1.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
   expect((node1.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(' ');
   expect(node1.text.toString()).toBe('§');
 });

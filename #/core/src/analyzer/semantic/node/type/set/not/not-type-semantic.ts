@@ -1,21 +1,23 @@
 import {Boolean2} from '#common';
 import {
+  $SetTypeSemantic,
   AttributeValueDeclarationSemantic,
+  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
   TypeSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type NotTypeSemantic = SetTypeSemantic & {
-  $: $.NotTypeSemantic;
   value: TypeSemantic;
 };
 
+export const $NotTypeSemantic = corePackageType<NotTypeSemantic>('NotTypeSemantic', $SetTypeSemantic);
+
 export function notTypeSemantic(nodeLink: Node, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {
-    $: $.NotTypeSemantic,
+    $: $NotTypeSemantic,
     nodeLink,
     value,
 

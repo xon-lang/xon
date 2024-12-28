@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {CommentLineNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$CommentLineNode, CommentLineNode, syntaxFromResource} from '#core';
 
 test('line comment', () => {
   const text = newText('// abc');
@@ -11,6 +10,6 @@ test('line comment', () => {
 
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
-  expect(node.$).toBe($.CommentLineNode);
+  expect(node.$).toBe($CommentLineNode);
   expect(node.text.toString()).toBe('// abc');
 });

@@ -1,12 +1,12 @@
 import {newText, newTextResource, nothing} from '#common';
 import {
+  $AttributeValueDeclarationSemantic,
   AttributeValueDeclarationSemantic,
   FunctionTypeSemantic,
   ParameterValueDeclarationSemantic,
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
 } from '#core';
-import {$} from '#typing';
 
 test('only a', () => {
   const text = newText('const a(p: Integer): String');
@@ -18,7 +18,7 @@ test('only a', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('a'))
     ?.at2(0) as AttributeValueDeclarationSemantic;
-  expect(declaration.$).toBe($.AttributeValueDeclarationSemantic);
+  expect(declaration.$).toBe($AttributeValueDeclarationSemantic);
   expect(declaration.modifier).toBe('const');
   expect(declaration.name).toBe('a');
 

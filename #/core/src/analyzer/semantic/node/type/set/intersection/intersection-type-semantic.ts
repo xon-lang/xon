@@ -1,18 +1,23 @@
 import {Boolean2} from '#common';
 import {
+  $SetTypeSemantic,
   AttributeValueDeclarationSemantic,
+  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
   TypeSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type IntersectionTypeSemantic = SetTypeSemantic & {
-  $: $.IntersectionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
 };
+
+export const $IntersectionTypeSemantic = corePackageType<IntersectionTypeSemantic>(
+  'IntersectionTypeSemantic',
+  $SetTypeSemantic,
+);
 
 export function intersectionTypeSemantic(
   nodeLink: Node,
@@ -20,7 +25,7 @@ export function intersectionTypeSemantic(
   right: TypeSemantic,
 ): IntersectionTypeSemantic {
   const semantic: IntersectionTypeSemantic = {
-    $: $.IntersectionTypeSemantic,
+    $: $IntersectionTypeSemantic,
     nodeLink,
     left,
     right,

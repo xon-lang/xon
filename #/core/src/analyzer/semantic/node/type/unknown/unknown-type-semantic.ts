@@ -1,39 +1,48 @@
 import {Boolean2, Nothing} from '#common';
 import {
+  $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
+  $SetTypeSemantic,
+  $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  createDeclarationScope,
+  corePackageType,
   isInSet,
+  newDeclarationScope,
 } from '#core';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 // todo use something instead of unknown ???
 // todo one Unknown doesn't equals other unknown
 export type UnknownTypeSemantic = TypeSemantic & {
-  $: $.UnknownTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
 };
+
+export const $UnknownTypeSemantic = corePackageType<UnknownTypeSemantic>(
+  'UnknownTypeSemantic',
+  $TypeSemantic,
+);
 
 // todo use 'Anything' type as unknown
 export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node): UnknownTypeSemantic {
   const {unknownTypeName} = analyzer.config.literalTypeNames;
-  const declaration = analyzer.declarationManager.find($.NominalTypeDeclarationSemantic, unknownTypeName);
+  const declaration = analyzer.declarationManager.find($NominalTypeDeclarationSemantic, unknownTypeName);
 
   if (declaration) {
     declaration.usages.push(nodeLink.reference);
   }
 
   return {
-    $: $.UnknownTypeSemantic,
+    $: $UnknownTypeSemantic,
     nodeLink,
     declaration,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 
@@ -41,7 +50,7 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
         return true;
       }
 
-      if (is(this.declaration, $.NominalTypeDeclarationSemantic)) {
+      if (is(this.declaration, $NominalTypeDeclarationSemantic)) {
         return this.declaration.type?.is(other) ?? false;
       }
 
@@ -50,9 +59,9 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
 
     eq(other: TypeSemantic): Boolean2 {
       if (
-        is(this.declaration, $.NominalTypeDeclarationSemantic) &&
-        is(other, $.IdTypeSemantic) &&
-        is(other.declaration, $.NominalTypeDeclarationSemantic)
+        is(this.declaration, $NominalTypeDeclarationSemantic) &&
+        is(other, $IdTypeSemantic) &&
+        is(other.declaration, $NominalTypeDeclarationSemantic)
       ) {
         return this.declaration.eq(other.declaration);
       }
@@ -63,10 +72,10 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
       // todo review body of this function
       if (this.declaration) {
-        return this.declaration.attributes?.clone() ?? createDeclarationScope(analyzer);
+        return this.declaration.attributes?.clone() ?? newDeclarationScope();
       }
 
-      return createDeclarationScope(analyzer);
+      return newDeclarationScope();
     },
   };
 }

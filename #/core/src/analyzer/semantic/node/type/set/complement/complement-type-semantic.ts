@@ -1,18 +1,23 @@
 import {Boolean2} from '#common';
 import {
+  $SetTypeSemantic,
   AttributeValueDeclarationSemantic,
+  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
   TypeSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type ComplementTypeSemantic = SetTypeSemantic & {
-  $: $.ComplementTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
 };
+
+export const $ComplementTypeSemantic = corePackageType<ComplementTypeSemantic>(
+  'ComplementTypeSemantic',
+  $SetTypeSemantic,
+);
 
 export function complementTypeSemantic(
   nodeLink: Node,
@@ -20,7 +25,7 @@ export function complementTypeSemantic(
   right: TypeSemantic,
 ): ComplementTypeSemantic {
   const semantic: ComplementTypeSemantic = {
-    $: $.ComplementTypeSemantic,
+    $: $ComplementTypeSemantic,
     nodeLink,
     left,
     right,

@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {RETURN, ReturnNode, evaluate, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$ReturnNode, RETURN, ReturnNode, evaluate, syntaxFromResource} from '#core';
 
 test('with value', () => {
   const text = newText('return 3 + 7');
@@ -10,7 +9,7 @@ test('with value', () => {
   const node = statements[0].value as ReturnNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.ReturnNode);
+  expect(node.$).toBe($ReturnNode);
   expect(node.operator.text.toString()).toBe(RETURN);
   expect(evaluate(node.value)).toBe(10);
 });

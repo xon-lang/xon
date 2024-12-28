@@ -1,5 +1,8 @@
 import {Boolean2} from '#common';
 import {
+  $NominalTypeDeclarationSemantic,
+  $SetTypeSemantic,
+  $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
@@ -7,15 +10,20 @@ import {
   ParameterValueDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
+  corePackageType,
   isInSet,
 } from '#core';
-import {$, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 export type FunctionTypeSemantic = TypeSemantic & {
-  $: $.FunctionTypeSemantic;
   parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[];
   result: TypeSemantic;
 };
+
+export const $FunctionTypeSemantic = corePackageType<FunctionTypeSemantic>(
+  'FunctionTypeSemantic',
+  $TypeSemantic,
+);
 
 export function functionTypeSemantic(
   analyzer: SemanticAnalyzer,
@@ -24,17 +32,17 @@ export function functionTypeSemantic(
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
-    $: $.FunctionTypeSemantic,
+    $: $FunctionTypeSemantic,
     nodeLink,
     declaration: analyzer.declarationManager.find(
-      $.NominalTypeDeclarationSemantic,
+      $NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.functionTypeName,
     ),
     parameters,
     result,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 

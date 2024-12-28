@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {CommaNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$CommaNode, CommaNode, syntaxFromResource} from '#core';
 
 test('comma', () => {
   const text = newText(',');
@@ -10,6 +9,6 @@ test('comma', () => {
   const node = statements[0].value as CommaNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.CommaNode);
+  expect(node.$).toBe($CommaNode);
   expect(node.text.toString()).toBe(',');
 });

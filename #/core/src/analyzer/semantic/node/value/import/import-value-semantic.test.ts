@@ -1,5 +1,7 @@
 import {newText, newTextResource, nothing} from '#common';
 import {
+  $AttributeValueDeclarationSemantic,
+  $StringTypeSemantic,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
@@ -7,7 +9,6 @@ import {
   syntaxFromResource,
   typeNodeType,
 } from '#core';
-import {$} from '#typing';
 
 test('import core', () => {
   const text = newText(`
@@ -20,14 +21,14 @@ test('import core', () => {
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $.AttributeValueDeclarationSemantic,
+    $AttributeValueDeclarationSemantic,
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode).toBeTruthy();
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.AttributeValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
@@ -36,6 +37,6 @@ test('import core', () => {
     ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
     : nothing;
   expect(typeSemantic).toBeTruthy();
-  expect(typeSemantic?.$).toBe($.StringTypeSemantic);
+  expect(typeSemantic?.$).toBe($StringTypeSemantic);
   expect(typeSemantic?.value).toBe('abc');
 });

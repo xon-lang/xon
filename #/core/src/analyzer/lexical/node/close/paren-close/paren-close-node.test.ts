@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {ParenCloseNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$ParenCloseNode, ParenCloseNode, syntaxFromResource} from '#core';
 
 test('close paren', () => {
   const text = newText(')');
@@ -10,6 +9,6 @@ test('close paren', () => {
   const node = statements[0].value as ParenCloseNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.ParenCloseNode);
+  expect(node.$).toBe($ParenCloseNode);
   expect(node.text.toString()).toBe(')');
 });

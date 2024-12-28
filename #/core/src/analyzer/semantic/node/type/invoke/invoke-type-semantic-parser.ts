@@ -1,5 +1,7 @@
 import {Nothing, nothing} from '#common';
 import {
+  $AngleGroupNode,
+  $InvokeNode,
   InvokeTypeSemantic,
   invokeTypeSemantic,
   Node,
@@ -7,17 +9,17 @@ import {
   typeSemanticParse,
   unknownTypeSemantic,
 } from '#core';
-import {$, is} from '#typing';
+import {is} from '#typing';
 
 export function invokeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): InvokeTypeSemantic | Nothing {
-  if (!is(node, $.InvokeNode)) {
+  if (!is(node, $InvokeNode)) {
     return nothing;
   }
 
-  if (!is(node.group, $.AngleGroupNode)) {
+  if (!is(node.group, $AngleGroupNode)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.group.open.reference, (x) => x.notImplemented());
 
     return nothing;

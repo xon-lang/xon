@@ -1,10 +1,11 @@
-import {newArrayData, TextResource} from '#common';
+import {Boolean2, newArrayData, Nothing, nothing, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
-  createDeclarationScope,
+  corePackageType,
   declarationManagerFromImportString,
   DeclarationScope,
   DEFAULT_SEMANTIC_CONFIG,
+  newDeclarationScope,
   SemanticAnalyzerConfig,
   StatementNode,
   statementsParse,
@@ -12,9 +13,9 @@ import {
   SyntaxAnalyzerConfig,
   syntaxFromResource,
 } from '#core';
-import {Nothing, nothing} from '#typing';
+import {Model} from '#typing';
 
-export type SemanticAnalyzer = {
+export type SemanticAnalyzer = Model & {
   syntaxAnalyzer: SyntaxAnalyzer;
   resource: TextResource;
   config: SemanticAnalyzerConfig;
@@ -25,6 +26,8 @@ export type SemanticAnalyzer = {
   pushDeclarationScope(): void;
   popDeclarationScope(): void;
 };
+
+export const $SemanticAnalyzer = corePackageType<SemanticAnalyzer>('SemanticAnalyzer');
 
 export function createSemanticAnalyzer(
   syntaxAnalyzer: SyntaxAnalyzer,
@@ -39,6 +42,7 @@ export function createSemanticAnalyzer(
   const dummyDeclarationManager = {} as DeclarationScope;
 
   const semanticAnalyzer: SemanticAnalyzer = {
+    $: $SemanticAnalyzer,
     syntaxAnalyzer: syntaxAnalyzer,
     resource: syntaxAnalyzer.resource,
     diagnosticManager: syntaxAnalyzer.diagnosticManager,
@@ -47,7 +51,7 @@ export function createSemanticAnalyzer(
     config,
 
     pushDeclarationScope(): void {
-      this.declarationManager = createDeclarationScope(this, this.declarationManager);
+      this.declarationManager = newDeclarationScope(this.declarationManager);
     },
 
     popDeclarationScope(): void {
@@ -57,14 +61,14 @@ export function createSemanticAnalyzer(
         throw new Error('Not implemented');
       }
     },
+
+    equals(other: SemanticAnalyzer): Boolean2 {
+      return this === other;
+    },
   };
 
   // todo fix it
-  semanticAnalyzer.declarationManager = createDeclarationScope(
-    semanticAnalyzer,
-    nothing,
-    newArrayData(imports),
-  );
+  semanticAnalyzer.declarationManager = newDeclarationScope(nothing, newArrayData(imports));
 
   statementsParse(semanticAnalyzer, semanticAnalyzer.statements);
 

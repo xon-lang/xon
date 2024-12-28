@@ -1,5 +1,6 @@
 import {Nothing, nothing} from '#common';
 import {
+  $BracketGroupNode,
   ArrayTypeSemantic,
   arrayTypeSemantic,
   BracketGroupNode,
@@ -8,13 +9,13 @@ import {
   typeSemanticParse,
   unknownTypeSemantic,
 } from '#core';
-import {$, is} from '#typing';
+import {is} from '#typing';
 
 export function arrayTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ArrayTypeSemantic | Nothing {
-  if (!is(node, $.BracketGroupNode)) {
+  if (!is(node, $BracketGroupNode)) {
     return nothing;
   }
 

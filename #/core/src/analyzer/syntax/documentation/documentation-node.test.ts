@@ -1,6 +1,5 @@
-import {newText, newTextResource} from '#common';
-import {DocumentationNode, syntaxFromResource} from '#core';
-import {nothing} from '#typing';
+import {newText, newTextResource, nothing} from '#common';
+import {$DocumentationNode, DocumentationNode, syntaxFromResource} from '#core';
 
 test('documentation', () => {
   const text = newText('===a===');
@@ -13,7 +12,7 @@ test('documentation', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($.DocumentationNode);
+  expect(node.$).toBe($DocumentationNode);
   expect(node.description?.text.toString()).toBe('a');
 });
 
@@ -28,7 +27,7 @@ test('documentation 2', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($.DocumentationNode);
+  expect(node.$).toBe($DocumentationNode);
   expect(node.description?.text.toString()).toBe(' abc\n\n\n def==');
 });
 
@@ -43,7 +42,7 @@ test('documentation labels', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($.DocumentationNode);
+  expect(node.$).toBe($DocumentationNode);
   expect(node.description?.text.toString()).toBe(' abc\n\n\n def ');
   expect(node.items?.length).toBe(2);
 
@@ -67,7 +66,7 @@ test('documentation operator id', () => {
   expect(hiddenNodes.length).toBe(1);
 
   const node = hiddenNodes[0] as DocumentationNode;
-  expect(node.$).toBe($.DocumentationNode);
+  expect(node.$).toBe($DocumentationNode);
   expect(node.description).toBeFalsy();
   expect(node.items?.length).toBe(1);
 

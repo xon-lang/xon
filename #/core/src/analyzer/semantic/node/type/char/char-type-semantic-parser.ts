@@ -1,9 +1,10 @@
 import {Nothing, nothing} from '#common';
-import {CharNode, CharTypeSemantic, charTypeSemantic, Node, SemanticAnalyzer} from '#core';
-import {$, is} from '#typing';
+import {$CharNode, CharNode, CharTypeSemantic, charTypeSemantic, Node, SemanticAnalyzer} from '#core';
+import { is } from '#typing';
+
 
 export function charTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): CharTypeSemantic | Nothing {
-  if (!is(node, $.CharNode)) {
+  if (!is(node, $CharNode)) {
     return nothing;
   }
 

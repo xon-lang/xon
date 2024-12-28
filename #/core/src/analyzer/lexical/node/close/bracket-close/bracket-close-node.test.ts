@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {BracketCloseNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$BracketCloseNode, BracketCloseNode, syntaxFromResource} from '#core';
 
 test('close paren', () => {
   const text = newText(']');
@@ -10,6 +9,6 @@ test('close paren', () => {
   const node = statements[0].value as BracketCloseNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.BracketCloseNode);
+  expect(node.$).toBe($BracketCloseNode);
   expect(node.text.toString()).toBe(']');
 });

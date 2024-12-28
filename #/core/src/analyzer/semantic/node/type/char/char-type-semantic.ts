@@ -1,34 +1,40 @@
 import {Boolean2, Char, Nothing} from '#common';
 import {
+  $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
+  $SetTypeSemantic,
+  $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  createDeclarationScope,
+  corePackageType,
   isInSet,
+  newDeclarationScope,
 } from '#core';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 export type CharTypeSemantic = TypeSemantic & {
-  $: $.CharTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: Char;
 };
 
+export const $CharTypeSemantic = corePackageType<CharTypeSemantic>('CharTypeSemantic', $TypeSemantic);
+
 export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
   return {
-    $: $.CharTypeSemantic,
+    $: $CharTypeSemantic,
     nodeLink,
     declaration: analyzer.declarationManager.find(
-      $.NominalTypeDeclarationSemantic,
+      $NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.charTypeName,
     ),
     value,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 
@@ -36,7 +42,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
         return true;
       }
 
-      if (is(other, $.IdTypeSemantic) && other.declaration) {
+      if (is(other, $IdTypeSemantic) && other.declaration) {
         return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
@@ -44,7 +50,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is(other, $.CharTypeSemantic)) {
+      if (is(other, $CharTypeSemantic)) {
         return this.value === other.value;
       }
 
@@ -52,7 +58,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
     },
 
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
+      return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };
 }

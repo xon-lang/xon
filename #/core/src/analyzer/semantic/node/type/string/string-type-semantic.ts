@@ -1,21 +1,27 @@
 import {Boolean2, Nothing, String2} from '#common';
 import {
+  $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
+  $SetTypeSemantic,
+  $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  createDeclarationScope,
+  corePackageType,
   isInSet,
+  newDeclarationScope,
 } from '#core';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 export type StringTypeSemantic = TypeSemantic & {
-  $: $.StringTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: String2;
 };
+
+export const $StringTypeSemantic = corePackageType<StringTypeSemantic>('StringTypeSemantic', $TypeSemantic);
 
 export function stringTypeSemantic(
   analyzer: SemanticAnalyzer,
@@ -23,16 +29,16 @@ export function stringTypeSemantic(
   value: String2,
 ): StringTypeSemantic {
   return {
-    $: $.StringTypeSemantic,
+    $: $StringTypeSemantic,
     nodeLink,
     declaration: analyzer.declarationManager.find(
-      $.NominalTypeDeclarationSemantic,
+      $NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.stringTypeName,
     ),
     value,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 
@@ -40,7 +46,7 @@ export function stringTypeSemantic(
         return true;
       }
 
-      if (is(other, $.IdTypeSemantic) && other.declaration) {
+      if (is(other, $IdTypeSemantic) && other.declaration) {
         return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
@@ -48,7 +54,7 @@ export function stringTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is(other, $.StringTypeSemantic)) {
+      if (is(other, $StringTypeSemantic)) {
         return this.value === other.value;
       }
 
@@ -56,7 +62,7 @@ export function stringTypeSemantic(
     },
 
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
+      return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };
 }

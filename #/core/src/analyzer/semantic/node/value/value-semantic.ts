@@ -1,6 +1,7 @@
-import {Semantic, TypeSemantic} from '#core';
-import {$} from '#typing';
+import {$Semantic, corePackageType, Semantic, TypeSemantic} from '#core';
 
-export type ValueSemantic<T extends $ = $, TYPE extends TypeSemantic = TypeSemantic> = Semantic<T> & {
-  type: TYPE;
+export type ValueSemantic = Semantic & {
+  type: TypeSemantic;
 };
+
+export const $ValueSemantic = corePackageType<ValueSemantic>('ValueSemantic', $Semantic);

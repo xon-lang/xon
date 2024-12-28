@@ -1,5 +1,7 @@
 import {Nothing, nothing} from '#common';
 import {
+  $MemberNode,
+  $ValueDeclarationSemantic,
   MemberValueSemantic,
   Node,
   SemanticAnalyzer,
@@ -8,13 +10,13 @@ import {
   unknownTypeSemantic,
   valueSemanticParse,
 } from '#core';
-import {$, is} from '#typing';
+import {is} from '#typing';
 
 export function memberValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): MemberValueSemantic | Nothing {
-  if (!is(node, $.MemberNode)) {
+  if (!is(node, $MemberNode)) {
     return nothing;
   }
 
@@ -26,7 +28,7 @@ export function memberValueSemanticTryParse(
   if (instanceSemantic && node.id) {
     const attributes = instanceSemantic.type
       ?.attributes()
-      .filterByName($.ValueDeclarationSemantic, node.id.text);
+      .filterByName($ValueDeclarationSemantic, node.id.text);
 
     if (attributes && attributes.length() === 1) {
       memberType = attributes.at2(0).type;

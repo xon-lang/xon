@@ -1,7 +1,7 @@
 import {Text, TextReference} from '#common';
 import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#core';
 
-export type IntegerContentNode = LexicalNode;
+export type IntegerContentNode = LexicalNode & {__branding?: null};
 
 export const $IntegerContentNode = corePackageType<IntegerContentNode>('IntegerContentNode', $LexicalNode);
 

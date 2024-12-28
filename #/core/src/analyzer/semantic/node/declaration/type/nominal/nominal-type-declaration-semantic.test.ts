@@ -1,11 +1,13 @@
 import {newText, newTextResource, nothing} from '#common';
 import {
+  $FunctionTypeSemantic,
+  $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
   FunctionTypeSemantic,
   IdTypeSemantic,
   NominalTypeDeclarationSemantic,
   semanticFromResource,
 } from '#core';
-import {$} from '#typing';
 
 test('no generics', () => {
   const text = newText(`type Number`);
@@ -17,12 +19,12 @@ test('no generics', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('Number'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(declaration.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(declaration.$).toBe($NominalTypeDeclarationSemantic);
   expect(declaration.modifier).toBe('type');
   expect(declaration.name).toBe('Number');
 
   const type = declaration.type as IdTypeSemantic;
-  expect(type.$).toBe($.IdTypeSemantic);
+  expect(type.$).toBe($IdTypeSemantic);
   expect(type.name).toBe('Number');
 });
 
@@ -36,12 +38,12 @@ test('has generics', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('Number'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(declaration.$).toBe($.NominalTypeDeclarationSemantic);
+  expect(declaration.$).toBe($NominalTypeDeclarationSemantic);
   expect(declaration.modifier).toBe('type');
   expect(declaration.name).toBe('Number');
 
   const type = declaration.type as FunctionTypeSemantic;
-  expect(type.$).toBe($.FunctionTypeSemantic);
+  expect(type.$).toBe($FunctionTypeSemantic);
   expect(type.parameters.length).toBe(3);
   expect(type.parameters[2].name).toBe('U');
   expect(type.result.declaration?.name).toBe('Number');

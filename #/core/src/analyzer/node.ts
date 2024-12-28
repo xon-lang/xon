@@ -1,6 +1,5 @@
 import {Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
-import {corePackageType} from '#core';
-import {Semantics} from '#semantics';
+import {corePackageType, Semantic} from '#core';
 import {Model} from '#typing';
 
 export type Node = Model & {
@@ -9,7 +8,7 @@ export type Node = Model & {
   isHidden?: Boolean2 | Nothing;
   isExpression?: Boolean2 | Nothing;
   // todo remove 'semantic' field ???
-  semantics?: Semantics | Nothing;
+  semantic?: Semantic | Nothing;
   hiddenNodes?: Node[] | Nothing;
 };
 

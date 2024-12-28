@@ -1,18 +1,23 @@
 import {Boolean2, newText, Nothing, Text} from '#common';
 import {
+  $ValueDeclarationSemantic,
+  corePackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
   unknownTypeSemantic,
   ValueDeclarationSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
-  $: $.AttributeValueDeclarationSemantic;
   // todo move it to new 'OperatorDeclarationSemantic'
   alternativeName: Text;
 };
+
+export const $AttributeValueDeclarationSemantic = corePackageType<AttributeValueDeclarationSemantic>(
+  'AttributeValueDeclarationSemantic',
+  $ValueDeclarationSemantic,
+);
 
 export function attributeValueDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -22,7 +27,7 @@ export function attributeValueDeclarationSemantic(
   name: Text,
 ): AttributeValueDeclarationSemantic {
   return {
-    $: $.AttributeValueDeclarationSemantic,
+    $: $AttributeValueDeclarationSemantic,
     nodeLink,
     usages: [],
     documentation,

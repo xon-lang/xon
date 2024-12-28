@@ -1,22 +1,26 @@
 import {Boolean2, Nothing} from '#common';
 import {
+  $IntegerTypeSemantic,
+  $SetTypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SetTypeSemantic,
   TypeSemantic,
+  corePackageType,
   isInSet,
 } from '#core';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 export type RangeTypeSemantic = SetTypeSemantic & {
-  $: $.RangeTypeSemantic;
   declaration: NominalTypeDeclarationSemantic;
   from: TypeSemantic;
   to: TypeSemantic;
   step: TypeSemantic | Nothing;
 };
+
+export const $RangeTypeSemantic = corePackageType<RangeTypeSemantic>('RangeTypeSemantic', $SetTypeSemantic);
 
 export function rangeTypeSemantic(
   nodeLink: Node,
@@ -26,7 +30,7 @@ export function rangeTypeSemantic(
   step: RangeTypeSemantic['step'],
 ): RangeTypeSemantic {
   const semantic: RangeTypeSemantic = {
-    $: $.RangeTypeSemantic,
+    $: $RangeTypeSemantic,
     nodeLink,
     declaration,
     from,
@@ -34,16 +38,16 @@ export function rangeTypeSemantic(
     step,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 
-      if (is(other, $.RangeTypeSemantic)) {
+      if (is(other, $RangeTypeSemantic)) {
         if (
-          is(this.from, $.IntegerTypeSemantic) &&
-          is(other.from, $.IntegerTypeSemantic) &&
-          is(this.to, $.IntegerTypeSemantic) &&
-          is(other.to, $.IntegerTypeSemantic)
+          is(this.from, $IntegerTypeSemantic) &&
+          is(other.from, $IntegerTypeSemantic) &&
+          is(this.to, $IntegerTypeSemantic) &&
+          is(other.to, $IntegerTypeSemantic)
         )
           return this.from.value >= other.from.value && this.to.value <= other.to.value;
       }
@@ -52,7 +56,7 @@ export function rangeTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is(other, $.RangeTypeSemantic)) {
+      if (is(other, $RangeTypeSemantic)) {
         return this.from === other.from && this.to === other.to && this.step === other.step;
       }
 

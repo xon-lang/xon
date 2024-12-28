@@ -1,23 +1,28 @@
 import {Boolean2, Nothing, Text} from '#common';
 import {
+  $TypeDeclarationSemantic,
   AttributeValueDeclarationSemantic,
-  createDeclarationScope,
+  corePackageType,
   DeclarationNode,
   DeclarationScope,
   DeclarationSemantic,
+  newDeclarationScope,
   SemanticAnalyzer,
   TypeDeclarationSemantic,
   TypeSemantic,
   unknownTypeSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
-  $: $.NominalTypeDeclarationSemantic;
   modifier: Text;
   baseType: TypeSemantic;
   attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
 };
+
+export const $NominalTypeDeclarationSemantic = corePackageType<NominalTypeDeclarationSemantic>(
+  'NominalTypeDeclarationSemantic',
+  $TypeDeclarationSemantic,
+);
 
 export function nominalTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -27,7 +32,7 @@ export function nominalTypeDeclarationSemantic(
   name: Text,
 ): NominalTypeDeclarationSemantic {
   return {
-    $: $.NominalTypeDeclarationSemantic,
+    $: $NominalTypeDeclarationSemantic,
     nodeLink,
     usages: [],
     documentation,
@@ -35,7 +40,7 @@ export function nominalTypeDeclarationSemantic(
     name,
     baseType: unknownTypeSemantic(analyzer, nodeLink),
     type: unknownTypeSemantic(analyzer, nodeLink),
-    attributes: createDeclarationScope(analyzer),
+    attributes: newDeclarationScope(),
 
     eq(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions

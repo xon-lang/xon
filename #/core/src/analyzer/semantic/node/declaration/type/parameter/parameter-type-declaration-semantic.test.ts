@@ -1,5 +1,10 @@
 import {newText, newTextResource, nothing} from '#common';
 import {
+  $AttributeValueDeclarationSemantic,
+  $FunctionTypeSemantic,
+  $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
+  $ParameterTypeDeclarationSemantic,
   AttributeValueDeclarationSemantic,
   FunctionTypeSemantic,
   IdTypeSemantic,
@@ -7,7 +12,6 @@ import {
   ParameterValueDeclarationSemantic,
   semanticFromResource,
 } from '#core';
-import {$} from '#typing';
 
 test('only a', () => {
   const text = newText(`
@@ -22,7 +26,7 @@ const a<:T:Number, V:T:>(p: T): V
   const declaration = semantic.declarationManager.declarations
     .get(newText('a'))
     ?.at2(0) as AttributeValueDeclarationSemantic;
-  expect(declaration.$).toBe($.AttributeValueDeclarationSemantic);
+  expect(declaration.$).toBe($AttributeValueDeclarationSemantic);
   expect(declaration.modifier).toBe('const');
   expect(declaration.name).toBe('a');
 
@@ -35,11 +39,11 @@ const a<:T:Number, V:T:>(p: T): V
 
   const genericV = generics[1] as ParameterTypeDeclarationSemantic;
   expect(genericV.name).toBe('V');
-  // expect(genericV.type.$).toBe($.IdTypeSemantic);
+  // expect(genericV.type.$).toBe($IdTypeSemantic);
   // expect((genericV.type as IdTypeSemantic).name).toBe('T');
 
   const resultType = type.result as FunctionTypeSemantic;
-  expect(type.result.$).toBe($.FunctionTypeSemantic);
+  expect(type.result.$).toBe($FunctionTypeSemantic);
 
   const parameters = resultType.parameters;
   expect(parameters.length).toBe(1);
@@ -47,10 +51,10 @@ const a<:T:Number, V:T:>(p: T): V
   const param = parameters[0] as ParameterValueDeclarationSemantic;
   expect(param.name).toBe('p');
   expect(param.type.declaration?.name).toBe('T');
-  expect(param.type.declaration?.$).toBe($.ParameterTypeDeclarationSemantic);
-  expect(param.type.declaration?.type.$).toBe($.IdTypeSemantic);
+  expect(param.type.declaration?.$).toBe($ParameterTypeDeclarationSemantic);
+  expect(param.type.declaration?.type.$).toBe($IdTypeSemantic);
   expect((param.type.declaration?.type as IdTypeSemantic).declaration?.$).toBe(
-    $.NominalTypeDeclarationSemantic,
+    $NominalTypeDeclarationSemantic,
   );
   expect((param.type.declaration?.type as IdTypeSemantic).declaration?.name).toBe('Number');
 

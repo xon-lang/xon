@@ -1,6 +1,13 @@
 import {newText, newTextResource, nothing} from '#common';
-import {InfixNode, OperatorNode, PostfixNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {
+  $InfixNode,
+  $OperatorNode,
+  $PostfixNode,
+  InfixNode,
+  OperatorNode,
+  PostfixNode,
+  syntaxFromResource,
+} from '#core';
 
 test('single operator', () => {
   const text = newText('!');
@@ -11,7 +18,7 @@ test('single operator', () => {
 
   expect(statements.length).toBe(1);
   expect(node.text.toString()).toBe('!');
-  expect(node.$).toBe($.OperatorNode);
+  expect(node.$).toBe($OperatorNode);
 });
 
 test('after integer', () => {
@@ -22,7 +29,7 @@ test('after integer', () => {
   const node = statements[0].value as PostfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.PostfixNode);
+  expect(node.$).toBe($PostfixNode);
   expect(node.operator.text.toString()).toBe('!');
 });
 
@@ -34,6 +41,6 @@ test('x + x', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
+  expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toString()).toBe('is');
 });

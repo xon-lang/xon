@@ -1,5 +1,4 @@
-import {Text, newText} from '#common';
-import {String2} from '#typing';
+import {String2, Text, newText} from '#common';
 
 export type SemanticAnalyzerConfig = {
   defaultImports: String2[];

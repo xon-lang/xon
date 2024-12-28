@@ -1,11 +1,14 @@
-import {CharTypeSemantic, Node, ValueSemantic} from '#core';
-import {$} from '#typing';
+import {$ValueSemantic, CharTypeSemantic, corePackageType, Node, ValueSemantic} from '#core';
 
-export type CharValueSemantic = ValueSemantic<$.CharValueSemantic, CharTypeSemantic>;
+export type CharValueSemantic = ValueSemantic & {
+  type: CharTypeSemantic;
+};
+
+export const $CharValueSemantic = corePackageType<CharValueSemantic>('CharValueSemantic', $ValueSemantic);
 
 export function charValueSemantic(nodeLink: Node, type: CharTypeSemantic): CharValueSemantic {
   return {
-    $: $.CharValueSemantic,
+    $: $CharValueSemantic,
     nodeLink,
     type,
   };

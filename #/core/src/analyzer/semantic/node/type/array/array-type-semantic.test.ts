@@ -1,5 +1,7 @@
 import {newText, newTextResource, nothing} from '#common';
 import {
+  $ArrayTypeSemantic,
+  $AttributeValueDeclarationSemantic,
   ArrayTypeSemantic,
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -10,7 +12,6 @@ import {
   TEST_SEMANTIC_CONFIG,
   typeNodeType,
 } from '#core';
-import {$} from '#typing';
 
 test('a is array', () => {
   const text = newText(`
@@ -22,13 +23,13 @@ test('a is array', () => {
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $.AttributeValueDeclarationSemantic,
+    $AttributeValueDeclarationSemantic,
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($.AttributeValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name).toBe('a');
@@ -36,7 +37,7 @@ test('a is array', () => {
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as ArrayTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$).toBe($.ArrayTypeSemantic);
+  expect(typeSemantic?.$).toBe($ArrayTypeSemantic);
   expect(typeSemantic?.items.length).toBe(3);
   expect((typeSemantic?.items[0] as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic?.items[1] as IntegerTypeSemantic).value).toBe(2);

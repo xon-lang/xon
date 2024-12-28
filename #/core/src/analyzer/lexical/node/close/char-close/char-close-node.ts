@@ -1,7 +1,7 @@
 import {Text, TextReference} from '#common';
 import {$CloseNode, CloseNode, corePackageType, lexicalNode} from '#core';
 
-export type CharCloseNode = CloseNode;
+export type CharCloseNode = CloseNode & {__branding?: null};
 
 export const $CharCloseNode = corePackageType<CharCloseNode>('CharCloseNode', $CloseNode);
 

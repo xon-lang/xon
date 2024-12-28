@@ -1,11 +1,15 @@
-import {Node, TypeSemantic, ValueSemantic} from '#core';
-import {$} from '#typing';
+import {$ValueSemantic, corePackageType, Node, TypeSemantic, ValueSemantic} from '#core';
 
-export type InvokeValueSemantic = ValueSemantic<$.InvokeValueSemantic>;
+export type InvokeValueSemantic = ValueSemantic & {__branding?: null};
+
+export const $InvokeValueSemantic = corePackageType<InvokeValueSemantic>(
+  'InvokeValueSemantic',
+  $ValueSemantic,
+);
 
 export function invokeValueSemantic(nodeLink: Node, type: TypeSemantic): InvokeValueSemantic {
   return {
-    $: $.InvokeValueSemantic,
+    $: $InvokeValueSemantic,
     nodeLink,
     type,
   };

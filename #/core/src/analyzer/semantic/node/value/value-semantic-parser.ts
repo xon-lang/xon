@@ -1,6 +1,5 @@
 import {Nothing} from '#common';
 import {
-  ExpressionNode,
   Node,
   SemanticAnalyzer,
   ValueSemantic,
@@ -15,7 +14,7 @@ import {
 
 type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => ValueSemantic | Nothing;
 
-export function valueSemanticParse(analyzer: SemanticAnalyzer, node: ExpressionNode): ValueSemantic {
+export function valueSemanticParse(analyzer: SemanticAnalyzer, node: Node): ValueSemantic {
   const semantic =
     parsers().findMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
   node.semantic = semantic;

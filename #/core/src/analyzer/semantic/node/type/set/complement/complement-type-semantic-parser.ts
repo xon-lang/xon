@@ -1,5 +1,6 @@
 import {Nothing, nothing} from '#common';
 import {
+  $InfixNode,
   COMPLEMENT,
   ComplementTypeSemantic,
   complementTypeSemantic,
@@ -7,13 +8,13 @@ import {
   SemanticAnalyzer,
   typeSemanticParse,
 } from '#core';
-import {$, is} from '#typing';
+import {is} from '#typing';
 
 export function complementTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ComplementTypeSemantic | Nothing {
-  if (is(node, $.InfixNode) && node.operator.text.equals(COMPLEMENT)) {
+  if (is(node, $InfixNode) && node.operator.text.equals(COMPLEMENT)) {
     const left = typeSemanticParse(analyzer, node.left);
     const right = typeSemanticParse(analyzer, node.right);
 

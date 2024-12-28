@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#common';
+import {Char, newChar, Nothing, nothing} from '#common';
 import {
   $SyntaxNode,
   CharCloseNode,
@@ -9,11 +9,9 @@ import {
   SyntaxNode,
   syntaxNode,
 } from '#core';
-import {CharTypeSemantics, CharValueSemantics} from '#semantics';
 
 export type CharNode = SyntaxNode & {
-  semantic?: CharTypeSemantics | CharValueSemantics | Nothing;
-  value: string;
+  value: Char;
 
   open: CharOpenNode;
   content?: CharContentNode | Nothing;
@@ -28,7 +26,7 @@ export function charNode(
   content: CharContentNode | Nothing,
   close?: CharCloseNode | Nothing,
 ): CharNode {
-  const value = content?.text.toString() ?? '';
+  const value = newChar(content?.text.toString() ?? '');
 
   return syntaxNode(analyzer, {
     $: $CharNode,

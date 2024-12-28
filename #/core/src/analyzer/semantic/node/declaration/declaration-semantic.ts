@@ -1,18 +1,5 @@
 import {Boolean2, Nothing, Text, TextReference} from '#common';
-import {DeclarationNode, Semantic, TypeSemantic} from '#core';
-import {$} from '#typing';
-
-export type DeclarationKind =
-  | $.DeclarationSemantic
-  // types
-  | $.TypeDeclarationSemantic
-  | $.NominalTypeDeclarationSemantic
-  | $.StructuralTypeDeclarationSemantic
-  | $.ParameterTypeDeclarationSemantic
-  // values
-  | $.ValueDeclarationSemantic
-  | $.AttributeValueDeclarationSemantic
-  | $.ParameterValueDeclarationSemantic;
+import {$Semantic, corePackageType, DeclarationNode, Semantic, TypeSemantic} from '#core';
 
 export type DeclarationSemantic = Semantic & {
   nodeLink: DeclarationNode;
@@ -24,3 +11,5 @@ export type DeclarationSemantic = Semantic & {
 
   eq(other: DeclarationSemantic): Boolean2;
 };
+
+export const $DeclarationSemantic = corePackageType<DeclarationSemantic>('DeclarationSemantic', $Semantic);

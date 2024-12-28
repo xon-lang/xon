@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {InfixNode, IntegerNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$IdNode, $IntegerNode, InfixNode, IntegerNode, syntaxFromResource} from '#core';
 
 test('comma', () => {
   const text = newText('1');
@@ -10,7 +9,7 @@ test('comma', () => {
   const node = statements[0].value as IntegerNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.IntegerNode);
+  expect(node.$).toBe($IntegerNode);
   expect(node.content.text.toString()).toBe('1');
 });
 
@@ -63,8 +62,8 @@ c`);
   const node1 = statements[1].value as InfixNode;
 
   expect(statements.length).toBe(2);
-  expect(node0.$).toBe($.IdNode);
-  expect(node1.$).toBe($.IdNode);
+  expect(node0.$).toBe($IdNode);
+  expect(node1.$).toBe($IdNode);
 });
 
 test('debug 4', () => {

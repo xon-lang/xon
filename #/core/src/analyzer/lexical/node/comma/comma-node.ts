@@ -1,7 +1,7 @@
 import {Text, TextReference} from '#common';
 import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#core';
 
-export type CommaNode = LexicalNode;
+export type CommaNode = LexicalNode & {__branding?: null};
 
 export const $CommaNode = corePackageType<CommaNode>('CommaNode', $LexicalNode);
 

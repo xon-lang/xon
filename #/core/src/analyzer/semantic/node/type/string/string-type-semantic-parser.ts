@@ -1,12 +1,12 @@
 import {Nothing, nothing} from '#common';
-import {Node, SemanticAnalyzer, StringNode, StringTypeSemantic, stringTypeSemantic} from '#core';
-import {$, is} from '#typing';
+import {$StringNode, Node, SemanticAnalyzer, StringNode, StringTypeSemantic, stringTypeSemantic} from '#core';
+import {is} from '#typing';
 
 export function stringTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): StringTypeSemantic | Nothing {
-  if (!is(node, $.StringNode)) {
+  if (!is(node, $StringNode)) {
     return nothing;
   }
 

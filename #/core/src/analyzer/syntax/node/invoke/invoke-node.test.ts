@@ -1,6 +1,18 @@
 import {newText, newTextResource, nothing} from '#common';
-import {GroupNode, IdNode, IntegerNode, InvokeNode, MemberNode, StringNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {
+  $CharNode,
+  $IdNode,
+  $IntegerNode,
+  $InvokeNode,
+  $MemberNode,
+  GroupNode,
+  IdNode,
+  IntegerNode,
+  InvokeNode,
+  MemberNode,
+  StringNode,
+  syntaxFromResource,
+} from '#core';
 
 test('method call', () => {
   const text = newText("f(3, 'str')");
@@ -10,13 +22,13 @@ test('method call', () => {
   const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InvokeNode);
+  expect(node.$).toBe($InvokeNode);
   expect(node.group.items.length).toBe(2);
-  expect(node.group.items[0]?.value?.$).toBe($.IntegerNode);
+  expect(node.group.items[0]?.value?.$).toBe($IntegerNode);
   expect((node.group.items[0]?.value as IntegerNode).content.text.toString()).toBe('3');
-  expect(node.group.items[1]?.value?.$).toBe($.CharNode);
+  expect(node.group.items[1]?.value?.$).toBe($CharNode);
   expect((node.group.items[1]?.value as StringNode).content?.text.toString()).toBe('str');
-  expect(node.instance.$).toBe($.IdNode);
+  expect(node.instance.$).toBe($IdNode);
 });
 
 test('method on several lines', () => {
@@ -29,13 +41,13 @@ test('method on several lines', () => {
   const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InvokeNode);
+  expect(node.$).toBe($InvokeNode);
   expect(node.group.items.length).toBe(4);
   const indexer1 = node.group.items[0]?.value;
   const indexer2 = node.group.items[1]?.value;
-  expect(indexer1?.$).toBe($.IntegerNode);
-  expect(indexer2?.$).toBe($.CharNode);
-  expect(node.instance.$).toBe($.IdNode);
+  expect(indexer1?.$).toBe($IntegerNode);
+  expect(indexer2?.$).toBe($CharNode);
+  expect(node.instance.$).toBe($IdNode);
 });
 
 test('can call with type parameter', () => {
@@ -46,10 +58,10 @@ test('can call with type parameter', () => {
   const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InvokeNode);
+  expect(node.$).toBe($InvokeNode);
   expect(node.group.items.length).toBe(1);
   expect((node.group.items[0]?.value as IntegerNode).content.text.toString()).toBe('1');
-  expect(node.instance.$).toBe($.MemberNode);
+  expect(node.instance.$).toBe($MemberNode);
   const {operator, instance, id} = node.instance as MemberNode;
   expect(operator.text.toString()).toBe('.');
   expect((instance as IdNode).text.toString()).toBe('a');
@@ -64,9 +76,9 @@ test('object method', () => {
   const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InvokeNode);
+  expect(node.$).toBe($InvokeNode);
   expect(node.group.items.length).toBe(0);
-  expect(node.instance.$).toBe($.MemberNode);
+  expect(node.instance.$).toBe($MemberNode);
   const {operator, instance, id} = node.instance as MemberNode;
   expect(operator.text.toString()).toBe('.');
   const leftParameters = (instance as GroupNode).items;
@@ -84,8 +96,8 @@ test('generics', () => {
   const node = statements[0].value as InvokeNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InvokeNode);
+  expect(node.$).toBe($InvokeNode);
   expect(node.group.items.length).toBe(1);
-  expect(node.instance.$).toBe($.IdNode);
+  expect(node.instance.$).toBe($IdNode);
   expect((node.instance as IdNode).text.toString()).toBe('Animal');
 });

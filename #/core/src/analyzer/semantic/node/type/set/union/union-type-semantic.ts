@@ -1,18 +1,20 @@
 import {Boolean2} from '#common';
 import {
+  $SetTypeSemantic,
   AttributeValueDeclarationSemantic,
+  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
   TypeSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type UnionTypeSemantic = SetTypeSemantic & {
-  $: $.UnionTypeSemantic;
   left: TypeSemantic;
   right: TypeSemantic;
 };
+
+export const $UnionTypeSemantic = corePackageType<UnionTypeSemantic>('UnionTypeSemantic', $SetTypeSemantic);
 
 export function unionTypeSemantic(
   nodeLink: Node,
@@ -20,7 +22,7 @@ export function unionTypeSemantic(
   right: TypeSemantic,
 ): UnionTypeSemantic {
   const semantic: UnionTypeSemantic = {
-    $: $.UnionTypeSemantic,
+    $: $UnionTypeSemantic,
     nodeLink,
     left,
     right,

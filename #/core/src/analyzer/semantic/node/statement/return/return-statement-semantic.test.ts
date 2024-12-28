@@ -1,6 +1,11 @@
 import {newText, newTextResource, nothing} from '#common';
-import {createSemanticAnalyzer, IntegerValueSemantic, ReturnNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {
+  $ReturnNode,
+  createSemanticAnalyzer,
+  IntegerValueSemantic,
+  ReturnNode,
+  syntaxFromResource,
+} from '#core';
 
 test('with value', () => {
   const text = newText(`return  3`);
@@ -9,7 +14,7 @@ test('with value', () => {
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
 
   const returnNode = semanticAnalyzer.statements[0].value as ReturnNode;
-  expect(returnNode.$).toBe($.ReturnNode);
+  expect(returnNode.$).toBe($ReturnNode);
 
   const idSemantic = returnNode.value?.semantic as IntegerValueSemantic;
   expect(idSemantic.type.value).toBe(3);

@@ -1,12 +1,19 @@
 import {Nothing, nothing} from '#common';
-import {IntegerNode, IntegerTypeSemantic, integerTypeSemantic, Node, SemanticAnalyzer} from '#core';
-import {$, is} from '#typing';
+import {
+  $IntegerNode,
+  IntegerNode,
+  IntegerTypeSemantic,
+  integerTypeSemantic,
+  Node,
+  SemanticAnalyzer,
+} from '#core';
+import {is} from '#typing';
 
 export function integerTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IntegerTypeSemantic | Nothing {
-  if (!is(node, $.IntegerNode)) {
+  if (!is(node, $IntegerNode)) {
     return nothing;
   }
 

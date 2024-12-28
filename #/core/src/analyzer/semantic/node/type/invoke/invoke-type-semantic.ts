@@ -1,21 +1,25 @@
 import {Boolean2} from '#common';
 import {
+  $SetTypeSemantic,
+  $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   SemanticAnalyzer,
   TypeSemantic,
-  createDeclarationScope,
+  corePackageType,
   isInSet,
+  newDeclarationScope,
 } from '#core';
-import {$, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 export type InvokeTypeSemantic = TypeSemantic & {
-  $: $.InvokeTypeSemantic;
   instance: TypeSemantic;
   // todo use a separate semantic than array
   args: TypeSemantic[];
 };
+
+export const $InvokeTypeSemantic = corePackageType<InvokeTypeSemantic>('InvokeTypeSemantic', $TypeSemantic);
 
 export function invokeTypeSemantic(
   analyzer: SemanticAnalyzer,
@@ -24,13 +28,13 @@ export function invokeTypeSemantic(
   args: TypeSemantic[],
 ): InvokeTypeSemantic {
   return {
-    $: $.InvokeTypeSemantic,
+    $: $InvokeTypeSemantic,
     nodeLink,
     instance,
     args,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 
@@ -46,7 +50,7 @@ export function invokeTypeSemantic(
     },
 
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return createDeclarationScope(analyzer);
+      return newDeclarationScope();
       // throw new Error('Not implemented');
     },
   };

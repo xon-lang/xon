@@ -1,8 +1,19 @@
-import {ArrayData, Dictionary, Text, newArrayData, newDictionary, newText} from '#common';
-import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
-import {Integer, Nothing, is, nothing} from '#typing';
+import {
+  ArrayData,
+  Boolean2,
+  Dictionary,
+  Integer,
+  newArrayData,
+  newDictionary,
+  newText,
+  Nothing,
+  nothing,
+  Text,
+} from '#common';
+import {corePackageType, DeclarationSemantic, TypeSemantic} from '#core';
+import {$Type, is, Model} from '#typing';
 
-export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = $Model & {
+export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic> = Model & {
   imports: ArrayData<DeclarationScope> | Nothing;
   parent: DeclarationScope | Nothing;
   declarations: Dictionary<Text, ArrayData<T>>;
@@ -11,14 +22,14 @@ export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic
   add(declaration: T): void;
   all(): ArrayData<T>;
 
-  filterByName<KIND extends DeclarationKind>(kind: KIND, name: Text): ArrayData<TypeMap[KIND]>;
+  filterByName<V extends $Type>(type: V, name: Text): ArrayData<Exclude<V['type'], undefined>>;
 
-  find<KIND extends DeclarationKind>(
-    kind: KIND,
+  find<V extends $Type>(
+    type: V,
     name: Text,
     generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
     parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
-  ): TypeMap[KIND] | Nothing;
+  ): Exclude<V['type'], undefined> | Nothing;
 
   clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T>;
   union(other: DeclarationScope<T>): DeclarationScope<T>;
@@ -26,13 +37,14 @@ export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic
   complement(other: DeclarationScope<T>): DeclarationScope<T>;
 };
 
-export function createDeclarationScope<T extends DeclarationSemantic = DeclarationSemantic>(
-  analyzer: SemanticAnalyzer,
+export const $DeclarationScope = corePackageType<DeclarationScope>('DeclarationScope');
+
+export function newDeclarationScope<T extends DeclarationSemantic = DeclarationSemantic>(
   parent?: DeclarationScope<T> | Nothing,
   imports?: ArrayData<DeclarationScope<T>> | Nothing,
 ): DeclarationScope<T> {
   return {
-    $: $.DeclarationScope,
+    $: $DeclarationScope,
     imports,
     parent,
     declarations: newDictionary(),
@@ -42,7 +54,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
     },
 
     add(declaration: T): void {
-      // if (is(declaration, $.ValueDeclarationSemantic) && this.find($.DeclarationSemantic, declaration.name)) {
+      // if (is(declaration, $ValueDeclarationSemantic) && this.find($DeclarationSemantic, declaration.name)) {
       //   analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
       //     x.declarationAlreadyExists(),
       //   );
@@ -59,39 +71,37 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
       return this.declarations.values().flat();
     },
 
-    filterByName<K extends DeclarationKind>(kind: K, name: Text): ArrayData<TypeMap[K]> {
+    filterByName<V extends $Type>(type: V, name: Text): ArrayData<Exclude<V['type'], undefined>> {
       const thisDeclarations = this.declarations.get(name);
-      const parentDeclarations = this.parent?.filterByName<K>(kind, name);
-      const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, kind));
+      const parentDeclarations = this.parent?.filterByName(type, name);
+      const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, type));
 
       if (declarations && declarations.length() > 0) {
         return declarations;
       }
 
-      const importDeclarations = this.imports?.toArray()?.flatMap(
+      const importDeclarations = this.imports?.toNativeArray()?.flatMap(
         (x) =>
           x.declarations
             .get(name)
-            ?.toArray()
-            ?.filter((x) => is(x, kind)) ?? [],
+            ?.toNativeArray()
+            ?.filter((x) => is(x, type)) ?? [],
       );
 
       if (importDeclarations && importDeclarations.length > 0) {
-        // todo remove 'as'
-        return newArrayData(importDeclarations) as ArrayData<TypeMap[K]>;
+        return newArrayData(importDeclarations);
       }
 
-      // todo remove 'as'
-      return newArrayData() as ArrayData<TypeMap[K]>;
+      return newArrayData();
     },
 
-    find<KIND extends DeclarationKind>(
-      kind: KIND,
+    find<V extends $Type>(
+      type: V,
       name: Text,
       generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
       parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
-    ): TypeMap[KIND] | Nothing {
-      const declarations = this.filterByName(kind, newText(name));
+    ): Exclude<V['type'], undefined> | Nothing {
+      const declarations = this.filterByName(type, newText(name));
 
       if (declarations.length() === 0) {
         // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
@@ -116,7 +126,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
     },
 
     clone(generics?: ArrayData<TypeSemantic | Nothing> | Nothing): DeclarationScope<T> {
-      const declarationManager = createDeclarationScope<T>(analyzer);
+      const declarationManager = newDeclarationScope<T>();
 
       // todo simplify it. allow create declaration manager from 'declarations' field
       for (const declaration of this.all()) {
@@ -127,7 +137,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
     },
 
     union(other: DeclarationScope<T>): DeclarationScope<T> {
-      const newDeclarationManager = createDeclarationScope<T>(analyzer);
+      const newDeclarationManager = newDeclarationScope<T>();
       const allDeclarations = [...this.all(), ...other.all()];
 
       for (const declaration of allDeclarations) {
@@ -145,6 +155,10 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
     complement(other: DeclarationScope<T>): DeclarationScope<T> {
       // todo add 'complement' logic instead of 'union'
       return this.union(other);
+    },
+
+    equals(other: DeclarationScope): Boolean2 {
+      return this === other;
     },
   };
 }

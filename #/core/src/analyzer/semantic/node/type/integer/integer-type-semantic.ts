@@ -1,21 +1,30 @@
 import {Boolean2, Integer, Nothing} from '#common';
 import {
+  $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
+  $SetTypeSemantic,
+  $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  createDeclarationScope,
+  corePackageType,
   isInSet,
+  newDeclarationScope,
 } from '#core';
-import {$, is, isSetOperatorTypeSemantic} from '#typing';
+import {is} from '#typing';
 
 export type IntegerTypeSemantic = TypeSemantic & {
-  $: $.IntegerTypeSemantic;
   declaration?: NominalTypeDeclarationSemantic | Nothing;
   value: Integer;
 };
+
+export const $IntegerTypeSemantic = corePackageType<IntegerTypeSemantic>(
+  'IntegerTypeSemantic',
+  $TypeSemantic,
+);
 
 export function integerTypeSemantic(
   analyzer: SemanticAnalyzer,
@@ -23,16 +32,16 @@ export function integerTypeSemantic(
   value: Integer,
 ): IntegerTypeSemantic {
   return {
-    $: $.IntegerTypeSemantic,
+    $: $IntegerTypeSemantic,
     nodeLink,
     declaration: analyzer.declarationManager.find(
-      $.NominalTypeDeclarationSemantic,
+      $NominalTypeDeclarationSemantic,
       analyzer.config.literalTypeNames.integerTypeName,
     ),
     value,
 
     is(other: TypeSemantic): Boolean2 {
-      if (isSetOperatorTypeSemantic(other)) {
+      if (is(other, $SetTypeSemantic)) {
         return isInSet(this, other);
       }
 
@@ -40,7 +49,7 @@ export function integerTypeSemantic(
         return true;
       }
 
-      if (is(other, $.IdTypeSemantic) && other.declaration) {
+      if (is(other, $IdTypeSemantic) && other.declaration) {
         return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
@@ -48,7 +57,7 @@ export function integerTypeSemantic(
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is(other, $.IntegerTypeSemantic)) {
+      if (is(other, $IntegerTypeSemantic)) {
         return this.value === other.value;
       }
 
@@ -56,7 +65,7 @@ export function integerTypeSemantic(
     },
 
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? createDeclarationScope(analyzer);
+      return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };
 }

@@ -1,6 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
-import {ImportNode, StringNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$ImportNode, $StringNode, ImportNode, StringNode, syntaxFromResource} from '#core';
+
 test('import string', () => {
   const text = newText('import "xon/core"');
   const source = newTextResource(nothing, text);
@@ -9,9 +9,9 @@ test('import string', () => {
   const node = statements[0].value as ImportNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.ImportNode);
+  expect(node.$).toBe($ImportNode);
   expect(node.operator.text.toString()).toBe('import');
-  expect(node.value?.$).toBe($.StringNode);
+  expect(node.value?.$).toBe($StringNode);
   expect((node.value as StringNode).content?.text.toString()).toBe('xon/core');
 });
 
@@ -23,7 +23,7 @@ test('import integer', () => {
   const node = statements[0].value as ImportNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.ImportNode);
+  expect(node.$).toBe($ImportNode);
   expect(node.operator.text.toString()).toBe('import');
   expect(node.value).toBeFalsy();
 });

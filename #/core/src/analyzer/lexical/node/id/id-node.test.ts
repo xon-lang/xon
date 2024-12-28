@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {IdNode, predefinedDiagnostics, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$IdNode, IdNode, predefinedDiagnostics, syntaxFromResource} from '#core';
 
 test('single id', () => {
   const text = newText('abc');
@@ -11,7 +10,7 @@ test('single id', () => {
 
   expect(statements.length).toBe(1);
   expect(node.text.toString()).toBe('abc');
-  expect(node.$).toBe($.IdNode);
+  expect(node.$).toBe($IdNode);
 });
 
 test('several id', () => {
@@ -23,7 +22,7 @@ test('several id', () => {
 
   expect(statements.length).toBe(1);
   expect(node.text.toString()).toBe('abc');
-  expect(node.$).toBe($.IdNode);
+  expect(node.$).toBe($IdNode);
 
   expect(syntax.diagnosticManager.diagnostics.length).toBe(2);
 

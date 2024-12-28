@@ -1,5 +1,12 @@
 import {Boolean2, Nothing} from '#common';
-import {AttributeValueDeclarationSemantic, DeclarationScope, Semantic, TypeDeclarationSemantic} from '#core';
+import {
+  $Semantic,
+  AttributeValueDeclarationSemantic,
+  corePackageType,
+  DeclarationScope,
+  Semantic,
+  TypeDeclarationSemantic,
+} from '#core';
 
 export type TypeSemantic = Semantic & {
   declaration?: TypeDeclarationSemantic | Nothing;
@@ -10,3 +17,5 @@ export type TypeSemantic = Semantic & {
   is(other: TypeSemantic): Boolean2;
   eq(other: TypeSemantic): Boolean2;
 };
+
+export const $TypeSemantic = corePackageType<TypeSemantic>('TypeSemantic', $Semantic);

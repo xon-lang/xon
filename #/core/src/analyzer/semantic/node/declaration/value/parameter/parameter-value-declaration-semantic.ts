@@ -1,16 +1,20 @@
 import {Boolean2, Nothing, Text} from '#common';
 import {
+  $ValueDeclarationSemantic,
+  corePackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
   unknownTypeSemantic,
   ValueDeclarationSemantic,
 } from '#core';
-import {$} from '#typing';
 
-export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic & {
-  $: $.ParameterValueDeclarationSemantic;
-};
+export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic & {__branding?: null};
+
+export const $ParameterValueDeclarationSemantic = corePackageType<ParameterValueDeclarationSemantic>(
+  'ParameterValueDeclarationSemantic',
+  $ValueDeclarationSemantic,
+);
 
 export function parameterValueDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -20,7 +24,7 @@ export function parameterValueDeclarationSemantic(
   name: Text,
 ): ParameterValueDeclarationSemantic {
   return {
-    $: $.ParameterValueDeclarationSemantic,
+    $: $ParameterValueDeclarationSemantic,
     nodeLink,
     usages: [],
     documentation,

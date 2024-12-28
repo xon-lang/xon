@@ -1,10 +1,14 @@
 import {Nothing, Resource} from '#common';
-import {Node, TypeSemantic, ValueSemantic} from '#core';
-import {$} from '#typing';
+import {$ValueSemantic, corePackageType, Node, TypeSemantic, ValueSemantic} from '#core';
 
-export type ImportValueSemantic = ValueSemantic<$.ImportValueSemantic> & {
+export type ImportValueSemantic = ValueSemantic & {
   resource: Resource | Nothing;
 };
+
+export const $ImportValueSemantic = corePackageType<ImportValueSemantic>(
+  'ImportValueSemantic',
+  $ValueSemantic,
+);
 
 export function importValueSemantic(
   nodeLink: Node,
@@ -12,7 +16,7 @@ export function importValueSemantic(
   type: TypeSemantic,
 ): ImportValueSemantic {
   return {
-    $: $.ImportValueSemantic,
+    $: $ImportValueSemantic,
     nodeLink,
     type,
     resource,

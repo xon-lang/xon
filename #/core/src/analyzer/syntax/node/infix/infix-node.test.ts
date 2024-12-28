@@ -1,6 +1,15 @@
 import {newText, newTextResource, nothing} from '#common';
-import {evaluate, IdNode, InfixNode, IntegerNode, PrefixNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {
+  $InfixNode,
+  $IntegerNode,
+  $PrefixNode,
+  evaluate,
+  IdNode,
+  InfixNode,
+  IntegerNode,
+  PrefixNode,
+  syntaxFromResource,
+} from '#core';
 
 test('several operands with different priorities', () => {
   const text = newText('1*1+1+2^5*2/2');
@@ -10,7 +19,7 @@ test('several operands with different priorities', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
+  expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toString()).toBe('+');
   expect(evaluate(node)).toBe(34);
 });
@@ -23,7 +32,7 @@ test('num plus str', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
+  expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toString()).toBe('+');
   expect(evaluate(node)).toBe('1str');
 });
@@ -36,7 +45,7 @@ test('num is number', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
+  expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toString()).toBe('&');
   expect((node.left as IntegerNode).content.text.toString()).toBe('1');
   expect((node.right as IdNode).text.toString()).toBe('Number');
@@ -50,7 +59,7 @@ test('equals', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
+  expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toString()).toBe('==');
   expect((node.right as IntegerNode).content.text.toString()).toBe('123');
 });
@@ -83,13 +92,13 @@ test('several operators', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
-  expect(node.left?.$).toBe($.IntegerNode);
+  expect(node.$).toBe($InfixNode);
+  expect(node.left?.$).toBe($IntegerNode);
   expect(node.operator.text.toString()).toBe('/');
 
-  expect(node.right?.$).toBe($.PrefixNode);
+  expect(node.right?.$).toBe($PrefixNode);
   expect((node.right as PrefixNode).operator.text.toString()).toBe('+');
-  expect((node.right as PrefixNode).value?.$).toBe($.IntegerNode);
+  expect((node.right as PrefixNode).value?.$).toBe($IntegerNode);
   expect(((node.right as PrefixNode).value as IntegerNode).content.text.toString()).toBe('2');
 });
 
@@ -101,13 +110,13 @@ test('range', () => {
   const node = statements[0].value as InfixNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($.InfixNode);
+  expect(node.$).toBe($InfixNode);
 
-  expect(node.left.$).toBe($.IntegerNode);
+  expect(node.left.$).toBe($IntegerNode);
   expect((node.left as IntegerNode).content.text.toString()).toBe('0');
 
   expect(node.operator.text.toString()).toBe('..');
 
-  expect(node.right?.$).toBe($.IntegerNode);
+  expect(node.right?.$).toBe($IntegerNode);
   expect((node.right as IntegerNode).content.text.toString()).toBe('3');
 });

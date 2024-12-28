@@ -1,6 +1,5 @@
 import {newText, newTextResource, nothing} from '#common';
-import {CommentBlockNode, syntaxFromResource} from '#core';
-import {$} from '#typing';
+import {$CommentBlockNode, CommentBlockNode, syntaxFromResource} from '#core';
 
 test('block comment', () => {
   const text = newText('--- abc\n\n\n def---');
@@ -11,6 +10,6 @@ test('block comment', () => {
 
   expect(statements.length).toBe(0);
   expect(syntax.hiddenNodes.length).toBe(1);
-  expect(node.$).toBe($.CommentBlockNode);
+  expect(node.$).toBe($CommentBlockNode);
   expect(node.text.toString()).toBe('--- abc\n\n\n def---');
 });

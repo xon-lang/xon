@@ -1,13 +1,19 @@
-import {Node, StringTypeSemantic, ValueSemantic} from '#core';
-import {$} from '#typing';
+import {$ValueSemantic, corePackageType, Node, StringTypeSemantic, ValueSemantic} from '#core';
 
-export type StringValueSemantic = ValueSemantic<$.StringValueSemantic, StringTypeSemantic>;
+export type StringValueSemantic = ValueSemantic & {
+  type: StringTypeSemantic;
+};
+
+export const $StringValueSemantic = corePackageType<StringValueSemantic>(
+  'StringValueSemantic',
+  $ValueSemantic,
+);
 
 // todo should we use 'value: Integer' or always can get from 'type' ???
 
 export function stringValueSemantic(nodeLink: Node, type: StringTypeSemantic): StringValueSemantic {
   return {
-    $: $.StringValueSemantic,
+    $: $StringValueSemantic,
     nodeLink,
     type,
   };

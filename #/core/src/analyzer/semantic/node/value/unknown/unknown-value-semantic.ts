@@ -1,24 +1,33 @@
 import {
-  ExpressionNode,
+  $ValueSemantic,
+  corePackageType,
   Node,
   SemanticAnalyzer,
   UnknownTypeSemantic,
   unknownTypeSemantic,
   ValueSemantic,
 } from '#core';
-import {$} from '#typing';
 
-export type UnknownValueSemantic = ValueSemantic<$.UnknownValueSemantic> & {};
+export type UnknownValueSemantic = ValueSemantic & {__branding?: null};
 
 export function unknownValueSemantic(nodeLink: Node, type: UnknownTypeSemantic): UnknownValueSemantic {
   return {
-    $: $.UnknownValueSemantic,
+    $: $UnknownValueSemantic,
     nodeLink,
     type,
+
+    equals(other) {
+      return this === other;
+    },
   };
 }
 
-export function unknownValueFromNode(analyzer: SemanticAnalyzer, node: ExpressionNode): UnknownValueSemantic {
+export const $UnknownValueSemantic = corePackageType<UnknownValueSemantic>(
+  'UnknownValueSemantic',
+  $ValueSemantic,
+);
+
+export function unknownValueFromNode(analyzer: SemanticAnalyzer, node: Node): UnknownValueSemantic {
   const type = unknownTypeSemantic(analyzer, node);
 
   return unknownValueSemantic(node, type);

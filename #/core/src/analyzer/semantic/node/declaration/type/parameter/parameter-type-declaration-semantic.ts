@@ -1,5 +1,7 @@
 import {Boolean2, Nothing, Text} from '#common';
 import {
+  $TypeDeclarationSemantic,
+  corePackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -7,12 +9,15 @@ import {
   TypeSemantic,
   unknownTypeSemantic,
 } from '#core';
-import {$} from '#typing';
 
 export type ParameterTypeDeclarationSemantic = TypeDeclarationSemantic & {
-  $: $.ParameterTypeDeclarationSemantic;
   value?: TypeSemantic | Nothing;
 };
+
+export const $ParameterTypeDeclarationSemantic = corePackageType<ParameterTypeDeclarationSemantic>(
+  'ParameterTypeDeclarationSemantic',
+  $TypeDeclarationSemantic,
+);
 
 export function parameterTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -23,7 +28,7 @@ export function parameterTypeDeclarationSemantic(
   name: Text,
 ): ParameterTypeDeclarationSemantic {
   return {
-    $: $.ParameterTypeDeclarationSemantic,
+    $: $ParameterTypeDeclarationSemantic,
     nodeLink,
     usages: [],
     documentation,
