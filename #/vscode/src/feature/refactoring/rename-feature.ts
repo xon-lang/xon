@@ -1,6 +1,14 @@
 import {Nothing, String2, TextReference, nothing} from '#common';
-import {$DeclarationSemantic, $DocumentationIdSemantic, $IdNode, $IdTypeSemantic, $ValueSemantic, DeclarationSemantic, Semantic} from '#core';
-import { is } from '#typing';
+import {
+  $DeclarationSemantic,
+  $DocumentationIdSemantic,
+  $IdNode,
+  $IdTypeSemantic,
+  $ValueSemantic,
+  DeclarationSemantic,
+  Semantic,
+} from '#core';
+import {is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -105,7 +113,7 @@ function renameWithWorkspace(
   oldName: String2,
   newName: String2,
 ): void {
-  if (!reference.resource.location || !reference.text().equals(oldName)) {
+  if (!reference.resource.location || !reference.rangeText().equals(oldName)) {
     return;
   }
 

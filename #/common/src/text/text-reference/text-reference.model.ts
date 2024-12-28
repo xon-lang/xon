@@ -6,7 +6,7 @@ export type TextReference = Model & {
   range: TextRange;
 
   equals(reference: TextReference): Boolean2;
-  text(): Text;
+  rangeText(): Text;
 };
 
 export const $TextReference = commonPackageType<TextReference>('TextReference');

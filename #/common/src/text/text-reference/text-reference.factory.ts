@@ -10,7 +10,7 @@ export function newTextReference(resource: TextResource, range: TextRange): Text
       return this.resource.equals(other.resource) && this.range.equals(other.range);
     },
 
-    text(): Text {
+    rangeText(): Text {
       return this.resource.data.slice(this.range);
     },
   };
