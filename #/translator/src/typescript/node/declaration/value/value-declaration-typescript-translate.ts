@@ -2,9 +2,9 @@ import {String2} from '#common';
 import {
   $AttributeValueDeclarationSemantic,
   $ParameterValueDeclarationSemantic,
-  TypescriptTranslator,
   ValueDeclarationSemantic,
 } from '#core';
+import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 
 export function valueDeclarationTypescriptTranslate(

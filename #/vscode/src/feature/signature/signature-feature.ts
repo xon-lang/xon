@@ -56,7 +56,9 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     context: SignatureHelpContext,
   ): ProviderResult<SignatureHelp> {
     const semantic = getDocumentSemantic(document, this.channel);
-    const nodeAtPosition = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
+    const nodeAtPosition = semantic.syntaxAnalyzer.findNodeAtPosition(
+      convertVscodePosition(document, position),
+    );
     const invokeParameterIndex = getInvokeNodeAndParameterIndex(nodeAtPosition);
 
     if (!invokeParameterIndex?.invokeNode.semantic) {

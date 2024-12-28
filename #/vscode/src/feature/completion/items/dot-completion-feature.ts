@@ -33,7 +33,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     _context: CompletionContext,
   ): ProviderResult<CompletionItem[] | CompletionList<CompletionItem>> {
     const semantic = getDocumentSemantic(document, this.channel);
-    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
+    const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
     if (is(node?.parent, $MemberNode) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);

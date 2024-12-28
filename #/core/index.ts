@@ -138,6 +138,7 @@ export * from './src/analyzer/semantic/node/value/string/string-value-semantic';
 export * from './src/analyzer/semantic/node/value/unknown/unknown-value-semantic';
 export * from './src/analyzer/syntax/put-statement-node';
 export * from './src/analyzer/syntax/syntax-analyzer-config';
+export * from './src/analyzer/syntax/syntax-analyzer.factory';
 export * from './src/analyzer/syntax/syntax-analyzer';
 export * from './src/analyzer/syntax/documentation/documentation-item-node';
 export * from './src/analyzer/syntax/documentation/documentation-node-parse';

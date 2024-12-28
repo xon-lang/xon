@@ -1,6 +1,13 @@
 import {Nothing, Text, TextRange, TextReference, nothing, zeroRange} from '#common';
-import { $ImportValueSemantic, $DeclarationSemantic, $IdTypeSemantic, $DocumentationIdSemantic, $ValueSemantic, DeclarationSemantic } from '#core';
-import { is } from '#typing';
+import {
+  $DeclarationSemantic,
+  $DocumentationIdSemantic,
+  $IdTypeSemantic,
+  $ImportValueSemantic,
+  $ValueSemantic,
+  DeclarationSemantic,
+} from '#core';
+import {is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -31,7 +38,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     token: CancellationToken,
   ): ProviderResult<DefinitionLink[]> {
     const semantic = getDocumentSemantic(document, this.channel);
-    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
+    const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
     if (!node?.semantic) {
       return nothing;

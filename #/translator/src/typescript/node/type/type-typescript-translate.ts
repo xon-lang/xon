@@ -9,6 +9,7 @@ import {
   $InvokeTypeSemantic,
   $StringTypeSemantic,
   $UnionTypeSemantic,
+  $ValueDeclarationSemantic,
   TypeSemantic,
 } from '#core';
 import {TypescriptTranslator} from '#translator';
@@ -52,7 +53,15 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
   }
 
   if (is(semantic, $FunctionTypeSemantic)) {
-    const parameters = semantic.parameters.map((x) => translator.valueDeclaration(x)).join(', ');
+    const parameters = semantic.parameters
+      .map((x) => {
+        if (is(x, $ValueDeclarationSemantic)) {
+          return translator.valueDeclaration(x);
+        }
+
+        return translator.typeDeclaration(x);
+      })
+      .join(', ');
     const result = translator.type(semantic.result);
 
     return `(${parameters}) => ${result}`;

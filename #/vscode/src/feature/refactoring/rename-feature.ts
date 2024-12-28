@@ -40,7 +40,7 @@ class LanguageRenameProvider implements RenameProvider {
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
     const semantic = getDocumentSemantic(document, this.channel);
-    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
+    const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
     if (!is(node, $IdNode) || !node.semantic) {
       return nothing;
@@ -61,7 +61,7 @@ class LanguageRenameProvider implements RenameProvider {
     token: CancellationToken,
   ): ProviderResult<Range | {range: Range; placeholder: String2}> {
     const semantic = getDocumentSemantic(document, this.channel);
-    const node = semantic.syntaxAnalyzer.findNode(convertVscodePosition(document, position));
+    const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
     if (!is(node, $IdNode)) {
       throw new Error('You cannot rename this element');

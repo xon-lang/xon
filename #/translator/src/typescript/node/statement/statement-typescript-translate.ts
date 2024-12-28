@@ -8,8 +8,8 @@ import {
   NL,
   Semantic,
   StatementNode,
-  TypescriptTranslator,
 } from '#core';
+import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 
 export function statementTypescriptTranslate(

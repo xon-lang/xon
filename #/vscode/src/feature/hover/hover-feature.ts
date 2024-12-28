@@ -1,6 +1,15 @@
 import {Nothing, String2, nothing} from '#common';
-import {$CharTypeSemantic, $DeclarationSemantic, $IdTypeSemantic, $IntegerTypeSemantic, $StringTypeSemantic, $ValueSemantic, DeclarationSemantic, Semantic} from '#core';
-import { is } from '#typing';
+import {
+  $CharTypeSemantic,
+  $DeclarationSemantic,
+  $IdTypeSemantic,
+  $IntegerTypeSemantic,
+  $StringTypeSemantic,
+  $ValueSemantic,
+  DeclarationSemantic,
+  Semantic,
+} from '#core';
+import {is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
   CancellationToken,
@@ -27,12 +36,12 @@ class LanguageHoverProvider implements HoverProvider {
   provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
     const semantic = getDocumentSemantic(document, this.channel);
 
-    const node = semantic.syntaxAnalyzer.findClosestNode(
+    const node = semantic.syntaxAnalyzer.findParentNodeFromPosition(
+      (x) => !!x.isExpression,
       convertVscodePosition(document, position),
-      $ExpressionNode,
     );
 
-    if (!(node?.semantic)) {
+    if (!node?.semantic) {
       return nothing;
     }
 
