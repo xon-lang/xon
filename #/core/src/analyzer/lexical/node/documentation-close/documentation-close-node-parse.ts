@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {DOCUMENTATION_CLOSE, DocumentationCloseNode, documentationCloseNode, LexicalAnalyzer} from '#core';
 
 export function documentationCloseNodeParse(analyzer: LexicalAnalyzer): DocumentationCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function documentationCloseNodeParse(analyzer: LexicalAnalyzer): Document
     return nothing;
   }
 
-  const text = newTextData(DOCUMENTATION_CLOSE);
+  const text = newText(DOCUMENTATION_CLOSE);
   const reference = analyzer.textReference(text);
 
   return documentationCloseNode(reference, text);

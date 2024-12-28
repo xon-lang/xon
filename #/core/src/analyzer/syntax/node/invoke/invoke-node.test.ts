@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {GroupNode, IdNode, IntegerNode, InvokeNode, MemberNode, StringNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('method call', () => {
-  const text = newTextData("f(3, 'str')");
+  const text = newText("f(3, 'str')");
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -20,7 +20,7 @@ test('method call', () => {
 });
 
 test('method on several lines', () => {
-  const text = newTextData(`f[3,
+  const text = newText(`f[3,
         'str', 123, 
     415]`);
   const source = newTextResource(nothing, text);
@@ -39,7 +39,7 @@ test('method on several lines', () => {
 });
 
 test('can call with type parameter', () => {
-  const text = newTextData('a.get [1]');
+  const text = newText('a.get [1]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -57,7 +57,7 @@ test('can call with type parameter', () => {
 });
 
 test('object method', () => {
-  const text = newTextData('{a, b}.call()');
+  const text = newText('{a, b}.call()');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -77,7 +77,7 @@ test('object method', () => {
 });
 
 test('generics', () => {
-  const text = newTextData('Animal{T}');
+  const text = newText('Animal{T}');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

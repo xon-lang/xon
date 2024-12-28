@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   FunctionTypeSemantic,
@@ -10,7 +10,7 @@ import {
 import {$} from '#typing';
 
 test('only a', () => {
-  const text = newTextData(`
+  const text = newText(`
 type Number
 const a<:T:Number, V:T:>(p: T): V
   `);
@@ -20,7 +20,7 @@ const a<:T:Number, V:T:>(p: T): V
   expect(semantic.declarationManager.count()).toBe(2);
 
   const declaration = semantic.declarationManager.declarations
-    .get(newTextData('a'))
+    .get(newText('a'))
     ?.at2(0) as AttributeValueDeclarationSemantic;
   expect(declaration.$).toBe($.AttributeValueDeclarationSemantic);
   expect(declaration.modifier).toBe('const');

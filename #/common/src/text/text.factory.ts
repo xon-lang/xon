@@ -17,13 +17,13 @@ import {
 } from '#common';
 import {is} from '#typing';
 
-const NL = newTextData('\n');
+const NL = newText('\n');
 
 // todo rename to newText
-export function newTextData(characters: ArrayData<Char>): Text;
-export function newTextData(string: String2): Text;
-export function newTextData(): Text;
-export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Text {
+export function newText(characters: ArrayData<Char>): Text;
+export function newText(string: String2): Text;
+export function newText(): Text;
+export function newText(stringOrCharacters?: String2 | ArrayData<Char>): Text {
   const array = stringOrCharacters
     ? typeof stringOrCharacters === 'string'
       ? stringToCharArray(stringOrCharacters)
@@ -39,10 +39,10 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
       if (is(rangeOrStartIndex, $TextRange)) {
         const {start, stop} = rangeOrStartIndex;
 
-        return newTextData(array.slice(start.index, stop.index));
+        return newText(array.slice(start.index, stop.index));
       }
 
-      return newTextData(array.slice(rangeOrStartIndex, stopIndex));
+      return newText(array.slice(rangeOrStartIndex, stopIndex));
     },
 
     lineText(line: Integer): Text {
@@ -72,23 +72,23 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
         }
       }
 
-      return newTextData('');
+      return newText('');
     },
 
     addFirst(...items: Char[]): Text {
-      return newTextData(array.addFirst(...items));
+      return newText(array.addFirst(...items));
     },
 
     addLast(...items: Char[]): Text {
-      return newTextData(array.addLast(...items));
+      return newText(array.addLast(...items));
     },
 
     removeFirst(length?: Integer | Nothing): Text {
-      return newTextData(array.removeFirst(length));
+      return newText(array.removeFirst(length));
     },
 
     removeLast(length?: Integer | Nothing): Text {
-      return newTextData(array.removeLast(length));
+      return newText(array.removeLast(length));
     },
 
     takeWhile(
@@ -96,35 +96,35 @@ export function newTextData(stringOrCharacters?: String2 | ArrayData<Char>): Tex
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): Text {
-      return newTextData(array.takeWhile(predicate, startIndex, includeConditionItem));
+      return newText(array.takeWhile(predicate, startIndex, includeConditionItem));
     },
 
     take(length: Integer, startIndex?: Integer): Text {
-      return newTextData(array.take(length, startIndex));
+      return newText(array.take(length, startIndex));
     },
 
     sort(compareFn?: (a: Char, b: Char) => Number2): Text {
-      return newTextData(array.sort(compareFn));
+      return newText(array.sort(compareFn));
     },
 
     sortBy(select: (item: Char) => Number2, ascending?: Boolean2): Text {
-      return newTextData(array.sortBy(select, ascending));
+      return newText(array.sortBy(select, ascending));
     },
 
     setPadding(padding: Integer): Text {
-      return newTextData(this.toString().setPadding(padding));
+      return newText(this.toString().setPadding(padding));
     },
 
     trim(): Text {
-      return newTextData(this.toString().trim());
+      return newText(this.toString().trim());
     },
 
     repeat(count: Integer): Text {
-      return newTextData(this.toString().repeat(count));
+      return newText(this.toString().repeat(count));
     },
 
     clone(): Text {
-      return newTextData(array.clone());
+      return newText(array.clone());
     },
 
     equals(other: Text | ArrayData<Char> | String2): Boolean2 {

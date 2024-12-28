@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -10,7 +10,7 @@ import {
 import {$} from '#typing';
 
 test('import core', () => {
-  const text = newTextData(`
+  const text = newText(`
     import "xon/core"
     const a: "abc"
   `);
@@ -19,10 +19,10 @@ test('import core', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe(
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $.AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode).toBeTruthy();

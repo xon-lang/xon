@@ -1,7 +1,7 @@
-import {$Text, is, newTextData} from '#common';
+import {$Text, is, newText} from '#common';
 
 test('text data', () => {
-  const a = newTextData('ABC');
+  const a = newText('ABC');
 
   expect(is(a, $Text)).toBe(true);
 });

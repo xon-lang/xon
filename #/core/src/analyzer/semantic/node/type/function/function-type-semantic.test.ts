@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -10,7 +10,7 @@ import {
 import {$} from '#typing';
 
 test('a is function', () => {
-  const text = newTextData(`
+  const text = newText(`
     type Integer
     type String
     const a: (x: Integer): String
@@ -20,10 +20,10 @@ test('a is function', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe(
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $.AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');

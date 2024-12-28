@@ -1,4 +1,4 @@
-import { newTextData, newTextResource } from '#common';
+import {newText, newTextResource} from '#common';
 import {
   BraceGroupNode,
   BracketGroupNode,
@@ -8,10 +8,10 @@ import {
   predefinedDiagnostics,
   syntaxFromResource,
 } from '#core';
-import { nothing, is } from '#typing';
+import {is, nothing} from '#typing';
 
 test('empty closed', () => {
-  const text = newTextData('()');
+  const text = newText('()');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -25,7 +25,7 @@ test('empty closed', () => {
 });
 
 test('validate close pair', () => {
-  const text = newTextData('(');
+  const text = newText('(');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -47,7 +47,7 @@ test('validate close pair', () => {
 });
 
 test('a in group', () => {
-  const text = newTextData('(a)');
+  const text = newText('(a)');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -58,7 +58,7 @@ test('a in group', () => {
 });
 
 test('empty object', () => {
-  const text = newTextData('{}');
+  const text = newText('{}');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -70,7 +70,7 @@ test('empty object', () => {
 });
 
 test('single item', () => {
-  const text = newTextData('[123 456]');
+  const text = newText('[123 456]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -83,7 +83,7 @@ test('single item', () => {
 });
 
 test('single comma', () => {
-  const text = newTextData('[,]');
+  const text = newText('[,]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -97,7 +97,7 @@ test('single comma', () => {
 });
 
 test('empty not closed', () => {
-  const text = newTextData('[');
+  const text = newText('[');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -111,7 +111,7 @@ test('empty not closed', () => {
 });
 
 test('inner group', () => {
-  const text = newTextData('[()]');
+  const text = newText('[()]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -127,7 +127,7 @@ test('inner group', () => {
 });
 
 test('inner empty group', () => {
-  const text = newTextData('[[[]]]');
+  const text = newText('[[[]]]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -147,7 +147,7 @@ test('inner empty group', () => {
 });
 
 test('two integers no comma and ws at the end', () => {
-  const text = newTextData('[1, 2]');
+  const text = newText('[1, 2]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -161,7 +161,7 @@ test('two integers no comma and ws at the end', () => {
 });
 
 test('two integers and comma no ws at the end', () => {
-  const text = newTextData('[1, 2,]');
+  const text = newText('[1, 2,]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -175,7 +175,7 @@ test('two integers and comma no ws at the end', () => {
 });
 
 test('two integers and comma and ws', () => {
-  const text = newTextData('[1, 2, ]');
+  const text = newText('[1, 2, ]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -189,7 +189,7 @@ test('two integers and comma and ws', () => {
 });
 
 test('array on several lines', () => {
-  const text = newTextData(`[1,
+  const text = newText(`[1,
                 2+2
                 3,
      4,    6+6]`);
@@ -206,7 +206,7 @@ test('array on several lines', () => {
 });
 
 test('debug 1', () => {
-  const text = newTextData('[1, , 2 ]');
+  const text = newText('[1, , 2 ]');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -220,7 +220,7 @@ test('debug 1', () => {
 });
 
 test('empty object', () => {
-  const text = newTextData('{}');
+  const text = newText('{}');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

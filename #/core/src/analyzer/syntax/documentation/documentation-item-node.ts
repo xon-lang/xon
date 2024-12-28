@@ -1,4 +1,4 @@
-import {newTextData, newTextPosition, newTextReference, Nothing, textRange} from '#common';
+import {newText, newTextPosition, newTextReference, Nothing, textRange} from '#common';
 import {
   $SyntaxNode,
   AT,
@@ -61,5 +61,5 @@ function idFromLabel(label: DocumentationLabelNode): IdNode {
   const range = textRange(idStart, label.reference.range.stop);
   const reference = newTextReference(label.reference.resource, range);
 
-  return idNode(reference, newTextData(label.name));
+  return idNode(reference, newText(label.name));
 }

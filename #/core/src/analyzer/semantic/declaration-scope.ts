@@ -1,4 +1,4 @@
-import {ArrayData, Dictionary, Text, newArrayData, newDictionary, newTextData} from '#common';
+import {ArrayData, Dictionary, Text, newArrayData, newDictionary, newText} from '#common';
 import {DeclarationKind, DeclarationSemantic, SemanticAnalyzer, TypeSemantic} from '#core';
 import {Integer, Nothing, is, nothing} from '#typing';
 
@@ -91,7 +91,7 @@ export function createDeclarationScope<T extends DeclarationSemantic = Declarati
       generics?: ArrayData<TypeSemantic | Nothing> | Nothing,
       parameters?: ArrayData<TypeSemantic | Nothing> | Nothing,
     ): TypeMap[KIND] | Nothing {
-      const declarations = this.filterByName(kind, newTextData(name));
+      const declarations = this.filterByName(kind, newText(name));
 
       if (declarations.length() === 0) {
         // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>

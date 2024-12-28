@@ -1,4 +1,4 @@
-import {ArrayData, Dictionary, newArrayData, newDictionary, newTextData, Text} from '#common';
+import {ArrayData, Dictionary, newArrayData, newDictionary, newText, Text} from '#common';
 import {DeclarationSemantics, semanticsPackageType, TypeSemantics} from '#semantics';
 import {$Type, Boolean2, Integer, is, Model, Nothing, nothing} from '#typing';
 
@@ -90,7 +90,7 @@ export function newDeclarationScope<T extends DeclarationSemantics = Declaration
       generics?: ArrayData<TypeSemantics | Nothing> | Nothing,
       parameters?: ArrayData<TypeSemantics | Nothing> | Nothing,
     ): DeclarationSemantics | Nothing {
-      const declarations = this.filterByName(type, newTextData(name));
+      const declarations = this.filterByName(type, newText(name));
 
       if (declarations.length() === 0) {
         // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>

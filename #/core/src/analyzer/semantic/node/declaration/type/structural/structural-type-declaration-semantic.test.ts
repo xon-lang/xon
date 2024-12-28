@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   FunctionTypeSemantic,
   IdTypeSemantic,
@@ -9,14 +9,14 @@ import {
 import {$} from '#typing';
 
 test('no generics', () => {
-  const text = newTextData(`type Number = 3 | 7`);
+  const text = newText(`type Number = 3 | 7`);
   const source = newTextResource(nothing, text);
   const semantic = semanticFromResource(source, nothing);
 
   expect(semantic.declarationManager.count()).toBe(1);
 
   const declaration = semantic.declarationManager.declarations
-    .get(newTextData('Number'))
+    .get(newText('Number'))
     ?.at2(0) as StructuralTypeDeclarationSemantic;
   expect(declaration.$).toBe($.StructuralTypeDeclarationSemantic);
   expect(declaration.modifier).toBe('type');
@@ -29,14 +29,14 @@ test('no generics', () => {
 });
 
 test('has generics', () => {
-  const text = newTextData(`type Number<:T, V,U:> = T | V | U`);
+  const text = newText(`type Number<:T, V,U:> = T | V | U`);
   const source = newTextResource(nothing, text);
   const semantic = semanticFromResource(source, nothing);
 
   expect(semantic.declarationManager.count()).toBe(1);
 
   const declaration = semantic.declarationManager.declarations
-    .get(newTextData('Number'))
+    .get(newText('Number'))
     ?.at2(0) as StructuralTypeDeclarationSemantic;
   expect(declaration.$).toBe($.StructuralTypeDeclarationSemantic);
   expect(declaration.modifier).toBe('type');

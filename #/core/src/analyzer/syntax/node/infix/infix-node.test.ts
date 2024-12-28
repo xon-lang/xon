@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {evaluate, IdNode, InfixNode, IntegerNode, PrefixNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('several operands with different priorities', () => {
-  const text = newTextData('1*1+1+2^5*2/2');
+  const text = newText('1*1+1+2^5*2/2');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -16,7 +16,7 @@ test('several operands with different priorities', () => {
 });
 
 test('num plus str', () => {
-  const text = newTextData('1  + "str"');
+  const text = newText('1  + "str"');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -29,7 +29,7 @@ test('num plus str', () => {
 });
 
 test('num is number', () => {
-  const text = newTextData('1 & Number');
+  const text = newText('1 & Number');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -43,7 +43,7 @@ test('num is number', () => {
 });
 
 test('equals', () => {
-  const text = newTextData('this.text == 123');
+  const text = newText('this.text == 123');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -76,7 +76,7 @@ test('equals', () => {
 // });
 
 test('several operators', () => {
-  const text = newTextData('1 /+ 2');
+  const text = newText('1 /+ 2');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -94,7 +94,7 @@ test('several operators', () => {
 });
 
 test('range', () => {
-  const text = newTextData('0..3');
+  const text = newText('0..3');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

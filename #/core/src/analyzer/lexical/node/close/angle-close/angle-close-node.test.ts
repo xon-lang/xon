@@ -1,9 +1,9 @@
-import {newArrayData, newTextData, newTextResource, nothing} from '#common';
-import {$AngleCloseNode, AngleCloseNode, charLexicalParsers, codeLexicalParsers, newLexicalAnalyzer} from '#core';
+import {newArrayData, newText, newTextResource, nothing} from '#common';
+import {$AngleCloseNode, AngleCloseNode, codeLexicalParsers, newLexicalAnalyzer} from '#core';
 import {is} from '#typing';
 
 test('close paren', () => {
-  const text = newTextData(':>');
+  const text = newText(':>');
   const source = newTextResource(nothing, text);
   const analyzer = newLexicalAnalyzer(source);
   const nodes = newArrayData(Array.from(analyzer.iterator(codeLexicalParsers())));

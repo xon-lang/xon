@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {ANGLE_OPEN, AngleOpenNode, angleOpenNode, LexicalAnalyzer} from '#core';
 
 export function angleOpenNodeParse(analyzer: LexicalAnalyzer): AngleOpenNode | Nothing {
@@ -6,7 +6,7 @@ export function angleOpenNodeParse(analyzer: LexicalAnalyzer): AngleOpenNode | N
     return nothing;
   }
 
-  const text = newTextData(ANGLE_OPEN);
+  const text = newText(ANGLE_OPEN);
   const reference = analyzer.textReference(text);
 
   return angleOpenNode(reference, text);

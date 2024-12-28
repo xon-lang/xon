@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {
   AFFIX_MODIFIERS,
   idNode,
@@ -16,7 +16,7 @@ export function operatorNodeParse(analyzer: LexicalAnalyzer): LexicalNode | Noth
     return nothing;
   }
 
-  const text = newTextData(operator);
+  const text = newText(operator);
 
   if (analyzer.previousNonHiddenNode && AFFIX_MODIFIERS.hasItem(analyzer.previousNonHiddenNode.text)) {
     const range = analyzer.textReference(text);

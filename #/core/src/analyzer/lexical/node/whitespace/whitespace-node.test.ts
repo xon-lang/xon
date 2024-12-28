@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {LexicalNode, syntaxFromResource, WhitespaceNode} from '#core';
 import {$} from '#typing';
 
 test('whitespace', () => {
-  const text = newTextData('    ');
+  const text = newText('    ');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

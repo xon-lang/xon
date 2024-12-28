@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {CHAR_CLOSE, CharCloseNode, charCloseNode, LexicalAnalyzer} from '#core';
 
 export function charCloseNodeParse(analyzer: LexicalAnalyzer): CharCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function charCloseNodeParse(analyzer: LexicalAnalyzer): CharCloseNode | N
     return nothing;
   }
 
-  const text = newTextData(CHAR_CLOSE);
+  const text = newText(CHAR_CLOSE);
   const reference = analyzer.textReference(text);
 
   return charCloseNode(reference, text);

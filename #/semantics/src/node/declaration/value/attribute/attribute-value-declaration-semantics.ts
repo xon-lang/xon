@@ -1,4 +1,4 @@
-import {newTextData, Text} from '#common';
+import {newText, Text} from '#common';
 import {
   $ValueDeclarationSemantics,
   DeclarationSemantics,
@@ -45,8 +45,8 @@ export function newAttributeValueDeclarationSemantics(
 
 // todo fix or remove it
 function alternativeName(name: Text): Text {
-  if (name.equals(newTextData('+'))) {
-    return newTextData('__plus__');
+  if (name.equals(newText('+'))) {
+    return newText('__plus__');
   }
 
   return name;

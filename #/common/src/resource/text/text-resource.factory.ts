@@ -8,7 +8,7 @@ import {
   TextRange,
   TextReference,
   TextResource,
-  newTextData,
+  newText,
   newTextReference,
   nothing,
 } from '#common';
@@ -48,7 +48,7 @@ export function newTextResourceFromLocation(location: Text): TextResource | Noth
       return nothing;
     }
 
-    const data = newTextData(readFileSync(location.toString()).toString());
+    const data = newText(readFileSync(location.toString()).toString());
 
     return newTextResource(location, data);
   } catch (error) {

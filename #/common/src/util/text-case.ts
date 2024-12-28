@@ -7,7 +7,7 @@ import {
   newDictionary,
   newFunctionData,
   newKeyValue,
-  newTextData,
+  newText,
   nothing,
   Nothing,
   Text,
@@ -274,18 +274,18 @@ export type CaseFn = (input: string, options?: PascalCaseOptions) => string;
 
 const caseFunctions: Dictionary<Text, FunctionData> = newDictionary(
   newArrayData([
-    newKeyValue(newTextData('camel'), newFunctionData(camelCase)),
-    newKeyValue(newTextData('capital'), newFunctionData(capitalCase)),
-    newKeyValue(newTextData('constant'), newFunctionData(constantCase)),
-    newKeyValue(newTextData('dot'), newFunctionData(dotCase)),
-    newKeyValue(newTextData('kebab'), newFunctionData(kebabCase)),
-    newKeyValue(newTextData('no'), newFunctionData(noCase)),
-    newKeyValue(newTextData('pascal'), newFunctionData(pascalCase)),
-    newKeyValue(newTextData('pascalSnake'), newFunctionData(pascalSnakeCase)),
-    newKeyValue(newTextData('path'), newFunctionData(pathCase)),
-    newKeyValue(newTextData('sentence'), newFunctionData(sentenceCase)),
-    newKeyValue(newTextData('snake'), newFunctionData(snakeCase)),
-    newKeyValue(newTextData('train'), newFunctionData(trainCase)),
+    newKeyValue(newText('camel'), newFunctionData(camelCase)),
+    newKeyValue(newText('capital'), newFunctionData(capitalCase)),
+    newKeyValue(newText('constant'), newFunctionData(constantCase)),
+    newKeyValue(newText('dot'), newFunctionData(dotCase)),
+    newKeyValue(newText('kebab'), newFunctionData(kebabCase)),
+    newKeyValue(newText('no'), newFunctionData(noCase)),
+    newKeyValue(newText('pascal'), newFunctionData(pascalCase)),
+    newKeyValue(newText('pascalSnake'), newFunctionData(pascalSnakeCase)),
+    newKeyValue(newText('path'), newFunctionData(pathCase)),
+    newKeyValue(newText('sentence'), newFunctionData(sentenceCase)),
+    newKeyValue(newText('snake'), newFunctionData(snakeCase)),
+    newKeyValue(newText('train'), newFunctionData(trainCase)),
   ]),
 );
 
@@ -293,7 +293,7 @@ export function changeTextCase(caseName: Text, text: Text): Text | Nothing {
   const fn = caseFunctions.get(caseName);
 
   if (fn) {
-    return newTextData(fn.invoke(text.toString()));
+    return newText(fn.invoke(text.toString()));
   }
 
   return nothing;

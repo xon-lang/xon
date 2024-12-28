@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -10,12 +10,12 @@ import {
 import {$} from '#typing';
 
 test('only a', () => {
-  const text = newTextData('type A\n  p: A');
+  const text = newText('type A\n  p: A');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
   const type = semanticAnalyzer.declarationManager.declarations
-    .get(newTextData('A'))
+    .get(newText('A'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
 
   expect(semanticAnalyzer.declarationManager.count()).toBe(1);
@@ -27,7 +27,7 @@ test('only a', () => {
 
   const attributeP = type.attributes?.find(
     $.ValueDeclarationSemantic,
-    newTextData('p'),
+    newText('p'),
   ) as AttributeValueDeclarationSemantic;
   expect(attributeP.$).toBe($.AttributeValueDeclarationSemantic);
   expect(attributeP.name).toBe('p');
@@ -35,7 +35,7 @@ test('only a', () => {
 });
 
 test('declare b then a, a extends b', () => {
-  const text = newTextData('type B\ntype A: B');
+  const text = newText('type B\ntype A: B');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
@@ -43,7 +43,7 @@ test('declare b then a, a extends b', () => {
   expect(semantic.declarationManager.count()).toBe(2);
 
   const typeA = semantic.declarationManager.declarations
-    .get(newTextData('A'))
+    .get(newText('A'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeA.modifier).toBe('type');
@@ -52,7 +52,7 @@ test('declare b then a, a extends b', () => {
   expect((typeA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
-    .get(newTextData('B'))
+    .get(newText('B'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeB.modifier).toBe('type');
@@ -60,7 +60,7 @@ test('declare b then a, a extends b', () => {
 });
 
 test('declare a then b, a extends b', () => {
-  const text = newTextData('type A: B\ntype B');
+  const text = newText('type A: B\ntype B');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
@@ -68,7 +68,7 @@ test('declare a then b, a extends b', () => {
   expect(semantic.declarationManager.count()).toBe(2);
 
   const typeA = semantic.declarationManager.declarations
-    .get(newTextData('A'))
+    .get(newText('A'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeA.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeA.modifier).toBe('type');
@@ -77,7 +77,7 @@ test('declare a then b, a extends b', () => {
   expect((typeA.baseType as IdTypeSemantic)?.declaration?.name).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
-    .get(newTextData('B'))
+    .get(newText('B'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
   expect(typeB.$).toBe($.NominalTypeDeclarationSemantic);
   expect(typeB.modifier).toBe('type');
@@ -85,7 +85,7 @@ test('declare a then b, a extends b', () => {
 });
 
 test('infix plus operator', () => {
-  const text = newTextData('infix + (a: Integer, b: Integer): Integer');
+  const text = newText('infix + (a: Integer, b: Integer): Integer');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);

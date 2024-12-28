@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -8,7 +8,7 @@ import {
 } from '#core';
 
 test('type union', () => {
-  const text = newTextData('a: Integer | String');
+  const text = newText('a: Integer | String');
   const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -20,7 +20,7 @@ test('type union', () => {
 });
 
 test('type function', () => {
-  const text = newTextData('infix + (a: Integer, b: Integer): Integer');
+  const text = newText('infix + (a: Integer, b: Integer): Integer');
   const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;

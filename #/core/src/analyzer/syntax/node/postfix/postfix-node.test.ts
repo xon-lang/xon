@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {PostfixNode, evaluate, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('after integer', () => {
-  const text = newTextData('1!');
+  const text = newText('1!');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

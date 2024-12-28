@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {InfixNode, OperatorNode, PostfixNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('single operator', () => {
-  const text = newTextData('!');
+  const text = newText('!');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -15,7 +15,7 @@ test('single operator', () => {
 });
 
 test('after integer', () => {
-  const text = newTextData('1!');
+  const text = newText('1!');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -27,7 +27,7 @@ test('after integer', () => {
 });
 
 test('x + x', () => {
-  const text = newTextData('x is Number');
+  const text = newText('x is Number');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

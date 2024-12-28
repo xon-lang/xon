@@ -1,12 +1,4 @@
-import {
-  newArrayData,
-  newTextData,
-  newTextResourceFromLocation,
-  Nothing,
-  nothing,
-  String2,
-  Text,
-} from '#common';
+import {newArrayData, newText, newTextResourceFromLocation, Nothing, nothing, String2, Text} from '#common';
 import {
   createSemanticAnalyzer,
   DeclarationScope,
@@ -79,12 +71,12 @@ function normalizeImportString(location: String2, targetSourceLocation?: Text | 
 
   if (location.startsWith('/') || location.startsWith('.')) {
     if (targetSourceLocation) {
-      return newTextData(join(dirname(targetSourceLocation.toString()), locationWithExtension));
+      return newText(join(dirname(targetSourceLocation.toString()), locationWithExtension));
     }
 
-    return newTextData(locationWithExtension);
+    return newText(locationWithExtension);
   }
 
   // todo handle additional extension or other formats (json, other data files...)
-  return newTextData(join(LIB_FOLDER, locationWithExtension));
+  return newText(join(LIB_FOLDER, locationWithExtension));
 }

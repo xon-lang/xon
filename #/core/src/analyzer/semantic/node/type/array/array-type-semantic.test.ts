@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   ArrayTypeSemantic,
   AttributeValueDeclarationSemantic,
@@ -13,7 +13,7 @@ import {
 import {$} from '#typing';
 
 test('a is array', () => {
-  const text = newTextData(`
+  const text = newText(`
     const a: [1, 2, "A"]
   `);
   const source = newTextResource(nothing, text);
@@ -21,10 +21,10 @@ test('a is array', () => {
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe(
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $.AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');

@@ -1,4 +1,4 @@
-import {colorText, Integer, newTextData, Nothing, String2, TerminalColor, Text, TextReference} from '#common';
+import {colorText, Integer, newText, Nothing, String2, TerminalColor, Text, TextReference} from '#common';
 import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export type AnalyzerDiagnosticMessage = {
@@ -32,7 +32,7 @@ export function createDiagnostic(
     tags,
 
     terminalFormat(): String2 {
-      return terminalFormat(newTextData(this.message.actual), this.reference);
+      return terminalFormat(newText(this.message.actual), this.reference);
     },
   };
 }
@@ -46,14 +46,14 @@ export function terminalFormat(message: Text, {resource, range}: TextReference):
   const msg = red(message);
   const lineText = resource.data.lineText(range.start.line).toString();
   const nodeText = resource.data.slice(range).toString();
-  const location = cyan(resource.location ?? newTextData('<code>'));
-  const line = cyan(newTextData(`:${range.start.line + 1}`));
-  const column = cyan(newTextData(`:${range.start.column + 1}`));
-  const lineNumberBeforeGrayed = newTextData(`${range.start.line + 1} | `);
+  const location = cyan(resource.location ?? newText('<code>'));
+  const line = cyan(newText(`:${range.start.line + 1}`));
+  const column = cyan(newText(`:${range.start.column + 1}`));
+  const lineNumberBeforeGrayed = newText(`${range.start.line + 1} | `);
   const lineNumber = gray(lineNumberBeforeGrayed);
-  const caret = newTextData(' ')
+  const caret = newText(' ')
     .repeat(range.start.column + lineNumberBeforeGrayed.length())
-    .addLast(...red(newTextData('~').repeat(nodeText.length)));
+    .addLast(...red(newText('~').repeat(nodeText.length)));
 
   return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
 }

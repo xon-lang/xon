@@ -1,4 +1,4 @@
-import {Boolean2, newTextData, Nothing, Text} from '#common';
+import {Boolean2, newText, Nothing, Text} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -44,8 +44,8 @@ export function attributeValueDeclarationSemantic(
 
 // todo fix or remove it
 function alternativeName(name: Text): Text {
-  if (name.equals(newTextData('+'))) {
-    return newTextData('__plus__');
+  if (name.equals(newText('+'))) {
+    return newText('__plus__');
   }
 
   return name;

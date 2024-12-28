@@ -1,8 +1,8 @@
-import {$KeyValue, $Text, newKeyValue, newTextData} from '#common';
+import {$KeyValue, $Text, newKeyValue, newText} from '#common';
 import {is} from '#typing';
 
 test('key value', () => {
-  const a = newKeyValue(newTextData('abc'), newTextData('123'));
+  const a = newKeyValue(newText('abc'), newText('123'));
 
   expect(is(a, $KeyValue($Text, $Text))).toBe(true);
 });

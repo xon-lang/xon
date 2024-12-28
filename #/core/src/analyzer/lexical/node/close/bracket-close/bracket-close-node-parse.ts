@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {BRACKET_CLOSE, BracketCloseNode, bracketCloseNode, LexicalAnalyzer} from '#core';
 
 export function bracketCloseNodeParse(analyzer: LexicalAnalyzer): BracketCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function bracketCloseNodeParse(analyzer: LexicalAnalyzer): BracketCloseNo
     return nothing;
   }
 
-  const text = newTextData(BRACKET_CLOSE);
+  const text = newText(BRACKET_CLOSE);
   const reference = analyzer.textReference(text);
 
   return bracketCloseNode(reference, text);

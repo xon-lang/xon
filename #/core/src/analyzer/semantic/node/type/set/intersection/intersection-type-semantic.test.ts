@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing, Text} from '#common';
+import {newText, newTextResource, nothing, Text} from '#common';
 import {
   AttributeValueDeclarationSemantic,
   createSemanticAnalyzer,
@@ -12,7 +12,7 @@ import {
 import {$} from '#typing';
 
 test('a is integer', () => {
-  const text = newTextData(`
+  const text = newText(`
     type Integer
     type Float
 
@@ -23,10 +23,10 @@ test('a is integer', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe(
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $.AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toString()).toBe('a');
@@ -46,7 +46,7 @@ test('a is integer', () => {
 });
 
 test('check type', () => {
-  const text = newTextData(`
+  const text = newText(`
     type Number
     type Integer: Number
     type Float: Number
@@ -70,9 +70,9 @@ test('check type', () => {
       ) as AttributeValueDeclarationSemantic
     ).type as TypeSemantic;
 
-  const aType = getConst(newTextData('a'));
-  const bType = getConst(newTextData('b'));
-  const cType = getConst(newTextData('c'));
+  const aType = getConst(newText('a'));
+  const bType = getConst(newText('b'));
+  const cType = getConst(newText('c'));
 
   expect(aType.$).toBe($.IntersectionTypeSemantic);
   expect(bType.$).toBe($.IdTypeSemantic);

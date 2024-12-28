@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {DeclarationNode, evaluate, LexicalNode, OperatorNode, PrefixNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('negative integer', () => {
-  const text = newTextData('-1');
+  const text = newText('-1');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -16,7 +16,7 @@ test('negative integer', () => {
 });
 
 test('infix modifier', () => {
-  const text = newTextData('infix');
+  const text = newText('infix');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -28,7 +28,7 @@ test('infix modifier', () => {
 });
 
 test('hidden nodes', () => {
-  const text = newTextData('-    1\n');
+  const text = newText('-    1\n');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -46,7 +46,7 @@ test('hidden nodes', () => {
 });
 
 test('infix declaration', () => {
-  const text = newTextData('infix +');
+  const text = newText('infix +');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

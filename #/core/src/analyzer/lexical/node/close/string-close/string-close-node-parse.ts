@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {LexicalAnalyzer, STRING_CLOSE, StringCloseNode, stringCloseNode} from '#core';
 
 export function stringCloseNodeParse(analyzer: LexicalAnalyzer): StringCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function stringCloseNodeParse(analyzer: LexicalAnalyzer): StringCloseNode
     return nothing;
   }
 
-  const text = newTextData(STRING_CLOSE);
+  const text = newText(STRING_CLOSE);
   const reference = analyzer.textReference(text);
 
   return stringCloseNode(reference, text);

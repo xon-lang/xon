@@ -1,8 +1,8 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {ImportNode, StringNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 test('import string', () => {
-  const text = newTextData('import "xon/core"');
+  const text = newText('import "xon/core"');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
@@ -16,7 +16,7 @@ test('import string', () => {
 });
 
 test('import integer', () => {
-  const text = newTextData('import 1');
+  const text = newText('import 1');
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

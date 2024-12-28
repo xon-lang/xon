@@ -1,12 +1,4 @@
-import {
-  ArrayData,
-  newArrayData,
-  newDictionary,
-  newKeyValue,
-  newTextData,
-  Text,
-  topologicalSort,
-} from '#common';
+import {ArrayData, newArrayData, newDictionary, newKeyValue, newText, Text, topologicalSort} from '#common';
 
 test('empty', () => {
   const dependencies = newDictionary<Text, ArrayData<Text>>();
@@ -16,7 +8,7 @@ test('empty', () => {
 });
 
 test('no dependencies', () => {
-  const dependencies = newDictionary(newArrayData([newKeyValue(newTextData('A'), newArrayData<Text>())]));
+  const dependencies = newDictionary(newArrayData([newKeyValue(newText('A'), newArrayData<Text>())]));
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(1);
@@ -26,9 +18,7 @@ test('no dependencies', () => {
 });
 
 test('non existence', () => {
-  const dependencies = newDictionary(
-    newArrayData([newKeyValue(newTextData('A'), newArrayData([newTextData('B')]))]),
-  );
+  const dependencies = newDictionary(newArrayData([newKeyValue(newText('A'), newArrayData([newText('B')]))]));
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(1);
@@ -38,9 +28,7 @@ test('non existence', () => {
 });
 
 test('self', () => {
-  const dependencies = newDictionary(
-    newArrayData([newKeyValue(newTextData('A'), newArrayData([newTextData('A')]))]),
-  );
+  const dependencies = newDictionary(newArrayData([newKeyValue(newText('A'), newArrayData([newText('A')]))]));
 
   const {order: order, cycle: cycle} = topologicalSort(dependencies);
   expect(order.length).toBe(0);
@@ -52,12 +40,12 @@ test('self', () => {
 test('no cycle', () => {
   const dependencies = newDictionary(
     newArrayData([
-      newKeyValue(newTextData('A'), newArrayData<Text>()),
-      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
-      newKeyValue(newTextData('C'), newArrayData([newTextData('A'), newTextData('B')])),
-      newKeyValue(newTextData('D'), newArrayData([newTextData('F')])),
-      newKeyValue(newTextData('E'), newArrayData([newTextData('D'), newTextData('C')])),
-      newKeyValue(newTextData('F'), newArrayData<Text>()),
+      newKeyValue(newText('A'), newArrayData<Text>()),
+      newKeyValue(newText('B'), newArrayData([newText('A')])),
+      newKeyValue(newText('C'), newArrayData([newText('A'), newText('B')])),
+      newKeyValue(newText('D'), newArrayData([newText('F')])),
+      newKeyValue(newText('E'), newArrayData([newText('D'), newText('C')])),
+      newKeyValue(newText('F'), newArrayData<Text>()),
     ]),
   );
 
@@ -73,14 +61,14 @@ test('no cycle', () => {
 test('with cycle', () => {
   const dependencies = newDictionary(
     newArrayData([
-      newKeyValue(newTextData('A'), newArrayData<Text>()),
-      newKeyValue(newTextData('E'), newArrayData([newTextData('D'), newTextData('C')])),
-      newKeyValue(newTextData('C'), newArrayData([newTextData('A'), newTextData('B')])),
-      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
-      newKeyValue(newTextData('D'), newArrayData([newTextData('F')])),
-      newKeyValue(newTextData('F'), newArrayData<Text>()),
-      newKeyValue(newTextData('G'), newArrayData([newTextData('H')])),
-      newKeyValue(newTextData('H'), newArrayData([newTextData('G')])),
+      newKeyValue(newText('A'), newArrayData<Text>()),
+      newKeyValue(newText('E'), newArrayData([newText('D'), newText('C')])),
+      newKeyValue(newText('C'), newArrayData([newText('A'), newText('B')])),
+      newKeyValue(newText('B'), newArrayData([newText('A')])),
+      newKeyValue(newText('D'), newArrayData([newText('F')])),
+      newKeyValue(newText('F'), newArrayData<Text>()),
+      newKeyValue(newText('G'), newArrayData([newText('H')])),
+      newKeyValue(newText('H'), newArrayData([newText('G')])),
     ]),
   );
 
@@ -98,9 +86,9 @@ test('with cycle', () => {
 test('cycle 2', () => {
   const dependencies = newDictionary(
     newArrayData([
-      newKeyValue(newTextData('A'), newArrayData([newTextData('B')])),
-      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
-      newKeyValue(newTextData('C'), newArrayData<Text>()),
+      newKeyValue(newText('A'), newArrayData([newText('B')])),
+      newKeyValue(newText('B'), newArrayData([newText('A')])),
+      newKeyValue(newText('C'), newArrayData<Text>()),
     ]),
   );
 
@@ -116,8 +104,8 @@ test('cycle 2', () => {
 test('cycle 3', () => {
   const dependencies = newDictionary(
     newArrayData([
-      newKeyValue(newTextData('A'), newArrayData([newTextData('A')])),
-      newKeyValue(newTextData('B'), newArrayData([newTextData('A')])),
+      newKeyValue(newText('A'), newArrayData([newText('A')])),
+      newKeyValue(newText('B'), newArrayData([newText('A')])),
     ]),
   );
 

@@ -1,9 +1,9 @@
-import {newTextData, newTextResource} from '#common';
+import {newText, newTextResource} from '#common';
 import {CharNode, syntaxFromResource} from '#core';
 import {nothing} from '#typing';
 
 test('a', () => {
-  const text = newTextData("   \n    \n  ---comment ---'a'");
+  const text = newText("   \n    \n  ---comment ---'a'");
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;

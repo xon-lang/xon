@@ -1,4 +1,4 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {
   DeclarationNode,
   DeclarationSemantic,
@@ -8,7 +8,7 @@ import {
 } from '#core';
 
 test('type string', () => {
-  const text = newTextData('type A');
+  const text = newText('type A');
   const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;
@@ -20,7 +20,7 @@ test('type string', () => {
 });
 
 test('parameter type', () => {
-  const text = newTextData('type A<:T: Number = Integer:>');
+  const text = newText('type A<:T: Number = Integer:>');
   const resource = newTextResource(nothing, text);
   const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements[0].value as DeclarationNode;

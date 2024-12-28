@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Boolean2, Integer, newTextData, Nothing, String2, Text} from '#common';
+import {Boolean2, Integer, newText, Nothing, String2, Text} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -131,5 +131,5 @@ String.prototype.equals = function (other: String2): Boolean2 {
 };
 
 String.prototype.toText = function (): Text {
-  return newTextData(this);
+  return newText(this);
 };

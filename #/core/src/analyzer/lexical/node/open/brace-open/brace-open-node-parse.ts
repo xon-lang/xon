@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {BRACE_OPEN, BraceOpenNode, braceOpenNode, LexicalAnalyzer} from '#core';
 
 export function braceOpenNodeParse(analyzer: LexicalAnalyzer): BraceOpenNode | Nothing {
@@ -6,7 +6,7 @@ export function braceOpenNodeParse(analyzer: LexicalAnalyzer): BraceOpenNode | N
     return nothing;
   }
 
-  const text = newTextData(BRACE_OPEN);
+  const text = newText(BRACE_OPEN);
   const reference = analyzer.textReference(text);
 
   return braceOpenNode(reference, text);

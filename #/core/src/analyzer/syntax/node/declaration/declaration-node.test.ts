@@ -1,9 +1,9 @@
-import {newTextData, newTextResource, nothing} from '#common';
+import {newText, newTextResource, nothing} from '#common';
 import {CharNode, DeclarationNode, IdNode, IntegerNode, syntaxFromResource} from '#core';
 import {$} from '#typing';
 
 test('type A', () => {
-  const text = newTextData('type A');
+  const text = newText('type A');
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -16,7 +16,7 @@ test('type A', () => {
 });
 
 test('type A: B', () => {
-  const text = newTextData('type A: B');
+  const text = newText('type A: B');
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -31,7 +31,7 @@ test('type A: B', () => {
 });
 
 test('with generics extends b', () => {
-  const text = newTextData('type A<:T: Array = String, U:>: B');
+  const text = newText('type A<:T: Array = String, U:>: B');
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -52,7 +52,7 @@ test('with generics extends b', () => {
 });
 
 test('with parameters extends b', () => {
-  const text = newTextData("type A(a: Integer = 123, b: Boolean, c = 'C'): B");
+  const text = newText("type A(a: Integer = 123, b: Boolean, c = 'C'): B");
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -85,7 +85,7 @@ test('with parameters extends b', () => {
 });
 
 test('with generics and parameters extends b', () => {
-  const text = newTextData("type A<:T: Array = String, U:>(a: Integer = 123, b: Boolean, c = 'C'): B");
+  const text = newText("type A<:T: Array = String, U:>(a: Integer = 123, b: Boolean, c = 'C'): B");
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -125,7 +125,7 @@ test('with generics and parameters extends b', () => {
 });
 
 test('has attributes', () => {
-  const text = newTextData(`type A
+  const text = newText(`type A
   a
   b: Boolean
   c: Char = 'C'
@@ -147,7 +147,7 @@ test('has attributes', () => {
 });
 
 test('type string with base class', () => {
-  const text = newTextData('type Array\ntype String: Array');
+  const text = newText('type Array\ntype String: Array');
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -161,7 +161,7 @@ test('type string with base class', () => {
 });
 
 test('lambda type', () => {
-  const text = newTextData('const a: (x: Integer): Integer');
+  const text = newText('const a: (x: Integer): Integer');
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
@@ -176,7 +176,7 @@ test('lambda type', () => {
 });
 
 test('declaration documentation', () => {
-  const text = newTextData(`
+  const text = newText(`
 ===
   Some description
 ===
@@ -195,7 +195,7 @@ type A`);
 });
 
 test('infix plus operator', () => {
-  const text = newTextData('infix + (a: Integer, b: Integer): Integer');
+  const text = newText('infix + (a: Integer, b: Integer): Integer');
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;

@@ -1,4 +1,4 @@
-import {changeTextCase, kebabCase, newTextData, nothing} from '#common';
+import {changeTextCase, kebabCase, newText, nothing} from '#common';
 import {$, is} from '#typing';
 import {
   EXTENSION_CONFIG,
@@ -49,7 +49,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
     }
 
     const dir = dirname(document.uri.fsPath);
-    const caseName = newTextData(EXTENSION_CONFIG.newFileNameCase.get());
+    const caseName = newText(EXTENSION_CONFIG.newFileNameCase.get());
     const changedCaseText =
       changeTextCase(caseName, node.text) ?? kebabCase(caseName.toString(), node.text.toString());
     const fileName = changedCaseText + '.' + FILE_EXTENSION;

@@ -1,4 +1,4 @@
-import {newTextData, Nothing, nothing} from '#common';
+import {newText, Nothing, nothing} from '#common';
 import {LexicalAnalyzer, PAREN_CLOSE, ParenCloseNode, parenCloseNode} from '#core';
 
 export function parenCloseNodeParse(analyzer: LexicalAnalyzer): ParenCloseNode | Nothing {
@@ -6,7 +6,7 @@ export function parenCloseNodeParse(analyzer: LexicalAnalyzer): ParenCloseNode |
     return nothing;
   }
 
-  const text = newTextData(PAREN_CLOSE);
+  const text = newText(PAREN_CLOSE);
   const reference = analyzer.textReference(text);
 
   return parenCloseNode(reference, text);

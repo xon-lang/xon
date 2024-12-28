@@ -1,9 +1,9 @@
-import {newArrayData, newTextData, newTextResource, nothing} from '#common';
+import {newArrayData, newText, newTextResource, nothing} from '#common';
 import {$CharContentNode, CharContentNode, charLexicalParsers, newLexicalAnalyzer} from '#core';
 import {is} from '#typing';
 
 test('char content', () => {
-  const text = newTextData("'a'");
+  const text = newText("'a'");
   const source = newTextResource(nothing, text);
   const analyzer = newLexicalAnalyzer(source);
   const nodes = newArrayData(Array.from(analyzer.iterator(charLexicalParsers())));
