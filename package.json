@@ -16,9 +16,9 @@
   "scripts": {
     "test": "vitest",
     "dev": "tsc --noEmit --watch",
-    "vscode:build2": "rm -rf '#/vscode/dist' && tsc",
-    "vscode:build": "rm -rf '#/vscode/dist' && esbuild '#/vscode/src/main.ts' --bundle --outfile='#/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
+    "vscode:build2": "rm -rf 'packages/vscode/dist' && tsc",
+    "vscode:build": "rm -rf 'packages/vscode/dist' && esbuild 'packages/vscode/src/main.ts' --bundle --outfile='packages/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
     "vscode:debug": "npm run vscode:build",
-    "barrels": "barrelsby -qD -e dist -e .gen -e .test -d '#/common' '#/core' '#/translator' '#/typing' '#/vscode' '#/xon-lib'"
+    "barrels": "barrelsby -qD -e dist -e .gen -e .test -d 'packages/common' 'packages/core' 'packages/translator' 'packages/typing' 'packages/vscode' 'packages/xon-lib'"
   }
 }
