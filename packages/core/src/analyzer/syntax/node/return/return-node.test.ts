@@ -11,6 +11,6 @@ test('with value', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($ReturnNode);
-  expect(node.operator.text.toString()).toBe(RETURN);
+  expect(node.operator.text.toString()).toBe(RETURN.toString());
   expect(evaluate(node.value)).toBe(10);
 });
