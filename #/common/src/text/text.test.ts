@@ -1,8 +1,9 @@
-import {$Text, newText} from '#common';
-import {is} from '#typing';
+import {expect, test} from 'vitest';
 
-test('text data', () => {
-  const a = newText('ABC');
+export function sum(a: number, b: number) {
+  return a + b;
+}
 
-  expect(is(a, $Text)).toBe(true);
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
 });

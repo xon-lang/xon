@@ -45,6 +45,7 @@ export function newType<T extends Model>(
 }
 
 export interface Model {
+  // todo move to symbol ???
   $: $Type;
 
   // todo remove 'equals' ???
