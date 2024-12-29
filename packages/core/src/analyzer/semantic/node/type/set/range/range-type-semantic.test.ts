@@ -11,6 +11,7 @@ import {
   TEST_SEMANTIC_CONFIG,
   typeNodeType,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('a is range', () => {
   const text = newText(`

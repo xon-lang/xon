@@ -6,6 +6,7 @@ import {
   ReturnNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('with value', () => {
   const text = newText(`return  3`);

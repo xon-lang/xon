@@ -1,6 +1,7 @@
 import {newArrayData, newText, newTextResource, nothing} from '#common';
 import {$StringContentNode, newLexicalAnalyzer, StringContentNode, stringLexicalParsers} from '#core';
 import {is} from '#typing';
+import {expect, test} from 'vitest';
 
 test('string content', () => {
   const text = newText('"a"');

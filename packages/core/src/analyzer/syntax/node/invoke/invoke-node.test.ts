@@ -13,6 +13,7 @@ import {
   StringNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('method call', () => {
   const text = newText("f(3, 'str')");

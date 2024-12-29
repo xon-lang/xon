@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$WhitespaceNode, LexicalNode, syntaxFromResource, WhitespaceNode} from '#core';
+import {expect, test} from 'vitest';
 
 test('whitespace', () => {
   const text = newText('    ');

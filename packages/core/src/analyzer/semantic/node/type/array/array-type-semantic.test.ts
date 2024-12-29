@@ -12,6 +12,7 @@ import {
   TEST_SEMANTIC_CONFIG,
   typeNodeType,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('a is array', () => {
   const text = newText(`

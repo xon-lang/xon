@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$LambdaNode, DeclarationNode, evaluate, IdNode, LambdaNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('function with no parameters', () => {
   const text = newText('(): Integer');

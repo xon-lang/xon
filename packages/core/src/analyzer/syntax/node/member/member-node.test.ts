@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$IdNode, $MemberNode, LexicalNode, MemberNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('member with id instance', () => {
   const text = newText('abc.def');

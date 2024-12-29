@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$CommentLineNode, CommentLineNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('line comment', () => {
   const text = newText('// abc');

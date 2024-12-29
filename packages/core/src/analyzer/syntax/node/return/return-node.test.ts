@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$ReturnNode, RETURN, ReturnNode, evaluate, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('with value', () => {
   const text = newText('return 3 + 7');

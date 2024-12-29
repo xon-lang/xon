@@ -8,6 +8,7 @@ import {
   NominalTypeDeclarationSemantic,
   semanticFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('no generics', () => {
   const text = newText(`type Number`);

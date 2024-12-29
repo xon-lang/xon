@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$CharNode, CharNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('a', () => {
   const text = newText("'a'");

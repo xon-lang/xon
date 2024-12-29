@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$ParenCloseNode, ParenCloseNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('close paren', () => {
   const text = newText(')');

@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$IdNode, $IntegerNode, InfixNode, IntegerNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('comma', () => {
   const text = newText('1');

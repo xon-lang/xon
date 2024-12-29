@@ -12,7 +12,7 @@
     "vitest": "^2.1.8"
   },
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "dev": "tsc --noEmit --watch",
     "vscode:build2": "rm -rf 'packages/vscode/dist' && tsc",
     "vscode:build": "rm -rf 'packages/vscode/dist' && esbuild 'packages/vscode/src/main.ts' --bundle --outfile='packages/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",

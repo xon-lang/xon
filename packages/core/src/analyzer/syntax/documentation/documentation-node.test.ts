@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$DocumentationNode, DocumentationNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('documentation', () => {
   const text = newText('===a===');

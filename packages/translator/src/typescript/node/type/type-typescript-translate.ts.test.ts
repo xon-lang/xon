@@ -1,6 +1,7 @@
 import {newText, newTextResource, nothing} from '#common';
 import {DeclarationNode, semanticFromResource, TEST_SEMANTIC_CONFIG, ValueDeclarationSemantic} from '#core';
 import {newTypescriptTranslator} from '#translator';
+import {expect, test} from 'vitest';
 
 test('type string', () => {
   const text = newText('const a: "string"');

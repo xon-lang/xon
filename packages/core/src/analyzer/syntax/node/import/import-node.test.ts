@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$ImportNode, $StringNode, ImportNode, StringNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('import string', () => {
   const text = newText('import "xon/core"');

@@ -10,6 +10,7 @@ import {
   ParameterValueDeclarationSemantic,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('a is function', () => {
   const text = newText(`

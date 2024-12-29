@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$BracketCloseNode, BracketCloseNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('close paren', () => {
   const text = newText(']');

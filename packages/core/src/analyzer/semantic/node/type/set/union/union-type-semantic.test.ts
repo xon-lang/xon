@@ -13,6 +13,7 @@ import {
   TypeSemantic,
   UnionTypeSemantic,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('a is integer or float', () => {
   const text = newText(`

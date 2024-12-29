@@ -1,5 +1,6 @@
 import {$Char, newChar} from '#common';
 import {is} from '#typing';
+import {expect, test} from 'vitest';
 
 test('char', () => {
   const a = newChar('A');

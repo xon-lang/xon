@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$IdNode, IdNode, predefinedDiagnostics, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('single id', () => {
   const text = newText('abc');

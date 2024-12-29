@@ -8,6 +8,7 @@ import {
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('only a', () => {
   const text = newText('infix + (a: Integer, b: String): String ');

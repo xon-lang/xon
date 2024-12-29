@@ -7,6 +7,7 @@ import {
   semanticFromResource,
   TEST_SEMANTIC_CONFIG,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('only a', () => {
   const text = newText('const a(p: Integer): String');

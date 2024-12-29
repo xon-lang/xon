@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$CommaNode, CommaNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('comma', () => {
   const text = newText(',');

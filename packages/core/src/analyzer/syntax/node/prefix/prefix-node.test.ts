@@ -11,6 +11,7 @@ import {
   PrefixNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('negative integer', () => {
   const text = newText('-1');

@@ -8,6 +8,7 @@ import {
   PostfixNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('single operator', () => {
   const text = newText('!');

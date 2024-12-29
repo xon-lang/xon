@@ -1,4 +1,5 @@
 import {$Model, is, Model, newType} from '#typing';
+import {expect, test} from 'vitest';
 
 test('type', () => {
   const $A = newType('SomeTestPackage', 'A');

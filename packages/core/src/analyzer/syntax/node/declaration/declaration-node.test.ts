@@ -11,6 +11,7 @@ import {
   IntegerNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('type A', () => {
   const text = newText('type A');

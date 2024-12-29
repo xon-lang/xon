@@ -9,6 +9,7 @@ import {
   syntaxFromResource,
   typeNodeType,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('import core', () => {
   const text = newText(`

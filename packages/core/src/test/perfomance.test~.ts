@@ -2,6 +2,7 @@ import {Anything, newText, newTextResourceFromLocation, performanceIterations, S
 import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
+import {expect, test} from 'vitest';
 
 test('performance', () => {
   const resource = newTextResourceFromLocation(newText('packages/core/parser/test/performance/source.xon'));

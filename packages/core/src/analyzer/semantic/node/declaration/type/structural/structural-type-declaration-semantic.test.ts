@@ -11,6 +11,7 @@ import {
   StructuralTypeDeclarationSemantic,
   UnionTypeSemantic,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('no generics', () => {
   const text = newText(`type Number = 3 | 7`);

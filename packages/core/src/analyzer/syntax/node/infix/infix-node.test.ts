@@ -10,6 +10,7 @@ import {
   PrefixNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('several operands with different priorities', () => {
   const text = newText('1*1+1+2^5*2/2');

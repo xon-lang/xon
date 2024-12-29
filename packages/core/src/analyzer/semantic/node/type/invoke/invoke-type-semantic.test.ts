@@ -8,6 +8,7 @@ import {
   IdNode,
   syntaxFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('a is integer', () => {
   const text = newText(`

@@ -12,6 +12,7 @@ import {
   ParameterValueDeclarationSemantic,
   semanticFromResource,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('only a', () => {
   const text = newText(`

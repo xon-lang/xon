@@ -10,6 +10,7 @@ import {
   syntaxFromResource,
 } from '#core';
 import {is} from '#typing';
+import {expect, test} from 'vitest';
 
 test('no space', () => {
   const text = newText('abc~.def');
@@ -19,7 +20,7 @@ test('no space', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance?.$).toBe($IdNode);
+  expect(is(node.instance, $IdNode)).toBe(true);
   expect((node.instance as IdNode).text.toString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(node.id?.$).toBe($IdNode);
@@ -37,7 +38,7 @@ test('spaces', () => {
   expect(node.instance?.$).toBe($IdNode);
   expect((node.instance as IdNode).text.toString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toString()).toBe('.');
-  expect(node.id?.$).toBe($IdNode);
+  expect(is(node.id, $IdNode)).toBe(true);
   expect((node.id as IdNode).text.toString()).toBe('def');
 });
 
@@ -54,6 +55,6 @@ test('with new line', () => {
   expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(is(node.operator.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
   expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(JOINING + '   \n');
-  expect(node.id?.$).toBe($IdNode);
+  expect(is(node.id, $IdNode)).toBe(true);
   expect((node.id as IdNode).text.toString()).toBe('def');
 });

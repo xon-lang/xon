@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$IdNode, $NlNode, IdNode, LexicalNode, NL, NlNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('lf nl', () => {
   const text = newText('\n');

@@ -11,6 +11,7 @@ import {
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
 } from '#core';
+import {expect, test} from 'vitest';
 
 test('only a', () => {
   const text = newText('type A\n  p: A');

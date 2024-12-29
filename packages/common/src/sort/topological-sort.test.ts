@@ -1,4 +1,5 @@
 import {ArrayData, newArrayData, newDictionary, newKeyValue, newText, Text, topologicalSort} from '#common';
+import {expect, test} from 'vitest';
 
 test('empty', () => {
   const dependencies = newDictionary<Text, ArrayData<Text>>();

@@ -2,6 +2,7 @@ import {newText, newTextResourceFromLocation, String2} from '#common';
 import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
+import {expect, test} from 'vitest';
 
 test('01', () => testFormatter('1'));
 test('02', () => testFormatter('2'));

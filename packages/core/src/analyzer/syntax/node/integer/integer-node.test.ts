@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$IntegerNode, IntegerNode, syntaxFromResource} from '#core';
+import {expect, test} from 'vitest';
 
 test('integer', () => {
   const text = newText('123');

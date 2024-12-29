@@ -1,6 +1,7 @@
 import {newText, newTextResource, nothing} from '#common';
 import {$IntegerNode, $LexicalNode, IntegerNode, LexicalNode, syntaxFromResource, UnknownNode} from '#core';
 import {is} from '#typing';
+import {expect, test} from 'vitest';
 
 test('unknown 1', () => {
   const text = newText('123 §•∞•456');

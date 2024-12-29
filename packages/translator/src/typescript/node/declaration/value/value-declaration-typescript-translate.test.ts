@@ -1,6 +1,7 @@
 import {newText, newTextResource, nothing} from '#common';
 import {DeclarationNode, DeclarationSemantic, semanticFromResource, TEST_SEMANTIC_CONFIG} from '#core';
 import {newTypescriptTranslator} from '#translator';
+import {expect, test} from 'vitest';
 
 test('type union', () => {
   const text = newText('a: Integer | String');
