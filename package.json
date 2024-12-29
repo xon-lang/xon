@@ -20,7 +20,6 @@
     "vscode:build2": "rm -rf '#/vscode/dist' && tsc",
     "vscode:build": "rm -rf '#/vscode/dist' && esbuild '#/vscode/src/main.ts' --bundle --outfile='#/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
     "vscode:debug": "npm run vscode:build",
-    "barrelsby": "barrelsby -qD -e dist -e .gen -e .test -d",
-    "barrels": "npm run barrelsby -- '#/common' '#/core' '#/translator' '#/typing' '#/vscode' '#/xon-lib'"
+    "barrels": "barrelsby -qD -e dist -e .gen -e .test -d '#/common' '#/core' '#/translator' '#/typing' '#/vscode' '#/xon-lib'"
   }
 }
