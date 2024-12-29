@@ -6,7 +6,7 @@ export type SyntaxNode = Node & {
   children: Node[];
 };
 
-export const $SyntaxNode = corePackageType<SyntaxNode>('SyntaxNode');
+export const $SyntaxNode = corePackageType<SyntaxNode>('SyntaxNode', $Node);
 
 export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Anything>>(
   analyzer: SyntaxAnalyzer,

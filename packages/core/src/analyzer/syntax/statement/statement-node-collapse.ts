@@ -97,7 +97,8 @@ export function statementNodeCollapse(
     let index = 0;
 
     while ((result = parse(analyzer, nodes, index, parentStatement))) {
-      nodes.splice(result.index, result.deleteCount ?? result.node.children.length, result.node);
+      const deleteCount = result.deleteCount ?? result.node.children.length;
+      nodes.splice(result.index, deleteCount, result.node);
       index = result.index + 1;
 
       validate(analyzer, parentStatement, result.node);
