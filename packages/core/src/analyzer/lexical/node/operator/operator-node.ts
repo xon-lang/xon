@@ -22,7 +22,7 @@ export type OperatorNode = LexicalNode & Brand<'Core.OperatorNode'>;
 export const $OperatorNode = corePackageType<OperatorNode>('OperatorNode', $LexicalNode);
 
 export function operatorNode(reference: TextReference, text: Text): OperatorNode {
-  return lexicalNode({$: $LexicalNode, reference, text});
+  return lexicalNode({$: $OperatorNode, reference, text});
 }
 
 function getKeywordType(text: Text): KeywordType | Nothing {

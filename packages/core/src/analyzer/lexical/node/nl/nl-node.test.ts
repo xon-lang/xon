@@ -11,7 +11,7 @@ test('lf nl', () => {
 
   expect(statements.length).toBe(0);
   expect(node.$).toBe($NlNode);
-  expect(node.text.toString()).toBe(NL);
+  expect(node.text.toString()).toBe(NL.toString());
 });
 
 test('several', () => {

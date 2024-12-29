@@ -20,6 +20,7 @@ import {
   parenCloseNodeParse,
   parenOpenNodeParse,
   stringOpenNodeParse,
+  unknownNodeParse,
   whitespaceNodeParse,
 } from '#core';
 
@@ -53,5 +54,6 @@ export function codeLexicalParsers(): ArrayData<FunctionData<LexicalNodeParseFn>
     newFunctionData(charOpenNodeParse),
     newFunctionData(operatorNodeParse),
     newFunctionData(idNodeParse),
+    newFunctionData(unknownNodeParse),
   ]);
 }

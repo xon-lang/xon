@@ -20,7 +20,7 @@ test('no space', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(is(node.instance, $IdNode)).toBe(true);
+  expect(node.instance.$.toString()).toBe($IdNode.toString());
   expect((node.instance as IdNode).text.toString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(node.id?.$).toBe($IdNode);
@@ -54,7 +54,7 @@ test('with new line', () => {
   expect((node.instance as IdNode).text.toString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toString()).toBe('.');
   expect(is(node.operator.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
-  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(JOINING + '   \n');
+  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(JOINING.toString() + '   \n');
   expect(is(node.id, $IdNode)).toBe(true);
   expect((node.id as IdNode).text.toString()).toBe('def');
 });

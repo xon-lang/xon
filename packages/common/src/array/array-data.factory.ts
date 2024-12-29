@@ -213,28 +213,23 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
         return -1;
       }
 
-      startIndex ??= this.length() - 1;
-
       const itemsLength = items.length();
 
-      if (itemsLength < this.length()) {
+      if (itemsLength > this.length()) {
         return -1;
       }
 
+      startIndex ??= this.length() - 1;
+
       return this._items.findLastIndex(
         (x, i, arr) =>
-          i + itemsLength >= arr.length &&
+          arr.length - i >= itemsLength &&
           items.every((z, j) => {
-            if (z === this.at2(i + j)) {
-              return true;
-            }
-
-            // todo fix it
             if (is(z, $Model) && is(x, $Model) && z.equals) {
               return z.equals(x);
             }
 
-            return false;
+            return z === this.at2(i + j);
           }),
       );
     },
@@ -256,13 +251,13 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     addFirst(...items: T[]): ArrayData<T> {
-      this._items.push(...items);
+      this._items.unshift(...items);
 
       return this;
     },
 
     addLast(...items: T[]): ArrayData<T> {
-      this._items.unshift(...items);
+      this._items.push(...items);
 
       return this;
     },

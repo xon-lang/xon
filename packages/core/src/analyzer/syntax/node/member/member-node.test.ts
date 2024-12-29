@@ -10,7 +10,7 @@ test('member with id instance', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$).toBe($MemberNode);
+  expect(node.$.toString()).toBe($MemberNode.toString());
 
   expect(node.instance.$).toBe($IdNode);
   expect((node.instance as LexicalNode).text.toString()).toBe('abc');
