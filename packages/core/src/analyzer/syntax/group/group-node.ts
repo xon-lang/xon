@@ -1,5 +1,6 @@
 import {Boolean2, newTextReference, Nothing, rangeFromNodes} from '#common';
 import {$SyntaxNode, CloseNode, corePackageType, ItemNode, OpenNode, SyntaxAnalyzer, SyntaxNode} from '#core';
+import {$Type} from '#typing';
 
 export type GroupNode = SyntaxNode & {
   open: OpenNode;
@@ -11,6 +12,7 @@ export const $GroupNode = corePackageType<GroupNode>('GroupNode', $SyntaxNode);
 
 export function groupNode(
   analyzer: SyntaxAnalyzer,
+  $groupType: $Type,
   open: OpenNode,
   items: ItemNode[],
   close: CloseNode | Nothing,
@@ -19,7 +21,7 @@ export function groupNode(
   const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
 
   const node: GroupNode = {
-    $: $GroupNode,
+    $: $groupType,
     reference,
     children,
     open,

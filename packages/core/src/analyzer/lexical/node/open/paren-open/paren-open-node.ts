@@ -7,5 +7,5 @@ export type ParenOpenNode = OpenNode & Brand<'Core.ParenOpenNode'>;
 export const $ParenOpenNode = corePackageType<ParenOpenNode>('ParenOpenNode', $OpenNode);
 
 export function parenOpenNode(reference: TextReference, text: Text): ParenOpenNode {
-  return lexicalNode({$: $OpenNode, reference, text});
+  return lexicalNode({$: $ParenOpenNode, reference, text});
 }

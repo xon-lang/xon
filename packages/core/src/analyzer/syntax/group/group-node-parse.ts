@@ -1,9 +1,13 @@
 import {Nothing, nothing, Text} from '#common';
 import {
+  $AngleGroupNode,
+  $BraceGroupNode,
   $BraceOpenNode,
+  $BracketGroupNode,
   $BracketOpenNode,
   $CloseNode,
   $CommaNode,
+  $ParenGroupNode,
   $ParenOpenNode,
   ANGLE_CLOSE,
   BRACE_CLOSE,
@@ -17,25 +21,30 @@ import {
   PAREN_CLOSE,
   SyntaxAnalyzer,
 } from '#core';
-import {is} from '#typing';
+import {$Type, is} from '#typing';
 
 export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
   if (is(openNode, $ParenOpenNode)) {
-    return groupNodeParseInner(analyzer, openNode, PAREN_CLOSE);
+    return groupNodeParseInner(analyzer, $ParenGroupNode, openNode, PAREN_CLOSE);
   }
 
   if (is(openNode, $BracketOpenNode)) {
-    return groupNodeParseInner(analyzer, openNode, BRACKET_CLOSE);
+    return groupNodeParseInner(analyzer, $BracketGroupNode, openNode, BRACKET_CLOSE);
   }
 
   if (is(openNode, $BraceOpenNode)) {
-    return groupNodeParseInner(analyzer, openNode, BRACE_CLOSE);
+    return groupNodeParseInner(analyzer, $BraceGroupNode, openNode, BRACE_CLOSE);
   }
 
-  return groupNodeParseInner(analyzer, openNode, ANGLE_CLOSE);
+  return groupNodeParseInner(analyzer, $AngleGroupNode, openNode, ANGLE_CLOSE);
 }
 
-function groupNodeParseInner(analyzer: SyntaxAnalyzer, openNode: OpenNode, closeText: Text): GroupNode {
+function groupNodeParseInner(
+  analyzer: SyntaxAnalyzer,
+  $groupType: $Type,
+  openNode: OpenNode,
+  closeText: Text,
+): GroupNode {
   const items: ItemNode[] = [];
 
   let itemIndex = 0;
@@ -58,11 +67,11 @@ function groupNodeParseInner(analyzer: SyntaxAnalyzer, openNode: OpenNode, close
         items.push(item);
       }
 
-      return groupNode(analyzer, openNode, items, breakNode);
+      return groupNode(analyzer, $groupType, openNode, items, breakNode);
     }
 
     itemIndex += 1;
   }
 
-  return groupNode(analyzer, openNode, items, nothing);
+  return groupNode(analyzer, $groupType, openNode, items, nothing);
 }

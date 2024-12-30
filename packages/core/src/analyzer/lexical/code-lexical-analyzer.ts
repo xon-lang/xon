@@ -30,13 +30,15 @@ export function codeLexicalParsers(): ArrayData<FunctionData<LexicalNodeParseFn>
   return newArrayData([
     newFunctionData(parenOpenNodeParse),
     newFunctionData(parenCloseNodeParse),
-    newFunctionData(bracketOpenNodeParse),
-    newFunctionData(angleOpenNodeParse),
 
+    newFunctionData(bracketOpenNodeParse),
     newFunctionData(bracketCloseNodeParse),
+
+    newFunctionData(angleOpenNodeParse),
+    newFunctionData(angleCloseNodeParse),
+
     newFunctionData(braceOpenNodeParse),
     newFunctionData(braceCloseNodeParse),
-    newFunctionData(angleCloseNodeParse),
 
     newFunctionData(integerContentNodeParse),
 
