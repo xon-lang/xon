@@ -5,7 +5,7 @@ import {is} from '#typing';
 export function invokeNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (index === 0 || !is(node, $GroupNode)) {
+      if (index === 0 || !is(node, $GroupNode())) {
         return nothing;
       }
 

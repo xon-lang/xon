@@ -85,7 +85,7 @@ function getInvokeNodeAndParameterIndex(
   }
 
   if (is(nodeAtPosition, $OpenNode)) {
-    if (is(nodeAtPosition.parent, $GroupNode) && is(nodeAtPosition.parent.parent, $InvokeNode)) {
+    if (is(nodeAtPosition.parent, $GroupNode()) && is(nodeAtPosition.parent.parent, $InvokeNode)) {
       return {
         invokeNode: nodeAtPosition.parent.parent,
         parameterIndex: 0,
@@ -96,7 +96,7 @@ function getInvokeNodeAndParameterIndex(
   if (is(nodeAtPosition, $CommaNode)) {
     if (
       is(nodeAtPosition.parent, $ItemNode) &&
-      is(nodeAtPosition.parent.parent, $GroupNode) &&
+      is(nodeAtPosition.parent.parent, $GroupNode()) &&
       is(nodeAtPosition.parent.parent.parent, $InvokeNode)
     ) {
       return {

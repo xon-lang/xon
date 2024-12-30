@@ -59,9 +59,7 @@ function groupNodeParseInner(
       const item = itemNode(analyzer, itemIndex, commaNode, statements);
       items.push(item);
       commaNode = breakNode;
-    }
-
-    if (is(breakNode, $CloseNode)) {
+    } else if (is(breakNode, $CloseNode)) {
       if (items.length > 0 || statements.length > 0) {
         const item = itemNode(analyzer, itemIndex, commaNode, statements);
         items.push(item);

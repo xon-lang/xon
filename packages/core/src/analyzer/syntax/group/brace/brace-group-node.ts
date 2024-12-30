@@ -3,4 +3,4 @@ import {Brand} from '#typing';
 
 export type BraceGroupNode = GroupNode & Brand<'Core.BraceGroupNode'>;
 
-export const $BraceGroupNode = corePackageType<BraceGroupNode>('BraceGroupNode', $GroupNode);
+export const $BraceGroupNode = corePackageType<BraceGroupNode>('BraceGroupNode', $GroupNode());
