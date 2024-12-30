@@ -1,21 +1,21 @@
-import {ArrayData, Dictionary, newArrayData, newText, Text} from '#common';
+import {ArrayData, Dictionary, newArrayData, Text} from '#common';
 
 export function topologicalSort(dependencies: Dictionary<Text, ArrayData<Text>>): {
   order: ArrayData<Text>;
   cycle: ArrayData<Text>;
 } {
   const used = new Set();
-  const order: ArrayData<Text> = newArrayData();
-  const keys = newArrayData(Object.keys(dependencies).map((x) => newText(x)));
+  const order = newArrayData<Text>();
+  const keys = dependencies.keys();
   let cycle = keys;
 
-  while (cycle.length) {
-    const items: Text[] = [];
-    const length = cycle.length;
+  while (cycle.length()) {
+    const items = newArrayData<Text>();
+    const length = cycle.length();
 
     cycle = cycle.filter((k) => {
       if (dependencies.get(k)?.every((x) => used.has(x) || !keys.hasItem(x))) {
-        items.push(k);
+        items.addLastItem(k);
 
         return false;
       }
@@ -23,10 +23,10 @@ export function topologicalSort(dependencies: Dictionary<Text, ArrayData<Text>>)
       return true;
     });
 
-    order.addLast(...items);
-    items.forEach((x) => used.add(x));
+    order.addLastItems(items);
+    items._items.forEach((x) => used.add(x));
 
-    if (cycle.length === length) {
+    if (cycle.length() === length) {
       break;
     }
   }
