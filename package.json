@@ -8,7 +8,7 @@
     "barrelsby": "^2.8.1",
     "esbuild": "^0.24.2",
     "typescript": "^5.7.2",
-    "vite": "^5.4.11",
+    "vite": "^6.0.6",
     "vitest": "^2.1.8"
   },
   "scripts": {
