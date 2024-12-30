@@ -18,37 +18,37 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
 ): Dictionary<K, V> {
   return {
     ...array,
-    base: array,
+    _base: array,
 
     // todo set generics
     $: $Dictionary(array.at(0)?.key.$, array.at(0)?.value?.$),
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): Dictionary<K, V> {
-      return newDictionary(this.base.slice(startIndex, stopIndex));
+      return newDictionary(this._base.slice(startIndex, stopIndex));
     },
 
     addFirstItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V> {
-      return newDictionary(this.base.addFirstItems(items));
+      return newDictionary(this._base.addFirstItems(items));
     },
 
     addFirstItem(item: KeyValue<K, V>): Dictionary<K, V> {
-      return newDictionary(this.base.addFirstItem(item));
+      return newDictionary(this._base.addFirstItem(item));
     },
 
     addLastItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V> {
-      return newDictionary(this.base.addLastItems(items));
+      return newDictionary(this._base.addLastItems(items));
     },
 
     addLastItem(item: KeyValue<K, V>): Dictionary<K, V> {
-      return newDictionary(this.base.addLastItem(item));
+      return newDictionary(this._base.addLastItem(item));
     },
 
     removeFirst(length?: Integer | Nothing): Dictionary<K, V> {
-      return newDictionary(this.base.removeFirst(length));
+      return newDictionary(this._base.removeFirst(length));
     },
 
     removeLast(length?: Integer | Nothing): Dictionary<K, V> {
-      return newDictionary(this.base.removeLast(length));
+      return newDictionary(this._base.removeLast(length));
     },
 
     takeWhile(
@@ -56,27 +56,27 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): Dictionary<K, V> {
-      return newDictionary(this.base.takeWhile(predicate, startIndex, includeConditionItem));
+      return newDictionary(this._base.takeWhile(predicate, startIndex, includeConditionItem));
     },
 
     take(length: Integer, startIndex?: Integer): Dictionary<K, V> {
-      return newDictionary(this.base.take(length, startIndex));
+      return newDictionary(this._base.take(length, startIndex));
     },
 
     sort(compareFn?: (a: KeyValue<K, V>, b: KeyValue<K, V>) => Number2): Dictionary<K, V> {
-      return newDictionary(this.base.sort(compareFn));
+      return newDictionary(this._base.sort(compareFn));
     },
 
     sortBy(select: (item: KeyValue<K, V>) => Number2, ascending?: Boolean2): Dictionary<K, V> {
-      return newDictionary(this.base.sortBy(select, ascending));
+      return newDictionary(this._base.sortBy(select, ascending));
     },
 
     equals(other: Dictionary<K, V> | ArrayData<KeyValue<K, V>>): Boolean2 {
-      return this.base.equals(other);
+      return this._base.equals(other);
     },
 
     clone(): Dictionary<K, V> {
-      return newDictionary(this.base.clone());
+      return newDictionary(this._base.clone());
     },
 
     keys(): ArrayData<K> {
@@ -111,7 +111,7 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
     },
 
     toString(separator?: String2 | Nothing): String2 {
-      return this.base.toString(separator);
+      return this._base.toString(separator);
     },
   };
 }
