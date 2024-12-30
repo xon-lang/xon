@@ -111,21 +111,21 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     firstIndex(
-      predicateOrItem?: ((value: T, index: Integer, array: ArrayData<T>) => Boolean2) | Nothing,
+      predicate?: ((value: T, index: Integer) => Boolean2) | Nothing,
       startIndex?: Integer | Nothing,
     ): Integer {
       if (this.length() === 0) {
         return -1;
       }
 
-      if (!predicateOrItem) {
-        return 0;
-      }
-
       startIndex ??= 0;
 
+      if (!predicate) {
+        return startIndex;
+      }
+
       for (let index = startIndex; index < this.length(); index++) {
-        if (predicateOrItem(this.at2(index), index, this)) {
+        if (predicate(this.at2(index), index)) {
           return index;
         }
       }
@@ -145,52 +145,49 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
-      if (this.length() === 0) {
+      if (this.length() === 0 || items.length() > this.length()) {
         return -1;
       }
 
-      startIndex ??= 0;
-
-      const itemsLength = items.length();
-
-      if (itemsLength > this.length()) {
-        return -1;
-      }
-
-      return this._items.findIndex(
-        (x, i, arr) =>
-          i + itemsLength >= arr.length &&
+      return this.firstIndex(
+        (x, i) =>
+          this.length() - i >= items.length() &&
           items.every((z, j) => {
-            if (z === this.at2(i + j)) {
-              return true;
-            }
-
-            // todo fix it
             if (is(z, $Model) && is(x, $Model) && z.equals) {
               return z.equals(x);
             }
 
-            return false;
+            return z === x;
           }),
+        startIndex,
       );
+
+      // return this._items.findIndex(
+      //   (x, i, arr) =>
+      //     arr.length - i >= itemsLength &&
+      //     items.every((z, j) => {
+      //       if (is(z, $Model) && is(x, $Model) && z.equals) {
+      //         return z.equals(x);
+      //       }
+
+      //       return z === this.at2(i + j);
+      //     }),
+      // );
     },
 
-    lastIndex(
-      predicateOrItem?: (value: T, index: Integer) => Boolean2,
-      startIndex?: Integer | Nothing,
-    ): Integer {
+    lastIndex(predicate?: (value: T, index: Integer) => Boolean2, startIndex?: Integer | Nothing): Integer {
       if (this.length() === 0) {
         return -1;
       }
 
-      if (!predicateOrItem) {
-        return this.length() - 1;
-      }
-
       startIndex ??= this.length() - 1;
 
+      if (!predicate) {
+        return startIndex;
+      }
+
       for (let index = startIndex; index >= 0; index--) {
-        if (predicateOrItem(this.at2(index), index)) {
+        if (predicate(this.at2(index), index)) {
           return index;
         }
       }
@@ -221,6 +218,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
 
       startIndex ??= this.length() - 1;
 
+      // todo use current implementation method instead of 'findLastIndex'
       return this._items.findLastIndex(
         (x, i, arr) =>
           arr.length - i >= itemsLength &&
