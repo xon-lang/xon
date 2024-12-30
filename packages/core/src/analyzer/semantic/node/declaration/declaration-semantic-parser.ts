@@ -138,7 +138,7 @@ function declarationNodeDependencies(nodes: ArrayData<DeclarationNode>): Diction
 
     for (const dependency of dependencies) {
       if (!o.get(name)?.hasItem(dependency)) {
-        o.get(name)?.addLast(dependency);
+        o.get(name)?.addLastItem(dependency);
       }
     }
 

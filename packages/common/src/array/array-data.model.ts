@@ -35,8 +35,10 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   hasItem(item: T): Boolean2;
   hasItems(items: ArrayData<T>): Boolean2;
 
-  addFirst(...items: T[]): this;
-  addLast(...items: T[]): this;
+  addFirstItems(items: ArrayData<T>): this;
+  addFirstItem(item: T): this;
+  addLastItems(items: ArrayData<T>): this;
+  addLastItem(item: T): this;
   removeFirst(length?: Integer | Nothing): this;
   removeLast(length?: Integer | Nothing): this;
 

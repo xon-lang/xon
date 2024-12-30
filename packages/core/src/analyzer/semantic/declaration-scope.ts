@@ -64,7 +64,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
         this.declarations.set(declaration.name, newArrayData());
       }
 
-      this.declarations.get(declaration.name)?.addLast(declaration);
+      this.declarations.get(declaration.name)?.addLastItem(declaration);
     },
 
     all(): ArrayData<T> {

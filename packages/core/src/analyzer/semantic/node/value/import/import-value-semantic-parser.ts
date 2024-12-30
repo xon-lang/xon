@@ -45,7 +45,7 @@ export function importValueSemanticParse(
     analyzer.declarationManager.imports = newArrayData();
   }
 
-  analyzer.declarationManager.imports.addLast(declarationManager);
+  analyzer.declarationManager.imports.addLastItem(declarationManager);
 
   // todo fix import type. should not be unknown
   return importValueSemantic(node, resource, unknownTypeSemantic(analyzer, node));

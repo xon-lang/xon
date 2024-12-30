@@ -21,18 +21,26 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
     base: array,
 
     // todo set generics
-    $: $Dictionary(),
+    $: $Dictionary(array.at(0)?.key.$, array.at(0)?.value?.$),
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): Dictionary<K, V> {
       return newDictionary(this.base.slice(startIndex, stopIndex));
     },
 
-    addFirst(...items: KeyValue<K, V>[]): Dictionary<K, V> {
-      return newDictionary(this.base.addFirst(...items));
+    addFirstItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V> {
+      return newDictionary(this.base.addFirstItems(items));
     },
 
-    addLast(...items: KeyValue<K, V>[]): Dictionary<K, V> {
-      return newDictionary(this.base.addLast(...items));
+    addFirstItem(item: KeyValue<K, V>): Dictionary<K, V> {
+      return newDictionary(this.base.addFirstItem(item));
+    },
+
+    addLastItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V> {
+      return newDictionary(this.base.addLastItems(items));
+    },
+
+    addLastItem(item: KeyValue<K, V>): Dictionary<K, V> {
+      return newDictionary(this.base.addLastItem(item));
     },
 
     removeFirst(length?: Integer | Nothing): Dictionary<K, V> {

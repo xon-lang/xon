@@ -75,12 +75,20 @@ export function newText(stringOrCharacters?: String2 | ArrayData<Char>): Text {
       return newText('');
     },
 
-    addFirst(...items: Char[]): Text {
-      return newText(array.addFirst(...items));
+    addFirstItems(items: ArrayData<Char>): Text {
+      return newText(array.addFirstItems(items));
     },
 
-    addLast(...items: Char[]): Text {
-      return newText(array.addLast(...items));
+    addFirstItem(item: Char): Text {
+      return newText(array.addFirstItem(item));
+    },
+
+    addLastItems(items: ArrayData<Char>): Text {
+      return newText(array.addLastItems(items));
+    },
+
+    addLastItem(item: Char): Text {
+      return newText(array.addLastItem(item));
     },
 
     removeFirst(length?: Integer | Nothing): Text {

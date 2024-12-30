@@ -1,6 +1,7 @@
 import {
   $ArrayData,
   $KeyValue,
+  Anything_V2,
   ArrayData,
   Boolean2,
   Integer,
@@ -18,8 +19,10 @@ export interface Dictionary<K extends Model = Model, V extends Anything_V2 = Any
   base: ArrayData<KeyValue<K, V>>;
 
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): Dictionary<K, V>;
-  addFirst(...items: KeyValue<K, V>[]): Dictionary<K, V>;
-  addLast(...items: KeyValue<K, V>[]): Dictionary<K, V>;
+  // addFirstItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V>;
+  // addFirstItem(item: KeyValue<K, V>): Dictionary<K, V>;
+  // addLastItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V>;
+  // addLastItem(item: KeyValue<K, V>): Dictionary<K, V>;
   removeFirst(length?: Integer | Nothing): Dictionary<K, V>;
   removeLast(length?: Integer | Nothing): Dictionary<K, V>;
 

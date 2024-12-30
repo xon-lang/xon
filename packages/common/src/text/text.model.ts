@@ -20,8 +20,8 @@ export interface Text extends ArrayData<Char> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): Text;
   slice(range: TextRange): Text;
   lineText(line: Integer): Text;
-  addFirst(...items: Char[]): Text;
-  addLast(...items: Char[]): Text;
+  // addFirstItems(...items: Char[]): Text;
+  // addLastItems(...items: Char[]): Text;
   removeFirst(length?: Integer | Nothing): Text;
   removeLast(length?: Integer | Nothing): Text;
 

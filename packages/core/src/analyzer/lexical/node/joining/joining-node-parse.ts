@@ -8,10 +8,10 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
 
   const text = analyzer.resource.data
     .takeWhile((x) => x.equals(SPACE), analyzer.position.index + JOINING.length())
-    .addFirst(...JOINING);
+    .addFirstItems(JOINING);
 
   if (analyzer.resource.data.at2(analyzer.position.index + text.length()).equals(NL)) {
-    text.addLast(...NL);
+    text.addLastItems(NL);
   }
 
   const reference = analyzer.textReferenceWithNewLine(text);

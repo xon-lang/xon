@@ -199,14 +199,26 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return this.firstItemsIndex(items) >= 0;
     },
 
-    addFirst(...items: T[]): ArrayData<T> {
+    addFirstItems(items: ArrayData<T>): ArrayData<T> {
       this._items.unshift(...items);
 
       return this;
     },
 
-    addLast(...items: T[]): ArrayData<T> {
+    addFirstItem(item: T): ArrayData<T> {
+      this._items.unshift(item);
+
+      return this;
+    },
+
+    addLastItems(items: ArrayData<T>): ArrayData<T> {
       this._items.push(...items);
+
+      return this;
+    },
+
+    addLastItem(item: T): ArrayData<T> {
+      this._items.push(item);
 
       return this;
     },

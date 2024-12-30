@@ -53,7 +53,7 @@ export function terminalFormat(message: Text, {resource, range}: TextReference):
   const lineNumber = gray(lineNumberBeforeGrayed);
   const caret = newText(' ')
     .repeat(range.start.column + lineNumberBeforeGrayed.length())
-    .addLast(...red(newText('~').repeat(nodeText.length)));
+    .addLastItems(red(newText('~').repeat(nodeText.length)));
 
   return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
 }

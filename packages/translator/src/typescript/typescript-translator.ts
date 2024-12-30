@@ -76,7 +76,7 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
         semanticAnalyzer.statements
           .map((node) => this.statement(node))
           .filter((translatedNode) => translatedNode.length > 0)
-          .join(NL.addLast(...NL).toString()) + NL
+          .join(NL.addLastItems(NL).toString()) + NL
       );
     },
   };
