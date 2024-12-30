@@ -134,45 +134,18 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
-      if (this.length() === 0) {
-        return -1;
-      }
-
-      startIndex ??= 0;
-
-      // todo fix '(x as any)'
-      return this._items.findIndex((x, index) => index >= startIndex && (x as any).equals(item));
+      return this.firstIndex((x) => tempEquality(x, item), startIndex);
     },
 
     firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
-      if (this.length() === 0 || items.length() > this.length()) {
+      if (items.length() > this.length()) {
         return -1;
       }
 
       return this.firstIndex(
-        (x, i) =>
-          this.length() - i >= items.length() &&
-          items.every((z, j) => {
-            if (is(z, $Model) && is(x, $Model) && z.equals) {
-              return z.equals(x);
-            }
-
-            return z === x;
-          }),
+        (x, i) => this.length() - i >= items.length() && items.every((z) => tempEquality(z, x)),
         startIndex,
       );
-
-      // return this._items.findIndex(
-      //   (x, i, arr) =>
-      //     arr.length - i >= itemsLength &&
-      //     items.every((z, j) => {
-      //       if (is(z, $Model) && is(x, $Model) && z.equals) {
-      //         return z.equals(x);
-      //       }
-
-      //       return z === this.at2(i + j);
-      //     }),
-      // );
     },
 
     lastIndex(predicate?: (value: T, index: Integer) => Boolean2, startIndex?: Integer | Nothing): Integer {
@@ -196,39 +169,17 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     lastItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
-      if (this.length() === 0) {
-        return -1;
-      }
-
-      startIndex ??= this.length() - 1;
-
-      return this._items.lastIndexOf(item, startIndex);
+      return this.lastIndex((x) => tempEquality(x, item), startIndex);
     },
 
     lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
-      if (this.length() === 0) {
+      if (items.length() > this.length()) {
         return -1;
       }
 
-      const itemsLength = items.length();
-
-      if (itemsLength > this.length()) {
-        return -1;
-      }
-
-      startIndex ??= this.length() - 1;
-
-      // todo use current implementation method instead of 'findLastIndex'
-      return this._items.findLastIndex(
-        (x, i, arr) =>
-          arr.length - i >= itemsLength &&
-          items.every((z, j) => {
-            if (is(z, $Model) && is(x, $Model) && z.equals) {
-              return z.equals(x);
-            }
-
-            return z === this.at2(i + j);
-          }),
+      return this.lastIndex(
+        (x, i) => this.length() - i >= items.length() && items.every((z) => tempEquality(z, x)),
+        startIndex,
       );
     },
 
@@ -465,4 +416,13 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return this._items.join(separator ?? ', ');
     },
   };
+}
+
+// todo remove 'tempEquality'
+function tempEquality(a: Anything_V2, b: Anything_V2): Boolean2 {
+  if (is(a, $Model) && is(b, $Model) && a.equals) {
+    return a.equals(b);
+  }
+
+  return a === b;
 }
