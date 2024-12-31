@@ -5,6 +5,7 @@ export interface $Type<T = Model> {
   parent?: $Type | null | undefined;
   generics?: $Type[] | null | undefined;
 
+  toString(): string;
   toNativeString(): string;
   nameEquals(other: $Type): boolean;
   is(other: $Type): boolean;
@@ -21,6 +22,10 @@ export function newType<T extends Model>(
     name,
     parent,
     generics,
+
+    toString(): string {
+      return this.toNativeString();
+    },
 
     toNativeString(): string {
       return `${this.packageName}.${this.name}`;

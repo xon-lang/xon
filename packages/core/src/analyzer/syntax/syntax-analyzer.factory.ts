@@ -12,12 +12,12 @@ import {
   charNodeParse,
   codeLexicalParsers,
   createDiagnosticManager,
-  createFormatterManager,
   DEFAULT_SYNTAX_ANALYZER_CONFIG,
   documentationNodeParse,
   groupNodeParse,
   integerNodeParse,
   LexicalAnalyzer,
+  newFormatterManager,
   newLexicalAnalyzer,
   Node,
   putStatementNode,
@@ -34,7 +34,7 @@ export function newSyntaxAnalyzer(
 ): SyntaxAnalyzer {
   const config = {...DEFAULT_SYNTAX_ANALYZER_CONFIG(), ...analyzerConfig};
   const diagnosticManager = createDiagnosticManager(lexicalAnalyzer.resource);
-  const formatterManager = createFormatterManager(lexicalAnalyzer.resource, config.formatting);
+  const formatterManager = newFormatterManager(lexicalAnalyzer.resource, config.formatting);
 
   const analyzer: SyntaxAnalyzer = {
     config,

@@ -32,7 +32,7 @@ export type FormatterManager = {
   isSameContent(hiddenNodes: Node[], text: String2): Boolean2;
 };
 
-export function createFormatterManager(resource: TextResource, config: FormatterConfig): FormatterManager {
+export function newFormatterManager(resource: TextResource, config: FormatterConfig): FormatterManager {
   return {
     resource,
     config,
@@ -127,7 +127,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         if (!this.isSameContent(beforeNlHiddenNodes, text)) {
           this.addItem({
             range: rangeFromNodes(beforeNlHiddenNodes),
-            text: text,
+            text,
           });
         }
       }
@@ -139,7 +139,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       );
       const text =
         indentText +
-        nonWhitespaceNodes.map((x) => x.text).join(' ') +
+        nonWhitespaceNodes.map((x) => x.text.toNativeString()).join(' ') +
         (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
       if (this.isSameContent(afterIndentHiddenNodes, text)) {
@@ -178,7 +178,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
       if (statements.length > 0 || text.length > 0) {
         if (this.config.insertFinalNewline) {
-          text += NL;
+          text += NL.toNativeString();
         }
 
         if (text[0] !== NL.toNativeString()) {
@@ -197,21 +197,19 @@ export function createFormatterManager(resource: TextResource, config: Formatter
     },
 
     formatHiddenNodes(hiddenNodes: Node[], isNoFirstChildNode: Boolean2): String2 {
-      // todo fix 'splitBy'
-      return '';
-      // const splittedByNl = hiddenNodes
-      //   .filter((x): x is LexicalNode => is_v2(x, $LexicalNode) && !is_v2(x, $WhitespaceNode))
-      //   .splitBy<NlNode>((x) => is_v2(x, $NlNode));
+      const splittedByNl = hiddenNodes
+        .filter((x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode))
+        .splitBy<NlNode>((x) => is(x, $NlNode));
 
-      // const text = splittedByNl
-      //   .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => z.text).join(' '))
-      //   .join('');
+      const text = splittedByNl
+        .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => z.text.toNativeString()).join(' '))
+        .join('');
 
-      // if (text.length > 0 && isNoFirstChildNode) {
-      //   return ` ${text} `;
-      // }
+      if (text.length > 0 && isNoFirstChildNode) {
+        return ` ${text} `;
+      }
 
-      // return text;
+      return text;
     },
 
     formatNlNode(node: NlNode | Nothing): String2 {

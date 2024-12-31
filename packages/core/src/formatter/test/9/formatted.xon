@@ -1,1 +1,15 @@
-type A: Btype A: Bconst a = 0..10a.maxtype A: Bconst a = 0..10a.max [object Object]
+type A: B
+
+type A: B
+
+const a = 0..10
+
+a.max
+
+type A: B
+
+// type A:    B
+
+const a = 0..10
+
+a.max

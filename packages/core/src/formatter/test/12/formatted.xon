@@ -1,1 +1,2 @@
-type Abc  name: String [object Object]
+type Abc
+  name: String
