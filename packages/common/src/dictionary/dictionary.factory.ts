@@ -10,7 +10,6 @@ import {
   newKeyValue,
   Nothing,
   Number2,
-  String2,
 } from '#common';
 import {Model, modelEquals} from '#typing';
 
@@ -109,10 +108,6 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
       } else {
         this.addLastItem(newKeyValue(key, value));
       }
-    },
-
-    toNativeString(separator?: String2 | Nothing): String2 {
-      return this._base.toNativeString(separator);
     },
   };
 }

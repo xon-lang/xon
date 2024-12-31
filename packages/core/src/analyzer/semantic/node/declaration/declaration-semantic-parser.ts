@@ -4,6 +4,7 @@ import {
   newArrayData,
   newDictionary,
   newKeyValue,
+  newText,
   Nothing,
   Text,
   topologicalSort,
@@ -91,8 +92,8 @@ function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<Declarat
   const dependencies = declarationNodeDependencies(nodes);
   const {order, cycle} = topologicalSort(dependencies);
 
-  if (cycle.length() > 0) {
-    throw new Error(`Not implemented: cycle dependencies '${cycle.toNativeString(', ')}'`);
+  if (cycle.some()) {
+    throw new Error(`Not implemented: cycle dependencies '${newText(cycle, newText(',')).toNativeString()}'`);
   }
 
   const nodesDict = newDictionary(nodes.map((x) => newKeyValue(x.id.text, x)));

@@ -7,7 +7,6 @@ import {
   newArrayData,
   Nothing,
   Number2,
-  String2,
   UniqueList,
 } from '#common';
 
@@ -85,10 +84,6 @@ export function newUniqueList<T extends Anything_V2>(array: ArrayData<T> = newAr
 
     clone(): UniqueList<T> {
       return newUniqueList(this._base.clone());
-    },
-
-    toNativeString(separator?: String2 | Nothing): String2 {
-      return this._base.toNativeString(separator);
     },
   };
 }
