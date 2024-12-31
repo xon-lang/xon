@@ -1,4 +1,4 @@
-import {Boolean2, newArrayData, Nothing, nothing, TextResource} from '#common';
+import {newArrayData, Nothing, nothing, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   corePackageType,
@@ -48,6 +48,8 @@ export function createSemanticAnalyzer(
     diagnosticManager: syntaxAnalyzer.diagnosticManager,
     statements: syntaxAnalyzer.statements,
     declarationManager: dummyDeclarationManager,
+    // todo !!! use
+    // declarationManager: newDeclarationScope(nothing, newArrayData(imports)),
     config,
 
     pushDeclarationScope(): void {
@@ -61,13 +63,10 @@ export function createSemanticAnalyzer(
         throw new Error('Not implemented');
       }
     },
-
-    equals(other: SemanticAnalyzer): Boolean2 {
-      return this === other;
-    },
   };
 
   // todo fix it
+  // todo !!! remove
   semanticAnalyzer.declarationManager = newDeclarationScope(nothing, newArrayData(imports));
 
   statementsParse(semanticAnalyzer, semanticAnalyzer.statements);
