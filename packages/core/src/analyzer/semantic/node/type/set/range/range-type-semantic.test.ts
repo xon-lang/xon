@@ -25,20 +25,20 @@ test('a is range', () => {
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
 
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as RangeTypeSemantic)
     : nothing;
 
-  expect(typeSemantic?.$).toBe($RangeTypeSemantic);
+  expect(typeSemantic?.$.toNativeString()).toBe($RangeTypeSemantic.toNativeString());
   expect((typeSemantic?.from as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic?.to as IntegerTypeSemantic).value).toBe(3);
 });
