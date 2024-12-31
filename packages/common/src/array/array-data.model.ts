@@ -13,11 +13,13 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   every(predicate: ArrayPredicate<T>): Boolean2;
   some(predicate?: ArrayPredicate<T> | Nothing): Boolean2;
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
+  isEmpty(): Boolean2;
 
   first(predicate?: ArrayPredicate<T>): T | Nothing;
   first<V extends T>(predicate?: ArraySafePredicate<T, V> | Nothing): V | Nothing;
   last(predicate?: ArrayPredicate<T>): T | Nothing;
   last<V extends T>(predicate?: ArraySafePredicate<T, V> | Nothing): V | Nothing;
+  firstLast(): {first: T | Nothing; last: T | Nothing};
 
   firstIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer;
   firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer;
@@ -25,6 +27,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   lastIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer;
   lastItemIndex(item: T, startIndex?: Integer | Nothing): Integer;
   lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer;
+  firstLastIndex(): {firstIndex: Integer | Nothing; lastIndex: Integer | Nothing};
 
   filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V>;
   filter(predicate: ArrayPredicate<T>): ArrayData<T>;
@@ -48,7 +51,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   sum(select: ArraySelect<T, Number2>): Number2;
   min(select: ArraySelect<T, Number2>): T | Nothing;
   max(select: ArraySelect<T, Number2>): T | Nothing;
-  minMax(select: ArraySelect<T, Number2>): {min: T; max: T} | Nothing;
+  minMax(select: ArraySelect<T, Number2>): {min: T | Nothing; max: T | Nothing};
 
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
   filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;

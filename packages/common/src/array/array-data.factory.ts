@@ -51,6 +51,10 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return newArrayData(this._items.slice(startIndex, stopIndex ?? undefined));
     },
 
+    isEmpty(): Boolean2 {
+      return this.length() === 0;
+    },
+
     take(length: Integer, startIndex: Integer = 0): ArrayData<T> {
       return this.slice(startIndex, startIndex + length);
     },
@@ -111,6 +115,13 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       }
 
       return nothing;
+    },
+
+    firstLast(): {first: T | Nothing; last: T | Nothing} {
+      return {
+        first: this.first(),
+        last: this.last(),
+      };
     },
 
     firstIndex(
@@ -184,6 +195,13 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
         (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
         startIndex,
       );
+    },
+
+    firstLastIndex(): {firstIndex: Integer | Nothing; lastIndex: Integer | Nothing} {
+      return {
+        firstIndex: this.firstIndex(),
+        lastIndex: this.lastIndex(),
+      };
     },
 
     filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V> {
@@ -320,11 +338,11 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       }, this.at2(0));
     },
 
-    minMax(select: ArraySelect<T, Number2>): {min: T; max: T} | Nothing | Nothing {
+    minMax(select: ArraySelect<T, Number2>): {min: T | Nothing; max: T | Nothing} {
       const array: ArrayData<T> = this;
 
-      if (!this.length()) {
-        return nothing;
+      if (this.isEmpty()) {
+        return {min: nothing, max: nothing};
       }
 
       if (this.length() === 1) {
