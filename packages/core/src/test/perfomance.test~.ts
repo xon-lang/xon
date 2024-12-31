@@ -1,11 +1,11 @@
-import {Anything, newText, newTextResourceFromLocation, performanceIterations, String2} from '#common';
+import {Anything, newText, performanceIterations, String2, textResourceFromLocation} from '#common';
 import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {expect, test} from 'vitest';
 
 test('performance', () => {
-  const resource = newTextResourceFromLocation(newText('packages/core/parser/test/performance/source.xon'));
+  const resource = textResourceFromLocation(newText('packages/core/parser/test/performance/source.xon'));
 
   if (!resource) {
     return;
@@ -23,7 +23,7 @@ test('performance', () => {
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
-  const source = newTextResourceFromLocation(newText(join(dirPath, 'source.xon')));
+  const source = textResourceFromLocation(newText(join(dirPath, 'source.xon')));
 
   expect(source).toBeTruthy();
 

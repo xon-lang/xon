@@ -36,7 +36,7 @@ export function newTextResource(location: Text | Nothing, data: Text): TextResou
   };
 }
 
-export function newTextResourceFromLocation(location: Text): TextResource | Nothing {
+export function textResourceFromLocation(location: Text): TextResource | Nothing {
   try {
     if (!statSync(location.toString()).isFile()) {
       return nothing;

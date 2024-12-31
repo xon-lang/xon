@@ -1,4 +1,4 @@
-import {newText, newTextResourceFromLocation, String2} from '#common';
+import {newText, String2, textResourceFromLocation} from '#common';
 import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
@@ -19,7 +19,7 @@ test('12', () => testFormatter('12'));
 
 function testFormatter(index: String2) {
   const dirPath = join(__dirname, index);
-  const resource = newTextResourceFromLocation(newText(join(dirPath, 'source.xon')));
+  const resource = textResourceFromLocation(newText(join(dirPath, 'source.xon')));
 
   expect(resource).toBeTruthy();
 
