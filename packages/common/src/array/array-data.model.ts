@@ -1,7 +1,7 @@
 import {Anything_V2, Boolean2, commonPackageType, Integer, Nothing, Number2} from '#common';
 import {$Model, $Type, Model} from '#typing';
 
-export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, Iterable<T> {
+export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   _items: T[];
 
   [Symbol.iterator](): IterableIterator<T>;
@@ -29,7 +29,7 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V>;
   filter(predicate: ArrayPredicate<T>): ArrayData<T>;
 
-  map<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V>;
+  map<V>(select: ArraySelect<T, V>): ArrayData<V>;
 
   hasItem(item: T): Boolean2;
   hasItems(items: ArrayData<T>): Boolean2;

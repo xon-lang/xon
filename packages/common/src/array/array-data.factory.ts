@@ -11,12 +11,12 @@ import {
   nothing,
   Number2,
 } from '#common';
-import {$Model, Model, modelEquals} from '#typing';
+import {$Model, is, Model, modelEquals} from '#typing';
 
-export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<T> {
+export function newArrayData<T>(array: T[] = []): ArrayData<T> {
   return {
     // todo use generic from parameter
-    $: $ArrayData(array[0]?.$ ?? $Model),
+    $: is(array[0], $Model) ? $ArrayData(array[0].$) : $Model,
     _items: array,
 
     [Symbol.iterator](): IterableIterator<T> {
@@ -190,7 +190,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return newArrayData(this._items.filter(predicate));
     },
 
-    map<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V> {
+    map<V>(select: ArraySelect<T, V>): ArrayData<V> {
       return newArrayData(this._items.map(select));
     },
 
