@@ -39,7 +39,11 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return this._items.every((v, i) => predicate(v, i));
     },
 
-    some(predicate: ArrayPredicate<T>): Boolean2 {
+    some(predicate?: ArrayPredicate<T> | Nothing): Boolean2 {
+      if (!predicate) {
+        return this.length() > 0;
+      }
+
       return this._items.some((v, i) => predicate(v, i));
     },
 

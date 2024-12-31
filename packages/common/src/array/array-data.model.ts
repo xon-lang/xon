@@ -1,4 +1,4 @@
-import {Anything_V2, Boolean2, commonPackageType, Integer, Nothing, Number2, String2} from '#common';
+import {Anything_V2, Boolean2, commonPackageType, Integer, Nothing, Number2} from '#common';
 import {$Model, $Type, Model} from '#typing';
 
 export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, Iterable<T> {
@@ -11,8 +11,7 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   // todo remove 'at2'
   at2(index: Integer): T;
   every(predicate: ArrayPredicate<T>): Boolean2;
-  // todo rename 'some' to has
-  some(predicate: ArrayPredicate<T>): Boolean2;
+  some(predicate?: ArrayPredicate<T> | Nothing): Boolean2;
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
 
   first(predicate?: ArrayPredicate<T>): T | Nothing;
