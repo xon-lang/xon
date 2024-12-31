@@ -21,22 +21,22 @@ test('a is string value', () => {
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $AttributeValueDeclarationSemantic,
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
+    $AttributeValueDeclarationSemantic.toNativeString(),
   );
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
 
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$).toBe($StringTypeSemantic);
+  expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
   expect(typeSemantic?.value).toBe('abc');
 });
 
@@ -66,7 +66,7 @@ test('a is empty string 1', () => {
     ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
     : nothing;
 
-  expect(typeSemantic?.$).toBe($StringTypeSemantic);
+  expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
   expect(typeSemantic?.value).toBe('');
 });
 
@@ -81,6 +81,6 @@ test('a is empty string 2', () => {
     ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
     : nothing;
 
-  expect(typeSemantic?.$).toBe($StringTypeSemantic);
+  expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
   expect(typeSemantic?.value).toBe('');
 });
