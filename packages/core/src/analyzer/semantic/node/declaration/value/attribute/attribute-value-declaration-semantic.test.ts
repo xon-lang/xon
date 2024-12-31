@@ -21,21 +21,21 @@ test('only a', () => {
     .get(newText('+'))
     ?.at2(0) as AttributeValueDeclarationSemantic;
   expect(declaration.$).toBe($AttributeValueDeclarationSemantic);
-  expect(declaration.modifier).toBe('infix');
-  expect(declaration.name).toBe('+');
-  expect(declaration.alternativeName).toBe('__plus__');
+  expect(declaration.modifier?.toNativeString()).toBe('infix');
+  expect(declaration.name.toNativeString()).toBe('+');
+  expect(declaration.alternativeName.toNativeString()).toBe('__plus__');
 
   const type = declaration.type as FunctionTypeSemantic;
   const parameters = type.parameters;
   expect(parameters.length).toBe(2);
 
   const aParam = parameters[0] as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
-  expect(aParam.name).toBe('a');
-  expect(aParam.type.declaration?.name).toBe('Integer');
+  expect(aParam.name.toNativeString()).toBe('a');
+  expect(aParam.type.declaration?.name.toNativeString()).toBe('Integer');
 
   const bParam = parameters[1] as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
-  expect(bParam.name).toBe('b');
-  expect(bParam.type.declaration?.name).toBe('String');
+  expect(bParam.name.toNativeString()).toBe('b');
+  expect(bParam.type.declaration?.name.toNativeString()).toBe('String');
 
-  expect(type.result.declaration?.name).toBe('String');
+  expect(type.result.declaration?.name.toNativeString()).toBe('String');
 });
