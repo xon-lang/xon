@@ -10,7 +10,6 @@ import {
   Nothing,
   nothing,
   Number2,
-  String2,
 } from '#common';
 import {$Model, Model, modelEquals} from '#typing';
 
@@ -422,10 +421,6 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
 
     toNativeArray(): T[] {
       return [...this._items];
-    },
-
-    toNativeString(separator?: String2 | Nothing): String2 {
-      return this._items.join(separator ?? ', ');
     },
   };
 }
