@@ -2,6 +2,7 @@ import {$ArrayData, $Char, ArrayData, Boolean2, Char, commonPackageType, Integer
 
 export interface Text extends ArrayData<Char> {
   lineText(line: Integer): Text;
+  split(separator: Text): ArrayData<Text>;
   setPadding(padding: Integer): Text;
   trim(): Text;
   repeat(count: Integer): Text;

@@ -19,7 +19,6 @@ import {is} from '#typing';
 
 const NL = newText('\n');
 
-// todo rename to newText
 export function newText(strings: ArrayData<Text>, separator?: Text | Nothing): Text;
 export function newText(characters: ArrayData<Char>): Text;
 export function newText(string: String2): Text;
@@ -86,6 +85,15 @@ export function newText(
       }
 
       return newText('');
+    },
+
+    split(separator: Text): ArrayData<Text> {
+      // todo don't use native split
+      return newArrayData(
+        this.toNativeString()
+          .split(separator.toNativeString())
+          .map((x) => newText(x)),
+      );
     },
 
     addFirstItems(items: ArrayData<Char>): Text {
