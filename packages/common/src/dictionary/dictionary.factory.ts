@@ -7,11 +7,12 @@ import {
   Integer,
   KeyValue,
   newArrayData,
+  newKeyValue,
   Nothing,
   Number2,
   String2,
 } from '#common';
-import {Model} from '#typing';
+import {Model, modelEquals} from '#typing';
 
 export function newDictionary<K extends Model, V extends Anything_V2>(
   array: ArrayData<KeyValue<K, V>> = newArrayData(),
@@ -88,26 +89,26 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
     },
 
     get(key: K): V | Nothing {
-      return this.first((x) => 'equals' in x.key && x.key.equals(key))?.value;
+      return this.first((x) => modelEquals(x.key, key))?.value;
     },
 
     // todo remove 'get2'
     get2(key: K): V {
-      return this.first((x) => 'equals' in x.key && x.key.equals(key))?.value!;
+      return this.get(key)!;
     },
 
     has(key: K): Boolean2 {
-      return this.some((x) => 'equals' in x.key && x.key.equals(key));
+      return this.some((x) => modelEquals(x.key, key));
     },
 
-    set(key: K, value: V): Boolean2 {
-      const item = this.first((x) => 'equals' in x.key && x.key.equals(key));
+    set(key: K, value: V): void {
+      const item = this.first((x) => modelEquals(x.key, key));
 
       if (item) {
         item.value = value;
+      } else {
+        this.addLastItem(newKeyValue(key, value));
       }
-
-      return !!item;
     },
 
     toString(separator?: String2 | Nothing): String2 {

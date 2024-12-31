@@ -20,7 +20,7 @@ export interface Dictionary<K extends Model = Model, V extends Anything_V2 = Any
   get(key: K): V | Nothing;
   get2(key: K): V;
   has(key: K): Boolean2;
-  set(key: K, value: V): Boolean2;
+  set(key: K, value: V): void;
 }
 
 export const $Dictionary = <T extends Model, V extends Model>($T: $Type = $Model, $V: $Type = $Model) =>

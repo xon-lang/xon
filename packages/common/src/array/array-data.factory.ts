@@ -12,7 +12,7 @@ import {
   Number2,
   String2,
 } from '#common';
-import {$Model, is, Model} from '#typing';
+import {$Model, Model, modelEquals} from '#typing';
 
 export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<T> {
   return {
@@ -134,7 +134,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
-      return this.firstIndex((x) => tempEquality(x, item), startIndex);
+      return this.firstIndex((x) => modelEquals(x, item), startIndex);
     },
 
     firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
@@ -143,7 +143,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       }
 
       return this.firstIndex(
-        (x, i) => this.length() - i >= items.length() && items.every((z) => tempEquality(z, x)),
+        (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
         startIndex,
       );
     },
@@ -169,7 +169,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
     },
 
     lastItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
-      return this.lastIndex((x) => tempEquality(x, item), startIndex);
+      return this.lastIndex((x) => modelEquals(x, item), startIndex);
     },
 
     lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
@@ -178,7 +178,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       }
 
       return this.lastIndex(
-        (x, i) => this.length() - i >= items.length() && items.every((z) => tempEquality(z, x)),
+        (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
         startIndex,
       );
     },
@@ -428,13 +428,4 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return this._items.join(separator ?? ', ');
     },
   };
-}
-
-// todo remove 'tempEquality'
-function tempEquality(a: Anything_V2, b: Anything_V2): Boolean2 {
-  if (is(a, $Model) && is(b, $Model) && a.equals) {
-    return a.equals(b);
-  }
-
-  return a === b;
 }
