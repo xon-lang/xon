@@ -40,17 +40,19 @@ import {
 } from '#core';
 import {is} from '#typing';
 
-export function statementDeclarationsParse(analyzer: SemanticAnalyzer, nodes: Node[]): DeclarationSemantic[] {
-  const declarationNodes = nodes.filter((node) => is(node, $DeclarationNode));
-  const declarations = declarationNodes.map((node) => {
-    const declaration = createStatementDeclaration(analyzer, node);
+export function statementDeclarationsParse(
+  analyzer: SemanticAnalyzer,
+  nodes: DeclarationNode[],
+): DeclarationSemantic[] {
+  const declarations = nodes.map((node) => {
+    const declaration = createDeclarationSemantic(analyzer, node);
     node.id.semantic = declaration;
     analyzer.declarationManager.add(declaration);
 
     return declaration;
   });
 
-  declarationsParse(analyzer, newArrayData(declarationNodes));
+  declarationsParse(analyzer, newArrayData(nodes));
 
   return declarations;
 }
@@ -163,7 +165,7 @@ function nodeDependencies(node: Node | Nothing): ArrayData<Text> {
   return newArrayData();
 }
 
-function createStatementDeclaration(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
+function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
   const documentation = node.documentation?.description?.text.setPadding(0).trim();
   const modifier = node.modifier?.text;
   const name = node.id.text;
