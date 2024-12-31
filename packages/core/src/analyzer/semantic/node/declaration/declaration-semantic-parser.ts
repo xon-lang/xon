@@ -92,7 +92,7 @@ function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<Declarat
   const dependencies = declarationNodeDependencies(nodes);
   const {order, cycle} = topologicalSort(dependencies);
 
-  if (cycle.some()) {
+  if (!cycle.isEmpty()) {
     throw new Error(`Not implemented: cycle dependencies '${newText(cycle, newText(',')).toNativeString()}'`);
   }
 
