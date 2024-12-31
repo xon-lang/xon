@@ -12,6 +12,7 @@ export interface Text extends ArrayData<Char> {
   equals(other: Text): Boolean2;
   equals(other: ArrayData<Char>): Boolean2;
   equals(other: String2): Boolean2;
+  toString(): String2;
   toNativeString(): String2;
 }
 

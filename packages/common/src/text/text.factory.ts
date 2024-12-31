@@ -155,6 +155,10 @@ export function newText(stringOrCharacters?: String2 | ArrayData<Char>): Text {
       return false;
     },
 
+    toString() {
+      return this.toNativeString();
+    },
+
     toNativeString(): String2 {
       return this._items.map((x) => x.toNativeString()).join('');
     },
