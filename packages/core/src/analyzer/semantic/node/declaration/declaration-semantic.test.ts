@@ -27,7 +27,7 @@ test('only a', () => {
   expect(type.modifier).toBe('type');
   expect(type.name).toBe('A');
 
-  expect(Object.keys(type.attributes?.declarations ?? {}).length).toBe(1);
+  expect(type.attributes?.declarations.length()).toBe(1);
 
   const attributeP = type.attributes?.find(
     $ValueDeclarationSemantic,
