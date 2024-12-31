@@ -38,18 +38,13 @@ export function createSemanticAnalyzer(
   const imports =
     semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
 
-  // todo fix it
-  const dummyDeclarationManager = {} as DeclarationScope;
-
   const semanticAnalyzer: SemanticAnalyzer = {
     $: $SemanticAnalyzer,
     syntaxAnalyzer: syntaxAnalyzer,
     resource: syntaxAnalyzer.resource,
     diagnosticManager: syntaxAnalyzer.diagnosticManager,
     statements: syntaxAnalyzer.statements,
-    declarationManager: dummyDeclarationManager,
-    // todo !!! use
-    // declarationManager: newDeclarationScope(nothing, newArrayData(imports)),
+    declarationManager: newDeclarationScope(nothing, newArrayData(imports)),
     config,
 
     pushDeclarationScope(): void {
@@ -64,10 +59,6 @@ export function createSemanticAnalyzer(
       }
     },
   };
-
-  // todo fix it
-  // todo !!! remove
-  semanticAnalyzer.declarationManager = newDeclarationScope(nothing, newArrayData(imports));
 
   statementsParse(semanticAnalyzer, semanticAnalyzer.statements);
 

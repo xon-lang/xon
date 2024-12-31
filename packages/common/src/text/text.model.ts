@@ -1,9 +1,5 @@
-// todo fix it. remove @ts-ignore
-// todo rename to 'StringData' ???
-
 import {$ArrayData, $Char, ArrayData, Boolean2, Char, commonPackageType, Integer, String2} from '#common';
 
-// @ts-ignore
 export interface Text extends ArrayData<Char> {
   lineText(line: Integer): Text;
   setPadding(padding: Integer): Text;
