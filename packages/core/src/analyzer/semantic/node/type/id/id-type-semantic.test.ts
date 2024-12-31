@@ -31,16 +31,18 @@ test('a is integer', () => {
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements[1].value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
   expect((constNode.type?.value as IdNode)?.text.toNativeString()).toBe('Integer');
-  expect((constNode.type?.value as IdNode)?.semantic?.$).toBe($IdTypeSemantic);
+  expect((constNode.type?.value as IdNode)?.semantic?.$.toNativeString()).toBe(
+    $IdTypeSemantic.toNativeString(),
+  );
 
   const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
   expect(typeSemantic.declaration?.$).toBe($NominalTypeDeclarationSemantic);
@@ -57,25 +59,27 @@ test('a is array', () => {
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
 
   expect(semanticAnalyzer.declarationManager.count()).toBe(3);
-  expect(semanticAnalyzer.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $AttributeValueDeclarationSemantic,
+  expect(semanticAnalyzer.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
+    $AttributeValueDeclarationSemantic.toNativeString(),
   );
-  expect(semanticAnalyzer.declarationManager.declarations.get(newText('a'))?.at2(0).name).toBe('a');
+  expect(
+    semanticAnalyzer.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString(),
+  ).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
 
   const typeSemantic = constNode.type
     ? (typeNodeType(semanticAnalyzer, constNode.type) as InvokeTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$).toBe($InvokeTypeSemantic);
+  expect(typeSemantic?.$.toNativeString()).toBe($InvokeTypeSemantic.toNativeString());
 
   const instanceType = (typeSemantic?.instance as IdTypeSemantic).declaration?.type as FunctionTypeSemantic;
-  expect(instanceType?.$).toBe($FunctionTypeSemantic);
+  expect(instanceType?.$.toNativeString()).toBe($FunctionTypeSemantic.toNativeString());
   expect(instanceType?.declaration).toBeFalsy();
   expect((instanceType?.result as IdTypeSemantic)?.name).toBe('Array');
   expect(typeSemantic?.args.length).toBe(1);

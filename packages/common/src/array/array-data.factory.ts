@@ -413,12 +413,6 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return this.length() === other.length() && this.every((x, i) => other.at(i) === x);
     },
 
-    // toDictionary<Key extends Model_V2>(selectKey: ArraySelect<T, Key>): Dictionary<Key, T> {
-    //   const items = this._items.map((x, i) => newKeyValue(selectKey(x, i), x));
-
-    //   return newDictionary(newArrayData(items));
-    // },
-
     toNativeArray(): T[] {
       return [...this._items];
     },

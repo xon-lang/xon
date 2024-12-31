@@ -7,6 +7,7 @@ export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic
   parent: DeclarationScope | Nothing;
   declarations: Dictionary<Text, ArrayData<T>>;
 
+  // todo !!! remove
   count(): Integer;
   add(declaration: T): void;
   all(): ArrayData<T>;
