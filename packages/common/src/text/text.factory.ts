@@ -13,6 +13,7 @@ import {
   Text,
   TextRange,
   newArrayData,
+  newChar,
   stringToCharArray,
 } from '#common';
 import {is} from '#typing';
@@ -141,11 +142,47 @@ export function newText(
     },
 
     setPadding(padding: Integer): Text {
-      return newText(this.toNativeString().setPadding(padding));
+      if (!this.some()) {
+        return this;
+      }
+
+      const lines = this.split(newText('\n')).map((text) => ({
+        text,
+        padding: text.takeWhile((x) => x.equals(newChar(' '))).length(),
+      }));
+
+      const minLinePadding = lines.reduce(
+        (min, line) => (line.text.length() > 0 ? Math.min(line.padding, min) : min),
+        this.length(),
+      );
+
+      if (minLinePadding === padding) {
+        return this;
+      }
+
+      const resultLines = lines.map((x) => {
+        if (!x.text.some()) {
+          return x.text;
+        }
+
+        const indent = newText(' ').repeat(x.padding + (padding - minLinePadding));
+
+        return indent.addLastItems(x.text.trimStart());
+      });
+
+      return newText(resultLines, newText('\n'));
     },
 
     trim(): Text {
       return newText(this.toNativeString().trim());
+    },
+
+    trimStart(): Text {
+      return newText(this.toNativeString().trimStart());
+    },
+
+    trimEnd(): Text {
+      return newText(this.toNativeString().trimEnd());
     },
 
     repeat(count: Integer): Text {

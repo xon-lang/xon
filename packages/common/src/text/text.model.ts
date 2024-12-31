@@ -4,7 +4,10 @@ export interface Text extends ArrayData<Char> {
   lineText(line: Integer): Text;
   split(separator: Text): ArrayData<Text>;
   setPadding(padding: Integer): Text;
+  // todo add trim* parameter
   trim(): Text;
+  trimStart(): Text;
+  trimEnd(): Text;
   repeat(count: Integer): Text;
   equals(other: Text): Boolean2;
   equals(other: ArrayData<Char>): Boolean2;

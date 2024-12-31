@@ -2,7 +2,6 @@ import {Anything, Boolean2, Integer, Nothing, Number2, String2, Text} from '#com
 
 declare global {
   interface Array<T> extends ArrayExtension<T> {}
-  interface String extends StringExtension {}
 }
 
 interface ArrayExtension<T = Anything> {
