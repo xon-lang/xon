@@ -142,7 +142,7 @@ export function newText(
     },
 
     setPadding(padding: Integer): Text {
-      if (!this.some()) {
+      if (this.isEmpty()) {
         return this;
       }
 
@@ -161,7 +161,7 @@ export function newText(
       }
 
       const resultLines = lines.map((x) => {
-        if (!x.text.some()) {
+        if (x.text.isEmpty()) {
           return x.text;
         }
 
