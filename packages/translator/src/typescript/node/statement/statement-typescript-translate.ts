@@ -1,4 +1,4 @@
-import {String2} from '#common';
+import {newText, String2} from '#common';
 import {
   $DeclarationNode,
   $ReturnNode,
@@ -18,10 +18,11 @@ export function statementTypescriptTranslate(
 ): String2 {
   const statementTranslated = statementTranslate(translator, statement);
 
-  const bodyTranslated = statement.body
-    .map((node) => translator.statement(node))
-    .join(NL.toNativeString())
-    .setPadding(2);
+  const bodyTranslated = newText(
+    statement.body.map((node) => translator.statement(node)).join(NL.toNativeString()),
+  )
+    .setPadding(2)
+    .toNativeString();
 
   if (bodyTranslated.length > 0) {
     return statementTranslated + NL + bodyTranslated;
