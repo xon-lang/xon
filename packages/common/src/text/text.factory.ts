@@ -20,15 +20,28 @@ import {is} from '#typing';
 const NL = newText('\n');
 
 // todo rename to newText
+export function newText(strings: ArrayData<Text>, separator?: Text | Nothing): Text;
 export function newText(characters: ArrayData<Char>): Text;
 export function newText(string: String2): Text;
 export function newText(): Text;
-export function newText(stringOrCharacters?: String2 | ArrayData<Char>): Text {
-  const array = stringOrCharacters
-    ? typeof stringOrCharacters === 'string'
-      ? stringToCharArray(stringOrCharacters)
-      : stringOrCharacters
-    : newArrayData<Char>();
+export function newText(
+  value?: String2 | ArrayData<Char> | ArrayData<Text> | Nothing,
+  separator?: Text | Nothing,
+): Text {
+  let array: ArrayData<Char>;
+
+  if (typeof value === 'string') {
+    array = stringToCharArray(value);
+  } else if (is(value, $ArrayData<Text>($Text))) {
+    // todo find the best way (join, convert, merge, concat, ....)
+    if (separator) {
+      array = stringToCharArray(value._items.join(separator.toNativeString()));
+    } else {
+      array = value.flat();
+    }
+  } else {
+    array = value ?? newArrayData<Char>();
+  }
 
   return {
     ...array,
