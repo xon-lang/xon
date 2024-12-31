@@ -11,7 +11,7 @@ export function newTextReference(resource: TextResource, range: TextRange): Text
     },
 
     rangeText(): Text {
-      return this.resource.data.slice(this.range);
+      return this.resource.data.slice(this.range.start.index, this.range.stop.index);
     },
   };
 }

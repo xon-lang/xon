@@ -30,8 +30,7 @@ test('unknown 2', () => {
 
   expect(statements.length).toBe(1);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(5);
-  expect(resource.data.slice(syntax.diagnosticManager.diagnostics[0].reference.range).toNativeString()).toBe(
-    'º',
-  );
+  const {start, stop} = syntax.diagnosticManager.diagnostics[0].reference.range;
+  expect(resource.data.slice(start.index, stop.index).toNativeString()).toBe('º');
   expect(node.text.toNativeString()).toBe('º');
 });

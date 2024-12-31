@@ -10,7 +10,7 @@ export function getDocumentSemantic(document: TextDocument, channel: OutputChann
 
     return semanticFromResource(resource);
   } catch (error) {
-    channel.appendLine(error?.toNativeString() ?? 'Error');
+    channel.appendLine(error?.toString() ?? 'Error');
     throw new Error('Not implemented');
   }
 }
