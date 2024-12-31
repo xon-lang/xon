@@ -1,4 +1,12 @@
-import {$TextPosition, $TextRange, Boolean2, TextPosition, TextRange, newTextPosition} from '#common';
+import {
+  $TextPosition,
+  $TextRange,
+  Boolean2,
+  TextPosition,
+  TextRange,
+  newArrayData,
+  newTextPosition,
+} from '#common';
 import {Node} from '#core';
 import {is} from '#typing';
 
@@ -17,9 +25,9 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     },
 
     union(other: TextRange): TextRange {
-      const {min, max} = [this.start, other.stop].minMax((x) => x.index)!; // todo how to fix '!' ???
+      const {min, max} = newArrayData([this.start, other.stop]).minMax((x) => x.index);
 
-      return textRange(min, max);
+      return textRange(min!, max!);
     },
 
     clone(): TextRange {
@@ -33,14 +41,13 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
 }
 
 export function rangeFromNodes(nodes: Node[]): TextRange {
-  const startNode = nodes.first();
-  const stopNode = nodes.last();
+  const {first, last} = newArrayData(nodes).firstLast()!;
 
-  if (!startNode || !stopNode) {
+  if (!first || !last) {
     return zeroRange();
   }
 
-  return textRange(startNode.reference.range.start.clone(), stopNode.reference.range.stop.clone());
+  return textRange(first.reference.range.start.clone(), last.reference.range.stop.clone());
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {
