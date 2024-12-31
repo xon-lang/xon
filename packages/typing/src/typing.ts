@@ -5,7 +5,7 @@ export interface $Type<T = Model> {
   parent?: $Type | null | undefined;
   generics?: $Type[] | null | undefined;
 
-  toString(): string;
+  toNativeString(): string;
   nameEquals(other: $Type): boolean;
   is(other: $Type): boolean;
 }
@@ -22,7 +22,7 @@ export function newType<T extends Model>(
     parent,
     generics,
 
-    toString(): string {
+    toNativeString(): string {
       return `${this.packageName}.${this.name}`;
     },
 
@@ -64,7 +64,3 @@ export const $Model = newType<Model>('Typing', 'Model');
 export function is<T extends $Type>(model: any, type: T): model is Exclude<T['type'], undefined> {
   return (model?.$ as $Type)?.is(type) ?? false;
 }
-
-const brand = Symbol('brand');
-
-export type Brand<T extends `${string}.${string}`> = {[brand]?: T};

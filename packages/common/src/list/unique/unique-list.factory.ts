@@ -87,8 +87,8 @@ export function newUniqueList<T extends Anything_V2>(array: ArrayData<T> = newAr
       return newUniqueList(this._base.clone());
     },
 
-    toString(separator?: String2 | Nothing): String2 {
-      return this._base.toString(separator);
+    toNativeString(separator?: String2 | Nothing): String2 {
+      return this._base.toNativeString(separator);
     },
   };
 }

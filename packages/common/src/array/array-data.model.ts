@@ -73,7 +73,8 @@ export interface ArrayData<T extends Anything_V2 = Anything_V2> extends Model, I
   clone(): this;
   equals(other: this): Boolean2;
   toNativeArray(): T[];
-  toString(separator?: String2 | Nothing): String2;
+  // todo !!!
+  toNativeString(separator?: String2 | Nothing): String2;
 }
 
 export type ArrayPredicate<T> = (value: T, index: Integer) => Boolean2;

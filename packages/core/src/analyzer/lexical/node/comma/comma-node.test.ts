@@ -11,5 +11,5 @@ test('comma', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($CommaNode);
-  expect(node.text.toString()).toBe(',');
+  expect(node.text.toNativeString()).toBe(',');
 });

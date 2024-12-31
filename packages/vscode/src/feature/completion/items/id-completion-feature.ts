@@ -27,7 +27,7 @@ export class IdCompletionItemProvider implements CompletionItemProvider {
     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
     if (is(node, $LexicalNode)) {
-      const item = new CompletionItem(node.text.toString(), CompletionItemKind.Property);
+      const item = new CompletionItem(node.text.toNativeString(), CompletionItemKind.Property);
     }
 
     return [];

@@ -64,7 +64,7 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
     error(node: Node): String2 {
       this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
       const location = node.reference.resource.location;
-      const basename = path.basename(location?.toString() ?? '<code>');
+      const basename = path.basename(location?.toNativeString() ?? '<code>');
       const line = node.reference.range.start.line + 1;
       const column = node.reference.range.start.column + 1;
 
@@ -76,7 +76,7 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
         semanticAnalyzer.statements
           .map((node) => this.statement(node))
           .filter((translatedNode) => translatedNode.length > 0)
-          .join(NL.addLastItems(NL).toString()) + NL
+          .join(NL.addLastItems(NL).toNativeString()) + NL
       );
     },
   };

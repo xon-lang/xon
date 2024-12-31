@@ -12,5 +12,5 @@ test('string content', () => {
 
   expect(nodes.length()).toBe(3);
   expect(is(node, $StringContentNode)).toBe(true);
-  expect(node.text.toString()).toBe('a');
+  expect(node.text.toNativeString()).toBe('a');
 });

@@ -23,28 +23,32 @@ test('a is function', () => {
   const semantic = createSemanticAnalyzer(syntax);
 
   expect(semantic.declarationManager.count()).toBe(3);
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toString()).toBe(
-    $AttributeValueDeclarationSemantic.toString(),
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
+    $AttributeValueDeclarationSemantic.toNativeString(),
   );
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toString()).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements[2].value as DeclarationNode;
-  expect(constNode.id?.text.toString()).toBe('a');
-  expect(constNode.id?.semantic?.$.toString()).toBe($AttributeValueDeclarationSemantic.toString());
+  expect(constNode.id?.text.toNativeString()).toBe('a');
+  expect(constNode.id?.semantic?.$.toNativeString()).toBe(
+    $AttributeValueDeclarationSemantic.toNativeString(),
+  );
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name.toString()).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
   // expect(constNode.type?.value.$).toBe($Node.DECLARATION);
 
   const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
-  expect(typeSemantic.$.toString()).toBe($FunctionTypeSemantic.toString());
+  expect(typeSemantic.$.toNativeString()).toBe($FunctionTypeSemantic.toNativeString());
   expect(typeSemantic.parameters.length).toBe(1);
-  expect(typeSemantic.parameters[0]?.$.toString()).toBe($ParameterValueDeclarationSemantic.toString());
-  expect((typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).name.toString()).toBe('x');
+  expect(typeSemantic.parameters[0]?.$.toNativeString()).toBe(
+    $ParameterValueDeclarationSemantic.toNativeString(),
+  );
+  expect((typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).name.toNativeString()).toBe('x');
   expect(
-    (typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).type.declaration?.name.toString(),
+    (typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).type.declaration?.name.toNativeString(),
   ).toBe('Integer');
-  expect(typeSemantic.result.declaration?.name.toString()).toBe('String');
+  expect(typeSemantic.result.declaration?.name.toNativeString()).toBe('String');
 });
 
 // test('with generics', () => {

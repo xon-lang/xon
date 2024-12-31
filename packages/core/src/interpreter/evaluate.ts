@@ -29,13 +29,13 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   }
 
   if (is(node, $StringNode) || is(node, $CharNode)) {
-    return node.content?.text.toString();
+    return node.content?.text.toNativeString();
   }
 
   if (is(node, $InfixNode)) {
     const a: Anything = evaluate(node.left, argsMap);
     const b: Anything = evaluate(node.right, argsMap);
-    const operator: String2 = node.operator.text.equals('^') ? '**' : node.operator.text.toString();
+    const operator: String2 = node.operator.text.equals('^') ? '**' : node.operator.text.toNativeString();
 
     return customEval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
   }
@@ -43,12 +43,12 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   if (is(node, $PrefixNode)) {
     const a: Anything = evaluate(node.value, argsMap);
 
-    return customEval(`${node.operator.text}${escapeToString(a)}`);
+    return customEval(`${node.operator.text.toNativeString()}${escapeToString(a)}`);
   }
 
   if (is(node, $IdNode)) {
-    if (argsMap[node.text.toString()]) {
-      return argsMap[node.text.toString()];
+    if (argsMap[node.text.toNativeString()]) {
+      return argsMap[node.text.toNativeString()];
     }
 
     throw new Error('Not implemented');

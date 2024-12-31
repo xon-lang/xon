@@ -13,7 +13,7 @@ test('no dependencies', () => {
 
   const {order, cycle} = topologicalSort(dependencies);
   expect(order.length()).toBe(1);
-  expect(order.at(0)?.toString()).toBe('A');
+  expect(order.at(0)?.toNativeString()).toBe('A');
 
   expect(cycle.length()).toBe(0);
 });
@@ -23,7 +23,7 @@ test('non existence', () => {
 
   const {order, cycle} = topologicalSort(dependencies);
   expect(order.length()).toBe(1);
-  expect(order.at(0)?.toString()).toBe('A');
+  expect(order.at(0)?.toNativeString()).toBe('A');
 
   expect(cycle.length()).toBe(0);
 });
@@ -35,7 +35,7 @@ test('self', () => {
   expect(order.length()).toBe(0);
 
   expect(cycle.length()).toBe(1);
-  expect(cycle.at(0)?.toString()).toBe('A');
+  expect(cycle.at(0)?.toNativeString()).toBe('A');
 });
 
 test('no cycle', () => {
@@ -52,9 +52,9 @@ test('no cycle', () => {
 
   const {order, cycle} = topologicalSort(dependencies);
   expect(order.length()).toBe(6);
-  expect(order.at(0)?.toString()).toBe('A');
-  expect(order.at(1)?.toString()).toBe('F');
-  expect(order.at(2)?.toString()).toBe('B');
+  expect(order.at(0)?.toNativeString()).toBe('A');
+  expect(order.at(1)?.toNativeString()).toBe('F');
+  expect(order.at(2)?.toNativeString()).toBe('B');
 
   expect(cycle.length()).toBe(0);
 });
@@ -75,13 +75,13 @@ test('with cycle', () => {
 
   const {order, cycle} = topologicalSort(dependencies);
   expect(order.length()).toBe(6);
-  expect(order.at(0)?.toString()).toBe('A');
-  expect(order.at(1)?.toString()).toBe('F');
-  expect(order.at(2)?.toString()).toBe('B');
+  expect(order.at(0)?.toNativeString()).toBe('A');
+  expect(order.at(1)?.toNativeString()).toBe('F');
+  expect(order.at(2)?.toNativeString()).toBe('B');
 
   expect(cycle.length()).toBe(2);
-  expect(cycle.at(0)?.toString()).toBe('G');
-  expect(cycle.at(1)?.toString()).toBe('H');
+  expect(cycle.at(0)?.toNativeString()).toBe('G');
+  expect(cycle.at(1)?.toNativeString()).toBe('H');
 });
 
 test('cycle 2', () => {
@@ -95,11 +95,11 @@ test('cycle 2', () => {
 
   const {order, cycle} = topologicalSort(dependencies);
   expect(order.length()).toBe(1);
-  expect(order.at(0)?.toString()).toBe('C');
+  expect(order.at(0)?.toNativeString()).toBe('C');
 
   expect(cycle.length()).toBe(2);
-  expect(cycle.at(0)?.toString()).toBe('A');
-  expect(cycle.at(1)?.toString()).toBe('B');
+  expect(cycle.at(0)?.toNativeString()).toBe('A');
+  expect(cycle.at(1)?.toNativeString()).toBe('B');
 });
 
 test('cycle 3', () => {
@@ -114,6 +114,6 @@ test('cycle 3', () => {
   expect(order.length()).toBe(0);
 
   expect(cycle.length()).toBe(2);
-  expect(cycle.at(0)?.toString()).toBe('A');
-  expect(cycle.at(1)?.toString()).toBe('B');
+  expect(cycle.at(0)?.toNativeString()).toBe('A');
+  expect(cycle.at(1)?.toNativeString()).toBe('B');
 });

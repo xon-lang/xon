@@ -52,7 +52,7 @@ class LanguageRenameProvider implements RenameProvider {
       return nothing;
     }
 
-    return renameDeclarationAndUsages(declaration, declaration.name.toString(), newName);
+    return renameDeclarationAndUsages(declaration, declaration.name.toNativeString(), newName);
   }
 
   prepareRename?(
@@ -117,7 +117,7 @@ function renameWithWorkspace(
     return;
   }
 
-  const uri = Uri.parse(reference.resource.location.toString());
+  const uri = Uri.parse(reference.resource.location.toNativeString());
   const range = convertRange(reference.range);
 
   workspace.replace(uri, range, newName);

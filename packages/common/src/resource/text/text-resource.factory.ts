@@ -38,11 +38,12 @@ export function newTextResource(location: Text | Nothing, data: Text): TextResou
 
 export function textResourceFromLocation(location: Text): TextResource | Nothing {
   try {
-    if (!statSync(location.toString()).isFile()) {
+    if (!statSync(location.toNativeString()).isFile()) {
       return nothing;
     }
 
-    const data = newText(readFileSync(location.toString()).toString());
+    const fileContent = readFileSync(location.toNativeString()).toString();
+    const data = newText(fileContent);
 
     return newTextResource(location, data);
   } catch (error) {

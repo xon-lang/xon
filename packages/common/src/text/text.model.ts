@@ -12,6 +12,7 @@ export interface Text extends ArrayData<Char> {
   equals(other: Text): Boolean2;
   equals(other: ArrayData<Char>): Boolean2;
   equals(other: String2): Boolean2;
+  toNativeString(): String2;
 }
 
 export const $Text = commonPackageType<Text>('TextData', $ArrayData($Char));

@@ -31,5 +31,5 @@ export enum TerminalColor {
 }
 
 export function colorText(text: Text, color: TerminalColor): Text {
-  return newText(`${color}${text}${TerminalColor.RESET}`);
+  return newText(`${color}${text.toNativeString()}${TerminalColor.RESET}`);
 }

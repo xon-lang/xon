@@ -27,13 +27,13 @@ export function declarationSemanticHeaderToString(semantic: DeclarationSemantic)
   if (is(semantic, $NominalTypeDeclarationSemantic)) {
     const baseType = semantic.baseType ? ': ' + typeSemanticToString(semantic.baseType) : '';
 
-    return newText(`${semantic.name}${baseType}`);
+    return newText(`${semantic.name.toNativeString()}${baseType}`);
   }
 
   if (is(semantic, $AttributeValueDeclarationSemantic)) {
     const type = semantic.type ? ': ' + typeSemanticToString(semantic.type) : '';
 
-    return newText(`${semantic.name}${type}`);
+    return newText(`${semantic.name.toNativeString()}${type}`);
   }
 
   return nothing;

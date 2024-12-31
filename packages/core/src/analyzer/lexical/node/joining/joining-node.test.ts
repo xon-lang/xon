@@ -20,11 +20,11 @@ test('no space', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.instance.$.toString()).toBe($IdNode.toString());
-  expect((node.instance as IdNode).text.toString()).toBe('abc');
-  expect((node.operator as OperatorNode).text.toString()).toBe('.');
+  expect(node.instance.$.toNativeString()).toBe($IdNode.toNativeString());
+  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
+  expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
   expect(node.id?.$).toBe($IdNode);
-  expect((node.id as IdNode).text.toString()).toBe('def');
+  expect((node.id as IdNode).text.toNativeString()).toBe('def');
 });
 
 test('spaces', () => {
@@ -36,10 +36,10 @@ test('spaces', () => {
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($IdNode);
-  expect((node.instance as IdNode).text.toString()).toBe('abc');
-  expect((node.operator as OperatorNode).text.toString()).toBe('.');
+  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
+  expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
   expect(is(node.id, $IdNode)).toBe(true);
-  expect((node.id as IdNode).text.toString()).toBe('def');
+  expect((node.id as IdNode).text.toNativeString()).toBe('def');
 });
 
 test('with new line', () => {
@@ -51,10 +51,12 @@ test('with new line', () => {
 
   expect(statements.length).toBe(1);
   expect(node.instance?.$).toBe($IdNode);
-  expect((node.instance as IdNode).text.toString()).toBe('abc');
-  expect((node.operator as OperatorNode).text.toString()).toBe('.');
+  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
+  expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
   expect(is(node.operator.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
-  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(JOINING.toString() + '   \n');
+  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toNativeString()).toBe(
+    JOINING.toNativeString() + '   \n',
+  );
   expect(is(node.id, $IdNode)).toBe(true);
-  expect((node.id as IdNode).text.toString()).toBe('def');
+  expect((node.id as IdNode).text.toNativeString()).toBe('def');
 });

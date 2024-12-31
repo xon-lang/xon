@@ -17,8 +17,8 @@ export function lexicalNode<V extends Pick<LexicalNode, '$' | 'reference' | 'tex
       return this.reference.equals(other.reference);
     },
 
-    toString(): String2 {
-      return this.text.toString();
+    toNativeString(): String2 {
+      return this.text.toNativeString();
     },
   };
 }

@@ -16,6 +16,6 @@ test('a', () => {
   expect(statement.parent).toBe(nothing);
   expect(statement.children.length).toBe(1);
   expect(statement.children[0].$).toBe($CharNode);
-  expect((statement.children[0] as CharNode).content?.text.toString()).toBe('a');
+  expect((statement.children[0] as CharNode).content?.text.toNativeString()).toBe('a');
   expect(statement.body.length).toBe(0);
 });

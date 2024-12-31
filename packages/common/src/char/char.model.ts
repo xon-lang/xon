@@ -12,7 +12,7 @@ export interface Char extends Model {
   equals(other: Char): Boolean2;
   equals(other: Text): Boolean2;
   equals(other: String2): Boolean2;
-  toString(): String2;
+  toNativeString(): String2;
 }
 
 export const $Char = commonPackageType<Char>('Char');

@@ -10,15 +10,15 @@ test('member with id instance', () => {
   const node = statements[0].value as MemberNode;
 
   expect(statements.length).toBe(1);
-  expect(node.$.toString()).toBe($MemberNode.toString());
+  expect(node.$.toNativeString()).toBe($MemberNode.toNativeString());
 
   expect(node.instance.$).toBe($IdNode);
-  expect((node.instance as LexicalNode).text.toString()).toBe('abc');
+  expect((node.instance as LexicalNode).text.toNativeString()).toBe('abc');
 
-  expect(node.operator.text.toString()).toBe('.');
+  expect(node.operator.text.toNativeString()).toBe('.');
 
   expect(node.id?.$).toBe($IdNode);
-  expect(node.id?.text.toString()).toBe('def');
+  expect(node.id?.text.toNativeString()).toBe('def');
 });
 
 test('member without id', () => {
@@ -32,9 +32,9 @@ test('member without id', () => {
   expect(node.$).toBe($MemberNode);
 
   expect(node.instance.$).toBe($IdNode);
-  expect((node.instance as LexicalNode).text.toString()).toBe('abc');
+  expect((node.instance as LexicalNode).text.toNativeString()).toBe('abc');
 
-  expect(node.operator.text.toString()).toBe('.');
+  expect(node.operator.text.toNativeString()).toBe('.');
 
   expect(node.id).toBe(nothing);
 });

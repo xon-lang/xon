@@ -8,6 +8,7 @@ const LOWER_Z_CODE = 'z'.charCodeAt(0);
 const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
+// todo !!! remove all extensions
 String.prototype.takeWhile = function (
   predicate?: (value: String2, index: Integer, array: string[]) => Boolean2,
   startIndex = 0,

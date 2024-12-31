@@ -13,12 +13,12 @@ test('unknown 1', () => {
 
   expect(statements.length).toBe(1);
   expect(node0.$).toBe($IntegerNode);
-  expect(node0.content.text.toString()).toBe('123');
+  expect(node0.content.text.toNativeString()).toBe('123');
 
   expect(node1.hiddenNodes?.length).toBe(1);
   expect(is(node1.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
-  expect((node1.hiddenNodes?.at(0) as LexicalNode)?.text.toString()).toBe(' ');
-  expect(node1.text.toString()).toBe('§');
+  expect((node1.hiddenNodes?.at(0) as LexicalNode)?.text.toNativeString()).toBe(' ');
+  expect(node1.text.toNativeString()).toBe('§');
 });
 
 test('unknown 2', () => {
@@ -30,6 +30,8 @@ test('unknown 2', () => {
 
   expect(statements.length).toBe(1);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(5);
-  expect(resource.data.slice(syntax.diagnosticManager.diagnostics[0].reference.range).toString()).toBe('º');
-  expect(node.text.toString()).toBe('º');
+  expect(resource.data.slice(syntax.diagnosticManager.diagnostics[0].reference.range).toNativeString()).toBe(
+    'º',
+  );
+  expect(node.text.toNativeString()).toBe('º');
 });

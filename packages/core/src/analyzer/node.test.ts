@@ -11,7 +11,7 @@ test('comma', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($IntegerNode);
-  expect(node.content.text.toString()).toBe('1');
+  expect(node.content.text.toNativeString()).toBe('1');
 });
 
 // test('single expression', () => {

@@ -26,19 +26,19 @@ test('a is array', () => {
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
     $AttributeValueDeclarationSemantic,
   );
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toString()).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
-  expect(constNode.id?.text.toString()).toBe('a');
+  expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name.toString()).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
 
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as ArrayTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$.toString()).toBe($ArrayTypeSemantic.toString());
+  expect(typeSemantic?.$.toNativeString()).toBe($ArrayTypeSemantic.toNativeString());
   expect(typeSemantic?.items.length).toBe(3);
   expect((typeSemantic?.items[0] as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic?.items[1] as IntegerTypeSemantic).value).toBe(2);

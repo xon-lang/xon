@@ -136,9 +136,9 @@ function getSignatureHelp(
 }
 
 function getSignatureInformation(declaration: AttributeValueDeclarationSemantic): SignatureInformation {
-  const declarationHeader = declarationSemanticHeaderToString(declaration)?.toString() ?? '';
+  const declarationHeader = declarationSemanticHeaderToString(declaration)?.toNativeString() ?? '';
 
-  const description = declaration.documentation?.setPadding(0)?.trim().toString() ?? '';
+  const description = declaration.documentation?.setPadding(0)?.trim().toNativeString() ?? '';
   const descriptionMarkdown = new MarkdownString(description);
   const signature = new SignatureInformation(declarationHeader, descriptionMarkdown);
 
@@ -151,9 +151,11 @@ function getSignatureInformation(declaration: AttributeValueDeclarationSemantic)
 
 function getParameterInformation(parameter: DeclarationSemantic | Nothing): ParameterInformation {
   if (!parameter || !parameter.documentation) {
-    return new ParameterInformation(parameter?.name.toString() ?? '');
+    return new ParameterInformation(parameter?.name.toNativeString() ?? '');
   }
 
-  const documentation = new MarkdownString(`**${parameter.name}**: ${parameter.documentation}`);
-  return new ParameterInformation(parameter.name.toString(), documentation);
+  const documentation = new MarkdownString(
+    `**${parameter.name.toNativeString()}**: ${parameter.documentation.toNativeString()}`,
+  );
+  return new ParameterInformation(parameter.name.toNativeString(), documentation);
 }

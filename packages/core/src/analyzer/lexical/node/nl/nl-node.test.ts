@@ -11,7 +11,7 @@ test('lf nl', () => {
 
   expect(statements.length).toBe(0);
   expect(node.$).toBe($NlNode);
-  expect(node.text.toString()).toBe(NL.toString());
+  expect(node.text.toNativeString()).toBe(NL.toNativeString());
 });
 
 test('several', () => {
@@ -22,13 +22,13 @@ test('several', () => {
 
   expect(statements.length).toBe(1);
   expect(statements[0].value.$).toBe($IdNode);
-  expect((statements[0].value as IdNode).text.toString()).toBe('abc');
+  expect((statements[0].value as IdNode).text.toNativeString()).toBe('abc');
 
   const node0 = statements[0].hiddenNodes?.at(0) as LexicalNode;
   const node1 = statements[0].hiddenNodes?.at(1) as LexicalNode;
   const node2 = statements[0].hiddenNodes?.at(2) as LexicalNode;
   expect(statements[0].hiddenNodes?.length).toBe(3);
-  expect(node0.text.toString()).toBe('  ');
-  expect(node1.text.toString()).toBe('\n    \n');
-  expect(node2.text.toString()).toBe('   ');
+  expect(node0.text.toNativeString()).toBe('  ');
+  expect(node1.text.toNativeString()).toBe('\n    \n');
+  expect(node2.text.toNativeString()).toBe('   ');
 });

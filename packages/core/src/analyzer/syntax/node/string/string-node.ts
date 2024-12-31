@@ -26,7 +26,7 @@ export function stringNode(
   content: StringContentNode | Nothing,
   close?: StringCloseNode | Nothing,
 ): StringNode {
-  const value = content?.text.toString() ?? '';
+  const value = content?.text.toNativeString() ?? '';
 
   return syntaxNode(analyzer, {
     $: $StringNode,

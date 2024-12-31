@@ -60,10 +60,10 @@ function getAttributes(semantic: Semantic): ValueDeclarationSemantic[] | Nothing
 }
 
 function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): CompletionItem {
-  const item = new CompletionItem(semantic.name.toString(), getCompletionItemKind(semantic));
+  const item = new CompletionItem(semantic.name.toNativeString(), getCompletionItemKind(semantic));
 
   if (is(semantic.type, $IdTypeSemantic) && semantic.type.declaration) {
-    item.detail = semantic.type.declaration.name.toString();
+    item.detail = semantic.type.declaration.name.toNativeString();
   }
 
   return item;

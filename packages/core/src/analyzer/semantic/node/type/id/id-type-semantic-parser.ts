@@ -24,5 +24,5 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotBeUsedAsAType());
   }
 
-  return idTypeSemantic(analyzer, node, name.toString(), declaration);
+  return idTypeSemantic(analyzer, node, name.toNativeString(), declaration);
 }

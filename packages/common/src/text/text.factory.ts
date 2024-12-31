@@ -120,15 +120,15 @@ export function newText(stringOrCharacters?: String2 | ArrayData<Char>): Text {
     },
 
     setPadding(padding: Integer): Text {
-      return newText(this.toString().setPadding(padding));
+      return newText(this.toNativeString().setPadding(padding));
     },
 
     trim(): Text {
-      return newText(this.toString().trim());
+      return newText(this.toNativeString().trim());
     },
 
     repeat(count: Integer): Text {
-      return newText(this.toString().repeat(count));
+      return newText(this.toNativeString().repeat(count));
     },
 
     clone(): Text {
@@ -137,26 +137,26 @@ export function newText(stringOrCharacters?: String2 | ArrayData<Char>): Text {
 
     equals(other: Text | ArrayData<Char> | String2): Boolean2 {
       if (typeof other === 'string') {
-        return this.toString() === other;
+        return this.toNativeString() === other;
       }
 
       if (Array.isArray(other)) {
-        return this.toString() === other.join('');
+        return this.toNativeString() === other.join('');
       }
 
       if (is(other, $Text)) {
-        return this.toString() === other.toString();
+        return this.toNativeString() === other.toNativeString();
       }
 
       if (is(other, $ArrayData($Char))) {
-        return this.toString() === other._items.join('');
+        return this.toNativeString() === other._items.join('');
       }
 
       return false;
     },
 
-    toString(): String2 {
-      return this._items.join('');
+    toNativeString(): String2 {
+      return this._items.map((x) => x.toNativeString()).join('');
     },
   };
 }

@@ -424,7 +424,7 @@ export function newArrayData<T extends Anything_V2>(array: T[] = []): ArrayData<
       return [...this._items];
     },
 
-    toString(separator?: String2 | Nothing): String2 {
+    toNativeString(separator?: String2 | Nothing): String2 {
       return this._items.join(separator ?? ', ');
     },
   };

@@ -24,7 +24,7 @@ export function importValueSemanticParse(
 
   // todo should fix 'node.value.content?.text ?? ''' ???
   const location = normalizeImportString(
-    node.value.content?.text.toString() ?? '',
+    node.value.content?.text.toNativeString() ?? '',
     analyzer.resource.location,
   );
 
@@ -32,7 +32,7 @@ export function importValueSemanticParse(
 
   if (!resource) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.reference, (x) =>
-      x.cannotFindResource(location.toString()),
+      x.cannotFindResource(location.toNativeString()),
     );
 
     return;
@@ -72,7 +72,7 @@ function normalizeImportString(location: String2, targetSourceLocation?: Text | 
 
   if (location.startsWith('/') || location.startsWith('.')) {
     if (targetSourceLocation) {
-      return newText(join(dirname(targetSourceLocation.toString()), locationWithExtension));
+      return newText(join(dirname(targetSourceLocation.toNativeString()), locationWithExtension));
     }
 
     return newText(locationWithExtension);

@@ -53,13 +53,13 @@ export function newChar(charString: String2): Char {
       }
 
       if (is(other, $Text)) {
-        return this._string === other.toString();
+        return this._string === other.toNativeString();
       }
 
       return this._string === other._string;
     },
 
-    toString(): String2 {
+    toNativeString(): String2 {
       return this._string;
     },
   };

@@ -11,7 +11,7 @@ test('a = 1', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($AssignmentNode);
-  expect(node.id.text.toString()).toBe('a');
-  expect(node.assign.operator.text.toString()).toBe('=');
+  expect(node.id.text.toNativeString()).toBe('a');
+  expect(node.assign.operator.text.toNativeString()).toBe('=');
   expect((node.assign.value as IntegerNode).value).toBe(1);
 });

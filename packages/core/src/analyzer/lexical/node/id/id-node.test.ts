@@ -10,7 +10,7 @@ test('single id', () => {
   const node = statements[0].value as IdNode;
 
   expect(statements.length).toBe(1);
-  expect(node.text.toString()).toBe('abc');
+  expect(node.text.toNativeString()).toBe('abc');
   expect(node.$).toBe($IdNode);
 });
 
@@ -22,7 +22,7 @@ test('several id', () => {
   const node = statements[0].value as IdNode;
 
   expect(statements.length).toBe(1);
-  expect(node.text.toString()).toBe('abc');
+  expect(node.text.toNativeString()).toBe('abc');
   expect(node.$).toBe($IdNode);
 
   expect(syntax.diagnosticManager.diagnostics.length).toBe(2);

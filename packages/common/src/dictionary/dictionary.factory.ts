@@ -111,8 +111,8 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
       }
     },
 
-    toString(separator?: String2 | Nothing): String2 {
-      return this._base.toString(separator);
+    toNativeString(separator?: String2 | Nothing): String2 {
+      return this._base.toNativeString(separator);
     },
   };
 }

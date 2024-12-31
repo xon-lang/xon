@@ -11,9 +11,9 @@ test('import string', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($ImportNode);
-  expect(node.operator.text.toString()).toBe('import');
+  expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value?.$).toBe($StringNode);
-  expect((node.value as StringNode).content?.text.toString()).toBe('xon/core');
+  expect((node.value as StringNode).content?.text.toNativeString()).toBe('xon/core');
 });
 
 test('import integer', () => {
@@ -25,6 +25,6 @@ test('import integer', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($ImportNode);
-  expect(node.operator.text.toString()).toBe('import');
+  expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value).toBeFalsy();
 });

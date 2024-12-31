@@ -93,7 +93,7 @@ function navigateToUsages(
       continue;
     }
 
-    const uri = Uri.parse(usage.resource.location.toString());
+    const uri = Uri.parse(usage.resource.location.toNativeString());
     const range = convertRange(usage.range);
 
     const link: LocationLink = {
@@ -124,7 +124,7 @@ function navigateToLocation(
   location: Text,
   sourceRange?: TextRange | Nothing,
 ): ProviderResult<LocationLink[]> {
-  const uri = Uri.parse(location.toString());
+  const uri = Uri.parse(location.toNativeString());
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
 
   return [

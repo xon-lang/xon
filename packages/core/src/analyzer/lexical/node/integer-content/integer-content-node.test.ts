@@ -12,6 +12,6 @@ test('string content', () => {
 
   expect(statements.length).toBe(1);
   expect(is(node, $IntegerNode)).toBe(true);
-  expect(node.content?.text.toString()).toBe('1_2_3');
+  expect(node.content?.text.toNativeString()).toBe('1_2_3');
   expect(node.value).toBe(123);
 });

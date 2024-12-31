@@ -26,7 +26,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.notImplemented());
   }
 
-  const name = node.text.toString();
+  const name = node.text.toNativeString();
   const type = declaration?.type ?? unknownTypeSemantic(analyzer, node);
 
   return idValueSemantic(node, name, declaration, type);

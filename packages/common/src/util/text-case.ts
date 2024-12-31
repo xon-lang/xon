@@ -293,7 +293,7 @@ export function changeTextCase(caseName: Text, text: Text): Text | Nothing {
   const fn = caseFunctions.get(caseName);
 
   if (fn) {
-    return newText(fn.invoke(text.toString()));
+    return newText(fn.invoke(text.toNativeString()));
   }
 
   return nothing;

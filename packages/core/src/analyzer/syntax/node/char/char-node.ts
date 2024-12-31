@@ -26,7 +26,7 @@ export function charNode(
   content: CharContentNode | Nothing,
   close?: CharCloseNode | Nothing,
 ): CharNode {
-  const value = newChar(content?.text.toString() ?? '');
+  const value = newChar(content?.text.toNativeString() ?? '');
 
   return syntaxNode(analyzer, {
     $: $CharNode,

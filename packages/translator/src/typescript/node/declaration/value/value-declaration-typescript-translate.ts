@@ -15,14 +15,14 @@ export function valueDeclarationTypescriptTranslate(
     const name = semantic.alternativeName;
     const type = translator.type(semantic.type);
 
-    return `${name}: ${type}`;
+    return `${name.toNativeString()}: ${type}`;
   }
 
   if (is(semantic, $ParameterValueDeclarationSemantic)) {
     const name = semantic.name;
     const type = translator.type(semantic.type);
 
-    return `${name}: ${type}`;
+    return `${name.toNativeString()}: ${type}`;
   }
 
   return translator.error(semantic.nodeLink);

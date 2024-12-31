@@ -12,5 +12,5 @@ test('close angle', () => {
 
   expect(statements.length).toBe(1);
   expect(is(node, $AngleCloseNode)).toBe(true);
-  expect(node.text.toString()).toBe(':>');
+  expect(node.text.toNativeString()).toBe(':>');
 });

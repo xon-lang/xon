@@ -21,23 +21,23 @@ test('a is string value', () => {
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toString()).toBe(
-    $AttributeValueDeclarationSemantic.toString(),
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
+    $AttributeValueDeclarationSemantic.toNativeString(),
   );
-  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toString()).toBe('a');
+  expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements[0].value as DeclarationNode;
-  expect(constNode.id?.text.toString()).toBe('a');
+  expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
-  expect(idSemantic.name.toString()).toBe('a');
+  expect(idSemantic.name.toNativeString()).toBe('a');
 
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as CharTypeSemantic)
     : nothing;
   expect(typeSemantic?.$).toBe($CharTypeSemantic);
-  expect(typeSemantic?.value.toString()).toBe('a');
+  expect(typeSemantic?.value.toNativeString()).toBe('a');
 });
 
 test('a is string literal', () => {
@@ -51,8 +51,8 @@ test('a is string literal', () => {
     ? (typeNodeType(semantic, constNode.type) as CharTypeSemantic)
     : nothing;
 
-  expect(typeSemantic?.$.toString()).toBe($CharTypeSemantic.toString());
-  expect(typeSemantic?.value.toString()).toBe('a');
+  expect(typeSemantic?.$.toNativeString()).toBe($CharTypeSemantic.toNativeString());
+  expect(typeSemantic?.value.toNativeString()).toBe('a');
 });
 
 test('emoji', () => {
@@ -65,12 +65,12 @@ test('emoji', () => {
 
   const constA = syntax.statements[0].value as DeclarationNode;
   const typeASemantic = constA.type ? (typeNodeType(semantic, constA.type) as CharTypeSemantic) : nothing;
-  expect(typeASemantic?.$.toString()).toBe($CharTypeSemantic.toString());
-  expect(typeASemantic?.value.toString()).toBe('👩‍❤️‍💋‍👩');
-  expect(typeASemantic?.declaration?.name.toString()).toBe('Char');
+  expect(typeASemantic?.$.toNativeString()).toBe($CharTypeSemantic.toNativeString());
+  expect(typeASemantic?.value.toNativeString()).toBe('👩‍❤️‍💋‍👩');
+  expect(typeASemantic?.declaration?.name.toNativeString()).toBe('Char');
 
   const constB = syntax.statements[1].value as DeclarationNode;
   const typeBSemantic = constB.type ? (typeNodeType(semantic, constB.type) as CharTypeSemantic) : nothing;
-  expect(typeBSemantic?.$.toString()).toBe($CharTypeSemantic.toString());
-  expect(typeBSemantic?.value.toString()).toBe('👍');
+  expect(typeBSemantic?.$.toNativeString()).toBe($CharTypeSemantic.toNativeString());
+  expect(typeBSemantic?.value.toNativeString()).toBe('👍');
 });

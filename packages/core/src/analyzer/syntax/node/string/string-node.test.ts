@@ -50,7 +50,7 @@ test('not closed', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($StringNode);
-  expect(node.content?.text.toString()).toBe('abc');
+  expect(node.content?.text.toNativeString()).toBe('abc');
   expect(node.value).toBe('abc');
 });
 
@@ -63,7 +63,7 @@ test('emoji', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($StringNode);
-  expect(node.content?.text.toString()).toBe('🙂');
+  expect(node.content?.text.toNativeString()).toBe('🙂');
   expect(node.value).toBe('🙂');
   expect(node.reference.range.stop.index).toBe(3);
 });
@@ -77,7 +77,7 @@ test('emoji 2', () => {
 
   expect(statements.length).toBe(1);
   expect(node.$).toBe($StringNode);
-  expect(node.content?.text.toString()).toBe('👩‍❤️‍💋‍👩');
+  expect(node.content?.text.toNativeString()).toBe('👩‍❤️‍💋‍👩');
   expect(node.value).toBe('👩‍❤️‍💋‍👩');
   expect(node.reference.range.stop.index).toBe(10);
 });

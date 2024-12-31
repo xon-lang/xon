@@ -11,5 +11,5 @@ test('char', () => {
   expect(a.isLetterOrDigit()).toBe(true);
   expect(a.isLowerLetter()).toBe(false);
   expect(a.isUpperLetter()).toBe(true);
-  expect(a.toString()).toBe('A');
+  expect(a.toNativeString()).toBe('A');
 });

@@ -14,7 +14,7 @@ test('documentation', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
-  expect(node.description?.text.toString()).toBe('a');
+  expect(node.description?.text.toNativeString()).toBe('a');
 });
 
 test('documentation 2', () => {
@@ -29,7 +29,7 @@ test('documentation 2', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
-  expect(node.description?.text.toString()).toBe(' abc\n\n\n def==');
+  expect(node.description?.text.toNativeString()).toBe(' abc\n\n\n def==');
 });
 
 test('documentation labels', () => {
@@ -44,16 +44,16 @@ test('documentation labels', () => {
 
   const node = hiddenNodes[0] as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
-  expect(node.description?.text.toString()).toBe(' abc\n\n\n def ');
+  expect(node.description?.text.toNativeString()).toBe(' abc\n\n\n def ');
   expect(node.items?.length).toBe(2);
 
-  expect(node.items?.at(0)?.operator.text.toString()).toBe('@');
-  expect(node.items?.at(0)?.id.text.toString()).toBe('in');
-  expect(node.items?.at(0)?.description?.text.toString()).toBe(' a1 b2 c 3     ');
+  expect(node.items?.at(0)?.operator.text.toNativeString()).toBe('@');
+  expect(node.items?.at(0)?.id.text.toNativeString()).toBe('in');
+  expect(node.items?.at(0)?.description?.text.toNativeString()).toBe(' a1 b2 c 3     ');
 
-  expect(node.items?.at(1)?.operator.text.toString()).toBe('@');
-  expect(node.items?.at(1)?.id.text.toString()).toBe('return');
-  expect(node.items?.at(1)?.description?.text.toString()).toBe(' _123 _ ');
+  expect(node.items?.at(1)?.operator.text.toNativeString()).toBe('@');
+  expect(node.items?.at(1)?.id.text.toNativeString()).toBe('return');
+  expect(node.items?.at(1)?.description?.text.toNativeString()).toBe(' _123 _ ');
 });
 
 test('documentation operator id', () => {
@@ -71,7 +71,7 @@ test('documentation operator id', () => {
   expect(node.description).toBeFalsy();
   expect(node.items?.length).toBe(1);
 
-  expect(node.items?.at(0)?.operator.text.toString()).toBe('@');
+  expect(node.items?.at(0)?.operator.text.toNativeString()).toBe('@');
   expect(node.items?.at(0)?.operator.reference.range.start.index).toBe(3);
   expect(node.items?.at(0)?.operator.reference.range.start.line).toBe(0);
   expect(node.items?.at(0)?.operator.reference.range.start.column).toBe(3);
@@ -86,5 +86,5 @@ test('documentation operator id', () => {
   expect(node.items?.at(0)?.id.reference.range.stop.line).toBe(0);
   expect(node.items?.at(0)?.id.reference.range.stop.column).toBe(7);
 
-  expect(node.items?.at(0)?.description?.text.toString()).toBe(' desc');
+  expect(node.items?.at(0)?.description?.text.toNativeString()).toBe(' desc');
 });

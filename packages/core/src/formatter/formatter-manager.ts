@@ -48,11 +48,11 @@ export function createFormatterManager(resource: TextResource, config: Formatter
       const formatters = this.items.sortBy((x) => x.range.start.index);
 
       for (const {range, text} of formatters) {
-        formattedText += this.resource.data.slice(index, range.start.index).toString() + text;
+        formattedText += this.resource.data.slice(index, range.start.index).toNativeString() + text;
         index = range.stop.index;
       }
 
-      formattedText += this.resource.data.slice(index, this.resource.data.length()).toString();
+      formattedText += this.resource.data.slice(index, this.resource.data.length()).toNativeString();
 
       return formattedText;
     },
@@ -119,7 +119,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
         if (text.length > 0) {
           if (isFirstStatement) {
             text = text.trimStart();
-          } else if (text[0] !== NL.toString()) {
+          } else if (text[0] !== NL.toNativeString()) {
             text = ' ' + text;
           }
         }
@@ -164,7 +164,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
         this.addItem({
           range: rangeFromPosition(lastStatement.reference.range.stop),
-          text: NL.toString(),
+          text: NL.toNativeString(),
         });
 
         return;
@@ -181,7 +181,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
           text += NL;
         }
 
-        if (text[0] !== NL.toString()) {
+        if (text[0] !== NL.toNativeString()) {
           text = ' ' + text;
         }
       }
@@ -221,7 +221,7 @@ export function createFormatterManager(resource: TextResource, config: Formatter
 
       const nlCount = node.reference.range.stop.line - node.reference.range.start.line;
 
-      return NL.repeat(Math.min(nlCount, this.config.maxNewLines)).toString();
+      return NL.repeat(Math.min(nlCount, this.config.maxNewLines)).toNativeString();
     },
 
     isSameContent(hiddenNodes: Node[], text: String2): Boolean2 {

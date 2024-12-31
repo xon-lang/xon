@@ -92,7 +92,7 @@ function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<Declarat
   const {order, cycle} = topologicalSort(dependencies);
 
   if (cycle.length() > 0) {
-    throw new Error(`Not implemented: cycle dependencies '${cycle.toString(', ')}'`);
+    throw new Error(`Not implemented: cycle dependencies '${cycle.toNativeString(', ')}'`);
   }
 
   const nodesDict = newDictionary(nodes.map((x) => newKeyValue(x.id.text, x)));

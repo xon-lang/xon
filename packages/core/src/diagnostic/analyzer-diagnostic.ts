@@ -44,8 +44,8 @@ const red = (x: Text): Text => colorText(x, TerminalColor.FG_RED);
 // todo rename 'terminalFormat'
 export function terminalFormat(message: Text, {resource, range}: TextReference): String2 {
   const msg = red(message);
-  const lineText = resource.data.lineText(range.start.line).toString();
-  const nodeText = resource.data.slice(range).toString();
+  const lineText = resource.data.lineText(range.start.line);
+  const nodeText = resource.data.slice(range.start.index, range.stop.index);
   const location = cyan(resource.location ?? newText('<code>'));
   const line = cyan(newText(`:${range.start.line + 1}`));
   const column = cyan(newText(`:${range.start.column + 1}`));
@@ -53,7 +53,7 @@ export function terminalFormat(message: Text, {resource, range}: TextReference):
   const lineNumber = gray(lineNumberBeforeGrayed);
   const caret = newText(' ')
     .repeat(range.start.column + lineNumberBeforeGrayed.length())
-    .addLastItems(red(newText('~').repeat(nodeText.length)));
+    .addLastItems(red(newText('~').repeat(nodeText.length())));
 
-  return `${msg}\n${location}${line}${column}\n${lineNumber}${lineText}\n${caret}`;
+  return `${msg.toNativeString()}\n${location.toNativeString()}${line.toNativeString()}${column.toNativeString()}\n${lineNumber.toNativeString()}${lineText.toNativeString()}\n${caret.toNativeString()}`;
 }
