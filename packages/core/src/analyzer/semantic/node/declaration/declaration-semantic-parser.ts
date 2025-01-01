@@ -62,7 +62,7 @@ export function parameterDeclarationsParse(
   analyzer: SemanticAnalyzer,
   groupNode: GroupNode,
 ): (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[] {
-  const declarationNodes = groupNode.items.filterMap((node) => {
+  const declarationNodes = newArrayData(groupNode.items).filterMap((node) => {
     if (is(node.value, $DeclarationNode)) {
       return node.value;
     }
@@ -83,9 +83,9 @@ export function parameterDeclarationsParse(
     return declaration;
   });
 
-  declarationsParse(analyzer, newArrayData(declarationNodes));
+  declarationsParse(analyzer, declarationNodes);
 
-  return declarations;
+  return declarations.toNativeArray();
 }
 
 function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<DeclarationNode>): void {

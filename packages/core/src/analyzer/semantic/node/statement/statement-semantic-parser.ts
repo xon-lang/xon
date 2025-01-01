@@ -1,4 +1,4 @@
-import {nothing} from '#common';
+import {newArrayData, nothing} from '#common';
 import {
   $DeclarationNode,
   $ImportNode,
@@ -23,8 +23,10 @@ export function statementsParse(analyzer: SemanticAnalyzer, statements: Statemen
     }
   }
 
-  const declarationNodes = statements.filterMap((x) => (is(x.value, $DeclarationNode) ? x.value : nothing));
-  statementDeclarationsParse(analyzer, declarationNodes);
+  const declarationNodes = newArrayData(statements).filterMap((x) =>
+    is(x.value, $DeclarationNode) ? x.value : nothing,
+  );
+  statementDeclarationsParse(analyzer, declarationNodes.toNativeArray());
 
   for (const statement of statements) {
     for (const node of statement.children) {

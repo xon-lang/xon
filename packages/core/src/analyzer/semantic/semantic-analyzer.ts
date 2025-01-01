@@ -36,7 +36,9 @@ export function createSemanticAnalyzer(
   const config = {...DEFAULT_SEMANTIC_CONFIG, ...semanticConfig};
 
   const imports =
-    semanticConfig?.defaultImports?.filterMap((x) => declarationManagerFromImportString(x)) ?? [];
+    newArrayData(semanticConfig?.defaultImports ?? [])?.filterMap((x) =>
+      declarationManagerFromImportString(x),
+    ) ?? [];
 
   const semanticAnalyzer: SemanticAnalyzer = {
     $: $SemanticAnalyzer,
@@ -44,7 +46,7 @@ export function createSemanticAnalyzer(
     resource: syntaxAnalyzer.resource,
     diagnosticManager: syntaxAnalyzer.diagnosticManager,
     statements: syntaxAnalyzer.statements,
-    declarationManager: newDeclarationScope(nothing, newArrayData(imports)),
+    declarationManager: newDeclarationScope(nothing, imports),
     config,
 
     pushDeclarationScope(): void {

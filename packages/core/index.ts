@@ -193,5 +193,3 @@ export * from './src/formatter/formatter-config';
 export * from './src/formatter/formatter-item';
 export * from './src/formatter/formatter-manager';
 export * from './src/interpreter/evaluate';
-export * from './src/util/extension/array-extension';
-export * from './src/util/extension/extension';
