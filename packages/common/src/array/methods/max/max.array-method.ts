@@ -1,7 +1,7 @@
 import {
   ArrayData,
+  ArrayExtremumElement,
   ArraySelect,
-  ExtremumArrayElement,
   newExtremumArrayElement,
   Nothing,
   nothing,
@@ -11,7 +11,7 @@ import {
 export function maxArrayMethod<T, V extends Number2>(
   this: ArrayData<T>,
   select: ArraySelect<T, V>,
-): ExtremumArrayElement<T, V> | Nothing {
+): ArrayExtremumElement<T, V> | Nothing {
   if (this.isEmpty()) {
     return nothing;
   }

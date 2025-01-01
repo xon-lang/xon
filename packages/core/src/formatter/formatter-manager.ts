@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2, TextResource, rangeFromNodes, rangeFromPosition} from '#common';
+import {ArrayData, Boolean2, Nothing, String2, TextResource, rangeFromNodes, rangeFromPosition} from '#common';
 import {
   $LexicalNode,
   $NlNode,
@@ -27,7 +27,7 @@ export type FormatterManager = {
     lastStatement: StatementNode | Nothing,
     hiddenNodes: Node[],
   ): void;
-  formatHiddenNodes(hiddenNodes: Node[], isNoFirstChildNode: Boolean2): String2;
+  formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): String2;
   formatNlNode(node: NlNode | Nothing): String2;
   isSameContent(hiddenNodes: Node[], text: String2): Boolean2;
 };
@@ -196,7 +196,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       });
     },
 
-    formatHiddenNodes(hiddenNodes: Node[], isNoFirstChildNode: Boolean2): String2 {
+    formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): String2 {
       const splittedByNl = hiddenNodes
         .filter((x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode))
         .splitBy<NlNode>((x) => is(x, $NlNode));

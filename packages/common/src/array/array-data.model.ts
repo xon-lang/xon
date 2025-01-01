@@ -1,8 +1,9 @@
 import {
   Anything_V2,
+  ArrayExtremumElement,
+  ArraySplitByModel,
   Boolean2,
   commonPackageType,
-  ExtremumArrayElement,
   Integer,
   Nothing,
   Number2,
@@ -57,11 +58,11 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
 
   count(predicate?: ArrayPredicate<T>): Integer;
   sum(select: ArraySelect<T, Number2>): Number2;
-  min<V extends Number2>(select: ArraySelect<T, V>): ExtremumArrayElement<T, V> | Nothing;
-  max<V extends Number2>(select: ArraySelect<T, V>): ExtremumArrayElement<T, V> | Nothing;
+  min<V extends Number2>(select: ArraySelect<T, V>): ArrayExtremumElement<T, V> | Nothing;
+  max<V extends Number2>(select: ArraySelect<T, V>): ArrayExtremumElement<T, V> | Nothing;
   minMax<V extends Number2>(
     select: ArraySelect<T, V>,
-  ): {min: ExtremumArrayElement<T, V> | Nothing; max: ExtremumArrayElement<T, V> | Nothing};
+  ): {min: ArrayExtremumElement<T, V> | Nothing; max: ArrayExtremumElement<T, V> | Nothing};
 
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
   filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
@@ -79,6 +80,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   //   predicate: ArraySafePredicate<T, V>,
   // ): ArrayData<{splitter: V | Nothing; items: ArrayData<T>}>;
 
+  splitBy<T>(this: ArrayData<T>, predicate: ArrayPredicate<T>): ArrayData<ArraySplitByModel<T>>;
   reduce(select: (previous: T, current: T, index: Integer) => T): T;
   reduce(select: (previous: T, current: T, index: Integer) => T, initialValue: T): T;
   reduce<V>(select: (previous: V, current: T, index: Integer) => V, initialValue: V): V;

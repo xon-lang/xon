@@ -1,7 +1,7 @@
 import {
   ArrayData,
+  ArrayExtremumElement,
   ArraySelect,
-  ExtremumArrayElement,
   newExtremumArrayElement,
   nothing,
   Nothing,
@@ -9,13 +9,13 @@ import {
 } from '#common';
 
 type mn<T, V extends Number2> = {
-  min: ExtremumArrayElement<T, V> | Nothing;
-  max: ExtremumArrayElement<T, V> | Nothing;
+  min: ArrayExtremumElement<T, V> | Nothing;
+  max: ArrayExtremumElement<T, V> | Nothing;
 };
 export function minMaxArrayMethod<T, V extends Number2>(
   this: ArrayData<T>,
   select: ArraySelect<T, V>,
-): {min: ExtremumArrayElement<T, V> | Nothing; max: ExtremumArrayElement<T, V> | Nothing} {
+): {min: ArrayExtremumElement<T, V> | Nothing; max: ArrayExtremumElement<T, V> | Nothing} {
   if (this.isEmpty()) {
     return {min: nothing, max: nothing};
   }

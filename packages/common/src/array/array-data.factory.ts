@@ -13,6 +13,7 @@ import {
   Nothing,
   nothing,
   Number2,
+  splitByArrayMethod,
 } from '#common';
 import {extractType, Model, modelEquals} from '#typing';
 
@@ -320,30 +321,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return newArrayData(this._items.flatMap(select));
     },
 
-    // [1, 2, 3, 0, 5].splitBy(x=>x===0) is [{splitter: nothing, items: [1, 2, 3]}, {splitter: 0, items: [5]}]
-    // splitBy(
-    //   predicate: (value: T, index: Integer, array: ArrayData<T>) => Boolean2,
-    // ): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}> {
-    //   const result: ArrayData<{splitter: T | Nothing; items: ArrayData<T>}> = newArrayData();
-
-    //   for (let index = 0; index < this.length(); index++) {
-    //     const item = this.at2(index);
-
-    //     if (predicate(item, index, this)) {
-    //       result.addLast({splitter: item, items: newArrayData([])});
-
-    //       continue;
-    //     }
-
-    //     if (result.length() === 0) {
-    //       result.addLast({splitter: nothing, items: newArrayData([])});
-    //     }
-
-    //     result.last()?.items.addLast(item);
-    //   }
-
-    //   return result;
-    // },
+    splitBy: splitByArrayMethod,
 
     // todo fix 'reduce'
     reduce<V>(select: (previous: any, current: any, index: Integer) => any, initialValue?: V | Nothing): V {
