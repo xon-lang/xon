@@ -5,17 +5,6 @@ declare global {
 }
 
 interface ArrayExtension<T = Anything> {
-  takeWhile(predicate?: Predicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): T[];
-  take(length: Integer, startIndex?: Integer): T[];
-
-  some(predicate: Predicate<string>): Boolean2;
-
-  count(predicate?: Predicate<T>): Integer;
-  sum(select: Select<T, Number2>): Number2;
-  min(select: Select<T, Number2>): T | Nothing;
-  max(select: Select<T, Number2>): T | Nothing;
-  minMax(select: Select<T, Number2>): {min: T; max: T} | Nothing;
-
   filterMap<V>(predicate: PredicateSelect<T, V>): V[];
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): T[];
