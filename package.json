@@ -3,7 +3,7 @@
   "author": "nizami",
   "type": "module",
   "devDependencies": {
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.3",
     "@types/vscode": "^1.96.0",
     "barrelsby": "^2.8.1",
     "esbuild": "^0.24.2",
