@@ -1,21 +1,21 @@
-import {Nothing, nothing, TextRange} from '#common';
+import {ArrayData, Nothing, nothing, TextRange} from '#common';
 import {constructStatementNode, Node, StatementNode, SyntaxAnalyzer} from '#core';
 
 export function putStatementNode(
   analyzer: SyntaxAnalyzer,
-  nodes: Node[],
-  statements: StatementNode[],
+  nodes: ArrayData<Node>,
+  statements: ArrayData<StatementNode>,
   lastStatement: StatementNode | Nothing,
   indent: TextRange,
 ): StatementNode {
   const parentStatement = getParentStatement(lastStatement, indent);
-  const isFirstStatement = statements.length === 0;
+  const isFirstStatement = statements.isEmpty();
   const statement = constructStatementNode(analyzer, parentStatement, nodes, indent, isFirstStatement);
 
   if (parentStatement) {
-    parentStatement.body.push(statement);
+    parentStatement.body.addLastItem(statement);
   } else {
-    statements.push(statement);
+    statements.addLastItem(statement);
   }
 
   return statement;

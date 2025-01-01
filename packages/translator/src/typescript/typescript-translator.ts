@@ -72,12 +72,12 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
     },
 
     translate(): String2 {
-      return (
-        semanticAnalyzer.statements
-          .map((node) => this.statement(node))
-          .filter((translatedNode) => translatedNode.length > 0)
-          .join(NL.addLastItems(NL).toNativeString()) + NL
-      );
+      const translatedStatements = semanticAnalyzer.statements
+        .map((node) => this.statement(node))
+        .filter((translatedNode) => translatedNode.length > 0)
+        .toNativeArray();
+
+      return translatedStatements.join(NL.addLastItems(NL).toNativeString()) + NL.toNativeString();
     },
   };
 }

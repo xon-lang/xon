@@ -1,6 +1,5 @@
 import {
   $ArrayData,
-  Anything_V2,
   ArrayData,
   ArrayPredicate,
   ArraySafePredicate,
@@ -323,14 +322,14 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return newArrayData([...this._items].sort((a, b) => select(b) - select(a)));
     },
 
-    flat<A extends Anything_V2>(this: ArrayData<ArrayData<A>>): ArrayData<A> {
+    flat<A>(this: ArrayData<ArrayData<A>>): ArrayData<A> {
       const flatItems = this._items.flatMap((x) => x._items);
 
       return newArrayData(flatItems);
     },
 
-    flatMap<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V> {
-      return newArrayData(this._items.flatMap(select));
+    flatMap<V>(select: ArraySelect<T, ArrayData<V>>): ArrayData<V> {
+      return this.map((x, i) => select(x, i)).flat();
     },
 
     splitBy: splitByArrayMethod,

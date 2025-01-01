@@ -1,4 +1,4 @@
-import {Boolean2, Integer, nothing, Text} from '#common';
+import {ArrayData, Boolean2, Integer, nothing, Text} from '#common';
 import {
   $OperatorNode,
   $StringNode,
@@ -11,13 +11,13 @@ import {
 import {is} from '#typing';
 
 export function importNodeParse(operator: Text, isLeftRecursive: Boolean2): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (!is(node, $OperatorNode) || !node.text.equals(operator)) {
         return nothing;
       }
 
-      const value = nodes[index + 1];
+      const value = nodes.at(index + 1);
 
       if (!is(value, $StringNode)) {
         return {node: importNode(analyzer, node, nothing), index};

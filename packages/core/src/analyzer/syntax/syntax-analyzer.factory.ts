@@ -1,4 +1,5 @@
 import {
+  ArrayData,
   Boolean2,
   newArrayData,
   Nothing,
@@ -51,28 +52,28 @@ export function newSyntaxAnalyzer(
     lexicalAnalyzer,
     diagnosticManager,
     formatterManager,
-    statements: [],
-    hiddenNodes: [],
+    statements: newArrayData(),
+    hiddenNodes: newArrayData(),
 
     parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
-      statements: StatementNode[];
+      statements: ArrayData<StatementNode>;
       breakNode?: Node | Nothing;
-      hiddenNodes: Node[];
+      hiddenNodes: ArrayData<Node>;
     } {
-      let hiddenNodes: Node[] = [];
+      let hiddenNodes = newArrayData<Node>();
       let lastStatement: StatementNode | Nothing = nothing;
-      let statements: StatementNode[] = [];
+      let statements = newArrayData<StatementNode>();
       let statementIndent: TextRange = rangeFromPosition(lexicalAnalyzer.position);
       let breakNode: Node | Nothing = nothing;
-      let nodes: Node[] = [];
+      let nodes = newArrayData<Node>();
 
       const handleStatement = () => {
-        if (nodes.length === 0) {
+        if (nodes.isEmpty()) {
           return;
         }
 
         lastStatement = putStatementNode(this, nodes, statements, lastStatement, statementIndent);
-        nodes = [];
+        nodes = newArrayData();
       };
 
       const iterator = analyzer.lexicalAnalyzer.iterator(codeLexicalParsers());
@@ -111,7 +112,7 @@ export function newSyntaxAnalyzer(
           break;
         }
 
-        if (nodes.length === 0) {
+        if (nodes.isEmpty()) {
           if (is(node, $WhitespaceNode)) {
           }
         }
@@ -121,25 +122,21 @@ export function newSyntaxAnalyzer(
             handleStatement();
           }
 
-          hiddenNodes.push(node);
+          hiddenNodes.addLastItem(node);
 
           continue;
         }
 
         statementIndent = getStatementIndent(nodes, hiddenNodes) ?? statementIndent;
 
-        node.hiddenNodes = newArrayData(hiddenNodes);
-        hiddenNodes = [];
-        nodes.push(node);
+        node.hiddenNodes = hiddenNodes;
+        hiddenNodes = newArrayData();
+        nodes.addLastItem(node);
       }
 
       handleStatement();
 
-      this.formatterManager.formatRemainingHiddenNodes(
-        newArrayData(statements),
-        lastStatement,
-        newArrayData(hiddenNodes),
-      );
+      this.formatterManager.formatRemainingHiddenNodes(statements, lastStatement, hiddenNodes);
 
       return {
         statements,
@@ -148,8 +145,8 @@ export function newSyntaxAnalyzer(
       };
     },
 
-    findStatementNode(statements: StatementNode[], position: TextPosition): StatementNode | Nothing {
-      if (statements.length === 0) {
+    findStatementNode(statements: ArrayData<StatementNode>, position: TextPosition): StatementNode | Nothing {
+      if (statements.isEmpty()) {
         return nothing;
       }
 
@@ -168,9 +165,11 @@ export function newSyntaxAnalyzer(
       return nothing;
     },
 
-    findNodeInChildren(children: Node[], position: TextPosition): Node | Nothing {
+    findNodeInChildren(children: ArrayData<Node>, position: TextPosition): Node | Nothing {
       const child =
-        children.length === 1 ? children[0] : children.find((x) => x.reference.range.contains(position));
+        children.length() === 1
+          ? children.at(0)
+          : children.first((x) => x.reference.range.contains(position));
 
       if (!child) {
         return nothing;
@@ -219,25 +218,25 @@ export function newSyntaxAnalyzer(
   return analyzer;
 }
 
-function getStatementIndent(nodes: Node[], hiddenNodes: Node[]): TextRange | Nothing {
-  if (nodes.length !== 0 || hiddenNodes.length === 0) {
+function getStatementIndent(nodes: ArrayData<Node>, hiddenNodes: ArrayData<Node>): TextRange | Nothing {
+  if (!nodes.isEmpty() || hiddenNodes.isEmpty()) {
     return nothing;
   }
 
-  const lastNlIndex = newArrayData(hiddenNodes).lastIndex((x) => is(x, $NlNode));
+  const lastNlIndex = hiddenNodes.lastIndex((x) => is(x, $NlNode)) ?? -1;
 
   if (lastNlIndex >= 0) {
-    const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
+    const whiteSpaceNode = hiddenNodes.at(lastNlIndex + 1);
 
     if (is(whiteSpaceNode, $WhitespaceNode)) {
       return whiteSpaceNode.reference.range.clone();
     }
 
-    return rangeFromPosition(hiddenNodes[lastNlIndex].reference.range.stop);
+    return rangeFromPosition(hiddenNodes.at2(lastNlIndex).reference.range.stop);
   }
 
-  if (is(hiddenNodes[0], $WhitespaceNode)) {
-    return hiddenNodes[0].reference.range.clone();
+  if (is(hiddenNodes.at(0), $WhitespaceNode)) {
+    return hiddenNodes.at2(0).reference.range.clone();
   }
 
   return nothing;

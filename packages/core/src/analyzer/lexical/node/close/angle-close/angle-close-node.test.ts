@@ -8,9 +8,9 @@ test('close angle', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as AngleCloseNode;
+  const node = statements.at(0)?.value as AngleCloseNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(is(node, $AngleCloseNode)).toBe(true);
   expect(node.text.toNativeString()).toBe(':>');
 });

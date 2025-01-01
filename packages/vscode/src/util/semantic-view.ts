@@ -15,7 +15,11 @@ export function typeSemanticToString(semantic: TypeSemantic): Text | Nothing {
   }
 
   if (is(semantic, $FunctionTypeSemantic)) {
-    const parameters = semantic.parameters.map(declarationSemanticHeaderToString).join(', ');
+    const parameters = semantic.parameters
+      .map(declarationSemanticHeaderToString)
+      .map((x) => x?.toNativeString() ?? '')
+      .toNativeArray()
+      .join(', ');
 
     return newText(`(${parameters}): ${typeSemanticToString(semantic.result)}`);
   }

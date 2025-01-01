@@ -18,9 +18,9 @@ test('negative integer', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as PrefixNode;
+  const node = statements.at(0)?.value as PrefixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($PrefixNode);
   expect(node.operator.text.toNativeString()).toBe('-');
   expect(evaluate(node)).toBe(-1);
@@ -31,9 +31,9 @@ test('infix modifier', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as OperatorNode;
+  const node = statements.at(0)?.value as OperatorNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($OperatorNode);
   expect(node.text.toNativeString()).toBe('infix');
 });
@@ -43,9 +43,9 @@ test('hidden nodes', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as PrefixNode;
+  const node = statements.at(0)?.value as PrefixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($PrefixNode);
   expect(node.operator.text.toNativeString()).toBe('-');
 
@@ -61,9 +61,9 @@ test('infix declaration', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('infix');
   expect(node.id.text.toNativeString()).toBe('+');

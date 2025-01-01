@@ -17,9 +17,9 @@ test('several operands with different priorities', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as InfixNode;
+  const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('+');
   expect(evaluate(node)).toBe(34);
@@ -30,9 +30,9 @@ test('num plus str', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as InfixNode;
+  const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('+');
   expect(evaluate(node)).toBe('1str');
@@ -43,9 +43,9 @@ test('num is number', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as InfixNode;
+  const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('&');
   expect((node.left as IntegerNode).content.text.toNativeString()).toBe('1');
@@ -57,9 +57,9 @@ test('equals', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as InfixNode;
+  const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('==');
   expect((node.right as IntegerNode).content.text.toNativeString()).toBe('123');
@@ -72,7 +72,7 @@ test('equals', () => {
 //   const statements = syntax.statements;
 //   const node = statements[0].item as InfixNode;
 
-//   expect(statements.length).toBe(1);
+//   expect(statements.length()).toBe(1);
 //   expect(node.$).toBe($Node.INFIX);
 //   expect(node.operator.text.toString()).toBe('>');
 //   expect(node.left?.$).toBe($Node.INFIX);
@@ -90,9 +90,9 @@ test('several operators', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as InfixNode;
+  const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.left?.$).toBe($IntegerNode);
   expect(node.operator.text.toNativeString()).toBe('/');
@@ -108,9 +108,9 @@ test('range', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as InfixNode;
+  const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($InfixNode);
 
   expect(node.left.$).toBe($IntegerNode);

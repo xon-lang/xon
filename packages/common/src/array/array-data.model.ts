@@ -1,5 +1,4 @@
 import {
-  Anything_V2,
   ArrayExtremumElement,
   ArraySplitByModel,
   Boolean2,
@@ -74,8 +73,8 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   // sortStrings(): ArrayData<T>;
   sort(compareFn?: (a: T, b: T) => number): this;
 
-  flat<A extends Anything_V2>(this: ArrayData<ArrayData<A>>): ArrayData<A>;
-  flatMap<V extends Anything_V2>(select: ArraySelect<T, V>): ArrayData<V>;
+  flat<A>(this: ArrayData<ArrayData<A>>): ArrayData<A>;
+  flatMap<V>(select: ArraySelect<T, ArrayData<V>>): ArrayData<V>;
 
   // todo uncomment
   // splitBy(predicate: ArrayPredicate<T>): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}>;

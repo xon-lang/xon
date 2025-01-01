@@ -1,4 +1,4 @@
-import {Integer, newArrayData, Nothing, nothing} from '#common';
+import {ArrayData, Integer, newArrayData, Nothing, nothing} from '#common';
 import {
   $AngleGroupNode,
   $DeclarationNode,
@@ -33,11 +33,11 @@ import {is} from '#typing';
 export function declarationNodeParse(): SyntaxParseFn {
   return (
     analyzer: SyntaxAnalyzer,
-    nodes: Node[],
+    nodes: ArrayData<Node>,
     _startIndex: Integer,
     parentStatement: StatementNode | Nothing,
   ) => {
-    if (is(nodes[0], $DeclarationNode)) {
+    if (is(nodes.first(), $DeclarationNode)) {
       return nothing;
     }
 
@@ -65,7 +65,7 @@ export function declarationNodeParse(): SyntaxParseFn {
 
 function getDeclarationParts(
   analyzer: SyntaxAnalyzer,
-  nodes: Node[],
+  nodes: ArrayData<Node>,
   parentStatement: StatementNode | Nothing,
 ):
   | {
@@ -81,7 +81,7 @@ function getDeclarationParts(
       assign?: AssignNode | Nothing;
     }
   | Nothing {
-  const header = getHeader(analyzer, nodes[0]);
+  const header = getHeader(analyzer, nodes.at(0));
 
   if (!header) {
     return nothing;
@@ -92,7 +92,7 @@ function getDeclarationParts(
       index - 1 === 0 &&
       is(node, $OperatorNode) &&
       node.text.equals(TYPE) &&
-      nodes[index + 1].isExpression
+      nodes.at2(index + 1).isExpression
     ) {
       return {node, index};
     }
@@ -101,9 +101,9 @@ function getDeclarationParts(
   });
 
   if (typeOperatorFound) {
-    const typeValue = nodes[typeOperatorFound.index + 1];
-    const assignOperator = nodes[typeOperatorFound.index + 2];
-    const assignValue = nodes[typeOperatorFound.index + 3];
+    const typeValue = nodes.at2(typeOperatorFound.index + 1);
+    const assignOperator = nodes.at2(typeOperatorFound.index + 2);
+    const assignValue = nodes.at2(typeOperatorFound.index + 3);
 
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
@@ -125,7 +125,7 @@ function getDeclarationParts(
       index - 1 === 0 &&
       is(node, $OperatorNode) &&
       node.text.equals(ASSIGN) &&
-      nodes[index + 1].isExpression
+      nodes.at2(index + 1).isExpression
     ) {
       return {node, index};
     }
@@ -134,7 +134,7 @@ function getDeclarationParts(
   });
 
   if (assignOperatorFound) {
-    const assignValue = nodes[assignOperatorFound.index + 1];
+    const assignValue = nodes.at2(assignOperatorFound.index + 1);
     const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};

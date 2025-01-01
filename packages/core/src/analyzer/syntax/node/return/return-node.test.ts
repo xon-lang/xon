@@ -7,9 +7,9 @@ test('with value', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as ReturnNode;
+  const node = statements.at(0)?.value as ReturnNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($ReturnNode);
   expect(node.operator.text.toNativeString()).toBe(RETURN.toNativeString());
   expect(evaluate(node.value)).toBe(10);

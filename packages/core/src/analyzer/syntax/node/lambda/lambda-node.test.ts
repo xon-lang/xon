@@ -7,12 +7,12 @@ test('function with no parameters', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as LambdaNode;
+  const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($LambdaNode);
   expect(node.generics).toBeFalsy();
-  expect(node.parameters?.items.length).toBe(0);
+  expect(node.parameters?.items.length()).toBe(0);
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('Integer');
 });
 
@@ -21,13 +21,13 @@ test('function with generic', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as LambdaNode;
+  const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.generics?.items.length).toBe(1);
-  expect((node.generics?.items[0].value as DeclarationNode).id.text.toNativeString()).toBe('T');
-  expect(node.parameters.items.length).toBe(0);
+  expect(node.generics?.items.length()).toBe(1);
+  expect((node.generics?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('T');
+  expect(node.parameters.items.length()).toBe(0);
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('T');
 });
 
@@ -36,16 +36,16 @@ test('function with generic and parameter', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as LambdaNode;
+  const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.generics?.items.length).toBe(1);
-  expect((node.generics?.items[0].value as DeclarationNode).id.text.toNativeString()).toBe('T');
-  expect(node.parameters.items.length).toBe(1);
-  expect((node.parameters?.items[0].value as DeclarationNode).id.text.toNativeString()).toBe('a');
+  expect(node.generics?.items.length()).toBe(1);
+  expect((node.generics?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('T');
+  expect(node.parameters.items.length()).toBe(1);
+  expect((node.parameters?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('a');
   expect(
-    ((node.parameters?.items[0].value as DeclarationNode).type?.value as IdNode).text.toNativeString(),
+    ((node.parameters?.items.at(0)?.value as DeclarationNode).type?.value as IdNode).text.toNativeString(),
   ).toBe('T');
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('T');
 });
@@ -55,12 +55,12 @@ test('has argument and value', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as LambdaNode;
+  const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.parameters?.items.length).toBe(1);
-  expect((node.parameters?.items[0].value as DeclarationNode).id.text.toNativeString()).toBe('x');
+  expect(node.parameters?.items.length()).toBe(1);
+  expect((node.parameters?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('x');
 
   expect(
     evaluate(node.assign?.value, {
@@ -74,11 +74,11 @@ test('two parameter', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as LambdaNode;
+  const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.parameters?.items.length).toBe(2);
-  expect((node.parameters?.items[0].value as DeclarationNode).id?.text.toNativeString()).toBe('a');
-  expect((node.parameters?.items[1].value as DeclarationNode).id?.text.toNativeString()).toBe('b');
+  expect(node.parameters?.items.length()).toBe(2);
+  expect((node.parameters?.items.at(0)?.value as DeclarationNode).id?.text.toNativeString()).toBe('a');
+  expect((node.parameters?.items.at(1)?.value as DeclarationNode).id?.text.toNativeString()).toBe('b');
 });

@@ -30,7 +30,7 @@ export function invokeTypeSemanticTryParse(
   );
   const instance = typeSemanticParse(analyzer, node.instance);
 
-  if (args.length === 0) {
+  if (args.isEmpty()) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.reference, (x) => x.notImplemented());
   }
 

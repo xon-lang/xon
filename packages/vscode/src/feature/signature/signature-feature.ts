@@ -101,7 +101,7 @@ function getInvokeNodeAndParameterIndex(
     ) {
       return {
         invokeNode: nodeAtPosition.parent.parent.parent,
-        parameterIndex: nodeAtPosition.parent.parent.items.indexOf(nodeAtPosition.parent),
+        parameterIndex: nodeAtPosition.parent.parent.items.firstItemIndex(nodeAtPosition.parent),
       };
     }
   }
@@ -143,7 +143,8 @@ function getSignatureInformation(declaration: AttributeValueDeclarationSemantic)
   const signature = new SignatureInformation(declarationHeader, descriptionMarkdown);
 
   if (is(declaration.type, $FunctionTypeSemantic)) {
-    signature.parameters = declaration.type.parameters?.map((x) => getParameterInformation(x)) ?? [];
+    signature.parameters =
+      declaration.type.parameters?.map((x) => getParameterInformation(x))?.toNativeArray() ?? [];
   }
 
   return signature;

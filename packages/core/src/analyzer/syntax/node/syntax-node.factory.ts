@@ -6,11 +6,13 @@ export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Any
   analyzer: SyntaxAnalyzer,
   params: T,
 ): SyntaxNode & T {
-  const children = Object.values(params)
-    .filter((x) => is(x, $Node))
-    .flat();
-
-  const reference = newTextReference(analyzer.resource, rangeFromNodes(newArrayData(children)));
+  // todo use filter and flat from 'ArrayData'
+  const children = newArrayData(
+    Object.values(params)
+      .filter((x) => is(x, $Node))
+      .flat(),
+  );
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
 
   const node: SyntaxNode & T = {
     ...params,
@@ -23,14 +25,16 @@ export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Any
     },
   };
 
-  const first = newArrayData(children).first();
+  const first = children.first();
 
   if (first) {
     node.hiddenNodes = first.hiddenNodes;
     first.hiddenNodes = nothing;
   }
 
-  children.forEach((x) => (x.parent = node));
+  for (const child of children) {
+    child.parent = node;
+  }
 
   return node;
 }

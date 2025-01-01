@@ -1,4 +1,4 @@
-import {Nothing, String2} from '#common';
+import {ArrayData, Nothing, String2} from '#common';
 import {
   $SyntaxNode,
   corePackageType,
@@ -14,7 +14,7 @@ import {
 export type DocumentationNode = SyntaxNode & {
   open: DocumentationOpenNode;
   description?: DocumentationDescriptionNode | Nothing;
-  items: DocumentationItemNode[];
+  items: ArrayData<DocumentationItemNode>;
   close?: DocumentationCloseNode | Nothing;
 };
 
@@ -24,7 +24,7 @@ export function documentationNode(
   analyzer: SyntaxAnalyzer,
   open: DocumentationOpenNode,
   description: DocumentationDescriptionNode | Nothing,
-  items: DocumentationItemNode[],
+  items: ArrayData<DocumentationItemNode>,
   close?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
   const node = syntaxNode(analyzer, {

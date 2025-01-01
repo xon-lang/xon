@@ -3,17 +3,17 @@ import {$OperatorNode, Node, nodeFindMap, prefixNode, SyntaxAnalyzer, SyntaxPars
 import {is} from '#typing';
 
 export function prefixNodeParse(operators: ArrayData<Text>, isLeftRecursive: Boolean2): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
         !is(node, $OperatorNode) ||
         !operators.hasItem(node.text) ||
-        (index !== 0 && !is(nodes[index - 1], $OperatorNode))
+        (index !== 0 && !is(nodes.at(index - 1), $OperatorNode))
       ) {
         return nothing;
       }
 
-      const value = nodes[index + 1];
+      const value = nodes.at2(index + 1);
 
       if (!value.isExpression) {
         return nothing;

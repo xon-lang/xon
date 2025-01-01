@@ -1,4 +1,4 @@
-import {Integer, newArrayData, nothing, Nothing} from '#common';
+import {ArrayData, Integer, newArrayData, nothing, Nothing} from '#common';
 import {
   $BraceGroupNode,
   $IdNode,
@@ -23,7 +23,7 @@ import {
 import {is} from '#typing';
 
 export function lambdaNodeParse(): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Node[]) => {
+  return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>) => {
     const parts = getLambdaParts(analyzer, nodes);
 
     if (!parts || !parts.parameters) {
@@ -42,7 +42,7 @@ export function lambdaNodeParse(): SyntaxParseFn {
 
 function getLambdaParts(
   analyzer: SyntaxAnalyzer,
-  nodes: Node[],
+  nodes: ArrayData<Node>,
 ):
   | {
       spliceIndex: Integer;
@@ -58,11 +58,11 @@ function getLambdaParts(
     if (
       is(node, $OperatorNode) &&
       node.text.equals(TYPE) &&
-      nodes[index + 1].isExpression &&
-      (is(nodes[index - 1], $ParenGroupNode) ||
-        (is(nodes[index - 1], $InvokeNode) &&
-          is((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
-          is((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
+      nodes.at2(index + 1).isExpression &&
+      (is(nodes.at2(index - 1), $ParenGroupNode) ||
+        (is(nodes.at2(index - 1), $InvokeNode) &&
+          is((nodes.at2(index - 1) as InvokeNode).instance, $BraceGroupNode) &&
+          is((nodes.at2(index - 1) as InvokeNode).group, $ParenGroupNode)))
     ) {
       return {node, index};
     }
@@ -71,10 +71,10 @@ function getLambdaParts(
   });
 
   if (typeOperatorFound) {
-    const header = getGenericsParameters(analyzer, nodes[typeOperatorFound.index - 1]);
-    const typeValue = nodes[typeOperatorFound.index + 1];
-    const assignOperator = nodes[typeOperatorFound.index + 2];
-    const assignValue = nodes[typeOperatorFound.index + 3];
+    const header = getGenericsParameters(analyzer, nodes.at2(typeOperatorFound.index - 1));
+    const typeValue = nodes.at2(typeOperatorFound.index + 1);
+    const assignOperator = nodes.at2(typeOperatorFound.index + 2);
+    const assignValue = nodes.at2(typeOperatorFound.index + 3);
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
     if (is(assignOperator, $OperatorNode) && assignOperator.text.equals(ASSIGN) && assignValue.isExpression) {
@@ -90,11 +90,11 @@ function getLambdaParts(
     if (
       is(node, $OperatorNode) &&
       node.text.equals(ASSIGN) &&
-      nodes[index + 1].isExpression &&
-      (is(nodes[index - 1], $ParenGroupNode) ||
-        (is(nodes[index - 1], $InvokeNode) &&
-          is((nodes[index - 1] as InvokeNode).instance, $BraceGroupNode) &&
-          is((nodes[index - 1] as InvokeNode).group, $ParenGroupNode)))
+      nodes.at2(index + 1).isExpression &&
+      (is(nodes.at2(index - 1), $ParenGroupNode) ||
+        (is(nodes.at2(index - 1), $InvokeNode) &&
+          is((nodes.at2(index - 1) as InvokeNode).instance, $BraceGroupNode) &&
+          is((nodes.at2(index - 1) as InvokeNode).group, $ParenGroupNode)))
     ) {
       return {node, index};
     }
@@ -103,8 +103,8 @@ function getLambdaParts(
   });
 
   if (assignOperatorFound) {
-    const header = getGenericsParameters(analyzer, nodes[assignOperatorFound.index - 1]);
-    const assignValue = nodes[assignOperatorFound.index + 1];
+    const header = getGenericsParameters(analyzer, nodes.at2(assignOperatorFound.index - 1));
+    const assignValue = nodes.at2(assignOperatorFound.index + 1);
     const assign = assignNode(analyzer, assignOperatorFound.node, assignValue);
 
     return {spliceIndex: assignOperatorFound.index - 1, deleteCount: 3, ...header, assign};
@@ -131,7 +131,11 @@ function getGenericsParameters(
     parseDeclarations(analyzer, node.instance);
     parseDeclarations(analyzer, node.group);
 
-    return {genericsHiddenNodes: node.hiddenNodes?.toNativeArray(), generics: node.instance, parameters: node.group};
+    return {
+      genericsHiddenNodes: node.hiddenNodes?.toNativeArray(),
+      generics: node.instance,
+      parameters: node.group,
+    };
   }
 
   return {};

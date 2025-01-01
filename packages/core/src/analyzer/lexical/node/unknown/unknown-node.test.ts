@@ -8,10 +8,10 @@ test('unknown 1', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node0 = statements[0].value as IntegerNode;
-  const node1 = statements[0].children[1] as UnknownNode;
+  const node0 = statements.at(0)?.value as IntegerNode;
+  const node1 = statements.at(0)?.children.at(1) as UnknownNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node0.$).toBe($IntegerNode);
   expect(node0.content.text.toNativeString()).toBe('123');
 
@@ -26,9 +26,9 @@ test('unknown 2', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as UnknownNode;
+  const node = statements.at(0)?.value as UnknownNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(syntax.diagnosticManager.diagnostics.length).toBe(5);
   const {start, stop} = syntax.diagnosticManager.diagnostics[0].reference.range;
   expect(resource.data.slice(start.index, stop.index).toNativeString()).toBe('º');

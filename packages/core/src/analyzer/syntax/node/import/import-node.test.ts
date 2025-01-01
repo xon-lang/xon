@@ -7,9 +7,9 @@ test('import string', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as ImportNode;
+  const node = statements.at(0)?.value as ImportNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($ImportNode);
   expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value?.$).toBe($StringNode);
@@ -21,9 +21,9 @@ test('import integer', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as ImportNode;
+  const node = statements.at(0)?.value as ImportNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($ImportNode);
   expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value).toBeFalsy();

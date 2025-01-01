@@ -7,9 +7,9 @@ test('close paren', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as BracketCloseNode;
+  const node = statements.at(0)?.value as BracketCloseNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($BracketCloseNode);
   expect(node.text.toNativeString()).toBe(']');
 });

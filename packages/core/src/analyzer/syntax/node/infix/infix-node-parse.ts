@@ -3,14 +3,14 @@ import {$OperatorNode, infixNode, Node, nodeFindMap, SyntaxAnalyzer, SyntaxParse
 import {is} from '#typing';
 
 export function infixNodeParse(operators: ArrayData<Text>, isLeftRecursive: Boolean2): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (!is(node, $OperatorNode) || !operators.hasItem(node.text)) {
         return nothing;
       }
 
-      const left = nodes[index - 1];
-      const right = nodes[index + 1];
+      const left = nodes.at2(index - 1);
+      const right = nodes.at2(index + 1);
 
       if (!left.isExpression || !right.isExpression) {
         return nothing;

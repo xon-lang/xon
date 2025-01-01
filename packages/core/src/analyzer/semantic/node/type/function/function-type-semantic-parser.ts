@@ -1,4 +1,4 @@
-import {newArrayData, Nothing, nothing} from '#common';
+import {ArrayData, newArrayData, Nothing, nothing} from '#common';
 import {
   $LambdaNode,
   DeclarationNode,
@@ -26,7 +26,9 @@ export function functionTypeSemanticTryParse(
     return nothing;
   }
 
-  const parameters = node.parameters ? parameterDeclarationsParse(analyzer, node.parameters) : [];
+  const parameters = node.parameters
+    ? parameterDeclarationsParse(analyzer, node.parameters)
+    : newArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic>();
 
   const result = node.type
     ? typeSemanticParse(analyzer, node.type.value)
@@ -43,7 +45,7 @@ export function parametersParse(
   node: DeclarationNode,
   group: GroupNode,
   // todo return single type not union
-): (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[] {
+): ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic> {
   const parameters = parameterDeclarationsParse(analyzer, group);
 
   if (node.documentation) {
@@ -60,7 +62,7 @@ function parameterDocumentationHandle(
   documentation: DocumentationNode,
   parameter: DeclarationSemantic,
 ): void {
-  const filteredItems = newArrayData(documentation.items).filter((x) => x.id.text.equals(parameter.name));
+  const filteredItems = documentation.items.filter((x) => x.id.text.equals(parameter.name));
 
   for (const item of filteredItems) {
     parameter.usages.push(item.id.reference);

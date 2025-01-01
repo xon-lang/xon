@@ -1,4 +1,4 @@
-import {Boolean2, Nothing} from '#common';
+import {ArrayData, Boolean2, Nothing} from '#common';
 import {
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
@@ -17,7 +17,7 @@ import {is} from '#typing';
 
 export type ArrayTypeSemantic = TypeSemantic & {
   declaration?: NominalTypeDeclarationSemantic | Nothing;
-  items: TypeSemantic[];
+  items: ArrayData<TypeSemantic>;
 };
 
 export const $ArrayTypeSemantic = corePackageType<ArrayTypeSemantic>('ArrayTypeSemantic', $TypeSemantic);
@@ -25,7 +25,7 @@ export const $ArrayTypeSemantic = corePackageType<ArrayTypeSemantic>('ArrayTypeS
 export function arrayTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node,
-  items: TypeSemantic[],
+  items: ArrayData<TypeSemantic>,
 ): ArrayTypeSemantic {
   return {
     $: $ArrayTypeSemantic,

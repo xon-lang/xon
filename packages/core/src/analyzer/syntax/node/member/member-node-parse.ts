@@ -3,19 +3,19 @@ import {$IdNode, $OperatorNode, memberNode, Node, nodeFindMap, SyntaxAnalyzer, S
 import {is} from '#typing';
 
 export function memberNodeParse(operators: ArrayData<Text>): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
       if (!is(node, $OperatorNode) || !operators.hasItem(node.text)) {
         return nothing;
       }
 
-      const instance = nodes[index - 1];
+      const instance = nodes.at2(index - 1);
 
       if (!instance.isExpression) {
         return nothing;
       }
 
-      const right = nodes[index + 1];
+      const right = nodes.at(index + 1);
       const id = is(right, $IdNode) ? right : nothing;
 
       return {node: memberNode(analyzer, instance, node, id), index: index - 1};

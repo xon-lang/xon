@@ -1,4 +1,4 @@
-import {Boolean2, newArrayData, newTextReference, Nothing, rangeFromNodes} from '#common';
+import {ArrayData, Boolean2, newArrayData, newTextReference, Nothing, rangeFromNodes} from '#common';
 import {CloseNode, GroupNode, ItemNode, OpenNode, SyntaxAnalyzer} from '#core';
 import {$Type} from '#typing';
 
@@ -6,11 +6,11 @@ export function groupNode(
   analyzer: SyntaxAnalyzer,
   $groupType: $Type,
   open: OpenNode,
-  items: ItemNode[],
+  items: ArrayData<ItemNode>,
   close: CloseNode | Nothing,
 ): GroupNode {
-  const children = close ? [open, ...items, close] : [open, ...items];
-  const reference = newTextReference(analyzer.resource, rangeFromNodes(newArrayData(children)));
+  const children = newArrayData(close ? [open, ...items, close] : [open, ...items]);
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
 
   const node: GroupNode = {
     $: $groupType,
@@ -26,7 +26,9 @@ export function groupNode(
     },
   };
 
-  children.forEach((x) => (x.parent = node));
+  for (const child of children) {
+    child.parent = node;
+  }
 
   validate(analyzer, node);
 

@@ -28,7 +28,7 @@ test('a is function', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements[2].value as DeclarationNode;
+  const constNode = syntax.statements.at(2)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$.toNativeString()).toBe(
     $AttributeValueDeclarationSemantic.toNativeString(),
@@ -40,13 +40,17 @@ test('a is function', () => {
 
   const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
   expect(typeSemantic.$.toNativeString()).toBe($FunctionTypeSemantic.toNativeString());
-  expect(typeSemantic.parameters.length).toBe(1);
-  expect(typeSemantic.parameters[0]?.$.toNativeString()).toBe(
+  expect(typeSemantic.parameters.length()).toBe(1);
+  expect(typeSemantic.parameters.at(0)?.$.toNativeString()).toBe(
     $ParameterValueDeclarationSemantic.toNativeString(),
   );
-  expect((typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).name.toNativeString()).toBe('x');
+  expect((typeSemantic.parameters.at(0) as ParameterValueDeclarationSemantic).name.toNativeString()).toBe(
+    'x',
+  );
   expect(
-    (typeSemantic.parameters[0] as ParameterValueDeclarationSemantic).type.declaration?.name.toNativeString(),
+    (
+      typeSemantic.parameters.at(0) as ParameterValueDeclarationSemantic
+    ).type.declaration?.name.toNativeString(),
   ).toBe('Integer');
   expect(typeSemantic.result.declaration?.name.toNativeString()).toBe('String');
 });
@@ -75,7 +79,7 @@ test('a is function', () => {
 
 //   const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
 //   expect(typeSemantic.$).toBe($FunctionTypeSemantic);
-//   expect(typeSemantic.parameters.length).toBe(1);
+//   expect(typeSemantic.parameters.length()).toBe(1);
 //   expect(typeSemantic.parameters[0]?.$).toBe($AttributeValueDeclarationSemantic);
 //   expect((typeSemantic.parameters[0] as AttributeValueDeclarationSemantic).name).toBe('x');
 //   expect((typeSemantic.parameters[0] as AttributeValueDeclarationSemantic).type.declaration?.name).toBe(

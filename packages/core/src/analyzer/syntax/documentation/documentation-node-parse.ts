@@ -20,17 +20,17 @@ export function documentationNodeParse(
 ): DocumentationNode {
   const iterator = analyzer.lexicalAnalyzer.iterator(documentationLexicalParsers());
   let description: DocumentationDescriptionNode | Nothing = nothing;
-  const items: DocumentationItemNode[] = [];
+  const items = newArrayData<DocumentationItemNode>();
 
   for (const node of iterator) {
     if (is(node, $DocumentationDescriptionNode)) {
-      if (items.length === 0) {
+      if (items.isEmpty()) {
         description = node;
       } else {
-        const lastItem = newArrayData(items).last()!;
+        const lastItem = items.last()!;
         lastItem.description = node;
-        lastItem.children.push(node);
-        const range = rangeFromNodes(newArrayData(lastItem.children));
+        lastItem.children.addLastItem(node);
+        const range = rangeFromNodes(lastItem.children);
         lastItem.reference = newTextReference(analyzer.resource, range);
       }
 
@@ -38,7 +38,7 @@ export function documentationNodeParse(
     }
 
     if (is(node, $DocumentationLabelNode)) {
-      items.push(documentationItemNode(analyzer, node));
+      items.addLastItem(documentationItemNode(analyzer, node));
 
       continue;
     }

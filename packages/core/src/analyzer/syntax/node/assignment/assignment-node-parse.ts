@@ -1,4 +1,4 @@
-import {Integer, nothing} from '#common';
+import {ArrayData, Integer, nothing} from '#common';
 import {
   $IdNode,
   $OperatorNode,
@@ -13,14 +13,14 @@ import {
 import {is} from '#typing';
 
 export function assignmentNodeParse(): SyntaxParseFn {
-  return (analyzer: SyntaxAnalyzer, nodes: Node[], startIndex: Integer) => {
+  return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
       if (!is(node, $OperatorNode) || !node.text.equals(ASSIGN)) {
         return nothing;
       }
 
-      const id = nodes[index - 1];
-      const value = nodes[index + 1];
+      const id = nodes.at(index - 1);
+      const value = nodes.at2(index + 1);
 
       if (!is(id, $IdNode) || !value.isExpression) {
         return nothing;

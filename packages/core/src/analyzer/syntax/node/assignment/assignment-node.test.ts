@@ -7,9 +7,9 @@ test('a = 1', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as AssignmentNode;
+  const node = statements.at(0)?.value as AssignmentNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($AssignmentNode);
   expect(node.id.text.toNativeString()).toBe('a');
   expect(node.assign.operator.text.toNativeString()).toBe('=');

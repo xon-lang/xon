@@ -17,9 +17,9 @@ test('no space', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as MemberNode;
+  const node = statements.at(0)?.value as MemberNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.instance.$.toNativeString()).toBe($IdNode.toNativeString());
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
@@ -32,9 +32,9 @@ test('spaces', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as MemberNode;
+  const node = statements.at(0)?.value as MemberNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.instance?.$).toBe($IdNode);
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
@@ -47,9 +47,9 @@ test('with new line', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as MemberNode;
+  const node = statements.at(0)?.value as MemberNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.instance?.$).toBe($IdNode);
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');

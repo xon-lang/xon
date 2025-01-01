@@ -1,9 +1,9 @@
-import {Nothing} from '#common';
+import {ArrayData, Nothing} from '#common';
 import {$Node, CloseNode, corePackageType, ItemNode, OpenNode, SyntaxNode} from '#core';
 
 export type GroupNode = SyntaxNode & {
   open: OpenNode;
-  items: ItemNode[];
+  items: ArrayData<ItemNode>;
   close: CloseNode | Nothing;
 };
 

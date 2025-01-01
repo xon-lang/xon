@@ -7,9 +7,9 @@ test('comma', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as CommaNode;
+  const node = statements.at(0)?.value as CommaNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($CommaNode);
   expect(node.text.toNativeString()).toBe(',');
 });

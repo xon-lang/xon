@@ -61,8 +61,8 @@ export function statementDeclarationsParse(
 export function parameterDeclarationsParse(
   analyzer: SemanticAnalyzer,
   groupNode: GroupNode,
-): (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[] {
-  const declarationNodes = newArrayData(groupNode.items).filterMap((node) => {
+): ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic> {
+  const declarationNodes = groupNode.items.filterMap((node) => {
     if (is(node.value, $DeclarationNode)) {
       return node.value;
     }
@@ -85,7 +85,7 @@ export function parameterDeclarationsParse(
 
   declarationsParse(analyzer, declarationNodes);
 
-  return declarations.toNativeArray();
+  return declarations;
 }
 
 function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<DeclarationNode>): void {
@@ -160,7 +160,7 @@ function nodeDependencies(node: Node | Nothing): ArrayData<Text> {
   }
 
   if (is(node, $SyntaxNode)) {
-    return newArrayData(node.children.flatMap((x) => nodeDependencies(x).toNativeArray()));
+    return node.children.flatMap((x) => nodeDependencies(x));
   }
 
   return newArrayData();

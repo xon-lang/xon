@@ -1,4 +1,4 @@
-import {newArrayData, Nothing, nothing, TextResource} from '#common';
+import {ArrayData, newArrayData, Nothing, nothing, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   corePackageType,
@@ -21,7 +21,7 @@ export type SemanticAnalyzer = Model & {
   config: SemanticAnalyzerConfig;
   diagnosticManager: AnalyzerDiagnosticManager;
   declarationManager: DeclarationScope;
-  statements: StatementNode[];
+  statements: ArrayData<StatementNode>;
 
   pushDeclarationScope(): void;
   popDeclarationScope(): void;

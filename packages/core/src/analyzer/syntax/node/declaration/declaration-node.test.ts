@@ -18,9 +18,9 @@ test('type A', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
@@ -31,9 +31,9 @@ test('type A: B', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
@@ -46,13 +46,13 @@ test('with generics extends b', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
-  expect(node.generics?.items.length).toBe(2);
+  expect(node.generics?.items.length()).toBe(2);
   const generic = node.generics?.items.at(0)?.value as DeclarationNode;
   expect(generic?.$).toBe($DeclarationNode);
   expect(generic?.id?.text.toNativeString()).toBe('T');
@@ -67,14 +67,14 @@ test('with parameters extends b', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
 
-  expect(node.parameters?.items.length).toBe(3);
+  expect(node.parameters?.items.length()).toBe(3);
 
   const parameter0 = node.parameters?.items.at(0)?.value as DeclarationNode;
   expect(parameter0?.id?.text.toNativeString()).toBe('a');
@@ -100,21 +100,21 @@ test('with generics and parameters extends b', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
 
-  expect(node.generics?.items.length).toBe(2);
+  expect(node.generics?.items.length()).toBe(2);
 
   const generic0 = node.generics?.items.at(0)?.value as DeclarationNode;
   expect(generic0?.id?.text.toNativeString()).toBe('T');
   expect((generic0?.type?.value as IdNode)?.text.toNativeString()).toBe('Array');
   expect((generic0?.assign?.value as IdNode)?.text.toNativeString()).toBe('String');
 
-  expect(node.parameters?.items.length).toBe(3);
+  expect(node.parameters?.items.length()).toBe(3);
 
   const parameter0 = node.parameters?.items.at(0)?.value as DeclarationNode;
   expect(parameter0?.id?.text.toNativeString()).toBe('a');
@@ -147,14 +147,14 @@ test('has attributes', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
   expect(node.type).toBeFalsy();
-  expect(statements[0].body.length).toBe(6);
+  expect(statements.at(0)?.body.length()).toBe(6);
 });
 
 test('type string with base class', () => {
@@ -162,9 +162,9 @@ test('type string with base class', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[1].value as DeclarationNode;
+  const node = statements.at(1)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(2);
+  expect(statements.length()).toBe(2);
   expect(node.$).toBe($DeclarationNode);
 
   expect(node.modifier?.$).toBe($OperatorNode);
@@ -176,9 +176,9 @@ test('lambda type', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
 
   expect(node.modifier?.$).toBe($OperatorNode);
@@ -195,9 +195,9 @@ type A`);
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   expect(node.documentation?.description?.text.toNativeString()).toBe('\n  Some description\n');
   expect(node.modifier?.text.toNativeString()).toBe('type');
@@ -210,9 +210,9 @@ test('infix plus operator', () => {
   const resource = newTextResource(nothing, text);
   const syntax = syntaxFromResource(resource);
   const statements = syntax.statements;
-  const node = statements[0].value as DeclarationNode;
+  const node = statements.at(0)?.value as DeclarationNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
   // expect(node.documentation?.description?.text.toString()).toBe('\n  Some description\n');
   // expect(node.modifier?.text.toString()).toBe('type');

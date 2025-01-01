@@ -7,9 +7,9 @@ test('integer', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as IntegerNode;
+  const node = statements.at(0)?.value as IntegerNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($IntegerNode);
   expect(node.content.text.toNativeString()).toBe('123');
 });
@@ -19,9 +19,9 @@ test('zero int number', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as IntegerNode;
+  const node = statements.at(0)?.value as IntegerNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($IntegerNode);
   expect(node.content.text.toNativeString()).toBe('0');
 });

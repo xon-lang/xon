@@ -19,7 +19,8 @@ export function statementTypescriptTranslate(
   const statementTranslated = statementTranslate(translator, statement);
 
   const bodyTranslated = newText(
-    statement.body.map((node) => translator.statement(node)).join(NL.toNativeString()),
+    statement.body.map((node) => newText(translator.statement(node))),
+    NL,
   )
     .setPadding(2)
     .toNativeString();

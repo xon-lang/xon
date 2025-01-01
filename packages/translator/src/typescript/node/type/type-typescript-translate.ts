@@ -47,7 +47,10 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
   }
 
   if (is(semantic, $ArrayTypeSemantic)) {
-    const items = semantic.items.map((x) => translator.type(x)).join(', ');
+    const items = semantic.items
+      .map((x) => translator.type(x))
+      .toNativeArray()
+      .join(', ');
 
     return `[${items}]`;
   }
@@ -61,6 +64,7 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
 
         return translator.typeDeclaration(x);
       })
+      .toNativeArray()
       .join(', ');
     const result = translator.type(semantic.result);
 
@@ -69,7 +73,10 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
 
   if (is(semantic, $InvokeTypeSemantic)) {
     const instance = translator.type(semantic.instance);
-    const args = semantic.args.map((x) => translator.type(x)).join(', ');
+    const args = semantic.args
+      .map((x) => translator.type(x))
+      .toNativeArray()
+      .join(', ');
 
     // todo check whole semantic than an args length
     if (args.length > 0) {

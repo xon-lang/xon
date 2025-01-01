@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, TextPosition, TextResource} from '#common';
+import {ArrayData, Boolean2, Nothing, TextPosition, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   FormatterManager,
@@ -14,17 +14,17 @@ export type SyntaxAnalyzer = {
   diagnosticManager: AnalyzerDiagnosticManager;
   formatterManager: FormatterManager;
   config: SyntaxAnalyzerConfig;
-  statements: StatementNode[];
-  hiddenNodes: Node[];
+  statements: ArrayData<StatementNode>;
+  hiddenNodes: ArrayData<Node>;
 
   parseStatements(breakOnNodeFn?: ((node: Node) => Boolean2) | Nothing): {
-    statements: StatementNode[];
+    statements: ArrayData<StatementNode>;
     breakNode?: Node | Nothing;
-    hiddenNodes: Node[];
+    hiddenNodes: ArrayData<Node>;
   };
 
-  findStatementNode(statements: StatementNode[], position: TextPosition): StatementNode | Nothing;
-  findNodeInChildren(children: Node[], position: TextPosition): Node | Nothing;
+  findStatementNode(statements: ArrayData<StatementNode>, position: TextPosition): StatementNode | Nothing;
+  findNodeInChildren(children: ArrayData<Node>, position: TextPosition): Node | Nothing;
   findNodeAtPosition(position: TextPosition): Node | Nothing;
   findParentNodeFromPosition(predicate: (node: Node) => Boolean2, position: TextPosition): Node | Nothing;
 };

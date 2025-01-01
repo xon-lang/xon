@@ -27,13 +27,13 @@ test('only a', () => {
 
   const type = declaration.type as FunctionTypeSemantic;
   const parameters = type.parameters;
-  expect(parameters.length).toBe(2);
+  expect(parameters.length()).toBe(2);
 
-  const aParam = parameters[0] as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
+  const aParam = parameters.at(0) as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
   expect(aParam.name.toNativeString()).toBe('a');
   expect(aParam.type.declaration?.name.toNativeString()).toBe('Integer');
 
-  const bParam = parameters[1] as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
+  const bParam = parameters.at(1) as ParameterValueDeclarationSemantic & {type: IdTypeSemantic};
   expect(bParam.name.toNativeString()).toBe('b');
   expect(bParam.type.declaration?.name.toNativeString()).toBe('String');
 

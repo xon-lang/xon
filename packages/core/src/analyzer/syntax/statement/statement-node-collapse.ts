@@ -1,4 +1,4 @@
-import {Integer, Nothing, newArrayData, nothing} from '#common';
+import {ArrayData, Integer, Nothing, newArrayData, nothing} from '#common';
 import {
   $DeclarationNode,
   COMPLEMENT,
@@ -49,7 +49,7 @@ import {is} from '#typing';
 export type SyntaxParseResult = {index: Integer; deleteCount?: Integer; node: SyntaxNode} | Nothing;
 export type SyntaxParseFn = (
   analyzer: SyntaxAnalyzer,
-  nodes: Node[],
+  nodes: ArrayData<Node>,
   startIndex: Integer,
   parentStatement: StatementNode | Nothing,
 ) => SyntaxParseResult;
@@ -81,29 +81,30 @@ const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
 export function statementNodeCollapse(
   analyzer: SyntaxAnalyzer,
   parentStatement: StatementNode | Nothing,
-  nodes: Node[],
+  nodes: ArrayData<Node>,
 ): void {
-  if (nodes.length === 0) {
+  if (nodes.isEmpty()) {
     return;
   }
 
   let result: SyntaxParseResult = nothing;
 
   for (const {min, parse} of parsers) {
-    if (nodes.length < min) {
+    if (nodes.length() < min) {
       continue;
     }
 
     let index = 0;
 
     while ((result = parse(analyzer, nodes, index, parentStatement))) {
-      const deleteCount = result.deleteCount ?? result.node.children.length;
-      nodes.splice(result.index, deleteCount, result.node);
+      const deleteCount = result.deleteCount ?? result.node.children.length();
+      // todo fix 'nodes._items'
+      nodes._items.splice(result.index, deleteCount, result.node);
       index = result.index + 1;
 
       validate(analyzer, parentStatement, result.node);
 
-      if (index >= nodes.length || nodes.length < min) {
+      if (index >= nodes.length() || nodes.length() < min) {
         break;
       }
     }

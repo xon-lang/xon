@@ -1,4 +1,4 @@
-import {Boolean2} from '#common';
+import {ArrayData, Boolean2} from '#common';
 import {
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
@@ -16,7 +16,7 @@ import {
 import {is} from '#typing';
 
 export type FunctionTypeSemantic = TypeSemantic & {
-  parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[];
+  parameters: ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic>;
   result: TypeSemantic;
 };
 
@@ -28,7 +28,7 @@ export const $FunctionTypeSemantic = corePackageType<FunctionTypeSemantic>(
 export function functionTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node,
-  parameters: (ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic)[],
+  parameters: ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic>,
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {

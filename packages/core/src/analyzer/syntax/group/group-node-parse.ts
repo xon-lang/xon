@@ -1,4 +1,4 @@
-import {Nothing, nothing, Text} from '#common';
+import {newArrayData, Nothing, nothing, Text} from '#common';
 import {
   $AngleGroupNode,
   $BraceGroupNode,
@@ -45,7 +45,7 @@ function groupNodeParseInner(
   openNode: OpenNode,
   closeText: Text,
 ): GroupNode {
-  const items: ItemNode[] = [];
+  const items = newArrayData<ItemNode>();
 
   let itemIndex = 0;
   let commaNode: CommaNode | Nothing = nothing;
@@ -57,12 +57,12 @@ function groupNodeParseInner(
 
     if (is(breakNode, $CommaNode)) {
       const item = itemNode(analyzer, itemIndex, commaNode, statements);
-      items.push(item);
+      items.addLastItem(item);
       commaNode = breakNode;
     } else if (is(breakNode, $CloseNode)) {
-      if (items.length > 0 || statements.length > 0) {
+      if (!items.isEmpty() || !statements.isEmpty()) {
         const item = itemNode(analyzer, itemIndex, commaNode, statements);
-        items.push(item);
+        items.addLastItem(item);
       }
 
       return groupNode(analyzer, $groupType, openNode, items, breakNode);

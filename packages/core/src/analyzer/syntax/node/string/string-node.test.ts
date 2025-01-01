@@ -7,9 +7,9 @@ test('string', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.equals(text.slice(1, -1))).toBe(true);
   expect(node.value).toBe('abc   def');
@@ -20,9 +20,9 @@ test('multiline string', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.equals(text.slice(1, -1))).toBe(true);
   expect(node.value).toBe('some\nmultiline\n\n\nstring\n');
@@ -33,9 +33,9 @@ test('empty string', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content).toBeFalsy();
   expect(node.value).toBe('');
@@ -46,9 +46,9 @@ test('not closed', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.toNativeString()).toBe('abc');
   expect(node.value).toBe('abc');
@@ -59,9 +59,9 @@ test('emoji', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.toNativeString()).toBe('🙂');
   expect(node.value).toBe('🙂');
@@ -73,9 +73,9 @@ test('emoji 2', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as StringNode;
+  const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.toNativeString()).toBe('👩‍❤️‍💋‍👩');
   expect(node.value).toBe('👩‍❤️‍💋‍👩');

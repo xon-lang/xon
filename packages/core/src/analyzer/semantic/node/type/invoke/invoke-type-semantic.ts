@@ -1,4 +1,4 @@
-import {Boolean2} from '#common';
+import {ArrayData, Boolean2} from '#common';
 import {
   $SetTypeSemantic,
   $TypeSemantic,
@@ -16,7 +16,7 @@ import {is} from '#typing';
 export type InvokeTypeSemantic = TypeSemantic & {
   instance: TypeSemantic;
   // todo use a separate semantic than array
-  args: TypeSemantic[];
+  args: ArrayData<TypeSemantic>;
 };
 
 export const $InvokeTypeSemantic = corePackageType<InvokeTypeSemantic>('InvokeTypeSemantic', $TypeSemantic);
@@ -25,7 +25,7 @@ export function invokeTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node,
   instance: TypeSemantic,
-  args: TypeSemantic[],
+  args: ArrayData<TypeSemantic>,
 ): InvokeTypeSemantic {
   return {
     $: $InvokeTypeSemantic,

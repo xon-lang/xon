@@ -7,9 +7,9 @@ test('a', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
-  const node = statements[0].value as CharNode;
+  const node = statements.at(0)?.value as CharNode;
 
-  expect(statements.length).toBe(1);
+  expect(statements.length()).toBe(1);
   expect(node.$).toBe($CharNode);
   expect(node.content?.text.toNativeString()).toBe(text.slice(1, -1).toNativeString());
 });
