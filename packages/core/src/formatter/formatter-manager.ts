@@ -1,4 +1,14 @@
-import {ArrayData, Boolean2, Nothing, String2, TextResource, rangeFromNodes, rangeFromPosition} from '#common';
+import {
+  ArrayData,
+  Boolean2,
+  Nothing,
+  String2,
+  TextResource,
+  newArrayData,
+  newText,
+  rangeFromNodes,
+  rangeFromPosition,
+} from '#common';
 import {
   $LexicalNode,
   $NlNode,
@@ -93,7 +103,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      const text = this.formatHiddenNodes(node.hiddenNodes, true);
+      const text = this.formatHiddenNodes(newArrayData(node.hiddenNodes), true);
 
       if (this.isSameContent(node.hiddenNodes, text)) {
         return;
@@ -114,7 +124,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
-        let text = this.formatHiddenNodes(beforeNlHiddenNodes, false);
+        let text = this.formatHiddenNodes(newArrayData(beforeNlHiddenNodes), false);
 
         if (text.length > 0) {
           if (isFirstStatement) {
@@ -170,7 +180,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      let text = this.formatHiddenNodes(hiddenNodes, false).trimEnd();
+      let text = this.formatHiddenNodes(newArrayData(hiddenNodes), false).trimEnd();
 
       if (statements.length === 0) {
         text = text.trimStart();
@@ -201,15 +211,23 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         .filter((x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode))
         .splitBy<NlNode>((x) => is(x, $NlNode));
 
-      const text = splittedByNl
-        .map((x) => this.formatNlNode(x.splitter) + x.items.map((z) => z.text.toNativeString()).join(' '))
-        .join('');
+      const formatSplittedByNl = splittedByNl.map((x) => {
+        const formattedSplitter = newText(this.formatNlNode(x.splitter));
+        const formattedItems = newText(
+          x.items.map((z) => z.text),
+          newText(' '),
+        );
 
-      if (text.length > 0 && isNoFirstChildNode) {
-        return ` ${text} `;
+        return formattedSplitter.addLastItems(formattedItems);
+      });
+
+      const text = newText(formatSplittedByNl);
+
+      if (text.length() > 0 && isNoFirstChildNode) {
+        return ` ${text.toNativeString()} `;
       }
 
-      return text;
+      return text.toNativeString();
     },
 
     formatNlNode(node: NlNode | Nothing): String2 {

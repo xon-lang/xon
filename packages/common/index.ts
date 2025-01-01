@@ -12,6 +12,8 @@ export * from './src/array/methods/max/max.array-method';
 export * from './src/array/methods/min/min.array-method';
 export * from './src/array/methods/min-max/min-max.array-method';
 export * from './src/array/methods/split-by/split-by.array-method';
+export * from './src/array-text/array-text.factory';
+export * from './src/array-text/array-text.model';
 export * from './src/char/char.factory';
 export * from './src/char/char.model';
 export * from './src/dictionary/dictionary.factory';
