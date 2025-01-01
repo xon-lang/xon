@@ -14,12 +14,11 @@ import {
   nothing,
   Number2,
 } from '#common';
-import {$Model, is, Model, modelEquals} from '#typing';
+import {extractType, Model, modelEquals} from '#typing';
 
 export function newArrayData<T>(array: T[] = []): ArrayData<T> {
   return {
-    // todo use generic from parameter
-    $: is(array[0], $Model) ? $ArrayData(array[0].$) : $Model,
+    $: $ArrayData(extractType(array[0])),
     _items: array,
 
     [Symbol.iterator](): IterableIterator<T> {
