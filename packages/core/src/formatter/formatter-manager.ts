@@ -120,7 +120,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode));
+      const lastNlIndex = newArrayData(statement.hiddenNodes).lastIndex((x) => is(x, $NlNode));
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);

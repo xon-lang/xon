@@ -1,4 +1,4 @@
-import {Integer, Nothing, nothing} from '#common';
+import {Integer, newArrayData, Nothing, nothing} from '#common';
 import {
   $AngleGroupNode,
   $DeclarationNode,
@@ -157,7 +157,7 @@ function getHeader(
       parameters?: GroupNode | Nothing;
     }
   | Nothing {
-  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode));
+  const documentation = newArrayData(node?.hiddenNodes??[]).last<DocumentationNode>((x) => is(x, $DocumentationNode));
 
   if (is(node, $PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);

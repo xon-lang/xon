@@ -1,4 +1,4 @@
-import {newTextReference, Nothing, nothing, rangeFromNodes} from '#common';
+import {newArrayData, newTextReference, Nothing, nothing, rangeFromNodes} from '#common';
 import {
   $DocumentationCloseNode,
   $DocumentationDescriptionNode,
@@ -27,7 +27,7 @@ export function documentationNodeParse(
       if (items.length === 0) {
         description = node;
       } else {
-        const lastItem = items.last()!;
+        const lastItem = newArrayData(items).last()!;
         lastItem.description = node;
         lastItem.children.push(node);
         const range = rangeFromNodes(lastItem.children);

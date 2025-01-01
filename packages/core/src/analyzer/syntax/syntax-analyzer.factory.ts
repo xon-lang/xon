@@ -224,7 +224,7 @@ function getStatementIndent(nodes: Node[], hiddenNodes: Node[]): TextRange | Not
     return nothing;
   }
 
-  const lastNlIndex = hiddenNodes.lastIndex((x) => is(x, $NlNode));
+  const lastNlIndex = newArrayData(hiddenNodes).lastIndex((x) => is(x, $NlNode));
 
   if (lastNlIndex >= 0) {
     const whiteSpaceNode = hiddenNodes[lastNlIndex + 1];
