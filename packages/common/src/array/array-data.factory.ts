@@ -13,6 +13,7 @@ import {
   Nothing,
   nothing,
   Number2,
+  removeArrayMethod,
   splitByArrayMethod,
 } from '#common';
 import {extractType, Model, modelEquals} from '#typing';
@@ -152,6 +153,8 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return -1;
     },
 
+    remove: removeArrayMethod,
+
     firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
       return this.firstIndex((x) => modelEquals(x, item), startIndex);
     },
@@ -167,9 +170,12 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       );
     },
 
-    lastIndex(predicate?: (value: T, index: Integer) => Boolean2, startIndex?: Integer | Nothing): Integer {
+    lastIndex(
+      predicate?: (value: T, index: Integer) => Boolean2,
+      startIndex?: Integer | Nothing,
+    ): Integer | Nothing {
       if (this.length() === 0) {
-        return -1;
+        return nothing;
       }
 
       startIndex ??= this.length() - 1;
@@ -184,10 +190,10 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
         }
       }
 
-      return -1;
+      return nothing;
     },
 
-    lastItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
+    lastItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing {
       return this.lastIndex((x) => modelEquals(x, item), startIndex);
     },
 
@@ -196,9 +202,12 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
         return -1;
       }
 
-      return this.lastIndex(
-        (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
-        startIndex,
+      // todo fix '-1'
+      return (
+        this.lastIndex(
+          (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
+          startIndex,
+        ) ?? -1
       );
     },
 
@@ -225,6 +234,7 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return this.firstItemsIndex(items) >= 0;
     },
 
+    // todo should we return new array/immutability ???
     addFirstItems(items: ArrayData<T>): ArrayData<T> {
       this._items.unshift(...items);
 
