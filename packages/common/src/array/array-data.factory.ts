@@ -7,6 +7,9 @@ import {
   ArraySelect,
   Boolean2,
   Integer,
+  maxArrayMethod,
+  minArrayMethod,
+  minMaxArrayMethod,
   Nothing,
   nothing,
   Number2,
@@ -292,84 +295,9 @@ export function newArrayData<T>(array: T[] = []): ArrayData<T> {
       return this._items.reduce((result, val, index) => result + select(val, index, this), 0);
     },
 
-    min(select: (value: T, index: Integer, array: ArrayData<T>) => Number2): T | Nothing {
-      const array: ArrayData<T> = this;
-
-      if (!array.length) {
-        return nothing;
-      }
-
-      if (array.length() === 1) {
-        return this.at(0);
-      }
-
-      return this._items.slice(1).reduce((prev, cur, index) => {
-        const prevValue = select(prev, index - 1, this);
-        const curValue = select(cur, index, this);
-
-        if (curValue < prevValue) {
-          return cur;
-        }
-
-        return prev;
-      }, this.at2(0));
-    },
-
-    max(select: (value: T, index: Integer, array: ArrayData<T>) => Number2): T | Nothing {
-      const array: ArrayData<T> = this;
-
-      if (!array.length) {
-        return nothing;
-      }
-
-      if (array.length() === 1) {
-        return this.at(0);
-      }
-
-      return this._items.reduce((prev, cur, index) => {
-        const prevValue = select(prev, index - 1, this);
-        const curValue = select(cur, index, this);
-
-        if (curValue > prevValue) {
-          return cur;
-        }
-
-        return prev;
-      }, this.at2(0));
-    },
-
-    minMax(select: ArraySelect<T, Number2>): {min: T | Nothing; max: T | Nothing} {
-      const array: ArrayData<T> = this;
-
-      if (this.isEmpty()) {
-        return {min: nothing, max: nothing};
-      }
-
-      if (this.length() === 1) {
-        return {min: this.at2(0), max: this.at2(0)};
-      }
-
-      let min = this.at2(0);
-      let max = this.at2(0);
-
-      for (let i = 1; i < array.length(); i++) {
-        const item = this.at2(i);
-
-        const value = select(item, i);
-        const minValue = select(min, i);
-        const maxValue = select(max, i);
-
-        if (value > maxValue) {
-          max = item;
-        }
-
-        if (value < minValue) {
-          min = item;
-        }
-      }
-
-      return {min, max};
-    },
+    min: minArrayMethod,
+    max: maxArrayMethod,
+    minMax: minMaxArrayMethod,
 
     sort(compareFn?: (a: T, b: T) => number): ArrayData<T> {
       return newArrayData([...this._items.sort(compareFn)]);
