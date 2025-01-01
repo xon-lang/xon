@@ -268,31 +268,6 @@ Array.prototype.sortBy = function <T>(select: (value: T) => Number2, ascending: 
   return [...this].sort((a, b) => select(b) - select(a));
 };
 
-// [1, 2, 3, 0, 5].splitBy(x=>x===0) is [{splitter: nothing, items: [1, 2, 3]}, {splitter: 0, items: [5]}]
-Array.prototype.splitBy = function <T>(
-  predicate: (value: T, index: Integer, array: T[]) => Boolean2,
-): {splitter: T | Nothing; items: T[]}[] {
-  const result: {splitter: T | Nothing; items: T[]}[] = [];
-
-  for (let index = 0; index < this.length; index++) {
-    const item = this[index];
-
-    if (predicate(item, index, this)) {
-      result.push({splitter: item, items: []});
-
-      continue;
-    }
-
-    if (result.length === 0) {
-      result.push({splitter: nothing, items: []});
-    }
-
-    result.last()?.items.push(item);
-  }
-
-  return result;
-};
-
 Array.prototype.equals = function <T>(other: T[]): Boolean2 {
   return this.length === other.length && this.every((x, i) => other[i] === x);
 };

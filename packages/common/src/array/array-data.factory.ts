@@ -18,6 +18,8 @@ import {
 import {extractType, Model, modelEquals} from '#typing';
 
 export function newArrayData<T>(array: T[] = []): ArrayData<T> {
+  // export function newArrayData<T>($itemType: $Type): ArrayData<T>
+  // export function newArrayData<T>($itemType?: $Type  |  T[]): ArrayData<T> {
   return {
     $: $ArrayData(extractType(array[0])),
     _items: array,

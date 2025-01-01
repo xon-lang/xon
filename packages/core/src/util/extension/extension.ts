@@ -33,9 +33,6 @@ interface ArrayExtension<T = Anything> {
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): T[];
   sortStrings(): T[];
 
-  splitBy(predicate: Predicate<T>): {splitter: T | Nothing; items: T[]}[];
-  splitBy<V extends T>(predicate: PredicateTypeSafe<T, V>): {splitter: V | Nothing; items: T[]}[];
-
   equals(other: T[]): Boolean2;
   toDictionary<Key extends String2 | Number2>(select: Select<T, Key>): Record<Key, T>;
 }
