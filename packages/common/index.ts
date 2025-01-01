@@ -6,6 +6,7 @@ export * from './src/package';
 export * from './src/types';
 export * from './src/array/array-data.factory';
 export * from './src/array/array-data.model';
+export * from './src/array/array-extremum-element.model';
 export * from './src/array/methods/max/max.array-method';
 export * from './src/array/methods/min/min.array-method';
 export * from './src/array/methods/min-max/min-max.array-method';

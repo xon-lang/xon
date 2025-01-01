@@ -27,7 +27,7 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     union(other: TextRange): TextRange {
       const {min, max} = newArrayData([this.start, other.stop]).minMax((x) => x.index);
 
-      return textRange(min!, max!);
+      return textRange(min?.element!, max?.element!);
     },
 
     clone(): TextRange {

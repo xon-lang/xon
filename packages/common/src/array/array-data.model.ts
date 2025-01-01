@@ -1,4 +1,12 @@
-import {Anything_V2, Boolean2, commonPackageType, Integer, Nothing, Number2} from '#common';
+import {
+  Anything_V2,
+  Boolean2,
+  commonPackageType,
+  ExtremumArrayElement,
+  Integer,
+  Nothing,
+  Number2,
+} from '#common';
 import {$Model, $Type, Model} from '#typing';
 
 export interface ArrayData<T = unknown> extends Model, Iterable<T> {
@@ -49,9 +57,11 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
 
   count(predicate?: ArrayPredicate<T>): Integer;
   sum(select: ArraySelect<T, Number2>): Number2;
-  min(select: ArraySelect<T, Number2>): T | Nothing;
-  max(select: ArraySelect<T, Number2>): T | Nothing;
-  minMax(select: ArraySelect<T, Number2>): {min: T | Nothing; max: T | Nothing};
+  min<V extends Number2>(select: ArraySelect<T, V>): ExtremumArrayElement<T, V> | Nothing;
+  max<V extends Number2>(select: ArraySelect<T, V>): ExtremumArrayElement<T, V> | Nothing;
+  minMax<V extends Number2>(
+    select: ArraySelect<T, V>,
+  ): {min: ExtremumArrayElement<T, V> | Nothing; max: ExtremumArrayElement<T, V> | Nothing};
 
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
   filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
@@ -82,5 +92,4 @@ export type ArraySafePredicate<T, V extends T> = (value: T, index: Integer) => v
 export type ArraySelect<T, V> = (value: T, index: Integer) => V;
 export type ArrayPredicateSelect<T, V> = ArraySelect<T, V | Nothing>;
 
-export const $ArrayData = <T extends Anything_V2>($T: $Type = $Model) =>
-  commonPackageType<ArrayData<T>>('ArrayData', null, [$T]);
+export const $ArrayData = <T>($T: $Type = $Model) => commonPackageType<ArrayData<T>>('ArrayData', null, [$T]);
