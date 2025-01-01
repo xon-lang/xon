@@ -5,8 +5,6 @@ declare global {
 }
 
 interface ArrayExtension<T = Anything> {
-  first(predicate?: Predicate<T>): T | Nothing;
-  first<V extends T>(predicate?: PredicateTypeSafe<T, V>): V | Nothing;
   last(predicate?: Predicate<T>): T | Nothing;
   last<V extends T>(predicate?: PredicateTypeSafe<T, V>): V | Nothing;
 
@@ -27,7 +25,6 @@ interface ArrayExtension<T = Anything> {
   max(select: Select<T, Number2>): T | Nothing;
   minMax(select: Select<T, Number2>): {min: T; max: T} | Nothing;
 
-  findMap<V>(predicate: PredicateSelect<T, V>): V | Nothing;
   filterMap<V>(predicate: PredicateSelect<T, V>): V[];
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): T[];
@@ -37,24 +34,6 @@ interface ArrayExtension<T = Anything> {
   toDictionary<Key extends String2 | Number2>(select: Select<T, Key>): Record<Key, T>;
 }
 
-interface StringExtension {
-  removeFirst(): String2;
-  removeLast(): String2;
-
-  take(length: Integer, startIndex?: Integer): String2;
-  takeWhile(predicate?: Predicate<string>, startIndex?: Integer, includeConditionItem?: Boolean2): String2;
-
-  toCharCodes(): Uint8Array;
-  isLetter(index: Integer): Boolean2;
-  isUpperLetter(index: Integer): Boolean2;
-  isLowerLetter(index: Integer): Boolean2;
-  isDigit(index: Integer): Boolean2;
-  isLetterOrDigit(index: Integer): Boolean2;
-  setPadding(padding: Integer): String2;
-  equals(other: String2): Boolean2;
-  // todo remove 'toArrayData'
-  toText(): Text;
-}
 
 export type Predicate<T, V = Boolean2> = (value: T, index: Integer, array: T[]) => V;
 export type PredicateTypeSafe<T, V extends T> = (value: T, index: Integer, array: T[]) => value is V;

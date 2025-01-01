@@ -1,4 +1,4 @@
-import {Boolean2, Integer, newTextReference, Nothing, rangeFromNodes} from '#common';
+import {Boolean2, Integer, newArrayData, newTextReference, Nothing, rangeFromNodes} from '#common';
 import {
   $SyntaxNode,
   CommaNode,
@@ -32,7 +32,7 @@ export function itemNode(
     reference,
     children,
     index,
-    value: statements.first()?.value,
+    value: newArrayData(statements).first()?.value,
     comma,
     statements,
 

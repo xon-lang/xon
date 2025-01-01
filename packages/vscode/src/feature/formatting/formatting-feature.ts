@@ -73,7 +73,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
     const semantic = getDocumentSemantic(document, this.channel);
     const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 
-    return edits;
+    return edits.toNativeArray();
   }
 }
 
@@ -81,7 +81,7 @@ function getDocumentFormatters(document: TextDocument, channel: OutputChannel): 
   const semantic = getDocumentSemantic(document, channel);
   const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 
-  return edits;
+  return edits.toNativeArray();
 }
 
 function convertFormatter(formatter: FormatterItem): TextEdit {

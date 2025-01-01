@@ -1,4 +1,13 @@
-import {Boolean2, Nothing, nothing, rangeFromPosition, TextPosition, TextRange, TextResource} from '#common';
+import {
+  Boolean2,
+  newArrayData,
+  Nothing,
+  nothing,
+  rangeFromPosition,
+  TextPosition,
+  TextRange,
+  TextResource,
+} from '#common';
 import {
   $CharOpenNode,
   $DocumentationOpenNode,
@@ -126,7 +135,11 @@ export function newSyntaxAnalyzer(
 
       handleStatement();
 
-      this.formatterManager.formatRemainingHiddenNodes(statements, lastStatement, hiddenNodes);
+      this.formatterManager.formatRemainingHiddenNodes(
+        newArrayData(statements),
+        lastStatement,
+        newArrayData(hiddenNodes),
+      );
 
       return {
         statements,

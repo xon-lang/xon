@@ -1,4 +1,4 @@
-import {Nothing, nothing} from '#common';
+import {newArrayData, Nothing, nothing} from '#common';
 import {
   $LambdaNode,
   DeclarationNode,
@@ -60,7 +60,7 @@ function parameterDocumentationHandle(
   documentation: DocumentationNode,
   parameter: DeclarationSemantic,
 ): void {
-  const filteredItems = documentation.items.filter((x) => x.id.text.equals(parameter.name));
+  const filteredItems = newArrayData(documentation.items).filter((x) => x.id.text.equals(parameter.name));
 
   for (const item of filteredItems) {
     parameter.usages.push(item.id.reference);

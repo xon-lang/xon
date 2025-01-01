@@ -22,28 +22,6 @@ Array.prototype.takeWhile = function <T>(
   return this.slice(startIndex, this.length);
 };
 
-Array.prototype.first = function <T>(
-  predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
-): T | Nothing {
-  if (this.length === 0) {
-    return nothing;
-  }
-
-  if (!predicate) {
-    return this[0];
-  }
-
-  for (let index = 0; index < this.length; index++) {
-    const element = this[index];
-
-    if (predicate(element, index, this)) {
-      return element;
-    }
-  }
-
-  return nothing;
-};
-
 Array.prototype.last = function <T>(
   predicate?: (value: T, index: Integer, array: T[]) => Boolean2,
 ): T | Nothing {
@@ -125,24 +103,6 @@ Array.prototype.removeLast = function <T>(): T[] {
 Array.prototype.sortStrings = function (): String2[] {
   // todo fix 'as String2[]'
   return (this as String2[]).sort((a, b) => a.localeCompare(b));
-};
-
-Array.prototype.findMap = function <T, V>(
-  predicate?: (value: T, index: Integer, array: T[]) => V | Nothing,
-): V | Nothing {
-  if (!predicate) {
-    return this.first();
-  }
-
-  for (let index = 0; index < this.length; index++) {
-    const result = predicate(this[index], index, this);
-
-    if (result) {
-      return result;
-    }
-  }
-
-  return nothing;
 };
 
 Array.prototype.filterMap = function <T, V>(

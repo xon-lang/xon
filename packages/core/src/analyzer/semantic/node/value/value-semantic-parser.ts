@@ -1,4 +1,4 @@
-import {Nothing} from '#common';
+import {newArrayData, Nothing} from '#common';
 import {
   Node,
   SemanticAnalyzer,
@@ -16,7 +16,7 @@ type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => Value
 
 export function valueSemanticParse(analyzer: SemanticAnalyzer, node: Node): ValueSemantic {
   const semantic =
-    parsers().findMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
+  newArrayData(parsers()).findMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
   node.semantic = semantic;
 
   return semantic;

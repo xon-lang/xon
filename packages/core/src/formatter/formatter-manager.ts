@@ -25,7 +25,7 @@ import {is} from '#typing';
 
 export type FormatterManager = {
   resource: TextResource;
-  items: FormatterItem[];
+  items: ArrayData<FormatterItem>;
   config: FormatterConfig;
 
   addItem(formatter: FormatterItem): void;
@@ -33,23 +33,23 @@ export type FormatterManager = {
   formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
   formatStatementNode(statement: StatementNode, isFirstStatement: Boolean2): void;
   formatRemainingHiddenNodes(
-    statements: StatementNode[],
+    statements: ArrayData<StatementNode>,
     lastStatement: StatementNode | Nothing,
-    hiddenNodes: Node[],
+    hiddenNodes: ArrayData<Node>,
   ): void;
   formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): String2;
   formatNlNode(node: NlNode | Nothing): String2;
-  isSameContent(hiddenNodes: Node[], text: String2): Boolean2;
+  isSameContent(hiddenNodes: ArrayData<Node>, text: String2): Boolean2;
 };
 
 export function newFormatterManager(resource: TextResource, config: FormatterConfig): FormatterManager {
   return {
     resource,
     config,
-    items: [],
+    items: newArrayData(),
 
     addItem(formatter: FormatterItem): void {
-      this.items.push(formatter);
+      this.items.addLastItem(formatter);
     },
 
     getFormattedText(): String2 {
@@ -105,7 +105,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
 
       const text = this.formatHiddenNodes(newArrayData(node.hiddenNodes), true);
 
-      if (this.isSameContent(node.hiddenNodes, text)) {
+      if (this.isSameContent(newArrayData(node.hiddenNodes), text)) {
         return;
       }
 
@@ -134,7 +134,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
           }
         }
 
-        if (!this.isSameContent(beforeNlHiddenNodes, text)) {
+        if (!this.isSameContent(newArrayData(beforeNlHiddenNodes), text)) {
           this.addItem({
             range: rangeFromNodes(beforeNlHiddenNodes),
             text,
@@ -152,7 +152,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         nonWhitespaceNodes.map((x) => x.text.toNativeString()).join(' ') +
         (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
-      if (this.isSameContent(afterIndentHiddenNodes, text)) {
+      if (this.isSameContent(newArrayData(afterIndentHiddenNodes), text)) {
         return;
       }
 
@@ -163,11 +163,11 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
     },
 
     formatRemainingHiddenNodes(
-      statements: StatementNode[],
+      statements: ArrayData<StatementNode>,
       lastStatement: StatementNode | Nothing,
-      hiddenNodes: Node[],
+      hiddenNodes: ArrayData<Node>,
     ): void {
-      if (hiddenNodes.length === 0) {
+      if (hiddenNodes.isEmpty()) {
         if (!lastStatement || !this.config.insertFinalNewline) {
           return;
         }
@@ -180,13 +180,13 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      let text = this.formatHiddenNodes(newArrayData(hiddenNodes), false).trimEnd();
+      let text = this.formatHiddenNodes(hiddenNodes, false).trimEnd();
 
-      if (statements.length === 0) {
+      if (statements.isEmpty()) {
         text = text.trimStart();
       }
 
-      if (statements.length > 0 || text.length > 0) {
+      if (!statements.isEmpty() || text.length > 0) {
         if (this.config.insertFinalNewline) {
           text += NL.toNativeString();
         }
@@ -201,7 +201,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       }
 
       this.addItem({
-        range: rangeFromNodes(hiddenNodes),
+        range: rangeFromNodes(hiddenNodes.toNativeArray()),
         text,
       });
     },
@@ -240,8 +240,8 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       return NL.repeat(Math.min(nlCount, this.config.maxNewLines)).toNativeString();
     },
 
-    isSameContent(hiddenNodes: Node[], text: String2): Boolean2 {
-      if (hiddenNodes.length === 0) {
+    isSameContent(hiddenNodes: ArrayData<Node>, text: String2): Boolean2 {
+      if (hiddenNodes.isEmpty()) {
         return text.length === 0;
       }
 

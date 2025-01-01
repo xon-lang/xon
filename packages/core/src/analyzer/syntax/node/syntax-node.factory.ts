@@ -1,4 +1,4 @@
-import {Anything, Boolean2, newTextReference, nothing, rangeFromNodes, String2} from '#common';
+import {Anything, Boolean2, newArrayData, newTextReference, nothing, rangeFromNodes, String2} from '#common';
 import {$Node, SyntaxAnalyzer, SyntaxNode} from '#core';
 import {is} from '#typing';
 
@@ -23,7 +23,7 @@ export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Any
     },
   };
 
-  const first = children.first();
+  const first = newArrayData(children).first();
 
   if (first) {
     node.hiddenNodes = first.hiddenNodes;

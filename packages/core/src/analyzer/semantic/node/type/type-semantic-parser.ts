@@ -1,9 +1,5 @@
-import {Nothing} from '#common';
+import {newArrayData, Nothing} from '#common';
 import {
-  Node,
-  SemanticAnalyzer,
-  TypeNode,
-  TypeSemantic,
   arrayTypeSemanticTryParse,
   charTypeSemanticTryParse,
   complementTypeSemanticTryParse,
@@ -12,9 +8,13 @@ import {
   integerTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   invokeTypeSemanticTryParse,
+  Node,
   notTypeSemanticTryParse,
   rangeTypeSemanticTryParse,
+  SemanticAnalyzer,
   stringTypeSemanticTryParse,
+  TypeNode,
+  TypeSemantic,
   unionTypeSemanticTryParse,
   unknownTypeSemantic,
 } from '#core';
@@ -22,7 +22,8 @@ import {
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic {
-  const semantic = parsers().findMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
+  const semantic =
+    newArrayData(parsers()).findMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
   node.semantic = semantic;
 
   return semantic;
