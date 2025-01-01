@@ -20,6 +20,7 @@ import {
   NlNode,
   Node,
   StatementNode,
+  WhitespaceNode,
 } from '#core';
 import {is} from '#typing';
 
@@ -68,7 +69,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
     },
 
     formatChildNode(node: Node, keepSingleSpace: Boolean2): void {
-      if (!node.hiddenNodes || node.hiddenNodes.length === 0) {
+      if (!node.hiddenNodes || node.hiddenNodes.isEmpty()) {
         if (keepSingleSpace) {
           this.addItem({
             range: rangeFromPosition(node.reference.range.start),
@@ -79,8 +80,9 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      if (node.hiddenNodes.length === 1 && is(node.hiddenNodes[0], $WhitespaceNode)) {
-        const whitespace = node.hiddenNodes[0];
+      if (node.hiddenNodes.length() === 1 && is(node.hiddenNodes.at(0), $WhitespaceNode)) {
+        // todo remove 'as WhitespaceNode'
+        const whitespace = node.hiddenNodes.at2(0) as WhitespaceNode;
 
         if (!keepSingleSpace) {
           this.addItem({
@@ -103,9 +105,9 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      const text = this.formatHiddenNodes(newArrayData(node.hiddenNodes), true);
+      const text = this.formatHiddenNodes(node.hiddenNodes, true);
 
-      if (this.isSameContent(newArrayData(node.hiddenNodes), text)) {
+      if (this.isSameContent(node.hiddenNodes, text)) {
         return;
       }
 
@@ -116,15 +118,15 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
     },
 
     formatStatementNode(statement: StatementNode, isFirstStatement: Boolean2): void {
-      if (!statement.hiddenNodes || statement.hiddenNodes.length === 0) {
+      if (!statement.hiddenNodes || statement.hiddenNodes.isEmpty()) {
         return;
       }
 
-      const lastNlIndex = newArrayData(statement.hiddenNodes).lastIndex((x) => is(x, $NlNode));
+      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode));
 
       if (lastNlIndex >= 0) {
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
-        let text = this.formatHiddenNodes(newArrayData(beforeNlHiddenNodes), false);
+        let text = this.formatHiddenNodes(beforeNlHiddenNodes, false);
 
         if (text.length > 0) {
           if (isFirstStatement) {
@@ -134,7 +136,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
           }
         }
 
-        if (!this.isSameContent(newArrayData(beforeNlHiddenNodes), text)) {
+        if (!this.isSameContent(beforeNlHiddenNodes, text)) {
           this.addItem({
             range: rangeFromNodes(beforeNlHiddenNodes),
             text,
@@ -142,23 +144,27 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         }
       }
 
-      const indentText = ' '.repeat(this.config.indentSpaceLength * statement.indentLevel);
+      const indentText = newText(' ').repeat(this.config.indentSpaceLength * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
       const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
         (x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode),
       );
-      const text =
-        indentText +
-        nonWhitespaceNodes.map((x) => x.text.toNativeString()).join(' ') +
-        (nonWhitespaceNodes.length > 0 ? ' ' : '');
 
-      if (this.isSameContent(newArrayData(afterIndentHiddenNodes), text)) {
+      const text = indentText
+        .addLastItems(
+          newText(
+            nonWhitespaceNodes.map((x) => x.text),
+            newText(' '),
+          ),
+        )
+        .addLastItems(newText(nonWhitespaceNodes.isEmpty() ? '' : ' '));
+      if (this.isSameContent(afterIndentHiddenNodes, text.toNativeString())) {
         return;
       }
 
       this.addItem({
         range: rangeFromNodes(afterIndentHiddenNodes),
-        text,
+        text: text.toNativeString(),
       });
     },
 
@@ -201,7 +207,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       }
 
       this.addItem({
-        range: rangeFromNodes(hiddenNodes.toNativeArray()),
+        range: rangeFromNodes(hiddenNodes),
         text,
       });
     },

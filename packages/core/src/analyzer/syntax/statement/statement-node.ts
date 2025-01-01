@@ -1,4 +1,4 @@
-import {Boolean2, Integer, Nothing, TextRange, newTextReference, rangeFromNodes} from '#common';
+import {Boolean2, Integer, Nothing, TextRange, newArrayData, newTextReference, rangeFromNodes} from '#common';
 import {$SyntaxNode, Node, SyntaxAnalyzer, SyntaxNode, corePackageType, statementNodeCollapse} from '#core';
 
 export type StatementNode = SyntaxNode & {
@@ -19,7 +19,7 @@ export function statementNode(
   indent: TextRange,
   isFirstStatement: Boolean2,
 ): StatementNode {
-  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(newArrayData(children)));
 
   const statement: StatementNode = {
     $: $StatementNode,
@@ -38,7 +38,7 @@ export function statementNode(
     },
   };
 
-  children[0].hiddenNodes = [];
+  children[0].hiddenNodes = newArrayData();
   children.forEach((x) => (x.parent = statement));
 
   format(analyzer, statement, isFirstStatement);

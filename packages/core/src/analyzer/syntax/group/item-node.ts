@@ -25,7 +25,7 @@ export function itemNode(
   statements: StatementNode[],
 ): ItemNode {
   const children = comma ? [comma, ...statements] : [...statements];
-  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(newArrayData(children)));
 
   const node: ItemNode = {
     $: $ItemNode,

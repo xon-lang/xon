@@ -49,7 +49,7 @@ test('hidden nodes', () => {
   expect(node.$).toBe($PrefixNode);
   expect(node.operator.text.toNativeString()).toBe('-');
 
-  expect(node.value.hiddenNodes?.length).toBe(1);
+  expect(node.value.hiddenNodes?.length()).toBe(1);
   expect(node.value.hiddenNodes?.at(0)?.$).toBe($WhitespaceNode);
   expect((node.value.hiddenNodes?.at(0) as LexicalNode)?.text.toNativeString()).toBe('    ');
 

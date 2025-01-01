@@ -15,7 +15,7 @@ test('unknown 1', () => {
   expect(node0.$).toBe($IntegerNode);
   expect(node0.content.text.toNativeString()).toBe('123');
 
-  expect(node1.hiddenNodes?.length).toBe(1);
+  expect(node1.hiddenNodes?.length()).toBe(1);
   expect(is(node1.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
   expect((node1.hiddenNodes?.at(0) as LexicalNode)?.text.toNativeString()).toBe(' ');
   expect(node1.text.toNativeString()).toBe('§');

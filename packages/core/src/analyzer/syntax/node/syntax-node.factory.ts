@@ -10,7 +10,7 @@ export function syntaxNode<T extends Pick<SyntaxNode, '$'> & Record<String2, Any
     .filter((x) => is(x, $Node))
     .flat();
 
-  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(newArrayData(children)));
 
   const node: SyntaxNode & T = {
     ...params,

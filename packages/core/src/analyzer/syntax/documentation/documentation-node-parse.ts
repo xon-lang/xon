@@ -30,7 +30,7 @@ export function documentationNodeParse(
         const lastItem = newArrayData(items).last()!;
         lastItem.description = node;
         lastItem.children.push(node);
-        const range = rangeFromNodes(lastItem.children);
+        const range = rangeFromNodes(newArrayData(lastItem.children));
         lastItem.reference = newTextReference(analyzer.resource, range);
       }
 

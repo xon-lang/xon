@@ -1,4 +1,4 @@
-import {Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
+import {ArrayData, Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
 import {corePackageType, Semantic} from '#core';
 import {Model} from '#typing';
 
@@ -9,7 +9,7 @@ export type Node = Model & {
   isExpression?: Boolean2 | Nothing;
   // todo remove 'semantic' field ???
   semantic?: Semantic | Nothing;
-  hiddenNodes?: Node[] | Nothing;
+  hiddenNodes?: ArrayData<Node> | Nothing;
 };
 
 export const $Node = corePackageType<Node>('Node');

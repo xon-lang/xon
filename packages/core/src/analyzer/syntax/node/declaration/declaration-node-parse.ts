@@ -48,11 +48,11 @@ export function declarationNodeParse(): SyntaxParseFn {
     }
 
     if (parts.modifier) {
-      parts.modifier.hiddenNodes = parts.modifierHiddenNodes;
+      parts.modifier.hiddenNodes = newArrayData(parts.modifierHiddenNodes ?? []);
     }
 
     if (parts.id) {
-      parts.id.hiddenNodes = parts.idHiddenNodes;
+      parts.id.hiddenNodes = newArrayData(parts.idHiddenNodes ?? []);
     }
 
     return {
@@ -157,7 +157,7 @@ function getHeader(
       parameters?: GroupNode | Nothing;
     }
   | Nothing {
-  const documentation = newArrayData(node?.hiddenNodes??[]).last<DocumentationNode>((x) => is(x, $DocumentationNode));
+  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode));
 
   if (is(node, $PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
@@ -166,7 +166,12 @@ function getHeader(
       return nothing;
     }
 
-    return {modifierHiddenNodes: node.hiddenNodes, documentation, modifier: node.operator, ...underModifier};
+    return {
+      modifierHiddenNodes: node.hiddenNodes?.toNativeArray(),
+      documentation,
+      modifier: node.operator,
+      ...underModifier,
+    };
   }
 
   const underModifier = getUnderModifier(analyzer, node);
@@ -190,7 +195,7 @@ function getUnderModifier(
   }
 
   if (is(node, $IdNode)) {
-    return {idHiddenNodes: node.hiddenNodes, id: node};
+    return {idHiddenNodes: node.hiddenNodes?.toNativeArray(), id: node};
   }
 
   if (is(node, $InvokeNode)) {
@@ -204,7 +209,7 @@ function getUnderModifier(
       parseDeclarations(analyzer, node.group);
 
       return {
-        idHiddenNodes: node.hiddenNodes,
+        idHiddenNodes: node.hiddenNodes?.toNativeArray(),
         id: node.instance.instance,
         generics: node.instance.group,
         parameters: node.group,
@@ -215,11 +220,11 @@ function getUnderModifier(
       parseDeclarations(analyzer, node.group);
 
       if (is(node.group, $AngleGroupNode)) {
-        return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
+        return {idHiddenNodes: node.hiddenNodes?.toNativeArray(), id: node.instance, generics: node.group};
       }
 
       if (is(node.group, $ParenGroupNode)) {
-        return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
+        return {idHiddenNodes: node.hiddenNodes?.toNativeArray(), id: node.instance, parameters: node.group};
       }
     }
   }

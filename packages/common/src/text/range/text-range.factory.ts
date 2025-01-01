@@ -1,6 +1,7 @@
 import {
   $TextPosition,
   $TextRange,
+  ArrayData,
   Boolean2,
   TextPosition,
   TextRange,
@@ -40,8 +41,8 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   };
 }
 
-export function rangeFromNodes(nodes: Node[]): TextRange {
-  const {first, last} = newArrayData(nodes).firstLast()!;
+export function rangeFromNodes(nodes: ArrayData<Node>): TextRange {
+  const {first, last} = nodes.firstLast()!;
 
   if (!first || !last) {
     return zeroRange();

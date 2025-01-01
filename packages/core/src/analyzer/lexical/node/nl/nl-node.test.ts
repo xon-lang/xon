@@ -27,7 +27,7 @@ test('several', () => {
   const node0 = statements[0].hiddenNodes?.at(0) as LexicalNode;
   const node1 = statements[0].hiddenNodes?.at(1) as LexicalNode;
   const node2 = statements[0].hiddenNodes?.at(2) as LexicalNode;
-  expect(statements[0].hiddenNodes?.length).toBe(3);
+  expect(statements[0].hiddenNodes?.length()).toBe(3);
   expect(node0.text.toNativeString()).toBe('  ');
   expect(node1.text.toNativeString()).toBe('\n    \n');
   expect(node2.text.toNativeString()).toBe('   ');

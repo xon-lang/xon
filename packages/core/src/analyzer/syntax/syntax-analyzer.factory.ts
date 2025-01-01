@@ -128,7 +128,7 @@ export function newSyntaxAnalyzer(
 
         statementIndent = getStatementIndent(nodes, hiddenNodes) ?? statementIndent;
 
-        node.hiddenNodes = hiddenNodes;
+        node.hiddenNodes = newArrayData(hiddenNodes);
         hiddenNodes = [];
         nodes.push(node);
       }

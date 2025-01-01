@@ -1,4 +1,4 @@
-import {Boolean2, newTextReference, Nothing, rangeFromNodes} from '#common';
+import {Boolean2, newArrayData, newTextReference, Nothing, rangeFromNodes} from '#common';
 import {CloseNode, GroupNode, ItemNode, OpenNode, SyntaxAnalyzer} from '#core';
 import {$Type} from '#typing';
 
@@ -10,7 +10,7 @@ export function groupNode(
   close: CloseNode | Nothing,
 ): GroupNode {
   const children = close ? [open, ...items, close] : [open, ...items];
-  const reference = newTextReference(analyzer.resource, rangeFromNodes(children));
+  const reference = newTextReference(analyzer.resource, rangeFromNodes(newArrayData(children)));
 
   const node: GroupNode = {
     $: $groupType,
