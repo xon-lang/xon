@@ -1,4 +1,4 @@
-import {ArrayData, Integer, newArrayData, nothing, Nothing} from '#common';
+import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {
   $BraceGroupNode,
   $IdNode,
@@ -31,7 +31,7 @@ export function lambdaNodeParse(): SyntaxParseFn {
     }
 
     if (parts.generics) {
-      parts.generics.hiddenNodes = newArrayData(parts.genericsHiddenNodes ?? []);
+      parts.generics.hiddenNodes = parts.genericsHiddenNodes;
     }
 
     const node = lambdaNode(analyzer, parts.generics, parts.parameters, parts.type, parts.assign);
@@ -47,7 +47,7 @@ function getLambdaParts(
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
-      genericsHiddenNodes?: Node[] | Nothing;
+      genericsHiddenNodes?: ArrayData<Node> | Nothing;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
       type?: TypeNode | Nothing;
@@ -117,7 +117,7 @@ function getGenericsParameters(
   analyzer: SyntaxAnalyzer,
   node: Node,
 ): {
-  genericsHiddenNodes?: Node[] | Nothing;
+  genericsHiddenNodes?: ArrayData<Node> | Nothing;
   generics?: GroupNode | Nothing;
   parameters?: GroupNode | Nothing;
 } {
@@ -132,7 +132,7 @@ function getGenericsParameters(
     parseDeclarations(analyzer, node.group);
 
     return {
-      genericsHiddenNodes: node.hiddenNodes?.toNativeArray(),
+      genericsHiddenNodes: node.hiddenNodes,
       generics: node.instance,
       parameters: node.group,
     };
