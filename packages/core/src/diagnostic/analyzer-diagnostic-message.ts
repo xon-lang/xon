@@ -1,4 +1,4 @@
-import {nothing, String2, TextReference} from '#common';
+import {nothing, String2, Text, TextReference} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
 export function predefinedDiagnostics(reference: TextReference) {
@@ -125,7 +125,7 @@ export function predefinedDiagnostics(reference: TextReference) {
         expect: nothing,
       }),
 
-    documentationLabelAlreadyExists: (name: String2): AnalyzerDiagnostic =>
+    documentationLabelAlreadyExists: (name: Text): AnalyzerDiagnostic =>
       createDiagnostic(
         reference,
         AnalyzerDiagnosticSeverity.WARNING,

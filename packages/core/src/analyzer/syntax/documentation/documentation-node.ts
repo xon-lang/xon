@@ -1,4 +1,4 @@
-import {ArrayData, Nothing, String2} from '#common';
+import {ArrayData, newArrayData, Nothing, Text} from '#common';
 import {
   $SyntaxNode,
   corePackageType,
@@ -42,12 +42,12 @@ export function documentationNode(
 }
 
 export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
-  const unnecessaryLabels: String2[] = [];
+  const unnecessaryLabels = newArrayData<Text>();
 
   for (const item of node.items) {
-    const name = item.id.text.toNativeString();
+    const name = item.id.text;
 
-    if (unnecessaryLabels.includes(name)) {
+    if (unnecessaryLabels.hasItem(name)) {
       analyzer.diagnosticManager.addPredefinedDiagnostic(item.reference, (x) =>
         x.documentationLabelAlreadyExists(name),
       );
@@ -55,6 +55,6 @@ export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
       continue;
     }
 
-    unnecessaryLabels.push(name);
+    unnecessaryLabels.addLastItem(name);
   }
 }
