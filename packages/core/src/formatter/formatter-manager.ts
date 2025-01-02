@@ -20,7 +20,6 @@ import {
   NlNode,
   Node,
   StatementNode,
-  WhitespaceNode,
 } from '#core';
 import {is} from '#typing';
 
@@ -80,9 +79,10 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      if (node.hiddenNodes.count() === 1 && is(node.hiddenNodes.at(0), $WhitespaceNode)) {
-        // todo remove 'as WhitespaceNode'
-        const whitespace = node.hiddenNodes.at2(0) as WhitespaceNode;
+      const firstHiddenNode = node.hiddenNodes.first();
+
+      if (node.hiddenNodes.count() === 1 && is(firstHiddenNode, $WhitespaceNode)) {
+        const whitespace = firstHiddenNode;
 
         if (!keepSingleSpace) {
           this.addItem({
