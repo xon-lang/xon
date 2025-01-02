@@ -1,4 +1,4 @@
-import {nothing, Nothing} from '#common';
+import {ArrayData, nothing, Nothing} from '#common';
 import {
   $FunctionTypeSemantic,
   $IdTypeSemantic,
@@ -39,7 +39,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
       const attributes = getAttributes(node.parent.instance.semantic);
 
       if (attributes) {
-        return attributes.map(createAttributeCompletionItem);
+        return attributes.map(createAttributeCompletionItem).toNativeArray();
       }
     }
 
@@ -47,13 +47,13 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
   }
 }
 
-function getAttributes(semantic: Semantic): ValueDeclarationSemantic[] | Nothing {
+function getAttributes(semantic: Semantic): ArrayData<ValueDeclarationSemantic> | Nothing {
   if (is(semantic, $TypeSemantic)) {
-    return semantic.attributes().all().toNativeArray();
+    return semantic.attributes().all();
   }
 
   if (is(semantic, $ValueSemantic) && semantic.type) {
-    return semantic.type.attributes().all().toNativeArray();
+    return semantic.type.attributes().all();
   }
 
   return nothing;
