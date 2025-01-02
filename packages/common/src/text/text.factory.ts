@@ -185,6 +185,14 @@ export function newText(
       return newText(this.toNativeString().trimEnd());
     },
 
+    startsWith(searchText: Text, position?: Number2 | Nothing): Boolean2 {
+      return this.toNativeString().startsWith(searchText.toNativeString(), position ?? undefined);
+    },
+
+    endsWith(searchText: Text, position?: Number2 | Nothing): Boolean2 {
+      return this.toNativeString().endsWith(searchText.toNativeString(), position ?? undefined);
+    },
+
     repeat(count: Integer): Text {
       return newText(this.toNativeString().repeat(count));
     },
