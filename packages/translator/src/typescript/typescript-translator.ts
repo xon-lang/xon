@@ -1,7 +1,5 @@
 import {newText, Text} from '#common';
 import {
-  AnalyzerDiagnosticManager,
-  createDiagnosticManager,
   NL,
   Node,
   SemanticAnalyzer,
@@ -11,6 +9,7 @@ import {
   ValueDeclarationSemantic,
   ValueSemantic,
 } from '#core';
+import {AnalyzerDiagnosticManager, createDiagnosticManager} from '#diagnostic';
 import {
   $Translator,
   statementTypescriptTranslate,

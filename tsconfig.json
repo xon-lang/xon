@@ -26,10 +26,11 @@
     // "noUnusedParameters": true,
     "outDir": "packages/vscode/dist",
     "paths": {
+      "#typing": ["packages/typing/*", "packages/typing"],
       "#common": ["packages/common/*", "packages/common"],
+      "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic"],
       "#core": ["packages/core/*", "packages/core"],
       "#translator": ["packages/translator/*", "packages/translator"],
-      "#typing": ["packages/typing/*", "packages/typing"],
       "#vscode": ["packages/vscode/*", "packages/vscode"],
       "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib"]
     },

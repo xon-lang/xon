@@ -1,4 +1,4 @@
-import {ArrayData, Integer, newArrayData, Nothing, TextRange, TextReference, TextResource} from '#common';
+import {ArrayData, Integer, Nothing, TextRange, TextReference, TextResource, newArrayData} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticMessage,
@@ -6,7 +6,7 @@ import {
   AnalyzerDiagnosticTag,
   createDiagnostic,
   predefinedDiagnostics,
-} from '#core';
+} from '#diagnostic';
 
 export type AnalyzerDiagnosticManager = {
   resource: TextResource;

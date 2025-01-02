@@ -1,12 +1,6 @@
 import {ArrayData, Boolean2, Nothing, TextPosition, TextResource} from '#common';
-import {
-  AnalyzerDiagnosticManager,
-  FormatterManager,
-  LexicalAnalyzer,
-  Node,
-  StatementNode,
-  SyntaxAnalyzerConfig,
-} from '#core';
+import {FormatterManager, LexicalAnalyzer, Node, StatementNode, SyntaxAnalyzerConfig} from '#core';
+import {AnalyzerDiagnosticManager} from '#diagnostic';
 
 export type SyntaxAnalyzer = {
   lexicalAnalyzer: LexicalAnalyzer;

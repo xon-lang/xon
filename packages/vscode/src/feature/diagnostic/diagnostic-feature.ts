@@ -1,5 +1,5 @@
 import {ArrayData, newArrayData} from '#common';
-import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
+import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#diagnostic';
 import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   Diagnostic,

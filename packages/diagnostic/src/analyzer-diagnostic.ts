@@ -1,5 +1,5 @@
 import {ArrayData, colorText, Integer, newText, Nothing, TerminalColor, Text, TextReference} from '#common';
-import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
+import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#diagnostic';
 
 export type AnalyzerDiagnosticMessage = {
   actual: Text;

@@ -1,6 +1,5 @@
 import {ArrayData, newArrayData, Nothing, nothing, TextResource} from '#common';
 import {
-  AnalyzerDiagnosticManager,
   corePackageType,
   declarationManagerFromImportString,
   DeclarationScope,
@@ -13,6 +12,7 @@ import {
   SyntaxAnalyzerConfig,
   syntaxFromResource,
 } from '#core';
+import {AnalyzerDiagnosticManager} from '#diagnostic';
 import {Model} from '#typing';
 
 export type SemanticAnalyzer = Model & {

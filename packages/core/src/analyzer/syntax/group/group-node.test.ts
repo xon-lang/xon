@@ -12,9 +12,9 @@ import {
   InfixNode,
   IntegerNode,
   ParenGroupNode,
-  predefinedDiagnostics,
   syntaxFromResource,
 } from '#core';
+import {predefinedDiagnostics} from '#diagnostic';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 

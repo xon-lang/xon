@@ -31,6 +31,7 @@ export * from './src/list/unique/unique-list.factory';
 export * from './src/list/unique/unique-list.model';
 export * from './src/min-max/min-max.factory';
 export * from './src/min-max/min-max.model';
+export * from './src/number/number.factory';
 export * from './src/number/number.model';
 export * from './src/performance/performance-timer';
 export * from './src/resource/resource.model';

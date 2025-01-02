@@ -21,7 +21,6 @@ import {
   $WhitespaceNode,
   charNodeParse,
   codeLexicalParsers,
-  createDiagnosticManager,
   DEFAULT_SYNTAX_ANALYZER_CONFIG,
   documentationNodeParse,
   groupNodeParse,
@@ -36,6 +35,7 @@ import {
   SyntaxAnalyzer,
   SyntaxAnalyzerConfig,
 } from '#core';
+import {createDiagnosticManager} from '#diagnostic';
 import {is} from '#typing';
 
 export function newSyntaxAnalyzer(

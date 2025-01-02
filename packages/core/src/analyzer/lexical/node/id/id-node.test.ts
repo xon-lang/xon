@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
-import {$IdNode, IdNode, predefinedDiagnostics, syntaxFromResource} from '#core';
+import {$IdNode, IdNode, syntaxFromResource} from '#core';
+import {predefinedDiagnostics} from '#diagnostic';
 import {expect, test} from 'vitest';
 
 test('single id', () => {
