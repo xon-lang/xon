@@ -1,3 +1,4 @@
+import {ArrayData} from '#common';
 import {FormatterItem} from '#core';
 import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
@@ -38,7 +39,9 @@ export class LanguageDocumentFormattingEditProvider implements DocumentFormattin
     options: FormattingOptions,
     token: CancellationToken,
   ): ProviderResult<TextEdit[]> {
-    return getDocumentFormatters(document, this.channel);
+    const formatters = getDocumentFormatters(document, this.channel);
+
+    return formatters.toNativeArray();
   }
 }
 
@@ -53,7 +56,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
   ): ProviderResult<TextEdit[]> {
     const formatters = getDocumentFormatters(document, this.channel).filter((x) => range.contains(x.range));
 
-    return formatters;
+    return formatters.toNativeArray();
   }
 
   provideDocumentRangesFormattingEdits?(
@@ -66,7 +69,7 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
       ranges.some((z) => z.contains(x.range)),
     );
 
-    return formatters;
+    return formatters.toNativeArray();
   }
 
   provideDocumentFormattingEdits(document: TextDocument): ProviderResult<TextEdit[]> {
@@ -77,11 +80,10 @@ export class LanguageDocumentRangeFormattingEditProvider implements DocumentRang
   }
 }
 
-function getDocumentFormatters(document: TextDocument, channel: OutputChannel): TextEdit[] {
+function getDocumentFormatters(document: TextDocument, channel: OutputChannel): ArrayData<TextEdit> {
   const semantic = getDocumentSemantic(document, channel);
-  const edits = semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 
-  return edits.toNativeArray();
+  return semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 }
 
 function convertFormatter(formatter: FormatterItem): TextEdit {
