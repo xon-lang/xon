@@ -1,4 +1,4 @@
-import {Nothing, String2, nothing} from '#common';
+import {newText, Nothing, nothing, Text} from '#common';
 import {
   $CharTypeSemantic,
   $DeclarationSemantic,
@@ -10,18 +10,18 @@ import {
   Semantic,
 } from '#core';
 import {is} from '#typing';
-import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
+import {convertRange, convertVscodePosition, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
   CancellationToken,
   ExtensionContext,
   Hover,
   HoverProvider,
+  languages,
   MarkdownString,
   OutputChannel,
   Position,
   ProviderResult,
   TextDocument,
-  languages,
 } from 'vscode';
 
 export function configureHoverFeature(context: ExtensionContext, channel: OutputChannel) {
@@ -67,9 +67,9 @@ function getTypeMarkdown(semantic: Semantic): MarkdownString | Nothing {
   return markdownCode(text);
 }
 
-function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
+function semanticToText(semantic: Semantic | Nothing): Text | Nothing {
   if (!semantic) {
-    return '';
+    return newText('');
   }
 
   if (is(semantic, $DeclarationSemantic)) {
@@ -87,37 +87,37 @@ function semanticToText(semantic: Semantic | Nothing): String2 | Nothing {
   if (is(semantic, $CharTypeSemantic)) {
     const declaration = declarationToText(semantic.declaration);
 
-    return `${declaration}('${semantic.value}')`;
+    return newText(`${declaration}('${semantic.value}')`);
   }
 
   if (is(semantic, $StringTypeSemantic)) {
     const declaration = declarationToText(semantic.declaration);
 
-    return `${declaration}("${semantic.value}")`;
+    return newText(`${declaration}("${semantic.value}")`);
   }
 
   if (is(semantic, $IntegerTypeSemantic)) {
     const declaration = declarationToText(semantic.declaration);
 
-    return `${declaration}(${semantic.value})`;
+    return newText(`${declaration}(${semantic.value})`);
   }
 
-  return '';
+  return newText();
 }
 
-function declarationToText(declaration: DeclarationSemantic | Nothing) {
+function declarationToText(declaration: DeclarationSemantic | Nothing): Text {
   if (!declaration) {
-    return '';
+    return newText();
   }
 
   const modifier = declaration.modifier ? declaration.modifier + ' ' : '';
 
-  return `${modifier}${declaration.name}`;
+  return newText(`${modifier}${declaration.name}`);
 }
 
-function markdownCode(text: String2): MarkdownString {
+function markdownCode(text: Text): MarkdownString {
   const markdown = new MarkdownString();
-  markdown.appendCodeblock(text, LANGUAGE_NAME);
+  markdown.appendCodeblock(text.toNativeString(), LANGUAGE_NAME);
 
   return markdown;
 }

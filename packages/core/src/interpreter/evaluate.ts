@@ -1,4 +1,4 @@
-import {Anything, Nothing, nothing, Something, String2} from '#common';
+import {Anything, newText, Nothing, nothing, Something, Text} from '#common';
 import {
   $CharNode,
   $IdNode,
@@ -11,11 +11,11 @@ import {
 } from '#core';
 import {is} from '#typing';
 
-export function escapeToString<T>(value: T): String2 {
-  return (typeof value === 'string' && `\`${value}\``) || String(value);
+export function escapeToString<T>(value: T): Text {
+  return newText((typeof value === 'string' && `\`${value}\``) || String(value));
 }
 
-export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Something} = {}): Anything {
+export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Something} = {}): Anything {
   if (!node) {
     return nothing;
   }
@@ -35,15 +35,15 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   if (is(node, $InfixNode)) {
     const a: Anything = evaluate(node.left, argsMap);
     const b: Anything = evaluate(node.right, argsMap);
-    const operator: String2 = node.operator.text.equals('^') ? '**' : node.operator.text.toNativeString();
+    const operator: Text = node.operator.text.equals('^') ? newText('**') : node.operator.text;
 
-    return customEval(`${escapeToString(a)} ${operator} ${escapeToString(b)}`);
+    return customEval(newText(`${escapeToString(a)} ${operator} ${escapeToString(b)}`));
   }
 
   if (is(node, $PrefixNode)) {
     const a: Anything = evaluate(node.value, argsMap);
 
-    return customEval(`${node.operator.text.toNativeString()}${escapeToString(a)}`);
+    return customEval(newText(`${node.operator.text.toNativeString()}${escapeToString(a)}`));
   }
 
   if (is(node, $IdNode)) {
@@ -57,6 +57,6 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: String2]: Somethi
   throw new Error('Not implemented');
 }
 
-function customEval(x: String2) {
-  return (0, eval)(x);
+function customEval(x: Text) {
+  return (0, eval)(x.toNativeString());
 }

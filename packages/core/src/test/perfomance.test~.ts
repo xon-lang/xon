@@ -1,4 +1,4 @@
-import {Anything, newText, performanceIterations, String2, textResourceFromLocation} from '#common';
+import {Anything, newText, performanceIterations, Text, textResourceFromLocation} from '#common';
 import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
@@ -21,8 +21,8 @@ test('performance', () => {
 
 // test('1', () => testFormatter('1'));
 
-function testFormatter(index: String2) {
-  const dirPath = join(__dirname, index);
+function testFormatter(index: Text) {
+  const dirPath = join(__dirname, index.toNativeString());
   const source = textResourceFromLocation(newText(join(dirPath, 'source.xon')));
 
   expect(source).toBeTruthy();
@@ -41,7 +41,7 @@ function testFormatter(index: String2) {
   expect(syntaxJson).toBe(etalonText);
 }
 
-export function jsonCircularReplacer(key: String2, value: Anything): Anything {
+export function jsonCircularReplacer(key: string, value: Anything): Anything {
   // if (key === 'children') {
   //   return undefined;
   // }

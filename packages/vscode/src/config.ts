@@ -1,4 +1,3 @@
-import {String2} from '#common';
 import {workspace} from 'vscode';
 import * as packageJson from '../package.json';
 
@@ -29,7 +28,7 @@ export const EXTENSION_CONFIG: ExtensionConfig = {
   },
 };
 
-function extensionConfig<T>(section: {name: String2; default: T}): T {
+function extensionConfig<T>(section: {name: string; default: T}): T {
   return workspace.getConfiguration(LANGUAGE_NAME).get<T>(section.name) ?? section.default;
 }
 
