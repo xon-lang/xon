@@ -1,4 +1,4 @@
-import {$Char, ArrayData, Boolean2, Char, newArrayData, String2} from '#common';
+import {$Char, ArrayData, Boolean2, Char, newArrayData} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -56,7 +56,7 @@ export function newChar(charString: string): Char {
   };
 }
 
-export function stringToCharArray(string: String2): ArrayData<Char> {
+export function stringToCharArray(string: string): ArrayData<Char> {
   const characters = string.match(/.|\s/gu)?.map((x) => newChar(x)) ?? [];
 
   return newArrayData(characters);

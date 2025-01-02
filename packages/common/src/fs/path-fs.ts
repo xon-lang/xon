@@ -1,20 +1,20 @@
-import {Boolean2, DirectoryFs, FileFs, Nothing, String2, nothing} from '#common';
+import {Boolean2, DirectoryFs, FileFs, Nothing, String2, Text, newText, nothing} from '#common';
 import {Stats, lstatSync} from 'node:fs';
 import {homedir} from 'node:os';
 import {join, resolve} from 'node:path';
 
 export class PathFs {
-  fullPath: String2;
+  fullPath: Text;
   stats: Stats | Nothing = nothing;
 
-  constructor(public path: String2) {
-    this.fullPath = this.resolve(path);
+  constructor(public path: Text) {
+    this.fullPath = newText(this.resolve(path.toNativeString()));
     this.setStats();
   }
 
   setStats(): void {
     try {
-      this.stats = lstatSync(this.fullPath);
+      this.stats = lstatSync(this.fullPath.toNativeString());
     } catch (error) {
       //
     }
