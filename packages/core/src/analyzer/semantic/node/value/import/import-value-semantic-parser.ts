@@ -1,4 +1,4 @@
-import {newArrayData, newText, Nothing, nothing, String2, Text, textResourceFromLocation} from '#common';
+import {newArrayData, newText, Nothing, nothing, Text, textResourceFromLocation} from '#common';
 import {
   createSemanticAnalyzer,
   DeclarationScope,
@@ -23,11 +23,7 @@ export function importValueSemanticParse(
   }
 
   // todo should fix 'node.value.content?.text ?? ''' ???
-  const location = normalizeImportString(
-    node.value.content?.text.toNativeString() ?? '',
-    analyzer.resource.location,
-  );
-
+  const location = normalizeImportString(node.value.content?.text ?? newText(), analyzer.resource.location);
   const resource = textResourceFromLocation(location);
 
   if (!resource) {
@@ -52,7 +48,7 @@ export function importValueSemanticParse(
   return importValueSemantic(node, resource, unknownTypeSemantic(analyzer, node));
 }
 
-export function declarationManagerFromImportString(importString: String2): DeclarationScope | Nothing {
+export function declarationManagerFromImportString(importString: Text): DeclarationScope | Nothing {
   const location = normalizeImportString(importString);
   const resource = textResourceFromLocation(location);
 
@@ -66,11 +62,11 @@ export function declarationManagerFromImportString(importString: String2): Decla
   return declarationManager;
 }
 
-function normalizeImportString(location: String2, targetSourceLocation?: Text | Nothing): Text {
+function normalizeImportString(location: Text, targetSourceLocation?: Text | Nothing): Text {
   // todo get extension '.xon' from config
   const locationWithExtension = location + '.xon';
 
-  if (location.startsWith('/') || location.startsWith('.')) {
+  if (location.startsWith(newText('/')) || location.startsWith(newText('.'))) {
     if (targetSourceLocation) {
       return newText(join(dirname(targetSourceLocation.toNativeString()), locationWithExtension));
     }

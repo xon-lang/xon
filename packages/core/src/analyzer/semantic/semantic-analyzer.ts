@@ -1,4 +1,4 @@
-import {ArrayData, newArrayData, Nothing, nothing, TextResource} from '#common';
+import {ArrayData, newArrayData, Nothing, nothing, Text, TextResource} from '#common';
 import {
   AnalyzerDiagnosticManager,
   corePackageType,
@@ -36,7 +36,7 @@ export function createSemanticAnalyzer(
   const config = {...DEFAULT_SEMANTIC_CONFIG, ...semanticConfig};
 
   const imports =
-    newArrayData(semanticConfig?.defaultImports ?? [])?.filterMap((x) =>
+    (semanticConfig?.defaultImports ?? newArrayData<Text>())?.filterMap((x) =>
       declarationManagerFromImportString(x),
     ) ?? [];
 
