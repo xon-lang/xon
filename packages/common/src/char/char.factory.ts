@@ -1,5 +1,4 @@
-import {$Char, $Text, ArrayData, Boolean2, Char, newArrayData, String2, Text} from '#common';
-import {is} from '#typing';
+import {$Char, ArrayData, Boolean2, Char, newArrayData, String2} from '#common';
 
 const UPPER_A_CODE = 'A'.charCodeAt(0);
 const UPPER_Z_CODE = 'Z'.charCodeAt(0);
@@ -8,7 +7,7 @@ const LOWER_Z_CODE = 'z'.charCodeAt(0);
 const DIGIT_0_CODE = '0'.charCodeAt(0);
 const DIGIT_9_CODE = '9'.charCodeAt(0);
 
-export function newChar(charString: String2): Char {
+export function newChar(charString: string): Char {
   return {
     $: $Char,
     _string: charString,
@@ -47,19 +46,11 @@ export function newChar(charString: String2): Char {
       );
     },
 
-    equals(other: Char | Text | String2): Boolean2 {
-      if (typeof other === 'string') {
-        return this._string === other;
-      }
-
-      if (is(other, $Text)) {
-        return this._string === other.toNativeString();
-      }
-
+    equals(other: Char): Boolean2 {
       return this._string === other._string;
     },
 
-    toNativeString(): String2 {
+    toNativeString(): string {
       return this._string;
     },
   };

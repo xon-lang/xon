@@ -10,7 +10,7 @@ export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerConte
   const text = analyzer.resource.data
     // todo simplify it
     .takeWhile(
-      (x, i) => x.equals(UNDERSCORE) || analyzer.resource.data.at2(i).isDigit(),
+      (x, i) => UNDERSCORE.equals(x) || analyzer.resource.data.at2(i).isDigit(),
       analyzer.position.index,
     );
 

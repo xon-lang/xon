@@ -10,7 +10,7 @@ export type ArrayExtremumElement<T = unknown, V extends Number2 = Number2> = Mod
 export const $ArrayExtremumElement = <T = unknown, V extends Number2 = Number2>(
   $T: $Type = $Model,
   $V: $Type = $Model,
-) => commonPackageType<ArrayExtremumElement<T, V>>('ArrayExtremumElement', null, [$T, $V]);
+) => commonPackageType<ArrayExtremumElement<T, V>>('ArrayExtremumElement', undefined, [$T, $V]);
 
 export function newExtremumArrayElement<T = unknown, V extends Number2 = Number2>(
   index: Integer,

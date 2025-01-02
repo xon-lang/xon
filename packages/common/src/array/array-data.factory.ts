@@ -17,12 +17,15 @@ import {
 } from '#common';
 import {extractType, Model, modelEquals} from '#typing';
 
-export function newArrayData<T>(array: T[] = []): ArrayData<T> {
+export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []): ArrayData<T> {
   // export function newArrayData<T>($itemType: $Type): ArrayData<T>
   // export function newArrayData<T>($itemType?: $Type  |  T[]): ArrayData<T> {
+
+  const _items = Array.from(array);
+
   return {
-    $: $ArrayData(extractType(array[0])),
-    _items: array,
+    $: $ArrayData(extractType(_items[0])),
+    _items,
 
     [Symbol.iterator](): IterableIterator<T> {
       return this._items[Symbol.iterator]();

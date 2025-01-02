@@ -47,7 +47,7 @@ export function newLexicalAnalyzer(
       for (let i = this.position.index; i < this.position.index + text.length(); i++) {
         const char = this.resource.data.at(i);
 
-        if (char?.equals(NL)) {
+        if (char && NL.equals(char)) {
           nlCount += 1;
           columnIndent = 0;
 

@@ -27,7 +27,7 @@ export function prefixNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, val
 
 function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {
   const keepSingleWhitespace = node.operator.text.some(
-    (x) => x.isLetter() || x.equals(TYPE) || x.equals(ASSIGN),
+    (x) => x.isLetter() || TYPE.equals(x) || ASSIGN.equals(x),
   );
   analyzer.formatterManager.formatChildNode(node.value, keepSingleWhitespace);
 }

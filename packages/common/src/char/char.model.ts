@@ -1,4 +1,4 @@
-import {Boolean2, String2, Text, commonPackageType} from '#common';
+import {Boolean2, String2, commonPackageType} from '#common';
 import {Model} from '#typing';
 
 export interface Char extends Model {
@@ -10,8 +10,6 @@ export interface Char extends Model {
   isDigit(): Boolean2;
   isLetterOrDigit(): Boolean2;
   equals(other: Char): Boolean2;
-  equals(other: Text): Boolean2;
-  equals(other: String2): Boolean2;
   toNativeString(): String2;
 }
 

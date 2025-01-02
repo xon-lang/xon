@@ -7,7 +7,7 @@ export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
   }
 
   const textWithIndents = analyzer.resource.data.takeWhile(
-    (x) => x.equals(NL) || x.equals(SPACE),
+    (x) => NL.equals(x) || SPACE.equals(x),
     analyzer.position.index,
   );
 

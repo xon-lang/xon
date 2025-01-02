@@ -22,7 +22,7 @@ export interface Text extends ArrayData<Char> {
   startsWith(searchText: Text, position?: Number2 | Nothing): Boolean2;
   endsWith(searchText: Text, position?: Number2 | Nothing): Boolean2;
   repeat(count: Integer): Text;
-  equals(other: Text): Boolean2;
+  equals(other: Char): Boolean2;
   equals(other: ArrayData<Char>): Boolean2;
   equals(other: String2): Boolean2;
   toString(): String2;

@@ -10,4 +10,4 @@ export type KeyValue<K extends Model = Model, V extends Anything_V2 = Anything_V
 };
 
 export const $KeyValue = <T extends Model, V extends Model>($T = $Model, $V = $Model) =>
-  commonPackageType<KeyValue<T, V>>('KeyValue', null, [$T, $V]);
+  commonPackageType<KeyValue<T, V>>('KeyValue', undefined, [$T, $V]);

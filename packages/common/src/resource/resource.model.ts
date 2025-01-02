@@ -7,4 +7,4 @@ export type Resource<T = Anything_V2> = Model & {
 };
 
 export const $Resource = <T extends Anything_V2>($T = $Model) =>
-  commonPackageType<Resource<T>>('Resource', null, [$T]);
+  commonPackageType<Resource<T>>('Resource', undefined, [$T]);

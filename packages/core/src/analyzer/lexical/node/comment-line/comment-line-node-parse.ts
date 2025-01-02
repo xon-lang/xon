@@ -6,7 +6,7 @@ export function commentLineNodeParse(analyzer: LexicalAnalyzer): CommentLineNode
     return nothing;
   }
 
-  const text = analyzer.resource.data.takeWhile((x) => !x.equals(NL), analyzer.position.index);
+  const text = analyzer.resource.data.takeWhile((x) => !NL.equals(x), analyzer.position.index);
   const reference = analyzer.textReference(text);
 
   return commentLineNode(reference, text);

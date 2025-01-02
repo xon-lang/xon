@@ -7,10 +7,10 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
   }
 
   const text = analyzer.resource.data
-    .takeWhile((x) => x.equals(SPACE), analyzer.position.index + JOINING.length())
+    .takeWhile((x) => SPACE.equals(x), analyzer.position.index + JOINING.length())
     .addFirstItems(JOINING);
 
-  if (analyzer.resource.data.at2(analyzer.position.index + text.length()).equals(NL)) {
+  if (NL.equals(analyzer.resource.data.at2(analyzer.position.index + text.length()))) {
     text.addLastItems(NL);
   }
 

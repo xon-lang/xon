@@ -4,7 +4,7 @@ import {$Model, $Type, extractType, Model} from '#typing';
 export type ArraySplitByModel<T> = Model & {splitter: T | Nothing; items: ArrayData<T>};
 
 export const $ArraySplitByModel = <T = unknown>($T: $Type = $Model) =>
-  commonPackageType<ArraySplitByModel<T>>('ArraySplitByModel', null, [$T]);
+  commonPackageType<ArraySplitByModel<T>>('ArraySplitByModel', undefined, [$T]);
 
 export function newArraySplitByModel<T = unknown>(
   splitter: T | Nothing,

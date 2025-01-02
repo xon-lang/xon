@@ -75,7 +75,7 @@ export function newText(
       for (let i = 0; i < this.length(); i++) {
         // todo fix it. NL can be more than one character
         // todo do not use '_string'
-        if (this.at2(i).equals(NL)) {
+        if (NL.equals(this.at2(i))) {
           if (line === lineIndex) {
             return this.slice(startIndex, i);
           }
@@ -201,24 +201,16 @@ export function newText(
       return newText(array.clone());
     },
 
-    equals(other: Text | ArrayData<Char> | String2): Boolean2 {
+    equals(other: Char | ArrayData<Char> | String2): Boolean2 {
       if (typeof other === 'string') {
         return this.toNativeString() === other;
       }
 
-      if (Array.isArray(other)) {
-        return this.toNativeString() === other.join('');
-      }
-
-      if (is(other, $Text)) {
+      if (is(other, $Char)) {
         return this.toNativeString() === other.toNativeString();
       }
 
-      if (is(other, $ArrayData($Char))) {
-        return this.toNativeString() === other._items.join('');
-      }
-
-      return false;
+      return this.toNativeString() === other._items.map(x=> x._string).join('');
     },
 
     toString() {

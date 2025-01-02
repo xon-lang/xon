@@ -7,7 +7,7 @@ test('char content', () => {
   const text = newText("'a'");
   const source = newTextResource(nothing, text);
   const analyzer = newLexicalAnalyzer(source);
-  const nodes = newArrayData(Array.from(analyzer.iterator(charLexicalParsers())));
+  const nodes = newArrayData(analyzer.iterator(charLexicalParsers()));
   const node = nodes.at(1) as CharContentNode;
 
   expect(nodes.length()).toBe(3);

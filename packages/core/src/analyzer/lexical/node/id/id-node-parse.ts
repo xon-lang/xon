@@ -12,7 +12,7 @@ export function idNodeParse(analyzer: LexicalAnalyzer): IdNode | Nothing {
 
   const text = analyzer.resource.data.takeWhile(
     // todo simplify it
-    (x, i) => x.equals(UNDERSCORE) || analyzer.resource.data.at2(i).isLetterOrDigit(),
+    (x, i) => UNDERSCORE.equals(x) || analyzer.resource.data.at2(i).isLetterOrDigit(),
     analyzer.position.index,
   );
 
