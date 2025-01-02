@@ -43,8 +43,8 @@ import {is} from '#typing';
 
 export function statementDeclarationsParse(
   analyzer: SemanticAnalyzer,
-  nodes: DeclarationNode[],
-): DeclarationSemantic[] {
+  nodes: ArrayData<DeclarationNode>,
+): ArrayData<DeclarationSemantic> {
   const declarations = nodes.map((node) => {
     const declaration = createDeclarationSemantic(analyzer, node);
     node.id.semantic = declaration;
@@ -53,7 +53,7 @@ export function statementDeclarationsParse(
     return declaration;
   });
 
-  declarationsParse(analyzer, newArrayData(nodes));
+  declarationsParse(analyzer, nodes);
 
   return declarations;
 }

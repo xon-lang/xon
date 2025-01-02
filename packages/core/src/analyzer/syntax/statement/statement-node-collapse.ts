@@ -130,9 +130,9 @@ function validate(analyzer: SyntaxAnalyzer, parentStatement: StatementNode | Not
     }
 
     if (!parentDeclaration.attributes) {
-      parentDeclaration.attributes = [];
+      parentDeclaration.attributes = newArrayData();
     }
 
-    parentDeclaration.attributes.push(node);
+    parentDeclaration.attributes.addLastItem(node);
   }
 }

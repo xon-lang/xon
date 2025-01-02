@@ -24,7 +24,7 @@ export function statementsParse(analyzer: SemanticAnalyzer, statements: ArrayDat
   }
 
   const declarationNodes = statements.filterMap((x) => (is(x.value, $DeclarationNode) ? x.value : nothing));
-  statementDeclarationsParse(analyzer, declarationNodes.toNativeArray());
+  statementDeclarationsParse(analyzer, declarationNodes);
 
   for (const statement of statements) {
     for (const node of statement.children) {

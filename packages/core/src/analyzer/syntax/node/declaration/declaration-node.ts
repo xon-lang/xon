@@ -4,7 +4,7 @@
 //   StructuralType = 'StructuralType',
 //   ParameterType = 'ParameterType',
 
-import {Nothing} from '#common';
+import {ArrayData, Nothing} from '#common';
 import {
   $SyntaxNode,
   AssignNode,
@@ -32,7 +32,7 @@ export type DeclarationNode = SyntaxNode & {
   parameters?: GroupNode | Nothing;
   type?: TypeNode | Nothing;
   assign?: AssignNode | Nothing;
-  attributes?: DeclarationNode[] | Nothing;
+  attributes?: ArrayData<DeclarationNode> | Nothing;
 };
 
 export const $DeclarationNode = corePackageType<DeclarationNode>('DeclarationNode', $SyntaxNode);
