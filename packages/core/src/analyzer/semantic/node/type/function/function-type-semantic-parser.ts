@@ -65,7 +65,7 @@ function parameterDocumentationHandle(
   const filteredItems = documentation.items.filter((x) => x.id.text.equals(parameter.name));
 
   for (const item of filteredItems) {
-    parameter.usages.push(item.id.reference);
+    parameter.usages.addLastItem(item.id.reference);
     item.id.semantic = documentationIdSemantic(analyzer, item.id, parameter);
   }
 

@@ -29,7 +29,7 @@ export function idTypeSemantic(
   declaration: TypeDeclarationSemantic | Nothing,
 ): IdTypeSemantic {
   if (declaration) {
-    declaration.usages.push(nodeLink.reference);
+    declaration.usages.addLastItem(nodeLink.reference);
   }
 
   return {

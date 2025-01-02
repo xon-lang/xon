@@ -33,7 +33,7 @@ export function unknownTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node):
   const declaration = analyzer.declarationManager.find($NominalTypeDeclarationSemantic, unknownTypeName);
 
   if (declaration) {
-    declaration.usages.push(nodeLink.reference);
+    declaration.usages.addLastItem(nodeLink.reference);
   }
 
   return {

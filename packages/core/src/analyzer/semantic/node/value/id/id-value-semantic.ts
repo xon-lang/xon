@@ -22,7 +22,7 @@ export function idValueSemantic(
   type: TypeSemantic,
 ): IdValueSemantic {
   if (declaration) {
-    declaration.usages.push(nodeLink.reference);
+    declaration.usages.addLastItem(nodeLink.reference);
   }
 
   return {

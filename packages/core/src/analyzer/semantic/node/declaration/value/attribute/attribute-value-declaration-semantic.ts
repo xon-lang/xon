@@ -1,4 +1,4 @@
-import {Boolean2, newText, Nothing, Text} from '#common';
+import {Boolean2, newArrayData, newText, Nothing, Text} from '#common';
 import {
   $ValueDeclarationSemantic,
   corePackageType,
@@ -29,7 +29,7 @@ export function attributeValueDeclarationSemantic(
   return {
     $: $AttributeValueDeclarationSemantic,
     nodeLink,
-    usages: [],
+    usages: newArrayData(),
     documentation,
     modifier,
     name,

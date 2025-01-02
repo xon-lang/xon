@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, Text} from '#common';
+import {Boolean2, newArrayData, Nothing, Text} from '#common';
 import {
   $TypeDeclarationSemantic,
   corePackageType,
@@ -29,7 +29,7 @@ export function structuralTypeDeclarationSemantic(
   return {
     $: $StructuralTypeDeclarationSemantic,
     nodeLink,
-    usages: [],
+    usages: newArrayData(),
     documentation,
     modifier,
     name,

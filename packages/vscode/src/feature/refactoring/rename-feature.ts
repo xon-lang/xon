@@ -94,7 +94,7 @@ function renameDeclarationAndUsages(
   oldName: String2,
   newName: String2,
 ): WorkspaceEdit | Nothing {
-  if (declaration.usages.length === 0) {
+  if (declaration.usages.isEmpty()) {
     return nothing;
   }
 
