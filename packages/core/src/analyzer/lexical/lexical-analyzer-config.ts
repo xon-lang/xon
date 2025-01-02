@@ -124,4 +124,4 @@ export const OPERATORS_SORTED = newArrayData([
   ...MODIFIER_KEYWORDS,
   ...CONTROL_KEYWORDS,
   ...OPERATOR_KEYWORDS,
-]).sort((a, b) => a.length() - b.length());
+]).sort((a, b) => a.count() - b.count());

@@ -9,8 +9,8 @@ test('line comment', () => {
   const statements = syntax.statements;
   const node = syntax.hiddenNodes.at(0) as CommentLineNode;
 
-  expect(statements.length()).toBe(0);
-  expect(syntax.hiddenNodes.length()).toBe(1);
+  expect(statements.count()).toBe(0);
+  expect(syntax.hiddenNodes.count()).toBe(1);
   expect(node.$).toBe($CommentLineNode);
   expect(node.text.toNativeString()).toBe('// abc');
 });

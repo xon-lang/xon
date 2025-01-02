@@ -23,7 +23,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
     declarations: newDictionary(),
 
     count(): Integer {
-      return this.declarations.length();
+      return this.declarations.count();
     },
 
     add(declaration: T): void {
@@ -49,7 +49,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
       const parentDeclarations = this.parent?.filterByName(type, name);
       const declarations = (thisDeclarations! ?? parentDeclarations)?.filter((x) => is(x, type));
 
-      if (declarations && declarations.length() > 0) {
+      if (declarations && declarations.count() > 0) {
         return declarations;
       }
 
@@ -59,7 +59,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
           newArrayData<Exclude<V['type'], undefined>>(),
       );
 
-      if (importDeclarations && importDeclarations.length() > 0) {
+      if (importDeclarations && importDeclarations.count() > 0) {
         return importDeclarations;
       }
 
@@ -87,7 +87,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
       //   generics && x.generics ? x.generics.length === generics.length : true,
       // );
 
-      if (filtered.length() !== 1) {
+      if (filtered.count() !== 1) {
         // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
 
         return nothing;

@@ -10,7 +10,7 @@ test('string content', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as IntegerNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $IntegerNode)).toBe(true);
   expect(node.content?.text.toNativeString()).toBe('1_2_3');
   expect(node.value).toBe(123);

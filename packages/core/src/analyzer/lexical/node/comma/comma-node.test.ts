@@ -9,7 +9,7 @@ test('comma', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as CommaNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($CommaNode);
   expect(node.text.toNativeString()).toBe(',');
 });

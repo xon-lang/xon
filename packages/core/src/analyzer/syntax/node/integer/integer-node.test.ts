@@ -9,7 +9,7 @@ test('integer', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as IntegerNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($IntegerNode);
   expect(node.content.text.toNativeString()).toBe('123');
 });
@@ -21,7 +21,7 @@ test('zero int number', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as IntegerNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($IntegerNode);
   expect(node.content.text.toNativeString()).toBe('0');
 });

@@ -72,7 +72,7 @@ export function newText(
       let startIndex = 0;
       let lineIndex = 0;
 
-      for (let i = 0; i < this.length(); i++) {
+      for (let i = 0; i < this.count(); i++) {
         // todo fix it. NL can be more than one character
         // todo do not use '_string'
         if (NL.equals(this.at2(i))) {
@@ -148,12 +148,12 @@ export function newText(
 
       const lines = this.split(newText('\n')).map((text) => ({
         text,
-        padding: text.takeWhile((x) => x.equals(newChar(' '))).length(),
+        padding: text.takeWhile((x) => x.equals(newChar(' '))).count(),
       }));
 
       const minLinePadding = lines.reduce(
-        (min, line) => (line.text.length() > 0 ? Math.min(line.padding, min) : min),
-        this.length(),
+        (min, line) => (line.text.count() > 0 ? Math.min(line.padding, min) : min),
+        this.count(),
       );
 
       if (minLinePadding === padding) {

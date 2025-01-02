@@ -19,9 +19,9 @@ export function commentBlockNode(reference: TextReference, text: Text): CommentB
   const lastCloseIndex = text.firstItemsIndex(COMMENT_BLOCK_CLOSE);
 
   if (lastCloseIndex != nothing) {
-    value = text.slice(COMMENT_BLOCK_OPEN.length(), lastCloseIndex);
+    value = text.slice(COMMENT_BLOCK_OPEN.count(), lastCloseIndex);
   } else {
-    value = text.slice(COMMENT_BLOCK_OPEN.length());
+    value = text.slice(COMMENT_BLOCK_OPEN.count());
   }
 
   return lexicalNode({$: $CommentBlockNode, reference, text, isHidden: true, value});

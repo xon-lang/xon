@@ -14,7 +14,7 @@ export function splitByArrayMethod<T>(
 ): ArrayData<ArraySplitByModel<T>> {
   const result = newArrayData<ArraySplitByModel<T>>();
 
-  for (let index = 0; index < this.length(); index++) {
+  for (let index = 0; index < this.count(); index++) {
     const item = this.at2(index);
 
     if (predicate(item, index)) {

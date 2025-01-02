@@ -74,7 +74,7 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
     translate(): Text {
       const translatedStatements = semanticAnalyzer.statements
         .map((node) => this.statement(node))
-        .filter((translatedNode) => translatedNode.length() > 0);
+        .filter((translatedNode) => translatedNode.count() > 0);
 
       return newText(translatedStatements, NL.addLastItems(NL)).addLastItems(NL);
     },

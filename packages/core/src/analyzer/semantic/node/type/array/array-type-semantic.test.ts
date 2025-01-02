@@ -39,7 +39,7 @@ test('a is array', () => {
     ? (typeNodeType(semantic, constNode.type) as ArrayTypeSemantic)
     : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($ArrayTypeSemantic.toNativeString());
-  expect(typeSemantic?.items.length()).toBe(3);
+  expect(typeSemantic?.items.count()).toBe(3);
   expect((typeSemantic?.items.at(0) as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic?.items.at(1) as IntegerTypeSemantic).value).toBe(2);
   expect((typeSemantic?.items.at(2) as StringTypeSemantic).value.toNativeString()).toBe('A');

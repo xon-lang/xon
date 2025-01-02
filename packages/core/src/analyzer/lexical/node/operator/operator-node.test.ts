@@ -17,7 +17,7 @@ test('single operator', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as OperatorNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.text.toNativeString()).toBe('!');
   expect(node.$).toBe($OperatorNode);
 });
@@ -29,7 +29,7 @@ test('after integer', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as PostfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($PostfixNode);
   expect(node.operator.text.toNativeString()).toBe('!');
 });
@@ -41,7 +41,7 @@ test('x + x', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('is');
 });

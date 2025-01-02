@@ -63,7 +63,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         index = range.stop.index;
       }
 
-      formattedText.addLastItems(this.resource.data.slice(index, this.resource.data.length()));
+      formattedText.addLastItems(this.resource.data.slice(index, this.resource.data.count()));
 
       return formattedText;
     },
@@ -80,7 +80,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         return;
       }
 
-      if (node.hiddenNodes.length() === 1 && is(node.hiddenNodes.at(0), $WhitespaceNode)) {
+      if (node.hiddenNodes.count() === 1 && is(node.hiddenNodes.at(0), $WhitespaceNode)) {
         // todo remove 'as WhitespaceNode'
         const whitespace = node.hiddenNodes.at2(0) as WhitespaceNode;
 
@@ -128,7 +128,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
         let text = this.formatHiddenNodes(beforeNlHiddenNodes, false);
 
-        if (text.length() > 0) {
+        if (text.count() > 0) {
           if (isFirstStatement) {
             text = text.trimStart();
           } else if (!NL.equals(text.at2(0))) {
@@ -192,7 +192,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         text = text.trimStart();
       }
 
-      if (!statements.isEmpty() || text.length() > 0) {
+      if (!statements.isEmpty() || text.count() > 0) {
         if (this.config.insertFinalNewline) {
           text.addLastItems(NL);
         }
@@ -229,7 +229,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
 
       const text = newText(formatSplittedByNl);
 
-      if (text.length() > 0 && isNoFirstChildNode) {
+      if (text.count() > 0 && isNoFirstChildNode) {
         return newText(` ${text.toNativeString()} `);
       }
 

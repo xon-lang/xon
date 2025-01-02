@@ -49,7 +49,7 @@ test('has generics', () => {
 
   const type = declaration.type as FunctionTypeSemantic;
   expect(type.$).toBe($FunctionTypeSemantic);
-  expect(type.parameters.length()).toBe(3);
+  expect(type.parameters.count()).toBe(3);
   expect(type.parameters.at(2)?.name.toNativeString()).toBe('U');
 
   const resultType = type.result as UnionTypeSemantic;

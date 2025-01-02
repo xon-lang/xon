@@ -15,10 +15,10 @@ export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNo
   const stopIndex =
     analyzer.resource.data.firstItemsIndex(
       COMMENT_BLOCK_CLOSE,
-      analyzer.position.index + COMMENT_BLOCK_OPEN.length(),
+      analyzer.position.index + COMMENT_BLOCK_OPEN.count(),
     ) ?? -1;
 
-  const endSlice = stopIndex < 0 ? analyzer.resource.data.length() : stopIndex + COMMENT_BLOCK_CLOSE.length();
+  const endSlice = stopIndex < 0 ? analyzer.resource.data.count() : stopIndex + COMMENT_BLOCK_CLOSE.count();
 
   const text = analyzer.resource.data.slice(analyzer.position.index, endSlice);
   // todo should we calculate nl count in place ???

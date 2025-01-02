@@ -52,8 +52,8 @@ export function terminalFormat(message: Text, {resource, range}: TextReference):
   const lineNumberBeforeGrayed = newText(`${range.start.line + 1} | `);
   const lineNumber = gray(lineNumberBeforeGrayed);
   const caret = newText(' ')
-    .repeat(range.start.column + lineNumberBeforeGrayed.length())
-    .addLastItems(red(newText('~').repeat(nodeText.length())));
+    .repeat(range.start.column + lineNumberBeforeGrayed.count())
+    .addLastItems(red(newText('~').repeat(nodeText.count())));
 
   // todo fix long width interpolation
   return newText(

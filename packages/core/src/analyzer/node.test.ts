@@ -9,7 +9,7 @@ test('comma', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as IntegerNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($IntegerNode);
   expect(node.content.text.toNativeString()).toBe('1');
 });
@@ -62,7 +62,7 @@ c`);
   const node0 = statements.at(0)?.value as InfixNode;
   const node1 = statements.at(1)?.value as InfixNode;
 
-  expect(statements.length()).toBe(2);
+  expect(statements.count()).toBe(2);
   expect(node0.$).toBe($IdNode);
   expect(node1.$).toBe($IdNode);
 });
@@ -73,9 +73,9 @@ test('debug 4', () => {
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
 
-  expect(statements.length()).toBe(1);
-  expect(statements.at(0)?.children.length()).toBe(1);
-  expect(statements.at(0)?.body?.length()).toBe(2);
+  expect(statements.count()).toBe(1);
+  expect(statements.at(0)?.children.count()).toBe(1);
+  expect(statements.at(0)?.body?.count()).toBe(2);
   expect(statements.at(0)?.indentLevel).toBe(0);
   expect(statements.at(0)?.body?.at(0)?.indentLevel).toBe(1);
   expect(statements.at(0)?.body?.at(1)?.indentLevel).toBe(1);
@@ -87,5 +87,5 @@ test('multiple expression', () => {
   const syntax = syntaxFromResource(source);
   const statements = syntax.statements;
 
-  expect(statements.length()).toBe(3);
+  expect(statements.count()).toBe(3);
 });

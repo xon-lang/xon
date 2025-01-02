@@ -9,8 +9,8 @@ test('block comment', () => {
   const statements = syntax.statements;
   const node = syntax.hiddenNodes.at(0) as CommentBlockNode;
 
-  expect(statements.length()).toBe(0);
-  expect(syntax.hiddenNodes.length()).toBe(1);
+  expect(statements.count()).toBe(0);
+  expect(syntax.hiddenNodes.count()).toBe(1);
   expect(node.$).toBe($CommentBlockNode);
   expect(node.text.toNativeString()).toBe('--- abc\n\n\n def---');
 });

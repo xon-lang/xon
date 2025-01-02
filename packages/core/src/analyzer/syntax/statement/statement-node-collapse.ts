@@ -90,21 +90,21 @@ export function statementNodeCollapse(
   let result: SyntaxParseResult = nothing;
 
   for (const {min, parse} of parsers) {
-    if (nodes.length() < min) {
+    if (nodes.count() < min) {
       continue;
     }
 
     let index = 0;
 
     while ((result = parse(analyzer, nodes, index, parentStatement))) {
-      const deleteCount = result.deleteCount ?? result.node.children.length();
+      const deleteCount = result.deleteCount ?? result.node.children.count();
       // todo fix 'nodes._items'
       nodes._items.splice(result.index, deleteCount, result.node);
       index = result.index + 1;
 
       validate(analyzer, parentStatement, result.node);
 
-      if (index >= nodes.length() || nodes.length() < min) {
+      if (index >= nodes.count() || nodes.count() < min) {
         break;
       }
     }

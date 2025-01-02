@@ -9,7 +9,7 @@ test('a', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as CharNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($CharNode);
   expect(node.content?.text.toNativeString()).toBe(text.slice(1, -1).toNativeString());
 });

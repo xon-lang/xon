@@ -20,11 +20,11 @@ export function minArrayMethod<T, V extends Number2>(
   let minElement = this.at2(minIndex);
   let minValue = select(minElement, minIndex);
 
-  if (this.length() === 1) {
+  if (this.count() === 1) {
     return newExtremumArrayElement(minIndex, minElement, minValue);
   }
 
-  for (let index = 1; index < this.length(); index++) {
+  for (let index = 1; index < this.count(); index++) {
     const element = this.at2(index);
     const elementValue = select(this.at2(index), index);
 

@@ -9,7 +9,7 @@ test('a = 1', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as AssignmentNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($AssignmentNode);
   expect(node.id.text.toNativeString()).toBe('a');
   expect(node.assign.operator.text.toNativeString()).toBe('=');

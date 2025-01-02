@@ -19,7 +19,7 @@ test('no space', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as MemberNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.instance.$.toNativeString()).toBe($IdNode.toNativeString());
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
@@ -34,7 +34,7 @@ test('spaces', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as MemberNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.instance?.$).toBe($IdNode);
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
@@ -49,7 +49,7 @@ test('with new line', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as MemberNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.instance?.$).toBe($IdNode);
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
   expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');

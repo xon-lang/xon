@@ -26,7 +26,7 @@ export function operatorNodeParse(analyzer: LexicalAnalyzer): LexicalNode | Noth
 
   const id = idNodeParse(analyzer);
 
-  if (id && id.text.length() > text.length()) {
+  if (id && id.text.count() > text.count()) {
     return id;
   }
 

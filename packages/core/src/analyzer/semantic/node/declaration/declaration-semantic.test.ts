@@ -27,7 +27,7 @@ test('only a', () => {
   expect(type.modifier?.toNativeString()).toBe('type');
   expect(type.name.toNativeString()).toBe('A');
 
-  expect(type.attributes?.declarations.length()).toBe(1);
+  expect(type.attributes?.declarations.count()).toBe(1);
 
   const attributeP = type.attributes?.find(
     $ValueDeclarationSemantic,

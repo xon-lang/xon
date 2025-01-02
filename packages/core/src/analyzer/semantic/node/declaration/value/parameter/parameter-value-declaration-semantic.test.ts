@@ -25,7 +25,7 @@ test('only a', () => {
 
   const type = declaration.type as FunctionTypeSemantic;
   const parameters = type.parameters;
-  expect(parameters.length()).toBe(1);
+  expect(parameters.count()).toBe(1);
 
   const param = parameters.at(0) as ParameterValueDeclarationSemantic;
   expect(param.name.toNativeString()).toBe('p');

@@ -12,7 +12,7 @@ export const $DocumentationLabelNode = corePackageType<DocumentationLabelNode>(
 );
 
 export function documentationLabelNode(reference: TextReference, text: Text): DocumentationLabelNode {
-  const name = text.slice(AT.length());
+  const name = text.slice(AT.count());
 
   return lexicalNode({$: $DocumentationLabelNode, reference, text, name});
 }

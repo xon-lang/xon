@@ -9,8 +9,8 @@ test('documentation', () => {
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
-  expect(statements.length()).toBe(0);
-  expect(hiddenNodes.length()).toBe(1);
+  expect(statements.count()).toBe(0);
+  expect(hiddenNodes.count()).toBe(1);
 
   const node = hiddenNodes.at(0) as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
@@ -24,8 +24,8 @@ test('documentation 2', () => {
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
-  expect(statements.length()).toBe(0);
-  expect(hiddenNodes.length()).toBe(1);
+  expect(statements.count()).toBe(0);
+  expect(hiddenNodes.count()).toBe(1);
 
   const node = hiddenNodes.at(0) as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
@@ -39,13 +39,13 @@ test('documentation labels', () => {
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
-  expect(statements.length()).toBe(0);
-  expect(hiddenNodes.length()).toBe(1);
+  expect(statements.count()).toBe(0);
+  expect(hiddenNodes.count()).toBe(1);
 
   const node = hiddenNodes.at(0) as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
   expect(node.description?.text.toNativeString()).toBe(' abc\n\n\n def ');
-  expect(node.items?.length()).toBe(2);
+  expect(node.items?.count()).toBe(2);
 
   expect(node.items?.at(0)?.operator.text.toNativeString()).toBe('@');
   expect(node.items?.at(0)?.id.text.toNativeString()).toBe('in');
@@ -63,13 +63,13 @@ test('documentation operator id', () => {
   const statements = syntax.statements;
   const hiddenNodes = syntax.hiddenNodes;
 
-  expect(statements.length()).toBe(0);
-  expect(hiddenNodes.length()).toBe(1);
+  expect(statements.count()).toBe(0);
+  expect(hiddenNodes.count()).toBe(1);
 
   const node = hiddenNodes.at(0) as DocumentationNode;
   expect(node.$).toBe($DocumentationNode);
   expect(node.description).toBeFalsy();
-  expect(node.items?.length()).toBe(1);
+  expect(node.items?.count()).toBe(1);
 
   expect(node.items?.at(0)?.operator.text.toNativeString()).toBe('@');
   expect(node.items?.at(0)?.operator.reference.range.start.index).toBe(3);

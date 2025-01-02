@@ -19,7 +19,7 @@ test('several operands with different priorities', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('+');
   expect(evaluate(node)).toBe(34);
@@ -32,7 +32,7 @@ test('num plus str', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('+');
   expect(evaluate(node)).toBe('1str');
@@ -45,7 +45,7 @@ test('num is number', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('&');
   expect((node.left as IntegerNode).content.text.toNativeString()).toBe('1');
@@ -59,7 +59,7 @@ test('equals', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.operator.text.toNativeString()).toBe('==');
   expect((node.right as IntegerNode).content.text.toNativeString()).toBe('123');
@@ -92,7 +92,7 @@ test('several operators', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
   expect(node.left?.$).toBe($IntegerNode);
   expect(node.operator.text.toNativeString()).toBe('/');
@@ -110,7 +110,7 @@ test('range', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as InfixNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($InfixNode);
 
   expect(node.left.$).toBe($IntegerNode);

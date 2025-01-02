@@ -9,10 +9,10 @@ test('function with no parameters', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($LambdaNode);
   expect(node.generics).toBeFalsy();
-  expect(node.parameters?.items.length()).toBe(0);
+  expect(node.parameters?.items.count()).toBe(0);
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('Integer');
 });
 
@@ -23,11 +23,11 @@ test('function with generic', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.generics?.items.length()).toBe(1);
+  expect(node.generics?.items.count()).toBe(1);
   expect((node.generics?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('T');
-  expect(node.parameters.items.length()).toBe(0);
+  expect(node.parameters.items.count()).toBe(0);
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('T');
 });
 
@@ -38,11 +38,11 @@ test('function with generic and parameter', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.generics?.items.length()).toBe(1);
+  expect(node.generics?.items.count()).toBe(1);
   expect((node.generics?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('T');
-  expect(node.parameters.items.length()).toBe(1);
+  expect(node.parameters.items.count()).toBe(1);
   expect((node.parameters?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('a');
   expect(
     ((node.parameters?.items.at(0)?.value as DeclarationNode).type?.value as IdNode).text.toNativeString(),
@@ -57,9 +57,9 @@ test('has argument and value', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.parameters?.items.length()).toBe(1);
+  expect(node.parameters?.items.count()).toBe(1);
   expect((node.parameters?.items.at(0)?.value as DeclarationNode).id.text.toNativeString()).toBe('x');
 
   expect(
@@ -76,9 +76,9 @@ test('two parameter', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as LambdaNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($LambdaNode);
-  expect(node.parameters?.items.length()).toBe(2);
+  expect(node.parameters?.items.count()).toBe(2);
   expect((node.parameters?.items.at(0)?.value as DeclarationNode).id?.text.toNativeString()).toBe('a');
   expect((node.parameters?.items.at(1)?.value as DeclarationNode).id?.text.toNativeString()).toBe('b');
 });

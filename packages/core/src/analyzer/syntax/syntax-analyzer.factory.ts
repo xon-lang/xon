@@ -167,9 +167,7 @@ export function newSyntaxAnalyzer(
 
     findNodeInChildren(children: ArrayData<Node>, position: TextPosition): Node | Nothing {
       const child =
-        children.length() === 1
-          ? children.at(0)
-          : children.first((x) => x.reference.range.contains(position));
+        children.count() === 1 ? children.at(0) : children.first((x) => x.reference.range.contains(position));
 
       if (!child) {
         return nothing;

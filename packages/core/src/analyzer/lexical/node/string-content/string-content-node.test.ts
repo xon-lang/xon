@@ -10,7 +10,7 @@ test('string content', () => {
   const nodes = newArrayData(Array.from(analyzer.iterator(stringLexicalParsers())));
   const node = nodes.at(1) as StringContentNode;
 
-  expect(nodes.length()).toBe(3);
+  expect(nodes.count()).toBe(3);
   expect(is(node, $StringContentNode)).toBe(true);
   expect(node.text.toNativeString()).toBe('a');
 });

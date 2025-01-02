@@ -22,7 +22,7 @@ export function nodeFindMap<T>(
   predicateMap: (node: Node, index: Integer, nodes: ArrayData<Node>) => T,
 ): T | Nothing {
   if (isLeftRecursive) {
-    for (let i = startIndex; i < nodes.length(); i++) {
+    for (let i = startIndex; i < nodes.count(); i++) {
       const result = predicateMap(nodes.at2(i), i, nodes);
 
       if (result) {
@@ -33,7 +33,7 @@ export function nodeFindMap<T>(
     return nothing;
   }
 
-  for (let i = nodes.length() - 1; i >= startIndex; i--) {
+  for (let i = nodes.count() - 1; i >= startIndex; i--) {
     const result = predicateMap(nodes.at2(i), i, nodes);
 
     if (result) {

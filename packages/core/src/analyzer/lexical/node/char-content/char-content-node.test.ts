@@ -10,7 +10,7 @@ test('char content', () => {
   const nodes = newArrayData(analyzer.iterator(charLexicalParsers()));
   const node = nodes.at(1) as CharContentNode;
 
-  expect(nodes.length()).toBe(3);
+  expect(nodes.count()).toBe(3);
   expect(is(node, $CharContentNode)).toBe(true);
   expect(node.text.toNativeString()).toBe('a');
 });

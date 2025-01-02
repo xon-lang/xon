@@ -31,10 +31,6 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this._items[Symbol.iterator]();
     },
 
-    length(): Integer {
-      return this._items.length;
-    },
-
     at(index: Integer): T | Nothing {
       return this._items[index];
     },
@@ -49,7 +45,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
 
     some(predicate?: ArrayPredicate<T> | Nothing): Boolean2 {
       if (!predicate) {
-        return this.length() > 0;
+        return this.count() > 0;
       }
 
       return this._items.some((v, i) => predicate(v, i));
@@ -60,7 +56,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     isEmpty(): Boolean2 {
-      return this.length() === 0;
+      return this.count() === 0;
     },
 
     take(length: Integer, startIndex: Integer = 0): ArrayData<T> {
@@ -76,13 +72,13 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         return this.slice(startIndex);
       }
 
-      for (let i = startIndex; i < this.length(); i++) {
+      for (let i = startIndex; i < this.count(); i++) {
         if (!predicate(this.at2(i), i, this)) {
           return this.slice(startIndex, includeConditionItem ? i + 1 : i);
         }
       }
 
-      return this.slice(startIndex, this.length());
+      return this.slice(startIndex, this.count());
     },
 
     first(predicate?: ((value: T, index: Integer, array: ArrayData<T>) => Boolean2) | Nothing): T | Nothing {
@@ -94,7 +90,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         return this.at(0);
       }
 
-      for (let index = 0; index < this.length(); index++) {
+      for (let index = 0; index < this.count(); index++) {
         const element = this.at2(index);
 
         if (predicate(element, index, this)) {
@@ -111,10 +107,10 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       }
 
       if (!predicate) {
-        return this.at(this.length() - 1);
+        return this.at(this.count() - 1);
       }
 
-      for (let index = this.length() - 1; index >= 0; index--) {
+      for (let index = this.count() - 1; index >= 0; index--) {
         const element = this.at2(index);
 
         if (predicate(element, index, this)) {
@@ -146,7 +142,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         return startIndex;
       }
 
-      for (let index = startIndex; index < this.length(); index++) {
+      for (let index = startIndex; index < this.count(); index++) {
         if (predicate(this.at2(index), index)) {
           return index;
         }
@@ -162,12 +158,12 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing {
-      if (items.length() > this.length()) {
+      if (items.count() > this.count()) {
         return nothing;
       }
 
       return this.firstIndex(
-        (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
+        (x, i) => this.count() - i >= items.count() && items.every((z) => modelEquals(z, x)),
         startIndex,
       );
     },
@@ -180,7 +176,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         return nothing;
       }
 
-      startIndex ??= this.length() - 1;
+      startIndex ??= this.count() - 1;
 
       if (!predicate) {
         return startIndex;
@@ -200,12 +196,12 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing {
-      if (items.length() > this.length()) {
+      if (items.count() > this.count()) {
         return nothing;
       }
 
       return this.lastIndex(
-        (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
+        (x, i) => this.count() - i >= items.count() && items.every((z) => modelEquals(z, x)),
         startIndex,
       );
     },
@@ -268,7 +264,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     findMap<V>(predicateSelect: (value: T, index: Integer, array: ArrayData<T>) => V | Nothing): V | Nothing {
-      for (let index = 0; index < this.length(); index++) {
+      for (let index = 0; index < this.count(); index++) {
         const result = predicateSelect(this.at2(index), index, this);
 
         if (result) {
@@ -284,7 +280,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     ): ArrayData<V> {
       const newArray: V[] = [];
 
-      for (let index = 0; index < this.length(); index++) {
+      for (let index = 0; index < this.count(); index++) {
         const result = predicateSelect(this.at2(index), index, this);
 
         if (result) {
@@ -295,12 +291,12 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return newArrayData(newArray);
     },
 
-    count(predicate?: (value: T, index: Integer, array: ArrayData<T>) => Boolean2): Integer {
+    count(predicate?: ArrayPredicate<T>): Integer {
       if (!predicate) {
-        return this.length();
+        return this._items.length;
       }
 
-      return this._items.reduce((sum, val, index) => sum + (predicate(val, index, this) ? 1 : 0), 0);
+      return this._items.reduce((sum, val, index) => sum + (predicate(val, index) ? 1 : 0), 0);
     },
 
     sum(select: (value: T, index: Integer, array: ArrayData<T>) => Number2): Number2 {
@@ -349,7 +345,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     equals(other: ArrayData<T>): Boolean2 {
-      return this.length() === other.length() && this.every((x, i) => other.at(i) === x);
+      return this.count() === other.count() && this.every((x, i) => other.at(i) === x);
     },
 
     toNativeArray(): T[] {

@@ -13,7 +13,7 @@ export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): Document
       analyzer.position.index,
     );
 
-  if (text.length() <= AT.length()) {
+  if (text.count() <= AT.count()) {
     return nothing;
   }
 

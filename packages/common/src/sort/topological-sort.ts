@@ -9,9 +9,9 @@ export function topologicalSort(dependencies: Dictionary<Text, ArrayData<Text>>)
   const keys = dependencies.keys();
   let cycle = keys;
 
-  while (cycle.length()) {
+  while (cycle.count()) {
     const items = newArrayData<Text>();
-    const length = cycle.length();
+    const length = cycle.count();
 
     cycle = cycle.filter((k) => {
       if (dependencies.get(k)?.every((x) => used.hasItem(x) || !keys.hasItem(x))) {
@@ -26,7 +26,7 @@ export function topologicalSort(dependencies: Dictionary<Text, ArrayData<Text>>)
     order.addLastItems(items);
     items._items.forEach((x) => used.addLastItem(x));
 
-    if (cycle.length() === length) {
+    if (cycle.count() === length) {
       break;
     }
   }

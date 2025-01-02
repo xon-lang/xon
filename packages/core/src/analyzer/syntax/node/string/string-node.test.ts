@@ -9,7 +9,7 @@ test('string', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.equals(text.slice(1, -1))).toBe(true);
   expect(node.value.toNativeString()).toBe('abc   def');
@@ -22,7 +22,7 @@ test('multiline string', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.equals(text.slice(1, -1))).toBe(true);
   expect(node.value.toNativeString()).toBe('some\nmultiline\n\n\nstring\n');
@@ -35,7 +35,7 @@ test('empty string', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content).toBeFalsy();
   expect(node.value.toNativeString()).toBe('');
@@ -48,7 +48,7 @@ test('not closed', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.toNativeString()).toBe('abc');
   expect(node.value.toNativeString()).toBe('abc');
@@ -61,7 +61,7 @@ test('emoji', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.toNativeString()).toBe('🙂');
   expect(node.value.toNativeString()).toBe('🙂');
@@ -75,7 +75,7 @@ test('emoji 2', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as StringNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($StringNode);
   expect(node.content?.text.toNativeString()).toBe('👩‍❤️‍💋‍👩');
   expect(node.value.toNativeString()).toBe('👩‍❤️‍💋‍👩');

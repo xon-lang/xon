@@ -10,7 +10,7 @@ test('close angle', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as AngleCloseNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $AngleCloseNode)).toBe(true);
   expect(node.text.toNativeString()).toBe(':>');
 });

@@ -40,7 +40,7 @@ test('a is function', () => {
 
   const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
   expect(typeSemantic.$.toNativeString()).toBe($FunctionTypeSemantic.toNativeString());
-  expect(typeSemantic.parameters.length()).toBe(1);
+  expect(typeSemantic.parameters.count()).toBe(1);
   expect(typeSemantic.parameters.at(0)?.$.toNativeString()).toBe(
     $ParameterValueDeclarationSemantic.toNativeString(),
   );

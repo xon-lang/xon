@@ -10,7 +10,7 @@ export function charContentNodeParse(analyzer: LexicalAnalyzer): CharContentNode
 
   const text = analyzer.resource.data.slice(
     analyzer.position.index,
-    endIndex > 0 ? endIndex : analyzer.resource.data.length(),
+    endIndex > 0 ? endIndex : analyzer.resource.data.count(),
   );
 
   const reference = analyzer.textReference(text);

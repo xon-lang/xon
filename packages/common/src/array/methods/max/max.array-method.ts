@@ -20,11 +20,11 @@ export function maxArrayMethod<T, V extends Number2>(
   let maxElement = this.at2(maxIndex);
   let maxValue = select(maxElement, maxIndex);
 
-  if (this.length() === 1) {
+  if (this.count() === 1) {
     return newExtremumArrayElement(maxIndex, maxElement, maxValue);
   }
 
-  for (let index = 1; index < this.length(); index++) {
+  for (let index = 1; index < this.count(); index++) {
     const element = this.at2(index);
     const elementValue = select(this.at2(index), index);
 

@@ -8,7 +8,7 @@ export function postfixNodeParse(operators: ArrayData<Text>, isLeftRecursive: Bo
       if (
         !is(node, $OperatorNode) ||
         !operators.hasItem(node.text) ||
-        (index !== nodes.length() - 1 && !is(nodes.at(index + 1), $OperatorNode))
+        (index !== nodes.count() - 1 && !is(nodes.at(index + 1), $OperatorNode))
       ) {
         return nothing;
       }

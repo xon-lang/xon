@@ -14,8 +14,6 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
 
   [Symbol.iterator](): IterableIterator<T>;
 
-  // rename to 'count'
-  length(): Integer;
   at(index: Integer): T | Nothing;
   // todo remove 'at2'
   at2(index: Integer): T;

@@ -9,7 +9,7 @@ test('with value', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as ReturnNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($ReturnNode);
   expect(node.operator.text.toNativeString()).toBe(RETURN.toNativeString());
   expect(evaluate(node.value)).toBe(10);

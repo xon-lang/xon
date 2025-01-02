@@ -40,23 +40,23 @@ function operatorFromLabel(label: DocumentationLabelNode): OperatorNode {
   const labelStart = label.reference.range.start;
 
   const operatorStop = newTextPosition(
-    labelStart.index + AT.length(),
+    labelStart.index + AT.count(),
     labelStart.line,
-    labelStart.column + AT.length(),
+    labelStart.column + AT.count(),
   );
 
   const range = textRange(label.reference.range.start, operatorStop);
   const reference = newTextReference(label.reference.resource, range);
 
-  return operatorNode(reference, label.text.slice(0, AT.length()));
+  return operatorNode(reference, label.text.slice(0, AT.count()));
 }
 
 function idFromLabel(label: DocumentationLabelNode): IdNode {
   const labelStart = label.reference.range.start;
   const idStart = newTextPosition(
-    labelStart.index + AT.length(),
+    labelStart.index + AT.count(),
     labelStart.line,
-    labelStart.column + AT.length(),
+    labelStart.column + AT.count(),
   );
   const range = textRange(idStart, label.reference.range.stop);
   const reference = newTextReference(label.reference.resource, range);

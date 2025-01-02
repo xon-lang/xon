@@ -9,7 +9,7 @@ test('import string', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as ImportNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($ImportNode);
   expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value?.$).toBe($StringNode);
@@ -23,7 +23,7 @@ test('import integer', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as ImportNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($ImportNode);
   expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value).toBeFalsy();

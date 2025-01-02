@@ -33,7 +33,7 @@ const a<:T:Number, V:T:>(p: T): V
 
   const type = declaration.type as FunctionTypeSemantic;
   const generics = type.parameters;
-  expect(generics.length()).toBe(2);
+  expect(generics.count()).toBe(2);
 
   const genericT = generics.at(0) as ParameterTypeDeclarationSemantic;
   expect(genericT.name.toNativeString()).toBe('T');
@@ -47,7 +47,7 @@ const a<:T:Number, V:T:>(p: T): V
   expect(type.result.$).toBe($FunctionTypeSemantic);
 
   const parameters = resultType.parameters;
-  expect(parameters.length()).toBe(1);
+  expect(parameters.count()).toBe(1);
 
   const param = parameters.at(0) as ParameterValueDeclarationSemantic;
   expect(param.name.toNativeString()).toBe('p');

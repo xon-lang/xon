@@ -9,7 +9,7 @@ test('single id', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as IdNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.text.toNativeString()).toBe('abc');
   expect(node.$).toBe($IdNode);
 });
@@ -21,11 +21,11 @@ test('several id', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as IdNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.text.toNativeString()).toBe('abc');
   expect(node.$).toBe($IdNode);
 
-  expect(syntax.diagnosticManager.diagnostics.length()).toBe(2);
+  expect(syntax.diagnosticManager.diagnostics.count()).toBe(2);
 
   const diagnosticMessage = predefinedDiagnostics(node.reference).unexpectedExpression().message;
 

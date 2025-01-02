@@ -25,11 +25,11 @@ test('empty closed', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as ParenGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $ParenGroupNode)).toBe(true);
   expect(is(node.open, $ParenOpenNode)).toBe(true);
   expect(is(node.close, $ParenCloseNode)).toBe(true);
-  expect(node.items.length()).toBe(0);
+  expect(node.items.count()).toBe(0);
 });
 
 test('validate close pair', () => {
@@ -39,12 +39,12 @@ test('validate close pair', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as ParenGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $ParenGroupNode)).toBe(true);
   expect(is(node.open, $ParenOpenNode)).toBe(true);
   expect(node.close).toBe(nothing);
-  expect(node.items.length()).toBe(0);
-  expect(syntax.diagnosticManager.diagnostics.length()).toBe(1);
+  expect(node.items.count()).toBe(0);
+  expect(syntax.diagnosticManager.diagnostics.count()).toBe(1);
 
   const diagnosticMessage = predefinedDiagnostics(node.reference).expectCloseToken(node.open.text).message;
 
@@ -63,7 +63,7 @@ test('a in group', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as ParenGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($ParenGroupNode);
 });
 
@@ -74,9 +74,9 @@ test('empty object', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BraceGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($BraceGroupNode);
-  expect(node.items.length()).toBe(0);
+  expect(node.items.count()).toBe(0);
 });
 
 test('single item', () => {
@@ -86,9 +86,9 @@ test('single item', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(1);
+  expect(node.items.count()).toBe(1);
   expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('123');
 });
 
@@ -99,8 +99,8 @@ test('single comma', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
-  expect(node.items.length()).toBe(2);
+  expect(statements.count()).toBe(1);
+  expect(node.items.count()).toBe(2);
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
   expect(is(node.close, $BracketCloseNode)).toBe(true);
@@ -113,11 +113,11 @@ test('empty not closed', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
   expect(node.close).toBe(nothing);
-  expect(node.items.length()).toBe(0);
+  expect(node.items.count()).toBe(0);
 });
 
 test('inner group', () => {
@@ -127,13 +127,13 @@ test('inner group', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(1);
+  expect(node.items.count()).toBe(1);
 
   const innerGroup = node.items.at(0)?.value as ParenGroupNode;
   expect(is(innerGroup, $ParenGroupNode)).toBe(true);
-  expect(innerGroup.items.length()).toBe(0);
+  expect(innerGroup.items.count()).toBe(0);
 });
 
 test('inner empty group', () => {
@@ -143,17 +143,17 @@ test('inner empty group', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(1);
+  expect(node.items.count()).toBe(1);
 
   const innerGroup = node.items.at(0)?.value as ParenGroupNode;
   expect(is(innerGroup, $BracketGroupNode)).toBe(true);
-  expect(innerGroup.items.length()).toBe(1);
+  expect(innerGroup.items.count()).toBe(1);
 
   const innerInnerGroup = innerGroup.items.at(0)?.value as ParenGroupNode;
   expect(is(innerInnerGroup, $BracketGroupNode)).toBe(true);
-  expect(innerInnerGroup.items.length()).toBe(0);
+  expect(innerInnerGroup.items.count()).toBe(0);
 });
 
 test('two integers no comma and ws at the end', () => {
@@ -163,9 +163,9 @@ test('two integers no comma and ws at the end', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(2);
+  expect(node.items.count()).toBe(2);
   expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
   expect((node.items.at(1)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
 });
@@ -177,9 +177,9 @@ test('two integers and comma no ws at the end', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(3);
+  expect(node.items.count()).toBe(3);
   expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
   expect((node.items.at(1)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
 });
@@ -191,9 +191,9 @@ test('two integers and comma and ws', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(3);
+  expect(node.items.count()).toBe(3);
   expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
   expect((node.items.at(1)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
 });
@@ -208,9 +208,9 @@ test('array on several lines', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.length()).toBe(4);
+  expect(node.items.count()).toBe(4);
   expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
   expect((node.items.at(1)?.value as InfixNode).operator.text.toNativeString()).toBe('+');
 });
@@ -222,9 +222,9 @@ test('debug 1', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BracketGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($BracketGroupNode);
-  expect(node.items.length()).toBe(3);
+  expect(node.items.count()).toBe(3);
   expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
   expect((node.items.at(2)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
 });
@@ -236,9 +236,9 @@ test('empty object', () => {
   const statements = syntax.statements;
   const node = statements.at(0)?.value as BraceGroupNode;
 
-  expect(statements.length()).toBe(1);
+  expect(statements.count()).toBe(1);
   expect(node.$).toBe($BraceGroupNode);
-  expect(node.items.length()).toBe(0);
+  expect(node.items.count()).toBe(0);
 });
 
 // test('group with nl', () => {

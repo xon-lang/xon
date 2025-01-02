@@ -30,9 +30,9 @@ export function newLexicalAnalyzer(
     textReference(text: Text): TextReference {
       const start = this.position.clone();
       const stop = newTextPosition(
-        this.position.index + text.length(),
+        this.position.index + text.count(),
         this.position.line,
-        this.position.column + text.length(),
+        this.position.column + text.count(),
       );
 
       const range = textRange(start, stop);
@@ -44,7 +44,7 @@ export function newLexicalAnalyzer(
       let nlCount = this.position.line;
       let columnIndent = this.position.column;
 
-      for (let i = this.position.index; i < this.position.index + text.length(); i++) {
+      for (let i = this.position.index; i < this.position.index + text.count(); i++) {
         const char = this.resource.data.at(i);
 
         if (char && NL.equals(char)) {
@@ -58,14 +58,14 @@ export function newLexicalAnalyzer(
       }
 
       const start = this.position.clone();
-      const stop = newTextPosition(this.position.index + text.length(), nlCount, columnIndent);
+      const stop = newTextPosition(this.position.index + text.count(), nlCount, columnIndent);
       const range = textRange(start, stop);
 
       return newTextReference(this.resource, range);
     },
 
     hasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {
-      return this.resource.data.take(text.length(), index ?? this.position.index).equals(text);
+      return this.resource.data.take(text.count(), index ?? this.position.index).equals(text);
     },
   };
 }
@@ -76,7 +76,7 @@ function lexicalIterator(
 ): IterableIterator<LexicalNode> {
   return {
     next(): IteratorResult<LexicalNode> {
-      if (lexer.position.index >= lexer.resource.data.length()) {
+      if (lexer.position.index >= lexer.resource.data.count()) {
         return {
           done: true,
           value: nothing,
