@@ -56,5 +56,5 @@ test('has generics', () => {
   expect(resultType.$).toBe($UnionTypeSemantic);
   expect(resultType.left.$).toBe($UnionTypeSemantic);
   expect(resultType.right.$).toBe($IdTypeSemantic);
-  expect((resultType.right as IdTypeSemantic).name).toBe('U');
+  expect((resultType.right as IdTypeSemantic).name.toNativeString()).toBe('U');
 });

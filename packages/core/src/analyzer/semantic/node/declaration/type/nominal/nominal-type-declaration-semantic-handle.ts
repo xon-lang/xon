@@ -25,7 +25,7 @@ export function nominalTypeDeclarationSemanticHandle(
     }
   }
 
-  const resultType = idTypeSemantic(analyzer, node.id, node.id.text.toNativeString(), semantic);
+  const resultType = idTypeSemantic(analyzer, node.id, node.id.text, semantic);
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);

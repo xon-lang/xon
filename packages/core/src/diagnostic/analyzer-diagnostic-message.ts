@@ -1,127 +1,127 @@
-import {newArrayData, nothing, Text, TextReference} from '#common';
+import {newArrayData, newText, nothing, Text, TextReference} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
 export function predefinedDiagnostics(reference: TextReference) {
   return {
     notImplemented: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: 'Error not implemented',
-        expect: 'Create a valid error message',
+        actual: newText('Error not implemented'),
+        expect: newText('Create a valid error message'),
       }),
 
     unknownSymbol: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: 'Unknown symbol',
+        actual: newText('Unknown symbol'),
         expect: nothing,
       }),
 
     unexpectedExpression: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: 'Unexpected expression',
+        actual: newText('Unexpected expression'),
         expect: nothing,
       }),
 
     // todo should we use 'TextData' instead of 'String' for parameters ???
     expectCloseToken: (open: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Token '${open}' has no close pair`,
+        actual: newText(`Token '${open}' has no close pair`),
         expect: nothing,
       }),
 
     // Semantic
     declarationNotFound: (name: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Declaration '${name}' not found`,
+        actual: newText(`Declaration '${name}' not found`),
         expect: nothing,
       }),
 
     tooManyDeclarationsFoundWithName: (name: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Too many declarations found with '${name}'`,
+        actual: newText(`Too many declarations found with '${name}'`),
         expect: nothing,
       }),
 
     shouldBeSingleItem: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Should be single item`,
+        actual: newText(`Should be single item`),
         expect: nothing,
       }),
 
     shouldBeInteger: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Should be integer`,
+        actual: newText(`Should be integer`),
         expect: nothing,
       }),
 
     shouldBeMemberName: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Should be member name`,
+        actual: newText(`Should be member name`),
         expect: nothing,
       }),
 
     wrongType: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Wrong type`,
+        actual: newText(`Wrong type`),
         expect: nothing,
       }),
 
     cannotResolveType: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Cannot resolve type`,
+        actual: newText(`Cannot resolve type`),
         expect: nothing,
       }),
 
     noTypeRequiredForConst: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `No type required for const`,
+        actual: newText(`No type required for const`),
         expect: nothing,
       }),
 
     cannotBeUsedAsAType: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Cannot be used as a type`,
+        actual: newText(`Cannot be used as a type`),
         expect: nothing,
       }),
 
     noValueAllowed: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `No value allowed`,
+        actual: newText(`No value allowed`),
         expect: nothing,
       }),
 
     noAttributesAllowed: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `No attributes allowed`,
+        actual: newText(`No attributes allowed`),
         expect: nothing,
       }),
 
     cannotEvaluate: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Cannot evaluate`,
+        actual: newText(`Cannot evaluate`),
         expect: nothing,
       }),
 
     cannotFindResource: (path: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Cannot find resource '${[path]}'`,
+        actual: newText(`Cannot find resource '${[path]}'`),
         expect: nothing,
       }),
 
     importValueShouldBeString: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Import value should be string`,
+        actual: newText(`Import value should be string`),
         expect: nothing,
       }),
 
     shouldBeDeclarationStatement: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Should be declaration statement`,
+        actual: newText(`Should be declaration statement`),
         expect: nothing,
       }),
 
     shouldNotBeBody: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Should not be body`,
+        actual: newText(`Should not be body`),
         expect: nothing,
       }),
 
@@ -130,7 +130,7 @@ export function predefinedDiagnostics(reference: TextReference) {
         reference,
         AnalyzerDiagnosticSeverity.WARNING,
         {
-          actual: `Documentation label '${name}' already exists`,
+          actual: newText(`Documentation label '${name}' already exists`),
           expect: nothing,
         },
         nothing,
@@ -139,14 +139,14 @@ export function predefinedDiagnostics(reference: TextReference) {
 
     declarationAlreadyExists: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Declaration already exists`,
+        actual: newText(`Declaration already exists`),
         expect: nothing,
       }),
 
     // translator
     cannotTranslate: (): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
-        actual: `Cannot translate`,
+        actual: newText(`Cannot translate`),
         expect: nothing,
       }),
   };

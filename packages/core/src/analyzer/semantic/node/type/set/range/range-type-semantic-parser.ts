@@ -30,7 +30,7 @@ export function rangeTypeSemanticTryParse(
 
   if (!declaration || !is(declaration, $NominalTypeDeclarationSemantic)) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
-      x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName.toNativeString()),
+      x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
 
     return nothing;

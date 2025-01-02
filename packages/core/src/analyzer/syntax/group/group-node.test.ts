@@ -46,12 +46,14 @@ test('validate close pair', () => {
   expect(node.items.length()).toBe(0);
   expect(syntax.diagnosticManager.diagnostics.length()).toBe(1);
 
-  const diagnosticMessage = predefinedDiagnostics(node.reference).expectCloseToken(
-    node.open.text.toNativeString(),
-  ).message;
+  const diagnosticMessage = predefinedDiagnostics(node.reference).expectCloseToken(node.open.text).message;
 
-  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.actual).toBe(diagnosticMessage.actual);
-  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.expect).toBe(diagnosticMessage.expect);
+  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.actual.toNativeString()).toBe(
+    diagnosticMessage.actual.toNativeString(),
+  );
+  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.expect?.toNativeString()).toBe(
+    diagnosticMessage.expect?.toNativeString(),
+  );
 });
 
 test('a in group', () => {

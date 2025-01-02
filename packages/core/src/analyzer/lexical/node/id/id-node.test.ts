@@ -29,6 +29,10 @@ test('several id', () => {
 
   const diagnosticMessage = predefinedDiagnostics(node.reference).unexpectedExpression().message;
 
-  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.actual).toBe(diagnosticMessage.actual);
-  expect(syntax.diagnosticManager.diagnostics.at(1)?.message.actual).toBe(diagnosticMessage.actual);
+  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.actual.toNativeString()).toBe(
+    diagnosticMessage.actual.toNativeString(),
+  );
+  expect(syntax.diagnosticManager.diagnostics.at(1)?.message.actual.toNativeString()).toBe(
+    diagnosticMessage.actual.toNativeString(),
+  );
 });

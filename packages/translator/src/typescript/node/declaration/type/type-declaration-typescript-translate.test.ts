@@ -12,7 +12,7 @@ test('type string', () => {
   const translator = newTypescriptTranslator(semanticAnalyzer);
   const translated = translator.typeDeclaration(semantic);
 
-  expect(translated).toBe('export type A = {}');
+  expect(translated.toNativeString()).toBe('export type A = {}');
 });
 
 test('parameter type', () => {
@@ -24,5 +24,5 @@ test('parameter type', () => {
   const translator = newTypescriptTranslator(semanticAnalyzer);
   const translated = translator.typeDeclaration(semantic);
 
-  expect(translated).toBe('export type A<T extends Number = Integer> = {}');
+  expect(translated.toNativeString()).toBe('export type A<T extends Number = Integer> = {}');
 });

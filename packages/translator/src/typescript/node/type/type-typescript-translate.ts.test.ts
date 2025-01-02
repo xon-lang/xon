@@ -10,9 +10,9 @@ test('type string', () => {
   const declaration = semanticAnalyzer.statements.at(0)?.value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = newTypescriptTranslator(semanticAnalyzer);
-  const translated = semantic.type ? translator.type(semantic.type) : '';
+  const translated = semantic.type ? translator.type(semantic.type) : newText();
 
-  expect(translated).toBe('"string"');
+  expect(translated.toNativeString()).toBe('"string"');
 });
 
 test('type integer', () => {
@@ -22,9 +22,9 @@ test('type integer', () => {
   const declaration = semanticAnalyzer.statements.at(0)?.value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = newTypescriptTranslator(semanticAnalyzer);
-  const translated = semantic.type ? translator.type(semantic.type) : '';
+  const translated = semantic.type ? translator.type(semantic.type) : newText();
 
-  expect(translated).toBe('123');
+  expect(translated.toNativeString()).toBe('123');
 });
 
 test('type union', () => {
@@ -34,9 +34,9 @@ test('type union', () => {
   const declaration = semanticAnalyzer.statements.at(0)?.value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = newTypescriptTranslator(semanticAnalyzer);
-  const translated = semantic.type ? translator.type(semantic.type) : '';
+  const translated = semantic.type ? translator.type(semantic.type) : newText();
 
-  expect(translated).toBe('123 | "abc" | 1 | "a"');
+  expect(translated.toNativeString()).toBe('123 | "abc" | 1 | "a"');
 });
 
 test('type array', () => {
@@ -46,7 +46,7 @@ test('type array', () => {
   const declaration = semanticAnalyzer.statements.at(0)?.value as DeclarationNode;
   const semantic = declaration.id.semantic as ValueDeclarationSemantic;
   const translator = newTypescriptTranslator(semanticAnalyzer);
-  const translated = semantic.type ? translator.type(semantic.type) : '';
+  const translated = semantic.type ? translator.type(semantic.type) : newText();
 
-  expect(translated).toBe('[1, 2, "abc", "a" | 1 & 2]');
+  expect(translated.toNativeString()).toBe('[1, 2, "abc", "a" | 1 & 2]');
 });

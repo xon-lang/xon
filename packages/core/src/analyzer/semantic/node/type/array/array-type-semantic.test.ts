@@ -42,5 +42,5 @@ test('a is array', () => {
   expect(typeSemantic?.items.length()).toBe(3);
   expect((typeSemantic?.items.at(0) as IntegerTypeSemantic).value).toBe(1);
   expect((typeSemantic?.items.at(1) as IntegerTypeSemantic).value).toBe(2);
-  expect((typeSemantic?.items.at(2) as StringTypeSemantic).value).toBe('A');
+  expect((typeSemantic?.items.at(2) as StringTypeSemantic).value.toNativeString()).toBe('A');
 });

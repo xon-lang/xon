@@ -12,7 +12,7 @@ test('type union', () => {
   const translator = newTypescriptTranslator(semanticAnalyzer);
   const translated = translator.valueDeclaration(semantic);
 
-  expect(translated).toBe('a: Integer | String');
+  expect(translated.toNativeString()).toBe('a: Integer | String');
 });
 
 test('type function', () => {
@@ -24,5 +24,5 @@ test('type function', () => {
   const translator = newTypescriptTranslator(semanticAnalyzer);
   const translated = translator.valueDeclaration(semantic);
 
-  expect(translated).toBe('__plus__: (a: Integer, b: Integer) => Integer');
+  expect(translated.toNativeString()).toBe('__plus__: (a: Integer, b: Integer) => Integer');
 });

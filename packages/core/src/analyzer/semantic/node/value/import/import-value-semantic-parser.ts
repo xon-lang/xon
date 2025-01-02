@@ -28,7 +28,7 @@ export function importValueSemanticParse(
 
   if (!resource) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.value.reference, (x) =>
-      x.cannotFindResource(location.toNativeString()),
+      x.cannotFindResource(location),
     );
 
     return;

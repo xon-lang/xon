@@ -39,5 +39,5 @@ test('import core', () => {
     : nothing;
   expect(typeSemantic).toBeTruthy();
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
-  expect(typeSemantic?.value).toBe('abc');
+  expect(typeSemantic?.value.toNativeString()).toBe('abc');
 });

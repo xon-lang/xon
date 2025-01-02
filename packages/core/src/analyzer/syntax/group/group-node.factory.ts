@@ -38,7 +38,7 @@ export function groupNode(
 function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {
   if (!node.close) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.open.reference, (x) =>
-      x.expectCloseToken(node.open.text.toNativeString()),
+      x.expectCloseToken(node.open.text),
     );
   }
 

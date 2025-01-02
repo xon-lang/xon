@@ -26,7 +26,7 @@ test('no generics', () => {
 
   const type = declaration.type as IdTypeSemantic;
   expect(type.$).toBe($IdTypeSemantic);
-  expect(type.name).toBe('Number');
+  expect(type.name.toNativeString()).toBe('Number');
 });
 
 test('has generics', () => {

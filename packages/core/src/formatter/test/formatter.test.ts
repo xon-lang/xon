@@ -34,5 +34,5 @@ function testFormatter(index: String2) {
 
   const etalonText = readFileSync(join(dirPath, 'etalon.xon')).toString();
 
-  expect(formattedText).toBe(etalonText);
+  expect(formattedText.toNativeString()).toBe(etalonText);
 }

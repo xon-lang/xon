@@ -37,7 +37,7 @@ test('a is string value', () => {
     ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
     : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
-  expect(typeSemantic?.value).toBe('abc');
+  expect(typeSemantic?.value.toNativeString()).toBe('abc');
 });
 
 test('a is string literal', () => {
@@ -52,7 +52,7 @@ test('a is string literal', () => {
     : nothing;
 
   expect(typeSemantic?.$).toBe($StringTypeSemantic);
-  expect(typeSemantic?.value).toBe('abc');
+  expect(typeSemantic?.value.toNativeString()).toBe('abc');
 });
 
 test('a is empty string 1', () => {
@@ -67,7 +67,7 @@ test('a is empty string 1', () => {
     : nothing;
 
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
-  expect(typeSemantic?.value).toBe('');
+  expect(typeSemantic?.value.toNativeString()).toBe('');
 });
 
 test('a is empty string 2', () => {
@@ -82,5 +82,5 @@ test('a is empty string 2', () => {
     : nothing;
 
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
-  expect(typeSemantic?.value).toBe('');
+  expect(typeSemantic?.value.toNativeString()).toBe('');
 });

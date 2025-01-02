@@ -37,7 +37,7 @@ export function memberValueSemanticTryParse(
     }
   }
 
-  const name = node.id?.text.toNativeString();
+  const name = node.id?.text;
 
   return memberValueSemantic(node, instanceSemantic, name, memberType);
 }
