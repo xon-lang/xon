@@ -101,7 +101,7 @@ function getInvokeNodeAndParameterIndex(
     ) {
       return {
         invokeNode: nodeAtPosition.parent.parent.parent,
-        parameterIndex: nodeAtPosition.parent.parent.items.firstItemIndex(nodeAtPosition.parent),
+        parameterIndex: nodeAtPosition.parent.parent.items.firstItemIndex(nodeAtPosition.parent) ?? -1,
       };
     }
   }

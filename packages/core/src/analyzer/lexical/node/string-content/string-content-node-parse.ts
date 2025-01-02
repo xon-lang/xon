@@ -6,7 +6,7 @@ export function stringContentNodeParse(analyzer: LexicalAnalyzer): StringContent
     return nothing;
   }
 
-  const endIndex = analyzer.resource.data.firstItemsIndex(STRING_CLOSE, analyzer.position.index);
+  const endIndex = analyzer.resource.data.firstItemsIndex(STRING_CLOSE, analyzer.position.index) ?? -1;
 
   const text = analyzer.resource.data.slice(
     analyzer.position.index,

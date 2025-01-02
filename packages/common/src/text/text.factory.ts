@@ -13,6 +13,7 @@ import {
   TextRange,
   newArrayData,
   newChar,
+  nothing,
   stringToCharArray,
 } from '#common';
 import {is} from '#typing';
@@ -61,11 +62,11 @@ export function newText(
       if (line === 0) {
         const stopIndex = this.firstItemsIndex(NL);
 
-        if (stopIndex < 0) {
+        if (stopIndex == nothing) {
           return this.clone();
         }
 
-        return (this as Text).slice(0, stopIndex);
+        return this.slice(0, stopIndex);
       }
 
       let startIndex = 0;

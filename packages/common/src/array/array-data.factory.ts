@@ -135,9 +135,9 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     firstIndex(
       predicate?: ((value: T, index: Integer) => Boolean2) | Nothing,
       startIndex?: Integer | Nothing,
-    ): Integer {
+    ): Integer | Nothing {
       if (this.isEmpty()) {
-        return -1;
+        return nothing;
       }
 
       startIndex ??= 0;
@@ -152,18 +152,18 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         }
       }
 
-      return -1;
+      return nothing;
     },
 
     remove: removeArrayMethod,
 
-    firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer {
+    firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing {
       return this.firstIndex((x) => modelEquals(x, item), startIndex);
     },
 
-    firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
+    firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing {
       if (items.length() > this.length()) {
-        return -1;
+        return nothing;
       }
 
       return this.firstIndex(
@@ -199,21 +199,19 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this.lastIndex((x) => modelEquals(x, item), startIndex);
     },
 
-    lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer {
+    lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing {
       if (items.length() > this.length()) {
-        return -1;
+        return nothing;
       }
 
-      // todo fix '-1'
-      return (
-        this.lastIndex(
-          (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
-          startIndex,
-        ) ?? -1
+      return this.lastIndex(
+        (x, i) => this.length() - i >= items.length() && items.every((z) => modelEquals(z, x)),
+        startIndex,
       );
     },
 
     firstLastIndex(): {firstIndex: Integer | Nothing; lastIndex: Integer | Nothing} {
+      // todo use only cycle to iterate
       return {
         firstIndex: this.firstIndex(),
         lastIndex: this.lastIndex(),
@@ -229,11 +227,11 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     hasItem(item: T): Boolean2 {
-      return this.firstItemIndex(item) >= 0;
+      return this.firstItemIndex(item) != nothing;
     },
 
     hasItems(items: ArrayData<T>): Boolean2 {
-      return this.firstItemsIndex(items) >= 0;
+      return this.firstItemsIndex(items) != nothing;
     },
 
     // todo should we return new array/immutability ???

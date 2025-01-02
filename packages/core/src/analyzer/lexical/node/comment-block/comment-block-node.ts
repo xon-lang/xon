@@ -1,4 +1,4 @@
-import {Text, TextReference} from '#common';
+import {nothing, Text, TextReference} from '#common';
 import {
   $LexicalNode,
   COMMENT_BLOCK_CLOSE,
@@ -18,7 +18,7 @@ export function commentBlockNode(reference: TextReference, text: Text): CommentB
   let value: Text;
   const lastCloseIndex = text.firstItemsIndex(COMMENT_BLOCK_CLOSE);
 
-  if (lastCloseIndex > 0) {
+  if (lastCloseIndex != nothing) {
     value = text.slice(COMMENT_BLOCK_OPEN.length(), lastCloseIndex);
   } else {
     value = text.slice(COMMENT_BLOCK_OPEN.length());

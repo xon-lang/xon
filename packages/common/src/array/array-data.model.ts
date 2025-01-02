@@ -31,13 +31,12 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   firstLast(): {first: T | Nothing; last: T | Nothing};
   remove(predicate: ArrayPredicate<T>): ArrayData<T> | Nothing;
 
-  firstIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer;
-  firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer;
-  firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer;
-  // todo add '| Nothing' for all index methods
+  firstIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer | Nothing;
+  firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing;
+  firstItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing;
   lastIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer | Nothing;
   lastItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing;
-  lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer;
+  lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing;
   firstLastIndex(): {firstIndex: Integer | Nothing; lastIndex: Integer | Nothing};
 
   filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V>;

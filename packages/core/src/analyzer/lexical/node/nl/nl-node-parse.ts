@@ -11,7 +11,7 @@ export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
     analyzer.position.index,
   );
 
-  const lastNlIndex = textWithIndents.lastItemsIndex(NL);
+  const lastNlIndex = textWithIndents.lastItemsIndex(NL) ?? -1;
 
   const text = textWithIndents.slice(0, lastNlIndex + 1);
   const reference = analyzer.textReferenceWithNewLine(text);
