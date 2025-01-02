@@ -53,16 +53,14 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
         return declarations;
       }
 
-      const importDeclarations = this.imports?.toNativeArray()?.flatMap(
+      const importDeclarations = this.imports?.flatMap(
         (x) =>
-          x.declarations
-            .get(name)
-            ?.toNativeArray()
-            ?.filter((x) => is(x, type)) ?? [],
+          x.declarations.get(name)?.filter((x) => is(x, type)) ??
+          newArrayData<Exclude<V['type'], undefined>>(),
       );
 
-      if (importDeclarations && importDeclarations.length > 0) {
-        return newArrayData(importDeclarations);
+      if (importDeclarations && importDeclarations.length() > 0) {
+        return importDeclarations;
       }
 
       return newArrayData();
