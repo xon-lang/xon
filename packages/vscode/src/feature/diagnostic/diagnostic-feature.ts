@@ -57,7 +57,7 @@ function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): 
 
     const diagnostic = new Diagnostic(
       range,
-      analyzerDiagnostic.message.actual,
+      analyzerDiagnostic.message.actual.toNativeString(),
       convertDiagnosticLevel(analyzerDiagnostic.severity),
     );
 

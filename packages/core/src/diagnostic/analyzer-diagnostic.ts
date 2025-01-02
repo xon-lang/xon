@@ -1,19 +1,9 @@
-import {
-  ArrayData,
-  colorText,
-  Integer,
-  newText,
-  Nothing,
-  String2,
-  TerminalColor,
-  Text,
-  TextReference,
-} from '#common';
+import {ArrayData, colorText, Integer, newText, Nothing, TerminalColor, Text, TextReference} from '#common';
 import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export type AnalyzerDiagnosticMessage = {
-  actual: String2;
-  expect: String2 | Nothing;
+  actual: Text;
+  expect: Text | Nothing;
 };
 
 // todo rename 'AnalyzerDiagnostic' to 'Diagnostic'
@@ -24,7 +14,7 @@ export type AnalyzerDiagnostic = {
   code?: Integer | Nothing;
   tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing;
 
-  terminalFormat(): String2;
+  terminalFormat(): Text;
 };
 
 export function createDiagnostic(
@@ -41,7 +31,7 @@ export function createDiagnostic(
     code,
     tags,
 
-    terminalFormat(): String2 {
+    terminalFormat(): Text {
       return terminalFormat(newText(this.message.actual), this.reference);
     },
   };
@@ -52,7 +42,7 @@ const gray = (x: Text): Text => colorText(x, TerminalColor.FG_GRAY);
 const red = (x: Text): Text => colorText(x, TerminalColor.FG_RED);
 
 // todo rename 'terminalFormat'
-export function terminalFormat(message: Text, {resource, range}: TextReference): String2 {
+export function terminalFormat(message: Text, {resource, range}: TextReference): Text {
   const msg = red(message);
   const lineText = resource.data.lineText(range.start.line);
   const nodeText = resource.data.slice(range.start.index, range.stop.index);
@@ -65,5 +55,8 @@ export function terminalFormat(message: Text, {resource, range}: TextReference):
     .repeat(range.start.column + lineNumberBeforeGrayed.length())
     .addLastItems(red(newText('~').repeat(nodeText.length())));
 
-  return `${msg.toNativeString()}\n${location.toNativeString()}${line.toNativeString()}${column.toNativeString()}\n${lineNumber.toNativeString()}${lineText.toNativeString()}\n${caret.toNativeString()}`;
+  // todo fix long width interpolation
+  return newText(
+    `${msg.toNativeString()}\n${location.toNativeString()}${line.toNativeString()}${column.toNativeString()}\n${lineNumber.toNativeString()}${lineText.toNativeString()}\n${caret.toNativeString()}`,
+  );
 }

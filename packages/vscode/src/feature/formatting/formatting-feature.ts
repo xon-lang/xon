@@ -87,5 +87,5 @@ function getDocumentFormatters(document: TextDocument, channel: OutputChannel): 
 }
 
 function convertFormatter(formatter: FormatterItem): TextEdit {
-  return TextEdit.replace(convertRange(formatter.range), formatter.text);
+  return TextEdit.replace(convertRange(formatter.range), formatter.text.toNativeString());
 }

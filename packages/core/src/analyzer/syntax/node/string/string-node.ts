@@ -1,4 +1,4 @@
-import {Nothing, nothing, String2} from '#common';
+import {newText, Nothing, nothing, Text} from '#common';
 import {
   $SyntaxNode,
   corePackageType,
@@ -11,7 +11,7 @@ import {
 } from '#core';
 
 export type StringNode = SyntaxNode & {
-  value: String2;
+  value: Text;
 
   open: StringOpenNode;
   content?: StringContentNode | Nothing;
@@ -26,7 +26,7 @@ export function stringNode(
   content: StringContentNode | Nothing,
   close?: StringCloseNode | Nothing,
 ): StringNode {
-  const value = content?.text.toNativeString() ?? '';
+  const value = content?.text ?? newText();
 
   return syntaxNode(analyzer, {
     $: $StringNode,

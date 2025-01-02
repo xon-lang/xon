@@ -1,4 +1,4 @@
-import {newText, String2} from '#common';
+import {newText, Text} from '#common';
 import {
   $DeclarationNode,
   $ReturnNode,
@@ -15,24 +15,22 @@ import {is} from '#typing';
 export function statementTypescriptTranslate(
   translator: TypescriptTranslator,
   statement: StatementNode,
-): String2 {
+): Text {
   const statementTranslated = statementTranslate(translator, statement);
 
   const bodyTranslated = newText(
     statement.body.map((node) => newText(translator.statement(node))),
     NL,
-  )
-    .setPadding(2)
-    .toNativeString();
+  ).setPadding(2);
 
-  if (bodyTranslated.length > 0) {
-    return statementTranslated + NL + bodyTranslated;
+  if (!bodyTranslated.isEmpty()) {
+    return statementTranslated.addLastItems(NL).addLastItems(bodyTranslated);
   }
 
   return statementTranslated;
 }
 
-function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): String2 {
+function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): Text {
   const node = statement.value;
 
   if (is(node, $DeclarationNode)) {
@@ -49,10 +47,10 @@ function statementTranslate(translator: TypescriptTranslator, statement: Stateme
         ? translator.value(node.value.semantic)
         : translator.error(node.value);
 
-      return `return ${value}`;
+      return newText(`return ${value}`);
     }
 
-    return `return`;
+    return newText(`return`);
   }
 
   if (node.isExpression && is(node.semantic, $ValueSemantic)) {
@@ -65,13 +63,13 @@ function statementTranslate(translator: TypescriptTranslator, statement: Stateme
 function declarationTranslate(
   translator: TypescriptTranslator,
   semantic: Semantic, // DeclarationSemantic
-): String2 {
+): Text {
   if (is(semantic, $TypeDeclarationSemantic)) {
     return translator.typeDeclaration(semantic);
   }
 
   if (is(semantic, $ValueDeclarationSemantic)) {
-    return 'const ' + translator.valueDeclaration(semantic);
+    return newText('const ').addLastItems(translator.valueDeclaration(semantic));
   }
 
   return translator.error(semantic.nodeLink);

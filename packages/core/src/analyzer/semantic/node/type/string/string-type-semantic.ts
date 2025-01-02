@@ -1,4 +1,4 @@
-import {Boolean2, Nothing, String2} from '#common';
+import {Boolean2, Nothing, Text} from '#common';
 import {
   $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
@@ -18,7 +18,7 @@ import {is} from '#typing';
 
 export type StringTypeSemantic = TypeSemantic & {
   declaration?: NominalTypeDeclarationSemantic | Nothing;
-  value: String2;
+  value: Text;
 };
 
 export const $StringTypeSemantic = corePackageType<StringTypeSemantic>('StringTypeSemantic', $TypeSemantic);
@@ -26,7 +26,7 @@ export const $StringTypeSemantic = corePackageType<StringTypeSemantic>('StringTy
 export function stringTypeSemantic(
   analyzer: SemanticAnalyzer,
   nodeLink: Node,
-  value: String2,
+  value: Text,
 ): StringTypeSemantic {
   return {
     $: $StringTypeSemantic,

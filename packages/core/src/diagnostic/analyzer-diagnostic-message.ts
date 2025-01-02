@@ -1,4 +1,4 @@
-import {newArrayData, nothing, String2, Text, TextReference} from '#common';
+import {newArrayData, nothing, Text, TextReference} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
 export function predefinedDiagnostics(reference: TextReference) {
@@ -22,20 +22,20 @@ export function predefinedDiagnostics(reference: TextReference) {
       }),
 
     // todo should we use 'TextData' instead of 'String' for parameters ???
-    expectCloseToken: (open: String2): AnalyzerDiagnostic =>
+    expectCloseToken: (open: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
         actual: `Token '${open}' has no close pair`,
         expect: nothing,
       }),
 
     // Semantic
-    declarationNotFound: (name: String2): AnalyzerDiagnostic =>
+    declarationNotFound: (name: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
         actual: `Declaration '${name}' not found`,
         expect: nothing,
       }),
 
-    tooManyDeclarationsFoundWithName: (name: String2): AnalyzerDiagnostic =>
+    tooManyDeclarationsFoundWithName: (name: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
         actual: `Too many declarations found with '${name}'`,
         expect: nothing,
@@ -101,7 +101,7 @@ export function predefinedDiagnostics(reference: TextReference) {
         expect: nothing,
       }),
 
-    cannotFindResource: (path: String2): AnalyzerDiagnostic =>
+    cannotFindResource: (path: Text): AnalyzerDiagnostic =>
       createDiagnostic(reference, AnalyzerDiagnosticSeverity.ERROR, {
         actual: `Cannot find resource '${[path]}'`,
         expect: nothing,

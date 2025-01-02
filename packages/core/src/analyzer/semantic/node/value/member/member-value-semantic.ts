@@ -1,9 +1,9 @@
-import {Nothing, String2} from '#common';
+import {Nothing, Text} from '#common';
 import {$ValueSemantic, corePackageType, Node, TypeSemantic, ValueSemantic} from '#core';
 
 export type MemberValueSemantic = ValueSemantic & {
   instance: ValueSemantic;
-  name: String2 | Nothing;
+  name: Text | Nothing;
 };
 
 export const $MemberValueSemantic = corePackageType<MemberValueSemantic>(
@@ -14,7 +14,7 @@ export const $MemberValueSemantic = corePackageType<MemberValueSemantic>(
 export function memberValueSemantic(
   nodeLink: Node,
   instance: ValueSemantic,
-  name: String2 | Nothing,
+  name: Text | Nothing,
   type: TypeSemantic,
 ): MemberValueSemantic {
   return {

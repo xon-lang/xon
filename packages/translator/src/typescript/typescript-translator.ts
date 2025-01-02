@@ -1,4 +1,4 @@
-import {String2} from '#common';
+import {newText, Text} from '#common';
 import {
   AnalyzerDiagnosticManager,
   createDiagnosticManager,
@@ -26,12 +26,12 @@ import path from 'node:path';
 export type TypescriptTranslator = Translator & {
   diagnosticManager: AnalyzerDiagnosticManager;
 
-  type(semantic: TypeSemantic): String2;
-  value(semantic: ValueSemantic): String2;
-  typeDeclaration(semantic: TypeDeclarationSemantic): String2;
-  valueDeclaration(semantic: ValueDeclarationSemantic): String2;
-  statement(node: StatementNode): String2;
-  error(node: Node): String2;
+  type(semantic: TypeSemantic): Text;
+  value(semantic: ValueSemantic): Text;
+  typeDeclaration(semantic: TypeDeclarationSemantic): Text;
+  valueDeclaration(semantic: ValueDeclarationSemantic): Text;
+  statement(node: StatementNode): Text;
+  error(node: Node): Text;
 };
 
 export const $TypescriptTranslator = translatorPackageType('TypescriptTranslator', $Translator);
@@ -41,43 +41,42 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
     $: $TypescriptTranslator,
     diagnosticManager: createDiagnosticManager(semanticAnalyzer.resource),
 
-    type(semantic: TypeSemantic): String2 {
+    type(semantic: TypeSemantic): Text {
       return typeTypescriptTranslate(this, semantic);
     },
 
-    value(semantic: ValueSemantic): String2 {
+    value(semantic: ValueSemantic): Text {
       return valueTypescriptTranslate(this, semantic);
     },
 
-    typeDeclaration(semantic: TypeDeclarationSemantic): String2 {
+    typeDeclaration(semantic: TypeDeclarationSemantic): Text {
       return typeDeclarationTypescriptTranslate(this, semantic);
     },
 
-    valueDeclaration(semantic: ValueDeclarationSemantic): String2 {
+    valueDeclaration(semantic: ValueDeclarationSemantic): Text {
       return valueDeclarationTypescriptTranslate(this, semantic);
     },
 
-    statement(statement: StatementNode): String2 {
+    statement(statement: StatementNode): Text {
       return statementTypescriptTranslate(this, statement);
     },
 
-    error(node: Node): String2 {
+    error(node: Node): Text {
       this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
       const location = node.reference.resource.location;
       const basename = path.basename(location?.toNativeString() ?? '<code>');
       const line = node.reference.range.start.line + 1;
       const column = node.reference.range.start.column + 1;
 
-      return `/* error ${basename}:${line}:${column} */`;
+      return newText(`/* error ${basename}:${line}:${column} */`);
     },
 
-    translate(): String2 {
+    translate(): Text {
       const translatedStatements = semanticAnalyzer.statements
         .map((node) => this.statement(node))
-        .filter((translatedNode) => translatedNode.length > 0)
-        .toNativeArray();
+        .filter((translatedNode) => translatedNode.length() > 0);
 
-      return translatedStatements.join(NL.addLastItems(NL).toNativeString()) + NL.toNativeString();
+      return newText(translatedStatements, NL.addLastItems(NL)).addLastItems(NL);
     },
   };
 }

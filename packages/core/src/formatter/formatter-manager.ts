@@ -2,7 +2,7 @@ import {
   ArrayData,
   Boolean2,
   Nothing,
-  String2,
+  Text,
   TextResource,
   newArrayData,
   newText,
@@ -30,7 +30,7 @@ export type FormatterManager = {
   config: FormatterConfig;
 
   addItem(formatter: FormatterItem): void;
-  getFormattedText(): String2;
+  getFormattedText(): Text;
   formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
   formatStatementNode(statement: StatementNode, isFirstStatement: Boolean2): void;
   formatRemainingHiddenNodes(
@@ -38,9 +38,9 @@ export type FormatterManager = {
     lastStatement: StatementNode | Nothing,
     hiddenNodes: ArrayData<Node>,
   ): void;
-  formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): String2;
-  formatNlNode(node: NlNode | Nothing): String2;
-  isSameContent(hiddenNodes: ArrayData<Node>, text: String2): Boolean2;
+  formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text;
+  formatNlNode(node: NlNode | Nothing): Text;
+  isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2;
 };
 
 export function newFormatterManager(resource: TextResource, config: FormatterConfig): FormatterManager {
@@ -53,17 +53,17 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       this.items.addLastItem(formatter);
     },
 
-    getFormattedText(): String2 {
+    getFormattedText(): Text {
       let index = 0;
-      let formattedText = '';
+      let formattedText = newText();
       const formatters = this.items.sortBy((x) => x.range.start.index);
 
       for (const {range, text} of formatters) {
-        formattedText += this.resource.data.slice(index, range.start.index).toNativeString() + text;
+        formattedText.addLastItems(this.resource.data.slice(index, range.start.index)).addLastItems(text);
         index = range.stop.index;
       }
 
-      formattedText += this.resource.data.slice(index, this.resource.data.length()).toNativeString();
+      formattedText.addLastItems(this.resource.data.slice(index, this.resource.data.length()));
 
       return formattedText;
     },
@@ -73,7 +73,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         if (keepSingleSpace) {
           this.addItem({
             range: rangeFromPosition(node.reference.range.start),
-            text: ' ',
+            text: newText(' '),
           });
         }
 
@@ -87,7 +87,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         if (!keepSingleSpace) {
           this.addItem({
             range: whitespace.reference.range.clone(),
-            text: '',
+            text: newText(),
           });
 
           return;
@@ -99,7 +99,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
 
         this.addItem({
           range: whitespace.reference.range.clone(),
-          text: ' ',
+          text: newText(' '),
         });
 
         return;
@@ -128,11 +128,11 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
         let text = this.formatHiddenNodes(beforeNlHiddenNodes, false);
 
-        if (text.length > 0) {
+        if (text.length() > 0) {
           if (isFirstStatement) {
             text = text.trimStart();
-          } else if (text[0] !== NL.toNativeString()) {
-            text = ' ' + text;
+          } else if (!NL.equals(text.at2(0))) {
+            text = newText(' ').addLastItems(text);
           }
         }
 
@@ -158,13 +158,13 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
           ),
         )
         .addLastItems(newText(nonWhitespaceNodes.isEmpty() ? '' : ' '));
-      if (this.isSameContent(afterIndentHiddenNodes, text.toNativeString())) {
+      if (this.isSameContent(afterIndentHiddenNodes, text)) {
         return;
       }
 
       this.addItem({
         range: rangeFromNodes(afterIndentHiddenNodes),
-        text: text.toNativeString(),
+        text,
       });
     },
 
@@ -180,7 +180,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
 
         this.addItem({
           range: rangeFromPosition(lastStatement.reference.range.stop),
-          text: NL.toNativeString(),
+          text: NL,
         });
 
         return;
@@ -192,13 +192,13 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         text = text.trimStart();
       }
 
-      if (!statements.isEmpty() || text.length > 0) {
+      if (!statements.isEmpty() || text.length() > 0) {
         if (this.config.insertFinalNewline) {
-          text += NL.toNativeString();
+          text.addLastItems(NL);
         }
 
-        if (text[0] !== NL.toNativeString()) {
-          text = ' ' + text;
+        if (!NL.equals(text.at2(0))) {
+          text = newText(' ').addLastItems(text);
         }
       }
 
@@ -212,7 +212,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       });
     },
 
-    formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): String2 {
+    formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text {
       const splittedByNl = hiddenNodes
         .filter((x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode))
         .splitBy<NlNode>((x) => is(x, $NlNode));
@@ -230,25 +230,25 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       const text = newText(formatSplittedByNl);
 
       if (text.length() > 0 && isNoFirstChildNode) {
-        return ` ${text.toNativeString()} `;
+        return newText(` ${text.toNativeString()} `);
       }
 
-      return text.toNativeString();
+      return text;
     },
 
-    formatNlNode(node: NlNode | Nothing): String2 {
+    formatNlNode(node: NlNode | Nothing): Text {
       if (!node) {
-        return '';
+        return newText();
       }
 
       const nlCount = node.reference.range.stop.line - node.reference.range.start.line;
 
-      return NL.repeat(Math.min(nlCount, this.config.maxNewLines)).toNativeString();
+      return NL.repeat(Math.min(nlCount, this.config.maxNewLines));
     },
 
-    isSameContent(hiddenNodes: ArrayData<Node>, text: String2): Boolean2 {
+    isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2 {
       if (hiddenNodes.isEmpty()) {
-        return text.length === 0;
+        return text.isEmpty();
       }
 
       const startIndex = hiddenNodes.first()!.reference.range.start.index;

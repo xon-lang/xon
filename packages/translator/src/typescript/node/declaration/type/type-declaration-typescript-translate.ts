@@ -1,4 +1,4 @@
-import {String2} from '#common';
+import {newText, Text} from '#common';
 import {
   $FunctionTypeSemantic,
   $NominalTypeDeclarationSemantic,
@@ -12,7 +12,7 @@ import {is} from '#typing';
 export function typeDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,
   semantic: TypeDeclarationSemantic,
-): String2 {
+): Text {
   const exportText = true ? 'export ' : '';
 
   if (is(semantic, $NominalTypeDeclarationSemantic)) {
@@ -29,20 +29,20 @@ export function typeDeclarationTypescriptTranslate(
         ? ''
         : translator.type(semantic.baseType) + ' & ';
 
-    return `${exportText}type ${semantic.name}${parameters} = ${baseType}{}`;
+    return newText(`${exportText}type ${semantic.name}${parameters} = ${baseType}{}`);
   }
 
   if (is(semantic, $StructuralTypeDeclarationSemantic)) {
     const type = translator.type(semantic.type);
 
-    return `${exportText}type ${semantic.name} = ${type}`;
+    return newText(`${exportText}type ${semantic.name} = ${type}`);
   }
 
   if (is(semantic, $ParameterTypeDeclarationSemantic)) {
     const type = semantic.nodeLink.type ? ' extends ' + translator.type(semantic.type) : '';
     const value = semantic.value ? ' = ' + translator.type(semantic.value) : '';
 
-    return `${semantic.name}${type}${value}`;
+    return newText(`${semantic.name}${type}${value}`);
   }
 
   return translator.error(semantic.nodeLink);

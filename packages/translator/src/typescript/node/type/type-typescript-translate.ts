@@ -1,4 +1,4 @@
-import {String2} from '#common';
+import {newText, Text} from '#common';
 import {
   $ArrayTypeSemantic,
   $CharTypeSemantic,
@@ -15,31 +15,31 @@ import {
 import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 
-export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): String2 {
+export function typeTypescriptTranslate(translator: TypescriptTranslator, semantic: TypeSemantic): Text {
   if (is(semantic, $IntegerTypeSemantic)) {
-    return `${semantic.value}`;
+    return newText(`${semantic.value}`);
   }
 
   if (is(semantic, $CharTypeSemantic)) {
-    return `"${semantic.value}"`;
+    return newText(`"${semantic.value}"`);
   }
 
   if (is(semantic, $StringTypeSemantic)) {
-    return `"${semantic.value}"`;
+    return newText(`"${semantic.value}"`);
   }
 
   if (is(semantic, $UnionTypeSemantic)) {
     const left = translator.type(semantic.left);
     const right = translator.type(semantic.right);
 
-    return `${left} | ${right}`;
+    return newText(`${left} | ${right}`);
   }
 
   if (is(semantic, $IntersectionTypeSemantic)) {
     const left = translator.type(semantic.left);
     const right = translator.type(semantic.right);
 
-    return `${left} & ${right}`;
+    return newText(`${left} & ${right}`);
   }
 
   if (is(semantic, $IdTypeSemantic)) {
@@ -52,7 +52,7 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
       .toNativeArray()
       .join(', ');
 
-    return `[${items}]`;
+    return newText(`[${items}]`);
   }
 
   if (is(semantic, $FunctionTypeSemantic)) {
@@ -68,7 +68,7 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
       .join(', ');
     const result = translator.type(semantic.result);
 
-    return `(${parameters}) => ${result}`;
+    return newText(`(${parameters}) => ${result}`);
   }
 
   if (is(semantic, $InvokeTypeSemantic)) {
@@ -80,11 +80,11 @@ export function typeTypescriptTranslate(translator: TypescriptTranslator, semant
 
     // todo check whole semantic than an args length
     if (args.length > 0) {
-      return `${instance}<${args}>`;
+      return newText(`${instance}<${args}>`);
     }
 
     // todo fix it
-    return `${instance}[${args}]`;
+    return newText(`${instance.toNativeString()}[${args}]`);
   }
 
   return translator.error(semantic.nodeLink);

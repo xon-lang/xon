@@ -1,4 +1,4 @@
-import {Nothing, String2} from '#common';
+import {Nothing, Text} from '#common';
 import {
   $ValueSemantic,
   corePackageType,
@@ -9,7 +9,7 @@ import {
 } from '#core';
 
 export type IdValueSemantic = ValueSemantic & {
-  name: String2;
+  name: Text;
   declaration?: ValueDeclarationSemantic | Nothing;
 };
 
@@ -17,7 +17,7 @@ export const $IdValueSemantic = corePackageType<IdValueSemantic>('IdValueSemanti
 
 export function idValueSemantic(
   nodeLink: Node,
-  name: String2,
+  name: Text,
   declaration: ValueDeclarationSemantic | Nothing,
   type: TypeSemantic,
 ): IdValueSemantic {

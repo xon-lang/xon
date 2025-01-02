@@ -1,9 +1,9 @@
-import {String2} from '#common';
+import {Text} from '#common';
 import {translatorPackageType} from '#translator';
 import {Model} from '#typing';
 
 export type Translator = Model & {
-  translate(): String2;
+  translate(): Text;
 };
 
 export const $Translator = translatorPackageType('Translator');

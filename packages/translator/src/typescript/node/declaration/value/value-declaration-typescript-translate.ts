@@ -1,4 +1,4 @@
-import {String2} from '#common';
+import {newText, Text} from '#common';
 import {
   $AttributeValueDeclarationSemantic,
   $ParameterValueDeclarationSemantic,
@@ -10,19 +10,19 @@ import {is} from '#typing';
 export function valueDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,
   semantic: ValueDeclarationSemantic,
-): String2 {
+): Text {
   if (is(semantic, $AttributeValueDeclarationSemantic)) {
     const name = semantic.alternativeName;
     const type = translator.type(semantic.type);
 
-    return `${name.toNativeString()}: ${type}`;
+    return newText(`${name.toNativeString()}: ${type}`);
   }
 
   if (is(semantic, $ParameterValueDeclarationSemantic)) {
     const name = semantic.name;
     const type = translator.type(semantic.type);
 
-    return `${name.toNativeString()}: ${type}`;
+    return newText(`${name.toNativeString()}: ${type}`);
   }
 
   return translator.error(semantic.nodeLink);

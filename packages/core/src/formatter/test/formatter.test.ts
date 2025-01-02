@@ -30,7 +30,7 @@ function testFormatter(index: String2) {
   const syntax = syntaxFromResource(resource);
 
   const formattedText = syntax.formatterManager.getFormattedText();
-  writeFileSync(join(dirPath, 'formatted.xon'), formattedText);
+  writeFileSync(join(dirPath, 'formatted.xon'), formattedText.toNativeString());
 
   const etalonText = readFileSync(join(dirPath, 'etalon.xon')).toString();
 

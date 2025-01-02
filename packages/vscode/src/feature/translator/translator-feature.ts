@@ -1,6 +1,6 @@
 import {newText, newTextResource} from '#common';
-import { semanticFromResource } from '#core';
-import { newTypescriptTranslator } from '#translator';
+import {semanticFromResource} from '#core';
+import {newTypescriptTranslator} from '#translator';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -44,7 +44,7 @@ function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
     const destinationPath = path.resolve(dirname, filename);
     const result = translator.translate();
 
-    fs.writeFileSync(destinationPath, result);
+    fs.writeFileSync(destinationPath, result.toNativeString());
   } catch (error: any) {
     channel.appendLine(error?.toString());
   }
