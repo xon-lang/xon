@@ -1,6 +1,6 @@
-import {Anything, Integer, String2} from '#common';
+import {Anything, Integer, Text} from '#common';
 
-export function performanceTimer(name: String2) {
+export function performanceTimer(name: Text) {
   const start = performance.now();
 
   return {

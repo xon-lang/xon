@@ -1,14 +1,13 @@
-import {Boolean2, DirectoryFs, FileFs, Nothing, String2, Text, newText, nothing} from '#common';
+import {Boolean2, DirectoryFs, FileFs, Nothing, Text, newText, nothing} from '#common';
 import {Stats, lstatSync} from 'node:fs';
-import {homedir} from 'node:os';
-import {join, resolve} from 'node:path';
+import {resolve} from 'node:path';
 
 export class PathFs {
   fullPath: Text;
   stats: Stats | Nothing = nothing;
 
   constructor(public path: Text) {
-    this.fullPath = newText(this.resolve(path.toNativeString()));
+    this.fullPath = newText(this.resolve(path));
     this.setStats();
   }
 
@@ -28,12 +27,8 @@ export class PathFs {
     return this.stats?.isDirectory() ?? false;
   }
 
-  resolve(importPath: String2): String2 {
-    if (importPath[0] === '../..') {
-      return join(homedir(), importPath.slice(1));
-    }
-
-    return resolve(importPath);
+  resolve(importPath: Text): Text {
+    return newText(resolve(importPath.toNativeString()));
   }
 
   object(): FileFs | DirectoryFs {

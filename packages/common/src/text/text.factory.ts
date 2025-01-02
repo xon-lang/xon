@@ -9,7 +9,6 @@ import {
   Integer,
   Nothing,
   Number2,
-  String2,
   Text,
   TextRange,
   newArrayData,
@@ -22,10 +21,10 @@ const NL = newText('\n');
 
 export function newText(strings: ArrayData<Text>, separator?: Text | Nothing): Text;
 export function newText(characters: ArrayData<Char>): Text;
-export function newText(string: String2): Text;
+export function newText(string: string): Text;
 export function newText(): Text;
 export function newText(
-  value?: String2 | ArrayData<Char> | ArrayData<Text> | Nothing,
+  value?: string | ArrayData<Char> | ArrayData<Text> | Nothing,
   separator?: Text | Nothing,
 ): Text {
   let array: ArrayData<Char>;
@@ -201,7 +200,7 @@ export function newText(
       return newText(array.clone());
     },
 
-    equals(other: Char | ArrayData<Char> | String2): Boolean2 {
+    equals(other: Char | ArrayData<Char> | string): Boolean2 {
       if (typeof other === 'string') {
         return this.toNativeString() === other;
       }
@@ -210,14 +209,14 @@ export function newText(
         return this.toNativeString() === other.toNativeString();
       }
 
-      return this.toNativeString() === other._items.map(x=> x._string).join('');
+      return this.toNativeString() === other._items.map((x) => x._string).join('');
     },
 
     toString() {
       return this.toNativeString();
     },
 
-    toNativeString(): String2 {
+    toNativeString(): string {
       return this._items.map((x) => x.toNativeString()).join('');
     },
   };
