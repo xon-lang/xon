@@ -11,10 +11,6 @@ import {
 } from '#core';
 import {is} from '#typing';
 
-export function escapeToString<T>(value: T): Text {
-  return newText((typeof value === 'string' && `\`${value}\``) || String(value));
-}
-
 export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Something} = {}): Anything {
   if (!node) {
     return nothing;
@@ -59,4 +55,8 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
 
 function customEval(x: Text) {
   return (0, eval)(x.toNativeString());
+}
+
+function escapeToString<T>(value: T): Text {
+  return newText((typeof value === 'string' && `\`${value}\``) || String(value));
 }

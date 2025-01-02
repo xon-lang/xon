@@ -3,13 +3,13 @@ import {
   $InfixNode,
   $IntegerNode,
   $PrefixNode,
-  evaluate,
   IdNode,
   InfixNode,
   IntegerNode,
   PrefixNode,
   syntaxFromResource,
 } from '#core';
+import {evaluate} from '#interpreter';
 import {expect, test} from 'vitest';
 
 test('several operands with different priorities', () => {

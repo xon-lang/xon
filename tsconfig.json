@@ -30,6 +30,7 @@
       "#common": ["packages/common/*", "packages/common"],
       "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic"],
       "#core": ["packages/core/*", "packages/core"],
+      "#interpreter": ["packages/interpreter/*", "packages/interpreter"],
       "#translator": ["packages/translator/*", "packages/translator"],
       "#vscode": ["packages/vscode/*", "packages/vscode"],
       "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib"]

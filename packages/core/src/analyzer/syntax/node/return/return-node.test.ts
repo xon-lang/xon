@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
-import {$ReturnNode, RETURN, ReturnNode, evaluate, syntaxFromResource} from '#core';
+import {$ReturnNode, RETURN, ReturnNode, syntaxFromResource} from '#core';
+import {evaluate} from '#interpreter';
 import {expect, test} from 'vitest';
 
 test('with value', () => {

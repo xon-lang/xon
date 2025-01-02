@@ -1,5 +1,6 @@
 import {newText, newTextResource, nothing} from '#common';
-import {$PostfixNode, PostfixNode, evaluate, syntaxFromResource} from '#core';
+import {$PostfixNode, PostfixNode, syntaxFromResource} from '#core';
+import {evaluate} from '#interpreter';
 import {expect, test} from 'vitest';
 
 test('after integer', () => {

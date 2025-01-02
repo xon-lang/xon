@@ -187,4 +187,3 @@ export * from './src/analyzer/syntax/statement/statement-node';
 export * from './src/formatter/formatter-config';
 export * from './src/formatter/formatter-item';
 export * from './src/formatter/formatter-manager';
-export * from './src/interpreter/evaluate';

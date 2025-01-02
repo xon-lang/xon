@@ -5,12 +5,12 @@ import {
   $PrefixNode,
   $WhitespaceNode,
   DeclarationNode,
-  evaluate,
   LexicalNode,
   OperatorNode,
   PrefixNode,
   syntaxFromResource,
 } from '#core';
+import {evaluate} from '#interpreter';
 import {expect, test} from 'vitest';
 
 test('negative integer', () => {
