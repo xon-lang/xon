@@ -1,4 +1,4 @@
-import {Nothing, String2, TextReference, nothing} from '#common';
+import {Nothing, Text, TextReference, newText, nothing} from '#common';
 import {
   $DeclarationSemantic,
   $DocumentationIdSemantic,
@@ -36,7 +36,7 @@ class LanguageRenameProvider implements RenameProvider {
   provideRenameEdits(
     document: TextDocument,
     position: Position,
-    newName: String2,
+    newName: string,
     token: CancellationToken,
   ): ProviderResult<WorkspaceEdit> {
     const semantic = getDocumentSemantic(document, this.channel);
@@ -52,14 +52,14 @@ class LanguageRenameProvider implements RenameProvider {
       return nothing;
     }
 
-    return renameDeclarationAndUsages(declaration, declaration.name.toNativeString(), newName);
+    return renameDeclarationAndUsages(declaration, declaration.name, newText(newName));
   }
 
   prepareRename?(
     document: TextDocument,
     position: Position,
     token: CancellationToken,
-  ): ProviderResult<Range | {range: Range; placeholder: String2}> {
+  ): ProviderResult<Range | {range: Range; placeholder: string}> {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
@@ -91,8 +91,8 @@ function getDeclaration(semantic: Semantic): DeclarationSemantic | Nothing {
 
 function renameDeclarationAndUsages(
   declaration: DeclarationSemantic,
-  oldName: String2,
-  newName: String2,
+  oldName: Text,
+  newName: Text,
 ): WorkspaceEdit | Nothing {
   if (declaration.usages.isEmpty()) {
     return nothing;
@@ -110,8 +110,8 @@ function renameDeclarationAndUsages(
 function renameWithWorkspace(
   workspace: WorkspaceEdit,
   reference: TextReference,
-  oldName: String2,
-  newName: String2,
+  oldName: Text,
+  newName: Text,
 ): void {
   if (!reference.resource.location || !reference.rangeText().equals(oldName)) {
     return;
@@ -120,5 +120,5 @@ function renameWithWorkspace(
   const uri = Uri.parse(reference.resource.location.toNativeString());
   const range = convertRange(reference.range);
 
-  workspace.replace(uri, range, newName);
+  workspace.replace(uri, range, newName.toNativeString());
 }
