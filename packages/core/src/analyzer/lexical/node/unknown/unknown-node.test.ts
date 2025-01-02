@@ -29,8 +29,8 @@ test('unknown 2', () => {
   const node = statements.at(0)?.value as UnknownNode;
 
   expect(statements.length()).toBe(1);
-  expect(syntax.diagnosticManager.diagnostics.length).toBe(5);
-  const {start, stop} = syntax.diagnosticManager.diagnostics[0].reference.range;
+  expect(syntax.diagnosticManager.diagnostics.length()).toBe(5);
+  const {start, stop} = syntax.diagnosticManager.diagnostics.at2(0).reference.range;
   expect(resource.data.slice(start.index, stop.index).toNativeString()).toBe('º');
   expect(node.text.toNativeString()).toBe('º');
 });

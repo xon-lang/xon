@@ -1,4 +1,14 @@
-import {colorText, Integer, newText, Nothing, String2, TerminalColor, Text, TextReference} from '#common';
+import {
+  ArrayData,
+  colorText,
+  Integer,
+  newText,
+  Nothing,
+  String2,
+  TerminalColor,
+  Text,
+  TextReference,
+} from '#common';
 import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 
 export type AnalyzerDiagnosticMessage = {
@@ -12,7 +22,7 @@ export type AnalyzerDiagnostic = {
   severity: AnalyzerDiagnosticSeverity;
   message: AnalyzerDiagnosticMessage;
   code?: Integer | Nothing;
-  tags?: AnalyzerDiagnosticTag[] | Nothing;
+  tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing;
 
   terminalFormat(): String2;
 };
@@ -22,7 +32,7 @@ export function createDiagnostic(
   severity: AnalyzerDiagnosticSeverity,
   message: AnalyzerDiagnosticMessage,
   code?: Integer | Nothing,
-  tags?: AnalyzerDiagnosticTag[] | Nothing,
+  tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing,
 ): AnalyzerDiagnostic {
   return {
     reference,

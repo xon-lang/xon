@@ -25,10 +25,10 @@ test('several id', () => {
   expect(node.text.toNativeString()).toBe('abc');
   expect(node.$).toBe($IdNode);
 
-  expect(syntax.diagnosticManager.diagnostics.length).toBe(2);
+  expect(syntax.diagnosticManager.diagnostics.length()).toBe(2);
 
   const diagnosticMessage = predefinedDiagnostics(node.reference).unexpectedExpression().message;
 
-  expect(syntax.diagnosticManager.diagnostics[0].message.actual).toBe(diagnosticMessage.actual);
-  expect(syntax.diagnosticManager.diagnostics[1].message.actual).toBe(diagnosticMessage.actual);
+  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.actual).toBe(diagnosticMessage.actual);
+  expect(syntax.diagnosticManager.diagnostics.at(1)?.message.actual).toBe(diagnosticMessage.actual);
 });

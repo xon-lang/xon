@@ -1,4 +1,4 @@
-import {Integer, Nothing, TextRange, TextReference, TextResource} from '#common';
+import {ArrayData, Integer, newArrayData, Nothing, TextRange, TextReference, TextResource} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticMessage,
@@ -10,14 +10,14 @@ import {
 
 export type AnalyzerDiagnosticManager = {
   resource: TextResource;
-  diagnostics: AnalyzerDiagnostic[];
+  diagnostics: ArrayData<AnalyzerDiagnostic>;
 
   addDiagnostic(
     level: AnalyzerDiagnosticSeverity,
     range: TextRange,
     message: AnalyzerDiagnosticMessage,
     code?: Integer | Nothing,
-    tags?: AnalyzerDiagnosticTag[] | Nothing,
+    tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing,
   ): AnalyzerDiagnostic;
 
   addPredefinedDiagnostic(
@@ -30,7 +30,7 @@ export type AnalyzerDiagnosticManager = {
 
 export function createDiagnosticManager(
   resource: TextResource,
-  diagnostics: AnalyzerDiagnostic[] = [],
+  diagnostics = newArrayData<AnalyzerDiagnostic>(),
 ): AnalyzerDiagnosticManager {
   const manager: AnalyzerDiagnosticManager = {
     resource,
@@ -41,11 +41,11 @@ export function createDiagnosticManager(
       range: TextRange,
       message: AnalyzerDiagnosticMessage,
       code?: Integer | Nothing,
-      tags?: AnalyzerDiagnosticTag[] | Nothing,
+      tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing,
     ): AnalyzerDiagnostic {
       const reference = resource.reference(range);
       const diagnostic = createDiagnostic(reference, severity, message, code, tags);
-      this.diagnostics.push(diagnostic);
+      this.diagnostics.addLastItem(diagnostic);
 
       // this.log(diagnostic);
 
@@ -57,7 +57,7 @@ export function createDiagnosticManager(
       select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
     ): AnalyzerDiagnostic {
       const diagnostic = select(predefinedDiagnostics(reference));
-      this.diagnostics.push(diagnostic);
+      this.diagnostics.addLastItem(diagnostic);
 
       // this.log(diagnostic);
 

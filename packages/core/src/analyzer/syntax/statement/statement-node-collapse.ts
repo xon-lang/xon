@@ -54,7 +54,7 @@ export type SyntaxParseFn = (
   parentStatement: StatementNode | Nothing,
 ) => SyntaxParseResult;
 
-const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
+const parsers: ArrayData<{min: Integer; parse: SyntaxParseFn}> = newArrayData([
   {min: 2, parse: importNodeParse(IMPORT, false)},
   {min: 2, parse: memberNodeParse(newArrayData([MEMBER, META_MEMBER]))},
   {min: 2, parse: invokeNodeParse()},
@@ -76,7 +76,7 @@ const parsers: {min: Integer; parse: SyntaxParseFn}[] = [
   {min: 1, parse: lambdaNodeParse()},
   {min: 1, parse: declarationNodeParse()},
   {min: 3, parse: assignmentNodeParse()},
-];
+]);
 
 export function statementNodeCollapse(
   analyzer: SyntaxAnalyzer,

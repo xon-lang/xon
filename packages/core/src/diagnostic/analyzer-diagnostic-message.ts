@@ -1,4 +1,4 @@
-import {nothing, String2, Text, TextReference} from '#common';
+import {newArrayData, nothing, String2, Text, TextReference} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag, createDiagnostic} from '#core';
 
 export function predefinedDiagnostics(reference: TextReference) {
@@ -134,7 +134,7 @@ export function predefinedDiagnostics(reference: TextReference) {
           expect: nothing,
         },
         nothing,
-        [AnalyzerDiagnosticTag.UNNECESSARY],
+        newArrayData([AnalyzerDiagnosticTag.UNNECESSARY]),
       ),
 
     declarationAlreadyExists: (): AnalyzerDiagnostic =>

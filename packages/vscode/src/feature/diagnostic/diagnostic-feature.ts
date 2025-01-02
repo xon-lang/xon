@@ -1,3 +1,4 @@
+import {ArrayData, newArrayData} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#core';
 import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
@@ -45,11 +46,11 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
   const syntax = getDocumentSemantic(document, channel);
 
   diagnostics.clear();
-  diagnostics.set(document.uri, convertDiagnostic(syntax.diagnosticManager.diagnostics));
+  diagnostics.set(document.uri, convertDiagnostic(syntax.diagnosticManager.diagnostics).toNativeArray());
 }
 
-function convertDiagnostic(analyzerDiagnostics: AnalyzerDiagnostic[]): Diagnostic[] {
-  const diagnostics: Diagnostic[] = [];
+function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): ArrayData<Diagnostic> {
+  const diagnostics = newArrayData<Diagnostic>();
 
   for (const analyzerDiagnostic of analyzerDiagnostics) {
     const range = convertRange(analyzerDiagnostic.reference.range);
@@ -65,10 +66,10 @@ function convertDiagnostic(analyzerDiagnostics: AnalyzerDiagnostic[]): Diagnosti
     }
 
     if (analyzerDiagnostic.tags) {
-      diagnostic.tags = analyzerDiagnostic.tags.map(convertDiagnosticTag);
+      diagnostic.tags = analyzerDiagnostic.tags.map(convertDiagnosticTag).toNativeArray();
     }
 
-    diagnostics.push(diagnostic);
+    diagnostics.addLastItem(diagnostic);
   }
 
   return diagnostics;
