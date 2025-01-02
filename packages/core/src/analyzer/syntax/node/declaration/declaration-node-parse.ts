@@ -48,11 +48,11 @@ export function declarationNodeParse(): SyntaxParseFn {
     }
 
     if (parts.modifier) {
-      parts.modifier.hiddenNodes = newArrayData(parts.modifierHiddenNodes ?? []);
+      parts.modifier.hiddenNodes = parts.modifierHiddenNodes ?? newArrayData();
     }
 
     if (parts.id) {
-      parts.id.hiddenNodes = newArrayData(parts.idHiddenNodes ?? []);
+      parts.id.hiddenNodes = parts.idHiddenNodes ?? newArrayData();
     }
 
     return {
@@ -71,9 +71,9 @@ function getDeclarationParts(
   | {
       spliceIndex: Integer;
       deleteCount: Integer;
-      modifierHiddenNodes?: Node[] | Nothing;
+      modifierHiddenNodes?: ArrayData<Node> | Nothing;
       modifier?: OperatorNode | Nothing;
-      idHiddenNodes?: Node[] | Nothing;
+      idHiddenNodes?: ArrayData<Node> | Nothing;
       id: IdNode;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
@@ -148,10 +148,10 @@ function getHeader(
   node: Node | Nothing,
 ):
   | {
-      modifierHiddenNodes?: Node[] | Nothing;
+      modifierHiddenNodes?: ArrayData<Node> | Nothing;
       documentation?: DocumentationNode | Nothing;
       modifier?: OperatorNode | Nothing;
-      idHiddenNodes?: Node[] | Nothing;
+      idHiddenNodes?: ArrayData<Node> | Nothing;
       id: IdNode;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
@@ -167,7 +167,7 @@ function getHeader(
     }
 
     return {
-      modifierHiddenNodes: node.hiddenNodes?.toNativeArray(),
+      modifierHiddenNodes: node.hiddenNodes,
       documentation,
       modifier: node.operator,
       ...underModifier,
@@ -184,7 +184,7 @@ function getUnderModifier(
   node: Node | Nothing,
 ):
   | {
-      idHiddenNodes?: Node[] | Nothing;
+      idHiddenNodes?: ArrayData<Node> | Nothing;
       id: IdNode;
       generics?: GroupNode | Nothing;
       parameters?: GroupNode | Nothing;
@@ -195,7 +195,7 @@ function getUnderModifier(
   }
 
   if (is(node, $IdNode)) {
-    return {idHiddenNodes: node.hiddenNodes?.toNativeArray(), id: node};
+    return {idHiddenNodes: node.hiddenNodes, id: node};
   }
 
   if (is(node, $InvokeNode)) {
@@ -209,7 +209,7 @@ function getUnderModifier(
       parseDeclarations(analyzer, node.group);
 
       return {
-        idHiddenNodes: node.hiddenNodes?.toNativeArray(),
+        idHiddenNodes: node.hiddenNodes,
         id: node.instance.instance,
         generics: node.instance.group,
         parameters: node.group,
@@ -220,11 +220,11 @@ function getUnderModifier(
       parseDeclarations(analyzer, node.group);
 
       if (is(node.group, $AngleGroupNode)) {
-        return {idHiddenNodes: node.hiddenNodes?.toNativeArray(), id: node.instance, generics: node.group};
+        return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
       if (is(node.group, $ParenGroupNode)) {
-        return {idHiddenNodes: node.hiddenNodes?.toNativeArray(), id: node.instance, parameters: node.group};
+        return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
   }
