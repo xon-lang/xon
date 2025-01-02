@@ -1,4 +1,4 @@
-import {Nothing, Text, TextRange, TextReference, nothing, zeroRange} from '#common';
+import {ArrayData, Nothing, Text, TextRange, TextReference, newArrayData, nothing, zeroRange} from '#common';
 import {
   $DeclarationSemantic,
   $DocumentationIdSemantic,
@@ -46,14 +46,14 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     if (is(node.semantic, $ImportValueSemantic)) {
       if (node.semantic.resource?.location) {
-        return navigateToLocation(node.reference.range, node.semantic.resource.location);
+        return navigateToLocation(node.reference.range, node.semantic.resource.location)?.toNativeArray();
       }
 
       return nothing;
     }
 
     if (is(node.semantic, $DeclarationSemantic)) {
-      return navigateToUsages(node.reference.range, node.semantic);
+      return navigateToUsages(node.reference.range, node.semantic).toNativeArray();
     }
 
     if (is(node.semantic, $IdTypeSemantic)) {
@@ -61,11 +61,17 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return nothing;
       }
 
-      return navigateToReference(node.reference.range, node.semantic.declaration.nodeLink.reference);
+      return navigateToReference(
+        node.reference.range,
+        node.semantic.declaration.nodeLink.reference,
+      )?.toNativeArray();
     }
 
     if (is(node.semantic, $DocumentationIdSemantic)) {
-      return navigateToReference(node.reference.range, node.semantic.declaration.nodeLink.reference);
+      return navigateToReference(
+        node.reference.range,
+        node.semantic.declaration.nodeLink.reference,
+      )?.toNativeArray();
     }
 
     if (is(node.semantic, $ValueSemantic)) {
@@ -75,7 +81,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return nothing;
       }
 
-      return navigateToReference(node.reference.range, declaration.nodeLink.reference);
+      return navigateToReference(node.reference.range, declaration.nodeLink.reference)?.toNativeArray();
     }
 
     return nothing;
@@ -85,8 +91,8 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 function navigateToUsages(
   originalRange: TextRange,
   declaration: DeclarationSemantic,
-): ProviderResult<LocationLink[]> {
-  const links: LocationLink[] = [];
+): ArrayData<LocationLink> {
+  const links = newArrayData<LocationLink>();
 
   for (const usage of declaration.usages) {
     if (!usage.resource.location) {
@@ -102,7 +108,7 @@ function navigateToUsages(
       originSelectionRange: convertRange(originalRange),
     };
 
-    links.push(link);
+    links.addLastItem(link);
   }
 
   return links;
@@ -111,7 +117,7 @@ function navigateToUsages(
 function navigateToReference(
   originalRange: TextRange,
   reference: TextReference,
-): ProviderResult<LocationLink[]> {
+): ArrayData<LocationLink> | Nothing {
   if (!reference.resource.location) {
     return nothing;
   }
@@ -123,15 +129,15 @@ function navigateToLocation(
   originalRange: TextRange,
   location: Text,
   sourceRange?: TextRange | Nothing,
-): ProviderResult<LocationLink[]> {
+): ArrayData<LocationLink> | Nothing {
   const uri = Uri.parse(location.toNativeString());
   const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
 
-  return [
+  return newArrayData([
     {
       targetUri: uri,
       targetRange: range,
       originSelectionRange: convertRange(originalRange),
     },
-  ];
+  ]);
 }
