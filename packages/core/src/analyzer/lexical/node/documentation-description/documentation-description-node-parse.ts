@@ -15,7 +15,7 @@ export function documentationDescriptionNodeParse(
     analyzer.position.index,
   );
 
-  if (text.length() === 0) {
+  if (text.isEmpty()) {
     return nothing;
   }
 

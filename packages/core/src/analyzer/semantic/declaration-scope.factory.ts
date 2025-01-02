@@ -74,7 +74,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
     ): Exclude<V['type'], undefined> | Nothing {
       const declarations = this.filterByName(type, newText(name));
 
-      if (declarations.length() === 0) {
+      if (declarations.isEmpty()) {
         // analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
         //   x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
         // );

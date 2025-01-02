@@ -86,7 +86,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     first(predicate?: ((value: T, index: Integer, array: ArrayData<T>) => Boolean2) | Nothing): T | Nothing {
-      if (this.length() === 0) {
+      if (this.isEmpty()) {
         return nothing;
       }
 
@@ -106,7 +106,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     last(predicate?: ((value: T, index: Integer, array: ArrayData<T>) => Boolean2) | Nothing): T | Nothing {
-      if (this.length() === 0) {
+      if (this.isEmpty()) {
         return nothing;
       }
 
@@ -136,7 +136,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       predicate?: ((value: T, index: Integer) => Boolean2) | Nothing,
       startIndex?: Integer | Nothing,
     ): Integer {
-      if (this.length() === 0) {
+      if (this.isEmpty()) {
         return -1;
       }
 
@@ -176,7 +176,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       predicate?: (value: T, index: Integer) => Boolean2,
       startIndex?: Integer | Nothing,
     ): Integer | Nothing {
-      if (this.length() === 0) {
+      if (this.isEmpty()) {
         return nothing;
       }
 
