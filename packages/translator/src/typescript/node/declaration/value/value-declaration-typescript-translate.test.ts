@@ -6,7 +6,7 @@ import {expect, test} from 'vitest';
 test('type union', () => {
   const text = newText('a: Integer | String');
   const resource = newTextResource(nothing, text);
-  const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const semanticAnalyzer = semanticFromResource(resource, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements.at(0)?.value as DeclarationNode;
   const semantic = declaration.id.semantic as DeclarationSemantic;
   const translator = newTypescriptTranslator(semanticAnalyzer);
@@ -18,7 +18,7 @@ test('type union', () => {
 test('type function', () => {
   const text = newText('infix + (a: Integer, b: Integer): Integer');
   const resource = newTextResource(nothing, text);
-  const semanticAnalyzer = semanticFromResource(resource, nothing, TEST_SEMANTIC_CONFIG);
+  const semanticAnalyzer = semanticFromResource(resource, TEST_SEMANTIC_CONFIG);
   const declaration = semanticAnalyzer.statements.at(0)?.value as DeclarationNode;
   const semantic = declaration.id.semantic as DeclarationSemantic;
   const translator = newTypescriptTranslator(semanticAnalyzer);

@@ -29,7 +29,6 @@ export type FormatterManager = {
   addItem(formatter: FormatterItem): void;
   getFormattedText(): Text;
   formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
-  formatStatementNode(statement: StatementNode, isFirstStatement: Boolean2): void;
   formatRemainingHiddenNodes(
     statements: ArrayData<StatementNode>,
     lastStatement: StatementNode | Nothing,
@@ -42,7 +41,6 @@ export type FormatterManager = {
 
 const INSERT_FINAL_NEWLINE = true;
 const MAX_NEW_LINES = 2;
-const INDENT_SPACE_LENGTH = 2;
 
 export function newFormatterManager(resource: TextResource): FormatterManager {
   return {
@@ -114,57 +112,6 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
 
       this.addItem({
         range: rangeFromNodes(node.hiddenNodes),
-        text,
-      });
-    },
-
-    formatStatementNode(statement: StatementNode, isFirstStatement: Boolean2): void {
-      if (!statement.hiddenNodes || statement.hiddenNodes.isEmpty()) {
-        return;
-      }
-
-      const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode)) ?? -1;
-
-      if (lastNlIndex >= 0) {
-        const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
-        let text = this.formatHiddenNodes(beforeNlHiddenNodes, false);
-
-        if (text.count() > 0) {
-          if (isFirstStatement) {
-            text = text.trimStart();
-          } else if (!NL.equals(text.at2(0))) {
-            text = newText(' ').addLastItems(text);
-          }
-        }
-
-        if (!this.isSameContent(beforeNlHiddenNodes, text)) {
-          this.addItem({
-            range: rangeFromNodes(beforeNlHiddenNodes),
-            text,
-          });
-        }
-      }
-
-      const indentText = newText(' ').repeat(INDENT_SPACE_LENGTH * statement.indentLevel);
-      const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
-      const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
-        (x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode),
-      );
-
-      const text = indentText
-        .addLastItems(
-          newText(
-            nonWhitespaceNodes.map((x) => x.text),
-            newText(' '),
-          ),
-        )
-        .addLastItems(newText(nonWhitespaceNodes.isEmpty() ? '' : ' '));
-      if (this.isSameContent(afterIndentHiddenNodes, text)) {
-        return;
-      }
-
-      this.addItem({
-        range: rangeFromNodes(afterIndentHiddenNodes),
         text,
       });
     },

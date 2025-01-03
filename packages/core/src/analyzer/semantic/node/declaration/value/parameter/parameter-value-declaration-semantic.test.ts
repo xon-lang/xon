@@ -12,7 +12,7 @@ import {expect, test} from 'vitest';
 test('only a', () => {
   const text = newText('const a(p: Integer): String');
   const source = newTextResource(nothing, text);
-  const semantic = semanticFromResource(source, nothing, TEST_SEMANTIC_CONFIG);
+  const semantic = semanticFromResource(source, TEST_SEMANTIC_CONFIG);
 
   expect(semantic.declarationManager.count()).toBe(1);
 

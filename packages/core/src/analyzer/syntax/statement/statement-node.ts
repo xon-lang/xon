@@ -5,10 +5,24 @@ import {
   Nothing,
   TextRange,
   newArrayData,
+  newText,
   newTextReference,
   rangeFromNodes,
 } from '#common';
-import {$SyntaxNode, Node, SyntaxAnalyzer, SyntaxNode, corePackageType, statementNodeCollapse} from '#core';
+import {
+  $LexicalNode,
+  $NlNode,
+  $SyntaxNode,
+  $WhitespaceNode,
+  LexicalNode,
+  NL,
+  Node,
+  SyntaxAnalyzer,
+  SyntaxNode,
+  corePackageType,
+  statementNodeCollapse,
+} from '#core';
+import {is} from '#typing';
 
 export type StatementNode = SyntaxNode & {
   parent: StatementNode | Nothing;
@@ -57,8 +71,61 @@ export function statementNode(
   return statement;
 }
 
-export function format(analyzer: SyntaxAnalyzer, node: StatementNode, isFirstStatement: Boolean2): void {
-  analyzer.formatterManager.formatStatementNode(node, isFirstStatement);
+function format(
+  {formatterManager}: SyntaxAnalyzer,
+  statement: StatementNode,
+  isFirstStatement: Boolean2,
+): void {
+  const INDENT_SPACE_LENGTH = 2;
+
+  if (!statement.hiddenNodes || statement.hiddenNodes.isEmpty()) {
+    return;
+  }
+
+  const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode)) ?? -1;
+
+  if (lastNlIndex >= 0) {
+    const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
+    let text = formatterManager.formatHiddenNodes(beforeNlHiddenNodes, false);
+
+    if (text.count() > 0) {
+      if (isFirstStatement) {
+        text = text.trimStart();
+      } else if (!NL.equals(text.at2(0))) {
+        text = newText(' ').addLastItems(text);
+      }
+    }
+
+    if (!formatterManager.isSameContent(beforeNlHiddenNodes, text)) {
+      formatterManager.addItem({
+        range: rangeFromNodes(beforeNlHiddenNodes),
+        text,
+      });
+    }
+  }
+
+  const indentText = newText(' ').repeat(INDENT_SPACE_LENGTH * statement.indentLevel);
+  const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
+  const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
+    (x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode),
+  );
+
+  const text = indentText
+    .addLastItems(
+      newText(
+        nonWhitespaceNodes.map((x) => x.text),
+        newText(' '),
+      ),
+    )
+    .addLastItems(newText(nonWhitespaceNodes.isEmpty() ? '' : ' '));
+  if (formatterManager.isSameContent(afterIndentHiddenNodes, text)) {
+    return;
+  }
+
+  formatterManager.addItem({
+    range: rangeFromNodes(afterIndentHiddenNodes),
+    text,
+  });
 }
 
 export function constructStatementNode(

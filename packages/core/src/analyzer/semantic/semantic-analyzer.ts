@@ -9,7 +9,6 @@ import {
   StatementNode,
   statementsParse,
   SyntaxAnalyzer,
-  SyntaxAnalyzerConfig,
   syntaxFromResource,
 } from '#core';
 import {AnalyzerDiagnosticManager} from '#diagnostic';
@@ -68,10 +67,9 @@ export function createSemanticAnalyzer(
 
 export function semanticFromResource(
   resource: TextResource,
-  syntaxConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
   semanticConfig?: Partial<SemanticAnalyzerConfig> | Nothing,
 ): SemanticAnalyzer {
-  const syntaxAnalyzer = syntaxFromResource(resource, syntaxConfig);
+  const syntaxAnalyzer = syntaxFromResource(resource);
 
   return createSemanticAnalyzer(syntaxAnalyzer, semanticConfig);
 }
