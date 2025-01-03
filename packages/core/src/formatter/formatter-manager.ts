@@ -13,7 +13,6 @@ import {
   $LexicalNode,
   $NlNode,
   $WhitespaceNode,
-  FormatterConfig,
   FormatterItem,
   LexicalNode,
   NL,
@@ -26,7 +25,6 @@ import {is} from '#typing';
 export type FormatterManager = {
   resource: TextResource;
   items: ArrayData<FormatterItem>;
-  config: FormatterConfig;
 
   addItem(formatter: FormatterItem): void;
   getFormattedText(): Text;
@@ -42,10 +40,13 @@ export type FormatterManager = {
   isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2;
 };
 
-export function newFormatterManager(resource: TextResource, config: FormatterConfig): FormatterManager {
+const INSERT_FINAL_NEWLINE = true;
+const MAX_NEW_LINES = 2;
+const INDENT_SPACE_LENGTH = 2;
+
+export function newFormatterManager(resource: TextResource): FormatterManager {
   return {
     resource,
-    config,
     items: newArrayData(),
 
     addItem(formatter: FormatterItem): void {
@@ -144,7 +145,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
         }
       }
 
-      const indentText = newText(' ').repeat(this.config.indentSpaceLength * statement.indentLevel);
+      const indentText = newText(' ').repeat(INDENT_SPACE_LENGTH * statement.indentLevel);
       const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
       const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
         (x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode),
@@ -174,7 +175,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       hiddenNodes: ArrayData<Node>,
     ): void {
       if (hiddenNodes.isEmpty()) {
-        if (!lastStatement || !this.config.insertFinalNewline) {
+        if (!lastStatement || !INSERT_FINAL_NEWLINE) {
           return;
         }
 
@@ -193,7 +194,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
       }
 
       if (!statements.isEmpty() || text.count() > 0) {
-        if (this.config.insertFinalNewline) {
+        if (INSERT_FINAL_NEWLINE) {
           text.addLastItems(NL);
         }
 
@@ -243,7 +244,7 @@ export function newFormatterManager(resource: TextResource, config: FormatterCon
 
       const nlCount = node.reference.range.stop.line - node.reference.range.start.line;
 
-      return NL.repeat(Math.min(nlCount, this.config.maxNewLines));
+      return NL.repeat(Math.min(nlCount, MAX_NEW_LINES));
     },
 
     isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2 {

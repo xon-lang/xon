@@ -138,9 +138,8 @@ export * from './src/analyzer/semantic/node/value/string/string-value-semantic-p
 export * from './src/analyzer/semantic/node/value/string/string-value-semantic';
 export * from './src/analyzer/semantic/node/value/unknown/unknown-value-semantic';
 export * from './src/analyzer/syntax/put-statement-node';
-export * from './src/analyzer/syntax/syntax-analyzer-config';
 export * from './src/analyzer/syntax/syntax-analyzer.factory';
-export * from './src/analyzer/syntax/syntax-analyzer';
+export * from './src/analyzer/syntax/syntax-analyzer.model';
 export * from './src/analyzer/syntax/documentation/documentation-item-node';
 export * from './src/analyzer/syntax/documentation/documentation-node-parse';
 export * from './src/analyzer/syntax/documentation/documentation-node';
@@ -184,6 +183,5 @@ export * from './src/analyzer/syntax/node/string/string-node';
 export * from './src/analyzer/syntax/node/type/type-node';
 export * from './src/analyzer/syntax/statement/statement-node-collapse';
 export * from './src/analyzer/syntax/statement/statement-node';
-export * from './src/formatter/formatter-config';
 export * from './src/formatter/formatter-item';
 export * from './src/formatter/formatter-manager';

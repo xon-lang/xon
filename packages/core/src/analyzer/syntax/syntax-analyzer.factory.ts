@@ -21,7 +21,6 @@ import {
   $WhitespaceNode,
   charNodeParse,
   codeLexicalParsers,
-  DEFAULT_SYNTAX_ANALYZER_CONFIG,
   documentationNodeParse,
   groupNodeParse,
   integerNodeParse,
@@ -33,21 +32,15 @@ import {
   StatementNode,
   stringNodeParse,
   SyntaxAnalyzer,
-  SyntaxAnalyzerConfig,
 } from '#core';
 import {createDiagnosticManager} from '#diagnostic';
 import {is} from '#typing';
 
-export function newSyntaxAnalyzer(
-  lexicalAnalyzer: LexicalAnalyzer,
-  analyzerConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
-): SyntaxAnalyzer {
-  const config = {...DEFAULT_SYNTAX_ANALYZER_CONFIG(), ...analyzerConfig};
+export function newSyntaxAnalyzer(lexicalAnalyzer: LexicalAnalyzer): SyntaxAnalyzer {
   const diagnosticManager = createDiagnosticManager(lexicalAnalyzer.resource);
-  const formatterManager = newFormatterManager(lexicalAnalyzer.resource, config.formatting);
+  const formatterManager = newFormatterManager(lexicalAnalyzer.resource);
 
   const analyzer: SyntaxAnalyzer = {
-    config,
     resource: lexicalAnalyzer.resource,
     lexicalAnalyzer,
     diagnosticManager,
@@ -240,12 +233,9 @@ function getStatementIndent(nodes: ArrayData<Node>, hiddenNodes: ArrayData<Node>
   return nothing;
 }
 
-export function syntaxFromResource(
-  resource: TextResource,
-  syntaxConfig?: Partial<SyntaxAnalyzerConfig> | Nothing,
-): SyntaxAnalyzer {
+export function syntaxFromResource(resource: TextResource): SyntaxAnalyzer {
   const lexicalAnalyzer = newLexicalAnalyzer(resource);
-  const syntaxAnalyzer = newSyntaxAnalyzer(lexicalAnalyzer, syntaxConfig);
+  const syntaxAnalyzer = newSyntaxAnalyzer(lexicalAnalyzer);
 
   // todo fill semantic before return
   return syntaxAnalyzer;

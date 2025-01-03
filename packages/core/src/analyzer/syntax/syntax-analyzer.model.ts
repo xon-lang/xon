@@ -1,5 +1,5 @@
 import {ArrayData, Boolean2, Nothing, TextPosition, TextResource} from '#common';
-import {FormatterManager, LexicalAnalyzer, Node, StatementNode, SyntaxAnalyzerConfig} from '#core';
+import {FormatterManager, LexicalAnalyzer, Node, StatementNode} from '#core';
 import {AnalyzerDiagnosticManager} from '#diagnostic';
 
 export type SyntaxAnalyzer = {
@@ -7,7 +7,6 @@ export type SyntaxAnalyzer = {
   resource: TextResource;
   diagnosticManager: AnalyzerDiagnosticManager;
   formatterManager: FormatterManager;
-  config: SyntaxAnalyzerConfig;
   statements: ArrayData<StatementNode>;
   hiddenNodes: ArrayData<Node>;
 
