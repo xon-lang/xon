@@ -1,5 +1,10 @@
+import {
+  DeclarationNode,
+  semanticFromResource,
+  TEST_SEMANTIC_CONFIG,
+  ValueDeclarationSemantic,
+} from '#analyzer';
 import {newText, newTextResource, nothing} from '#common';
-import {DeclarationNode, semanticFromResource, TEST_SEMANTIC_CONFIG, ValueDeclarationSemantic} from '#core';
 import {newTypescriptTranslator} from '#translator';
 import {expect, test} from 'vitest';
 

@@ -1,4 +1,3 @@
-import { newText, Text } from '#common';
 import {
   $CharValueSemantic,
   $IdValueSemantic,
@@ -6,7 +5,8 @@ import {
   $MemberValueSemantic,
   $StringValueSemantic,
   ValueSemantic,
-} from '#core';
+} from '#analyzer';
+import {newText, Text} from '#common';
 import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 

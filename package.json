@@ -15,6 +15,6 @@
     "test": "vitest run",
     "dev": "tsc --noEmit --watch",
     "vscode:build": "rm -rf 'packages/vscode/dist' && esbuild 'packages/vscode/src/main.ts' --bundle --outfile='packages/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
-    "barrels": "barrelsby -qD -e dist -e .gen -e .test -d 'packages/typing' 'packages/common' 'packages/diagnostic' 'packages/core' 'packages/interpreter' 'packages/translator' 'packages/vscode' 'packages/xon-lib'"
+    "barrels": "barrelsby -qD -e dist -e .gen -e .test -d 'packages/typing' 'packages/common' 'packages/diagnostic' 'packages/analyzer' 'packages/interpreter' 'packages/translator' 'packages/vscode' 'packages/xon-lib'"
   }
 }

@@ -1,11 +1,11 @@
-import {newText, Text} from '#common';
 import {
   $FunctionTypeSemantic,
   $NominalTypeDeclarationSemantic,
   $ParameterTypeDeclarationSemantic,
   $StructuralTypeDeclarationSemantic,
   TypeDeclarationSemantic,
-} from '#core';
+} from '#analyzer';
+import {newText, Text} from '#common';
 import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 

@@ -1,5 +1,4 @@
 import {newArrayData} from '#common';
-import '#core';
 import {expect, test} from 'vitest';
 
 test('array minMax number', () => {

@@ -1,5 +1,5 @@
+import {$IdNode} from '#analyzer';
 import {changeTextCase, kebabCase, newText, nothing} from '#common';
-import {$IdNode} from '#core';
 import {is} from '#typing';
 import {
   EXTENSION_CONFIG,

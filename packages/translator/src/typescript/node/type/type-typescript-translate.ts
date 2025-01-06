@@ -1,4 +1,3 @@
-import {newText, Text} from '#common';
 import {
   $ArrayTypeSemantic,
   $CharTypeSemantic,
@@ -11,7 +10,8 @@ import {
   $UnionTypeSemantic,
   $ValueDeclarationSemantic,
   TypeSemantic,
-} from '#core';
+} from '#analyzer';
+import {newText, Text} from '#common';
 import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 

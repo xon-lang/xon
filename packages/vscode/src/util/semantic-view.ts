@@ -1,4 +1,3 @@
-import {newText, Nothing, nothing, Text} from '#common';
 import {
   $AttributeValueDeclarationSemantic,
   $FunctionTypeSemantic,
@@ -6,7 +5,8 @@ import {
   $NominalTypeDeclarationSemantic,
   DeclarationSemantic,
   TypeSemantic,
-} from '#core';
+} from '#analyzer';
+import {newText, Nothing, nothing, Text} from '#common';
 import {is} from '#typing';
 
 export function typeSemanticToString(semantic: TypeSemantic): Text | Nothing {

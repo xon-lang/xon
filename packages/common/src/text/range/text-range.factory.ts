@@ -1,3 +1,4 @@
+import {Node} from '#analyzer';
 import {
   $TextPosition,
   $TextRange,
@@ -8,7 +9,6 @@ import {
   newArrayData,
   newTextPosition,
 } from '#common';
-import {Node} from '#core';
 import {is} from '#typing';
 
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {

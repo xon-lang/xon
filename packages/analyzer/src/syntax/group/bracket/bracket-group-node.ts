@@ -1,0 +1,6 @@
+import {$GroupNode, corePackageType, GroupNode} from '#analyzer';
+import {Brand} from '#typing';
+
+export type BracketGroupNode = GroupNode & Brand<'Core.BracketGroupNode'>;
+
+export const $BracketGroupNode = corePackageType<BracketGroupNode>('BracketGroupNode', $GroupNode());

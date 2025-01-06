@@ -1,5 +1,4 @@
 import {newArrayData, nothing} from '#common';
-import '#core';
 import {expect, test} from 'vitest';
 
 test('split by', () => {

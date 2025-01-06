@@ -1,5 +1,5 @@
+import {syntaxFromResource} from '#analyzer';
 import {Anything, newText, performanceIterations, Text, textResourceFromLocation} from '#common';
-import {syntaxFromResource} from '#core';
 import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import {expect, test} from 'vitest';

@@ -1,5 +1,5 @@
+import {semanticFromResource} from '#analyzer';
 import {newText, newTextResource} from '#common';
-import {semanticFromResource} from '#core';
 import {newTypescriptTranslator} from '#translator';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
 import * as fs from 'node:fs';

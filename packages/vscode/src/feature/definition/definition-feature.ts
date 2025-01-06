@@ -1,4 +1,3 @@
-import {ArrayData, Nothing, Text, TextRange, TextReference, newArrayData, nothing, zeroRange} from '#common';
 import {
   $DeclarationSemantic,
   $DocumentationIdSemantic,
@@ -6,7 +5,8 @@ import {
   $ImportValueSemantic,
   $ValueSemantic,
   DeclarationSemantic,
-} from '#core';
+} from '#analyzer';
+import {ArrayData, Nothing, Text, TextRange, TextReference, newArrayData, nothing, zeroRange} from '#common';
 import {is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {

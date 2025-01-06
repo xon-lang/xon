@@ -11,7 +11,7 @@ export default defineConfig({
       '#typing': join(PROJECT_ROOT, 'packages/typing/index.ts'),
       '#common': join(PROJECT_ROOT, 'packages/common/index.ts'),
       '#diagnostic': join(PROJECT_ROOT, 'packages/diagnostic/index.ts'),
-      '#core': join(PROJECT_ROOT, 'packages/core/index.ts'),
+      '#analyzer': join(PROJECT_ROOT, 'packages/analyzer/index.ts'),
       '#interpreter': join(PROJECT_ROOT, 'packages/interpreter/index.ts'),
       '#translator': join(PROJECT_ROOT, 'packages/translator/index.ts'),
       '#vscode': join(PROJECT_ROOT, 'packages/vscode/index.ts'),

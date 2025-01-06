@@ -1,4 +1,4 @@
-import {$LexicalNode} from '#core';
+import {$LexicalNode} from '#analyzer';
 import {is} from '#typing';
 import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {

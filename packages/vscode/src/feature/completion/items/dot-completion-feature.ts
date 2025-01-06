@@ -1,4 +1,3 @@
-import {ArrayData, nothing, Nothing} from '#common';
 import {
   $FunctionTypeSemantic,
   $IdTypeSemantic,
@@ -7,7 +6,8 @@ import {
   $ValueSemantic,
   Semantic,
   ValueDeclarationSemantic,
-} from '#core';
+} from '#analyzer';
+import {ArrayData, nothing, Nothing} from '#common';
 import {is} from '#typing';
 import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {

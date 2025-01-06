@@ -1,9 +1,9 @@
-import {newText, Text} from '#common';
 import {
   $AttributeValueDeclarationSemantic,
   $ParameterValueDeclarationSemantic,
   ValueDeclarationSemantic,
-} from '#core';
+} from '#analyzer';
+import {newText, Text} from '#common';
 import {TypescriptTranslator} from '#translator';
 import {is} from '#typing';
 

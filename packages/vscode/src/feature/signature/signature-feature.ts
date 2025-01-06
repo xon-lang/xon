@@ -1,4 +1,3 @@
-import {Integer, nothing, Nothing} from '#common';
 import {
   $AttributeValueDeclarationSemantic,
   $CommaNode,
@@ -16,7 +15,8 @@ import {
   IdNode,
   InvokeNode,
   Node,
-} from '#core';
+} from '#analyzer';
+import {Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 import {
   convertVscodePosition,

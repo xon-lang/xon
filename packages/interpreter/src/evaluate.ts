@@ -1,4 +1,3 @@
-import {Anything, newText, Nothing, nothing, Something, Text} from '#common';
 import {
   $CharNode,
   $IdNode,
@@ -8,7 +7,8 @@ import {
   $PrefixNode,
   $StringNode,
   Node,
-} from '#core';
+} from '#analyzer';
+import {Anything, newText, Nothing, nothing, Something, Text} from '#common';
 import {is} from '#typing';
 
 export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Something} = {}): Anything {

@@ -1,4 +1,3 @@
-import {newText, Text} from '#common';
 import {
   NL,
   Node,
@@ -8,7 +7,8 @@ import {
   TypeSemantic,
   ValueDeclarationSemantic,
   ValueSemantic,
-} from '#core';
+} from '#analyzer';
+import {newText, Text} from '#common';
 import {AnalyzerDiagnosticManager, createDiagnosticManager} from '#diagnostic';
 import {
   $Translator,

@@ -29,7 +29,7 @@
       "#typing": ["packages/typing/*", "packages/typing"],
       "#common": ["packages/common/*", "packages/common"],
       "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic"],
-      "#core": ["packages/core/*", "packages/core"],
+      "#analyzer": ["packages/analyzer/*", "packages/analyzer"],
       "#interpreter": ["packages/interpreter/*", "packages/interpreter"],
       "#translator": ["packages/translator/*", "packages/translator"],
       "#vscode": ["packages/vscode/*", "packages/vscode"],

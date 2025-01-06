@@ -1,4 +1,3 @@
-import {Nothing, Text, TextReference, newText, nothing} from '#common';
 import {
   $DeclarationSemantic,
   $DocumentationIdSemantic,
@@ -7,7 +6,8 @@ import {
   $ValueSemantic,
   DeclarationSemantic,
   Semantic,
-} from '#core';
+} from '#analyzer';
+import {Nothing, Text, TextReference, newText, nothing} from '#common';
 import {is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
