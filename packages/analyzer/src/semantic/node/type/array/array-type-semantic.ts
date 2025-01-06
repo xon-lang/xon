@@ -46,7 +46,7 @@ export function arrayTypeSemantic(
       }
 
       if (is(other, $TypeDeclarationSemantic)) {
-        return this.declaration?.eq(other) || (this.declaration?.type?.is(other) ?? false);
+        return this.declaration?.equals(other) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;

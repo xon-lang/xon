@@ -36,7 +36,7 @@ export function attributeValueDeclarationSemantic(
     alternativeName: alternativeName(name),
     type: unknownTypeSemantic(analyzer, nodeLink),
 
-    eq(other: DeclarationSemantic): Boolean2 {
+    equals(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions
       if (this.nodeLink && other.nodeLink) {
         return this.nodeLink.reference.equals(other.nodeLink.reference);

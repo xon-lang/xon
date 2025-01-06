@@ -62,7 +62,7 @@ export function idTypeSemantic(
         is(other, $IdTypeSemantic) &&
         is(other.declaration, $NominalTypeDeclarationSemantic)
       ) {
-        return this.declaration.eq(other.declaration);
+        return this.declaration.equals(other.declaration);
       }
 
       return false;

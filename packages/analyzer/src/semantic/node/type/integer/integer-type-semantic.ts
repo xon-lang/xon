@@ -50,7 +50,7 @@ export function integerTypeSemantic(
       }
 
       if (is(other, $IdTypeSemantic) && other.declaration) {
-        return this.declaration?.eq(other.declaration) || (this.declaration?.type?.is(other) ?? false);
+        return this.declaration?.equals(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
       return false;
