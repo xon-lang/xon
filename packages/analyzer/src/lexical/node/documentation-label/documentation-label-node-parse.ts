@@ -7,7 +7,6 @@ export function documentationLabelNodeParse(analyzer: LexicalAnalyzer): Document
   }
 
   const text = analyzer.resource.data
-    // todo simplify it '.characters[i].isLetterOrDigit(0)'
     .takeWhile(
       (x, i) => AT.equals(x) || analyzer.resource.data.at2(i).isLetterOrDigit(),
       analyzer.position.index,

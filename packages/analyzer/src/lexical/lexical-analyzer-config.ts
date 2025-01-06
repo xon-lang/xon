@@ -41,7 +41,6 @@ export const BRACKET_CLOSE = newText(']');
 export const BRACE_OPEN = newText('{');
 export const BRACE_CLOSE = newText('}');
 
-// todo should we use '()' generics instead of '<::>' ???
 export const ANGLE_OPEN = newText('<:');
 export const ANGLE_CLOSE = newText(':>');
 

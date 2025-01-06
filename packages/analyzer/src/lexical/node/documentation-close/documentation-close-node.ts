@@ -2,7 +2,6 @@ import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#anal
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-// todo should we move 'DocumentationCloseNode' to open folder near other nodes ???
 export type DocumentationCloseNode = LexicalNode & Brand<'Core.DocumentationCloseNode'>;
 
 export const $DocumentationCloseNode = analyzerPackageType<DocumentationCloseNode>(
