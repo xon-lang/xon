@@ -11,7 +11,7 @@
         "${workspaceFolder}/packages/vscode/test"
       ],
       "outFiles": ["${workspaceFolder}/packages/vscode/dist/**/*.js"],
-      "preLaunchTask": "npm: vscode:debug"
+      "preLaunchTask": "npm: vscode:build"
     }
   ]
 }
