@@ -26,7 +26,7 @@ export * from './src/function/function-data.factory';
 export * from './src/function/function-data.model';
 export * from './src/key-value/key-value.factory';
 export * from './src/key-value/key-value.model';
-export * from './src/list/linked-list';
+export * from './src/list/linked/linked-list';
 export * from './src/list/unique/unique-list.factory';
 export * from './src/list/unique/unique-list.model';
 export * from './src/min-max/min-max.factory';
