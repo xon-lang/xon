@@ -32,7 +32,7 @@ export function functionTypeSemanticTryParse(
 
   const result = node.type
     ? typeSemanticParse(analyzer, node.type.value)
-    : // todo user another range than 'node'
+    : // todo use another range than 'node'
       unknownTypeSemantic(analyzer, node);
 
   const semantic = functionTypeSemantic(analyzer, node, parameters, result);
