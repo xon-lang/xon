@@ -9,7 +9,7 @@ import {
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
   newDeclarationScope,
 } from '#analyzer';
@@ -21,7 +21,7 @@ export type IntegerTypeSemantic = TypeSemantic & {
   value: Integer;
 };
 
-export const $IntegerTypeSemantic = corePackageType<IntegerTypeSemantic>(
+export const $IntegerTypeSemantic = analyzerPackageType<IntegerTypeSemantic>(
   'IntegerTypeSemantic',
   $TypeSemantic,
 );

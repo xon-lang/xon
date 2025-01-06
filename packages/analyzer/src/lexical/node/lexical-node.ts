@@ -1,11 +1,11 @@
-import {$Node, corePackageType, Node} from '#analyzer';
+import {$Node, analyzerPackageType, Node} from '#analyzer';
 import {Boolean2, Text} from '#common';
 
 export type LexicalNode = Node & {
   text: Text;
 };
 
-export const $LexicalNode = corePackageType<LexicalNode>('LexicalNode', $Node);
+export const $LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Node);
 
 export function lexicalNode<V extends Pick<LexicalNode, '$' | 'reference' | 'text'>>(
   params: V,

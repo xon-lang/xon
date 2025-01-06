@@ -1,4 +1,4 @@
-import {$ValueSemantic, corePackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
+import {$ValueSemantic, analyzerPackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
 import {Nothing, Text} from '#common';
 
 export type MemberValueSemantic = ValueSemantic & {
@@ -6,7 +6,7 @@ export type MemberValueSemantic = ValueSemantic & {
   name: Text | Nothing;
 };
 
-export const $MemberValueSemantic = corePackageType<MemberValueSemantic>(
+export const $MemberValueSemantic = analyzerPackageType<MemberValueSemantic>(
   'MemberValueSemantic',
   $ValueSemantic,
 );

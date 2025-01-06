@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   IdNode,
   PrefixNode,
   SyntaxAnalyzer,
@@ -13,7 +13,7 @@ export type AssignmentNode = SyntaxNode & {
   assign: PrefixNode;
 };
 
-export const $AssignmentNode = corePackageType<AssignmentNode>('AssignmentNode', $SyntaxNode);
+export const $AssignmentNode = analyzerPackageType<AssignmentNode>('AssignmentNode', $SyntaxNode);
 
 export function assignmentNode(analyzer: SyntaxAnalyzer, id: IdNode, assign: PrefixNode): AssignmentNode {
   const node = syntaxNode(analyzer, {$: $AssignmentNode, id, assign});

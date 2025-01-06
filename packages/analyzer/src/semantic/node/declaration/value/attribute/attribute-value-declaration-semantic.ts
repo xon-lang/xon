@@ -1,6 +1,6 @@
 import {
   $ValueDeclarationSemantic,
-  corePackageType,
+  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -14,7 +14,7 @@ export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
   alternativeName: Text;
 };
 
-export const $AttributeValueDeclarationSemantic = corePackageType<AttributeValueDeclarationSemantic>(
+export const $AttributeValueDeclarationSemantic = analyzerPackageType<AttributeValueDeclarationSemantic>(
   'AttributeValueDeclarationSemantic',
   $ValueDeclarationSemantic,
 );

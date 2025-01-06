@@ -1,4 +1,4 @@
-import {corePackageType, Semantic} from '#analyzer';
+import {analyzerPackageType, Semantic} from '#analyzer';
 import {ArrayData, Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
 import {Model} from '#typing';
 
@@ -12,7 +12,7 @@ export type Node = Model & {
   hiddenNodes?: ArrayData<Node> | Nothing;
 };
 
-export const $Node = corePackageType<Node>('Node');
+export const $Node = analyzerPackageType<Node>('Node');
 
 // todo move it out of node.ts
 export function nodeFindMap<T>(

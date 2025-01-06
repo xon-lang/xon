@@ -1,6 +1,6 @@
 import {
   $ValueSemantic,
-  corePackageType,
+  analyzerPackageType,
   Node,
   SemanticAnalyzer,
   UnknownTypeSemantic,
@@ -11,7 +11,7 @@ import {Brand} from '#typing';
 
 export type UnknownValueSemantic = ValueSemantic & Brand<'Core.UnknownValueSemantic'>;
 
-export const $UnknownValueSemantic = corePackageType<UnknownValueSemantic>(
+export const $UnknownValueSemantic = analyzerPackageType<UnknownValueSemantic>(
   'UnknownValueSemantic',
   $ValueSemantic,
 );

@@ -1,11 +1,11 @@
-import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#analyzer';
+import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 // todo should we move 'DocumentationCloseNode' to open folder near other nodes ???
 export type DocumentationCloseNode = LexicalNode & Brand<'Core.DocumentationCloseNode'>;
 
-export const $DocumentationCloseNode = corePackageType<DocumentationCloseNode>(
+export const $DocumentationCloseNode = analyzerPackageType<DocumentationCloseNode>(
   'DocumentationCloseNode',
   $LexicalNode,
 );

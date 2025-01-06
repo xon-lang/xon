@@ -6,8 +6,8 @@
 
 import {
   $SyntaxNode,
+  analyzerPackageType,
   AssignNode,
-  corePackageType,
   DocumentationNode,
   GroupNode,
   IdNode,
@@ -35,7 +35,7 @@ export type DeclarationNode = SyntaxNode & {
   attributes?: ArrayData<DeclarationNode> | Nothing;
 };
 
-export const $DeclarationNode = corePackageType<DeclarationNode>('DeclarationNode', $SyntaxNode);
+export const $DeclarationNode = analyzerPackageType<DeclarationNode>('DeclarationNode', $SyntaxNode);
 
 export function declarationNode(
   analyzer: SyntaxAnalyzer,

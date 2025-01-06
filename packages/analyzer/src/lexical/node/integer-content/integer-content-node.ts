@@ -1,10 +1,13 @@
-import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#analyzer';
+import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type IntegerContentNode = LexicalNode & Brand<'Core.IntegerContentNode'>;
 
-export const $IntegerContentNode = corePackageType<IntegerContentNode>('IntegerContentNode', $LexicalNode);
+export const $IntegerContentNode = analyzerPackageType<IntegerContentNode>(
+  'IntegerContentNode',
+  $LexicalNode,
+);
 
 export function integerContentNode(reference: TextReference, text: Text): IntegerContentNode {
   return lexicalNode({$: $IntegerContentNode, reference, text});

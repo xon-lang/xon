@@ -1,7 +1,7 @@
 import {
   $SyntaxNode,
+  analyzerPackageType,
   AT,
-  corePackageType,
   DocumentationDescriptionNode,
   DocumentationLabelNode,
   IdNode,
@@ -20,7 +20,7 @@ export type DocumentationItemNode = SyntaxNode & {
   description?: DocumentationDescriptionNode | Nothing;
 };
 
-export const $DocumentationItemNode = corePackageType<DocumentationItemNode>(
+export const $DocumentationItemNode = analyzerPackageType<DocumentationItemNode>(
   'DocumentationItemNode',
   $SyntaxNode,
 );

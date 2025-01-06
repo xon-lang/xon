@@ -9,7 +9,7 @@ import {
   ParameterValueDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
 } from '#analyzer';
 import {ArrayData, Boolean2} from '#common';
@@ -20,7 +20,7 @@ export type FunctionTypeSemantic = TypeSemantic & {
   result: TypeSemantic;
 };
 
-export const $FunctionTypeSemantic = corePackageType<FunctionTypeSemantic>(
+export const $FunctionTypeSemantic = analyzerPackageType<FunctionTypeSemantic>(
   'FunctionTypeSemantic',
   $TypeSemantic,
 );

@@ -1,6 +1,6 @@
 import {
   $ValueDeclarationSemantic,
-  corePackageType,
+  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -13,7 +13,7 @@ import {Brand} from '#typing';
 export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic &
   Brand<'Core.ParameterValueDeclarationSemantic'>;
 
-export const $ParameterValueDeclarationSemantic = corePackageType<ParameterValueDeclarationSemantic>(
+export const $ParameterValueDeclarationSemantic = analyzerPackageType<ParameterValueDeclarationSemantic>(
   'ParameterValueDeclarationSemantic',
   $ValueDeclarationSemantic,
 );

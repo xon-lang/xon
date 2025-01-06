@@ -1,4 +1,4 @@
-import {$Semantic, corePackageType, DeclarationNode, Semantic, TypeSemantic} from '#analyzer';
+import {$Semantic, analyzerPackageType, DeclarationNode, Semantic, TypeSemantic} from '#analyzer';
 import {ArrayData, Boolean2, Nothing, Text, TextReference} from '#common';
 
 export type DeclarationSemantic = Semantic & {
@@ -12,4 +12,7 @@ export type DeclarationSemantic = Semantic & {
   eq(other: DeclarationSemantic): Boolean2;
 };
 
-export const $DeclarationSemantic = corePackageType<DeclarationSemantic>('DeclarationSemantic', $Semantic);
+export const $DeclarationSemantic = analyzerPackageType<DeclarationSemantic>(
+  'DeclarationSemantic',
+  $Semantic,
+);

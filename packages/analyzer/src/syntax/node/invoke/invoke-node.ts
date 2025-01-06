@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   GroupNode,
   Node,
   SyntaxAnalyzer,
@@ -13,7 +13,7 @@ export type InvokeNode = SyntaxNode & {
   group: GroupNode;
 };
 
-export const $InvokeNode = corePackageType<InvokeNode>('InvokeNode', $SyntaxNode);
+export const $InvokeNode = analyzerPackageType<InvokeNode>('InvokeNode', $SyntaxNode);
 
 export function invokeNode(analyzer: SyntaxAnalyzer, instance: Node, group: GroupNode): InvokeNode {
   const node = syntaxNode(analyzer, {$: $InvokeNode, instance, group, isExpression: true});

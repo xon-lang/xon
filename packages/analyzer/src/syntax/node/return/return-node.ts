@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   Node,
   OperatorNode,
   SyntaxAnalyzer,
@@ -15,7 +15,7 @@ export type ReturnNode = SyntaxNode & {
   value?: Node | Nothing;
 };
 
-export const $ReturnNode = corePackageType<ReturnNode>('ReturnNode', $SyntaxNode);
+export const $ReturnNode = analyzerPackageType<ReturnNode>('ReturnNode', $SyntaxNode);
 
 export function returnNode(
   analyzer: SyntaxAnalyzer,

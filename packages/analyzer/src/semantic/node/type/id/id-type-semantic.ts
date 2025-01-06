@@ -8,7 +8,7 @@ import {
   SemanticAnalyzer,
   TypeDeclarationSemantic,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
   newDeclarationScope,
 } from '#analyzer';
@@ -19,7 +19,7 @@ export type IdTypeSemantic = TypeSemantic & {
   name: Text;
 };
 
-export const $IdTypeSemantic = corePackageType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic);
+export const $IdTypeSemantic = analyzerPackageType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic);
 
 // todo should we remove it ???
 export function idTypeSemantic(

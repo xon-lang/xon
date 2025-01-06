@@ -1,7 +1,7 @@
 import {
   $LexicalNode,
+  analyzerPackageType,
   CONTROL_KEYWORDS,
-  corePackageType,
   LexicalNode,
   lexicalNode,
   MODIFIER_KEYWORDS,
@@ -19,7 +19,7 @@ export enum KeywordType {
 // todo should be as OperatorContentNode ???
 export type OperatorNode = LexicalNode & Brand<'Core.OperatorNode'>;
 
-export const $OperatorNode = corePackageType<OperatorNode>('OperatorNode', $LexicalNode);
+export const $OperatorNode = analyzerPackageType<OperatorNode>('OperatorNode', $LexicalNode);
 
 export function operatorNode(reference: TextReference, text: Text): OperatorNode {
   return lexicalNode({$: $OperatorNode, reference, text});

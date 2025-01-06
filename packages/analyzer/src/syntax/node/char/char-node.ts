@@ -1,9 +1,9 @@
 import {
   $SyntaxNode,
+  analyzerPackageType,
   CharCloseNode,
   CharContentNode,
   CharOpenNode,
-  corePackageType,
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
@@ -18,7 +18,7 @@ export type CharNode = SyntaxNode & {
   close?: CharCloseNode | Nothing;
 };
 
-export const $CharNode = corePackageType<CharNode>('CharNode', $SyntaxNode);
+export const $CharNode = analyzerPackageType<CharNode>('CharNode', $SyntaxNode);
 
 export function charNode(
   analyzer: SyntaxAnalyzer,

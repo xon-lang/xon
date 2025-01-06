@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   StringCloseNode,
   StringContentNode,
   StringOpenNode,
@@ -18,7 +18,7 @@ export type StringNode = SyntaxNode & {
   close?: StringCloseNode | Nothing;
 };
 
-export const $StringNode = corePackageType<StringNode>('StringNode', $SyntaxNode);
+export const $StringNode = analyzerPackageType<StringNode>('StringNode', $SyntaxNode);
 
 export function stringNode(
   analyzer: SyntaxAnalyzer,

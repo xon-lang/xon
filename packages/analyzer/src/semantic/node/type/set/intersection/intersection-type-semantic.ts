@@ -1,7 +1,7 @@
 import {
   $SetTypeSemantic,
+  analyzerPackageType,
   AttributeValueDeclarationSemantic,
-  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
@@ -14,7 +14,7 @@ export type IntersectionTypeSemantic = SetTypeSemantic & {
   right: TypeSemantic;
 };
 
-export const $IntersectionTypeSemantic = corePackageType<IntersectionTypeSemantic>(
+export const $IntersectionTypeSemantic = analyzerPackageType<IntersectionTypeSemantic>(
   'IntersectionTypeSemantic',
   $SetTypeSemantic,
 );

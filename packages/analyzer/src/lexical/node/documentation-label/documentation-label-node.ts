@@ -1,4 +1,4 @@
-import {$LexicalNode, AT, corePackageType, LexicalNode, lexicalNode} from '#analyzer';
+import {$LexicalNode, analyzerPackageType, AT, LexicalNode, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 
 // make syntax node
@@ -6,7 +6,7 @@ export type DocumentationLabelNode = LexicalNode & {
   name: Text;
 };
 
-export const $DocumentationLabelNode = corePackageType<DocumentationLabelNode>(
+export const $DocumentationLabelNode = analyzerPackageType<DocumentationLabelNode>(
   'DocumentationLabelNode',
   $LexicalNode,
 );

@@ -9,7 +9,7 @@ import {
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
   newDeclarationScope,
 } from '#analyzer';
@@ -22,7 +22,7 @@ export type UnknownTypeSemantic = TypeSemantic & {
   declaration?: NominalTypeDeclarationSemantic | Nothing;
 };
 
-export const $UnknownTypeSemantic = corePackageType<UnknownTypeSemantic>(
+export const $UnknownTypeSemantic = analyzerPackageType<UnknownTypeSemantic>(
   'UnknownTypeSemantic',
   $TypeSemantic,
 );

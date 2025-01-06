@@ -6,7 +6,7 @@ import {
   Node,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
   newDeclarationScope,
 } from '#analyzer';
@@ -19,7 +19,10 @@ export type InvokeTypeSemantic = TypeSemantic & {
   args: ArrayData<TypeSemantic>;
 };
 
-export const $InvokeTypeSemantic = corePackageType<InvokeTypeSemantic>('InvokeTypeSemantic', $TypeSemantic);
+export const $InvokeTypeSemantic = analyzerPackageType<InvokeTypeSemantic>(
+  'InvokeTypeSemantic',
+  $TypeSemantic,
+);
 
 export function invokeTypeSemantic(
   analyzer: SemanticAnalyzer,

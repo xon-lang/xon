@@ -1,7 +1,7 @@
 import {
   $SetTypeSemantic,
+  analyzerPackageType,
   AttributeValueDeclarationSemantic,
-  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
@@ -14,7 +14,10 @@ export type UnionTypeSemantic = SetTypeSemantic & {
   right: TypeSemantic;
 };
 
-export const $UnionTypeSemantic = corePackageType<UnionTypeSemantic>('UnionTypeSemantic', $SetTypeSemantic);
+export const $UnionTypeSemantic = analyzerPackageType<UnionTypeSemantic>(
+  'UnionTypeSemantic',
+  $SetTypeSemantic,
+);
 
 export function unionTypeSemantic(
   nodeLink: Node,

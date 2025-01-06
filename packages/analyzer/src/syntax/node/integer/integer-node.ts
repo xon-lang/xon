@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   IntegerContentNode,
   SyntaxAnalyzer,
   SyntaxNode,
@@ -14,7 +14,7 @@ export type IntegerNode = SyntaxNode & {
   value: Number2;
 };
 
-export const $IntegerNode = corePackageType<IntegerNode>('IntegerNode', $SyntaxNode);
+export const $IntegerNode = analyzerPackageType<IntegerNode>('IntegerNode', $SyntaxNode);
 
 export function integerNode(analyzer: SyntaxAnalyzer, content: IntegerContentNode): IntegerNode {
   const value = Number(content.text.toNativeString().replaceAll('_', ''));

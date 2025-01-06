@@ -1,11 +1,11 @@
-import {$ValueSemantic, corePackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
+import {$ValueSemantic, analyzerPackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
 import {Nothing, Resource} from '#common';
 
 export type ImportValueSemantic = ValueSemantic & {
   resource: Resource | Nothing;
 };
 
-export const $ImportValueSemantic = corePackageType<ImportValueSemantic>(
+export const $ImportValueSemantic = analyzerPackageType<ImportValueSemantic>(
   'ImportValueSemantic',
   $ValueSemantic,
 );

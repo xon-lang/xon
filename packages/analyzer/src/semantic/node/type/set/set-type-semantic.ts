@@ -6,7 +6,7 @@ import {
   $RangeTypeSemantic,
   $TypeSemantic,
   $UnionTypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   TypeSemantic,
 } from '#analyzer';
 import {Boolean2} from '#common';
@@ -14,7 +14,7 @@ import {Brand, is} from '#typing';
 
 export type SetTypeSemantic = TypeSemantic & Brand<'Core.SetTypeSemantic'>;
 
-export const $SetTypeSemantic = corePackageType<SetTypeSemantic>('SetTypeSemantic', $TypeSemantic);
+export const $SetTypeSemantic = analyzerPackageType<SetTypeSemantic>('SetTypeSemantic', $TypeSemantic);
 
 export function isInSet(type: TypeSemantic, setType: SetTypeSemantic): Boolean2 {
   if (is(setType, $IntersectionTypeSemantic)) {

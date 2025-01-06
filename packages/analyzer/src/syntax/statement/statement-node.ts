@@ -8,7 +8,7 @@ import {
   Node,
   SyntaxAnalyzer,
   SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   statementNodeCollapse,
 } from '#analyzer';
 import {
@@ -32,7 +32,7 @@ export type StatementNode = SyntaxNode & {
   body: ArrayData<StatementNode>;
 };
 
-export const $StatementNode = corePackageType<StatementNode>('StatementNode', $SyntaxNode);
+export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode', $SyntaxNode);
 
 export function statementNode(
   analyzer: SyntaxAnalyzer,

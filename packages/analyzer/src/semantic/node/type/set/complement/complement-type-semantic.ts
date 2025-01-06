@@ -1,7 +1,7 @@
 import {
   $SetTypeSemantic,
+  analyzerPackageType,
   AttributeValueDeclarationSemantic,
-  corePackageType,
   DeclarationScope,
   Node,
   SetTypeSemantic,
@@ -14,7 +14,7 @@ export type ComplementTypeSemantic = SetTypeSemantic & {
   right: TypeSemantic;
 };
 
-export const $ComplementTypeSemantic = corePackageType<ComplementTypeSemantic>(
+export const $ComplementTypeSemantic = analyzerPackageType<ComplementTypeSemantic>(
   'ComplementTypeSemantic',
   $SetTypeSemantic,
 );

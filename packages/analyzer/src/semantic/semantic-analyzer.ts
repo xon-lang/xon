@@ -1,5 +1,5 @@
 import {
-  corePackageType,
+  analyzerPackageType,
   declarationManagerFromImportString,
   DeclarationScope,
   DEFAULT_SEMANTIC_CONFIG,
@@ -26,7 +26,7 @@ export type SemanticAnalyzer = Model & {
   popDeclarationScope(): void;
 };
 
-export const $SemanticAnalyzer = corePackageType<SemanticAnalyzer>('SemanticAnalyzer');
+export const $SemanticAnalyzer = analyzerPackageType<SemanticAnalyzer>('SemanticAnalyzer');
 
 export function createSemanticAnalyzer(
   syntaxAnalyzer: SyntaxAnalyzer,

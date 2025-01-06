@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
   DocumentationItemNode,
@@ -18,7 +18,7 @@ export type DocumentationNode = SyntaxNode & {
   close?: DocumentationCloseNode | Nothing;
 };
 
-export const $DocumentationNode = corePackageType<DocumentationNode>('DocumentationNode', $SyntaxNode);
+export const $DocumentationNode = analyzerPackageType<DocumentationNode>('DocumentationNode', $SyntaxNode);
 
 export function documentationNode(
   analyzer: SyntaxAnalyzer,

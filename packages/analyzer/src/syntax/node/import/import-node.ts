@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   OperatorNode,
   StringNode,
   SyntaxAnalyzer,
@@ -14,7 +14,7 @@ export type ImportNode = SyntaxNode & {
   value: StringNode | Nothing;
 };
 
-export const $ImportNode = corePackageType<ImportNode>('ImportNode', $SyntaxNode);
+export const $ImportNode = analyzerPackageType<ImportNode>('ImportNode', $SyntaxNode);
 
 export function importNode(
   analyzer: SyntaxAnalyzer,

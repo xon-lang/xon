@@ -1,7 +1,7 @@
 import {
   $SyntaxNode,
+  analyzerPackageType,
   ASSIGN,
-  corePackageType,
   Node,
   OperatorNode,
   SyntaxAnalyzer,
@@ -15,7 +15,7 @@ export type PrefixNode = SyntaxNode & {
   value: Node;
 };
 
-export const $PrefixNode = corePackageType<PrefixNode>('PrefixNode', $SyntaxNode);
+export const $PrefixNode = analyzerPackageType<PrefixNode>('PrefixNode', $SyntaxNode);
 
 export function prefixNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: Node): PrefixNode {
   const node = syntaxNode(analyzer, {$: $PrefixNode, operator, value, isExpression: true});

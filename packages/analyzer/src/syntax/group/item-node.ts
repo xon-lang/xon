@@ -1,7 +1,7 @@
 import {
   $SyntaxNode,
+  analyzerPackageType,
   CommaNode,
-  corePackageType,
   Node,
   StatementNode,
   SyntaxAnalyzer,
@@ -16,7 +16,7 @@ export type ItemNode = SyntaxNode & {
   statements: ArrayData<StatementNode>;
 };
 
-export const $ItemNode = corePackageType<ItemNode>('ItemNode', $SyntaxNode);
+export const $ItemNode = analyzerPackageType<ItemNode>('ItemNode', $SyntaxNode);
 
 export function itemNode(
   analyzer: SyntaxAnalyzer,

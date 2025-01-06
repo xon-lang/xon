@@ -1,10 +1,10 @@
-import {$ValueSemantic, corePackageType, Node, StringTypeSemantic, ValueSemantic} from '#analyzer';
+import {$ValueSemantic, analyzerPackageType, Node, StringTypeSemantic, ValueSemantic} from '#analyzer';
 
 export type StringValueSemantic = ValueSemantic & {
   type: StringTypeSemantic;
 };
 
-export const $StringValueSemantic = corePackageType<StringValueSemantic>(
+export const $StringValueSemantic = analyzerPackageType<StringValueSemantic>(
   'StringValueSemantic',
   $ValueSemantic,
 );

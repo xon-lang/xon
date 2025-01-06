@@ -1,6 +1,6 @@
 import {
   $TypeDeclarationSemantic,
-  corePackageType,
+  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -13,7 +13,7 @@ import {Brand} from '#typing';
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic &
   Brand<'Core.StructuralTypeDeclarationSemantic'>;
 
-export const $StructuralTypeDeclarationSemantic = corePackageType<StructuralTypeDeclarationSemantic>(
+export const $StructuralTypeDeclarationSemantic = analyzerPackageType<StructuralTypeDeclarationSemantic>(
   'StructuralTypeDeclarationSemantic',
   $TypeDeclarationSemantic,
 );

@@ -1,9 +1,9 @@
-import {$DeclarationSemantic, corePackageType, DeclarationSemantic} from '#analyzer';
+import {$DeclarationSemantic, analyzerPackageType, DeclarationSemantic} from '#analyzer';
 import {Brand} from '#typing';
 
 export type ValueDeclarationSemantic = DeclarationSemantic & Brand<'Core.ValueDeclarationSemantic'>;
 
-export const $ValueDeclarationSemantic = corePackageType<ValueDeclarationSemantic>(
+export const $ValueDeclarationSemantic = analyzerPackageType<ValueDeclarationSemantic>(
   'ValueDeclarationSemantic',
   $DeclarationSemantic,
 );

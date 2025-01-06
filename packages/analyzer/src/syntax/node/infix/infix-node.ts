@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   Node,
   OperatorNode,
   RANGE,
@@ -15,7 +15,7 @@ export type InfixNode = SyntaxNode & {
   right: Node;
 };
 
-export const $InfixNode = corePackageType<InfixNode>('InfixNode', $SyntaxNode);
+export const $InfixNode = analyzerPackageType<InfixNode>('InfixNode', $SyntaxNode);
 
 export function infixNode(
   analyzer: SyntaxAnalyzer,

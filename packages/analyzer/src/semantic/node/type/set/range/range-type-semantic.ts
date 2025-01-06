@@ -7,7 +7,7 @@ import {
   NominalTypeDeclarationSemantic,
   SetTypeSemantic,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
 } from '#analyzer';
 import {Boolean2, Nothing} from '#common';
@@ -20,7 +20,10 @@ export type RangeTypeSemantic = SetTypeSemantic & {
   step: TypeSemantic | Nothing;
 };
 
-export const $RangeTypeSemantic = corePackageType<RangeTypeSemantic>('RangeTypeSemantic', $SetTypeSemantic);
+export const $RangeTypeSemantic = analyzerPackageType<RangeTypeSemantic>(
+  'RangeTypeSemantic',
+  $SetTypeSemantic,
+);
 
 export function rangeTypeSemantic(
   nodeLink: Node,

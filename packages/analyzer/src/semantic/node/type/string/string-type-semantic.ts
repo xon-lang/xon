@@ -9,7 +9,7 @@ import {
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
   newDeclarationScope,
 } from '#analyzer';
@@ -21,7 +21,10 @@ export type StringTypeSemantic = TypeSemantic & {
   value: Text;
 };
 
-export const $StringTypeSemantic = corePackageType<StringTypeSemantic>('StringTypeSemantic', $TypeSemantic);
+export const $StringTypeSemantic = analyzerPackageType<StringTypeSemantic>(
+  'StringTypeSemantic',
+  $TypeSemantic,
+);
 
 export function stringTypeSemantic(
   analyzer: SemanticAnalyzer,

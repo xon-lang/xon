@@ -1,6 +1,6 @@
 import {
   $ValueSemantic,
-  corePackageType,
+  analyzerPackageType,
   Node,
   TypeSemantic,
   ValueDeclarationSemantic,
@@ -13,7 +13,7 @@ export type IdValueSemantic = ValueSemantic & {
   declaration?: ValueDeclarationSemantic | Nothing;
 };
 
-export const $IdValueSemantic = corePackageType<IdValueSemantic>('IdValueSemantic', $ValueSemantic);
+export const $IdValueSemantic = analyzerPackageType<IdValueSemantic>('IdValueSemantic', $ValueSemantic);
 
 export function idValueSemantic(
   nodeLink: Node,

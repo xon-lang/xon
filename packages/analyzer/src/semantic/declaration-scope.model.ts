@@ -1,4 +1,4 @@
-import {corePackageType, DeclarationSemantic, TypeSemantic} from '#analyzer';
+import {analyzerPackageType, DeclarationSemantic, TypeSemantic} from '#analyzer';
 import {ArrayData, Dictionary, Integer, Nothing, Text} from '#common';
 import {$Type, Model} from '#typing';
 
@@ -27,4 +27,4 @@ export type DeclarationScope<T extends DeclarationSemantic = DeclarationSemantic
   complement(other: DeclarationScope<T>): DeclarationScope<T>;
 };
 
-export const $DeclarationScope = corePackageType<DeclarationScope>('DeclarationScope');
+export const $DeclarationScope = analyzerPackageType<DeclarationScope>('DeclarationScope');

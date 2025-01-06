@@ -1,6 +1,6 @@
 import {
   $TypeDeclarationSemantic,
-  corePackageType,
+  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -14,7 +14,7 @@ export type ParameterTypeDeclarationSemantic = TypeDeclarationSemantic & {
   value?: TypeSemantic | Nothing;
 };
 
-export const $ParameterTypeDeclarationSemantic = corePackageType<ParameterTypeDeclarationSemantic>(
+export const $ParameterTypeDeclarationSemantic = analyzerPackageType<ParameterTypeDeclarationSemantic>(
   'ParameterTypeDeclarationSemantic',
   $TypeDeclarationSemantic,
 );

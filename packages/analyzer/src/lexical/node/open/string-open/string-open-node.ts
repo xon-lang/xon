@@ -1,10 +1,10 @@
-import {$OpenNode, OpenNode, corePackageType, lexicalNode} from '#analyzer';
+import {$OpenNode, OpenNode, analyzerPackageType, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type StringOpenNode = OpenNode & Brand<'Core.StringOpenNode'>;
 
-export const $StringOpenNode = corePackageType<StringOpenNode>('StringOpenNode', $OpenNode);
+export const $StringOpenNode = analyzerPackageType<StringOpenNode>('StringOpenNode', $OpenNode);
 
 export function stringOpenNode(reference: TextReference, text: Text): StringOpenNode {
   return lexicalNode({$: $StringOpenNode, reference, text});

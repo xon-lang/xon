@@ -1,7 +1,7 @@
 import {
   $TypeDeclarationSemantic,
+  analyzerPackageType,
   AttributeValueDeclarationSemantic,
-  corePackageType,
   DeclarationNode,
   DeclarationScope,
   DeclarationSemantic,
@@ -19,7 +19,7 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
 };
 
-export const $NominalTypeDeclarationSemantic = corePackageType<NominalTypeDeclarationSemantic>(
+export const $NominalTypeDeclarationSemantic = analyzerPackageType<NominalTypeDeclarationSemantic>(
   'NominalTypeDeclarationSemantic',
   $TypeDeclarationSemantic,
 );

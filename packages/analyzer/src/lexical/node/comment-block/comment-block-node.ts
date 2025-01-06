@@ -1,8 +1,8 @@
 import {
   $LexicalNode,
+  analyzerPackageType,
   COMMENT_BLOCK_CLOSE,
   COMMENT_BLOCK_OPEN,
-  corePackageType,
   LexicalNode,
   lexicalNode,
 } from '#analyzer';
@@ -12,7 +12,7 @@ export type CommentBlockNode = LexicalNode & {
   value: Text;
 };
 
-export const $CommentBlockNode = corePackageType<CommentBlockNode>('CommentBlockNode', $LexicalNode);
+export const $CommentBlockNode = analyzerPackageType<CommentBlockNode>('CommentBlockNode', $LexicalNode);
 
 export function commentBlockNode(reference: TextReference, text: Text): CommentBlockNode {
   let value: Text;

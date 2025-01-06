@@ -1,6 +1,6 @@
 import {
   $SyntaxNode,
-  corePackageType,
+  analyzerPackageType,
   IdNode,
   Node,
   OperatorNode,
@@ -16,7 +16,7 @@ export type MemberNode = SyntaxNode & {
   id: IdNode | Nothing;
 };
 
-export const $MemberNode = corePackageType<MemberNode>('MemberNode', $SyntaxNode);
+export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', $SyntaxNode);
 
 export function memberNode(
   analyzer: SyntaxAnalyzer,

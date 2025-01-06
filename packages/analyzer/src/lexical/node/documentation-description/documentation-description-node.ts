@@ -1,10 +1,10 @@
-import {$LexicalNode, corePackageType, LexicalNode, lexicalNode} from '#analyzer';
+import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type DocumentationDescriptionNode = LexicalNode & Brand<'Core.DocumentationDescriptionNode'>;
 
-export const $DocumentationDescriptionNode = corePackageType<DocumentationDescriptionNode>(
+export const $DocumentationDescriptionNode = analyzerPackageType<DocumentationDescriptionNode>(
   'DocumentationDescriptionNode',
   $LexicalNode,
 );

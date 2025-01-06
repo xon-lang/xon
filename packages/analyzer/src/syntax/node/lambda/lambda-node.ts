@@ -1,7 +1,7 @@
 import {
   $SyntaxNode,
+  analyzerPackageType,
   AssignNode,
-  corePackageType,
   GroupNode,
   SyntaxAnalyzer,
   SyntaxNode,
@@ -17,7 +17,7 @@ export type LambdaNode = SyntaxNode & {
   assign: AssignNode | Nothing;
 };
 
-export const $LambdaNode = corePackageType<LambdaNode>('LambdaNode', $SyntaxNode);
+export const $LambdaNode = analyzerPackageType<LambdaNode>('LambdaNode', $SyntaxNode);
 
 export function lambdaNode(
   analyzer: SyntaxAnalyzer,

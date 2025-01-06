@@ -1,4 +1,4 @@
-import {$Node, CloseNode, corePackageType, ItemNode, OpenNode, SyntaxNode} from '#analyzer';
+import {$Node, analyzerPackageType, CloseNode, ItemNode, OpenNode, SyntaxNode} from '#analyzer';
 import {ArrayData, Nothing} from '#common';
 
 export type GroupNode = SyntaxNode & {
@@ -9,4 +9,4 @@ export type GroupNode = SyntaxNode & {
 
 // todo remove 'lambda' and use as simple object
 export const $GroupNode = () =>
-  corePackageType<GroupNode>('GroupNode', corePackageType<SyntaxNode>('SyntaxNode', $Node));
+  analyzerPackageType<GroupNode>('GroupNode', analyzerPackageType<SyntaxNode>('SyntaxNode', $Node));

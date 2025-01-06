@@ -1,10 +1,10 @@
-import {$ValueSemantic, corePackageType, IntegerTypeSemantic, Node, ValueSemantic} from '#analyzer';
+import {$ValueSemantic, analyzerPackageType, IntegerTypeSemantic, Node, ValueSemantic} from '#analyzer';
 
 export type IntegerValueSemantic = ValueSemantic & {
   type: IntegerTypeSemantic;
 };
 
-export const $IntegerValueSemantic = corePackageType<IntegerValueSemantic>(
+export const $IntegerValueSemantic = analyzerPackageType<IntegerValueSemantic>(
   'IntegerValueSemantic',
   $ValueSemantic,
 );

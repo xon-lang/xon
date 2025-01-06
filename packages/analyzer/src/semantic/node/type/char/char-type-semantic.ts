@@ -9,7 +9,7 @@ import {
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
   newDeclarationScope,
 } from '#analyzer';
@@ -21,7 +21,7 @@ export type CharTypeSemantic = TypeSemantic & {
   value: Char;
 };
 
-export const $CharTypeSemantic = corePackageType<CharTypeSemantic>('CharTypeSemantic', $TypeSemantic);
+export const $CharTypeSemantic = analyzerPackageType<CharTypeSemantic>('CharTypeSemantic', $TypeSemantic);
 
 export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
   return {

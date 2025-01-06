@@ -1,10 +1,17 @@
-import {$Semantic, corePackageType, DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#analyzer';
+import {
+  $Semantic,
+  analyzerPackageType,
+  DeclarationSemantic,
+  Node,
+  Semantic,
+  SemanticAnalyzer,
+} from '#analyzer';
 
 export type DocumentationIdSemantic = Semantic & {
   declaration: DeclarationSemantic;
 };
 
-export const $DocumentationIdSemantic = corePackageType<DocumentationIdSemantic>(
+export const $DocumentationIdSemantic = analyzerPackageType<DocumentationIdSemantic>(
   'DocumentationIdSemantic',
   $Semantic,
 );

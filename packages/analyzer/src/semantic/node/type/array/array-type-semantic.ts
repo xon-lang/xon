@@ -9,7 +9,7 @@ import {
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  corePackageType,
+  analyzerPackageType,
   isInSet,
 } from '#analyzer';
 import {ArrayData, Boolean2, Nothing} from '#common';
@@ -20,7 +20,7 @@ export type ArrayTypeSemantic = TypeSemantic & {
   items: ArrayData<TypeSemantic>;
 };
 
-export const $ArrayTypeSemantic = corePackageType<ArrayTypeSemantic>('ArrayTypeSemantic', $TypeSemantic);
+export const $ArrayTypeSemantic = analyzerPackageType<ArrayTypeSemantic>('ArrayTypeSemantic', $TypeSemantic);
 
 export function arrayTypeSemantic(
   analyzer: SemanticAnalyzer,

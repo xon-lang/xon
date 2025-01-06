@@ -1,4 +1,4 @@
-import {corePackageType, LexicalNode} from '#analyzer';
+import {analyzerPackageType, LexicalNode} from '#analyzer';
 import {
   ArrayData,
   Boolean2,
@@ -25,4 +25,4 @@ export type LexicalAnalyzer = {
   hasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2;
 };
 
-export const $LexicalAnalyzer = corePackageType('LexicalAnalyzer' /* $Analyzer */);
+export const $LexicalAnalyzer = analyzerPackageType('LexicalAnalyzer' /* $Analyzer */);
