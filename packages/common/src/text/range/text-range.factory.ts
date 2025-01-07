@@ -1,8 +1,6 @@
-import {Node} from '#analyzer';
 import {
   $TextPosition,
   $TextRange,
-  ArrayData,
   Boolean2,
   TextPosition,
   TextRange,
@@ -39,16 +37,6 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
       return this.start.equals(other.start) && this.stop.equals(other.stop);
     },
   };
-}
-
-export function rangeFromNodes(nodes: ArrayData<Node>): TextRange {
-  const {first, last} = nodes.firstLast()!;
-
-  if (!first || !last) {
-    return zeroRange();
-  }
-
-  return textRange(first.reference.range.start.clone(), last.reference.range.stop.clone());
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {
