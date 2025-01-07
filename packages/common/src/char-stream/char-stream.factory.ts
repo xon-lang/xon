@@ -1,21 +1,20 @@
 import {$CharStream, ArrayData, Char, CharStream, Nothing} from '#common';
 
 export function charStreamFromArray(chars: ArrayData<Char>): CharStream {
-  let index = -1;
-
   return {
     $: $CharStream,
+    index: -1,
 
     next(): Char | Nothing {
-      index += 1;
+      this.index += 1;
 
-      return chars.at(index);
+      return chars.at(this.index);
     },
 
     previous(): Char | Nothing {
-      index -= 1;
+      this.index -= 1;
 
-      return chars.at(index);
+      return chars.at(this.index);
     },
   };
 }
