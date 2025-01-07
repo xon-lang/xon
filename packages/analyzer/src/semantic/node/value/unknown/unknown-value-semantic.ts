@@ -9,7 +9,7 @@ import {
 } from '#analyzer';
 import {Brand} from '#typing';
 
-export type UnknownValueSemantic = ValueSemantic & Brand<'Core.UnknownValueSemantic'>;
+export type UnknownValueSemantic = ValueSemantic & Brand<'Analyzer.UnknownValueSemantic'>;
 
 export const $UnknownValueSemantic = analyzerPackageType<UnknownValueSemantic>(
   'UnknownValueSemantic',

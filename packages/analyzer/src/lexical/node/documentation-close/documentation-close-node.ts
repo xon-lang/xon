@@ -2,7 +2,7 @@ import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#anal
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type DocumentationCloseNode = LexicalNode & Brand<'Core.DocumentationCloseNode'>;
+export type DocumentationCloseNode = LexicalNode & Brand<'Analyzer.DocumentationCloseNode'>;
 
 export const $DocumentationCloseNode = analyzerPackageType<DocumentationCloseNode>(
   'DocumentationCloseNode',

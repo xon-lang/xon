@@ -2,7 +2,7 @@ import {$OpenNode, OpenNode, analyzerPackageType, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type ParenOpenNode = OpenNode & Brand<'Core.ParenOpenNode'>;
+export type ParenOpenNode = OpenNode & Brand<'Analyzer.ParenOpenNode'>;
 
 export const $ParenOpenNode = analyzerPackageType<ParenOpenNode>('ParenOpenNode', $OpenNode);
 

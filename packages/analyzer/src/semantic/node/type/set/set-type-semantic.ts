@@ -12,7 +12,7 @@ import {
 import {Boolean2} from '#common';
 import {Brand, is} from '#typing';
 
-export type SetTypeSemantic = TypeSemantic & Brand<'Core.SetTypeSemantic'>;
+export type SetTypeSemantic = TypeSemantic & Brand<'Analyzer.SetTypeSemantic'>;
 
 export const $SetTypeSemantic = analyzerPackageType<SetTypeSemantic>('SetTypeSemantic', $TypeSemantic);
 

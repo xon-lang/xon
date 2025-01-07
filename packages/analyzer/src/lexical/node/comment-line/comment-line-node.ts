@@ -2,7 +2,7 @@ import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#anal
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type CommentLineNode = LexicalNode & Brand<'Core.CommentLineNode'>;
+export type CommentLineNode = LexicalNode & Brand<'Analyzer.CommentLineNode'>;
 
 export const $CommentLineNode = analyzerPackageType<CommentLineNode>('CommentLineNode', $LexicalNode);
 

@@ -1,7 +1,7 @@
 import {$ValueSemantic, analyzerPackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
 import {Brand} from '#typing';
 
-export type InvokeValueSemantic = ValueSemantic & Brand<'Core.InvokeValueSemantic'>;
+export type InvokeValueSemantic = ValueSemantic & Brand<'Analyzer.InvokeValueSemantic'>;
 
 export const $InvokeValueSemantic = analyzerPackageType<InvokeValueSemantic>(
   'InvokeValueSemantic',

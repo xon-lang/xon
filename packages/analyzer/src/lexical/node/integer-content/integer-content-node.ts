@@ -2,7 +2,7 @@ import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#anal
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type IntegerContentNode = LexicalNode & Brand<'Core.IntegerContentNode'>;
+export type IntegerContentNode = LexicalNode & Brand<'Analyzer.IntegerContentNode'>;
 
 export const $IntegerContentNode = analyzerPackageType<IntegerContentNode>(
   'IntegerContentNode',

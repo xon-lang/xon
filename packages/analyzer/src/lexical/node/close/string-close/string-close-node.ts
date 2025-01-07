@@ -2,7 +2,7 @@ import {$LexicalNode, CloseNode, analyzerPackageType, lexicalNode} from '#analyz
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type StringCloseNode = CloseNode & Brand<'Core.StringCloseNode'>;
+export type StringCloseNode = CloseNode & Brand<'Analyzer.StringCloseNode'>;
 
 export const $StringCloseNode = analyzerPackageType<StringCloseNode>('StringCloseNode', $LexicalNode);
 

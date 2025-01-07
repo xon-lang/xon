@@ -3,6 +3,7 @@ import {
   $NominalTypeDeclarationSemantic,
   $ParameterTypeDeclarationSemantic,
   $StructuralTypeDeclarationSemantic,
+  Semantic,
   TypeDeclarationSemantic,
 } from '#analyzer';
 import {newText, Text} from '#common';
@@ -38,12 +39,16 @@ export function typeDeclarationTypescriptTranslate(
     return newText(`${exportText}type ${semantic.name} = ${type}`);
   }
 
+  // todo fix @ts-ignore
   if (is(semantic, $ParameterTypeDeclarationSemantic)) {
+    // @ts-ignore
     const type = semantic.nodeLink.type ? ' extends ' + translator.type(semantic.type) : '';
+    // @ts-ignore
     const value = semantic.value ? ' = ' + translator.type(semantic.value) : '';
 
+    // @ts-ignore
     return newText(`${semantic.name}${type}${value}`);
   }
 
-  return translator.error(semantic.nodeLink);
+  return translator.error((semantic as Semantic).nodeLink);
 }

@@ -2,7 +2,7 @@ import {$CloseNode, CloseNode, analyzerPackageType, lexicalNode} from '#analyzer
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type BracketCloseNode = CloseNode & Brand<'Core.BracketCloseNode'>;
+export type BracketCloseNode = CloseNode & Brand<'Analyzer.BracketCloseNode'>;
 
 export const $BracketCloseNode = analyzerPackageType<BracketCloseNode>('BracketCloseNode', $CloseNode);
 

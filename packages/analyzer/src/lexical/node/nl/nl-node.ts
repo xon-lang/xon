@@ -2,7 +2,7 @@ import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#anal
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type NlNode = LexicalNode & Brand<'Core.NlNode'>;
+export type NlNode = LexicalNode & Brand<'Analyzer.NlNode'>;
 
 export const $NlNode = analyzerPackageType<NlNode>('NlNode', $LexicalNode);
 

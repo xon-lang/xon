@@ -1,8 +1,9 @@
 import {analyzerPackageType, Node} from '#analyzer';
-import {Model} from '#typing';
+import {Brand, Model} from '#typing';
 
-export type Semantic = Model & {
-  nodeLink: Node;
-};
+export type Semantic = Model &
+  Brand<'Analyzer.Semantic'> & {
+    nodeLink: Node;
+  };
 
 export const $Semantic = analyzerPackageType<Semantic>('Semantic');

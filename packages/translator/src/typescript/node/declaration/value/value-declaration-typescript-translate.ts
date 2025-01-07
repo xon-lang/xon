@@ -1,6 +1,7 @@
 import {
   $AttributeValueDeclarationSemantic,
   $ParameterValueDeclarationSemantic,
+  Semantic,
   ValueDeclarationSemantic,
 } from '#analyzer';
 import {newText, Text} from '#common';
@@ -25,5 +26,5 @@ export function valueDeclarationTypescriptTranslate(
     return newText(`${name.toNativeString()}: ${type}`);
   }
 
-  return translator.error(semantic.nodeLink);
+  return translator.error((semantic as Semantic).nodeLink);
 }

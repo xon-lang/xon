@@ -11,7 +11,7 @@ import {Boolean2, newArrayData, Nothing, Text} from '#common';
 import {Brand} from '#typing';
 
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic &
-  Brand<'Core.StructuralTypeDeclarationSemantic'>;
+  Brand<'Analyzer.StructuralTypeDeclarationSemantic'>;
 
 export const $StructuralTypeDeclarationSemantic = analyzerPackageType<StructuralTypeDeclarationSemantic>(
   'StructuralTypeDeclarationSemantic',

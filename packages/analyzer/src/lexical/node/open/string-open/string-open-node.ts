@@ -2,7 +2,7 @@ import {$OpenNode, OpenNode, analyzerPackageType, lexicalNode} from '#analyzer';
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type StringOpenNode = OpenNode & Brand<'Core.StringOpenNode'>;
+export type StringOpenNode = OpenNode & Brand<'Analyzer.StringOpenNode'>;
 
 export const $StringOpenNode = analyzerPackageType<StringOpenNode>('StringOpenNode', $OpenNode);
 

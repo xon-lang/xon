@@ -11,7 +11,7 @@ import {Boolean2, newArrayData, Nothing, Text} from '#common';
 import {Brand} from '#typing';
 
 export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic &
-  Brand<'Core.ParameterValueDeclarationSemantic'>;
+  Brand<'Analyzer.ParameterValueDeclarationSemantic'>;
 
 export const $ParameterValueDeclarationSemantic = analyzerPackageType<ParameterValueDeclarationSemantic>(
   'ParameterValueDeclarationSemantic',

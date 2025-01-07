@@ -17,7 +17,7 @@ export enum KeywordType {
 }
 
 // todo should be as OperatorContentNode ???
-export type OperatorNode = LexicalNode & Brand<'Core.OperatorNode'>;
+export type OperatorNode = LexicalNode & Brand<'Analyzer.OperatorNode'>;
 
 export const $OperatorNode = analyzerPackageType<OperatorNode>('OperatorNode', $LexicalNode);
 

@@ -2,7 +2,7 @@ import {$CloseNode, CloseNode, analyzerPackageType, lexicalNode} from '#analyzer
 import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
-export type ParenCloseNode = CloseNode & Brand<'Core.ParenCloseNode'>;
+export type ParenCloseNode = CloseNode & Brand<'Analyzer.ParenCloseNode'>;
 
 export const $ParenCloseNode = analyzerPackageType<ParenCloseNode>('ParenCloseNode', $CloseNode);
 

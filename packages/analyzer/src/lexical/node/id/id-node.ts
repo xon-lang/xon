@@ -3,7 +3,7 @@ import {Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 // todo should be as IdContentNode ???
-export type IdNode = LexicalNode & Brand<'Core.IdNode'>;
+export type IdNode = LexicalNode & Brand<'Analyzer.IdNode'>;
 
 export const $IdNode = analyzerPackageType<IdNode>('IdNode', $LexicalNode);
 
