@@ -17,6 +17,8 @@ export * from './src/array-text/array-text.factory';
 export * from './src/array-text/array-text.model';
 export * from './src/char/char.factory';
 export * from './src/char/char.model';
+export * from './src/char-stream/char-stream.factory';
+export * from './src/char-stream/char-stream.model';
 export * from './src/dictionary/dictionary.factory';
 export * from './src/dictionary/dictionary.model';
 export * from './src/fs/directory-fs';

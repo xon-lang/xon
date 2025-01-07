@@ -32,11 +32,11 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     at(index: Integer): T | Nothing {
-      return this._items[index];
+      return this._items[index] ?? nothing;
     },
 
     at2(index: Integer): T {
-      return this._items[index];
+      return this.at(index)!;
     },
 
     every(predicate: ArrayPredicate<T>): Boolean2 {
