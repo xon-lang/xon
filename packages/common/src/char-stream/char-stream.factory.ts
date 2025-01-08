@@ -5,12 +5,16 @@ export function charStreamFromText(text: Text): CharStream {
     $: $CharStream,
     position: newTextPosition(),
 
-    take(count: Integer = 1): Text {
-      return text.slice(this.position.index, this.position.index + count);
+    take(length: Integer = 1): Text {
+      return text.take(length, this.position.index);
     },
 
     takeWhile(predicate: (char: Char) => Boolean2): Text {
-      return text.takeWhile(predicate);
+      return text.takeWhile(predicate, this.position.index);
+    },
+
+    isFinished(): Boolean2 {
+      return this.position.index >= text.count();
     },
   };
 }
