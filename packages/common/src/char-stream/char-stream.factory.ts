@@ -1,20 +1,16 @@
-import {$CharStream, ArrayData, Char, CharStream, Nothing} from '#common';
+import {$CharStream, Boolean2, Char, CharStream, Integer, newTextPosition, Text} from '#common';
 
-export function charStreamFromArray(chars: ArrayData<Char>): CharStream {
+export function charStreamFromText(text: Text): CharStream {
   return {
     $: $CharStream,
-    index: -1,
+    position: newTextPosition(),
 
-    next(): Char | Nothing {
-      this.index += 1;
-
-      return chars.at(this.index);
+    take(count: Integer = 1): Text {
+      return text.slice(this.position.index, this.position.index + count);
     },
 
-    previous(): Char | Nothing {
-      this.index -= 1;
-
-      return chars.at(this.index);
+    takeWhile(predicate: (char: Char) => Boolean2): Text {
+      return text.takeWhile(predicate);
     },
   };
 }

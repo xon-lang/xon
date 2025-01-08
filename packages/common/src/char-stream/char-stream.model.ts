@@ -1,12 +1,12 @@
-import {Char, commonPackageType, Integer, Nothing} from '#common';
+import {Boolean2, Char, commonPackageType, Integer, Text, TextPosition} from '#common';
 import {Brand, Model} from '#typing';
 
 export type CharStream = Model &
   Brand<'Common.CharStream'> & {
-    index: Integer;
+    position: TextPosition;
 
-    next(): Char | Nothing;
-    previous(): Char | Nothing;
+    take(count: Integer): Text;
+    takeWhile(predicate: (char: Char) => Boolean2): Text;
   };
 
 export const $CharStream = commonPackageType<CharStream>('CharStream');

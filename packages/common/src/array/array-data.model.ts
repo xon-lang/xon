@@ -55,6 +55,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   takeWhile(predicate?: ArrayPredicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): this;
   take(length: Integer, startIndex?: Integer): this;
 
+  // todo rename to 'size' or 'length' and remove 'predicate'
   count(predicate?: ArrayPredicate<T>): Integer;
   sum(select: ArraySelect<T, Number2>): Number2;
   min<V extends Number2>(select: ArraySelect<T, V>): ArrayExtremumElement<T, V> | Nothing;
