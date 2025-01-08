@@ -37,8 +37,9 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   lastItemsIndex(items: ArrayData<T>, startIndex?: Integer | Nothing): Integer | Nothing;
   firstLastIndex(): {firstIndex: Integer | Nothing; lastIndex: Integer | Nothing};
 
-  filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V>;
+  filter(): ArrayData<Exclude<T, Nothing>>;
   filter(predicate: ArrayPredicate<T>): ArrayData<T>;
+  filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V>;
 
   map<V>(select: ArraySelect<T, V>): ArrayData<V>;
 
@@ -55,8 +56,8 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   takeWhile(predicate?: ArrayPredicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): this;
   take(length: Integer, startIndex?: Integer): this;
 
-  // todo rename to 'size' or 'length' and remove 'predicate'
-  count(predicate?: ArrayPredicate<T>): Integer;
+  // todo rename to 'size' or 'length'
+  count(): Integer;
   sum(select: ArraySelect<T, Number2>): Number2;
   min<V extends Number2>(select: ArraySelect<T, V>): ArrayExtremumElement<T, V> | Nothing;
   max<V extends Number2>(select: ArraySelect<T, V>): ArrayExtremumElement<T, V> | Nothing;

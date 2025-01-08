@@ -214,7 +214,11 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       };
     },
 
-    filter<V extends T>(predicate: ArraySafePredicate<T, V>): ArrayData<V> {
+    filter<V extends T>(predicate?: ArraySafePredicate<T, V> | any): ArrayData<V> | any {
+      if (!predicate) {
+        return newArrayData(this._items.filter((x) => !!x));
+      }
+
       return newArrayData(this._items.filter(predicate));
     },
 
@@ -291,12 +295,8 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return newArrayData(newArray);
     },
 
-    count(predicate?: ArrayPredicate<T>): Integer {
-      if (!predicate) {
-        return this._items.length;
-      }
-
-      return this._items.reduce((sum, val, index) => sum + (predicate(val, index) ? 1 : 0), 0);
+    count(): Integer {
+      return this._items.length;
     },
 
     sum(select: (value: T, index: Integer, array: ArrayData<T>) => Number2): Number2 {
