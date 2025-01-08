@@ -63,17 +63,9 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this.slice(startIndex, startIndex + length);
     },
 
-    takeWhile(
-      predicate?: (value: T, index: Integer, array: ArrayData<T>) => Boolean2,
-      startIndex = 0,
-      includeConditionItem = false,
-    ): ArrayData<T> {
-      if (!predicate) {
-        return this.slice(startIndex);
-      }
-
+    takeWhile(predicate: ArrayPredicate<T>, startIndex = 0, includeConditionItem = false): ArrayData<T> {
       for (let i = startIndex; i < this.count(); i++) {
-        if (!predicate(this.at2(i), i, this)) {
+        if (!predicate(this.at2(i), i)) {
           return this.slice(startIndex, includeConditionItem ? i + 1 : i);
         }
       }

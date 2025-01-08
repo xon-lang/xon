@@ -53,7 +53,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   removeFirst(length?: Integer | Nothing): this;
   removeLast(length?: Integer | Nothing): this;
 
-  takeWhile(predicate?: ArrayPredicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): this;
+  takeWhile(predicate: ArrayPredicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): this;
   take(length: Integer, startIndex?: Integer): this;
 
   // todo rename to 'size' or 'length'
