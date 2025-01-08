@@ -7,7 +7,7 @@ export type CharStream = Model &
     position: TextPosition;
 
     takeWhile(
-      predicate: (char: Char, index: Integer) => Boolean2,
+      predicate: (char: Char, index: Integer, text: Text) => Boolean2,
       length?: Integer | Nothing,
     ): Text | Nothing;
   };
