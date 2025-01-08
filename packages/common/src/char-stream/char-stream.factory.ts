@@ -1,20 +1,65 @@
-import {$CharStream, Boolean2, Char, CharStream, Integer, newTextPosition, Text} from '#common';
+import {NL} from '#analyzer';
+import {
+  $CharStream,
+  Boolean2,
+  Char,
+  CharStream,
+  Integer,
+  newTextPosition,
+  nothing,
+  Nothing,
+  Text,
+  TextPosition,
+} from '#common';
 
-export function charStreamFromText(text: Text): CharStream {
+export function charStreamFromText(source: Text): CharStream {
   return {
     $: $CharStream,
+    length: source.count(),
     position: newTextPosition(),
 
-    take(length: Integer = 1): Text {
-      return text.take(length, this.position.index);
-    },
+    takeWhile(predicate: (char: Char) => Boolean2, length?: Integer | Nothing): Text | Nothing {
+      if (this.position.index >= this.length) {
+        return nothing;
+      }
 
-    takeWhile(predicate: (char: Char) => Boolean2): Text {
-      return text.takeWhile(predicate, this.position.index);
-    },
+      if (length && length + this.position.index > this.length) {
+        return nothing;
+      }
 
-    isFinished(): Boolean2 {
-      return this.position.index >= text.count();
+      const index = this.position.index;
+
+      const text = length
+        ? source.takeWhile((x, i) => i - index < length && predicate(x), index)
+        : source.takeWhile(predicate, index);
+
+      if (text.isEmpty()) {
+        return nothing;
+      }
+
+      this.position = getStopTextPosition(text, this.position);
+
+      return text;
     },
   };
+}
+
+function getStopTextPosition(text: Text, startPosition: TextPosition): TextPosition {
+  let line = startPosition.line;
+  let column = startPosition.column;
+
+  for (const char of text) {
+    if (NL.equals(char)) {
+      line += 1;
+      column = 0;
+
+      continue;
+    }
+
+    column += 1;
+  }
+
+  const index = startPosition.index + text.count();
+
+  return newTextPosition(index, line, column);
 }
