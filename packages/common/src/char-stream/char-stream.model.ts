@@ -6,7 +6,10 @@ export type CharStream = Model &
     length: Integer;
     position: TextPosition;
 
-    takeWhile(predicate: (char: Char) => Boolean2, length?: Integer | Nothing): Text | Nothing;
+    takeWhile(
+      predicate: (char: Char, index: Integer) => Boolean2,
+      length?: Integer | Nothing,
+    ): Text | Nothing;
   };
 
 export const $CharStream = commonPackageType<CharStream>('CharStream');

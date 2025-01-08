@@ -18,7 +18,10 @@ export function charStreamFromText(source: Text): CharStream {
     length: source.count(),
     position: newTextPosition(),
 
-    takeWhile(predicate: (char: Char) => Boolean2, length?: Integer | Nothing): Text | Nothing {
+    takeWhile(
+      predicate: (char: Char, index: Integer) => Boolean2,
+      length?: Integer | Nothing,
+    ): Text | Nothing {
       if (this.position.index >= this.length) {
         return nothing;
       }
@@ -30,8 +33,8 @@ export function charStreamFromText(source: Text): CharStream {
       const index = this.position.index;
 
       const text = length
-        ? source.takeWhile((x, i) => i - index < length && predicate(x), index)
-        : source.takeWhile(predicate, index);
+        ? source.takeWhile((x, i) => i - index < length && predicate(x, i), index)
+        : source.takeWhile((x, i) => predicate(x, i), index);
 
       if (text.isEmpty()) {
         return nothing;

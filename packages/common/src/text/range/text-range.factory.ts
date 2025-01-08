@@ -9,6 +9,7 @@ import {
 } from '#common';
 import {is} from '#typing';
 
+// todo rename to 'newTextRange'
 export function textRange(start: TextPosition, stop: TextPosition): TextRange {
   return {
     $: $TextRange,
