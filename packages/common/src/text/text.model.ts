@@ -18,8 +18,8 @@ export interface Text extends ArrayData<Char> {
   trim(): Text;
   trimStart(): Text;
   trimEnd(): Text;
-  startsWith(searchText: Text, position?: Number2 | Nothing): Boolean2;
-  endsWith(searchText: Text, position?: Number2 | Nothing): Boolean2;
+  startsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2;
+  endsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2;
   repeat(count: Integer): Text;
   equals(other: Char): Boolean2;
   equals(other: ArrayData<Char>): Boolean2;
@@ -28,4 +28,4 @@ export interface Text extends ArrayData<Char> {
   toNativeString(): string;
 }
 
-export const $Text = commonPackageType<Text>('TextData', $ArrayData($Char));
+export const $Text = commonPackageType<Text>('Text', $ArrayData($Char));

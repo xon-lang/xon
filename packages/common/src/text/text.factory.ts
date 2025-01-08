@@ -122,7 +122,7 @@ export function newText(
     },
 
     takeWhile(
-      predicate?: (value: Char, index: Integer) => Boolean2,
+      predicate: (value: Char, index: Integer) => Boolean2,
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): Text {
@@ -185,12 +185,12 @@ export function newText(
       return newText(this.toNativeString().trimEnd());
     },
 
-    startsWith(searchText: Text, position?: Number2 | Nothing): Boolean2 {
-      return this.toNativeString().startsWith(searchText.toNativeString(), position ?? undefined);
+    startsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2 {
+      return this.toNativeString().startsWith(searchText.toNativeString(), startIndex ?? undefined);
     },
 
-    endsWith(searchText: Text, position?: Number2 | Nothing): Boolean2 {
-      return this.toNativeString().endsWith(searchText.toNativeString(), position ?? undefined);
+    endsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2 {
+      return this.toNativeString().endsWith(searchText.toNativeString(), startIndex ?? undefined);
     },
 
     repeat(count: Integer): Text {
