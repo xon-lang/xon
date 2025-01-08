@@ -33,6 +33,10 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
       return textRange(this.start.clone(), this.stop.clone());
     },
 
+    isEmpty(): Boolean2 {
+      return this.start.index === this.stop.index;
+    },
+
     equals(other: TextRange): Boolean2 {
       return this.start.equals(other.start) && this.stop.equals(other.stop);
     },
@@ -43,6 +47,7 @@ export function rangeFromPosition(position: TextPosition): TextRange {
   return textRange(position.clone(), position.clone());
 }
 
+// rename to newTextRange with default 0 values
 export function zeroRange(): TextRange {
   return textRange(newTextPosition(), newTextPosition());
 }

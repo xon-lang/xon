@@ -10,6 +10,7 @@ export type TextRange = Model & {
   contains(positionOrRange: TextPosition | TextRange): Boolean2;
   union(other: TextRange): TextRange;
   clone(): TextRange;
+  isEmpty(): Boolean2;
   equals(other: TextRange): Boolean2;
 };
 
