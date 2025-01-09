@@ -1,4 +1,4 @@
-import {BRACKET_OPEN, BracketOpenNode, bracketOpenNode, LexicalAnalyzer} from '#analyzer';
+import {$BracketOpenNode, BRACKET_OPEN, BracketOpenNode, LexicalAnalyzer} from '#analyzer';
 import {newText, Nothing, nothing} from '#common';
 
 export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode | Nothing {
@@ -7,7 +7,7 @@ export function bracketOpenNodeParse(analyzer: LexicalAnalyzer): BracketOpenNode
   }
 
   const text = newText(BRACKET_OPEN);
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
-  return bracketOpenNode(reference, text);
+  return {$: $BracketOpenNode, text, range};
 }

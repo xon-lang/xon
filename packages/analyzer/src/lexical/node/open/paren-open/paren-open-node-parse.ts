@@ -1,4 +1,4 @@
-import {LexicalAnalyzer, PAREN_OPEN, ParenOpenNode, parenOpenNode} from '#analyzer';
+import {$ParenOpenNode, LexicalAnalyzer, PAREN_OPEN, ParenOpenNode} from '#analyzer';
 import {newText, Nothing, nothing} from '#common';
 
 export function parenOpenNodeParse(analyzer: LexicalAnalyzer): ParenOpenNode | Nothing {
@@ -7,7 +7,7 @@ export function parenOpenNodeParse(analyzer: LexicalAnalyzer): ParenOpenNode | N
   }
 
   const text = newText(PAREN_OPEN);
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
-  return parenOpenNode(reference, text);
+  return {$: $ParenOpenNode, text, range};
 }
