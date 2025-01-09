@@ -70,7 +70,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
       if (!node.hiddenNodes || node.hiddenNodes.isEmpty()) {
         if (keepSingleSpace) {
           this.addItem({
-            range: rangeFromPosition(node.reference.range.start),
+            range: rangeFromPosition(node.range.start),
             text: newText(' '),
           });
         }
@@ -85,7 +85,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
 
         if (!keepSingleSpace) {
           this.addItem({
-            range: whitespace.reference.range.clone(),
+            range: whitespace.range.clone(),
             text: newText(),
           });
 
@@ -97,7 +97,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
         }
 
         this.addItem({
-          range: whitespace.reference.range.clone(),
+          range: whitespace.range.clone(),
           text: newText(' '),
         });
 
@@ -127,7 +127,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
         }
 
         this.addItem({
-          range: rangeFromPosition(lastStatement.reference.range.stop),
+          range: rangeFromPosition(lastStatement.range.stop),
           text: NL,
         });
 
@@ -189,7 +189,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
         return newText();
       }
 
-      const nlCount = node.reference.range.stop.line - node.reference.range.start.line;
+      const nlCount = node.range.stop.line - node.range.start.line;
 
       return NL.repeat(Math.min(nlCount, MAX_NEW_LINES));
     },
@@ -199,8 +199,8 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
         return text.isEmpty();
       }
 
-      const startIndex = hiddenNodes.first()!.reference.range.start.index;
-      const stopIndex = hiddenNodes.last()!.reference.range.stop.index;
+      const startIndex = hiddenNodes.first()!.range.start.index;
+      const stopIndex = hiddenNodes.last()!.range.stop.index;
 
       return resource.data.slice(startIndex, stopIndex).equals(text);
     },
