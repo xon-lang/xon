@@ -40,21 +40,3 @@ export function newDocumentationNode(
     children,
   };
 }
-
-// export function validate(analyzer: SyntaxAnalyzer, node: DocumentationNode) {
-//   const unnecessaryLabels = newArrayData<Text>();
-
-//   for (const item of node.items) {
-//     const name = item.id.text;
-
-//     if (unnecessaryLabels.hasItem(name)) {
-//       analyzer.diagnosticManager.addPredefinedDiagnostic(item.reference, (x) =>
-//         x.documentationLabelAlreadyExists(name),
-//       );
-
-//       continue;
-//     }
-
-//     unnecessaryLabels.addLastItem(name);
-//   }
-// }
