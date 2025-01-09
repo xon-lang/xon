@@ -1,4 +1,4 @@
-import {COMMA, CommaNode, commaNode, LexicalAnalyzer} from '#analyzer';
+import {$CommaNode, COMMA, CommaNode, LexicalAnalyzer} from '#analyzer';
 import {newText, Nothing, nothing} from '#common';
 
 export function commaNodeParse(analyzer: LexicalAnalyzer): CommaNode | Nothing {
@@ -7,7 +7,7 @@ export function commaNodeParse(analyzer: LexicalAnalyzer): CommaNode | Nothing {
   }
 
   const text = newText(COMMA);
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
-  return commaNode(reference, text);
+  return {$: $CommaNode, text, range};
 }

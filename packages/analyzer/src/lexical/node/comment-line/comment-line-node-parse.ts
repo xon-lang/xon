@@ -1,4 +1,4 @@
-import {COMMENT_LINE, CommentLineNode, LexicalAnalyzer, NL, commentLineNode} from '#analyzer';
+import {$CommentLineNode, COMMENT_LINE, CommentLineNode, LexicalAnalyzer, NL} from '#analyzer';
 import {Nothing, nothing} from '#common';
 
 export function commentLineNodeParse(analyzer: LexicalAnalyzer): CommentLineNode | Nothing {
@@ -7,7 +7,7 @@ export function commentLineNodeParse(analyzer: LexicalAnalyzer): CommentLineNode
   }
 
   const text = analyzer.resource.data.takeWhile((x) => !NL.equals(x), analyzer.position.index);
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
-  return commentLineNode(reference, text);
+  return {$: $CommentLineNode, text, range};
 }

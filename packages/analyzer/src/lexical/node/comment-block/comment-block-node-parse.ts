@@ -1,8 +1,8 @@
 import {
+  $CommentBlockNode,
   COMMENT_BLOCK_CLOSE,
   COMMENT_BLOCK_OPEN,
   CommentBlockNode,
-  commentBlockNode,
   LexicalAnalyzer,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
@@ -22,7 +22,7 @@ export function commentBlockNodeParse(analyzer: LexicalAnalyzer): CommentBlockNo
 
   const text = analyzer.resource.data.slice(analyzer.position.index, endSlice);
   // todo should we calculate nl count in place ???
-  const reference = analyzer.textReferenceWithNewLine(text);
+  const range = analyzer.textReferenceWithNewLine(text);
 
-  return commentBlockNode(reference, text);
+  return {$: $CommentBlockNode, text, range};
 }

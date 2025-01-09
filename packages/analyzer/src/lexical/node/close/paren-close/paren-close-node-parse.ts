@@ -1,4 +1,4 @@
-import {LexicalAnalyzer, PAREN_CLOSE, ParenCloseNode, parenCloseNode} from '#analyzer';
+import {$ParenCloseNode, LexicalAnalyzer, PAREN_CLOSE, ParenCloseNode} from '#analyzer';
 import {newText, Nothing, nothing} from '#common';
 
 export function parenCloseNodeParse(analyzer: LexicalAnalyzer): ParenCloseNode | Nothing {
@@ -7,7 +7,7 @@ export function parenCloseNodeParse(analyzer: LexicalAnalyzer): ParenCloseNode |
   }
 
   const text = newText(PAREN_CLOSE);
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
-  return parenCloseNode(reference, text);
+  return {$: $ParenCloseNode, text, range};
 }

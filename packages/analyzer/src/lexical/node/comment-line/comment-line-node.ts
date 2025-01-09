@@ -1,11 +1,6 @@
-import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#analyzer';
-import {Text, TextReference} from '#common';
+import {$LexicalNode, analyzerPackageType, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type CommentLineNode = LexicalNode & Brand<'Analyzer.CommentLineNode'>;
 
 export const $CommentLineNode = analyzerPackageType<CommentLineNode>('CommentLineNode', $LexicalNode);
-
-export function commentLineNode(reference: TextReference, text: Text): CommentLineNode {
-  return lexicalNode({$: $CommentLineNode, reference, text, isHidden: true});
-}
