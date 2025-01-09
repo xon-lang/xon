@@ -7,7 +7,7 @@ import {
   Nothing,
   Text,
   TextPosition,
-  TextReference,
+  TextRange,
   TextResource,
 } from '#common';
 
@@ -20,8 +20,8 @@ export type LexicalAnalyzer = {
   previousNonHiddenNode?: LexicalNode | Nothing;
 
   iterator(parsers: ArrayData<FunctionData<LexicalNodeParseFn>>): IterableIterator<LexicalNode>;
-  textReference(text: Text): TextReference;
-  textReferenceWithNewLine(text: Text): TextReference;
+  textReference(text: Text): TextRange;
+  textReferenceWithNewLine(text: Text): TextRange;
   hasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2;
 };
 

@@ -5,13 +5,12 @@ import {
   FunctionData,
   Integer,
   newTextPosition,
-  newTextReference,
   Nothing,
   nothing,
   Text,
   TextPosition,
+  TextRange,
   textRange,
-  TextReference,
   TextResource,
 } from '#common';
 
@@ -26,48 +25,44 @@ export function newLexicalAnalyzer(
     iterator(parsers: ArrayData<FunctionData<LexicalNodeParseFn>>): IterableIterator<LexicalNode> {
       return lexicalIterator(this, parsers);
     },
-
-    textReference(text: Text): TextReference {
-      const start = this.position.clone();
-      const stop = newTextPosition(
-        this.position.index + text.count(),
-        this.position.line,
-        this.position.column + text.count(),
-      );
-
-      const range = textRange(start, stop);
-
-      return newTextReference(this.resource, range);
-    },
-
-    textReferenceWithNewLine(text: Text): TextReference {
-      let nlCount = this.position.line;
-      let columnIndent = this.position.column;
-
-      for (let i = this.position.index; i < this.position.index + text.count(); i++) {
-        const char = this.resource.data.at(i);
-
-        if (char && NL.equals(char)) {
-          nlCount += 1;
-          columnIndent = 0;
-
-          continue;
-        }
-
-        columnIndent += 1;
-      }
-
-      const start = this.position.clone();
-      const stop = newTextPosition(this.position.index + text.count(), nlCount, columnIndent);
-      const range = textRange(start, stop);
-
-      return newTextReference(this.resource, range);
-    },
-
-    hasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {
-      return this.resource.data.take(text.count(), index ?? this.position.index).equals(text);
-    },
   };
+}
+
+export function lexicalTextRange(text: Text, startPosition: TextPosition): TextRange {
+  const start = startPosition.clone();
+  const stop = newTextPosition(
+    startPosition.index + text.count(),
+    startPosition.line,
+    startPosition.column + text.count(),
+  );
+
+  return textRange(start, stop);
+}
+
+export function lexicalTextRangeWithNewLine(text: Text, startPosition: TextPosition): TextRange {
+  const index = startPosition.index + text.count();
+  let line = startPosition.line;
+  let column = startPosition.column;
+
+  for (const char of text) {
+    if (NL.equals(char)) {
+      line += 1;
+      column = 0;
+
+      continue;
+    }
+
+    column += 1;
+  }
+
+  const start = startPosition.clone();
+  const stop = newTextPosition(index, line, column);
+
+  return textRange(start, stop);
+}
+
+export function lexicalHasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {
+  return this.resource.data.take(text.count(), index ?? this.position.index).equals(text);
 }
 
 function lexicalIterator(
@@ -92,7 +87,7 @@ function lexicalIterator(
         };
       }
 
-      lexer.position = node.reference.range.stop;
+      lexer.position = node.range.stop;
       lexer.previousNode = node;
 
       if (!node.isHidden) {

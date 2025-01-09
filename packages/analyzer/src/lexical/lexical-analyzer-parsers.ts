@@ -5,10 +5,12 @@ import {
   braceOpenNodeParse,
   bracketCloseNodeParse,
   bracketOpenNodeParse,
-  charOpenNodeParse,
   commaNodeParse,
   commentBlockNodeParse,
   commentLineNodeParse,
+  documentationCloseNodeParse,
+  documentationDescriptionNodeParse,
+  documentationLabelNodeParse,
   documentationOpenNodeParse,
   idNodeParse,
   integerContentNodeParse,
@@ -18,6 +20,11 @@ import {
   operatorNodeParse,
   parenCloseNodeParse,
   parenOpenNodeParse,
+  parseCharCloseNode,
+  parseCharContentNode,
+  parseCharOpenNode,
+  stringCloseNodeParse,
+  stringLexicalNodeParse,
   stringOpenNodeParse,
   unknownNodeParse,
   whitespaceNodeParse,
@@ -28,6 +35,19 @@ import {ArrayData, FunctionData, newArrayData, newFunctionData} from '#common';
 // todo remove all nodes if possible and use single node (e.g. 'TokenNode')
 export function codeLexicalParsers(): ArrayData<FunctionData<LexicalNodeParseFn>> {
   return newArrayData([
+    newFunctionData(documentationOpenNodeParse),
+    newFunctionData(documentationCloseNodeParse),
+    newFunctionData(documentationLabelNodeParse),
+    newFunctionData(documentationDescriptionNodeParse),
+
+    newFunctionData(parseCharOpenNode),
+    newFunctionData(parseCharContentNode),
+    newFunctionData(parseCharCloseNode),
+
+    newFunctionData(stringOpenNodeParse),
+    newFunctionData(stringLexicalNodeParse),
+    newFunctionData(stringCloseNodeParse),
+
     newFunctionData(parenOpenNodeParse),
     newFunctionData(parenCloseNodeParse),
 
@@ -53,7 +73,7 @@ export function codeLexicalParsers(): ArrayData<FunctionData<LexicalNodeParseFn>
     // todo should we add 'documentationOpenNodeParse' in codeAnalyzer instead of documentationAnalyzer ???
     newFunctionData(documentationOpenNodeParse),
     newFunctionData(stringOpenNodeParse),
-    newFunctionData(charOpenNodeParse),
+    newFunctionData(parseCharOpenNode),
     newFunctionData(operatorNodeParse),
     newFunctionData(idNodeParse),
     newFunctionData(unknownNodeParse),

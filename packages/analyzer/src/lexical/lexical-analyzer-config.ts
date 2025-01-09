@@ -1,4 +1,4 @@
-import {newArrayData, newText} from '#common';
+import {newArrayData, newChar, newText} from '#common';
 
 export const COMMENT_LINE = newText('//');
 
@@ -18,19 +18,7 @@ export const NL = newText('\n');
 export const COMMA = newText(',');
 export const JOINING = newText('~');
 export const SPACE = newText(' ');
-export const UNDERSCORE = newText('_');
-export const TYPE = newText(':');
-export const ASSIGN = newText('=');
-export const MEMBER = newText('.');
-export const META_MEMBER = newText('::');
-export const RANGE = newText('..');
-
-export const AT = newText('@');
-
-export const INTERSECTION = newText('&');
-export const UNION = newText('|');
-export const COMPLEMENT = newText('\\');
-export const NOT = newText('!');
+export const UNDERSCORE = newChar('_');
 
 export const PAREN_OPEN = newText('(');
 export const PAREN_CLOSE = newText(')');
@@ -75,6 +63,16 @@ export const CONTROL_KEYWORDS = newArrayData([
   EXPORT,
 ]);
 
+export const TYPE = newText(':');
+export const ASSIGN = newText('=');
+export const MEMBER = newText('.');
+export const META_MEMBER = newText('::');
+export const RANGE = newText('..');
+export const AT = newText('@');
+export const INTERSECTION = newText('&');
+export const UNION = newText('|');
+export const COMPLEMENT = newText('\\');
+export const NOT = newText('!');
 export const REST = newText('...');
 export const PLUS = newText('+');
 export const MINUS = newText('-');
