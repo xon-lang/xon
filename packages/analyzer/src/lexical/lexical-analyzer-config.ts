@@ -66,6 +66,7 @@ export const CONTROL_KEYWORDS = newArrayData([
 export const TYPE = newText(':');
 export const ASSIGN = newText('=');
 export const MEMBER = newText('.');
+export const RADIX_POINT = newText('.');
 export const META_MEMBER = newText('::');
 export const RANGE = newText('..');
 export const AT = newText('@');
