@@ -46,14 +46,14 @@ class LanguageDefinitionProvider implements DefinitionProvider {
 
     if (is(node.semantic, $ImportValueSemantic)) {
       if (node.semantic.resource?.location) {
-        return navigateToLocation(node.reference.range, node.semantic.resource.location)?.toNativeArray();
+        return navigateToLocation(node.range, node.semantic.resource.location)?.toNativeArray();
       }
 
       return nothing;
     }
 
     if (is(node.semantic, $DeclarationSemantic)) {
-      return navigateToUsages(node.reference.range, node.semantic).toNativeArray();
+      return navigateToUsages(node.range, node.semantic).toNativeArray();
     }
 
     if (is(node.semantic, $IdTypeSemantic)) {
@@ -61,17 +61,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return nothing;
       }
 
-      return navigateToReference(
-        node.reference.range,
-        node.semantic.declaration.nodeLink.reference,
-      )?.toNativeArray();
+      return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
     }
 
     if (is(node.semantic, $DocumentationIdSemantic)) {
-      return navigateToReference(
-        node.reference.range,
-        node.semantic.declaration.nodeLink.reference,
-      )?.toNativeArray();
+      return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
     }
 
     if (is(node.semantic, $ValueSemantic)) {
@@ -81,7 +75,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
         return nothing;
       }
 
-      return navigateToReference(node.reference.range, declaration.nodeLink.reference)?.toNativeArray();
+      return navigateToReference(node.range, declaration.nodeLink)?.toNativeArray();
     }
 
     return nothing;
@@ -130,14 +124,15 @@ function navigateToLocation(
   location: Text,
   sourceRange?: TextRange | Nothing,
 ): ArrayData<LocationLink> | Nothing {
-  const uri = Uri.parse(location.toNativeString());
-  const range = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
+  const targetUri = Uri.parse(location.toNativeString());
+  const targetRange = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
+  const originSelectionRange = convertRange(originalRange);
 
   return newArrayData([
     {
-      targetUri: uri,
-      targetRange: range,
-      originSelectionRange: convertRange(originalRange),
+      targetUri,
+      targetRange,
+      originSelectionRange,
     },
   ]);
 }

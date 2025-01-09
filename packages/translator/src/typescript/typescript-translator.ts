@@ -64,8 +64,8 @@ export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): Typ
       this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotTranslate());
       const location = node.reference.resource.location;
       const basename = path.basename(location?.toNativeString() ?? '<code>');
-      const line = node.reference.range.start.line + 1;
-      const column = node.reference.range.start.column + 1;
+      const line = node.range.start.line + 1;
+      const column = node.range.start.column + 1;
 
       return newText(`/* error ${basename}:${line}:${column} */`);
     },

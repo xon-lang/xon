@@ -67,7 +67,7 @@ class LanguageRenameProvider implements RenameProvider {
       throw new Error('You cannot rename this element');
     }
 
-    return convertRange(node.reference.range);
+    return convertRange(node.range);
   }
 }
 

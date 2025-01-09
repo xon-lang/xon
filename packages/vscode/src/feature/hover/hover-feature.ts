@@ -51,7 +51,7 @@ class LanguageHoverProvider implements HoverProvider {
       return nothing;
     }
 
-    const range = convertRange(node.reference.range);
+    const range = convertRange(node.range);
 
     return new Hover(markdown, range);
   }
