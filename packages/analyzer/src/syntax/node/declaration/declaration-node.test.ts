@@ -199,10 +199,10 @@ type A`);
 
   expect(statements.count()).toBe(1);
   expect(node.$).toBe($DeclarationNode);
-  expect(node.documentation?.description?.text.toNativeString()).toBe('\n  Some description\n');
+  expect(node.documentation?.descriptionNode?.text.toNativeString()).toBe('\n  Some description\n');
   expect(node.modifier?.text.toNativeString()).toBe('type');
   expect(node.id?.text.toNativeString()).toBe('A');
-  expect(node.id.reference.range.start.line).toBe(4);
+  expect(node.id.range.start.line).toBe(4);
 });
 
 test('infix plus operator', () => {

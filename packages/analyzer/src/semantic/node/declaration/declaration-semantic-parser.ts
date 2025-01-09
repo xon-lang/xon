@@ -167,7 +167,7 @@ function nodeDependencies(node: Node | Nothing): ArrayData<Text> {
 }
 
 function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
-  const documentation = node.documentation?.description?.text.setPadding(0).trim();
+  const documentation = node.documentation?.descriptionNode?.text.setPadding(0).trim();
   const modifier = node.modifier?.text;
   const name = node.id.text;
 
@@ -186,7 +186,7 @@ function createParameterTypeDeclaration(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
 ): ParameterTypeDeclarationSemantic {
-  const documentation = node.documentation?.description?.text.setPadding(0).trim();
+  const documentation = node.documentation?.descriptionNode?.text.setPadding(0).trim();
   const modifier = node.modifier?.text;
   const name = node.id.text;
 
@@ -197,7 +197,7 @@ function createParameterValueDeclaration(
   analyzer: SemanticAnalyzer,
   node: DeclarationNode,
 ): ParameterValueDeclarationSemantic {
-  const documentation = node.documentation?.description?.text.setPadding(0).trim();
+  const documentation = node.documentation?.descriptionNode?.text.setPadding(0).trim();
   const modifier = node.modifier?.text;
   const name = node.id.text;
 

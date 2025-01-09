@@ -1,5 +1,15 @@
 import {analyzerPackageType, Semantic} from '#analyzer';
-import {ArrayData, Boolean2, Integer, Nothing, nothing, TextReference} from '#common';
+import {
+  ArrayData,
+  Boolean2,
+  Integer,
+  Nothing,
+  nothing,
+  textRange,
+  TextRange,
+  TextReference,
+  zeroRange,
+} from '#common';
 import {Model} from '#typing';
 
 export type Node = Model & {
@@ -42,4 +52,14 @@ export function nodeFindMap<T>(
   }
 
   return nothing;
+}
+
+export function rangeFromNodes(nodes: ArrayData<Node>): TextRange {
+  const {first, last} = nodes.firstLast()!;
+
+  if (!first || !last) {
+    return zeroRange();
+  }
+
+  return textRange(first.reference.range.start.clone(), last.reference.range.stop.clone());
 }

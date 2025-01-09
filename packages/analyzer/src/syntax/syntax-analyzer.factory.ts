@@ -144,7 +144,7 @@ export function newSyntaxAnalyzer(lexicalAnalyzer: LexicalAnalyzer): SyntaxAnaly
       }
 
       for (const statement of statements) {
-        if (statement.reference.range.contains(position)) {
+        if (statement.range.contains(position)) {
           return statement;
         }
 
@@ -160,7 +160,7 @@ export function newSyntaxAnalyzer(lexicalAnalyzer: LexicalAnalyzer): SyntaxAnaly
 
     findNodeInChildren(children: ArrayData<Node>, position: TextPosition): Node | Nothing {
       const child =
-        children.count() === 1 ? children.at(0) : children.first((x) => x.reference.range.contains(position));
+        children.count() === 1 ? children.at(0) : children.first((x) => x.range.contains(position));
 
       if (!child) {
         return nothing;
@@ -220,14 +220,14 @@ function getStatementIndent(nodes: ArrayData<Node>, hiddenNodes: ArrayData<Node>
     const whiteSpaceNode = hiddenNodes.at(lastNlIndex + 1);
 
     if (is(whiteSpaceNode, $WhitespaceNode)) {
-      return whiteSpaceNode.reference.range.clone();
+      return whiteSpaceNode.range.clone();
     }
 
-    return rangeFromPosition(hiddenNodes.at2(lastNlIndex).reference.range.stop);
+    return rangeFromPosition(hiddenNodes.at2(lastNlIndex).range.stop);
   }
 
   if (is(hiddenNodes.at(0), $WhitespaceNode)) {
-    return hiddenNodes.at2(0).reference.range.clone();
+    return hiddenNodes.at2(0).range.clone();
   }
 
   return nothing;
