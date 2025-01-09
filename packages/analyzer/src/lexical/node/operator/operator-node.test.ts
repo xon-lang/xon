@@ -1,47 +1,37 @@
-import {
-  $InfixNode,
-  $OperatorNode,
-  $PostfixNode,
-  InfixNode,
-  OperatorNode,
-  PostfixNode,
-  syntaxFromResource,
-} from '#analyzer';
-import {newText, newTextResource, nothing} from '#common';
+import {$OperatorNode, parseIdNode} from '#analyzer';
+import {charStreamFromText, newText} from '#common';
+import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('single operator', () => {
-  const text = newText('!');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as OperatorNode;
+test('import operator', () => {
+  const text = newText('import');
+  const source = charStreamFromText(text);
+  const node = parseIdNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.text.toNativeString()).toBe('!');
-  expect(node.$).toBe($OperatorNode);
+  expect(is(node, $OperatorNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('import');
+  expect(node?.range.start.index).toBe(0);
+  expect(node?.range.stop.index).toBe(6);
 });
 
-test('after integer', () => {
-  const text = newText('1!');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as PostfixNode;
+test('plus operator', () => {
+  const text = newText('+');
+  const source = charStreamFromText(text);
+  const node = parseIdNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($PostfixNode);
-  expect(node.operator.text.toNativeString()).toBe('!');
+  expect(is(node, $OperatorNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('+');
+  expect(node?.range.start.index).toBe(0);
+  expect(node?.range.stop.index).toBe(1);
 });
 
-test('x + x', () => {
-  const text = newText('x is Number');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as InfixNode;
+test('import operator', () => {
+  const text = newText('import');
+  const source = charStreamFromText(text);
+  const node = parseIdNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($InfixNode);
-  expect(node.operator.text.toNativeString()).toBe('is');
+  expect(is(node, $OperatorNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('import');
+  expect(node?.range.start.index).toBe(0);
+  expect(node?.range.stop.index).toBe(6);
 });

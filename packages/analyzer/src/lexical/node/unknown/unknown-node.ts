@@ -1,11 +1,6 @@
-import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#analyzer';
-import {Text, TextReference} from '#common';
+import {$LexicalNode, analyzerPackageType, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type UnknownNode = LexicalNode & Brand<'Analyzer.UnknownNode'>;
 
 export const $UnknownNode = analyzerPackageType<UnknownNode>('UnknownNode', $LexicalNode);
-
-export function unknownNode(reference: TextReference, text: Text): UnknownNode {
-  return lexicalNode({$: $UnknownNode, reference, text});
-}

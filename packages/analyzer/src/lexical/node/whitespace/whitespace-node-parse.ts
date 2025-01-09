@@ -7,7 +7,7 @@ export function whitespaceNodeParse(analyzer: LexicalAnalyzer): WhitespaceNode |
   }
 
   const text = analyzer.resource.data.takeWhile((x) => SPACE.equals(x), analyzer.position.index);
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
   return whitespaceNode(reference, text);
 }
