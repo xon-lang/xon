@@ -1,4 +1,4 @@
-import {IntegerContentNode, LexicalAnalyzer, UNDERSCORE, integerContentNode} from '#analyzer';
+import {$IntegerContentNode, IntegerContentNode, LexicalAnalyzer, UNDERSCORE} from '#analyzer';
 import {Nothing, nothing} from '#common';
 
 export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerContentNode | Nothing {
@@ -14,7 +14,7 @@ export function integerContentNodeParse(analyzer: LexicalAnalyzer): IntegerConte
       analyzer.position.index,
     );
 
-  const reference = analyzer.textReference(text);
+  const range = analyzer.textReference(text);
 
-  return integerContentNode(reference, text);
+  return {$: $IntegerContentNode, text, range};
 }

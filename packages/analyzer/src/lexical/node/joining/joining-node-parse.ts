@@ -1,4 +1,4 @@
-import {JOINING, JoiningNode, LexicalAnalyzer, NL, SPACE, joiningNode} from '#analyzer';
+import {$JoiningNode, JOINING, JoiningNode, LexicalAnalyzer, NL, SPACE} from '#analyzer';
 import {Nothing, nothing} from '#common';
 
 export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothing {
@@ -14,7 +14,7 @@ export function joiningNodeParse(analyzer: LexicalAnalyzer): JoiningNode | Nothi
     text.addLastItems(NL);
   }
 
-  const reference = analyzer.textReferenceWithNewLine(text);
+  const range = analyzer.textReferenceWithNewLine(text);
 
-  return joiningNode(reference, text);
+  return {$: $JoiningNode, text, range};
 }

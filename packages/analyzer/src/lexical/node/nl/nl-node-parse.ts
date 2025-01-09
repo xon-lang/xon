@@ -1,4 +1,4 @@
-import {LexicalAnalyzer, NL, NlNode, SPACE, nlNode} from '#analyzer';
+import {$NlNode, LexicalAnalyzer, NL, NlNode, SPACE} from '#analyzer';
 import {Nothing, nothing} from '#common';
 
 export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
@@ -14,7 +14,7 @@ export function nlNodeParse(analyzer: LexicalAnalyzer): NlNode | Nothing {
   const lastNlIndex = textWithIndents.lastItemsIndex(NL) ?? -1;
 
   const text = textWithIndents.slice(0, lastNlIndex + 1);
-  const reference = analyzer.textReferenceWithNewLine(text);
+  const range = analyzer.textReferenceWithNewLine(text);
 
-  return nlNode(reference, text);
+  return {$: $NlNode, text, range, isHidden: true};
 }
