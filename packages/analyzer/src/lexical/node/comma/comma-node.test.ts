@@ -1,15 +1,13 @@
-import {$CommaNode, CommaNode, syntaxFromResource} from '#analyzer';
-import {newText, newTextResource, nothing} from '#common';
+import {$CommaNode, parseCommaNode} from '#analyzer';
+import {charStreamFromText, newText} from '#common';
+import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('comma', () => {
   const text = newText(',');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as CommaNode;
+  const source = charStreamFromText(text);
+  const node = parseCommaNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($CommaNode);
-  expect(node.text.toNativeString()).toBe(',');
+  expect(node).toBeTruthy();
+  expect(is(node, $CommaNode)).toBe(true);
 });

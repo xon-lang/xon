@@ -28,7 +28,7 @@ export * from './src/lexical/node/close/bracket-close/bracket-close-node-parse';
 export * from './src/lexical/node/close/bracket-close/bracket-close-node';
 export * from './src/lexical/node/close/paren-close/paren-close-node-parse';
 export * from './src/lexical/node/close/paren-close/paren-close-node';
-export * from './src/lexical/node/comma/comma-node-parse';
+export * from './src/lexical/node/comma/comma-node.parser';
 export * from './src/lexical/node/comma/comma-node';
 export * from './src/lexical/node/comment/comment-node';
 export * from './src/lexical/node/comment/comment-block/comment-block-node-parse';
