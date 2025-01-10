@@ -4,8 +4,8 @@ import {
   $BraceOpenNode,
   $BracketGroupNode,
   $BracketOpenNode,
-  $CloseNode,
   $CommaNode,
+  $GroupCloseNode,
   $ParenGroupNode,
   $ParenOpenNode,
   ANGLE_CLOSE,
@@ -14,16 +14,16 @@ import {
   CommaNode,
   GroupNode,
   groupNode,
+  GroupOpenNode,
   ItemNode,
   itemNode,
-  OpenNode,
   PAREN_CLOSE,
   SyntaxAnalyzer,
 } from '#analyzer';
 import {newArrayData, Nothing, nothing, Text} from '#common';
 import {$Type, is} from '#typing';
 
-export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): GroupNode {
+export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: GroupOpenNode): GroupNode {
   if (is(openNode, $ParenOpenNode)) {
     return groupNodeParseInner(analyzer, $ParenGroupNode, openNode, PAREN_CLOSE);
   }
@@ -42,7 +42,7 @@ export function groupNodeParse(analyzer: SyntaxAnalyzer, openNode: OpenNode): Gr
 function groupNodeParseInner(
   analyzer: SyntaxAnalyzer,
   $groupType: $Type,
-  openNode: OpenNode,
+  openNode: GroupOpenNode,
   closeText: Text,
 ): GroupNode {
   const items = newArrayData<ItemNode>();
@@ -52,14 +52,14 @@ function groupNodeParseInner(
 
   while (analyzer.lexicalAnalyzer.position.index < analyzer.lexicalAnalyzer.resource.data.count()) {
     const {breakNode, statements} = analyzer.parseStatements(
-      (node) => is(node, $CommaNode) || (is(node, $CloseNode) && node.text.equals(closeText)),
+      (node) => is(node, $CommaNode) || (is(node, $GroupCloseNode) && node.text.equals(closeText)),
     );
 
     if (is(breakNode, $CommaNode)) {
       const item = itemNode(analyzer, itemIndex, commaNode, statements);
       items.addLastItem(item);
       commaNode = breakNode;
-    } else if (is(breakNode, $CloseNode)) {
+    } else if (is(breakNode, $GroupCloseNode)) {
       if (!items.isEmpty() || !statements.isEmpty()) {
         const item = itemNode(analyzer, itemIndex, commaNode, statements);
         items.addLastItem(item);

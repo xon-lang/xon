@@ -1,13 +1,13 @@
-import {CloseNode, GroupNode, ItemNode, OpenNode, SyntaxAnalyzer} from '#analyzer';
+import {GroupCloseNode, GroupNode, GroupOpenNode, ItemNode, SyntaxAnalyzer} from '#analyzer';
 import {ArrayData, Boolean2, newArrayData, newTextReference, Nothing, rangeFromNodes} from '#common';
 import {$Type} from '#typing';
 
 export function groupNode(
   analyzer: SyntaxAnalyzer,
   $groupType: $Type,
-  open: OpenNode,
+  open: GroupOpenNode,
   items: ArrayData<ItemNode>,
-  close: CloseNode | Nothing,
+  close: GroupCloseNode | Nothing,
 ): GroupNode {
   const children = newArrayData(close ? [open, ...items, close] : [open, ...items]);
   const reference = newTextReference(analyzer.resource, rangeFromNodes(children));

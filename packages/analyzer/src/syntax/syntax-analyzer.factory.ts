@@ -1,9 +1,9 @@
 import {
   $CharOpenNode,
   $DocumentationOpenNode,
+  $GroupOpenNode,
   $IntegerContentNode,
   $NlNode,
-  $OpenNode,
   $StringOpenNode,
   $SyntaxNode,
   $UnknownNode,
@@ -95,7 +95,7 @@ export function newSyntaxAnalyzer(lexicalAnalyzer: LexicalAnalyzer): SyntaxAnaly
         }
 
         // todo order above is important so fix it. Should we join all open nodes ???
-        if (is(node, $OpenNode)) {
+        if (is(node, $GroupOpenNode)) {
           node = groupNodeParse(this, node);
         }
 

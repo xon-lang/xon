@@ -4,12 +4,12 @@ import {
   $DeclarationSemantic,
   $FunctionTypeSemantic,
   $GroupNode,
+  $GroupOpenNode,
   $IdNode,
   $IdTypeSemantic,
   $IdValueSemantic,
   $InvokeNode,
   $ItemNode,
-  $OpenNode,
   AttributeValueDeclarationSemantic,
   DeclarationSemantic,
   IdNode,
@@ -84,7 +84,7 @@ function getInvokeNodeAndParameterIndex(
     return nothing;
   }
 
-  if (is(nodeAtPosition, $OpenNode)) {
+  if (is(nodeAtPosition, $GroupOpenNode)) {
     if (is(nodeAtPosition.parent, $GroupNode()) && is(nodeAtPosition.parent.parent, $InvokeNode)) {
       return {
         invokeNode: nodeAtPosition.parent.parent,
