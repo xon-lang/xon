@@ -35,3 +35,21 @@ test('range operator', () => {
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(2);
 });
+
+test('equals operator', () => {
+  const text = newText('== ');
+  const source = charStreamFromText(text);
+  const node = parseOperatorNode(source);
+
+  expect(is(node, $OperatorNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('==');
+});
+
+test('assign operator', () => {
+  const text = newText('= ');
+  const source = charStreamFromText(text);
+  const node = parseOperatorNode(source);
+
+  expect(is(node, $OperatorNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('=');
+});
