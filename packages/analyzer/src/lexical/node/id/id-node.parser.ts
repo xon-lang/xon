@@ -1,19 +1,9 @@
 import {$IdNode, IdNode, UNDERSCORE} from '#analyzer';
-import {CharStream, Nothing, nothing, textRange} from '#common';
+import {CharStream, Nothing} from '#common';
 
 export function parseIdNode(source: CharStream): IdNode | Nothing {
-  const startPosition = source.position;
-  const firstChar = source.takeWhile((x) => UNDERSCORE.equals(x) || x.isLetter(), 1);
-
-  if (!firstChar) {
-    return nothing;
-  }
-
-  const text =
-    source.takeWhile((x) => UNDERSCORE.equals(x) || x.isLetterOrDigit())?.addFirstItems(firstChar) ??
-    firstChar;
-
-  const range = textRange(startPosition, source.position);
-
-  return {$: $IdNode, text, range};
+  return source.takeWhile(
+    $IdNode,
+    (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || UNDERSCORE.equals(x),
+  );
 }

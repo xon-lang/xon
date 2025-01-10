@@ -1,4 +1,4 @@
-import {NL} from '#analyzer';
+import {LexicalNode2, NL} from '#analyzer';
 import {
   $CharStream,
   Boolean2,
@@ -6,31 +6,35 @@ import {
   CharStream,
   Integer,
   newTextPosition,
+  newTextRange,
   nothing,
   Nothing,
   Text,
   TextPosition,
 } from '#common';
+import {$Type} from '#typing';
 
 export function charStreamFromText(source: Text): CharStream {
+  let sourcePosition = newTextPosition();
+  const sourceLength = source.count();
+
   return {
     $: $CharStream,
-    length: source.count(),
-    position: newTextPosition(),
 
     takeWhile(
+      $type: $Type,
       predicate: (char: Char, index: Integer, text: Text) => Boolean2,
       length?: Integer | Nothing,
-    ): Text | Nothing {
-      if (this.position.index >= this.length) {
+    ): LexicalNode2 | Nothing {
+      if (sourcePosition.index >= sourceLength) {
         return nothing;
       }
 
-      if (length && length + this.position.index > this.length) {
+      if (length && length + sourcePosition.index > sourceLength) {
         return nothing;
       }
 
-      const chunkText = source.slice(this.position.index);
+      const chunkText = source.slice(sourcePosition.index);
 
       const text = length
         ? chunkText.takeWhile((x, i) => i < length && predicate(x, i, chunkText))
@@ -40,9 +44,10 @@ export function charStreamFromText(source: Text): CharStream {
         return nothing;
       }
 
-      this.position = getStopTextPosition(text, this.position);
+      const range = newTextRange(sourcePosition, getStopTextPosition(text, sourcePosition));
+      sourcePosition = range.stop;
 
-      return text;
+      return {$: $type, text, range};
     },
   };
 }

@@ -1,5 +1,5 @@
 import {$Node, analyzerPackageType, Semantic} from '#analyzer';
-import {ArrayData, Boolean2, newText, Nothing, Text, textRange, TextRange, zeroRange} from '#common';
+import {ArrayData, Boolean2, newText, newTextRange, Nothing, Text, TextRange} from '#common';
 import {Brand, Model} from '#typing';
 
 export type LexicalNode = Model & {
@@ -46,8 +46,8 @@ export function rangeFromNodes2(nodes: ArrayData<Node2>): TextRange {
   const {first, last} = nodes.firstLast()!;
 
   if (!first || !last) {
-    return zeroRange();
+    return newTextRange();
   }
 
-  return textRange(first.range.start.clone(), last.range.stop.clone());
+  return newTextRange(first.range.start.clone(), last.range.stop.clone());
 }

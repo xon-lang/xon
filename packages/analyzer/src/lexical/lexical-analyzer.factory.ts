@@ -5,12 +5,12 @@ import {
   FunctionData,
   Integer,
   newTextPosition,
+  newTextRange,
   Nothing,
   nothing,
   Text,
   TextPosition,
   TextRange,
-  textRange,
   TextResource,
 } from '#common';
 
@@ -36,7 +36,7 @@ export function lexicalTextRange(text: Text, startPosition: TextPosition): TextR
     startPosition.column + text.count(),
   );
 
-  return textRange(start, stop);
+  return newTextRange(start, stop);
 }
 
 export function lexicalTextRangeWithNewLine(text: Text, startPosition: TextPosition): TextRange {
@@ -58,7 +58,7 @@ export function lexicalTextRangeWithNewLine(text: Text, startPosition: TextPosit
   const start = startPosition.clone();
   const stop = newTextPosition(index, line, column);
 
-  return textRange(start, stop);
+  return newTextRange(start, stop);
 }
 
 export function lexicalHasTextAtIndex(text: Text, index?: Integer | Nothing): Boolean2 {

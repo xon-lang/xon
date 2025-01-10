@@ -2,6 +2,7 @@ import {
   $TextPosition,
   $TextRange,
   Boolean2,
+  Nothing,
   TextPosition,
   TextRange,
   newArrayData,
@@ -9,8 +10,10 @@ import {
 } from '#common';
 import {is} from '#typing';
 
-// todo rename to 'newTextRange'
-export function textRange(start: TextPosition, stop: TextPosition): TextRange {
+export function newTextRange(start?: TextPosition | Nothing, stop?: TextPosition | Nothing): TextRange {
+  start ??= newTextPosition();
+  stop ??= newTextPosition();
+
   return {
     $: $TextRange,
     start,
@@ -27,11 +30,11 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
     union(other: TextRange): TextRange {
       const {min, max} = newArrayData([this.start, other.stop]).minMax((x) => x.index);
 
-      return textRange(min?.element!, max?.element!);
+      return newTextRange(min?.element!, max?.element!);
     },
 
     clone(): TextRange {
-      return textRange(this.start.clone(), this.stop.clone());
+      return newTextRange(this.start.clone(), this.stop.clone());
     },
 
     isEmpty(): Boolean2 {
@@ -45,10 +48,5 @@ export function textRange(start: TextPosition, stop: TextPosition): TextRange {
 }
 
 export function rangeFromPosition(position: TextPosition): TextRange {
-  return textRange(position.clone(), position.clone());
-}
-
-// rename to newTextRange with default 0 values
-export function zeroRange(): TextRange {
-  return textRange(newTextPosition(), newTextPosition());
+  return newTextRange(position.clone(), position.clone());
 }

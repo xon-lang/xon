@@ -3,12 +3,11 @@ import {
   ArrayData,
   Boolean2,
   Integer,
+  newTextRange,
   Nothing,
   nothing,
-  textRange,
   TextRange,
   TextReference,
-  zeroRange,
 } from '#common';
 import {Model} from '#typing';
 
@@ -58,8 +57,8 @@ export function rangeFromNodes(nodes: ArrayData<Node>): TextRange {
   const {first, last} = nodes.firstLast()!;
 
   if (!first || !last) {
-    return zeroRange();
+    return newTextRange();
   }
 
-  return textRange(first.reference.range.start.clone(), last.reference.range.stop.clone());
+  return newTextRange(first.reference.range.start.clone(), last.reference.range.stop.clone());
 }

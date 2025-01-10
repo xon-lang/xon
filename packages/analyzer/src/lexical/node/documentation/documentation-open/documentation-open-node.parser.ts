@@ -1,5 +1,5 @@
 import {$DocumentationOpenNode, DOCUMENTATION_OPEN, DocumentationOpenNode} from '#analyzer';
-import {CharStream, Nothing, nothing, textRange} from '#common';
+import {CharStream, newTextRange, Nothing, nothing} from '#common';
 
 export function parseDocumentationOpenNode(source: CharStream): DocumentationOpenNode | Nothing {
   const startPosition = source.position;
@@ -9,7 +9,7 @@ export function parseDocumentationOpenNode(source: CharStream): DocumentationOpe
     return nothing;
   }
 
-  const range = textRange(startPosition, source.position);
+  const range = newTextRange(startPosition, source.position);
 
   return {$: $DocumentationOpenNode, text, range};
 }

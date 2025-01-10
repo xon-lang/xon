@@ -6,7 +6,16 @@ import {
   $ValueSemantic,
   DeclarationSemantic,
 } from '#analyzer';
-import {ArrayData, Nothing, Text, TextRange, TextReference, newArrayData, nothing, zeroRange} from '#common';
+import {
+  ArrayData,
+  Nothing,
+  Text,
+  TextRange,
+  TextReference,
+  newArrayData,
+  newTextRange,
+  nothing,
+} from '#common';
 import {is} from '#typing';
 import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 import {
@@ -125,7 +134,7 @@ function navigateToLocation(
   sourceRange?: TextRange | Nothing,
 ): ArrayData<LocationLink> | Nothing {
   const targetUri = Uri.parse(location.toNativeString());
-  const targetRange = sourceRange ? convertRange(sourceRange) : convertRange(zeroRange());
+  const targetRange = sourceRange ? convertRange(sourceRange) : convertRange(newTextRange());
   const originSelectionRange = convertRange(originalRange);
 
   return newArrayData([
