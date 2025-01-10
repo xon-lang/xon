@@ -4,10 +4,10 @@ import {
   DocumentationDescriptionNode,
   DocumentationLabelOperatorNode,
   IdNode,
-  rangeFromNodes2,
+  newSyntaxNode,
   SyntaxNode2,
 } from '#analyzer';
-import {newArrayData, Nothing} from '#common';
+import {Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type DocumentationLabelNode = SyntaxNode2 &
@@ -27,15 +27,5 @@ export function newDocumentationLabelNode(
   idNode?: IdNode | Nothing,
   descriptionNode?: DocumentationDescriptionNode | Nothing,
 ): DocumentationLabelNode {
-  const children = newArrayData([operatorNode, idNode, descriptionNode]).filter();
-  const range = rangeFromNodes2(children);
-
-  return {
-    $: $DocumentationLabelNode,
-    range,
-    operatorNode,
-    idNode,
-    descriptionNode,
-    children,
-  };
+  return newSyntaxNode({$: $DocumentationLabelNode, operatorNode, idNode, descriptionNode});
 }

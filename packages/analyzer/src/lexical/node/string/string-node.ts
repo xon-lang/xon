@@ -1,13 +1,13 @@
 import {
   $SyntaxNode2,
   analyzerPackageType,
-  rangeFromNodes2,
+  newSyntaxNode,
   StringCloseNode,
   StringContentNode,
   StringOpenNode,
   SyntaxNode2,
 } from '#analyzer';
-import {newArrayData, Nothing} from '#common';
+import {Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type StringNode = SyntaxNode2 &
@@ -24,16 +24,5 @@ export function newStringNode(
   contentNode?: StringContentNode | Nothing,
   closeNode?: StringCloseNode | Nothing,
 ): StringNode {
-  const children = newArrayData([openNode, contentNode, closeNode]).filter();
-  const range = rangeFromNodes2(children);
-
-  return {
-    $: $StringNode,
-    range,
-    isExpression: true,
-    openNode,
-    contentNode,
-    closeNode,
-    children,
-  };
+  return newSyntaxNode({$: $StringNode, isExpression: true, openNode, contentNode, closeNode});
 }

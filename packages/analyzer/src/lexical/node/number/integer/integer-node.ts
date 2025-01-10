@@ -1,5 +1,4 @@
-import {$NumberNode, analyzerPackageType, IntegerContentNode, NumberNode, rangeFromNodes2} from '#analyzer';
-import {newArrayData} from '#common';
+import {$NumberNode, analyzerPackageType, IntegerContentNode, newSyntaxNode, NumberNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type IntegerNode = NumberNode &
@@ -10,14 +9,5 @@ export type IntegerNode = NumberNode &
 export const $IntegerNode = analyzerPackageType<IntegerNode>('IntegerNode', $NumberNode);
 
 export function newIntegerNode(contentNode: IntegerContentNode): IntegerNode {
-  const children = newArrayData([contentNode]);
-  const range = rangeFromNodes2(children);
-
-  return {
-    $: $IntegerNode,
-    isExpression: true,
-    children,
-    range,
-    contentNode,
-  };
+  return newSyntaxNode({$: $IntegerNode, isExpression: true, contentNode});
 }

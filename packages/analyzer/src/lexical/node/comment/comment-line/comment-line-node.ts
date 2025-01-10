@@ -4,9 +4,9 @@ import {
   CommentLineContentNode,
   CommentLineOperatorNode,
   CommentNode,
-  rangeFromNodes2,
+  newSyntaxNode,
 } from '#analyzer';
-import {newArrayData, Nothing} from '#common';
+import {Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type CommentLineNode = CommentNode &
@@ -21,14 +21,5 @@ export function newCommentLineNode(
   operatorNode: CommentLineOperatorNode,
   contentNode?: CommentLineContentNode | Nothing,
 ): CommentLineNode {
-  const children = newArrayData([operatorNode, contentNode]).filter();
-  const range = rangeFromNodes2(children);
-
-  return {
-    $: $CommentLineNode,
-    range,
-    operatorNode,
-    contentNode,
-    children,
-  };
+  return newSyntaxNode({$: $CommentLineNode, operatorNode, contentNode});
 }

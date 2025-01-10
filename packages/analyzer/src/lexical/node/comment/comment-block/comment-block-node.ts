@@ -5,9 +5,9 @@ import {
   CommentBlockContentNode,
   CommentBlockOpenNode,
   CommentNode,
-  rangeFromNodes2,
+  newSyntaxNode,
 } from '#analyzer';
-import {newArrayData, Nothing} from '#common';
+import {Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type CommentBlockNode = CommentNode &
@@ -24,15 +24,5 @@ export function newCommentBlockNode(
   contentNode?: CommentBlockContentNode | Nothing,
   closeNode?: CommentBlockCloseNode | Nothing,
 ): CommentBlockNode {
-  const children = newArrayData([openNode, contentNode, closeNode]).filter();
-  const range = rangeFromNodes2(children);
-
-  return {
-    $: $CommentBlockNode,
-    range,
-    openNode,
-    contentNode,
-    closeNode,
-    children,
-  };
+  return newSyntaxNode({$: $CommentBlockNode, openNode, contentNode, closeNode});
 }

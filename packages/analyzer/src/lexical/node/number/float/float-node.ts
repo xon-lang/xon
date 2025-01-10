@@ -2,11 +2,11 @@ import {
   $NumberNode,
   analyzerPackageType,
   IntegerContentNode,
+  newSyntaxNode,
   NumberNode,
   RadixPointNode,
-  rangeFromNodes2,
 } from '#analyzer';
-import {newArrayData, Nothing} from '#common';
+import {Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type FloatNode = NumberNode &
@@ -23,16 +23,11 @@ export function newFloatNode(
   radixPointNode?: RadixPointNode | Nothing,
   fractionalPartNode?: IntegerContentNode | Nothing,
 ): FloatNode {
-  const children = newArrayData([integerPartNode, radixPointNode, fractionalPartNode]).filter();
-  const range = rangeFromNodes2(children);
-
-  return {
+  return newSyntaxNode({
     $: $FloatNode,
     isExpression: true,
-    children,
-    range,
     integerPartNode,
     radixPointNode,
     fractionalPartNode,
-  };
+  });
 }
