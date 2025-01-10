@@ -65,7 +65,10 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
     select: ArraySelect<T, V>,
   ): {min: ArrayExtremumElement<T, V> | Nothing; max: ArrayExtremumElement<T, V> | Nothing};
 
+  // todo remove 'findMap'
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
+  firstMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
+  lastMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
   filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): this;

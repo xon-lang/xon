@@ -259,9 +259,33 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return newArrayData([...this._items].splice(-1, length ?? 1));
     },
 
-    findMap<V>(predicateSelect: (value: T, index: Integer, array: ArrayData<T>) => V | Nothing): V | Nothing {
+    firstMap<V>(predicateSelect: (value: T, index: Integer) => V | Nothing): V | Nothing {
       for (let index = 0; index < this.count(); index++) {
-        const result = predicateSelect(this.at2(index), index, this);
+        const result = predicateSelect(this.at2(index), index);
+
+        if (result) {
+          return result;
+        }
+      }
+
+      return nothing;
+    },
+
+    lastMap<V>(predicateSelect: (value: T, index: Integer) => V | Nothing): V | Nothing {
+      for (let index = this.count() - 1; index >= 0; index--) {
+        const result = predicateSelect(this.at2(index), index);
+
+        if (result) {
+          return result;
+        }
+      }
+
+      return nothing;
+    },
+
+    findMap<V>(predicateSelect: (value: T, index: Integer) => V | Nothing): V | Nothing {
+      for (let index = 0; index < this.count(); index++) {
+        const result = predicateSelect(this.at2(index), index);
 
         if (result) {
           return result;
