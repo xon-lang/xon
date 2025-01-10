@@ -1,11 +1,6 @@
-import {$LexicalNode, analyzerPackageType, LexicalNode, lexicalNode} from '#analyzer';
-import {Text} from '#common';
+import {$LexicalNode2, analyzerPackageType, LexicalNode2} from '#analyzer';
 import {Brand} from '#typing';
 
-export type WhitespaceNode = LexicalNode & Brand<'Analyzer.WhitespaceNode'>;
+export type WhitespaceNode = LexicalNode2 & Brand<'Analyzer.WhitespaceNode'>;
 
-export const $WhitespaceNode = analyzerPackageType<WhitespaceNode>('WhitespaceNode', $LexicalNode);
-
-export function whitespaceNode(range: TextRange, text: Text): WhitespaceNode {
-  return lexicalNode({$: $WhitespaceNode, reference, text, isHidden: true});
-}
+export const $WhitespaceNode = analyzerPackageType<WhitespaceNode>('WhitespaceNode', $LexicalNode2);
