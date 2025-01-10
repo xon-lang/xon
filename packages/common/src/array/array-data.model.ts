@@ -78,6 +78,8 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   flat<A>(this: ArrayData<ArrayData<A>>): ArrayData<A>;
   flatMap<V>(select: ArraySelect<T, ArrayData<V>>): ArrayData<V>;
 
+  forEach(action: (value: T, index: Integer) => void): ArrayData<T>;
+
   // todo uncomment
   // splitBy(predicate: ArrayPredicate<T>): ArrayData<{splitter: T | Nothing; items: ArrayData<T>}>;
   // splitBy<V extends T>(

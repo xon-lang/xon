@@ -345,6 +345,12 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this.map((x, i) => select(x, i)).flat();
     },
 
+    forEach(action: (value: T, index: Integer) => void): ArrayData<T> {
+      this._items.forEach((x, i) => action(x, i));
+
+      return this;
+    },
+
     splitBy: splitByArrayMethod,
 
     // todo fix 'reduce'
