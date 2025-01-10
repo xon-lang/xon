@@ -12,3 +12,21 @@ test('float', () => {
   expect(node?.integerPartNode.text.toNativeString()).toBe('123');
   expect(node?.fractionalPartNode?.text.toNativeString()).toBe('456');
 });
+
+test('float with underscore', () => {
+  const text = newText('1_2_3.456___');
+  const source = charStreamFromText(text);
+  const node = parseNumberNode(source) as FloatNode;
+
+  expect(is(node, $FloatNode)).toBe(true);
+  expect(node?.integerPartNode.text.toNativeString()).toBe('1_2_3');
+  expect(node?.fractionalPartNode?.text.toNativeString()).toBe('456___');
+});
+
+test('no float number', () => {
+  const text = newText('_123.456');
+  const source = charStreamFromText(text);
+  const node = parseNumberNode(source) as FloatNode;
+
+  expect(node).toBeFalsy();
+});
