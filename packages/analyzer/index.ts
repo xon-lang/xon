@@ -59,7 +59,7 @@ export * from './src/lexical/node/documentation/documentation-open/documentation
 export * from './src/lexical/node/documentation/documentation-open/documentation-open-node';
 export * from './src/lexical/node/id/id-node.parser';
 export * from './src/lexical/node/id/id-node';
-export * from './src/lexical/node/joining/joining-node-parse';
+export * from './src/lexical/node/joining/joining-node.parser';
 export * from './src/lexical/node/joining/joining-node';
 export * from './src/lexical/node/nl/nl-node.parser';
 export * from './src/lexical/node/nl/nl-node';

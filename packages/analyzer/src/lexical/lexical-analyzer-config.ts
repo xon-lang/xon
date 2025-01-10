@@ -18,7 +18,7 @@ export const NL = newText('\n');
 export const CR = newChar('\r');
 export const LF = newChar('\n');
 export const COMMA = newText(',');
-export const JOINING = newText('~');
+export const JOINING = newChar('~');
 export const SPACE = newChar(' ');
 export const UNDERSCORE = newChar('_');
 

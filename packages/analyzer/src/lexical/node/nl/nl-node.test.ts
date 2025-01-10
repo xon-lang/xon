@@ -38,3 +38,11 @@ test('starts with whitespace', () => {
 
   expect(node).toBeFalsy();
 });
+
+test('whitespace', () => {
+  const text = newText('   ');
+  const source = charStreamFromText(text);
+  const node = parseNlNode(source);
+
+  expect(node).toBeFalsy();
+});

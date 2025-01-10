@@ -1,62 +1,51 @@
-import {
-  $IdNode,
-  $LexicalNode,
-  IdNode,
-  JOINING,
-  LexicalNode,
-  MemberNode,
-  OperatorNode,
-  syntaxFromResource,
-} from '#analyzer';
-import {newText, newTextResource, nothing} from '#common';
+import {$JoiningNode, parseJoiningNode} from '#analyzer';
+import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('no space', () => {
-  const text = newText('abc~.def');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as MemberNode;
+  const text = newText('~.def');
+  const source = charStreamFromText(text);
+  const node = parseJoiningNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.instance.$.toNativeString()).toBe($IdNode.toNativeString());
-  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
-  expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
-  expect(node.id?.$).toBe($IdNode);
-  expect((node.id as IdNode).text.toNativeString()).toBe('def');
+  expect(node).toBeTruthy();
+  expect(is(node, $JoiningNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('~');
+  expect(node?.range.start.index).toBe(0);
+  expect(node?.range.start.line).toBe(0);
+  expect(node?.range.stop.index).toBe(1);
+  expect(node?.range.stop.line).toBe(0);
 });
 
-test('spaces', () => {
-  const text = newText('abc~  .def');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as MemberNode;
+test('with space', () => {
+  const text = newText('~   .def');
+  const source = charStreamFromText(text);
+  const node = parseJoiningNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.instance?.$).toBe($IdNode);
-  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
-  expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
-  expect(is(node.id, $IdNode)).toBe(true);
-  expect((node.id as IdNode).text.toNativeString()).toBe('def');
+  expect(node).toBeTruthy();
+  expect(is(node, $JoiningNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('~   ');
+  expect(node?.range.stop.index).toBe(4);
+  expect(node?.range.stop.line).toBe(0);
 });
 
 test('with new line', () => {
-  const text = newText('abc~   \n  .def');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as MemberNode;
+  const text = newText('~   \n \r \n\n   .def');
+  const source = charStreamFromText(text);
+  const node = parseJoiningNode(source);
 
-  expect(statements.count()).toBe(1);
-  expect(node.instance?.$).toBe($IdNode);
-  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
-  expect((node.operator as OperatorNode).text.toNativeString()).toBe('.');
-  expect(is(node.operator.hiddenNodes?.at(0), $LexicalNode)).toBe(true);
-  expect((node.operator.hiddenNodes?.at(0) as LexicalNode)?.text.toNativeString()).toBe(
-    JOINING.toNativeString() + '   \n',
-  );
-  expect(is(node.id, $IdNode)).toBe(true);
-  expect((node.id as IdNode).text.toNativeString()).toBe('def');
+  expect(node).toBeTruthy();
+  expect(is(node, $JoiningNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('~   \n \r \n\n   ');
+  expect(node?.range.stop.index).toBe(13);
+  expect(node?.range.stop.line).toBe(3);
+  expect(node?.range.stop.column).toBe(3);
+});
+
+test('no joining', () => {
+  const text = newText(' ~  ');
+  const source = charStreamFromText(text);
+  const node = parseJoiningNode(source);
+
+  expect(node).toBeFalsy();
 });
