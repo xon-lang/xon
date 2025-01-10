@@ -80,6 +80,7 @@ export * from './src/lexical/node/open/bracket-open/bracket-open-node-parse';
 export * from './src/lexical/node/open/bracket-open/bracket-open-node';
 export * from './src/lexical/node/open/paren-open/paren-open-node-parse';
 export * from './src/lexical/node/open/paren-open/paren-open-node';
+export * from './src/lexical/node/operator/operator-node.parser';
 export * from './src/lexical/node/operator/operator-node';
 export * from './src/lexical/node/string/string-node.parser';
 export * from './src/lexical/node/string/string-node';

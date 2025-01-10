@@ -1,4 +1,4 @@
-import {$OperatorNode, parseIdNode} from '#analyzer';
+import {$OperatorNode, parseOperatorNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,7 @@ import {expect, test} from 'vitest';
 test('import operator', () => {
   const text = newText('import');
   const source = charStreamFromText(text);
-  const node = parseIdNode(source);
+  const node = parseOperatorNode(source);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('import');
@@ -15,9 +15,9 @@ test('import operator', () => {
 });
 
 test('plus operator', () => {
-  const text = newText('+');
+  const text = newText('+abc');
   const source = charStreamFromText(text);
-  const node = parseIdNode(source);
+  const node = parseOperatorNode(source);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('+');
@@ -25,13 +25,13 @@ test('plus operator', () => {
   expect(node?.range.stop.index).toBe(1);
 });
 
-test('import operator', () => {
-  const text = newText('import');
+test('range operator', () => {
+  const text = newText('.. ');
   const source = charStreamFromText(text);
-  const node = parseIdNode(source);
+  const node = parseOperatorNode(source);
 
   expect(is(node, $OperatorNode)).toBe(true);
-  expect(node?.text.toNativeString()).toBe('import');
+  expect(node?.text.toNativeString()).toBe('..');
   expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(6);
+  expect(node?.range.stop.index).toBe(2);
 });
