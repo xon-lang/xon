@@ -15,9 +15,11 @@ export const CHAR_OPEN = newText("'");
 export const CHAR_CLOSE = newText("'");
 
 export const NL = newText('\n');
+export const CR = newChar('\r');
+export const LF = newChar('\n');
 export const COMMA = newText(',');
 export const JOINING = newText('~');
-export const SPACE = newText(' ');
+export const SPACE = newChar(' ');
 export const UNDERSCORE = newChar('_');
 
 export const PAREN_OPEN = newText('(');
