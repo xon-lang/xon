@@ -74,7 +74,10 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this.slice(startIndex, this.count());
     },
 
-    first(predicate?: ((value: T, index: Integer, array: ArrayData<T>) => Boolean2) | Nothing): T | Nothing {
+    first(
+      predicate?: ((value: T, index: Integer) => Boolean2) | Nothing,
+      startIndex?: Integer | Nothing,
+    ): T | Nothing {
       if (this.isEmpty()) {
         return nothing;
       }
@@ -83,10 +86,12 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         return this.at(0);
       }
 
-      for (let index = 0; index < this.count(); index++) {
+      startIndex ??= 0;
+
+      for (let index = startIndex; index < this.count(); index++) {
         const element = this.at2(index);
 
-        if (predicate(element, index, this)) {
+        if (predicate(element, index)) {
           return element;
         }
       }
@@ -94,7 +99,10 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return nothing;
     },
 
-    last(predicate?: ((value: T, index: Integer, array: ArrayData<T>) => Boolean2) | Nothing): T | Nothing {
+    last(
+      predicate?: ((value: T, index: Integer) => Boolean2) | Nothing,
+      startIndex?: Integer | Nothing,
+    ): T | Nothing {
       if (this.isEmpty()) {
         return nothing;
       }
@@ -103,10 +111,12 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         return this.at(this.count() - 1);
       }
 
-      for (let index = this.count() - 1; index >= 0; index--) {
+      startIndex ??= this.count() - 1;
+
+      for (let index = startIndex; index >= 0; index--) {
         const element = this.at2(index);
 
-        if (predicate(element, index, this)) {
+        if (predicate(element, index)) {
           return element;
         }
       }
@@ -261,8 +271,13 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return newArrayData([...this._items].splice(-1, length ?? 1));
     },
 
-    firstMap<V>(predicateSelect: (value: T, index: Integer) => V | Nothing): V | Nothing {
-      for (let index = 0; index < this.count(); index++) {
+    firstMap<V>(
+      predicateSelect: (value: T, index: Integer) => V | Nothing,
+      startIndex?: Integer | Nothing,
+    ): V | Nothing {
+      startIndex ??= 0;
+
+      for (let index = startIndex; index < this.count(); index++) {
         const result = predicateSelect(this.at2(index), index);
 
         if (result) {
@@ -273,8 +288,13 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return nothing;
     },
 
-    lastMap<V>(predicateSelect: (value: T, index: Integer) => V | Nothing): V | Nothing {
-      for (let index = this.count() - 1; index >= 0; index--) {
+    lastMap<V>(
+      predicateSelect: (value: T, index: Integer) => V | Nothing,
+      startIndex?: Integer | Nothing,
+    ): V | Nothing {
+      startIndex ??= this.count() - 1;
+
+      for (let index = startIndex; index >= 0; index--) {
         const result = predicateSelect(this.at2(index), index);
 
         if (result) {

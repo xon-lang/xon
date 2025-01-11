@@ -22,10 +22,16 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
   isEmpty(): Boolean2;
 
-  first(predicate?: ArrayPredicate<T>): T | Nothing;
-  first<V extends T>(predicate?: ArraySafePredicate<T, V> | Nothing): V | Nothing;
-  last(predicate?: ArrayPredicate<T>): T | Nothing;
-  last<V extends T>(predicate?: ArraySafePredicate<T, V> | Nothing): V | Nothing;
+  first(predicate?: ArrayPredicate<T>, startIndex?: Integer | Nothing): T | Nothing;
+  first<V extends T>(
+    predicate?: ArraySafePredicate<T, V> | Nothing,
+    startIndex?: Integer | Nothing,
+  ): V | Nothing;
+  last(predicate?: ArrayPredicate<T>, startIndex?: Integer | Nothing): T | Nothing;
+  last<V extends T>(
+    predicate?: ArraySafePredicate<T, V> | Nothing,
+    startIndex?: Integer | Nothing,
+  ): V | Nothing;
   firstLast(): {first: T | Nothing; last: T | Nothing};
 
   remove(predicate: ArrayPredicate<T>): ArrayData<T> | Nothing;
@@ -69,8 +75,8 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
 
   // todo remove 'findMap'
   findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
-  firstMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
-  lastMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
+  firstMap<V>(predicateSelect: ArrayPredicateSelect<T, V>, startIndex?: Integer | Nothing): V | Nothing;
+  lastMap<V>(predicateSelect: ArrayPredicateSelect<T, V>, startIndex?: Integer | Nothing): V | Nothing;
   filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): this;
