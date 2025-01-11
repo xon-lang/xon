@@ -27,7 +27,9 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   last(predicate?: ArrayPredicate<T>): T | Nothing;
   last<V extends T>(predicate?: ArraySafePredicate<T, V> | Nothing): V | Nothing;
   firstLast(): {first: T | Nothing; last: T | Nothing};
+
   remove(predicate: ArrayPredicate<T>): ArrayData<T> | Nothing;
+  replace(startIndex: Integer, deleteCount: Integer, newItems: ArrayData<T>): ArrayData<T>;
 
   firstIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer | Nothing;
   firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing;
