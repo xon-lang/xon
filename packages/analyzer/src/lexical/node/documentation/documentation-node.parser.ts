@@ -20,7 +20,7 @@ export function parseDocumentationNode(source: CharStream): DocumentationNode | 
   const labels = newArrayData(labelIterator(source));
   const closeNodeNode = parseDocumentationCloseNode(source);
 
-  return newDocumentationNode(openNode, descriptionNode, labels, closeNodeNode);
+  return newDocumentationNode(openNode, labels, descriptionNode, closeNodeNode);
 }
 
 function labelIterator(source: CharStream): IterableIterator<DocumentationLabelNode> {

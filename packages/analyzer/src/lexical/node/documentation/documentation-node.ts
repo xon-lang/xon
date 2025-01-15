@@ -5,10 +5,10 @@ import {
   DocumentationDescriptionNode,
   DocumentationLabelNode,
   DocumentationOpenNode,
-  rangeFromNodes2,
+  newSyntaxNode,
   SyntaxNode2,
 } from '#analyzer';
-import {ArrayData, newArrayData, Nothing} from '#common';
+import {ArrayData, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type DocumentationNode = SyntaxNode2 &
@@ -23,20 +23,16 @@ export const $DocumentationNode = analyzerPackageType<DocumentationNode>('Docume
 
 export function newDocumentationNode(
   openNode: DocumentationOpenNode,
-  descriptionNode?: DocumentationDescriptionNode | Nothing,
   labels: ArrayData<DocumentationLabelNode>,
+  descriptionNode?: DocumentationDescriptionNode | Nothing,
   closeNode?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
-  const children = newArrayData([openNode, descriptionNode, ...(labels ?? []), closeNode]).filter();
-  const range = rangeFromNodes2(children);
-
-  return {
+  return newSyntaxNode({
     $: $DocumentationNode,
-    range,
+    isHidden: true,
     openNode,
     descriptionNode,
     labels,
     closeNode,
-    children,
-  };
+  });
 }
