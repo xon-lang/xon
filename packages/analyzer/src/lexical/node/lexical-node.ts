@@ -1,5 +1,15 @@
 import {$Node, analyzerPackageType, Semantic} from '#analyzer';
-import {ArrayData, Boolean2, newArrayData, newText, newTextRange, Nothing, Text, TextRange} from '#common';
+import {
+  $ArrayData,
+  ArrayData,
+  Boolean2,
+  newArrayData,
+  newText,
+  newTextRange,
+  Nothing,
+  Text,
+  TextRange,
+} from '#common';
 import {Brand, is, Model} from '#typing';
 
 export type LexicalNode = Model & {
@@ -13,12 +23,11 @@ export const $LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Nod
 
 export type Node2 = Model &
   Brand<'Analyzer.Node2'> & {
-    // todo remove 'isHidden' or move to 'syntax node'
-    // isHidden: Boolean2;
     range: TextRange;
-    isExpression?: Boolean2 | Nothing;
     parent?: Node2 | Nothing;
     semantic?: Semantic | Nothing;
+    isHidden?: Boolean2;
+    hiddenNodes?: ArrayData<Node2> | Nothing;
   };
 
 export const $Node2 = analyzerPackageType<Node2>('Node2');
@@ -32,14 +41,18 @@ export const $LexicalNode2 = analyzerPackageType<LexicalNode2>('LexicalNode2', $
 
 export type SyntaxNode2 = Node2 &
   Brand<'Analyzer.SyntaxNode2'> & {
-    // hiddenNodes?: ArrayData<Node> | Nothing;
     children: ArrayData<Node2>;
   };
 
 export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2');
 
 export function newSyntaxNode<T extends SyntaxNode2>(params: Omit<T, 'children' | 'range'>): T {
-  const children = newArrayData(Object.values(params).filter((x) => is(x, $Node2)));
+  const children = newArrayData(
+    Object.values(params)
+      .filter((x) => is(x, $Node2) || is(x, $ArrayData<Node2>($Node2)))
+      .flatMap((x) => (is(x, $Node2) ? x : x._items)),
+  );
+
   const range = rangeFromNodes2(children);
 
   const node: T = {
