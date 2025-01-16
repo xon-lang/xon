@@ -3,4 +3,4 @@ import {Brand} from '#typing';
 
 export type BracketGroupNode = GroupNode & Brand<'Analyzer.BracketGroupNode'>;
 
-export const $BracketGroupNode = analyzerPackageType<BracketGroupNode>('BracketGroupNode', $GroupNode());
+export const $BracketGroupNode = analyzerPackageType<BracketGroupNode>('BracketGroupNode', $GroupNode);

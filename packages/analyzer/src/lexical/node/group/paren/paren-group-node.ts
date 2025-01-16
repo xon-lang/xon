@@ -3,4 +3,4 @@ import {Brand} from '#typing';
 
 export type ParenGroupNode = GroupNode & Brand<'Analyzer.ParenGroupNode'>;
 
-export const $ParenGroupNode = analyzerPackageType<ParenGroupNode>('ParenGroupNode', $GroupNode());
+export const $ParenGroupNode = analyzerPackageType<ParenGroupNode>('ParenGroupNode', $GroupNode);

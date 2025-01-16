@@ -24,5 +24,5 @@ export function newCharNode(
   contentNode?: CharContentNode | Nothing,
   closeNode?: CharCloseNode | Nothing,
 ): CharNode {
-  return newSyntaxNode({$: $CharNode, isExpression: true, openNode, contentNode, closeNode});
+  return newSyntaxNode({$: $CharNode, openNode, contentNode, closeNode});
 }
