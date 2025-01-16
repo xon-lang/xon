@@ -3,7 +3,7 @@ import {
   Node2,
   NodeParserFunction,
   parseCharNode,
-  parseCommaNode,
+  parseCommentNode,
   parseIdNode,
   parseNumberNode,
   parseOperatorNode,
@@ -14,53 +14,51 @@ import {
 } from '#analyzer';
 import {ArrayData, CharStream, Integer, newArrayData, Nothing} from '#common';
 
-export type ExpressionNodeParseResult<T extends Node2 = Node2> = {
-  node: T | Nothing;
-  errorNodes: ArrayData<Node2>;
-  hiddenNodes: ArrayData<Node2>;
-};
-
 // todo make constant instead of function
 function expressionParsers(): ArrayData<NodeParserFunction> {
   return newArrayData([
-    parseCommaNode,
     parseNumberNode,
     parseCharNode,
     parseStringNode,
     parseOperatorNode,
     parseIdNode,
     parseWhitespaceNode,
+    parseCommentNode,
   ]);
 }
 
-export function parseExpressionNode(source: CharStream): ExpressionNodeParseResult {
-  const {nodes, hiddenNodes} = parseExpressionNodes(source);
+export function parseExpressionNode(source: CharStream): {
+  node: Node2 | Nothing;
+  errorNodes: ArrayData<Node2>;
+  afterHiddenNodes: ArrayData<Node2>;
+} {
+  const {nodes, afterHiddenNodes} = parseExpressionNodes(source);
   const collapsedNodes = collapseExpressionNodes(nodes);
   const node = collapsedNodes.first();
   const errorNodes = collapsedNodes.slice(1);
 
-  return {node, errorNodes, hiddenNodes};
+  return {node, errorNodes, afterHiddenNodes};
 }
 
 export function parseExpressionNodes(source: CharStream): {
   nodes: ArrayData<Node2>;
-  hiddenNodes: ArrayData<Node2>;
+  afterHiddenNodes: ArrayData<Node2>;
 } {
   const expressionRelatedNodes = parsersToNodes(source, expressionParsers());
   const nodes = newArrayData<Node2>();
-  let hiddenNodes = newArrayData<Node2>();
+  let afterHiddenNodes = newArrayData<Node2>();
 
   for (const node of expressionRelatedNodes) {
     if (node.isHidden) {
-      hiddenNodes.addLastItem(node);
+      afterHiddenNodes.addLastItem(node);
     } else {
-      node.hiddenNodes = hiddenNodes;
-      hiddenNodes = newArrayData<Node2>();
+      node.hiddenNodes = afterHiddenNodes;
+      afterHiddenNodes = newArrayData<Node2>();
       nodes.addLastItem(node);
     }
   }
 
-  return {nodes, hiddenNodes};
+  return {nodes, afterHiddenNodes};
 }
 
 export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;

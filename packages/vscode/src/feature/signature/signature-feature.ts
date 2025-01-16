@@ -3,13 +3,13 @@ import {
   $CommaNode,
   $DeclarationSemantic,
   $FunctionTypeSemantic,
+  $GroupItemNode,
   $GroupNode,
   $GroupOpenNode,
   $IdNode,
   $IdTypeSemantic,
   $IdValueSemantic,
   $InvokeNode,
-  $ItemNode,
   AttributeValueDeclarationSemantic,
   DeclarationSemantic,
   IdNode,
@@ -95,7 +95,7 @@ function getInvokeNodeAndParameterIndex(
 
   if (is(nodeAtPosition, $CommaNode)) {
     if (
-      is(nodeAtPosition.parent, $ItemNode) &&
+      is(nodeAtPosition.parent, $GroupItemNode) &&
       is(nodeAtPosition.parent.parent, $GroupNode()) &&
       is(nodeAtPosition.parent.parent.parent, $InvokeNode)
     ) {
