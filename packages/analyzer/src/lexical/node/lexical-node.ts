@@ -3,6 +3,7 @@ import {
   $ArrayData,
   ArrayData,
   Boolean2,
+  CharStream,
   newArrayData,
   newText,
   newTextRange,
@@ -79,4 +80,23 @@ export function rangeFromNodes2(nodes: ArrayData<Node2>): TextRange {
   }
 
   return newTextRange(first.range.start.clone(), last.range.stop.clone());
+}
+
+export type NodeParserFunction<T extends Node2 = Node2> = (source: CharStream) => T | Nothing;
+
+export function parsersToNodes<T extends Node2>(
+  source: CharStream,
+  parsers: ArrayData<NodeParserFunction<T>>,
+): ArrayData<T> {
+  const nodes = newArrayData<T>();
+
+  while (true) {
+    const node = parsers.firstMap((parse) => parse(source));
+
+    if (!node) {
+      return nodes;
+    }
+
+    nodes.addLastItem(node);
+  }
 }
