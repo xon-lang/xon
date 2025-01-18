@@ -40,5 +40,6 @@ function charNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
+
   return node!.diagnose!();
 }

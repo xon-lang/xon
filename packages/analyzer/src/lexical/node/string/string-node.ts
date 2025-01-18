@@ -1,6 +1,8 @@
 import {
   $SyntaxNode2,
   analyzerPackageType,
+  diagnoseStringNode,
+  formatStringNode,
   newSyntaxNode,
   StringCloseNode,
   StringContentNode,
@@ -24,5 +26,13 @@ export function newStringNode(
   contentNode?: StringContentNode | Nothing,
   closeNode?: StringCloseNode | Nothing,
 ): StringNode {
-  return newSyntaxNode({$: $StringNode, isExpression: true, openNode, contentNode, closeNode});
+  return newSyntaxNode({
+    $: $StringNode,
+    openNode,
+    contentNode,
+    closeNode,
+
+    diagnose: diagnoseStringNode,
+    format: formatStringNode,
+  });
 }
