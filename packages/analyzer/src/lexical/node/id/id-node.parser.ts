@@ -1,8 +1,8 @@
-import {$IdNode, IdNode, UNDERSCORE} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$IdNode, AnalyzerContext, IdNode, UNDERSCORE} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseIdNode(source: CharStream): IdNode | Nothing {
-  return source.takeWhile(
+export function parseIdNode(context: AnalyzerContext): IdNode | Nothing {
+  return context.source.takeWhile(
     $IdNode,
     (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || UNDERSCORE.equals(x),
   );

@@ -1,6 +1,6 @@
-import {$CharContentNode, CHAR_CLOSE, CharContentNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$CharContentNode, AnalyzerContext, CHAR_CLOSE, CharContentNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseCharContentNode(source: CharStream): CharContentNode | Nothing {
-  return source.takeWhile($CharContentNode, (_x, i, z) => !z.startsWith(CHAR_CLOSE, i));
+export function parseCharContentNode(context: AnalyzerContext): CharContentNode | Nothing {
+  return context.source.takeWhile($CharContentNode, (_x, i, z) => !z.startsWith(CHAR_CLOSE, i));
 }

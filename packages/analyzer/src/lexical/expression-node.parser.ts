@@ -1,4 +1,5 @@
 import {
+  AnalyzerContext,
   collapseMemberNode,
   Node2,
   NodeParserFunction,
@@ -12,7 +13,7 @@ import {
   parseWhitespaceNode,
   SyntaxNode2,
 } from '#analyzer';
-import {ArrayData, CharStream, Integer, newArrayData, Nothing} from '#common';
+import {ArrayData, Integer, newArrayData, Nothing} from '#common';
 
 // todo make constant instead of function
 function expressionParsers(): ArrayData<NodeParserFunction> {
@@ -27,12 +28,12 @@ function expressionParsers(): ArrayData<NodeParserFunction> {
   ]);
 }
 
-export function parseExpressionNode(source: CharStream): {
+export function parseExpressionNode(context: AnalyzerContext): {
   node: Node2 | Nothing;
   errorNodes: ArrayData<Node2>;
   afterHiddenNodes: ArrayData<Node2>;
 } {
-  const {nodes, afterHiddenNodes} = parseExpressionNodes(source);
+  const {nodes, afterHiddenNodes} = parseExpressionNodes(context);
   const collapsedNodes = collapseExpressionNodes(nodes);
   const node = collapsedNodes.first();
   const errorNodes = collapsedNodes.slice(1);
@@ -40,11 +41,11 @@ export function parseExpressionNode(source: CharStream): {
   return {node, errorNodes, afterHiddenNodes};
 }
 
-export function parseExpressionNodes(source: CharStream): {
+export function parseExpressionNodes(context: AnalyzerContext): {
   nodes: ArrayData<Node2>;
   afterHiddenNodes: ArrayData<Node2>;
 } {
-  const expressionRelatedNodes = parsersToNodes(source, expressionParsers());
+  const expressionRelatedNodes = parsersToNodes(context, expressionParsers());
   const nodes = newArrayData<Node2>();
   let afterHiddenNodes = newArrayData<Node2>();
 

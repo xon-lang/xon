@@ -1,26 +1,27 @@
 import {
+  AnalyzerContext,
   newFloatNode,
   newIntegerNode,
   NumberNode,
   parseIntegerContentNode,
   parseRadixPointNode,
 } from '#analyzer';
-import {CharStream, nothing, Nothing} from '#common';
+import {nothing, Nothing} from '#common';
 
-export function parseNumberNode(source: CharStream): NumberNode | Nothing {
-  const integerPartNode = parseIntegerContentNode(source);
+export function parseNumberNode(context: AnalyzerContext): NumberNode | Nothing {
+  const integerPartNode = parseIntegerContentNode(context);
 
   if (!integerPartNode) {
     return nothing;
   }
 
-  const radixPointNode = parseRadixPointNode(source);
+  const radixPointNode = parseRadixPointNode(context);
 
   if (!radixPointNode) {
     return newIntegerNode(integerPartNode);
   }
 
-  const fractionalPartNode = parseIntegerContentNode(source);
+  const fractionalPartNode = parseIntegerContentNode(context);
 
   return newFloatNode(integerPartNode, radixPointNode, fractionalPartNode);
 }

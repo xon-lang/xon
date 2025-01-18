@@ -1,21 +1,22 @@
 import {
+  AnalyzerContext,
   DocumentationLabelNode,
   newDocumentationLabelNode,
   parseDocumentationDescriptionNode,
   parseDocumentationLabelOperatorNode,
   parseIdNode,
 } from '#analyzer';
-import {CharStream, Nothing, nothing} from '#common';
+import {Nothing, nothing} from '#common';
 
-export function parseDocumentationLabelNode(source: CharStream): DocumentationLabelNode | Nothing {
-  const operatorNode = parseDocumentationLabelOperatorNode(source);
+export function parseDocumentationLabelNode(context: AnalyzerContext): DocumentationLabelNode | Nothing {
+  const operatorNode = parseDocumentationLabelOperatorNode(context);
 
   if (!operatorNode) {
     return nothing;
   }
 
-  const idNode = parseIdNode(source);
-  const descriptionNode = parseDocumentationDescriptionNode(source);
+  const idNode = parseIdNode(context);
+  const descriptionNode = parseDocumentationDescriptionNode(context);
 
   return newDocumentationLabelNode(operatorNode, idNode, descriptionNode);
 }

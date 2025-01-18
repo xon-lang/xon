@@ -1,6 +1,6 @@
-import {$CommaNode, COMMA, CommaNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$CommaNode, AnalyzerContext, COMMA, CommaNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseCommaNode(source: CharStream): CommaNode | Nothing {
-  return source.takeWhile($CommaNode, (x, i) => COMMA.at2(i).equals(x), COMMA.count());
+export function parseCommaNode(context: AnalyzerContext): CommaNode | Nothing {
+  return context.source.takeWhile($CommaNode, (x, i) => COMMA.at2(i).equals(x), COMMA.count());
 }

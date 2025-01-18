@@ -1,6 +1,6 @@
-import {$UnknownNode, UnknownNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$UnknownNode, AnalyzerContext, UnknownNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseUnknownNode(source: CharStream): UnknownNode | Nothing {
-  return source.takeWhile($UnknownNode, () => true, 1);
+export function parseUnknownNode(context: AnalyzerContext): UnknownNode | Nothing {
+  return context.source.takeWhile($UnknownNode, () => true, 1);
 }

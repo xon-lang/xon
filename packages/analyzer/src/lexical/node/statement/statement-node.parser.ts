@@ -1,4 +1,5 @@
 import {
+  AnalyzerContext,
   newStatementNode,
   Node2,
   parseCommentNode,
@@ -9,10 +10,10 @@ import {
   parseWhitespaceNode,
   StatementNode2,
 } from '#analyzer';
-import {ArrayData, CharStream, newArrayData, nothing, Nothing} from '#common';
+import {ArrayData, newArrayData, Nothing} from '#common';
 
 // todo make constant instead of function
-function hiddenNodeParsers(): ArrayData<(source: CharStream) => Node2 | Nothing> {
+function hiddenNodeParsers(): ArrayData<(context: AnalyzerContext) => Node2 | Nothing> {
   return newArrayData([parseDocumentationNode, parseCommentNode, parseWhitespaceNode, parseNlNode]);
 }
 
@@ -21,10 +22,21 @@ function hiddenNodeParsers(): ArrayData<(source: CharStream) => Node2 | Nothing>
 //   return newArrayData([]);
 // }
 
-export function parseStatementNode(source: CharStream): StatementNode2 | Nothing {
-  const beforeHiddenNodes = parsersToNodes(source, hiddenNodeParsers());
+export function parseStatementNode(
+  context: AnalyzerContext,
+  parentStatement?: StatementNode2 | Nothing,
+): StatementNode2 | Nothing {
+  const beforeHiddenNodes = parsersToNodes(context, hiddenNodeParsers());
   // const parsers = statementParsers();
-  const {node, errorNodes, afterHiddenNodes} = parseExpressionNode(source);
+  const {node, errorNodes, afterHiddenNodes} = parseExpressionNode(context);
 
-  return newStatementNode(nothing, beforeHiddenNodes, node, errorNodes, afterHiddenNodes);
+  return newStatementNode(parentStatement, beforeHiddenNodes, node, errorNodes, afterHiddenNodes);
+}
+
+export function parseStatementNodes(context: AnalyzerContext): ArrayData<StatementNode2> {
+  const nodes = newArrayData<StatementNode2>();
+
+  while (true) {
+    const node = parseStatementNode(context, nodes.last());
+  }
 }

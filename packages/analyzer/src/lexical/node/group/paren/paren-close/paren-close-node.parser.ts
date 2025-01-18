@@ -1,6 +1,10 @@
-import {$ParenCloseNode, PAREN_CLOSE, ParenCloseNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$ParenCloseNode, AnalyzerContext, PAREN_CLOSE, ParenCloseNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseParenCloseNode(source: CharStream): ParenCloseNode | Nothing {
-  return source.takeWhile($ParenCloseNode, (x, i) => PAREN_CLOSE.at2(i).equals(x), PAREN_CLOSE.count());
+export function parseParenCloseNode(context: AnalyzerContext): ParenCloseNode | Nothing {
+  return context.source.takeWhile(
+    $ParenCloseNode,
+    (x, i) => PAREN_CLOSE.at2(i).equals(x),
+    PAREN_CLOSE.count(),
+  );
 }

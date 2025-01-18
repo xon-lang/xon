@@ -1,6 +1,10 @@
-import {$BracketCloseNode, BRACKET_CLOSE, BracketCloseNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$BracketCloseNode, AnalyzerContext, BRACKET_CLOSE, BracketCloseNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseBracketCloseNode(source: CharStream): BracketCloseNode | Nothing {
-  return source.takeWhile($BracketCloseNode, (x, i) => BRACKET_CLOSE.at2(i).equals(x), BRACKET_CLOSE.count());
+export function parseBracketCloseNode(context: AnalyzerContext): BracketCloseNode | Nothing {
+  return context.source.takeWhile(
+    $BracketCloseNode,
+    (x, i) => BRACKET_CLOSE.at2(i).equals(x),
+    BRACKET_CLOSE.count(),
+  );
 }

@@ -1,4 +1,5 @@
 import {
+  AnalyzerContext,
   DocumentationNode,
   newDocumentationNode,
   parseDocumentationCloseNode,
@@ -7,18 +8,18 @@ import {
   parseDocumentationOpenNode,
   parsersToNodes,
 } from '#analyzer';
-import {CharStream, newArrayData, nothing, Nothing} from '#common';
+import {newArrayData, nothing, Nothing} from '#common';
 
-export function parseDocumentationNode(source: CharStream): DocumentationNode | Nothing {
-  const openNode = parseDocumentationOpenNode(source);
+export function parseDocumentationNode(context: AnalyzerContext): DocumentationNode | Nothing {
+  const openNode = parseDocumentationOpenNode(context);
 
   if (!openNode) {
     return nothing;
   }
 
-  const descriptionNode = parseDocumentationDescriptionNode(source);
-  const labels = parsersToNodes(source, newArrayData([parseDocumentationLabelNode]));
-  const closeNodeNode = parseDocumentationCloseNode(source);
+  const descriptionNode = parseDocumentationDescriptionNode(context);
+  const labels = parsersToNodes(context, newArrayData([parseDocumentationLabelNode]));
+  const closeNodeNode = parseDocumentationCloseNode(context);
 
   return newDocumentationNode(openNode, labels, descriptionNode, closeNodeNode);
 }

@@ -1,6 +1,6 @@
-import {$ParenOpenNode, PAREN_OPEN, ParenOpenNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$ParenOpenNode, AnalyzerContext, PAREN_OPEN, ParenOpenNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseParenOpenNode(source: CharStream): ParenOpenNode | Nothing {
-  return source.takeWhile($ParenOpenNode, (x, i) => PAREN_OPEN.at2(i).equals(x), PAREN_OPEN.count());
+export function parseParenOpenNode(context: AnalyzerContext): ParenOpenNode | Nothing {
+  return context.source.takeWhile($ParenOpenNode, (x, i) => PAREN_OPEN.at2(i).equals(x), PAREN_OPEN.count());
 }

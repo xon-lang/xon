@@ -3,8 +3,9 @@
  */
 
 export * from './package';
-export * from './src/analyzer-context.model';
 export * from './src/node';
+export * from './src/context/analyzer-context.factory';
+export * from './src/context/analyzer-context.model';
 export * from './src/formatter/formatter-item';
 export * from './src/formatter/formatter-manager';
 export * from './src/lexical/expression-node.parser';

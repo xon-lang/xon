@@ -1,6 +1,14 @@
-import {$CommentBlockContentNode, COMMENT_BLOCK_CLOSE, CommentBlockContentNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {
+  $CommentBlockContentNode,
+  AnalyzerContext,
+  COMMENT_BLOCK_CLOSE,
+  CommentBlockContentNode,
+} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseCommentBlockContentNode(source: CharStream): CommentBlockContentNode | Nothing {
-  return source.takeWhile($CommentBlockContentNode, (_x, i, z) => !z.startsWith(COMMENT_BLOCK_CLOSE, i));
+export function parseCommentBlockContentNode(context: AnalyzerContext): CommentBlockContentNode | Nothing {
+  return context.source.takeWhile(
+    $CommentBlockContentNode,
+    (_x, i, z) => !z.startsWith(COMMENT_BLOCK_CLOSE, i),
+  );
 }

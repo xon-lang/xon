@@ -1,4 +1,5 @@
 import {
+  AnalyzerContext,
   CommentBlockNode,
   newCommentBlockNode,
   parseCommentBlockCloseNode,
@@ -7,15 +8,15 @@ import {
 } from '#analyzer';
 import {CharStream, nothing, Nothing} from '#common';
 
-export function parseCommentBlockNode(source: CharStream): CommentBlockNode | Nothing {
-  const openNode = parseCommentBlockOpenNode(source);
+export function parseCommentBlockNode(context: AnalyzerContext): CommentBlockNode | Nothing {
+  const openNode = parseCommentBlockOpenNode(context);
 
   if (!openNode) {
     return nothing;
   }
 
-  const contentNode = parseCommentBlockContentNode(source);
-  const closeNode = parseCommentBlockCloseNode(source);
+  const contentNode = parseCommentBlockContentNode(context);
+  const closeNode = parseCommentBlockCloseNode(context);
 
   return newCommentBlockNode(openNode, contentNode, closeNode);
 }

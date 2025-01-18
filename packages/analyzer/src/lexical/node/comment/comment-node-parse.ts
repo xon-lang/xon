@@ -1,6 +1,6 @@
-import {CommentNode, parseCommentBlockNode, parseCommentLineNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {AnalyzerContext, CommentNode, parseCommentBlockNode, parseCommentLineNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseCommentNode(source: CharStream): CommentNode | Nothing {
-  return parseCommentBlockNode(source) ?? parseCommentLineNode(source);
+export function parseCommentNode(context: AnalyzerContext): CommentNode | Nothing {
+  return parseCommentBlockNode(context) ?? parseCommentLineNode(context);
 }

@@ -1,19 +1,20 @@
 import {
+  AnalyzerContext,
   CommentLineNode,
   newCommentLineNode,
   parseCommentLineContentNode,
   parseCommentLineOperatorNode,
 } from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {Nothing} from '#common';
 
-export function parseCommentLineNode(source: CharStream): CommentLineNode | Nothing {
-  const operatorNode = parseCommentLineOperatorNode(source);
+export function parseCommentLineNode(context: AnalyzerContext): CommentLineNode | Nothing {
+  const operatorNode = parseCommentLineOperatorNode(context);
 
   if (!operatorNode) {
     return;
   }
 
-  const contentNode = parseCommentLineContentNode(source);
+  const contentNode = parseCommentLineContentNode(context);
 
   return newCommentLineNode(operatorNode, contentNode);
 }

@@ -1,6 +1,10 @@
-import {$AngleCloseNode, ANGLE_CLOSE, AngleCloseNode} from '#analyzer';
-import {CharStream, Nothing} from '#common';
+import {$AngleCloseNode, AnalyzerContext, ANGLE_CLOSE, AngleCloseNode} from '#analyzer';
+import {Nothing} from '#common';
 
-export function parseAngleCloseNode(source: CharStream): AngleCloseNode | Nothing {
-  return source.takeWhile($AngleCloseNode, (x, i) => ANGLE_CLOSE.at2(i).equals(x), ANGLE_CLOSE.count());
+export function parseAngleCloseNode(context: AnalyzerContext): AngleCloseNode | Nothing {
+  return context.source.takeWhile(
+    $AngleCloseNode,
+    (x, i) => ANGLE_CLOSE.at2(i).equals(x),
+    ANGLE_CLOSE.count(),
+  );
 }

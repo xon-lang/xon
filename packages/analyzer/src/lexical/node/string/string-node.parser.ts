@@ -1,21 +1,22 @@
 import {
+  AnalyzerContext,
   newStringNode,
   parseStringCloseNode,
   parseStringContentNode,
   parseStringOpenNode,
   StringNode,
 } from '#analyzer';
-import {CharStream, nothing, Nothing} from '#common';
+import {nothing, Nothing} from '#common';
 
-export function parseStringNode(source: CharStream): StringNode | Nothing {
-  const openNode = parseStringOpenNode(source);
+export function parseStringNode(context: AnalyzerContext): StringNode | Nothing {
+  const openNode = parseStringOpenNode(context);
 
   if (!openNode) {
     return nothing;
   }
 
-  const contentNode = parseStringContentNode(source);
-  const closeNode = parseStringCloseNode(source);
+  const contentNode = parseStringContentNode(context);
+  const closeNode = parseStringCloseNode(context);
 
   return newStringNode(openNode, contentNode, closeNode);
 }
