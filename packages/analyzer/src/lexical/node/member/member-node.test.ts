@@ -5,16 +5,17 @@ import {
   IdNode,
   MemberNode,
   newAnalyzerContext,
+  newCharacterStreamFromText,
   parseExpressionNodes,
   WhitespaceNode,
 } from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('member with id instance', () => {
   const text = newText('  abc.   def   ');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {nodes} = parseExpressionNodes(context);
   const node = collapseMemberNode(nodes)?.node as MemberNode;

@@ -1,12 +1,18 @@
-import {$DocumentationOpenNode, parseDocumentationOpenNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $DocumentationOpenNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseDocumentationOpenNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('documentation open', () => {
   const text = newText('===a');
-  const source = charStreamFromText(text);
-  const node = parseDocumentationOpenNode(source);
+  const source = newCharacterStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationOpenNode(context);
 
   expect(is(node, $DocumentationOpenNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('===');

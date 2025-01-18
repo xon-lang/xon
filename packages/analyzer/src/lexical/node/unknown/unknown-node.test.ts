@@ -1,11 +1,11 @@
-import {$UnknownNode, newAnalyzerContext, parseUnknownNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {$UnknownNode, newAnalyzerContext, newCharacterStreamFromText, parseUnknownNode} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('unknown', () => {
   const text = newText('abc');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseUnknownNode(context);
 

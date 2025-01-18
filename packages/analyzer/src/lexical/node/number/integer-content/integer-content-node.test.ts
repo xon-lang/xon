@@ -1,11 +1,16 @@
-import {$IntegerContentNode, newAnalyzerContext, parseIntegerContentNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $IntegerContentNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseIntegerContentNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('integer content', () => {
   const text = newText('123');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIntegerContentNode(context);
 
@@ -15,7 +20,7 @@ test('integer content', () => {
 
 test('integer content underscore', () => {
   const text = newText('123_456');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIntegerContentNode(context);
 
@@ -25,7 +30,7 @@ test('integer content underscore', () => {
 
 test('underscore digits', () => {
   const text = newText('_123_456');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIntegerContentNode(context);
 

@@ -1,11 +1,16 @@
-import {$BracketCloseNode, newAnalyzerContext, parseBracketCloseNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $BracketCloseNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseBracketCloseNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('close bracket', () => {
   const text = newText(']');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseBracketCloseNode(context);
 

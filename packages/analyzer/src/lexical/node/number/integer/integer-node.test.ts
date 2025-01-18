@@ -1,11 +1,17 @@
-import {$IntegerNode, IntegerNode, newAnalyzerContext, parseNumberNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $IntegerNode,
+  IntegerNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseNumberNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('integer', () => {
   const text = newText('123');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as IntegerNode;
 

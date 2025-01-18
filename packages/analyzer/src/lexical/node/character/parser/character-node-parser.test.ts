@@ -1,11 +1,11 @@
-import {$CharacterNode, newAnalyzerContext, parseCharacterNode} from '#analyzer';
-import {charStreamFromText, newText, nothing} from '#common';
+import {$CharacterNode, newAnalyzerContext, newCharacterStreamFromText, parseCharacterNode} from '#analyzer';
+import {newText, nothing} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('character', () => {
   const text = newText("'ab\n\nc'");
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
 
@@ -24,7 +24,7 @@ test('character', () => {
 
 test('character only quote', () => {
   const text = newText("'a");
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
 
@@ -39,7 +39,7 @@ test('character only quote', () => {
 
 test('empty character single quote', () => {
   const text = newText("'");
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
 
@@ -54,7 +54,7 @@ test('empty character single quote', () => {
 
 test('empty character double quote', () => {
   const text = newText("''");
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
 

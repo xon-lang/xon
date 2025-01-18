@@ -1,5 +1,5 @@
-import {newAnalyzerContext, parseCharacterNode} from '#analyzer';
-import {ArrayData, charStreamFromText, newText, Text} from '#common';
+import {newAnalyzerContext, newCharacterStreamFromText, parseCharacterNode} from '#analyzer';
+import {ArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {expect, test} from 'vitest';
 
@@ -37,7 +37,7 @@ test('Character does not have a closing quote', () => {
 });
 
 function charNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
   return node!.diagnose!();

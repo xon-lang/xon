@@ -1,11 +1,16 @@
-import {$CommentLineOperatorNode, newAnalyzerContext, parseCommentLineOperatorNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $CommentLineOperatorNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseCommentLineOperatorNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('no content', () => {
   const text = newText('//');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCommentLineOperatorNode(context);
 
@@ -17,7 +22,7 @@ test('no content', () => {
 
 test('with content', () => {
   const text = newText('// comment');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCommentLineOperatorNode(context);
 

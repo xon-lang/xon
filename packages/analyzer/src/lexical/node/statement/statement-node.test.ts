@@ -4,15 +4,16 @@ import {
   IdNode,
   MemberNode,
   newAnalyzerContext,
+  newCharacterStreamFromText,
   parseStatementNode,
 } from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('statement', () => {
   const text = newText('   abc.   def   ');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStatementNode(context);
 

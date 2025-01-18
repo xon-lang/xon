@@ -1,11 +1,17 @@
-import {$FloatNode, FloatNode, newAnalyzerContext, parseNumberNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $FloatNode,
+  FloatNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseNumberNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('float', () => {
   const text = newText('123.456');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as FloatNode;
 
@@ -16,7 +22,7 @@ test('float', () => {
 
 test('float with underscore', () => {
   const text = newText('1_2_3.456___');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as FloatNode;
 
@@ -27,7 +33,7 @@ test('float with underscore', () => {
 
 test('no float number', () => {
   const text = newText('_123.456');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as FloatNode;
 

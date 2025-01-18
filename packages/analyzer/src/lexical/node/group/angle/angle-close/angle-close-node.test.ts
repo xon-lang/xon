@@ -1,11 +1,16 @@
-import {$AngleCloseNode, newAnalyzerContext, parseAngleCloseNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $AngleCloseNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseAngleCloseNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('close angle', () => {
   const text = newText(':>');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseAngleCloseNode(context);
 

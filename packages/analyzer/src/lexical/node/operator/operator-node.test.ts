@@ -1,11 +1,11 @@
-import {$OperatorNode, newAnalyzerContext, parseOperatorNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {$OperatorNode, newAnalyzerContext, newCharacterStreamFromText, parseOperatorNode} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('import operator', () => {
   const text = newText('import');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseOperatorNode(context);
 
@@ -17,7 +17,7 @@ test('import operator', () => {
 
 test('plus operator', () => {
   const text = newText('+abc');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseOperatorNode(context);
 
@@ -29,7 +29,7 @@ test('plus operator', () => {
 
 test('range operator', () => {
   const text = newText('.. ');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseOperatorNode(context);
 
@@ -41,7 +41,7 @@ test('range operator', () => {
 
 test('equals operator', () => {
   const text = newText('== ');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseOperatorNode(context);
 
@@ -51,7 +51,7 @@ test('equals operator', () => {
 
 test('assign operator', () => {
   const text = newText('= ');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseOperatorNode(context);
 

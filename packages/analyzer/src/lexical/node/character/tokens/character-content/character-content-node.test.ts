@@ -1,11 +1,16 @@
-import {$CharacterContentNode, newAnalyzerContext, parseCharacterContentNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $CharacterContentNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseCharacterContentNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('character content', () => {
   const text = newText('a');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterContentNode(context);
 
@@ -21,7 +26,7 @@ test('character content', () => {
 
 test('character content with close quote', () => {
   const text = newText("a\nc'");
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharacterContentNode(context);
 

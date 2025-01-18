@@ -1,11 +1,16 @@
-import {$DocumentationLabelNode, newAnalyzerContext, parseDocumentationLabelNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $DocumentationLabelNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseDocumentationLabelNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('single at', () => {
   const text = newText('@');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationLabelNode(context);
 
@@ -17,7 +22,7 @@ test('single at', () => {
 
 test('at parameter', () => {
   const text = newText('@param and not param');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationLabelNode(context);
 

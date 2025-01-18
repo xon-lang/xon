@@ -1,9 +1,7 @@
-import {LexicalNode2, NL} from '#analyzer';
+import {$CharacterStream, CharacterStream, LexicalNode2, NL} from '#analyzer';
 import {
-  $CharStream,
   Boolean2,
   Char,
-  CharStream,
   Integer,
   newTextPosition,
   newTextRange,
@@ -14,12 +12,12 @@ import {
 } from '#common';
 import {$Type} from '#typing';
 
-export function charStreamFromText(source: Text): CharStream {
+export function newCharacterStreamFromText(source: Text): CharacterStream {
   let sourcePosition = newTextPosition();
   const sourceLength = source.count();
 
   return {
-    $: $CharStream,
+    $: $CharacterStream,
 
     takeWhile(
       $type: $Type,

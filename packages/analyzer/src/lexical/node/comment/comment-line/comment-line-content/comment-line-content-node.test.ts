@@ -1,11 +1,16 @@
-import {$CommentLineContentNode, newAnalyzerContext, parseCommentLineContentNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $CommentLineContentNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseCommentLineContentNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('comment content', () => {
   const text = newText('a');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCommentLineContentNode(context);
 

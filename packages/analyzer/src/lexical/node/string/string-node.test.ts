@@ -1,11 +1,11 @@
-import {$StringNode, newAnalyzerContext, parseStringNode} from '#analyzer';
-import {charStreamFromText, newText, nothing} from '#common';
+import {$StringNode, newAnalyzerContext, newCharacterStreamFromText, parseStringNode} from '#analyzer';
+import {newText, nothing} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('string', () => {
   const text = newText('"ab\n\nc"');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
@@ -23,7 +23,7 @@ test('string', () => {
 
 test('string only quote', () => {
   const text = newText('"a');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
@@ -37,7 +37,7 @@ test('string only quote', () => {
 
 test('empty string single quote', () => {
   const text = newText('"');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
@@ -51,7 +51,7 @@ test('empty string single quote', () => {
 
 test('empty string double quote', () => {
   const text = newText('""');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 

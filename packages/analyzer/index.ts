@@ -4,6 +4,8 @@
 
 export * from './package';
 export * from './src/node';
+export * from './src/char-stream/char-stream.factory';
+export * from './src/char-stream/char-stream.model';
 export * from './src/context/analyzer-context.factory';
 export * from './src/context/analyzer-context.model';
 export * from './src/formatter/formatter-item';
@@ -18,12 +20,12 @@ export * from './src/lexical/node/character/character-node';
 export * from './src/lexical/node/character/diagnostic/character-node-diagnostic';
 export * from './src/lexical/node/character/formatter/character-node-formatter';
 export * from './src/lexical/node/character/parser/character-node-parser';
-export * from './src/lexical/node/character/token/character-close/character-close-node.parser';
-export * from './src/lexical/node/character/token/character-close/character-close-node';
-export * from './src/lexical/node/character/token/character-content/character-content-node.parser';
-export * from './src/lexical/node/character/token/character-content/character-content-node';
-export * from './src/lexical/node/character/token/character-open/character-open-node.parser';
-export * from './src/lexical/node/character/token/character-open/character-open-node';
+export * from './src/lexical/node/character/tokens/character-close/character-close-node.parser';
+export * from './src/lexical/node/character/tokens/character-close/character-close-node';
+export * from './src/lexical/node/character/tokens/character-content/character-content-node.parser';
+export * from './src/lexical/node/character/tokens/character-content/character-content-node';
+export * from './src/lexical/node/character/tokens/character-open/character-open-node.parser';
+export * from './src/lexical/node/character/tokens/character-open/character-open-node';
 export * from './src/lexical/node/comma/comma-node.parser';
 export * from './src/lexical/node/comma/comma-node';
 export * from './src/lexical/node/comment/comment-node-parse';

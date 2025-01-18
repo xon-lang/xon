@@ -1,8 +1,8 @@
 import {$AnalyzerContext, AnalyzerContext} from '#analyzer';
-import {CharStream, newArrayData} from '#common';
+import {CharacterStream, newArrayData} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 
-export function newAnalyzerContext(source: CharStream): AnalyzerContext {
+export function newAnalyzerContext(source: CharacterStream): AnalyzerContext {
   return {
     $: $AnalyzerContext,
     source,

@@ -1,11 +1,11 @@
-import {$JoiningNode, newAnalyzerContext, parseJoiningNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {$JoiningNode, newAnalyzerContext, newCharacterStreamFromText, parseJoiningNode} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('no space', () => {
   const text = newText('~.def');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseJoiningNode(context);
 
@@ -20,7 +20,7 @@ test('no space', () => {
 
 test('with space', () => {
   const text = newText('~   .def');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseJoiningNode(context);
 
@@ -33,7 +33,7 @@ test('with space', () => {
 
 test('with new line', () => {
   const text = newText('~   \n \r \n\n   .def');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseJoiningNode(context);
 
@@ -47,7 +47,7 @@ test('with new line', () => {
 
 test('no joining', () => {
   const text = newText(' ~  ');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseJoiningNode(context);
 

@@ -1,11 +1,11 @@
-import {$IdNode, newAnalyzerContext, parseIdNode} from '#analyzer';
-import {charStreamFromText, newText, nothing} from '#common';
+import {$IdNode, newAnalyzerContext, newCharacterStreamFromText, parseIdNode} from '#analyzer';
+import {newText, nothing} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('underscore', () => {
   const text = newText('_');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIdNode(context);
 
@@ -17,7 +17,7 @@ test('underscore', () => {
 
 test('underscore letters', () => {
   const text = newText('_abc');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIdNode(context);
 
@@ -29,7 +29,7 @@ test('underscore letters', () => {
 
 test('underscore gap letters', () => {
   const text = newText('_ abc');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIdNode(context);
 
@@ -41,7 +41,7 @@ test('underscore gap letters', () => {
 
 test('digits gap letters', () => {
   const text = newText('123 abc');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIdNode(context);
 
@@ -50,7 +50,7 @@ test('digits gap letters', () => {
 
 test('letters and digits', () => {
   const text = newText('abc123');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIdNode(context);
 
@@ -62,7 +62,7 @@ test('letters and digits', () => {
 
 test('letters and underscore', () => {
   const text = newText('abc_');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseIdNode(context);
 

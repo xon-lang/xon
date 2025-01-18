@@ -1,11 +1,16 @@
-import {$DocumentationNode, newAnalyzerContext, parseDocumentationNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $DocumentationNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseDocumentationNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('description before close', () => {
   const text = newText('===abc===');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationNode(context);
 
@@ -18,7 +23,7 @@ test('description before close', () => {
 
 test('description before close', () => {
   const text = newText('=== abc\n\n\n def==');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationNode(context);
 
@@ -31,7 +36,7 @@ test('description before close', () => {
 
 test('description labels', () => {
   const text = newText('=== abc\n\n\n def @in a1 b2 c 3     @return _123 _ ===');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationNode(context);
 
@@ -55,7 +60,7 @@ test('description labels', () => {
 
 test('no main description', () => {
   const text = newText('===@abc');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationNode(context);
 

@@ -1,15 +1,16 @@
 import {
   $DocumentationDescriptionNode,
   newAnalyzerContext,
+  newCharacterStreamFromText,
   parseDocumentationDescriptionNode,
 } from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('description before close', () => {
   const text = newText('abc===');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationDescriptionNode(context);
 
@@ -21,7 +22,7 @@ test('description before close', () => {
 
 test('empty description', () => {
   const text = newText('===');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseDocumentationDescriptionNode(context);
 

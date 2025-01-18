@@ -1,11 +1,16 @@
-import {$RadixPointNode, newAnalyzerContext, parseRadixPointNode} from '#analyzer';
-import {charStreamFromText, newText} from '#common';
+import {
+  $RadixPointNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseRadixPointNode,
+} from '#analyzer';
+import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('single point', () => {
   const text = newText('.');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseRadixPointNode(context);
 
@@ -17,7 +22,7 @@ test('single point', () => {
 
 test('point fractional', () => {
   const text = newText('.123');
-  const source = charStreamFromText(text);
+  const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseRadixPointNode(context);
 
