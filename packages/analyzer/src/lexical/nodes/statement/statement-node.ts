@@ -5,9 +5,8 @@ import {Brand} from '#typing';
 export type StatementNode2 = SyntaxNode2 &
   Brand<'Analyzer.StatementNode2'> & {
     indentLevel: Integer;
-    value?: Node2 | Nothing;
+    value: Node2;
     errorNodes?: ArrayData<Node2> | Nothing;
-    afterHiddenNodes?: ArrayData<Node2> | Nothing;
     parent?: StatementNode2 | Nothing;
     body?: ArrayData<StatementNode2> | Nothing;
   };
@@ -16,11 +15,9 @@ export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNod
 
 export function newStatementNode(
   parent: StatementNode2 | Nothing,
-  beforeHiddenNodes: ArrayData<Node2> | Nothing,
-  value: Node2 | Nothing,
+  value: Node2,
   errorNodes: ArrayData<Node2> | Nothing,
-  afterHiddenNodes: ArrayData<Node2> | Nothing,
-): StatementNode2 { 
+): StatementNode2 {
   const indentLevel = (parent?.indentLevel ?? -1) + 1;
 
   const node = newSyntaxNode<StatementNode2>({
@@ -29,9 +26,7 @@ export function newStatementNode(
     value: value,
   });
 
-  node.hiddenNodes = beforeHiddenNodes;
   node.errorNodes = errorNodes;
-  node.afterHiddenNodes = afterHiddenNodes;
   node.parent = parent;
 
   return node;

@@ -8,8 +8,9 @@ import {
   parseIdNode,
   parseNumberNode,
   parseOperatorNode,
-  parsersToNodes,
+  parsersToNodesCleanupHidden,
   parseStringNode,
+  parseUnknownNode,
   parseWhitespaceNode,
   SyntaxNode2,
 } from '#analyzer';
@@ -25,9 +26,11 @@ function expressionParsers(): ArrayData<NodeParserFunction> {
     parseIdNode,
     parseWhitespaceNode,
     parseCommentNode,
+    parseUnknownNode,
   ]);
 }
 
+// todo rename it
 export function parseExpressionNode(context: AnalyzerContext): {
   node: Node2 | Nothing;
   errorNodes: ArrayData<Node2>;
@@ -45,21 +48,7 @@ export function parseExpressionNodes(context: AnalyzerContext): {
   nodes: ArrayData<Node2>;
   afterHiddenNodes: ArrayData<Node2>;
 } {
-  const expressionRelatedNodes = parsersToNodes(context, expressionParsers());
-  const nodes = newArrayData<Node2>();
-  let afterHiddenNodes = newArrayData<Node2>();
-
-  for (const node of expressionRelatedNodes) {
-    if (node.isHidden) {
-      afterHiddenNodes.addLastItem(node);
-    } else {
-      node.hiddenNodes = afterHiddenNodes;
-      afterHiddenNodes = newArrayData<Node2>();
-      nodes.addLastItem(node);
-    }
-  }
-
-  return {nodes, afterHiddenNodes};
+  return parsersToNodesCleanupHidden(context, expressionParsers());
 }
 
 export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;
