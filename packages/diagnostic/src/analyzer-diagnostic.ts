@@ -17,7 +17,7 @@ export type AnalyzerDiagnostic = {
   // terminalFormat(): Text;
 };
 
-export function createDiagnostic(
+export function newDiagnostic(
   range: TextRange,
   severity: AnalyzerDiagnosticSeverity,
   message: AnalyzerDiagnosticMessage,

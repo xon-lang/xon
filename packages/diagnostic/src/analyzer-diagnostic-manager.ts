@@ -4,7 +4,7 @@ import {
   AnalyzerDiagnosticMessage,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticTag,
-  createDiagnostic,
+  newDiagnostic,
   predefinedDiagnostics,
 } from '#diagnostic';
 
@@ -44,7 +44,7 @@ export function createDiagnosticManager(
       tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing,
     ): AnalyzerDiagnostic {
       const reference = resource.reference(range);
-      const diagnostic = createDiagnostic(reference, severity, message, code, tags);
+      const diagnostic = newDiagnostic(reference, severity, message, code, tags);
       this.diagnostics.addLastItem(diagnostic);
 
       // this.log(diagnostic);
