@@ -7,6 +7,7 @@ import {
   newArrayData,
   newText,
   newTextRange,
+  nothing,
   Nothing,
   Text,
   TextRange,
@@ -55,13 +56,19 @@ export function newSyntaxNode<T extends SyntaxNode2>(params: Omit<T, 'children' 
   );
 
   const range = rangeFromNodes2(children);
+  const firstChild = children.first();
 
   const node: T = {
     range,
     children,
+    hiddenNodes: firstChild?.hiddenNodes,
     ...params,
     // todo remove 'as T'
   } as T;
+
+  if (firstChild) {
+    firstChild.hiddenNodes = nothing;
+  }
 
   children.forEach((x) => (x.parent = node));
 

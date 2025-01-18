@@ -12,7 +12,7 @@ import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('member with id instance', () => {
-  const text = newText('abc.   def   ');
+  const text = newText('  abc.   def   ');
   const source = charStreamFromText(text);
   const {nodes} = parseExpressionNodes(source);
   const node = collapseMemberNode(nodes)?.node as MemberNode;
@@ -20,6 +20,8 @@ test('member with id instance', () => {
   expect(node).toBeTruthy();
   expect(is(node.instance, $IdNode)).toBe(true);
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
+  expect(node.instance.hiddenNodes).toBeFalsy();
+  expect(node.hiddenNodes?.count()).toBe(1);
   expect(is(node.id, $IdNode)).toBe(true);
   expect(node.id?.hiddenNodes?.count()).toBe(1);
   expect(is(node.id?.hiddenNodes?.first(), $WhitespaceNode)).toBe(true);
