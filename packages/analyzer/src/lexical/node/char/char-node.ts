@@ -2,10 +2,11 @@ import {
   $SyntaxNode2,
   AnalyzerContext,
   analyzerPackageType,
-  CHAR_CLOSE,
   CharCloseNode,
   CharContentNode,
   CharOpenNode,
+  diagnoseCharNode,
+  formatCharNode,
   newSyntaxNode,
   SyntaxNode2,
 } from '#analyzer';
@@ -27,14 +28,15 @@ export function newCharNode(
   contentNode?: CharContentNode | Nothing,
   closeNode?: CharCloseNode | Nothing,
 ): CharNode {
-  if (!contentNode) {
-    context.addDiagnostic(openNode.range, (x) => x.expectCloseToken(CHAR_CLOSE));
-  }
-
-  return newSyntaxNode({
+  const node: CharNode = newSyntaxNode({
     $: $CharNode,
     openNode,
     contentNode,
     closeNode,
   });
+
+  diagnoseCharNode(context, node);
+  formatCharNode(context, node);
+
+  return node;
 }

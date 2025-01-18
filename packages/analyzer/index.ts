@@ -14,6 +14,8 @@ export * from './src/lexical/lexical-analyzer-parsers';
 export * from './src/lexical/lexical-analyzer.factory';
 export * from './src/lexical/lexical-analyzer.model';
 export * from './src/lexical/node/lexical-node';
+export * from './src/lexical/node/char/char-node.diagnostic';
+export * from './src/lexical/node/char/char-node.formatter';
 export * from './src/lexical/node/char/char-node.parser';
 export * from './src/lexical/node/char/char-node';
 export * from './src/lexical/node/char/char-close/char-close-node.parser';
