@@ -30,19 +30,6 @@ function expressionParsers(): ArrayData<NodeParserFunction> {
   ]);
 }
 
-// todo rename it
-export function parseExpressionNode(context: AnalyzerContext): {
-  node: Node2 | Nothing;
-  errorNodes: ArrayData<Node2>;
-  afterHiddenNodes: ArrayData<Node2>;
-} {
-  const {nodes, afterHiddenNodes} = parseExpressionNodes(context);
-  const collapsedNodes = collapseExpressionNodes(nodes);
-  const node = collapsedNodes.first();
-  const errorNodes = collapsedNodes.slice(1);
-
-  return {node, errorNodes, afterHiddenNodes};
-}
 
 export function parseExpressionNodes(context: AnalyzerContext): {
   nodes: ArrayData<Node2>;

@@ -56,20 +56,26 @@ export function parseStatementsUntil(
       return;
     }
 
-    lastStatement = putStatementNode2(nodes, lastStatement);
+    const firstNode = nodes.first()!;
+    const parentStatement = getParentStatement(lastStatement, firstNode.range.start);
+    // todo !!! collapse nodes
+    const statement = newStatementNode(parentStatement, firstNode, nodes.slice(1));
 
-    if (!lastStatement.parent) {
-      statements.addLastItem(lastStatement);
+    if (parentStatement) {
+      parentStatement.body ??= newArrayData();
+      parentStatement.body.addLastItem(statement);
+    } else {
+      statements.addLastItem(statement);
     }
+
+    lastStatement = statement;
 
     nodes = newArrayData();
   };
 
   const iterator = nodeIterator(context, nodeParsers());
 
-  for (const iterableNode of iterator) {
-    let node: Node2 = iterableNode;
-
+  for (const node of iterator) {
     if (is(node, $UnknownNode)) {
       // this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unknownSymbol());
     }
@@ -138,46 +144,17 @@ function nodeIterator(
   };
 }
 
-function putStatementNode2(nodes: ArrayData<Node2>, lastStatement: StatementNode2 | Nothing): StatementNode2 {
-  const firstNode = nodes.first()!;
-  const parentStatement = getParentStatement(lastStatement, firstNode.range.start);
-  // const isFirstStatement = statements.isEmpty();
-  const statement = newStatementNode(parentStatement, firstNode, nodes.slice(1));
-
-  if (parentStatement) {
-    parentStatement.body ??= newArrayData();
-    parentStatement.body.addLastItem(statement);
-  }
-
-  return statement;
-}
-
 function getParentStatement(
-  lastStatement: StatementNode2 | Nothing,
+  statement: StatementNode2 | Nothing,
   indentPosition: TextPosition,
 ): StatementNode2 | Nothing {
-  if (!lastStatement) {
+  if (!statement) {
     return nothing;
   }
 
-  if (indentPosition.column > lastStatement.value.range.start.column) {
-    return lastStatement;
+  if (indentPosition.column > statement.value.range.start.column) {
+    return statement;
   }
 
-  return findParentStatementWithLessIndent(lastStatement, indentPosition);
-}
-
-function findParentStatementWithLessIndent(
-  statement: StatementNode2,
-  indentPosition: TextPosition,
-): StatementNode2 | Nothing {
-  if (!statement.parent) {
-    return nothing;
-  }
-
-  if (statement.parent.value.range.start.column < indentPosition.column) {
-    return statement.parent;
-  }
-
-  return findParentStatementWithLessIndent(statement.parent, indentPosition);
+  return getParentStatement(statement.parent, indentPosition);
 }
