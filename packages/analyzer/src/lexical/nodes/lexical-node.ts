@@ -110,3 +110,30 @@ export function parsersToNodes<T extends Node2>(
     nodes.addLastItem(node);
   }
 }
+
+export function parsersToNodesCleanupHidden<T extends Node2>(
+  context: AnalyzerContext,
+  parsers: ArrayData<NodeParserFunction<T>>,
+): {
+  nodes: ArrayData<T>;
+  afterHiddenNodes: ArrayData<Node2>;
+} {
+  let hiddenNodes = newArrayData<Node2>();
+  const nodes = newArrayData<T>();
+
+  while (true) {
+    const node = parsers.firstMap((parse) => parse(context));
+
+    if (!node) {
+      return {nodes, afterHiddenNodes: hiddenNodes};
+    }
+
+    if (node.isHidden) {
+      hiddenNodes.addLastItem(node);
+    } else {
+      node.hiddenNodes = hiddenNodes;
+      hiddenNodes = newArrayData();
+      nodes.addLastItem(node);
+    }
+  }
+}
