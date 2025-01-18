@@ -73,9 +73,13 @@ export function parseStatementsUntil(
     nodes = newArrayData();
   };
 
-  const iterator = nodeIterator(context, nodeParsers());
+  while (true) {
+    const node = nodeParsers().findMap((parse) => parse(context));
 
-  for (const node of iterator) {
+    if (!node) {
+      break;
+    }
+
     if (is(node, $UnknownNode)) {
       // this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unknownSymbol());
     }
@@ -114,33 +118,6 @@ export function parseStatementsUntil(
     statements,
     breakNode,
     hiddenNodes,
-  };
-}
-
-function nodeIterator(
-  context: AnalyzerContext,
-  parsers: ArrayData<NodeParserFunction>,
-): IterableIterator<Node2> {
-  return {
-    next(): IteratorResult<Node2> {
-      const node = parsers.findMap((parse) => parse(context));
-
-      if (!node) {
-        return {
-          done: true,
-          value: nothing,
-        };
-      }
-
-      return {
-        done: false,
-        value: node,
-      };
-    },
-
-    [Symbol.iterator](): IterableIterator<Node2> {
-      return this;
-    },
   };
 }
 
