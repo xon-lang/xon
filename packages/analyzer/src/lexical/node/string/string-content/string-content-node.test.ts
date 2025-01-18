@@ -1,4 +1,4 @@
-import {$StringContentNode, parseStringContentNode} from '#analyzer';
+import {$StringContentNode, newAnalyzerContext, parseStringContentNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('string content', () => {
   const text = newText('a');
   const source = charStreamFromText(text);
-  const node = parseStringContentNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringContentNode(context);
 
   expect(is(node, $StringContentNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('a');
@@ -21,7 +22,8 @@ test('string content', () => {
 test('string content with close quote', () => {
   const text = newText('a\nc"');
   const source = charStreamFromText(text);
-  const node = parseStringContentNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringContentNode(context);
 
   expect(is(node, $StringContentNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('a\nc');

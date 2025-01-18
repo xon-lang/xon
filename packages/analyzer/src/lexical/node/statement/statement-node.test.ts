@@ -1,4 +1,11 @@
-import {$MemberNode, $StatementNode2, IdNode, MemberNode, parseStatementNode} from '#analyzer';
+import {
+  $MemberNode,
+  $StatementNode2,
+  IdNode,
+  MemberNode,
+  newAnalyzerContext,
+  parseStatementNode,
+} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +13,8 @@ import {expect, test} from 'vitest';
 test('statement', () => {
   const text = newText('   abc.   def   ');
   const source = charStreamFromText(text);
-  const node = parseStatementNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStatementNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $StatementNode2)).toBe(true);

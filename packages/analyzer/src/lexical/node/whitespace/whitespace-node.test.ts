@@ -1,16 +1,14 @@
-import {$WhitespaceNode, LexicalNode, syntaxFromResource, WhitespaceNode} from '#analyzer';
-import {newText, newTextResource, nothing} from '#common';
+import {$WhitespaceNode, newAnalyzerContext, parseWhitespaceNode} from '#analyzer';
+import {charStreamFromText, newText} from '#common';
+import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('whitespace', () => {
   const text = newText('    ');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = syntax.hiddenNodes.at(0) as WhitespaceNode;
+  const source = charStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  const node = parseWhitespaceNode(context);
 
-  expect(statements.count()).toBe(0);
-  expect(syntax.hiddenNodes.count()).toBe(1);
-  expect(node.$).toBe($WhitespaceNode);
-  expect((node as LexicalNode).text.toNativeString()).toBe('    ');
+  expect(is(node, $WhitespaceNode)).toBe(true);
+  expect(node?.text.toNativeString()).toBe('    ');
 });

@@ -1,4 +1,4 @@
-import {$DocumentationNode, parseDocumentationNode} from '#analyzer';
+import {$DocumentationNode, newAnalyzerContext, parseDocumentationNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('description before close', () => {
   const text = newText('===abc===');
   const source = charStreamFromText(text);
-  const node = parseDocumentationNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationNode)).toBe(true);
@@ -18,7 +19,8 @@ test('description before close', () => {
 test('description before close', () => {
   const text = newText('=== abc\n\n\n def==');
   const source = charStreamFromText(text);
-  const node = parseDocumentationNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationNode)).toBe(true);
@@ -30,7 +32,8 @@ test('description before close', () => {
 test('description labels', () => {
   const text = newText('=== abc\n\n\n def @in a1 b2 c 3     @return _123 _ ===');
   const source = charStreamFromText(text);
-  const node = parseDocumentationNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationNode)).toBe(true);
@@ -53,7 +56,8 @@ test('description labels', () => {
 test('no main description', () => {
   const text = newText('===@abc');
   const source = charStreamFromText(text);
-  const node = parseDocumentationNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationNode)).toBe(true);

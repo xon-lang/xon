@@ -1,4 +1,4 @@
-import {$CommentLineOperatorNode, parseCommentLineOperatorNode} from '#analyzer';
+import {$CommentLineOperatorNode, newAnalyzerContext, parseCommentLineOperatorNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('no content', () => {
   const text = newText('//');
   const source = charStreamFromText(text);
-  const node = parseCommentLineOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseCommentLineOperatorNode(context);
 
   expect(is(node, $CommentLineOperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('//');
@@ -17,7 +18,8 @@ test('no content', () => {
 test('with content', () => {
   const text = newText('// comment');
   const source = charStreamFromText(text);
-  const node = parseCommentLineOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseCommentLineOperatorNode(context);
 
   expect(is(node, $CommentLineOperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('//');

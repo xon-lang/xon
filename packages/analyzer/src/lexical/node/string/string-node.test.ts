@@ -1,4 +1,4 @@
-import {$StringNode, parseStringNode} from '#analyzer';
+import {$StringNode, newAnalyzerContext, parseStringNode} from '#analyzer';
 import {charStreamFromText, newText, nothing} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('string', () => {
   const text = newText('"ab\n\nc"');
   const source = charStreamFromText(text);
-  const node = parseStringNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringNode(context);
 
   expect(is(node, $StringNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
@@ -23,7 +24,8 @@ test('string', () => {
 test('string only quote', () => {
   const text = newText('"a');
   const source = charStreamFromText(text);
-  const node = parseStringNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringNode(context);
 
   expect(is(node, $StringNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
@@ -36,7 +38,8 @@ test('string only quote', () => {
 test('empty string single quote', () => {
   const text = newText('"');
   const source = charStreamFromText(text);
-  const node = parseStringNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringNode(context);
 
   expect(is(node, $StringNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
@@ -49,7 +52,8 @@ test('empty string single quote', () => {
 test('empty string double quote', () => {
   const text = newText('""');
   const source = charStreamFromText(text);
-  const node = parseStringNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringNode(context);
 
   expect(is(node, $StringNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');

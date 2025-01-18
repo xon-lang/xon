@@ -1,4 +1,4 @@
-import {$StringCloseNode, parseStringCloseNode} from '#analyzer';
+import {$StringCloseNode, newAnalyzerContext, parseStringCloseNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('string close', () => {
   const text = newText('"a');
   const source = charStreamFromText(text);
-  const node = parseStringCloseNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseStringCloseNode(context);
 
   expect(is(node, $StringCloseNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('"');

@@ -1,4 +1,4 @@
-import {$JoiningNode, parseJoiningNode} from '#analyzer';
+import {$JoiningNode, newAnalyzerContext, parseJoiningNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('no space', () => {
   const text = newText('~.def');
   const source = charStreamFromText(text);
-  const node = parseJoiningNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseJoiningNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $JoiningNode)).toBe(true);
@@ -20,7 +21,8 @@ test('no space', () => {
 test('with space', () => {
   const text = newText('~   .def');
   const source = charStreamFromText(text);
-  const node = parseJoiningNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseJoiningNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $JoiningNode)).toBe(true);
@@ -32,7 +34,8 @@ test('with space', () => {
 test('with new line', () => {
   const text = newText('~   \n \r \n\n   .def');
   const source = charStreamFromText(text);
-  const node = parseJoiningNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseJoiningNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $JoiningNode)).toBe(true);
@@ -45,7 +48,8 @@ test('with new line', () => {
 test('no joining', () => {
   const text = newText(' ~  ');
   const source = charStreamFromText(text);
-  const node = parseJoiningNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseJoiningNode(context);
 
   expect(node).toBeFalsy();
 });

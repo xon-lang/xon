@@ -1,4 +1,4 @@
-import {$RadixPointNode, parseRadixPointNode} from '#analyzer';
+import {$RadixPointNode, newAnalyzerContext, parseRadixPointNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('single point', () => {
   const text = newText('.');
   const source = charStreamFromText(text);
-  const node = parseRadixPointNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseRadixPointNode(context);
 
   expect(is(node, $RadixPointNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('.');
@@ -17,7 +18,8 @@ test('single point', () => {
 test('point fractional', () => {
   const text = newText('.123');
   const source = charStreamFromText(text);
-  const node = parseRadixPointNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseRadixPointNode(context);
 
   expect(is(node, $RadixPointNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('.');

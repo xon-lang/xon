@@ -1,4 +1,4 @@
-import {$CharOpenNode, parseCharOpenNode} from '#analyzer';
+import {$CharOpenNode, newAnalyzerContext, parseCharOpenNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('char open', () => {
   const text = newText("'a");
   const source = charStreamFromText(text);
-  const node = parseCharOpenNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseCharOpenNode(context);
 
   expect(is(node, $CharOpenNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe("'");

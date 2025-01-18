@@ -1,4 +1,4 @@
-import {$DocumentationLabelNode, parseDocumentationLabelNode} from '#analyzer';
+import {$DocumentationLabelNode, newAnalyzerContext, parseDocumentationLabelNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('single at', () => {
   const text = newText('@');
   const source = charStreamFromText(text);
-  const node = parseDocumentationLabelNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationLabelNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationLabelNode)).toBe(true);
@@ -17,7 +18,8 @@ test('single at', () => {
 test('at parameter', () => {
   const text = newText('@param and not param');
   const source = charStreamFromText(text);
-  const node = parseDocumentationLabelNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseDocumentationLabelNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationLabelNode)).toBe(true);

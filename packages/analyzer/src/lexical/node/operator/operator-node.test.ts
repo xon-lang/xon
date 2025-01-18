@@ -1,4 +1,4 @@
-import {$OperatorNode, parseOperatorNode} from '#analyzer';
+import {$OperatorNode, newAnalyzerContext, parseOperatorNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('import operator', () => {
   const text = newText('import');
   const source = charStreamFromText(text);
-  const node = parseOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseOperatorNode(context);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('import');
@@ -17,7 +18,8 @@ test('import operator', () => {
 test('plus operator', () => {
   const text = newText('+abc');
   const source = charStreamFromText(text);
-  const node = parseOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseOperatorNode(context);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('+');
@@ -28,7 +30,8 @@ test('plus operator', () => {
 test('range operator', () => {
   const text = newText('.. ');
   const source = charStreamFromText(text);
-  const node = parseOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseOperatorNode(context);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('..');
@@ -39,7 +42,8 @@ test('range operator', () => {
 test('equals operator', () => {
   const text = newText('== ');
   const source = charStreamFromText(text);
-  const node = parseOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseOperatorNode(context);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('==');
@@ -48,7 +52,8 @@ test('equals operator', () => {
 test('assign operator', () => {
   const text = newText('= ');
   const source = charStreamFromText(text);
-  const node = parseOperatorNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseOperatorNode(context);
 
   expect(is(node, $OperatorNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('=');

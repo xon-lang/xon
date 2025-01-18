@@ -1,4 +1,4 @@
-import {$NlNode, parseNlNode} from '#analyzer';
+import {$NlNode, newAnalyzerContext, parseNlNode} from '#analyzer';
 import {charStreamFromText, newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +6,8 @@ import {expect, test} from 'vitest';
 test('cr lf', () => {
   const text = newText('\r\nabc');
   const source = charStreamFromText(text);
-  const node = parseNlNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseNlNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $NlNode)).toBe(true);
@@ -20,7 +21,8 @@ test('cr lf', () => {
 test('cr lf whitespace', () => {
   const text = newText('\n   \r\n\n   abc');
   const source = charStreamFromText(text);
-  const node = parseNlNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseNlNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $NlNode)).toBe(true);
@@ -34,7 +36,8 @@ test('cr lf whitespace', () => {
 test('starts with whitespace', () => {
   const text = newText(' \n   \r\n\n   abc');
   const source = charStreamFromText(text);
-  const node = parseNlNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseNlNode(context);
 
   expect(node).toBeFalsy();
 });
@@ -42,7 +45,8 @@ test('starts with whitespace', () => {
 test('whitespace', () => {
   const text = newText('   ');
   const source = charStreamFromText(text);
-  const node = parseNlNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseNlNode(context);
 
   expect(node).toBeFalsy();
 });
