@@ -1,68 +1,44 @@
-import {$CharNode, newAnalyzerContext, parseCharNode} from '#analyzer';
-import {charStreamFromText, newText, nothing} from '#common';
-import {is} from '#typing';
+import {newAnalyzerContext, parseCharNode} from '#analyzer';
+import {ArrayData, charStreamFromText, newText, Text} from '#common';
+import {AnalyzerDiagnostic} from '#diagnostic';
 import {expect, test} from 'vitest';
 
-test('char', () => {
-  const text = newText("'ab\n\nc'");
-  const source = charStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
+test('Character has no errors', () => {
+  const text = newText("'a'");
+  const diagnostics = charNodeDiagnostics(text);
 
-  expect(context.diagnostics.isEmpty()).toBe(true);
-  expect(is(node, $CharNode)).toBe(true);
-  expect(node?.openNode.text.toNativeString()).toBe("'");
-  expect(node?.contentNode?.text.toNativeString()).toBe('ab\n\nc');
-  expect(node?.closeNode?.text.toNativeString()).toBe("'");
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.start.line).toBe(0);
-  expect(node?.range.start.column).toBe(0);
-  expect(node?.range.stop.index).toBe(7);
-  expect(node?.range.stop.line).toBe(2);
-  expect(node?.range.stop.column).toBe(2);
+  expect(diagnostics.count()).toBe(0);
 });
 
-test('char only quote', () => {
-  const text = newText("'a");
-  const source = charStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
-
-  expect(context.diagnostics.count()).toBe(1);
-  expect(is(node, $CharNode)).toBe(true);
-  expect(node?.openNode.text.toNativeString()).toBe("'");
-  expect(node?.contentNode?.text.toNativeString()).toBe('a');
-  expect(node?.closeNode).toBe(nothing);
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(2);
-});
-
-test('empty char single quote', () => {
-  const text = newText("'");
-  const source = charStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
-
-  expect(context.diagnostics.count()).toBe(2);
-  expect(is(node, $CharNode)).toBe(true);
-  expect(node?.openNode.text.toNativeString()).toBe("'");
-  expect(node?.contentNode).toBe(nothing);
-  expect(node?.closeNode).toBe(nothing);
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(1);
-});
-
-test('empty char double quote', () => {
+test('Character has no content', () => {
   const text = newText("''");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.actual.toNativeString()).toBe('Character has no content');
+});
+
+test('Character contains 3 elements', () => {
+  const text = newText("'abc'");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.actual.toNativeString()).toBe('Character contains 3 elements');
+});
+
+test('Character does not have a closing quote', () => {
+  const text = newText("'a");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.actual.toNativeString()).toBe(
+    'Character does not have a closing quote',
+  );
+});
+
+function charNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = charStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseCharNode(context);
-
-  expect(context.diagnostics.isEmpty()).toBe(true);
-  expect(is(node, $CharNode)).toBe(true);
-  expect(node?.openNode.text.toNativeString()).toBe("'");
-  expect(node?.contentNode).toBe(nothing);
-  expect(node?.closeNode?.text.toNativeString()).toBe("'");
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(2);
-});
+  return node!.diagnose!();
+}

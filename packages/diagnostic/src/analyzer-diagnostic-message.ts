@@ -5,6 +5,7 @@ import {Brand, Model} from '#typing';
 export type AnalyzerDiagnosticMessage = Model &
   Brand<'Diagnostic.AnalyzerDiagnosticMessage'> & {
     actual: Text;
+    // or 'but' in another word ('Char contains 5 elements' BUT 'should be only character')
     expect?: Text | Nothing;
   };
 

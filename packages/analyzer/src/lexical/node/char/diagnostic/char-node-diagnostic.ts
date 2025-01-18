@@ -1,5 +1,5 @@
-import {CHAR_OPEN, CharNode} from '#analyzer';
-import {ArrayData, TextRange, newArrayData, newText} from '#common';
+import {CharNode} from '#analyzer';
+import {ArrayData, Integer, TextRange, newArrayData, newText} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -12,30 +12,49 @@ export function diagnoseCharNode(this: CharNode): ArrayData<AnalyzerDiagnostic> 
   const diagnostics = newArrayData<AnalyzerDiagnostic>();
 
   if (!this.contentNode) {
-    diagnostics.addLastItem(expectCharContent(this.openNode.range));
+    diagnostics.addLastItem(charHasNoContent(this.openNode.range));
+  } else if (this.contentNode.text.count() > 1) {
+    diagnostics.addLastItem(
+      characterContainsManyElements(this.openNode.range, this.contentNode.text.count()),
+    );
   }
 
   if (!this.closeNode) {
-    diagnostics.addLastItem(expectCharClose(this.openNode.range));
+    diagnostics.addLastItem(theCharacterDoesNotHaveAClosingQuote(this.openNode.range));
   }
 
   return diagnostics;
 }
 
-function expectCharContent(range: TextRange): AnalyzerDiagnostic {
+function charHasNoContent(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newAnalyzerDiagnosticMessage(newText(`Char has no content`)),
+    newAnalyzerDiagnosticMessage(newText(`Character has no content`), newText(`Should be only character`)),
   );
 }
 
-function expectCharClose(range: TextRange): AnalyzerDiagnostic {
+function characterContainsManyElements(range: TextRange, charactersCount: Integer): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newAnalyzerDiagnosticMessage(newText(`Char open token '${CHAR_OPEN}' has no close pair`)),
+    newAnalyzerDiagnosticMessage(
+      newText(`Character contains ${charactersCount} elements`),
+      newText(`Should be only character`),
+    ),
+  );
+}
+
+function theCharacterDoesNotHaveAClosingQuote(range: TextRange): AnalyzerDiagnostic {
+  return newDiagnostic(
+    range,
+    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticSeverity.ERROR,
+    newAnalyzerDiagnosticMessage(
+      newText(`Character does not have a closing quote`),
+      newText(`Expect close token`),
+    ),
   );
 }
