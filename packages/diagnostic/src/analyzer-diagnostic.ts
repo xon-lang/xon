@@ -1,31 +1,39 @@
-import {ArrayData, Integer, Nothing, Text, TextRange} from '#common';
-import {AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#diagnostic';
+import {ArrayData, Integer, Nothing, TextRange} from '#common';
+import {
+  AnalyzerDiagnosticMessage,
+  AnalyzerDiagnosticSeverity,
+  AnalyzerDiagnosticTag,
+  AnalyzerDiagnosticType,
+  diagnosticPackageType,
+} from '#diagnostic';
+import {Brand, Model} from '#typing';
 
-export type AnalyzerDiagnosticMessage = {
-  actual: Text;
-  expect: Text | Nothing;
-};
+export type AnalyzerDiagnostic = Model &
+  Brand<'Diagnostic.AnalyzerDiagnostic'> & {
+    range: TextRange;
+    type: AnalyzerDiagnosticType;
+    severity: AnalyzerDiagnosticSeverity;
+    message: AnalyzerDiagnosticMessage;
+    code?: Integer | Nothing;
+    tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing;
 
-// todo rename 'AnalyzerDiagnostic' to 'Diagnostic' ???
-export type AnalyzerDiagnostic = {
-  range: TextRange;
-  severity: AnalyzerDiagnosticSeverity;
-  message: AnalyzerDiagnosticMessage;
-  code?: Integer | Nothing;
-  tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing;
+    // terminalFormat(): Text;
+  };
 
-  // terminalFormat(): Text;
-};
+export const $AnalyzerDiagnostic = diagnosticPackageType('AnalyzerDiagnostic');
 
 export function newDiagnostic(
   range: TextRange,
+  type: AnalyzerDiagnosticType,
   severity: AnalyzerDiagnosticSeverity,
   message: AnalyzerDiagnosticMessage,
   code?: Integer | Nothing,
   tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing,
 ): AnalyzerDiagnostic {
   return {
+    $: $AnalyzerDiagnostic,
     range,
+    type,
     severity,
     message,
     code,

@@ -7,4 +7,8 @@ export * from './src/analyzer-diagnostic-manager';
 export * from './src/analyzer-diagnostic-message';
 export * from './src/analyzer-diagnostic-severity';
 export * from './src/analyzer-diagnostic-tag';
+export * from './src/analyzer-diagnostic-type';
 export * from './src/analyzer-diagnostic';
+export * from './src/predefined/semantic-predefined-diagnostic';
+export * from './src/predefined/syntax-predefined-diagnostic';
+export * from './src/predefined/translator-predefined-diagnostic';
