@@ -1,4 +1,5 @@
-import {newArrayData, newChar, newText} from '#common';
+import {$Text, newArrayData, newChar, newText} from '#common';
+import {is} from '#typing';
 
 export const COMMENT_LINE = newText('//');
 
@@ -18,7 +19,7 @@ export const NL = newText('\n');
 export const CR = newChar('\r');
 export const LF = newChar('\n');
 export const CRLF = newText('\r\n');
-export const COMMA = newText(',');
+export const COMMA = newChar(',');
 export const JOINING = newChar('~');
 export const SPACE = newChar(' ');
 export const UNDERSCORE = newChar('_');
@@ -125,4 +126,9 @@ export const OPERATORS_SORTED = newArrayData([
   ...MODIFIER_KEYWORDS,
   ...CONTROL_KEYWORDS,
   ...OPERATOR_KEYWORDS,
-]).sort((a, b) => a.count() - b.count());
+]).sort((a, b) => {
+  const aLength = is(a, $Text) ? a.count() : 1;
+  const bLength = is(b, $Text) ? b.count() : 1;
+
+  return aLength - bLength;
+});
