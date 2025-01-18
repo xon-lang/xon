@@ -24,13 +24,13 @@ function hiddenNodeParsers(): ArrayData<(context: AnalyzerContext) => Node2 | No
 
 export function parseStatementNode(
   context: AnalyzerContext,
-  parentStatement?: StatementNode2 | Nothing,
+  parent?: StatementNode2 | Nothing,
 ): StatementNode2 | Nothing {
   const beforeHiddenNodes = parsersToNodes(context, hiddenNodeParsers());
   // const parsers = statementParsers();
   const {node, errorNodes, afterHiddenNodes} = parseExpressionNode(context);
 
-  return newStatementNode(parentStatement, beforeHiddenNodes, node, errorNodes, afterHiddenNodes);
+  return newStatementNode(parent, beforeHiddenNodes, node, errorNodes, afterHiddenNodes);
 }
 
 export function parseStatementNodes(context: AnalyzerContext): ArrayData<StatementNode2> {

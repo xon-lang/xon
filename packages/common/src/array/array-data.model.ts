@@ -22,12 +22,12 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
   isEmpty(): Boolean2;
 
-  first(predicate?: ArrayPredicate<T>, startIndex?: Integer | Nothing): T | Nothing;
+  // first(predicate?: ArrayPredicate<T>, startIndex?: Integer | Nothing): T | Nothing;
   first<V extends T>(
     predicate?: ArraySafePredicate<T, V> | Nothing,
     startIndex?: Integer | Nothing,
   ): V | Nothing;
-  last(predicate?: ArrayPredicate<T>, startIndex?: Integer | Nothing): T | Nothing;
+  // last(predicate?: ArrayPredicate<T>, startIndex?: Integer | Nothing): T | Nothing;
   last<V extends T>(
     predicate?: ArraySafePredicate<T, V> | Nothing,
     startIndex?: Integer | Nothing,

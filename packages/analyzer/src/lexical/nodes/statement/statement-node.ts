@@ -1,54 +1,38 @@
-import {
-  $SyntaxNode2,
-  $WhitespaceNode,
-  Node2,
-  SyntaxNode2,
-  analyzerPackageType,
-  newSyntaxNode,
-} from '#analyzer';
-import {ArrayData, Integer, Nothing, TextRange, newArrayData, newTextRange} from '#common';
-import {Brand, is} from '#typing';
+import {$SyntaxNode2, Node2, SyntaxNode2, analyzerPackageType, newSyntaxNode} from '#analyzer';
+import {ArrayData, Integer, Nothing} from '#common';
+import {Brand} from '#typing';
 
 export type StatementNode2 = SyntaxNode2 &
   Brand<'Analyzer.StatementNode2'> & {
     indentLevel: Integer;
-    indent: TextRange;
-    // todo rename to 'node' ???
     value?: Node2 | Nothing;
     errorNodes?: ArrayData<Node2> | Nothing;
     afterHiddenNodes?: ArrayData<Node2> | Nothing;
     parent?: StatementNode2 | Nothing;
-    body: ArrayData<StatementNode2>;
+    body?: ArrayData<StatementNode2> | Nothing;
   };
 
 export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNode2', $SyntaxNode2);
 
 export function newStatementNode(
-  parentStatement: StatementNode2 | Nothing,
+  parent: StatementNode2 | Nothing,
   beforeHiddenNodes: ArrayData<Node2> | Nothing,
   value: Node2 | Nothing,
   errorNodes: ArrayData<Node2> | Nothing,
   afterHiddenNodes: ArrayData<Node2> | Nothing,
-): StatementNode2 {
-  const indentLevel = (parentStatement?.indentLevel ?? -1) + 1;
-
-  const indentNode = beforeHiddenNodes?.last();
-  const indent = is(indentNode, $WhitespaceNode)
-    ? indentNode.range
-    : newTextRange(value?.range.start, value?.range.start);
+): StatementNode2 { 
+  const indentLevel = (parent?.indentLevel ?? -1) + 1;
 
   const node = newSyntaxNode<StatementNode2>({
     $: $StatementNode2,
     indentLevel,
-    indent,
-    hiddenNodes: beforeHiddenNodes,
-    value,
-    errorNodes,
-    afterHiddenNodes,
-    body: newArrayData(),
+    value: value,
   });
 
-  node.parent = parentStatement;
+  node.hiddenNodes = beforeHiddenNodes;
+  node.errorNodes = errorNodes;
+  node.afterHiddenNodes = afterHiddenNodes;
+  node.parent = parent;
 
   return node;
 }

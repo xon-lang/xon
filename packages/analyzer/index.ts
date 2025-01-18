@@ -104,9 +104,9 @@ export * from './src/lexical/nodes/number/radix-point-operator/radix-point-node.
 export * from './src/lexical/nodes/number/radix-point-operator/radix-point-node';
 export * from './src/lexical/nodes/operator/operator-node.parser';
 export * from './src/lexical/nodes/operator/operator-node';
-export * from './src/lexical/nodes/statement/statement-node-collapse';
-export * from './src/lexical/nodes/statement/statement-node.parser';
 export * from './src/lexical/nodes/statement/statement-node';
+export * from './src/lexical/nodes/statement/parser/statement-node-collapse';
+export * from './src/lexical/nodes/statement/parser/statement-node-parser';
 export * from './src/lexical/nodes/string/string-node';
 export * from './src/lexical/nodes/string/diagnostic/string-node-diagnostic';
 export * from './src/lexical/nodes/string/formatter/string-node-formatter';
