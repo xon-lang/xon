@@ -1,5 +1,5 @@
-import {AnalyzerContext, CHAR_OPEN, CharNode} from '#analyzer';
-import {TextRange, newText} from '#common';
+import {CHAR_OPEN, CharNode} from '#analyzer';
+import {ArrayData, TextRange, newArrayData, newText} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -8,14 +8,18 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseCharNode(context: AnalyzerContext, node: CharNode): void {
-  if (!node.contentNode) {
-    context.addDiagnostic(expectCharContent(node.openNode.range));
+export function diagnoseCharNode(this: CharNode): ArrayData<AnalyzerDiagnostic> {
+  const diagnostics = newArrayData<AnalyzerDiagnostic>();
+
+  if (!this.contentNode) {
+    diagnostics.addLastItem(expectCharContent(this.openNode.range));
   }
 
-  if (!node.closeNode) {
-    context.addDiagnostic(expectCharClose(node.openNode.range));
+  if (!this.closeNode) {
+    diagnostics.addLastItem(expectCharClose(this.openNode.range));
   }
+
+  return diagnostics;
 }
 
 function expectCharContent(range: TextRange): AnalyzerDiagnostic {

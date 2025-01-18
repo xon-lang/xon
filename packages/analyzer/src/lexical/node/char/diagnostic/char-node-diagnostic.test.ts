@@ -9,6 +9,7 @@ test('char', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharNode(context);
 
+  expect(context.diagnostics.isEmpty()).toBe(true);
   expect(is(node, $CharNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode?.text.toNativeString()).toBe('ab\n\nc');
@@ -27,6 +28,7 @@ test('char only quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharNode(context);
 
+  expect(context.diagnostics.count()).toBe(1);
   expect(is(node, $CharNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode?.text.toNativeString()).toBe('a');
@@ -41,6 +43,7 @@ test('empty char single quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharNode(context);
 
+  expect(context.diagnostics.count()).toBe(2);
   expect(is(node, $CharNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode).toBe(nothing);
@@ -55,6 +58,7 @@ test('empty char double quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharNode(context);
 
+  expect(context.diagnostics.isEmpty()).toBe(true);
   expect(is(node, $CharNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode).toBe(nothing);

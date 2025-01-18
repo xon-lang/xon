@@ -1,4 +1,4 @@
-import {$Node, AnalyzerContext, analyzerPackageType, Semantic} from '#analyzer';
+import {$Node, AnalyzerContext, analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -11,6 +11,7 @@ import {
   Text,
   TextRange,
 } from '#common';
+import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, is, Model} from '#typing';
 
 export type LexicalNode = Model & {
@@ -43,6 +44,9 @@ export const $LexicalNode2 = analyzerPackageType<LexicalNode2>('LexicalNode2', $
 export type SyntaxNode2 = Node2 &
   Brand<'Analyzer.SyntaxNode2'> & {
     children: ArrayData<Node2>;
+
+    diagnose?(): ArrayData<AnalyzerDiagnostic>;
+    format?(): ArrayData<FormatterItem>;
   };
 
 export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2');

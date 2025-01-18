@@ -28,15 +28,13 @@ export function newCharNode(
   contentNode?: CharContentNode | Nothing,
   closeNode?: CharCloseNode | Nothing,
 ): CharNode {
-  const node: CharNode = newSyntaxNode({
+  return newSyntaxNode({
     $: $CharNode,
     openNode,
     contentNode,
     closeNode,
+
+    diagnose: diagnoseCharNode,
+    format: formatCharNode,
   });
-
-  diagnoseCharNode(context, node);
-  formatCharNode(context, node);
-
-  return node;
 }
