@@ -8,6 +8,7 @@ import {
   parseCommentNode,
   parseDocumentationNode,
   parseIdNode,
+  parseJoiningNode,
   parseNlNode,
   parseNumberNode,
   parseOperatorNode,
@@ -22,16 +23,17 @@ import {is} from '#typing';
 
 function nodeParsers(): ArrayData<NodeParserFunction> {
   return newArrayData([
-    // parseWhitespaceNode,
-    // parseNlNode,
-    // parseStringNode,
-    // parseCharacterNode,
-    // parseNumberNode,
-    // parseOperatorNode,
+    parseWhitespaceNode,
+    parseNlNode,
+    parseStringNode,
+    parseCharacterNode,
+    parseNumberNode,
+    parseOperatorNode,
     parseIdNode,
-    // parseDocumentationNode,
-    // parseCommentNode,
-    // parseUnknownNode,
+    parseDocumentationNode,
+    parseCommentNode,
+    parseJoiningNode,
+    parseUnknownNode,
   ]);
 }
 
