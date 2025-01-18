@@ -1,6 +1,6 @@
 import {analyzerPackageType, FormatterItem} from '#analyzer';
-import {ArrayData, CharStream, TextRange} from '#common';
-import {AnalyzerDiagnostic, predefinedDiagnostics} from '#diagnostic';
+import {ArrayData, CharStream} from '#common';
+import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, Model} from '#typing';
 
 export type AnalyzerContext = Model &
@@ -9,10 +9,7 @@ export type AnalyzerContext = Model &
     diagnostics: ArrayData<AnalyzerDiagnostic>;
     formatters: ArrayData<FormatterItem>;
 
-    addDiagnostic(
-      range: TextRange,
-      select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
-    ): void;
+    addDiagnostic(diagnostic: AnalyzerDiagnostic): void;
   };
 
 export const $AnalyzerContext = analyzerPackageType('AnalyzerContext');
