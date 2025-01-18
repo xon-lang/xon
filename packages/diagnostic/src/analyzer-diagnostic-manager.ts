@@ -25,7 +25,7 @@ export type AnalyzerDiagnosticManager = {
     select: (diagnostics: ReturnType<typeof predefinedDiagnostics>) => AnalyzerDiagnostic,
   ): AnalyzerDiagnostic;
 
-  log(diagnostic: AnalyzerDiagnostic): void;
+  // log(diagnostic: AnalyzerDiagnostic): void;
 };
 
 export function createDiagnosticManager(
@@ -64,9 +64,9 @@ export function createDiagnosticManager(
       return diagnostic;
     },
 
-    log(diagnostic: AnalyzerDiagnostic): void {
-      console.error(diagnostic.terminalFormat());
-    },
+    // log(diagnostic: AnalyzerDiagnostic): void {
+    //   console.error(diagnostic.terminalFormat());
+    // },
   };
 
   return manager;
