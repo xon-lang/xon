@@ -3,6 +3,7 @@
  */
 
 export * from './package';
+export * from './src/analyzer-context.model';
 export * from './src/node';
 export * from './src/formatter/formatter-item';
 export * from './src/formatter/formatter-manager';
@@ -53,7 +54,6 @@ export * from './src/lexical/node/documentation/documentation-open/documentation
 export * from './src/lexical/node/group/group-close-node';
 export * from './src/lexical/node/group/group-item-node';
 export * from './src/lexical/node/group/group-node-parse';
-export * from './src/lexical/node/group/group-node.factory';
 export * from './src/lexical/node/group/group-node.parser';
 export * from './src/lexical/node/group/group-node';
 export * from './src/lexical/node/group/group-open-node';

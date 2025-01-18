@@ -53,7 +53,7 @@ function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): 
   const diagnostics = newArrayData<Diagnostic>();
 
   for (const analyzerDiagnostic of analyzerDiagnostics) {
-    const range = convertRange(analyzerDiagnostic.reference.range);
+    const range = convertRange(analyzerDiagnostic.range);
 
     const diagnostic = new Diagnostic(
       range,
