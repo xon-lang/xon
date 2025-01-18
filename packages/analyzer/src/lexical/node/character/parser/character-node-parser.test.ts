@@ -1,16 +1,16 @@
-import {$CharNode, newAnalyzerContext, parseCharNode} from '#analyzer';
+import {$CharacterNode, newAnalyzerContext, parseCharacterNode} from '#analyzer';
 import {charStreamFromText, newText, nothing} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('char', () => {
+test('character', () => {
   const text = newText("'ab\n\nc'");
   const source = charStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
+  const node = parseCharacterNode(context);
 
   expect(context.diagnostics.isEmpty()).toBe(true);
-  expect(is(node, $CharNode)).toBe(true);
+  expect(is(node, $CharacterNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode?.text.toNativeString()).toBe('ab\n\nc');
   expect(node?.closeNode?.text.toNativeString()).toBe("'");
@@ -22,14 +22,14 @@ test('char', () => {
   expect(node?.range.stop.column).toBe(2);
 });
 
-test('char only quote', () => {
+test('character only quote', () => {
   const text = newText("'a");
   const source = charStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
+  const node = parseCharacterNode(context);
 
   expect(context.diagnostics.count()).toBe(1);
-  expect(is(node, $CharNode)).toBe(true);
+  expect(is(node, $CharacterNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode?.text.toNativeString()).toBe('a');
   expect(node?.closeNode).toBe(nothing);
@@ -37,14 +37,14 @@ test('char only quote', () => {
   expect(node?.range.stop.index).toBe(2);
 });
 
-test('empty char single quote', () => {
+test('empty character single quote', () => {
   const text = newText("'");
   const source = charStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
+  const node = parseCharacterNode(context);
 
   expect(context.diagnostics.count()).toBe(2);
-  expect(is(node, $CharNode)).toBe(true);
+  expect(is(node, $CharacterNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode).toBe(nothing);
   expect(node?.closeNode).toBe(nothing);
@@ -52,14 +52,14 @@ test('empty char single quote', () => {
   expect(node?.range.stop.index).toBe(1);
 });
 
-test('empty char double quote', () => {
+test('empty character double quote', () => {
   const text = newText("''");
   const source = charStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseCharNode(context);
+  const node = parseCharacterNode(context);
 
   expect(context.diagnostics.isEmpty()).toBe(true);
-  expect(is(node, $CharNode)).toBe(true);
+  expect(is(node, $CharacterNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode).toBe(nothing);
   expect(node?.closeNode?.text.toNativeString()).toBe("'");

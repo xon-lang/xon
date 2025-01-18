@@ -4,7 +4,7 @@ import {
   $LambdaNode,
   $OperatorNode,
   $TypeNode,
-  CharNode,
+  CharacterNode,
   DeclarationNode,
   IdNode,
   IntegerNode,
@@ -89,7 +89,7 @@ test('with parameters extends b', () => {
   const parameter2 = node.parameters?.items.at(2)?.value as DeclarationNode;
   expect(parameter2?.id?.text.toNativeString()).toBe('c');
   expect(parameter2?.type).toBeFalsy();
-  expect((parameter2?.assign?.value as CharNode)?.content?.text.toNativeString()).toBe('C');
+  expect((parameter2?.assign?.value as CharacterNode)?.content?.text.toNativeString()).toBe('C');
 
   expect(node.type?.value?.$).toBe($IdNode);
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('B');
@@ -129,7 +129,7 @@ test('with generics and parameters extends b', () => {
   const parameter2 = node.parameters?.items.at(2)?.value as DeclarationNode;
   expect(parameter2?.id?.text.toNativeString()).toBe('c');
   expect(parameter2?.type).toBeFalsy();
-  expect((parameter2?.assign?.value as CharNode)?.content?.text.toNativeString()).toBe('C');
+  expect((parameter2?.assign?.value as CharacterNode)?.content?.text.toNativeString()).toBe('C');
 
   expect(node.type?.value.$).toBe($IdNode);
   expect((node.type?.value as IdNode).text.toNativeString()).toBe('B');

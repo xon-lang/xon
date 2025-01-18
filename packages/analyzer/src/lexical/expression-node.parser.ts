@@ -3,7 +3,7 @@ import {
   collapseMemberNode,
   Node2,
   NodeParserFunction,
-  parseCharNode,
+  parseCharacterNode,
   parseCommentNode,
   parseIdNode,
   parseNumberNode,
@@ -19,7 +19,7 @@ import {ArrayData, Integer, newArrayData, Nothing} from '#common';
 function expressionParsers(): ArrayData<NodeParserFunction> {
   return newArrayData([
     parseNumberNode,
-    parseCharNode,
+    parseCharacterNode,
     parseStringNode,
     parseOperatorNode,
     parseIdNode,

@@ -1,5 +1,5 @@
 import {
-  $CharOpenNode,
+  $CharacterOpenNode,
   $DocumentationOpenNode,
   $GroupOpenNode,
   $IntegerContentNode,
@@ -86,7 +86,7 @@ export function newSyntaxAnalyzer(lexicalAnalyzer: LexicalAnalyzer): SyntaxAnaly
           node = stringNodeParse(this, node);
         }
 
-        if (is(node, $CharOpenNode)) {
+        if (is(node, $CharacterOpenNode)) {
           node = charNodeParse(this, node);
         }
 

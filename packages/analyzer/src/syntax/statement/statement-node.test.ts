@@ -1,4 +1,4 @@
-import {$CharNode, $StatementNode, CharNode, syntaxFromResource} from '#analyzer';
+import {$CharacterNode, $StatementNode, CharacterNode, syntaxFromResource} from '#analyzer';
 import {newText, newTextResource, nothing} from '#common';
 import {expect, test} from 'vitest';
 
@@ -15,7 +15,7 @@ test('a', () => {
   expect(statement.indent.stop.column).toBe(2);
   expect(statement.parent).toBe(nothing);
   expect(statement.children.count()).toBe(1);
-  expect(statement.children.at(0)?.$).toBe($CharNode);
-  expect((statement.children.at(0) as CharNode).content?.text.toNativeString()).toBe('a');
+  expect(statement.children.at(0)?.$).toBe($CharacterNode);
+  expect((statement.children.at(0) as CharacterNode).content?.text.toNativeString()).toBe('a');
   expect(statement.body.count()).toBe(0);
 });

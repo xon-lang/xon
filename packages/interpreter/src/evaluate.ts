@@ -1,5 +1,5 @@
 import {
-  $CharNode,
+  $CharacterNode,
   $IdNode,
   $InfixNode,
   $IntegerNode,
@@ -24,7 +24,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
     return node.value;
   }
 
-  if (is(node, $StringNode) || is(node, $CharNode)) {
+  if (is(node, $StringNode) || is(node, $CharacterNode)) {
     return node.content?.text.toNativeString();
   }
 

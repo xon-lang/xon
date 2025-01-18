@@ -1,5 +1,5 @@
 import {
-  $CharNode,
+  $CharacterNode,
   $IdNode,
   $IntegerNode,
   $InvokeNode,
@@ -27,7 +27,7 @@ test('method call', () => {
   expect(node.group.items.count()).toBe(2);
   expect(node.group.items.at(0)?.value?.$).toBe($IntegerNode);
   expect((node.group.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('3');
-  expect(node.group.items.at(1)?.value?.$).toBe($CharNode);
+  expect(node.group.items.at(1)?.value?.$).toBe($CharacterNode);
   expect((node.group.items.at(1)?.value as StringNode).content?.text.toNativeString()).toBe('str');
   expect(node.instance.$).toBe($IdNode);
 });
@@ -47,7 +47,7 @@ test('method on several lines', () => {
   const indexer1 = node.group.items.at(0)?.value;
   const indexer2 = node.group.items.at(1)?.value;
   expect(indexer1?.$).toBe($IntegerNode);
-  expect(indexer2?.$).toBe($CharNode);
+  expect(indexer2?.$).toBe($CharacterNode);
   expect(node.instance.$).toBe($IdNode);
 });
 
