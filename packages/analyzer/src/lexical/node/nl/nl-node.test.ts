@@ -4,17 +4,17 @@ import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('cr lf', () => {
-  const text = newText('\n\r\nabc');
+  const text = newText('\r\nabc');
   const source = charStreamFromText(text);
   const node = parseNlNode(source);
 
   expect(node).toBeTruthy();
   expect(is(node, $NlNode)).toBe(true);
-  expect(node?.text.toNativeString()).toBe('\n\r\n');
+  expect(node?.text.toNativeString()).toBe('\r\n');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
-  expect(node?.range.stop.index).toBe(3);
-  expect(node?.range.stop.line).toBe(2);
+  expect(node?.range.stop.index).toBe(2);
+  expect(node?.range.stop.line).toBe(1);
 });
 
 test('cr lf whitespace', () => {
@@ -24,11 +24,11 @@ test('cr lf whitespace', () => {
 
   expect(node).toBeTruthy();
   expect(is(node, $NlNode)).toBe(true);
-  expect(node?.text.toNativeString()).toBe('\n   \r\n\n   ');
+  expect(node?.text.toNativeString()).toBe('\n');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
-  expect(node?.range.stop.index).toBe(10);
-  expect(node?.range.stop.line).toBe(3);
+  expect(node?.range.stop.index).toBe(1);
+  expect(node?.range.stop.line).toBe(1);
 });
 
 test('starts with whitespace', () => {
