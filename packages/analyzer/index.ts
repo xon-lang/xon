@@ -15,8 +15,6 @@ export * from './src/lexical/lexical-analyzer-config';
 export * from './src/lexical/lexical-analyzer-parsers';
 export * from './src/lexical/lexical-analyzer.factory';
 export * from './src/lexical/lexical-analyzer.model';
-export * from './src/lexical/put-statement-node2';
-export * from './src/lexical/syntax-analyzer2';
 export * from './src/lexical/nodes/lexical-node';
 export * from './src/lexical/nodes/character/character-node';
 export * from './src/lexical/nodes/character/diagnostic/character-node-diagnostic';

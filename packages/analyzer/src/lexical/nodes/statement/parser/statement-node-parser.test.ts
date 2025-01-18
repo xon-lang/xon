@@ -1,26 +1,23 @@
 import {
-  $MemberNode,
   $StatementNode2,
   IdNode,
-  MemberNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  parseStatementNode,
+  parseStatementsUntil,
 } from '#analyzer';
 import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('statement', () => {
-  const text = newText('   abc.   def   ');
+test('Statement', () => {
+  const text = newText('abc\n aabc');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseStatementNode(context);
+  const statements = parseStatementsUntil(context).statements;
+  const node = statements.first();
 
+  expect(statements.count()).toBe(1);
+  expect((node?.body?.first()?.value as IdNode).text.toNativeString()).toBe('aabc');
   expect(node).toBeTruthy();
   expect(is(node, $StatementNode2)).toBe(true);
-  expect(node?.indentLevel).toBe(0);
-  expect(node?.indent.stop.index).toBe(3);
-  expect(is(node?.value, $MemberNode)).toBe(true);
-  expect(((node?.value as MemberNode).instance as IdNode).text.toNativeString()).toBe('abc');
 });
