@@ -1,6 +1,5 @@
 import {
   $NlNode,
-  $UnknownNode,
   AnalyzerContext,
   newStatementNode,
   Node2,
@@ -59,7 +58,13 @@ export function parseStatementsUntil(
     const firstNode = nodes.first()!;
     const parentStatement = getParentStatement(lastStatement, firstNode.range.start);
     // todo !!! collapse nodes
-    const statement = newStatementNode(parentStatement, firstNode, nodes.slice(1));
+    const errorNodes = nodes.slice(1);
+    const statement = newStatementNode(parentStatement, firstNode, errorNodes);
+
+    // if context.shouldDiagnose then
+    if (statement.diagnose) {
+      statement.diagnose();
+    }
 
     if (parentStatement) {
       parentStatement.body ??= newArrayData();
@@ -80,11 +85,6 @@ export function parseStatementsUntil(
       break;
     }
 
-    if (is(node, $UnknownNode)) {
-      // this.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.unknownSymbol());
-    }
-
-    // todo order above is important so fix it. Should we join all open nodes ???
     // if (is(node, $GroupOpenNode)) {
     //   node = groupNodeParse(this, node);
     // }

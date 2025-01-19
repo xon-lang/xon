@@ -118,6 +118,7 @@ export * from './src/lexical/nodes/string/nodes/string-open/string-open-node.par
 export * from './src/lexical/nodes/string/nodes/string-open/string-open-node';
 export * from './src/lexical/nodes/string/parser/string-node-parser';
 export * from './src/lexical/nodes/unknown/unknown-node';
+export * from './src/lexical/nodes/unknown/diagnostic/unknown-node-diagnostic';
 export * from './src/lexical/nodes/unknown/parser/unknown-node-parser';
 export * from './src/lexical/nodes/whitespace/whitespace-node.parser';
 export * from './src/lexical/nodes/whitespace/whitespace-node';

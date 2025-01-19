@@ -30,6 +30,9 @@ export type Node2 = Model &
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
     hiddenNodes?: ArrayData<Node2> | Nothing;
+
+    diagnose?(): ArrayData<AnalyzerDiagnostic>;
+    format?(): ArrayData<FormatterItem>;
   };
 
 export const $Node2 = analyzerPackageType<Node2>('Node2');
@@ -41,12 +44,13 @@ export type LexicalNode2 = Node2 &
 
 export const $LexicalNode2 = analyzerPackageType<LexicalNode2>('LexicalNode2', $Node2);
 
+export function newLexicalNode<T extends LexicalNode2>(params: T): T {
+  return params;
+}
+
 export type SyntaxNode2 = Node2 &
   Brand<'Analyzer.SyntaxNode2'> & {
     children: ArrayData<Node2>;
-
-    diagnose?(): ArrayData<AnalyzerDiagnostic>;
-    format?(): ArrayData<FormatterItem>;
   };
 
 export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2');
