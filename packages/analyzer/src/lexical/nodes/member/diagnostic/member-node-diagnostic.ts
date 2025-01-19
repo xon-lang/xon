@@ -1,4 +1,4 @@
-import {StringNode} from '#analyzer';
+import {MemberNode} from '#analyzer';
 import {ArrayData, TextRange, newArrayData, newText} from '#common';
 import {
   AnalyzerDiagnostic,
@@ -7,21 +7,21 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseStringNode(this: StringNode): ArrayData<AnalyzerDiagnostic> {
+export function diagnoseMemberNode(this: MemberNode): ArrayData<AnalyzerDiagnostic> {
   const diagnostics = newArrayData<AnalyzerDiagnostic>();
 
-  if (!this.closeNode) {
-    diagnostics.addLastItem(expectCloseToken(this.openNode.range));
+  if (!this.id) {
+    diagnostics.addLastItem(expectIdentifier(this.range));
   }
 
   return diagnostics;
 }
 
-function expectCloseToken(range: TextRange): AnalyzerDiagnostic {
+function expectIdentifier(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newText(`Expect close token`),
+    newText(`Expect identifier`),
   );
 }

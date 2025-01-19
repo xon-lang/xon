@@ -10,12 +10,12 @@ test('String has no errors', () => {
   expect(diagnostics.count()).toBe(0);
 });
 
-test('String does not have a closing quote', () => {
+test('Expect close token', () => {
   const text = newText('"abc');
   const diagnostics = stringNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.actual.toNativeString()).toBe('String does not have a closing quote');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect close token');
 });
 
 function stringNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {

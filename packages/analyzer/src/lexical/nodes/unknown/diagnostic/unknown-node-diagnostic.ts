@@ -4,7 +4,6 @@ import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticType,
-  newAnalyzerDiagnosticMessage,
   newDiagnostic,
 } from '#diagnostic';
 
@@ -17,6 +16,6 @@ function unknownCharacter(range: TextRange): AnalyzerDiagnostic {
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newAnalyzerDiagnosticMessage(newText(`Unknown character`)),
+    newText(`Unknown character`),
   );
 }

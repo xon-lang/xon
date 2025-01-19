@@ -1,6 +1,7 @@
 import {
   $SyntaxNode2,
   analyzerPackageType,
+  diagnoseMemberNode,
   IdNode,
   newSyntaxNode,
   Node2,
@@ -20,7 +21,14 @@ export type MemberNode = SyntaxNode2 &
 export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', $SyntaxNode2);
 
 export function memberNode(instance: Node2, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
-  return newSyntaxNode({$: $MemberNode, instance, operator, id});
+  return newSyntaxNode({
+    $: $MemberNode,
+    instance,
+    operator,
+    id,
+
+    diagnose: diagnoseMemberNode,
+  });
 
   // validate(analyzer, node);
   // format(analyzer, node);

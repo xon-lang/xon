@@ -1,6 +1,5 @@
-import {ArrayData, Integer, Nothing, TextRange} from '#common';
+import {ArrayData, Integer, Nothing, Text, TextRange} from '#common';
 import {
-  AnalyzerDiagnosticMessage,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticTag,
   AnalyzerDiagnosticType,
@@ -13,7 +12,7 @@ export type AnalyzerDiagnostic = Model &
     range: TextRange;
     type: AnalyzerDiagnosticType;
     severity: AnalyzerDiagnosticSeverity;
-    message: AnalyzerDiagnosticMessage;
+    message: Text;
     code?: Integer | Nothing;
     tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing;
 
@@ -26,7 +25,7 @@ export function newDiagnostic(
   range: TextRange,
   type: AnalyzerDiagnosticType,
   severity: AnalyzerDiagnosticSeverity,
-  message: AnalyzerDiagnosticMessage,
+  message: Text,
   code?: Integer | Nothing,
   tags?: ArrayData<AnalyzerDiagnosticTag> | Nothing,
 ): AnalyzerDiagnostic {
