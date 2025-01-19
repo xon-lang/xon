@@ -8,7 +8,7 @@ import {
   SyntaxNode2,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
-import {Brand} from '#typing';
+import {$Type, Brand} from '#typing';
 
 export type GroupNode = SyntaxNode2 &
   Brand<'Analyzer.GroupNode'> & {
@@ -21,11 +21,12 @@ export type GroupNode = SyntaxNode2 &
 export const $GroupNode = analyzerPackageType<GroupNode>('GroupNode', $SyntaxNode2);
 
 export function newGroupNode(
+  $type: $Type,
   open: GroupOpenNode,
   items: ArrayData<GroupItemNode>,
   close: GroupCloseNode | Nothing,
 ): GroupNode {
-  return newSyntaxNode({$: $GroupNode, open, items, close});
+  return newSyntaxNode({$: $type, open, items, close});
 }
 
 // function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {
