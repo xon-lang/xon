@@ -9,8 +9,21 @@ import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Statement', () => {
+test('Statement with body', () => {
   const text = newText('abc\n aabc');
+  const source = newCharacterStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  const statements = parseStatementsUntil(context).statements;
+  const node = statements.first();
+
+  expect(statements.count()).toBe(1);
+  expect((node?.body?.first()?.value as IdNode).text.toNativeString()).toBe('aabc');
+  expect(node).toBeTruthy();
+  expect(is(node, $StatementNode2)).toBe(true);
+});
+
+test('Statement with group', () => {
+  const text = newText('abc(1, 2,)');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const statements = parseStatementsUntil(context).statements;
