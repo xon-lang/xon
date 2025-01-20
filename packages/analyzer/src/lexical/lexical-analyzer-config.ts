@@ -43,7 +43,7 @@ export const PREFIX = newText('prefix');
 export const INFIX = newText('infix');
 export const POSTFIX = newText('postfix');
 
-export const MODIFIER_KEYWORDS = newArrayData([TYPE, CONST, VAR, IDEM, PREFIX, INFIX, POSTFIX]).sort(
+export const MODIFIER_OPERATORS = newArrayData([TYPE, CONST, VAR, IDEM, PREFIX, INFIX, POSTFIX]).sort(
   (a, b) => a.count() - b.count(),
 );
 
@@ -57,7 +57,7 @@ export const IMPORT = newText('import');
 export const EXPORT = newText('export');
 export const RETURN = newText('return');
 
-export const CONTROL_KEYWORDS = newArrayData([IF, THEN, ELSE, BREAK, CONTINUE, IMPORT, RETURN, EXPORT]).sort(
+export const CONTROL_OPERATORS = newArrayData([IF, THEN, ELSE, BREAK, CONTINUE, IMPORT, RETURN, EXPORT]).sort(
   (a, b) => a.count() - b.count(),
 );
 
@@ -113,10 +113,17 @@ export const SYMBOL_OPERATORS = newArrayData([
   LESS_EQUALS,
   EQUALS,
   NOT_EQUALS,
-]).sort((a, b) => a.count() - b.count());
+]);
 
 export const IS = newText('is');
 export const AS = newText('as');
 export const IN = newText('in');
 
-export const KEYWORD_OPERATORS = newArrayData([IS, AS, IN]).sort((a, b) => a.count() - b.count());
+export const KEYWORD_OPERATORS = newArrayData([IS, AS, IN]);
+
+export const OPERATORS = newArrayData([
+  ...MODIFIER_OPERATORS,
+  ...CONTROL_OPERATORS,
+  ...SYMBOL_OPERATORS,
+  ...KEYWORD_OPERATORS,
+]).sort((a, b) => a.count() - b.count());

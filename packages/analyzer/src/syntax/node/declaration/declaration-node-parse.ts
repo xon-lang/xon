@@ -15,7 +15,7 @@ import {
   DocumentationNode,
   GroupNode,
   IdNode,
-  MODIFIER_KEYWORDS,
+  MODIFIER_OPERATORS,
   Node,
   nodeFindMap,
   OperatorNode,
@@ -159,7 +159,7 @@ function getHeader(
   | Nothing {
   const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode));
 
-  if (is(node, $PrefixNode) && MODIFIER_KEYWORDS.hasItem(node.operator.text)) {
+  if (is(node, $PrefixNode) && MODIFIER_OPERATORS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {

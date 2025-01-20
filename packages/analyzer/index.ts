@@ -115,8 +115,8 @@ export * from './src/lexical/nodes/number/radix-point-operator/radix-point-node'
 export * from './src/lexical/nodes/operator/operator-node';
 export * from './src/lexical/nodes/operator/keyword/keyword-operator-node';
 export * from './src/lexical/nodes/operator/keyword/parser/keyword-operator-node-parser';
-export * from './src/lexical/nodes/operator/symbol/symbol-operator-node';
-export * from './src/lexical/nodes/operator/symbol/parser/symbol-operator-node-parser';
+export * from './src/lexical/nodes/operator/symbol-operator-node';
+export * from './src/lexical/nodes/operator/parser/symbol-operator-node-parser';
 export * from './src/lexical/nodes/statement/statement-node';
 export * from './src/lexical/nodes/statement/parser/statement-node-parser';
 export * from './src/lexical/nodes/string/string-node';
