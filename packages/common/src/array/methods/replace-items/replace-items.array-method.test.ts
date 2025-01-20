@@ -1,9 +1,9 @@
 import {newArrayData} from '#common';
 import {expect, test} from 'vitest';
 
-test('replace', () => {
+test('Replace items', () => {
   const arr = newArrayData([0, 1, 2, -3, 5, 7, 3]);
-  const newArr = arr.replace(2, 2, newArrayData([0]));
+  const newArr = arr.replaceItems(2, 2, newArrayData([0]));
 
   expect(arr.count()).toBe(7);
   expect(newArr.count()).toBe(6);

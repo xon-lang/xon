@@ -13,7 +13,8 @@ import {
   nothing,
   Number2,
   removeArrayMethod,
-  replaceArrayMethod,
+  replaceItemArrayMethod,
+  replaceItemsArrayMethod,
   splitByArrayMethod,
 } from '#common';
 import {extractType, Model, modelEquals} from '#typing';
@@ -155,7 +156,8 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     remove: removeArrayMethod,
-    replace: replaceArrayMethod,
+    replaceItem: replaceItemArrayMethod,
+    replaceItems: replaceItemsArrayMethod,
 
     firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing {
       return this.firstIndex((x) => modelEquals(x, item), startIndex);

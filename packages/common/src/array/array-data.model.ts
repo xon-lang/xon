@@ -35,7 +35,8 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   firstLast(): {first: T | Nothing; last: T | Nothing};
 
   remove(predicate: ArrayPredicate<T>): ArrayData<T> | Nothing;
-  replace(startIndex: Integer, deleteCount: Integer, newItems: ArrayData<T>): ArrayData<T>;
+  replaceItem(startIndex: Integer, deleteCount: Integer, item: T): ArrayData<T>;
+  replaceItems(startIndex: Integer, deleteCount: Integer, newItems: ArrayData<T>): ArrayData<T>;
 
   firstIndex(predicate?: ArrayPredicate<T> | Nothing, startIndex?: Integer | Nothing): Integer | Nothing;
   firstItemIndex(item: T, startIndex?: Integer | Nothing): Integer | Nothing;
@@ -64,7 +65,6 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   takeWhile(predicate: ArrayPredicate<T>, startIndex?: Integer, includeConditionItem?: Boolean2): this;
   take(length: Integer, startIndex?: Integer): this;
 
-  // todo rename to 'size' or 'length'
   count(): Integer;
   sum(select: ArraySelect<T, Number2>): Number2;
   min<V extends Number2>(select: ArraySelect<T, V>): ArrayExtremumElement<T, V> | Nothing;

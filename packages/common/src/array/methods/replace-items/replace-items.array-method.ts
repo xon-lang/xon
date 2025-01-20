@@ -1,6 +1,6 @@
 import {ArrayData, Integer, newArrayData} from '#common';
 
-export function replaceArrayMethod<T>(
+export function replaceItemsArrayMethod<T>(
   this: ArrayData<T>,
   startIndex: Integer,
   deleteCount: Integer,
