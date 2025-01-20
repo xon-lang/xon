@@ -21,7 +21,7 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
 
     takeWhile(
       $type: $Type,
-      predicate: (char: Char, index: Integer, text: Text) => Boolean2,
+      predicate: (char: Char, index: Integer, text: Text) => Boolean2 | Nothing,
       length?: Integer | Nothing,
     ): LexicalNode2 | Nothing {
       if (sourcePosition.index >= sourceLength) {
@@ -35,8 +35,8 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
       const chunkText = source.slice(sourcePosition.index);
 
       const text = length
-        ? chunkText.takeWhile((x, i) => i < length && predicate(x, i, chunkText))
-        : chunkText.takeWhile((x, i) => predicate(x, i, chunkText));
+        ? chunkText.takeWhile((x, i) => i < length && !!predicate(x, i, chunkText))
+        : chunkText.takeWhile((x, i) => !!predicate(x, i, chunkText));
 
       if (text.isEmpty() || (!!length && text.count() !== length)) {
         return nothing;

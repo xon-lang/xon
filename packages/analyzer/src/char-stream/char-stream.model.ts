@@ -6,7 +6,7 @@ export type CharacterStream = Model &
   Brand<'Common.CharacterStream'> & {
     takeWhile(
       $type: $Type,
-      predicate: (char: Char, index: Integer, text: Text) => Boolean2,
+      predicate: (char: Char, index: Integer, text: Text) => Boolean2 | Nothing,
       length?: Integer | Nothing,
     ): LexicalNode2 | Nothing;
   };
