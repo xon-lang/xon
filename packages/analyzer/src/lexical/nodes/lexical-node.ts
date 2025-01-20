@@ -53,7 +53,7 @@ export type SyntaxNode2 = Node2 &
     children: ArrayData<Node2>;
   };
 
-export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2');
+export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2', $Node2);
 
 export function newSyntaxNode<T extends SyntaxNode2>(params: Omit<T, 'children' | 'range'>): T {
   const children = newArrayData(

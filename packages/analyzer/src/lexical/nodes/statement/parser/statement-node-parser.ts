@@ -1,6 +1,8 @@
 import {
   $NlNode,
   AnalyzerContext,
+  collapseInvokeNode,
+  collapseMemberNode,
   newStatementNode,
   Node2,
   NodeParserFunction,
@@ -19,8 +21,9 @@ import {
   parseUnknownNode,
   parseWhitespaceNode,
   StatementNode2,
+  SyntaxNode2,
 } from '#analyzer';
-import {ArrayData, Boolean2, newArrayData, Nothing, nothing, TextPosition} from '#common';
+import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
 import {is} from '#typing';
 
 function nodeParsers(): ArrayData<NodeParserFunction> {
@@ -42,7 +45,17 @@ function nodeParsers(): ArrayData<NodeParserFunction> {
   ]);
 }
 
-export function parseStatementsUntil(
+export type SyntaxCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => SyntaxCollapseResult;
+export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;
+
+function nodeCollapses(): ArrayData<{min: Integer; collapse: SyntaxCollapseFn}> {
+  return newArrayData([
+    {min: 2, collapse: collapseInvokeNode},
+    {min: 2, collapse: collapseMemberNode},
+  ]);
+}
+
+export function parseStatements(
   context: AnalyzerContext,
   predicate?: ((node: Node2) => Boolean2) | Nothing,
 ): {
@@ -61,11 +74,12 @@ export function parseStatementsUntil(
       return;
     }
 
-    const firstNode = nodes.first()!;
-    const parentStatement = getParentStatement(lastStatement, firstNode.range.start);
-    // todo !!! collapse nodes
+    const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
+    nodes = collapseNodes(nodes);
+    const value = nodes.first()!;
     const errorNodes = nodes.slice(1);
-    const statement = newStatementNode(parentStatement, firstNode, errorNodes);
+    const statement = newStatementNode(parentStatement, value, errorNodes);
+    nodes = newArrayData();
 
     // if context.shouldDiagnose then
     if (statement.diagnose) {
@@ -80,8 +94,6 @@ export function parseStatementsUntil(
     }
 
     lastStatement = statement;
-
-    nodes = newArrayData();
   };
 
   while (true) {
@@ -91,12 +103,13 @@ export function parseStatementsUntil(
       break;
     }
 
-    // if (is(node, $GroupOpenNode)) {
-    //   node = groupNodeParse(this, node);
-    // }
-
     if (predicate && predicate(node)) {
       breakNode = node;
+
+      if (!node.isHidden) {
+        node.hiddenNodes = hiddenNodes;
+        hiddenNodes = newArrayData();
+      }
 
       break;
     }
@@ -140,4 +153,36 @@ function getParentStatement(
   }
 
   return getParentStatement(statement.parent, indentPosition);
+}
+
+export function collapseNodes(nodes: ArrayData<Node2>): ArrayData<Node2> {
+  if (nodes.isEmpty()) {
+    return nodes;
+  }
+
+  for (const {min, collapse} of nodeCollapses()) {
+    if (nodes.count() < min) {
+      continue;
+    }
+
+    let index = 0;
+
+    while (true) {
+      const result = collapse(nodes, index);
+
+      if (!result) {
+        break;
+      }
+
+      const deleteCount = result.node.children.count();
+      nodes = nodes.replaceItem(result.index, deleteCount, result.node);
+      index = result.index + 1;
+
+      if (index >= nodes.count() || nodes.count() < min) {
+        break;
+      }
+    }
+  }
+
+  return nodes;
 }
