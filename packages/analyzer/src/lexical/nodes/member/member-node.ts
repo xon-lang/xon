@@ -29,11 +29,6 @@ export function memberNode(instance: Node2, operator: OperatorNode, id?: IdNode 
 
     diagnose: diagnoseMemberNode,
   });
-
-  // validate(analyzer, node);
-  // format(analyzer, node);
-
-  // return node;
 }
 
 // function validate(analyzer: SyntaxAnalyzer, node: MemberNode): void {

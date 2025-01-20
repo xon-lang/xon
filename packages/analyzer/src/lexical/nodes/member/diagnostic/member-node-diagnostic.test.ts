@@ -1,12 +1,13 @@
 import {
-  collapseMemberNode,
+  $MemberNode,
   MemberNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  parseExpressionNodes,
+  parseStatements,
 } from '#analyzer';
 import {ArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
+import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('No errors', () => {
@@ -27,8 +28,11 @@ test('Expect identifier', () => {
 function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const {nodes} = parseExpressionNodes(context);
-  const node = collapseMemberNode(nodes)?.node as MemberNode;
+  const statements = parseStatements(context).statements;
+  const node = statements.first()?.value as MemberNode;
+
+  expect(node).toBeTruthy();
+  expect(is(node, $MemberNode)).toBe(true);
 
   return node!.diagnose!();
 }

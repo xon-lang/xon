@@ -11,9 +11,9 @@ export function collapseMemberNode(
       return nothing;
     }
 
-    const instanceNode = nodes.at2(index - 1);
+    const instanceNode = nodes.at(index - 1);
 
-    if (is(instanceNode, $OperatorNode)) {
+    if (!instanceNode || is(instanceNode, $OperatorNode)) {
       return nothing;
     }
 
