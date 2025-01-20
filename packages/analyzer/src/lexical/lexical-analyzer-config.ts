@@ -119,11 +119,13 @@ export const IS = newText('is');
 export const AS = newText('as');
 export const IN = newText('in');
 
-export const KEYWORD_OPERATORS = newArrayData([IS, AS, IN]);
+export const WORD_OPERATORS = newArrayData([IS, AS, IN]);
 
+// todo think about the best name for all operator types
 export const OPERATORS = newArrayData([
-  ...MODIFIER_OPERATORS,
   ...CONTROL_OPERATORS,
+  ...MODIFIER_OPERATORS,
+  // expression operators
   ...SYMBOL_OPERATORS,
-  ...KEYWORD_OPERATORS,
+  ...WORD_OPERATORS,
 ]).sort((a, b) => a.count() - b.count());
