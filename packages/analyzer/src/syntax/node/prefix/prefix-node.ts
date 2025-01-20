@@ -2,12 +2,12 @@ import {
   $SyntaxNode,
   analyzerPackageType,
   ASSIGN,
+  COLON,
   Node,
   OperatorNode,
   SyntaxAnalyzer,
   SyntaxNode,
   syntaxNode,
-  TYPE,
 } from '#analyzer';
 
 export type PrefixNode = SyntaxNode & {
@@ -27,7 +27,7 @@ export function prefixNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, val
 
 function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {
   const keepSingleWhitespace = node.operator.text.some(
-    (x) => x.isLetter() || TYPE.equals(x) || ASSIGN.equals(x),
+    (x) => x.isLetter() || COLON.equals(x) || ASSIGN.equals(x),
   );
   analyzer.formatterManager.formatChildNode(node.value, keepSingleWhitespace);
 }

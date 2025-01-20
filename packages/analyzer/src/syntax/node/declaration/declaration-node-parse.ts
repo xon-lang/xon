@@ -10,6 +10,7 @@ import {
   ASSIGN,
   AssignNode,
   assignNode,
+  COLON,
   DeclarationNode,
   DocumentationNode,
   GroupNode,
@@ -23,7 +24,6 @@ import {
   SyntaxAnalyzer,
   SyntaxParseFn,
   TYPE,
-  TYPE_MODIFIER,
   TypeNode,
   typeNode,
 } from '#analyzer';
@@ -91,7 +91,7 @@ function getDeclarationParts(
     if (
       index - 1 === 0 &&
       is(node, $OperatorNode) &&
-      node.text.equals(TYPE) &&
+      node.text.equals(COLON) &&
       nodes.at2(index + 1).isExpression
     ) {
       return {node, index};
@@ -244,7 +244,7 @@ export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarat
   if (
     is(declarationNode, $DeclarationNode) &&
     declarationNode.modifier?.text &&
-    declarationNode.modifier.text.equals(TYPE_MODIFIER)
+    declarationNode.modifier.text.equals(TYPE)
   ) {
     return true;
   }

@@ -7,6 +7,7 @@ import {
   ASSIGN,
   AssignNode,
   assignNode,
+  COLON,
   GroupNode,
   InvokeNode,
   lambdaNode,
@@ -15,7 +16,6 @@ import {
   partialToDeclaration,
   SyntaxAnalyzer,
   SyntaxParseFn,
-  TYPE,
   TypeNode,
   typeNode,
 } from '#analyzer';
@@ -57,7 +57,7 @@ function getLambdaParts(
   const typeOperatorFound = nodeFindMap(nodes, 0, false, (node, index, nodes) => {
     if (
       is(node, $OperatorNode) &&
-      node.text.equals(TYPE) &&
+      node.text.equals(COLON) &&
       nodes.at2(index + 1).isExpression &&
       (is(nodes.at2(index - 1), $ParenGroupNode) ||
         (is(nodes.at2(index - 1), $InvokeNode) &&
