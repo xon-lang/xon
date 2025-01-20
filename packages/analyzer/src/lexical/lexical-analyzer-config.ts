@@ -1,5 +1,4 @@
-import {$Text, newArrayData, newChar, newText} from '#common';
-import {is} from '#typing';
+import {newArrayData, newChar, newText} from '#common';
 
 export const COMMENT_LINE = newText('//');
 
@@ -36,42 +35,36 @@ export const BRACE_CLOSE = newText('}');
 export const ANGLE_OPEN = newText('<:');
 export const ANGLE_CLOSE = newText(':>');
 
+export const TYPE = newText('type');
+export const CONST = newText('const');
+export const VAR = newText('var');
+export const IDEM = newText('idem');
+export const PREFIX = newText('prefix');
+export const INFIX = newText('infix');
+export const POSTFIX = newText('postfix');
+
+export const MODIFIER_KEYWORDS = newArrayData([TYPE, CONST, VAR, IDEM, PREFIX, INFIX, POSTFIX]).sort(
+  (a, b) => a.count() - b.count(),
+);
+
+export const IF = newText('if');
+export const THEN = newText('then');
+export const ELSE = newText('else');
+export const LOOP = newText('loop');
+export const BREAK = newText('break');
+export const CONTINUE = newText('continue');
 export const IMPORT = newText('import');
 export const EXPORT = newText('export');
 export const RETURN = newText('return');
 
-export const CONST = newText('const');
-export const IDEM = newText('idem');
-export const VAR = newText('var');
+export const CONTROL_KEYWORDS = newArrayData([IF, THEN, ELSE, BREAK, CONTINUE, IMPORT, RETURN, EXPORT]).sort(
+  (a, b) => a.count() - b.count(),
+);
 
-export const INFIX = newText('infix');
-export const PREFIX = newText('prefix');
-export const POSTFIX = newText('postfix');
-export const AFFIX_MODIFIERS = newArrayData([PREFIX, INFIX, POSTFIX]);
-
-export const TYPE_MODIFIER = newText('type');
-export const VALUE_MODIFIERS = newArrayData([CONST, VAR, ...AFFIX_MODIFIERS]);
-
-export const MODIFIER_KEYWORDS = newArrayData([TYPE_MODIFIER, ...VALUE_MODIFIERS]);
-export const OPERATOR_KEYWORDS = newArrayData([newText('is'), newText('as'), newText('in')]);
-export const CONTROL_KEYWORDS = newArrayData([
-  newText('if'),
-  newText('then'),
-  newText('else'),
-  newText('for'),
-  newText('do'),
-  newText('while'),
-  newText('break'),
-  newText('continue'),
-  RETURN,
-  EXPORT,
-]);
-
-export const TYPE = newText(':');
+export const COLON = newText(':');
 export const ASSIGN = newText('=');
-export const MEMBER = newText('.');
-export const RADIX_POINT = newText('.');
-export const META_MEMBER = newText('::');
+export const POINT = newText('.');
+export const META = newText('::');
 export const RANGE = newText('..');
 export const AT = newText('@');
 export const INTERSECTION = newText('&');
@@ -94,40 +87,36 @@ export const LESS_EQUALS = newText('<=');
 export const EQUALS = newText('==');
 export const NOT_EQUALS = newText('!=');
 
-export const OPERATORS_SORTED = newArrayData([
-  IMPORT,
-  MEMBER,
-  META_MEMBER,
+export const SYMBOL_OPERATORS = newArrayData([
+  COLON,
+  ASSIGN,
+  POINT,
+  META,
+  RANGE,
+  AT,
+  INTERSECTION,
+  UNION,
+  COMPLEMENT,
+  NOT,
   REST,
   PLUS,
   MINUS,
-  NOT,
   OPTIONAL,
   PROMISE,
   POW,
   MULTIPLY,
   DIVIDE,
   MOD,
-  PLUS,
-  MINUS,
-  RANGE,
+  GREAT,
+  GREAT_EQUALS,
   LESS,
   LESS_EQUALS,
-  GREAT_EQUALS,
-  GREAT,
   EQUALS,
   NOT_EQUALS,
-  INTERSECTION,
-  UNION,
-  COMPLEMENT,
-  TYPE,
-  ASSIGN,
-  ...MODIFIER_KEYWORDS,
-  ...CONTROL_KEYWORDS,
-  ...OPERATOR_KEYWORDS,
-]).sort((a, b) => {
-  const aLength = is(a, $Text) ? a.count() : 1;
-  const bLength = is(b, $Text) ? b.count() : 1;
+]).sort((a, b) => a.count() - b.count());
 
-  return aLength - bLength;
-});
+export const IS = newText('is');
+export const AS = newText('as');
+export const IN = newText('in');
+
+export const KEYWORD_OPERATORS = newArrayData([IS, AS, IN]).sort((a, b) => a.count() - b.count());

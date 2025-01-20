@@ -26,7 +26,7 @@ import {
   SemanticAnalyzer,
   structuralTypeDeclarationSemantic,
   structuralTypeDeclarationSemanticHandle,
-  TYPE_MODIFIER,
+  TYPE,
 } from '#analyzer';
 import {
   ArrayData,
@@ -171,7 +171,7 @@ function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: Declaration
   const modifier = node.modifier?.text;
   const name = node.id.text;
 
-  if (modifier?.equals(TYPE_MODIFIER)) {
+  if (modifier?.equals(TYPE)) {
     if (node.assign) {
       return structuralTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
     }
