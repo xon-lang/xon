@@ -1,261 +1,170 @@
 import {
   $BraceGroupNode,
+  $BraceOpenNode,
   $BracketCloseNode,
   $BracketGroupNode,
   $BracketOpenNode,
+  $CommaNode,
+  $IntegerNode,
   $ParenCloseNode,
   $ParenGroupNode,
   $ParenOpenNode,
-  BraceGroupNode,
-  BracketGroupNode,
-  InfixNode,
+  $WhitespaceNode,
+  GroupNode,
+  IdNode,
   IntegerNode,
-  ParenGroupNode,
-  syntaxFromResource,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseStatements,
+  WhitespaceNode,
 } from '#analyzer';
-import {newText, newTextResource, nothing} from '#common';
-import {predefinedDiagnostics} from '#diagnostic';
+import {newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('empty closed', () => {
+test('Empty group', () => {
   const text = newText('()');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as ParenGroupNode;
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $ParenGroupNode)).toBe(true);
   expect(is(node.open, $ParenOpenNode)).toBe(true);
   expect(is(node.close, $ParenCloseNode)).toBe(true);
   expect(node.items.count()).toBe(0);
 });
 
-test('validate close pair', () => {
-  const text = newText('(');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as ParenGroupNode;
+test('No close pair', () => {
+  const text = newText('{');
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
+  expect(is(node, $BraceGroupNode)).toBe(true);
+  expect(is(node.open, $BraceOpenNode)).toBe(true);
+  expect(node.close).toBeFalsy();
+  expect(node.items.count()).toBe(0);
+});
+
+test('Single element', () => {
+  const text = newText('(a)');
+  const node = parseGroupNode(text);
+
   expect(is(node, $ParenGroupNode)).toBe(true);
   expect(is(node.open, $ParenOpenNode)).toBe(true);
-  expect(node.close).toBe(nothing);
-  expect(node.items.count()).toBe(0);
-  expect(syntax.diagnosticManager.diagnostics.count()).toBe(1);
-
-  const diagnosticMessage = predefinedDiagnostics(node.reference).expectCloseToken(node.open.text).message;
-
-  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.actual.toNativeString()).toBe(
-    diagnosticMessage.actual.toNativeString(),
-  );
-  expect(syntax.diagnosticManager.diagnostics.at(0)?.message.expect?.toNativeString()).toBe(
-    diagnosticMessage.expect?.toNativeString(),
-  );
-});
-
-test('a in group', () => {
-  const text = newText('(a)');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as ParenGroupNode;
-
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($ParenGroupNode);
-});
-
-test('empty object', () => {
-  const text = newText('{}');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BraceGroupNode;
-
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($BraceGroupNode);
-  expect(node.items.count()).toBe(0);
-});
-
-test('single item', () => {
-  const text = newText('[123 456]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
-
-  expect(statements.count()).toBe(1);
-  expect(is(node, $BracketGroupNode)).toBe(true);
+  expect(is(node.close, $ParenCloseNode)).toBe(true);
   expect(node.items.count()).toBe(1);
-  expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('123');
+  expect((node.items.first()?.value as IdNode).text.toNativeString()).toBe('a');
 });
 
-test('single comma', () => {
-  const text = newText('[,]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+test('Many elements with no comma', () => {
+  const text = newText('[123 456]');
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
-  expect(node.items.count()).toBe(2);
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
   expect(is(node.close, $BracketCloseNode)).toBe(true);
+  expect(node.items.count()).toBe(1);
+  expect((node.items.first()?.value as IntegerNode).contentNode.text.toNativeString()).toBe('123');
 });
 
-test('empty not closed', () => {
-  const text = newText('[');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+test('No elements but single comma', () => {
+  const text = newText('[,]');
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
-  expect(node.close).toBe(nothing);
-  expect(node.items.count()).toBe(0);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
+  expect(node.items.count()).toBe(1);
+  expect(node.items.first()?.value).toBeFalsy();
+  expect(node.items.first()?.comma?.text.toNativeString()).toBe(',');
 });
 
-test('inner group', () => {
+test('Inner group', () => {
   const text = newText('[()]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
+  expect(is(node.open, $BracketOpenNode)).toBe(true);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
   expect(node.items.count()).toBe(1);
-
-  const innerGroup = node.items.at(0)?.value as ParenGroupNode;
-  expect(is(innerGroup, $ParenGroupNode)).toBe(true);
-  expect(innerGroup.items.count()).toBe(0);
+  expect(is(node.items.first()?.value, $ParenGroupNode)).toBeTruthy();
+  expect((node.items.first()?.value as GroupNode).items.count()).toBe(0);
 });
 
-test('inner empty group', () => {
-  const text = newText('[[[]]]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
-
-  expect(statements.count()).toBe(1);
-  expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.count()).toBe(1);
-
-  const innerGroup = node.items.at(0)?.value as ParenGroupNode;
-  expect(is(innerGroup, $BracketGroupNode)).toBe(true);
-  expect(innerGroup.items.count()).toBe(1);
-
-  const innerInnerGroup = innerGroup.items.at(0)?.value as ParenGroupNode;
-  expect(is(innerInnerGroup, $BracketGroupNode)).toBe(true);
-  expect(innerInnerGroup.items.count()).toBe(0);
-});
-
-test('two integers no comma and ws at the end', () => {
+test('Two numbers', () => {
   const text = newText('[1, 2]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
+  expect(is(node.open, $BracketOpenNode)).toBe(true);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
   expect(node.items.count()).toBe(2);
-  expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
-  expect((node.items.at(1)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
+  expect(is(node.items.first()?.value, $IntegerNode)).toBeTruthy();
+  expect(is(node.items.last()?.value, $IntegerNode)).toBeTruthy();
 });
 
-test('two integers and comma no ws at the end', () => {
+test('Two numbers and comma at the end', () => {
   const text = newText('[1, 2,]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.count()).toBe(3);
-  expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
-  expect((node.items.at(1)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
+  expect(is(node.open, $BracketOpenNode)).toBe(true);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
+  expect(node.items.count()).toBe(2);
+  expect(is(node.items.first()?.value, $IntegerNode)).toBeTruthy();
+  expect(is(node.items.last()?.value, $IntegerNode)).toBeTruthy();
+  expect(is(node.items.last()?.comma, $CommaNode)).toBeTruthy();
 });
 
-test('two integers and comma and ws', () => {
+test('Two numbers and comma with space at the end', () => {
   const text = newText('[1, 2, ]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
-  expect(node.items.count()).toBe(3);
-  expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
-  expect((node.items.at(1)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
+  expect(is(node.open, $BracketOpenNode)).toBe(true);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
+  expect(node.items.count()).toBe(2);
+  expect(is(node.items.first()?.value, $IntegerNode)).toBeTruthy();
+  expect(is(node.items.last()?.value, $IntegerNode)).toBeTruthy();
+  expect(is(node.items.last()?.comma, $CommaNode)).toBeTruthy();
+  expect(node.close?.hiddenNodes?.count()).toBe(1);
+  expect(is(node.close?.hiddenNodes?.first(), $WhitespaceNode)).toBeTruthy();
+  expect((node.close?.hiddenNodes?.first() as WhitespaceNode).text.toNativeString()).toBe(' ');
 });
 
-test('array on several lines', () => {
+test('Items on several lines', () => {
   const text = newText(`[1,
-                2+2
-                3,
-     4,    6+6]`);
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+    2
+    3,
+4,    5]`);
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
   expect(is(node, $BracketGroupNode)).toBe(true);
+  expect(is(node.open, $BracketOpenNode)).toBe(true);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
   expect(node.items.count()).toBe(4);
-  expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
-  expect((node.items.at(1)?.value as InfixNode).operator.text.toNativeString()).toBe('+');
+  expect(is(node.items.first()?.value, $IntegerNode)).toBeTruthy();
+  expect(is(node.items.last()?.value, $IntegerNode)).toBeTruthy();
+  expect(node.items.last()?.comma).toBeFalsy();
+  expect(node.close?.hiddenNodes?.count()).toBe(0);
+  expect(is(node.items.at(3)?.value, $IntegerNode)).toBeTruthy();
+  expect((node.items.at(3)?.value as IntegerNode).contentNode.text.toNativeString()).toBe('5');
 });
 
-test('debug 1', () => {
-  const text = newText('[1, , 2 ]');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BracketGroupNode;
+test('Second empty item', () => {
+  const text = newText(`[1, , 2 ]`);
+  const node = parseGroupNode(text);
 
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($BracketGroupNode);
+  expect(is(node, $BracketGroupNode)).toBe(true);
+  expect(is(node.open, $BracketOpenNode)).toBe(true);
+  expect(is(node.close, $BracketCloseNode)).toBe(true);
   expect(node.items.count()).toBe(3);
-  expect((node.items.at(0)?.value as IntegerNode).content.text.toNativeString()).toBe('1');
-  expect((node.items.at(2)?.value as IntegerNode).content.text.toNativeString()).toBe('2');
+  expect(node.items.at(1)?.value).toBeFalsy();
+  expect(node.items.at(1)?.comma).toBeTruthy();
 });
 
-test('empty object', () => {
-  const text = newText('{}');
-  const source = newTextResource(nothing, text);
-  const syntax = syntaxFromResource(source);
-  const statements = syntax.statements;
-  const node = statements.at(0)?.value as BraceGroupNode;
+function parseGroupNode(text: Text): GroupNode {
+  const source = newCharacterStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  const statements = parseStatements(context).statements;
+  const node = statements.first()?.value as GroupNode;
 
-  expect(statements.count()).toBe(1);
-  expect(node.$).toBe($BraceGroupNode);
-  expect(node.items.count()).toBe(0);
-});
-
-// test('group with nl', () => {
-//   const text = `  (123 ,456
-//   7)`;
-//   const source = textResourceFrom(nothing, text);
-//   const syntax = syntaxParse(source);
-//   const statements = syntax.statements;
-//   const node = statements[0].item as ParenGroupNode;
-
-//   expect(statements.length()).toBe(1);
-//   expect(node.$).toBe($Node.GROUP);
-//   expect(node.items.length()).toBe(2);
-//   expect((node.items.at(0)?.value as IntegerNode).text.toString()).toBe('123');
-//   expect(node.items.at(0)?.statements.length()).toBe(1);
-//   expect((node.items.at(1)?.value as IntegerNode).text.toString()).toBe('456');
-//   expect(node.items[1]?.statements.length()).toBe(1);
-//   expect(node.items[1]?.statements[0].body.length()).toBe(1);
-//   expect((node.items[1]?.statements[0].body[0].item as IntegerNode).text.toString()).toBe('7');
-// });
+  return node;
+}

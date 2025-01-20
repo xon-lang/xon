@@ -20,7 +20,7 @@ import {
   newGroupNode,
   newItemNode,
   parseGroupOpenNode,
-  parseStatementsUntil,
+  parseStatements,
 } from '#analyzer';
 import {newArrayData, Nothing, nothing} from '#common';
 import {$Type, is} from '#typing';
@@ -56,7 +56,7 @@ function groupNodeParseInner(
   const items = newArrayData<GroupItemNode>();
 
   while (true) {
-    const {breakNode, statements} = parseStatementsUntil(
+    const {breakNode, statements} = parseStatements(
       context,
       (node) => is(node, $CommaNode) || is(node, $closeNodeType),
     );
