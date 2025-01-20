@@ -82,14 +82,13 @@ export * from './src/lexical/nodes/group/nodes/paren/paren-close/paren-close-nod
 export * from './src/lexical/nodes/group/nodes/paren/paren-close/paren-close-node';
 export * from './src/lexical/nodes/group/nodes/paren/paren-open/paren-open-node.parser';
 export * from './src/lexical/nodes/group/nodes/paren/paren-open/paren-open-node';
-export * from './src/lexical/nodes/group/parser/group-node-parse';
 export * from './src/lexical/nodes/group/parser/group-node-parser';
 export * from './src/lexical/nodes/id/id-node.parser';
 export * from './src/lexical/nodes/id/id-node';
 export * from './src/lexical/nodes/infix/infix-node-parse';
 export * from './src/lexical/nodes/infix/infix-node';
-export * from './src/lexical/nodes/invoke/invoke-node-parse';
 export * from './src/lexical/nodes/invoke/invoke-node';
+export * from './src/lexical/nodes/invoke/collapse/invoke-node-collapse';
 export * from './src/lexical/nodes/joining/joining-node.parser';
 export * from './src/lexical/nodes/joining/joining-node';
 export * from './src/lexical/nodes/member/member-node';
@@ -108,7 +107,6 @@ export * from './src/lexical/nodes/number/radix-point-operator/radix-point-node'
 export * from './src/lexical/nodes/operator/operator-node.parser';
 export * from './src/lexical/nodes/operator/operator-node';
 export * from './src/lexical/nodes/statement/statement-node';
-export * from './src/lexical/nodes/statement/parser/statement-node-collapse';
 export * from './src/lexical/nodes/statement/parser/statement-node-parser';
 export * from './src/lexical/nodes/string/string-node';
 export * from './src/lexical/nodes/string/diagnostic/string-node-diagnostic';

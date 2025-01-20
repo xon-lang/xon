@@ -12,9 +12,8 @@ import {
   parseStringNode,
   parseUnknownNode,
   parseWhitespaceNode,
-  SyntaxNode2,
 } from '#analyzer';
-import {ArrayData, Integer, newArrayData, Nothing} from '#common';
+import {ArrayData, newArrayData} from '#common';
 
 // todo make constant instead of function
 function expressionParsers(): ArrayData<NodeParserFunction> {
@@ -30,16 +29,12 @@ function expressionParsers(): ArrayData<NodeParserFunction> {
   ]);
 }
 
-
 export function parseExpressionNodes(context: AnalyzerContext): {
   nodes: ArrayData<Node2>;
   afterHiddenNodes: ArrayData<Node2>;
 } {
   return parsersToNodesCleanupHidden(context, expressionParsers());
 }
-
-export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;
-export type SyntaxCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => SyntaxCollapseResult;
 
 // todo make constant instead of function
 function expressionCollapses() {
@@ -63,7 +58,7 @@ export function collapseExpressionNodes(nonHiddenNodes: ArrayData<Node2>): Array
 
       const {index, node} = result;
       const deleteCount = node.children.count();
-      nonHiddenNodes = nonHiddenNodes.replace(index, deleteCount, newArrayData([node]));
+      nonHiddenNodes = nonHiddenNodes.replaceItems(index, deleteCount, newArrayData([node]));
     }
   }
 
