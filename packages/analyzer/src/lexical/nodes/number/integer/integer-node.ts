@@ -9,5 +9,5 @@ export type IntegerNode = NumberNode &
 export const $IntegerNode = analyzerPackageType<IntegerNode>('IntegerNode', $NumberNode);
 
 export function newIntegerNode(contentNode: IntegerContentNode): IntegerNode {
-  return newSyntaxNode({$: $IntegerNode, contentNode});
+  return newSyntaxNode({$: $IntegerNode, canBeExpression: true, contentNode});
 }

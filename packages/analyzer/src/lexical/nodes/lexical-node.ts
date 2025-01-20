@@ -30,6 +30,7 @@ export type Node2 = Model &
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
     hiddenNodes?: ArrayData<Node2> | Nothing;
+    canBeExpression?: Boolean2 | Nothing;
 
     diagnose?(): ArrayData<AnalyzerDiagnostic>;
     format?(): ArrayData<FormatterItem>;

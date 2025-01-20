@@ -1,4 +1,4 @@
-import {$GroupNode, $OperatorNode, invokeNode, Node2, SyntaxCollapseResult} from '#analyzer';
+import {$GroupNode, invokeNode, Node2, SyntaxCollapseResult} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
@@ -13,7 +13,7 @@ export function collapseInvokeNode(
 
     const instanceNode = nodes.at(index - 1);
 
-    if (!instanceNode || is(instanceNode, $OperatorNode)) {
+    if (!instanceNode?.canBeExpression) {
       return nothing;
     }
 

@@ -28,6 +28,7 @@ export function newStringNode(
 ): StringNode {
   return newSyntaxNode({
     $: $StringNode,
+    canBeExpression: true,
     openNode,
     contentNode,
     closeNode,

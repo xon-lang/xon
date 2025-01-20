@@ -30,6 +30,7 @@ export function newCharacterNode(
 ): CharacterNode {
   return newSyntaxNode({
     $: $CharacterNode,
+    canBeExpression: true,
     openNode,
     contentNode,
     closeNode,

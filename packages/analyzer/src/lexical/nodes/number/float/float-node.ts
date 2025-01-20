@@ -25,6 +25,7 @@ export function newFloatNode(
 ): FloatNode {
   return newSyntaxNode({
     $: $FloatNode,
+    canBeExpression: true,
     integerPartNode,
     radixPointNode,
     fractionalPartNode,

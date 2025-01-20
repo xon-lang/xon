@@ -26,7 +26,13 @@ export function newGroupNode(
   items: ArrayData<GroupItemNode>,
   close: GroupCloseNode | Nothing,
 ): GroupNode {
-  return newSyntaxNode({$: $type, open, items, close});
+  return newSyntaxNode({
+    $: $type,
+    canBeExpression: true,
+    open,
+    items,
+    close,
+  });
 }
 
 // function validate(analyzer: SyntaxAnalyzer, node: GroupNode): void {

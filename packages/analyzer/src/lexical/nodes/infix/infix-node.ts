@@ -11,7 +11,7 @@ export type InfixNode = SyntaxNode2 &
 export const $InfixNode = analyzerPackageType<InfixNode>('InfixNode', $SyntaxNode2);
 
 export function infixNode(left: Node, operator: OperatorNode, right: Node): InfixNode {
-  return newSyntaxNode({$: $InfixNode, left, operator, right});
+  return newSyntaxNode({$: $InfixNode, canBeExpression: true, left, operator, right});
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {

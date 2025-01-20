@@ -12,6 +12,7 @@ export const $InvokeNode = analyzerPackageType<InvokeNode>('InvokeNode', $Syntax
 export function invokeNode(instance: Node2, group: GroupNode): InvokeNode {
   return newSyntaxNode({
     $: $InvokeNode,
+    canBeExpression: true,
     instance,
     group,
   });

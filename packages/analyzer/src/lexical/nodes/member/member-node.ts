@@ -23,6 +23,7 @@ export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', $Syntax
 export function memberNode(instance: Node2, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
   return newSyntaxNode({
     $: $MemberNode,
+    canBeExpression: true,
     instance,
     operator,
     id,
