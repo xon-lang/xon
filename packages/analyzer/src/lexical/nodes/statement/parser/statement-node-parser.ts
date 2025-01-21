@@ -3,6 +3,7 @@ import {
   AnalyzerContext,
   collapseInvokeNode,
   collapseMemberNode,
+  newEofNode,
   newStatementNode,
   Node2,
   NodeParserFunction,
@@ -23,27 +24,18 @@ import {
   StatementNode2,
   SyntaxNode2,
 } from '#analyzer';
-import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
+import {
+  ArrayData,
+  Boolean2,
+  Integer,
+  newArrayData,
+  newTextPosition,
+  newTextRange,
+  Nothing,
+  nothing,
+  TextPosition,
+} from '#common';
 import {is} from '#typing';
-
-function nodeParsers(): ArrayData<NodeParserFunction> {
-  return newArrayData([
-    parseWhitespaceNode,
-    parseNlNode,
-    parseStringNode,
-    parseCharacterNode,
-    parseNumberNode,
-    parseOperatorNode,
-    parseIdNode,
-    parseGroupNode,
-    parseCommaNode,
-    parseGroupCloseNode,
-    parseDocumentationNode,
-    parseCommentNode,
-    parseJoiningNode,
-    parseUnknownNode,
-  ]);
-}
 
 export type SyntaxCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => SyntaxCollapseResult;
 export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;
@@ -61,9 +53,7 @@ export function parseStatements(
 ): {
   statements: ArrayData<StatementNode2>;
   breakNode?: Node2 | Nothing;
-  hiddenNodes: ArrayData<Node2>;
 } {
-  let hiddenNodes = newArrayData<Node2>();
   let lastStatement: StatementNode2 | Nothing = nothing;
   let statements = newArrayData<StatementNode2>();
   let breakNode: Node2 | Nothing = nothing;
@@ -96,20 +86,9 @@ export function parseStatements(
     lastStatement = statement;
   };
 
-  while (true) {
-    const node = nodeParsers().findMap((parse) => parse(context));
-
-    if (!node) {
-      break;
-    }
-
+  for (const node of nodeGenerator(context)) {
     if (predicate && predicate(node)) {
       breakNode = node;
-
-      if (!node.isHidden) {
-        node.hiddenNodes = hiddenNodes;
-        hiddenNodes = newArrayData();
-      }
 
       break;
     }
@@ -119,13 +98,9 @@ export function parseStatements(
         handleStatement();
       }
 
-      hiddenNodes.addLastItem(node);
-
       continue;
     }
 
-    node.hiddenNodes = hiddenNodes;
-    hiddenNodes = newArrayData();
     nodes.addLastItem(node);
   }
 
@@ -136,7 +111,6 @@ export function parseStatements(
   return {
     statements,
     breakNode,
-    hiddenNodes,
   };
 }
 
@@ -185,4 +159,50 @@ export function collapseNodes(nodes: ArrayData<Node2>): ArrayData<Node2> {
   }
 
   return nodes;
+}
+
+function nodeParsers(): ArrayData<NodeParserFunction> {
+  return newArrayData([
+    parseWhitespaceNode,
+    parseNlNode,
+    parseStringNode,
+    parseCharacterNode,
+    parseNumberNode,
+    parseOperatorNode,
+    parseIdNode,
+    parseGroupNode,
+    parseCommaNode,
+    parseGroupCloseNode,
+    parseDocumentationNode,
+    parseCommentNode,
+    parseJoiningNode,
+    parseUnknownNode,
+  ]);
+}
+
+function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
+  let hiddenNodes = newArrayData<Node2>();
+
+  while (true) {
+    const node = nodeParsers().findMap((parse) => parse(context));
+
+    if (!node) {
+      break;
+    }
+
+    if (node.isHidden) {
+      hiddenNodes.addLastItem(node);
+    } else {
+      node.hiddenNodes = hiddenNodes;
+      hiddenNodes = newArrayData();
+    }
+
+    yield node;
+  }
+
+  const lastNodePosition = hiddenNodes.last()?.range.stop ?? newTextPosition();
+
+  if (!hiddenNodes.isEmpty()) {
+    yield newEofNode(newTextRange(lastNodePosition));
+  }
 }

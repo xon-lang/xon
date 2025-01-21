@@ -57,6 +57,7 @@ export * from './src/lexical/nodes/documentation/nodes/documentation-label/docum
 export * from './src/lexical/nodes/documentation/nodes/documentation-label/documentation-label-operator/documentation-label-operator-node';
 export * from './src/lexical/nodes/documentation/nodes/documentation-open/documentation-open-node.parser';
 export * from './src/lexical/nodes/documentation/nodes/documentation-open/documentation-open-node';
+export * from './src/lexical/nodes/eof/eof-node';
 export * from './src/lexical/nodes/group/group-node';
 export * from './src/lexical/nodes/group/nodes/group-close-node-parse';
 export * from './src/lexical/nodes/group/nodes/group-close-node';
