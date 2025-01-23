@@ -59,27 +59,16 @@ export function parseStatements(
   let breakNode: Node2 | Nothing = nothing;
   let nodes = newArrayData<Node2>();
 
-  const handleStatement = () => {
+  const handle = () => {
     if (nodes.isEmpty()) {
       return;
     }
 
-    const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
-    nodes = collapseNodes(nodes);
-    const value = nodes.first()!;
-    const errorNodes = nodes.slice(1);
-    const statement = newStatementNode(parentStatement, value, errorNodes);
+    const statement = handleStatement(lastStatement, nodes);
+
     nodes = newArrayData();
 
-    // if context.shouldDiagnose then
-    if (statement.diagnose) {
-      statement.diagnose();
-    }
-
-    if (parentStatement) {
-      parentStatement.body ??= newArrayData();
-      parentStatement.body.addLastItem(statement);
-    } else {
+    if (!statement?.parent) {
       statements.addLastItem(statement);
     }
 
@@ -95,7 +84,7 @@ export function parseStatements(
 
     if (node.isHidden) {
       if (is(node, $NlNode)) {
-        handleStatement();
+        handle();
       }
 
       continue;
@@ -104,7 +93,7 @@ export function parseStatements(
     nodes.addLastItem(node);
   }
 
-  handleStatement();
+  handle();
 
   // this.formatterManager.formatRemainingHiddenNodes(statements, lastStatement, hiddenNodes);
 
@@ -112,6 +101,21 @@ export function parseStatements(
     statements,
     breakNode,
   };
+}
+
+function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayData<Node2>): StatementNode2 {
+  const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
+  nodes = collapseNodes(nodes);
+  const value = nodes.first()!;
+  const errorNodes = nodes.slice(1);
+  const statement = newStatementNode(parentStatement, value, errorNodes);
+
+  if (parentStatement) {
+    parentStatement.body ??= newArrayData();
+    parentStatement.body.addLastItem(statement);
+  }
+
+  return statement;
 }
 
 function getParentStatement(

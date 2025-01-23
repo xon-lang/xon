@@ -12,14 +12,14 @@ import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Statement with body', () => {
-  const text = newText('abc\n aabc');
+  const text = newText('abc\n def');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const statements = parseStatements(context).statements;
   const node = statements.first();
 
   expect(statements.count()).toBe(1);
-  expect((node?.body?.first()?.value as IdNode).text.toNativeString()).toBe('aabc');
+  expect((node?.body?.first()?.value as IdNode).text.toNativeString()).toBe('def');
   expect(node).toBeTruthy();
   expect(is(node, $StatementNode2)).toBe(true);
 });
