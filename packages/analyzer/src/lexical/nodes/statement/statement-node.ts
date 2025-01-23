@@ -1,10 +1,9 @@
 import {$SyntaxNode2, Node2, SyntaxNode2, analyzerPackageType, newSyntaxNode} from '#analyzer';
-import {ArrayData, Integer, Nothing} from '#common';
+import {ArrayData, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type StatementNode2 = SyntaxNode2 &
   Brand<'Analyzer.StatementNode2'> & {
-    indentLevel: Integer;
     value: Node2;
     errorNodes?: ArrayData<Node2> | Nothing;
     parent?: StatementNode2 | Nothing;
@@ -13,21 +12,12 @@ export type StatementNode2 = SyntaxNode2 &
 
 export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNode2', $SyntaxNode2);
 
-export function newStatementNode(
-  parent: StatementNode2 | Nothing,
-  value: Node2,
-  errorNodes: ArrayData<Node2> | Nothing,
-): StatementNode2 {
-  const indentLevel = (parent?.indentLevel ?? -1) + 1;
-
+export function newStatementNode(value: Node2, errorNodes: ArrayData<Node2> | Nothing): StatementNode2 {
   const node = newSyntaxNode<StatementNode2>({
     $: $StatementNode2,
-    indentLevel,
     value: value,
+    errorNodes,
   });
-
-  node.errorNodes = errorNodes;
-  node.parent = parent;
 
   return node;
 }
