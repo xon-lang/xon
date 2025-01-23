@@ -1,0 +1,14 @@
+// Can we change properties of other objects? - No
+
+we can change only all properties of current object
+
+
+const abc
+  prop = 1
+  range: TextRange
+
+  changeProp()
+    this.prop = 5 // OK
+
+  change()
+    this.range.start = TextPosition() // FAILED
