@@ -6,6 +6,8 @@ export type TextPosition = Model & {
   line: Integer;
   column: Integer;
 
+  update(position: TextPosition): void;
+  update(index: Integer, line: Integer, column: Integer): void;
   clone(): TextPosition;
   equals(other: TextPosition): Boolean2;
 };
