@@ -1,18 +1,8 @@
-import {
-  $ArrayData,
-  $KeyValue,
-  Anything_V2,
-  ArrayData,
-  Boolean2,
-  KeyValue,
-  Nothing,
-  commonPackageType,
-} from '#common';
+import {$ArrayData, $KeyValue, ArrayData, Boolean2, KeyValue, Nothing, commonPackageType} from '#common';
 import {$Model, $Type, Model} from '#typing';
 
 // @ts-ignore
-export interface Dictionary<K extends Model = Model, V extends Anything_V2 = Anything_V2>
-  extends ArrayData<KeyValue<K, V>> {
+export interface Dictionary<K extends Model = Model, V = Anything> extends ArrayData<KeyValue<K, V>> {
   _base: ArrayData<KeyValue<K, V>>;
 
   keys(): ArrayData<K>;

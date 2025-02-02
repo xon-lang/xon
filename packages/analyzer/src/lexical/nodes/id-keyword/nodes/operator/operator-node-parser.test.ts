@@ -7,7 +7,7 @@ import {
   newAnalyzerContext,
   newCharacterStreamFromText,
   OperatorNode,
-  parseOperatorNode,
+  parseSymbolOperatorNode,
 } from '#analyzer';
 import {newText, Text} from '#common';
 import {is} from '#typing';
@@ -48,7 +48,7 @@ test('Word operator as', () => {
 function operatorFromText(text: Text): OperatorNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseOperatorNode(context);
+  const node = parseSymbolOperatorNode(context);
 
   expect(node).toBeTruthy();
   expect(is(node, $OperatorNode)).toBe(true);

@@ -15,7 +15,6 @@ import {
   DocumentationNode,
   GroupNode,
   IdNode,
-  MODIFIER_OPERATORS,
   Node,
   nodeFindMap,
   OperatorNode,
@@ -24,6 +23,7 @@ import {
   SyntaxAnalyzer,
   SyntaxParseFn,
   TYPE,
+  TYPE_KEYWORDS,
   TypeNode,
   typeNode,
 } from '#analyzer';
@@ -159,7 +159,7 @@ function getHeader(
   | Nothing {
   const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode));
 
-  if (is(node, $PrefixNode) && MODIFIER_OPERATORS.hasItem(node.operator.text)) {
+  if (is(node, $PrefixNode) && TYPE_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {

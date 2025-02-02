@@ -1,10 +1,10 @@
-import {$KeyValue, Anything_V2, Boolean2, KeyValue} from '#common';
-import {Model} from '#typing';
+import {$KeyValue, Boolean2, KeyValue} from '#common';
+import {$Model, is, Model} from '#typing';
 
-export function newKeyValue<K extends Model, V extends Anything_V2>(key: K, value: V): KeyValue<K, V> {
+export function newKeyValue<K extends Model, V>(key: K, value: V): KeyValue<K, V> {
   return {
     // todo set valid types
-    $: $KeyValue(key.$, value?.$),
+    $: $KeyValue(key.$, is(value, $Model) ? value.$ : $Model),
     key,
     value,
 

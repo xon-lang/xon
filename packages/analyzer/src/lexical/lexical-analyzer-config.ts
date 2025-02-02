@@ -43,12 +43,15 @@ export const PREFIX = newText('prefix');
 export const INFIX = newText('infix');
 export const POSTFIX = newText('postfix');
 
-export const MODIFIER_OPERATORS = newArrayData([TYPE, CONST, VAR, IDEM, PREFIX, INFIX, POSTFIX]).sort(
+export const TYPE_KEYWORDS = newArrayData([TYPE, CONST, VAR, IDEM, PREFIX, INFIX, POSTFIX]).sort(
   (a, b) => a.count() - b.count(),
 );
 
+export const PUBLIC = newText('public');
+
+export const MODIFIER_KEYWORDS = newArrayData([PUBLIC]).sort((a, b) => a.count() - b.count());
+
 export const IF = newText('if');
-export const THEN = newText('then');
 export const ELSE = newText('else');
 export const LOOP = newText('loop');
 export const BREAK = newText('break');
@@ -57,7 +60,7 @@ export const IMPORT = newText('import');
 export const EXPORT = newText('export');
 export const RETURN = newText('return');
 
-export const CONTROL_OPERATORS = newArrayData([IF, THEN, ELSE, BREAK, CONTINUE, IMPORT, RETURN, EXPORT]).sort(
+export const CONTROL_KEYWORDS = newArrayData([IF, ELSE, BREAK, CONTINUE, IMPORT, RETURN, EXPORT]).sort(
   (a, b) => a.count() - b.count(),
 );
 
@@ -120,12 +123,3 @@ export const AS = newText('as');
 export const IN = newText('in');
 
 export const WORD_OPERATORS = newArrayData([IS, AS, IN]);
-
-// todo think about the best name for all operator types
-export const OPERATORS = newArrayData([
-  ...CONTROL_OPERATORS,
-  ...MODIFIER_OPERATORS,
-  // expression operators
-  ...SYMBOL_OPERATORS,
-  ...WORD_OPERATORS,
-]).sort((a, b) => a.count() - b.count());

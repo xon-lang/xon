@@ -1,6 +1,5 @@
 import {
   $Dictionary,
-  Anything_V2,
   ArrayData,
   Boolean2,
   Dictionary,
@@ -13,7 +12,7 @@ import {
 } from '#common';
 import {Model, modelEquals} from '#typing';
 
-export function newDictionary<K extends Model, V extends Anything_V2>(
+export function newDictionary<K extends Model, V>(
   array: ArrayData<KeyValue<K, V>> = newArrayData(),
 ): Dictionary<K, V> {
   return {
@@ -52,7 +51,7 @@ export function newDictionary<K extends Model, V extends Anything_V2>(
     },
 
     takeWhile(
-      predicate?: (value: KeyValue<K, V>, index: Integer) => Boolean2,
+      predicate: (value: KeyValue<K, V>, index: Integer) => Boolean2,
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): Dictionary<K, V> {
