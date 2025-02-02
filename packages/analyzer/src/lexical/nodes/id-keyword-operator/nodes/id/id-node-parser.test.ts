@@ -1,4 +1,4 @@
-import {$IdNode, newAnalyzerContext, newCharacterStreamFromText, parseIdKeywordNode} from '#analyzer';
+import {$IdNode, newAnalyzerContext, newCharacterStreamFromText, parseIdKeywordOperatorNode} from '#analyzer';
 import {newText, nothing} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -7,7 +7,7 @@ test('underscore', () => {
   const text = newText('_');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseIdKeywordNode(context);
+  const node = parseIdKeywordOperatorNode(context);
 
   expect(is(node, $IdNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('_');
@@ -19,7 +19,7 @@ test('underscore letters', () => {
   const text = newText('_abc');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseIdKeywordNode(context);
+  const node = parseIdKeywordOperatorNode(context);
 
   expect(is(node, $IdNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('_abc');
@@ -31,7 +31,7 @@ test('underscore gap letters', () => {
   const text = newText('_ abc');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseIdKeywordNode(context);
+  const node = parseIdKeywordOperatorNode(context);
 
   expect(is(node, $IdNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('_');
@@ -43,7 +43,7 @@ test('digits gap letters', () => {
   const text = newText('123 abc');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseIdKeywordNode(context);
+  const node = parseIdKeywordOperatorNode(context);
 
   expect(node).toBe(nothing);
 });
@@ -52,7 +52,7 @@ test('letters and digits', () => {
   const text = newText('abc123');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseIdKeywordNode(context);
+  const node = parseIdKeywordOperatorNode(context);
 
   expect(is(node, $IdNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('abc123');
@@ -64,7 +64,7 @@ test('letters and underscore', () => {
   const text = newText('abc_');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseIdKeywordNode(context);
+  const node = parseIdKeywordOperatorNode(context);
 
   expect(is(node, $IdNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('abc_');

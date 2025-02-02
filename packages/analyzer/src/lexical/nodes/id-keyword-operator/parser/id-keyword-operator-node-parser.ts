@@ -1,15 +1,22 @@
 import {
+  $AsOperatorNode,
+  $ConstKeywordNode,
   $IdNode,
   $IfKeywordNode,
   $IsOperatorNode,
   $PublicKeywordNode,
+  $ReturnKeywordNode,
   $TypeKeywordNode,
   AnalyzerContext,
+  AS,
+  CONST,
   IdNode,
   IF,
   IS,
   KeywordNode,
+  OperatorNode,
   PUBLIC,
+  RETURN,
   TYPE,
   UNDERSCORE,
 } from '#analyzer';
@@ -20,16 +27,21 @@ const wordMap: Dictionary<Text, $Type> = newDictionary(
   newArrayData([
     // declarations
     newKeyValue(TYPE, $TypeKeywordNode),
+    newKeyValue(CONST, $ConstKeywordNode),
     // modifiers
     newKeyValue(PUBLIC, $PublicKeywordNode),
     // controls
     newKeyValue(IF, $IfKeywordNode),
+    newKeyValue(RETURN, $ReturnKeywordNode),
     // operators
+    newKeyValue(AS, $AsOperatorNode),
     newKeyValue(IS, $IsOperatorNode),
   ]),
 );
 
-export function parseIdKeywordNode(context: AnalyzerContext): IdNode | KeywordNode | Nothing {
+export function parseIdKeywordOperatorNode(
+  context: AnalyzerContext,
+): IdNode | KeywordNode | OperatorNode | Nothing {
   const node = context.source.takeWhile(
     $IdNode,
     (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || UNDERSCORE.equals(x),

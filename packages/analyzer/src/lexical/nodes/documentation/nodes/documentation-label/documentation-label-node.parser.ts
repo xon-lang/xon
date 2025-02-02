@@ -4,7 +4,7 @@ import {
   newDocumentationLabelNode,
   parseDocumentationDescriptionNode,
   parseDocumentationLabelOperatorNode,
-  parseIdKeywordNode,
+  parseIdKeywordOperatorNode,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 
@@ -15,7 +15,7 @@ export function parseDocumentationLabelNode(context: AnalyzerContext): Documenta
     return nothing;
   }
 
-  const idNode = parseIdKeywordNode(context);
+  const idNode = parseIdKeywordOperatorNode(context);
   const descriptionNode = parseDocumentationDescriptionNode(context);
 
   return newDocumentationLabelNode(operatorNode, idNode, descriptionNode);
