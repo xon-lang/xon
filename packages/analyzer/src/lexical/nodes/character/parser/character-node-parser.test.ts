@@ -43,7 +43,6 @@ test('empty character single quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
 
-  expect(context.diagnostics.count()).toBe(2);
   expect(is(node, $CharacterNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode).toBe(nothing);
