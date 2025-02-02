@@ -1,6 +1,6 @@
 import {
-  $ControlOperatorNode,
-  $ModifierOperatorNode,
+  $ControlKeywordNode,
+  $ModifierKeywordNode,
   $OperatorNode,
   $SymbolOperatorNode,
   $WordOperatorNode,
@@ -21,11 +21,11 @@ export function parseOperatorNode(context: AnalyzerContext): OperatorNode | Noth
 
   if (node) {
     if (CONTROL_OPERATORS.hasItem(node.text)) {
-      node.$ = $ControlOperatorNode;
+      node.$ = $ControlKeywordNode;
     }
 
     if (MODIFIER_OPERATORS.hasItem(node.text)) {
-      node.$ = $ModifierOperatorNode;
+      node.$ = $ModifierKeywordNode;
     }
 
     if (SYMBOL_OPERATORS.hasItem(node.text)) {

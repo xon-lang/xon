@@ -1,7 +1,7 @@
 import {
   $SyntaxNode2,
   analyzerPackageType,
-  ControlOperatorNode,
+  ControlKeywordNode,
   diagnoseConditionNode,
   newSyntaxNode,
   Node2,
@@ -13,20 +13,20 @@ import {Brand} from '#typing';
 
 export type ConditionNode = SyntaxNode2 &
   Brand<'Analyzer.ConditionNode'> & {
-    ifOperatorNode: ControlOperatorNode;
+    ifOperatorNode: ControlKeywordNode;
     ifExpressionNode?: Node2 | Nothing;
     ifBody?: ArrayData<StatementNode2> | Nothing;
-    elseOperatorNode?: ControlOperatorNode | Nothing;
+    elseOperatorNode?: ControlKeywordNode | Nothing;
     elseBody?: ArrayData<StatementNode2> | Nothing;
   };
 
 export const $ConditionNode = analyzerPackageType<ConditionNode>('ConditionNode', $SyntaxNode2);
 
 export function conditionNode(
-  ifOperatorNode: ControlOperatorNode,
+  ifOperatorNode: ControlKeywordNode,
   ifExpressionNode?: Node2 | Nothing,
   ifBody?: ArrayData<StatementNode2> | Nothing,
-  elseOperatorNode?: ControlOperatorNode | Nothing,
+  elseOperatorNode?: ControlKeywordNode | Nothing,
   elseBody?: ArrayData<StatementNode2> | Nothing,
 ): ConditionNode {
   return newSyntaxNode({

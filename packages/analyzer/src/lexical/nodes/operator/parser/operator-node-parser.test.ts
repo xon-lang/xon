@@ -1,6 +1,6 @@
 import {
-  $ControlOperatorNode,
-  $ModifierOperatorNode,
+  $ControlKeywordNode,
+  $ModifierKeywordNode,
   $OperatorNode,
   $SymbolOperatorNode,
   $WordOperatorNode,
@@ -17,7 +17,7 @@ test('Control operator return', () => {
   const text = newText('return');
   const node = operatorFromText(text);
 
-  expect(is(node, $ControlOperatorNode)).toBe(true);
+  expect(is(node, $ControlKeywordNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('return');
 });
 
@@ -25,7 +25,7 @@ test('Modifier operator const', () => {
   const text = newText('const');
   const node = operatorFromText(text);
 
-  expect(is(node, $ModifierOperatorNode)).toBe(true);
+  expect(is(node, $ModifierKeywordNode)).toBe(true);
   expect(node?.text.toNativeString()).toBe('const');
 });
 

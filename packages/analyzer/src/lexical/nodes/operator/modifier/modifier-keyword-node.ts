@@ -1,9 +1,9 @@
 import {$OperatorNode, analyzerPackageType, OperatorNode} from '#analyzer';
 import {Brand} from '#typing';
 
-export type ModifierOperatorNode = OperatorNode & Brand<'Analyzer.ModifierOperatorNode'>;
+export type ModifierKeywordNode = OperatorNode & Brand<'Analyzer.ModifierKeywordNode'>;
 
-export const $ModifierOperatorNode = analyzerPackageType<ModifierOperatorNode>(
-  'ModifierOperatorNode',
+export const $ModifierKeywordNode = analyzerPackageType<ModifierKeywordNode>(
+  'ModifierKeywordNode',
   $OperatorNode,
 );
