@@ -106,9 +106,10 @@ export function parseStatements(
 function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayData<Node2>): StatementNode2 {
   const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
   nodes = collapseNodes(nodes);
+  const indentLevel = (parentStatement?.indentLevel ?? -1) + 1;
   const value = nodes.first()!;
   const errorNodes = nodes.slice(1);
-  const statement = newStatementNode(parentStatement, value, errorNodes);
+  const statement = newStatementNode(indentLevel, value, errorNodes);
 
   if (parentStatement) {
     parentStatement.body ??= newArrayData();
@@ -152,7 +153,7 @@ export function collapseNodes(nodes: ArrayData<Node2>): ArrayData<Node2> {
         break;
       }
 
-      const deleteCount = result.node.children.count();
+      const deleteCount = result.node.children?.count() ?? 0;
       nodes = nodes.replaceItem(result.index, deleteCount, result.node);
       index = result.index + 1;
 

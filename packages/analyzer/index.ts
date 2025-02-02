@@ -10,7 +10,6 @@ export * from './src/context/analyzer-context.factory';
 export * from './src/context/analyzer-context.model';
 export * from './src/formatter/formatter-item';
 export * from './src/formatter/formatter-manager';
-export * from './src/lexical/expression-node.parser';
 export * from './src/lexical/lexical-analyzer-config';
 export * from './src/lexical/lexical-analyzer-parsers';
 export * from './src/lexical/lexical-analyzer.factory';
