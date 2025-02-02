@@ -1,4 +1,4 @@
-import {$IdNode, $OperatorNode, memberNode, Node2, POINT, SyntaxCollapseResult} from '#analyzer';
+import {$IdNode, $OperatorNode, $SymbolOperatorNode, memberNode, Node2, POINT, SyntaxCollapseResult} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
@@ -13,7 +13,7 @@ export function collapseConditionNode(
 
     const instanceNode = nodes.at(index - 1);
 
-    if (!instanceNode || is(instanceNode, $OperatorNode)) {
+    if (!instanceNode?.canBeExpression) {
       return nothing;
     }
 
