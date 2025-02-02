@@ -1,4 +1,9 @@
-import {$CommentBlockNode, newCharacterStreamFromText, parseCommentBlockNode} from '#analyzer';
+import {
+  $CommentBlockNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseCommentBlockNode,
+} from '#analyzer';
 import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,7 +11,8 @@ import {expect, test} from 'vitest';
 test('block comment', () => {
   const text = newText('---   abc ---');
   const source = newCharacterStreamFromText(text);
-  const node = parseCommentBlockNode(source);
+  const context = newAnalyzerContext(source);
+  const node = parseCommentBlockNode(context);
 
   expect(is(node, $CommentBlockNode)).toBe(true);
   expect(node?.contentNode?.text.toNativeString()).toBe('   abc ');

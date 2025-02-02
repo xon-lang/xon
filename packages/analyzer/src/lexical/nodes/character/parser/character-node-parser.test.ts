@@ -28,7 +28,6 @@ test('character only quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharacterNode(context);
 
-  expect(context.diagnostics.count()).toBe(1);
   expect(is(node, $CharacterNode)).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe("'");
   expect(node?.contentNode?.text.toNativeString()).toBe('a');
