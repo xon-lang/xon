@@ -27,6 +27,7 @@ export type Node2 = Model &
   Brand<'Analyzer.Node2'> & {
     range: TextRange;
     parent?: Node2 | Nothing;
+    children?: ArrayData<Node2> | Nothing;
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
     hiddenNodes?: ArrayData<Node2> | Nothing;
@@ -49,14 +50,11 @@ export function newLexicalNode<T extends LexicalNode2>(params: T): T {
   return params;
 }
 
-export type SyntaxNode2 = Node2 &
-  Brand<'Analyzer.SyntaxNode2'> & {
-    children: ArrayData<Node2>;
-  };
+export type SyntaxNode2 = Node2 & Brand<'Analyzer.SyntaxNode2'>;
 
 export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2', $Node2);
 
-export function newSyntaxNode<T extends SyntaxNode2>(params: Omit<T, 'children' | 'range'>): T {
+export function newSyntaxNode<T extends Node2>(params: Omit<T, 'children' | 'range' | 'addHiddenNodes'>): T {
   const children = newArrayData(
     Object.values(params)
       .filter((x) => is(x, $Node2) || is(x, $ArrayData<Node2>($Node2)))
