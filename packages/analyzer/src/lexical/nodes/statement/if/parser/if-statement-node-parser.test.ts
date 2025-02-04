@@ -1,42 +1,42 @@
 import {
-  $IdNode,
-  $MemberNode,
-  $WhitespaceNode,
-  IdNode,
+  $IfStatementNode,
+  $IntegerNode,
   IfStatementNode,
-  MemberNode,
+  IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   parseStatements,
-  WhitespaceNode,
 } from '#analyzer';
 import {newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('If statement with errors', () => {
-  const text = newText('if 1 2 3');
+  const text = newText('if 7 17 37');
   const node = parseIfStatementNode(text);
 
-  expect(node).toBeTruthy();
-  expect(is(node.instance, $IdNode)).toBe(true);
-  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
-  expect(node.instance.hiddenNodes).toBeFalsy();
-  expect(is(node.id, $IdNode)).toBe(true);
-  expect(node.id?.hiddenNodes?.count()).toBe(1);
-  expect(is(node.id?.hiddenNodes?.first(), $WhitespaceNode)).toBe(true);
-  expect((node.id?.hiddenNodes?.first() as WhitespaceNode).text.toNativeString()).toBe('   ');
-  expect(node.id?.text.toNativeString()).toBe('def');
+  expect(node.errorNodes?.count()).toBe(2);
+  expect(is(node.conditionNode, $IntegerNode)).toBe(true);
+  expect((node.conditionNode as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+});
+
+test('If statement without errors', () => {
+  const text = newText('if 7');
+  const node = parseIfStatementNode(text);
+
+  expect(node.errorNodes?.count()).toBe(0);
+  expect(is(node.conditionNode, $IntegerNode)).toBe(true);
+  expect((node.conditionNode as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
 function parseIfStatementNode(text: Text): IfStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const statements = parseStatements(context).statements;
-  const node = statements.first()?.value as IfStatementNode;
+  const node = statements.first() as IfStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $MemberNode)).toBe(true);
+  expect(is(node, $IfStatementNode)).toBe(true);
 
   return node;
 }
