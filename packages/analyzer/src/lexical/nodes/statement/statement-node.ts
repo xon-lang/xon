@@ -1,11 +1,10 @@
-import {$SyntaxNode2, Node2, SyntaxNode2, analyzerPackageType, newSyntaxNode} from '#analyzer';
+import {$SyntaxNode2, Node2, SyntaxNode2, analyzerPackageType} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type StatementNode2 = SyntaxNode2 &
   Brand<'Analyzer.StatementNode2'> & {
-    indentLevel: Integer;
-    value: Node2;
+    indent: Integer;
     errorNodes?: ArrayData<Node2> | Nothing;
     parent?: StatementNode2 | Nothing;
     body?: ArrayData<StatementNode2> | Nothing;
@@ -13,20 +12,18 @@ export type StatementNode2 = SyntaxNode2 &
 
 export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNode2', $SyntaxNode2);
 
-export function newStatementNode(
-  indentLevel: Integer,
-  value: Node2,
-  errorNodes: ArrayData<Node2> | Nothing,
-): StatementNode2 {
-  const node = newSyntaxNode<StatementNode2>({
-    $: $StatementNode2,
-    indentLevel,
-    value: value,
-    errorNodes,
-  });
+// export function newStatementNode(
+//   indentLevel: Integer,
+//   errorNodes: ArrayData<Node2> | Nothing,
+// ): StatementNode2 {
+//   const node = newSyntaxNode<StatementNode2>({
+//     $: $StatementNode2,
+//     indentLevel,
+//     errorNodes,
+//   });
 
-  return node;
-}
+//   return node;
+// }
 
 // export function constructStatementNode2(
 //   parentStatement: StatementNode2 | Nothing,

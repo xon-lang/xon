@@ -1,19 +1,22 @@
 import {
+  $KeywordNode,
   $NlNode,
   AnalyzerContext,
   collapseInvokeNode,
   collapseMemberNode,
+  KeywordNode,
   newEofNode,
-  newStatementNode,
   Node2,
   NodeParserFunction,
   parseCharacterNode,
   parseCommaNode,
   parseCommentNode,
   parseDocumentationNode,
+  parseExpressionStatementNode,
   parseGroupCloseNode,
   parseGroupNode,
   parseIdKeywordOperatorNode,
+  parseIfStatementNode,
   parseJoiningNode,
   parseNlNode,
   parseNumberNode,
@@ -103,13 +106,28 @@ export function parseStatements(
   };
 }
 
+export type StatementParserFunction<T extends StatementNode2 = StatementNode2> = (
+  indent: Integer,
+  keyword: KeywordNode,
+  nodes: ArrayData<Node2>,
+) => T | Nothing;
+
+function statementParsers(): ArrayData<StatementParserFunction> {
+  return newArrayData([parseIfStatementNode]);
+}
+
 function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayData<Node2>): StatementNode2 {
-  const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
-  nodes = collapseNodes(nodes);
-  const indentLevel = (parentStatement?.indentLevel ?? -1) + 1;
-  const value = nodes.first()!;
-  const errorNodes = nodes.slice(1);
-  const statement = newStatementNode(indentLevel, value, errorNodes);
+  const firstNode = nodes.first()!;
+  const parentStatement = getParentStatement(lastStatement, firstNode.range.start);
+  const indent = (parentStatement?.indent ?? -1) + 1;
+  let statement: StatementNode2 | Nothing;
+
+  if (is(firstNode, $KeywordNode)) {
+    nodes = nodes.slice(1);
+    statement = statementParsers().firstMap((parse) => parse(indent, firstNode, nodes));
+  }
+
+  statement ??= parseExpressionStatementNode(indent, nodes);
 
   if (parentStatement) {
     parentStatement.body ??= newArrayData();
@@ -127,7 +145,7 @@ function getParentStatement(
     return nothing;
   }
 
-  if (indentPosition.column > statement.value.range.start.column) {
+  if (indentPosition.column > statement.range.start.column) {
     return statement;
   }
 
@@ -189,7 +207,7 @@ function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
   let hiddenNodes = newArrayData<Node2>();
 
   while (true) {
-    const node = nodeParsers().findMap((parse) => parse(context));
+    const node = nodeParsers().firstMap((parse) => parse(context));
 
     if (!node) {
       break;
@@ -197,7 +215,7 @@ function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
 
     if (node.isHidden) {
       hiddenNodes.addLastItem(node);
-    } else {
+    } else if (!hiddenNodes.isEmpty()) {
       node.hiddenNodes = hiddenNodes;
       hiddenNodes = newArrayData();
     }
@@ -208,6 +226,10 @@ function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
   const lastNodePosition = hiddenNodes.last()?.range.stop ?? newTextPosition();
 
   if (!hiddenNodes.isEmpty()) {
-    yield newEofNode(newTextRange(lastNodePosition));
+    const eofRange = newTextRange(lastNodePosition);
+    const eofNode = newEofNode(eofRange);
+    eofNode.hiddenNodes = hiddenNodes;
+
+    yield eofNode;
   }
 }
