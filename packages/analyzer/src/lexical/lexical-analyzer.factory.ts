@@ -78,7 +78,7 @@ function lexicalIterator(
         };
       }
 
-      const node = parsers.findMap((parse) => parse.invoke(lexer));
+      const node = parsers.firstMap((parse) => parse.invoke(lexer));
 
       if (!node) {
         return {

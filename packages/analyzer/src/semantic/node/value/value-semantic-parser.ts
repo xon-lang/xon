@@ -16,7 +16,7 @@ type ValueSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => Value
 
 export function valueSemanticParse(analyzer: SemanticAnalyzer, node: Node): ValueSemantic {
   const semantic =
-    parsers().findMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
+    parsers().firstMap((parse) => parse(analyzer, node)) ?? unknownValueFromNode(analyzer, node);
   node.semantic = semantic;
 
   return semantic;

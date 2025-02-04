@@ -22,7 +22,7 @@ import {ArrayData, newArrayData, Nothing} from '#common';
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic {
-  const semantic = parsers().findMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
+  const semantic = parsers().firstMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
   node.semantic = semantic;
 
   return semantic;
