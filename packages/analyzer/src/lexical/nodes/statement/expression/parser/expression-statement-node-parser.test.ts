@@ -1,42 +1,32 @@
 import {
-  $IdNode,
-  $MemberNode,
-  $WhitespaceNode,
-  IdNode,
-  IfStatementNode,
-  MemberNode,
+  $ExpressionStatementNode,
+  $IntegerNode,
+  ExpressionStatementNode,
+  IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   parseStatements,
-  WhitespaceNode,
 } from '#analyzer';
 import {newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('If statement with errors', () => {
-  const text = newText('if 1 2 3');
-  const node = parseIfStatementNode(text);
+  const text = newText('37');
+  const node = parseExpressionStatementNode(text);
 
-  expect(node).toBeTruthy();
-  expect(is(node.instance, $IdNode)).toBe(true);
-  expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
-  expect(node.instance.hiddenNodes).toBeFalsy();
-  expect(is(node.id, $IdNode)).toBe(true);
-  expect(node.id?.hiddenNodes?.count()).toBe(1);
-  expect(is(node.id?.hiddenNodes?.first(), $WhitespaceNode)).toBe(true);
-  expect((node.id?.hiddenNodes?.first() as WhitespaceNode).text.toNativeString()).toBe('   ');
-  expect(node.id?.text.toNativeString()).toBe('def');
+  expect(is(node.expression, $IntegerNode)).toBeTruthy();
+  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('37');
 });
 
-function parseIfStatementNode(text: Text): IfStatementNode {
+function parseExpressionStatementNode(text: Text): ExpressionStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const statements = parseStatements(context).statements;
-  const node = statements.first()?.value as IfStatementNode;
+  const node = statements.first() as ExpressionStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $MemberNode)).toBe(true);
+  expect(is(node, $ExpressionStatementNode)).toBe(true);
 
   return node;
 }

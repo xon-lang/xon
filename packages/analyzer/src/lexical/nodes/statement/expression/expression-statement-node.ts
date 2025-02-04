@@ -4,7 +4,7 @@ import {Brand} from '#typing';
 
 export type ExpressionStatementNode = StatementNode2 &
   Brand<'Analyzer.ExpressionStatementNode'> & {
-    node: Node2;
+    expression: Node2;
   };
 
 export const $ExpressionStatementNode = analyzerPackageType<ExpressionStatementNode>(
@@ -14,13 +14,13 @@ export const $ExpressionStatementNode = analyzerPackageType<ExpressionStatementN
 
 export function newExpressionStatementNode(
   indent: Integer,
-  node: Node2,
+  expression: Node2,
   errorNodes?: ArrayData<Node2> | Nothing,
 ): ExpressionStatementNode {
   return newSyntaxNode<ExpressionStatementNode>({
     $: $ExpressionStatementNode,
     indent,
-    node,
+    expression,
     errorNodes,
   });
 }
