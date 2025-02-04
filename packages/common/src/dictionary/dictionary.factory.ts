@@ -10,17 +10,18 @@ import {
   Nothing,
   Number2,
 } from '#common';
-import {Model, modelEquals} from '#typing';
+import {$Model, is, modelEquals} from '#typing';
 
-export function newDictionary<K extends Model, V>(
-  array: ArrayData<KeyValue<K, V>> = newArrayData(),
-): Dictionary<K, V> {
+export function newDictionary<K, V>(array: ArrayData<KeyValue<K, V>> = newArrayData()): Dictionary<K, V> {
+  const firstElement = array.first();
+  const $KeyType = is(firstElement?.key, $Model) ? firstElement.key.$ : $Model;
+  const $ValueType = is(firstElement?.value, $Model) ? firstElement.value.$ : $Model;
+
   return {
     ...array,
     _base: array,
 
-    // todo set generics
-    $: $Dictionary(array.at(0)?.key.$, array.at(0)?.value?.$),
+    $: $Dictionary($KeyType, $ValueType),
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): Dictionary<K, V> {
       return newDictionary(this._base.slice(startIndex, stopIndex));

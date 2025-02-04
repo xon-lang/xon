@@ -73,8 +73,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
     select: ArraySelect<T, V>,
   ): {min: ArrayExtremumElement<T, V> | Nothing; max: ArrayExtremumElement<T, V> | Nothing};
 
-  // todo remove 'findMap'
-  findMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): V | Nothing;
+  // todo ??? map().first() how to optimize ast (C# linq/IQuerable ???)
   firstMap<V>(predicateSelect: ArrayPredicateSelect<T, V>, startIndex?: Integer | Nothing): V | Nothing;
   lastMap<V>(predicateSelect: ArrayPredicateSelect<T, V>, startIndex?: Integer | Nothing): V | Nothing;
   filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;

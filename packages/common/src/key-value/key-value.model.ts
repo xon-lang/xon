@@ -1,7 +1,7 @@
 import {Anything, Boolean2, commonPackageType} from '#common';
 import {$Model, Model} from '#typing';
 
-export type KeyValue<K extends Model = Model, V = Anything> = Model & {
+export type KeyValue<K = Anything, V = Anything> = Model & {
   key: K;
   value: V;
 
