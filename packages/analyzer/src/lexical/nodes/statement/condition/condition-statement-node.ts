@@ -19,7 +19,7 @@ export const $ConditionStatementNode = analyzerPackageType<ConditionStatementNod
   $StatementNode2,
 );
 
-export function ConditionStatementNode(
+export function newConditionStatementNode(
   ifStatement: StatementNode2,
   elseStatement?: StatementNode2 | Nothing,
 ): ConditionStatementNode {

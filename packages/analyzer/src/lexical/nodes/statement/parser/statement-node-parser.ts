@@ -1,22 +1,18 @@
 import {
   $NlNode,
   AnalyzerContext,
-  collapseInvokeNode,
-  collapseMemberNode,
   Node2,
   nodeGenerator,
   parseElseStatementNode,
   parseExpressionStatementNode,
   parseIfStatementNode,
   StatementNode2,
-  SyntaxNode2,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
 import {is} from '#typing';
 
-export type SyntaxCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => SyntaxCollapseResult;
-export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;
-
+export type NodeCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => NodeCollapseResult;
+export type NodeCollapseResult<T extends Node2 = Node2> = {index: Integer; node: T} | Nothing;
 
 export function parseStatements(
   context: AnalyzerContext,
@@ -35,15 +31,8 @@ export function parseStatements(
       return;
     }
 
-    const statement = handleStatement(lastStatement, nodes);
-
+    lastStatement = handleStatement(statements, lastStatement, nodes);
     nodes = newArrayData();
-
-    if (!statement?.parent) {
-      statements.addLastItem(statement);
-    }
-
-    lastStatement = statement;
   };
 
   for (const node of nodeGenerator(context)) {
@@ -83,7 +72,11 @@ function statementParsers(): ArrayData<StatementParserFunction> {
   return newArrayData([parseIfStatementNode, parseElseStatementNode]);
 }
 
-function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayData<Node2>): StatementNode2 {
+function handleStatement(
+  statements: ArrayData<StatementNode2>,
+  lastStatement: StatementNode2 | Nothing,
+  nodes: ArrayData<Node2>,
+): StatementNode2 {
   const parentStatement = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
   const indent = (parentStatement?.indent ?? -1) + 1;
   let statement: StatementNode2 | Nothing;
@@ -95,6 +88,8 @@ function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayDa
   if (parentStatement) {
     parentStatement.body ??= newArrayData();
     parentStatement.body.addLastItem(statement);
+  } else {
+    statements.addLastItem(statement);
   }
 
   return statement;

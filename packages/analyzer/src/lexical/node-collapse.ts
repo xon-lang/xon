@@ -1,7 +1,7 @@
-import {collapseInvokeNode, collapseMemberNode, Node2, SyntaxCollapseFn} from '#analyzer';
+import {collapseInvokeNode, collapseMemberNode, Node2, NodeCollapseFn} from '#analyzer';
 import {ArrayData, Integer, newArrayData} from '#common';
 
-function nodeCollapses(): ArrayData<{min: Integer; collapse: SyntaxCollapseFn}> {
+function nodeCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn}> {
   return newArrayData([
     {min: 2, collapse: collapseInvokeNode},
     {min: 2, collapse: collapseMemberNode},
