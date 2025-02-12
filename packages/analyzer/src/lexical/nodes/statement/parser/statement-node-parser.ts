@@ -1,6 +1,7 @@
 import {
   $NlNode,
   AnalyzerContext,
+  collapseStatements,
   Node2,
   nodeGenerator,
   parseElseStatementNode,
@@ -52,12 +53,22 @@ export function parseStatements(
 
   handle();
 
-  // this.formatterManager.formatRemainingHiddenNodes(statements, lastStatement, hiddenNodes);
+  statements = collapseAllStatement(statements);
 
   return {
     statements,
     breakNode,
   };
+}
+
+function collapseAllStatement(statements: ArrayData<StatementNode2>): ArrayData<StatementNode2> {
+  for (const statement of statements) {
+    if (statement.body) {
+      collapseAllStatement(statement.body);
+    }
+  }
+
+  return collapseStatements(statements);
 }
 
 export type StatementParserFunction<T extends StatementNode2 = StatementNode2> = (
@@ -85,6 +96,7 @@ function handleStatement(
   if (parent) {
     parent.body ??= newArrayData();
     parent.body.addLastItem(statement);
+    statement.parent = parent;
   } else {
     statements.addLastItem(statement);
   }

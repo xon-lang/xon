@@ -129,6 +129,7 @@ export * from './src/lexical/nodes/statement/condition/diagnostic/condition-stat
 export * from './src/lexical/nodes/statement/condition/nodes/else/else-statement-node';
 export * from './src/lexical/nodes/statement/condition/nodes/else/parser/else-statement-node-parser';
 export * from './src/lexical/nodes/statement/condition/nodes/if/if-statement-node';
+export * from './src/lexical/nodes/statement/condition/nodes/if/diagnostic/if-statement-node-diagnostic';
 export * from './src/lexical/nodes/statement/condition/nodes/if/parser/if-statement-node-parser';
 export * from './src/lexical/nodes/statement/expression/expression-statement-node';
 export * from './src/lexical/nodes/statement/expression/parser/expression-statement-node-parser';

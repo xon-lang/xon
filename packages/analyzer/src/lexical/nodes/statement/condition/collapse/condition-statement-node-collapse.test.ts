@@ -1,43 +1,50 @@
 import {
-  $ExpressionStatementNode,
+  $ConditionStatementNode,
   $IntegerNode,
-  ExpressionStatementNode,
+  ConditionStatementNode,
   IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  nonHiddenNodeGenerator,
-  parseExpressionStatementNode,
+  parseStatements,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#common';
+import {newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Expression statement with errors', () => {
-  const text = newText('7 17 37');
-  const node = getExpressionStatementNode(text);
+test('Condition without else', () => {
+  const text = newText('if 0\n  1\n  2');
+  const node = getConditionStatementNode(text);
 
-  expect(node.errorNodes?.count()).toBe(2);
-  expect(is(node.expression, $IntegerNode)).toBeTruthy();
-  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+  expect(node.ifStatement.keywordNode.text.toNativeString()).toBe('if');
+  expect(node.elseStatement).toBeFalsy();
+  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode)).toBeTruthy();
+  expect((node.ifStatement.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe(
+    '0',
+  );
+  expect(node.ifStatement.body?.count()).toBe(2);
 });
 
-test('Expression statement without errors', () => {
-  const text = newText('7');
-  const node = getExpressionStatementNode(text);
+test('Condition with else', () => {
+  const text = newText('if 0\n  1\n  2\nelse\n 3\n 4\n 5');
+  const node = getConditionStatementNode(text);
 
-  expect(node.errorNodes?.count()).toBe(0);
-  expect(is(node.expression, $IntegerNode)).toBeTruthy();
-  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+  expect(node.ifStatement.keywordNode.text.toNativeString()).toBe('if');
+  expect(node.elseStatement?.keywordNode.text.toNativeString()).toBe('else');
+  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode)).toBeTruthy();
+  expect((node.ifStatement.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe(
+    '0',
+  );
+  expect(node.ifStatement.body?.count()).toBe(2);
+  expect(node.elseStatement?.body?.count()).toBe(3);
 });
 
-function getExpressionStatementNode(text: Text): ExpressionStatementNode {
+function getConditionStatementNode(text: Text): ConditionStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseExpressionStatementNode(0, nodes) as ExpressionStatementNode;
+  const node = parseStatements(context).statements.at(0) as ConditionStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ExpressionStatementNode)).toBe(true);
+  expect(is(node, $ConditionStatementNode)).toBe(true);
 
   return node;
 }

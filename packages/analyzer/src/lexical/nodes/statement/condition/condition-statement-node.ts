@@ -2,6 +2,8 @@ import {
   $StatementNode2,
   analyzerPackageType,
   diagnoseConditionStatementNode,
+  ElseStatementNode,
+  IfStatementNode,
   newSyntaxNode,
   StatementNode2,
 } from '#analyzer';
@@ -10,8 +12,8 @@ import {Brand} from '#typing';
 
 export type ConditionStatementNode = StatementNode2 &
   Brand<'Analyzer.ConditionStatementNode'> & {
-    ifStatement: StatementNode2;
-    elseStatement?: StatementNode2 | Nothing;
+    ifStatement: IfStatementNode;
+    elseStatement?: ElseStatementNode | Nothing;
   };
 
 export const $ConditionStatementNode = analyzerPackageType<ConditionStatementNode>(
@@ -20,8 +22,8 @@ export const $ConditionStatementNode = analyzerPackageType<ConditionStatementNod
 );
 
 export function newConditionStatementNode(
-  ifStatement: StatementNode2,
-  elseStatement?: StatementNode2 | Nothing,
+  ifStatement: IfStatementNode,
+  elseStatement?: ElseStatementNode | Nothing,
 ): ConditionStatementNode {
   return newSyntaxNode({
     $: $ConditionStatementNode,

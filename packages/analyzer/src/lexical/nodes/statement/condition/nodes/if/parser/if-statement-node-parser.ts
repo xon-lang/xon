@@ -13,10 +13,10 @@ export function parseIfStatementNode(
   }
 
   nodes = collapseNodes(nodes.slice(1));
-  const conditionNode = nodes.first();
+  const conditionExpressionNode = nodes.first();
 
-  if (conditionNode?.canBeExpression) {
-    return newIfStatementNode(indentLevel, keywordNode, conditionNode, nodes.slice(1));
+  if (conditionExpressionNode?.canBeExpression) {
+    return newIfStatementNode(indentLevel, keywordNode, conditionExpressionNode, nodes.slice(1));
   }
 
   return newIfStatementNode(indentLevel, keywordNode, nothing, nodes);
