@@ -11,9 +11,6 @@ import {
 import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
 import {is} from '#typing';
 
-export type NodeCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => NodeCollapseResult;
-export type NodeCollapseResult<T extends Node2 = Node2> = {index: Integer; node: T} | Nothing;
-
 export function parseStatements(
   context: AnalyzerContext,
   predicate?: ((node: Node2) => Boolean2) | Nothing,
@@ -77,17 +74,17 @@ function handleStatement(
   lastStatement: StatementNode2 | Nothing,
   nodes: ArrayData<Node2>,
 ): StatementNode2 {
-  const parentStatement = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
-  const indent = (parentStatement?.indent ?? -1) + 1;
+  const parent = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
+  const indent = (parent?.indent ?? -1) + 1;
   let statement: StatementNode2 | Nothing;
 
   statement =
     statementParsers().firstMap((parse) => parse(indent, nodes)) ??
     parseExpressionStatementNode(indent, nodes);
 
-  if (parentStatement) {
-    parentStatement.body ??= newArrayData();
-    parentStatement.body.addLastItem(statement);
+  if (parent) {
+    parent.body ??= newArrayData();
+    parent.body.addLastItem(statement);
   } else {
     statements.addLastItem(statement);
   }

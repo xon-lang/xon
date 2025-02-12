@@ -9,15 +9,15 @@ import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
 export function collapseConditionStatementNode(
-  statements: ArrayData<StatementNode2>,
+  nodes: ArrayData<StatementNode2>,
   startIndex?: Integer | Nothing,
 ): NodeCollapseResult<StatementNode2> {
-  return statements.firstMap((ifStatementNode, index) => {
+  return nodes.firstMap((ifStatementNode, index) => {
     if (!is(ifStatementNode, $IfStatementNode)) {
       return nothing;
     }
 
-    const nextNode = statements.at(index + 1);
+    const nextNode = nodes.at(index + 1);
     const elseStatementNode = is(nextNode, $ElseStatementNode) ? nextNode : nothing;
 
     return {node: newConditionStatementNode(ifStatementNode, elseStatementNode), index};
