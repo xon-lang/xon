@@ -1,6 +1,7 @@
 import {
   $AsOperatorNode,
   $ConstKeywordNode,
+  $ElseKeywordNode,
   $IdNode,
   $IfKeywordNode,
   $IsOperatorNode,
@@ -10,6 +11,7 @@ import {
   AnalyzerContext,
   AS,
   CONST,
+  ELSE,
   IdNode,
   IF,
   IS,
@@ -32,6 +34,7 @@ const wordMap: Dictionary<Text, $Type> = newDictionary(
     newKeyValue(PUBLIC, $PublicKeywordNode),
     // controls
     newKeyValue(IF, $IfKeywordNode),
+    newKeyValue(ELSE, $ElseKeywordNode),
     newKeyValue(RETURN, $ReturnKeywordNode),
     // operators
     newKeyValue(AS, $AsOperatorNode),
