@@ -54,11 +54,17 @@ export type SyntaxNode2 = Node2 & Brand<'Analyzer.SyntaxNode2'>;
 
 export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2', $Node2);
 
-export function newSyntaxNode<T extends Node2>(params: Omit<T, 'children' | 'range' | 'addHiddenNodes'>): T {
+export function newSyntaxNode<T extends Node2>(
+  params: Omit<T, 'children' | 'range'> | Record<string, unknown>,
+): T {
+  // todo optimize and simplify it
   const children = newArrayData(
-    Object.values(params)
-      .filter((x) => is(x, $Node2) || is(x, $ArrayData<Node2>($Node2)))
-      .flatMap((x) => (is(x, $Node2) ? x : x._items)),
+    Object.entries(params)
+      // todo remove 'parent' exception
+      .filter(([key]) => key !== 'parent')
+      .map(([_, value]) => value)
+      .filter((value) => is(value, $Node2) || is(value, $ArrayData<Node2>($Node2)))
+      .flatMap((value) => (is(value, $Node2) ? value : value._items)),
   );
 
   const range = rangeFromNodes2(children);
