@@ -1,43 +1,17 @@
 import {
-  $KeywordNode,
   $NlNode,
   AnalyzerContext,
   collapseInvokeNode,
   collapseMemberNode,
-  KeywordNode,
-  newEofNode,
   Node2,
-  NodeParserFunction,
-  parseCharacterNode,
-  parseCommaNode,
-  parseCommentNode,
-  parseDocumentationNode,
+  nodeGenerator,
+  parseElseStatementNode,
   parseExpressionStatementNode,
-  parseGroupCloseNode,
-  parseGroupNode,
-  parseIdKeywordOperatorNode,
   parseIfStatementNode,
-  parseJoiningNode,
-  parseNlNode,
-  parseNumberNode,
-  parseStringNode,
-  parseSymbolOperatorNode,
-  parseUnknownNode,
-  parseWhitespaceNode,
   StatementNode2,
   SyntaxNode2,
 } from '#analyzer';
-import {
-  ArrayData,
-  Boolean2,
-  Integer,
-  newArrayData,
-  newTextPosition,
-  newTextRange,
-  Nothing,
-  nothing,
-  TextPosition,
-} from '#common';
+import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
 import {is} from '#typing';
 
 export type SyntaxCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => SyntaxCollapseResult;
@@ -108,26 +82,21 @@ export function parseStatements(
 
 export type StatementParserFunction<T extends StatementNode2 = StatementNode2> = (
   indent: Integer,
-  keyword: KeywordNode,
   nodes: ArrayData<Node2>,
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
-  return newArrayData([parseIfStatementNode]);
+  return newArrayData([parseIfStatementNode, parseElseStatementNode]);
 }
 
 function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayData<Node2>): StatementNode2 {
-  const firstNode = nodes.first()!;
-  const parentStatement = getParentStatement(lastStatement, firstNode.range.start);
+  const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
   const indent = (parentStatement?.indent ?? -1) + 1;
   let statement: StatementNode2 | Nothing;
 
-  if (is(firstNode, $KeywordNode)) {
-    nodes = nodes.slice(1);
-    statement = statementParsers().firstMap((parse) => parse(indent, firstNode, nodes));
-  }
-
-  statement ??= parseExpressionStatementNode(indent, nodes);
+  statement =
+    statementParsers().firstMap((parse) => parse(indent, nodes)) ??
+    parseExpressionStatementNode(indent, nodes);
 
   if (parentStatement) {
     parentStatement.body ??= newArrayData();
@@ -182,54 +151,4 @@ export function collapseNodes(nodes: ArrayData<Node2>): ArrayData<Node2> {
   }
 
   return nodes;
-}
-
-function nodeParsers(): ArrayData<NodeParserFunction> {
-  return newArrayData([
-    parseWhitespaceNode,
-    parseNlNode,
-    parseStringNode,
-    parseCharacterNode,
-    parseNumberNode,
-    parseSymbolOperatorNode,
-    parseIdKeywordOperatorNode,
-    parseGroupNode,
-    parseCommaNode,
-    parseGroupCloseNode,
-    parseDocumentationNode,
-    parseCommentNode,
-    parseJoiningNode,
-    parseUnknownNode,
-  ]);
-}
-
-function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
-  let hiddenNodes = newArrayData<Node2>();
-
-  while (true) {
-    const node = nodeParsers().firstMap((parse) => parse(context));
-
-    if (!node) {
-      break;
-    }
-
-    if (node.isHidden) {
-      hiddenNodes.addLastItem(node);
-    } else if (!hiddenNodes.isEmpty()) {
-      node.hiddenNodes = hiddenNodes;
-      hiddenNodes = newArrayData();
-    }
-
-    yield node;
-  }
-
-  const lastNodePosition = hiddenNodes.last()?.range.stop ?? newTextPosition();
-
-  if (!hiddenNodes.isEmpty()) {
-    const eofRange = newTextRange(lastNodePosition);
-    const eofNode = newEofNode(eofRange);
-    eofNode.hiddenNodes = hiddenNodes;
-
-    yield eofNode;
-  }
 }
