@@ -1,8 +1,8 @@
-import {ConditionNode} from '#analyzer';
+import {ConditionStatementNode} from '#analyzer';
 import {ArrayData, newArrayData} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 
-export function diagnoseConditionNode(this: ConditionNode): ArrayData<AnalyzerDiagnostic> {
+export function diagnoseConditionStatementNode(this: ConditionStatementNode): ArrayData<AnalyzerDiagnostic> {
   const diagnostics = newArrayData<AnalyzerDiagnostic>();
 
   return diagnostics;
