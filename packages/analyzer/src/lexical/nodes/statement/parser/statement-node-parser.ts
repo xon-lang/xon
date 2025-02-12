@@ -17,12 +17,6 @@ import {is} from '#typing';
 export type SyntaxCollapseFn = (nodes: ArrayData<Node2>, startIndex: Integer) => SyntaxCollapseResult;
 export type SyntaxCollapseResult = {index: Integer; node: SyntaxNode2} | Nothing;
 
-function nodeCollapses(): ArrayData<{min: Integer; collapse: SyntaxCollapseFn}> {
-  return newArrayData([
-    {min: 2, collapse: collapseInvokeNode},
-    {min: 2, collapse: collapseMemberNode},
-  ]);
-}
 
 export function parseStatements(
   context: AnalyzerContext,
@@ -90,7 +84,7 @@ function statementParsers(): ArrayData<StatementParserFunction> {
 }
 
 function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayData<Node2>): StatementNode2 {
-  const parentStatement = getParentStatement(lastStatement, nodes.first()!.range.start);
+  const parentStatement = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
   const indent = (parentStatement?.indent ?? -1) + 1;
   let statement: StatementNode2 | Nothing;
 
@@ -106,7 +100,7 @@ function handleStatement(lastStatement: StatementNode2 | Nothing, nodes: ArrayDa
   return statement;
 }
 
-function getParentStatement(
+function getParentStatementForIndent(
   statement: StatementNode2 | Nothing,
   indentPosition: TextPosition,
 ): StatementNode2 | Nothing {
@@ -118,37 +112,5 @@ function getParentStatement(
     return statement;
   }
 
-  return getParentStatement(statement.parent, indentPosition);
-}
-
-export function collapseNodes(nodes: ArrayData<Node2>): ArrayData<Node2> {
-  if (nodes.isEmpty()) {
-    return nodes;
-  }
-
-  for (const {min, collapse} of nodeCollapses()) {
-    if (nodes.count() < min) {
-      continue;
-    }
-
-    let index = 0;
-
-    while (true) {
-      const result = collapse(nodes, index);
-
-      if (!result) {
-        break;
-      }
-
-      const deleteCount = result.node.children?.count() ?? 0;
-      nodes = nodes.replaceItem(result.index, deleteCount, result.node);
-      index = result.index + 1;
-
-      if (index >= nodes.count() || nodes.count() < min) {
-        break;
-      }
-    }
-  }
-
-  return nodes;
+  return getParentStatementForIndent(statement.parent, indentPosition);
 }
