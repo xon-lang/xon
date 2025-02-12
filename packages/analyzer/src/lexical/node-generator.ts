@@ -69,3 +69,11 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
     yield eofNode;
   }
 }
+
+export function* nonHiddenNodeGenerator(context: AnalyzerContext): Generator<Node2> {
+  for (const node of nodeGenerator(context)) {
+    if (!node.isHidden) {
+      yield node;
+    }
+  }
+}
