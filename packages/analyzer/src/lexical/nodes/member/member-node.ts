@@ -20,7 +20,7 @@ export type MemberNode = SyntaxNode2 &
 
 export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', $SyntaxNode2);
 
-export function memberNode(instance: Node2, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
+export function newMemberNode(instance: Node2, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
   return newSyntaxNode({
     $: $MemberNode,
     canBeExpression: true,

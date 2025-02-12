@@ -1,11 +1,11 @@
-import {$GroupNode, invokeNode, Node2, SyntaxCollapseResult} from '#analyzer';
+import {$GroupNode, invokeNode, Node2, NodeCollapseResult} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function collapseInvokeNode(
   nodes: ArrayData<Node2>,
   startIndex?: Integer | Nothing,
-): SyntaxCollapseResult {
+): NodeCollapseResult {
   return nodes.firstMap((groupNode, index) => {
     if (index === 0 || !is(groupNode, $GroupNode)) {
       return nothing;
