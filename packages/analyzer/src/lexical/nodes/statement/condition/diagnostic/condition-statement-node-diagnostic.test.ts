@@ -1,6 +1,6 @@
 import {
-  $MemberNode,
-  MemberNode,
+  $ConditionStatementNode,
+  ConditionStatementNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   parseStatements,
@@ -11,28 +11,19 @@ import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('No errors', () => {
-  const text = newText('abc.def');
-  const diagnostics = memberNodeDiagnostics(text);
+  const text = newText('if 1\n 2');
+  const diagnostics = conditionNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(0);
 });
 
-test('Expect identifier', () => {
-  const text = newText('abc.');
-  const diagnostics = memberNodeDiagnostics(text);
-
-  expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect identifier');
-});
-
-function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
+function conditionNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const statements = parseStatements(context).statements;
-  const node = statements.first()?.value as MemberNode;
+  const node = parseStatements(context).statements.at(0) as ConditionStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $MemberNode)).toBe(true);
+  expect(is(node, $ConditionStatementNode)).toBe(true);
 
-  return node!.diagnose!();
+  return node.diagnose!();
 }
