@@ -2,20 +2,21 @@ import {
   $IdNode,
   $MemberNode,
   $WhitespaceNode,
+  collapseMemberNode,
   IdNode,
   MemberNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  parseStatements,
+  nonHiddenNodeGenerator,
   WhitespaceNode,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('member with id instance', () => {
   const text = newText('  abc.   def   ');
-  const node = parseMemberNode(text);
+  const node = getMemberNode(text);
 
   expect(node).toBeTruthy();
   expect(is(node.instance, $IdNode)).toBe(true);
@@ -28,11 +29,11 @@ test('member with id instance', () => {
   expect(node.id?.text.toNativeString()).toBe('def');
 });
 
-function parseMemberNode(text: Text): MemberNode {
+function getMemberNode(text: Text): MemberNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const statements = parseStatements(context).statements;
-  const node = statements.first()?.value as MemberNode;
+  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const node = collapseMemberNode(nodes)?.node as MemberNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $MemberNode)).toBe(true);

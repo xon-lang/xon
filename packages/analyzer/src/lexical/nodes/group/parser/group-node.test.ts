@@ -15,7 +15,7 @@ import {
   IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  parseStatements,
+  parseGroupNode,
   WhitespaceNode,
 } from '#analyzer';
 import {newText, Text} from '#common';
@@ -24,7 +24,7 @@ import {expect, test} from 'vitest';
 
 test('Empty group', () => {
   const text = newText('()');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $ParenGroupNode)).toBe(true);
   expect(is(node.open, $ParenOpenNode)).toBe(true);
@@ -34,7 +34,7 @@ test('Empty group', () => {
 
 test('No close pair', () => {
   const text = newText('{');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BraceGroupNode)).toBe(true);
   expect(is(node.open, $BraceOpenNode)).toBe(true);
@@ -44,7 +44,7 @@ test('No close pair', () => {
 
 test('Single element', () => {
   const text = newText('(a)');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $ParenGroupNode)).toBe(true);
   expect(is(node.open, $ParenOpenNode)).toBe(true);
@@ -55,7 +55,7 @@ test('Single element', () => {
 
 test('Many elements with no comma', () => {
   const text = newText('[123 456]');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -66,7 +66,7 @@ test('Many elements with no comma', () => {
 
 test('No elements but single comma', () => {
   const text = newText('[,]');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -78,7 +78,7 @@ test('No elements but single comma', () => {
 
 test('Inner group', () => {
   const text = newText('[()]');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -90,7 +90,7 @@ test('Inner group', () => {
 
 test('Two numbers', () => {
   const text = newText('[1, 2]');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -102,7 +102,7 @@ test('Two numbers', () => {
 
 test('Two numbers and comma at the end', () => {
   const text = newText('[1, 2,]');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -115,7 +115,7 @@ test('Two numbers and comma at the end', () => {
 
 test('Two numbers and comma with space at the end', () => {
   const text = newText('[1, 2, ]');
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -134,7 +134,7 @@ test('Items on several lines', () => {
     2
     3,
 4,    5]`);
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -150,7 +150,7 @@ test('Items on several lines', () => {
 
 test('Second empty item', () => {
   const text = newText(`[1, , 2 ]`);
-  const node = parseGroupNode(text);
+  const node = getGroupNode(text);
 
   expect(is(node, $BracketGroupNode)).toBe(true);
   expect(is(node.open, $BracketOpenNode)).toBe(true);
@@ -160,11 +160,10 @@ test('Second empty item', () => {
   expect(node.items.at(1)?.comma).toBeTruthy();
 });
 
-function parseGroupNode(text: Text): GroupNode {
+function getGroupNode(text: Text): GroupNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const statements = parseStatements(context).statements;
-  const node = statements.first()?.value as GroupNode;
+  const node = parseGroupNode(context) as GroupNode;
 
   return node;
 }

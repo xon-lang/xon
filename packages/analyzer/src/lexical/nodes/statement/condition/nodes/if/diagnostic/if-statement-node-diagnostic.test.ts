@@ -1,38 +1,47 @@
 import {
-  $MemberNode,
-  MemberNode,
+  $IfStatementNode,
+  IfStatementNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  parseStatements,
+  nonHiddenNodeGenerator,
+  parseIfStatementNode,
 } from '#analyzer';
-import {ArrayData, newText, Text} from '#common';
+import {ArrayData, newArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('No errors', () => {
-  const text = newText('abc.def');
-  const diagnostics = memberNodeDiagnostics(text);
+test('If statement has no errors', () => {
+  const text = newText('if 1');
+  const diagnostics = ifNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(0);
 });
 
-test('Expect identifier', () => {
-  const text = newText('abc.');
-  const diagnostics = memberNodeDiagnostics(text);
+test('If statement has no condition expression', () => {
+  const text = newText('if');
+  const diagnostics = ifNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect identifier');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect expression');
 });
 
-function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
+test('If statement has non condition expression', () => {
+  const text = newText('if else');
+  const diagnostics = ifNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect expression');
+});
+
+function ifNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const statements = parseStatements(context).statements;
-  const node = statements.first()?.value as MemberNode;
+  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const node = parseIfStatementNode(0, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $MemberNode)).toBe(true);
+  expect(is(node, $IfStatementNode)).toBe(true);
 
-  return node!.diagnose!();
+  return node.diagnose!();
 }
