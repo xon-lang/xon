@@ -1,4 +1,5 @@
 import {
+  $SyntaxNode,
   analyzerPackageType,
   diagnoseStringNode,
   formatStringNode,
@@ -18,7 +19,7 @@ export type StringNode = SyntaxNode &
     closeNode?: StringCloseNode | Nothing;
   };
 
-export const $StringNode = analyzerPackageType<StringNode>('StringNode', SyntaxNode);
+export const $StringNode = analyzerPackageType<StringNode>('StringNode', $SyntaxNode);
 
 export function newStringNode(
   openNode: StringOpenNode,

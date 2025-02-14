@@ -1,4 +1,5 @@
 import {
+  $SyntaxNode,
   analyzerPackageType,
   GroupCloseNode,
   GroupItemNode,
@@ -17,7 +18,7 @@ export type GroupNode = SyntaxNode &
   };
 
 // todo remove 'lambda' and use as simple object
-export const $GroupNode = analyzerPackageType<GroupNode>('GroupNode', SyntaxNode);
+export const $GroupNode = analyzerPackageType<GroupNode>('GroupNode', $SyntaxNode);
 
 export function newGroupNode(
   $type: $Type,

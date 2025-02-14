@@ -1,5 +1,6 @@
 import {
   $ExpressionStatementNode,
+  $SyntaxNode,
   analyzerPackageType,
   CommaNode,
   newSyntaxNode,
@@ -17,7 +18,7 @@ export type GroupItemNode = SyntaxNode &
     value?: Node | Nothing;
   };
 
-export const $GroupItemNode = analyzerPackageType<GroupItemNode>('GroupItemNode', SyntaxNode);
+export const $GroupItemNode = analyzerPackageType<GroupItemNode>('GroupItemNode', $SyntaxNode);
 
 export function newItemNode(
   statements: ArrayData<StatementNode>,

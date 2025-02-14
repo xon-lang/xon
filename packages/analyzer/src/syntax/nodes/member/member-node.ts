@@ -1,4 +1,5 @@
 import {
+  $SyntaxNode,
   analyzerPackageType,
   diagnoseMemberNode,
   IdNode,
@@ -17,7 +18,7 @@ export type MemberNode = SyntaxNode &
     id?: IdNode | Nothing;
   };
 
-export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', SyntaxNode);
+export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', $SyntaxNode);
 
 export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
   return newSyntaxNode({

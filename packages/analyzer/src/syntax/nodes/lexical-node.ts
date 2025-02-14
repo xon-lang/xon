@@ -1,4 +1,4 @@
-import {AnalyzerContext, analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
+import {analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -42,7 +42,7 @@ export function newLexicalNode<T extends LexicalNode>(params: T): T {
 
 export type SyntaxNode = Node & Brand<'Analyzer.SyntaxNode'>;
 
-export const SyntaxNode = analyzerPackageType<SyntaxNode>('SyntaxNode', $Node);
+export const $SyntaxNode = analyzerPackageType<SyntaxNode>('SyntaxNode', $Node);
 
 export function newSyntaxNode<T extends Node>(
   params: Omit<T, 'children' | 'range'> | Record<string, unknown>,
@@ -75,4 +75,3 @@ export function newSyntaxNode<T extends Node>(
 
   return node;
 }
-

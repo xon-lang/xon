@@ -1,4 +1,4 @@
-import {Node, SyntaxNode, analyzerPackageType} from '#analyzer';
+import {$SyntaxNode, Node, SyntaxNode, analyzerPackageType} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
@@ -10,7 +10,7 @@ export type StatementNode = SyntaxNode &
     body?: ArrayData<StatementNode> | Nothing;
   };
 
-export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode', SyntaxNode);
+export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode', $SyntaxNode);
 
 // export function newStatementNode(
 //   indentLevel: Integer,
