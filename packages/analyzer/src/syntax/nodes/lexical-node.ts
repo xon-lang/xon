@@ -1,16 +1,33 @@
-import {$Node, AnalyzerContext, analyzerPackageType, Node} from '#analyzer';
+import {AnalyzerContext, analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
+  Boolean2,
   newArrayData,
-  newText,
   newTextRange,
   nothing,
   Nothing,
   Text,
   TextRange,
 } from '#common';
-import {Brand, is} from '#typing';
+import {AnalyzerDiagnostic} from '#diagnostic';
+import {Brand, is, Model} from '#typing';
+
+export type Node = Model &
+  Brand<'Analyzer.Node2'> & {
+    range: TextRange;
+    parent?: Node | Nothing;
+    children?: ArrayData<Node> | Nothing;
+    semantic?: Semantic | Nothing;
+    isHidden?: Boolean2;
+    hiddenNodes?: ArrayData<Node> | Nothing;
+    canBeExpression?: Boolean2 | Nothing;
+
+    diagnose?(): ArrayData<AnalyzerDiagnostic>;
+    format?(): ArrayData<FormatterItem>;
+  };
+
+export const $Node = analyzerPackageType<Node>('Node');
 
 export type LexicalNode = Node &
   Brand<'Analyzer.LexicalNode'> & {
@@ -40,38 +57,23 @@ export function newSyntaxNode<T extends Node>(
       .flatMap((value) => (is(value, $Node) ? value : value._items)),
   );
 
-  const range = rangeFromNodes2(children);
-  const firstChild = children.first();
-
+  const {first, last} = children.firstLast();
+  // todo recheck - first always must be non nullable value
+  const range = first ? newTextRange(first!.range.start.clone(), last!.range.stop.clone()) : newTextRange();
   const node: T = {
     range,
     children,
-    hiddenNodes: firstChild?.hiddenNodes,
+    hiddenNodes: first?.hiddenNodes,
     ...params,
-    // todo remove 'as T'
   } as T;
 
-  if (firstChild) {
-    firstChild.hiddenNodes = nothing;
+  if (first) {
+    first.hiddenNodes = nothing;
   }
 
   children.forEach((x) => (x.parent = node));
 
   return node;
-}
-
-export function textFromNodes2(nodes: ArrayData<LexicalNode>): Text {
-  return newText(nodes.map((x) => x.text));
-}
-
-export function rangeFromNodes2(nodes: ArrayData<Node>): TextRange {
-  const {first, last} = nodes.firstLast()!;
-
-  if (!first || !last) {
-    return newTextRange();
-  }
-
-  return newTextRange(first.range.start.clone(), last.range.stop.clone());
 }
 
 export type NodeParserFunction<T extends Node = Node> = (context: AnalyzerContext) => T | Nothing;
