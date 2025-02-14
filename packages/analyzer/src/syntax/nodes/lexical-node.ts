@@ -1,8 +1,7 @@
-import {AnalyzerContext, analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
+import {$Node, AnalyzerContext, analyzerPackageType, Node} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
-  Boolean2,
   newArrayData,
   newText,
   newTextRange,
@@ -11,24 +10,7 @@ import {
   Text,
   TextRange,
 } from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
-import {Brand, is, Model} from '#typing';
-
-export type Node = Model &
-  Brand<'Analyzer.Node2'> & {
-    range: TextRange;
-    parent?: Node | Nothing;
-    children?: ArrayData<Node> | Nothing;
-    semantic?: Semantic | Nothing;
-    isHidden?: Boolean2;
-    hiddenNodes?: ArrayData<Node> | Nothing;
-    canBeExpression?: Boolean2 | Nothing;
-
-    diagnose?(): ArrayData<AnalyzerDiagnostic>;
-    format?(): ArrayData<FormatterItem>;
-  };
-
-export const $Node = analyzerPackageType<Node>('Node');
+import {Brand, is} from '#typing';
 
 export type LexicalNode = Node &
   Brand<'Analyzer.LexicalNode'> & {
