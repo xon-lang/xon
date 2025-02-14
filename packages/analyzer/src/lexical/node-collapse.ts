@@ -1,11 +1,14 @@
 import {
+  $PlusInfixNode,
   collapseConditionStatementNode,
+  collapseInfixNode,
   collapseInvokeNode,
   collapseMemberNode,
   Node2,
+  PLUS,
   StatementNode2,
 } from '#analyzer';
-import {ArrayData, Integer, newArrayData, Nothing} from '#common';
+import {ArrayData, Integer, newArrayData, newDictionary, newKeyValue, Nothing} from '#common';
 
 export type NodeCollapseFn<T extends Node2 = Node2> = (
   nodes: ArrayData<T>,
@@ -17,6 +20,10 @@ function nodeCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn}> {
   return newArrayData([
     {min: 2, collapse: collapseInvokeNode},
     {min: 2, collapse: collapseMemberNode},
+    {
+      min: 3,
+      collapse: collapseInfixNode(newDictionary(newArrayData([newKeyValue(PLUS, $PlusInfixNode)])), true),
+    },
   ]);
 }
 

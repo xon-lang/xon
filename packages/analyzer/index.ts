@@ -103,8 +103,9 @@ export * from './src/lexical/nodes/id-keyword-operator/nodes/operator/word/as/as
 export * from './src/lexical/nodes/id-keyword-operator/nodes/operator/word/is/is-operator-node';
 export * from './src/lexical/nodes/id-keyword-operator/parser/id-keyword-operator-node-parser';
 export * from './src/lexical/nodes/id-keyword-operator/parser/symbol-operator-node-parser';
-export * from './src/lexical/nodes/infix/infix-node-parse';
 export * from './src/lexical/nodes/infix/infix-node';
+export * from './src/lexical/nodes/infix/collapse/infix-node-collapse';
+export * from './src/lexical/nodes/infix/nodes/plus/plus-infix-node';
 export * from './src/lexical/nodes/invoke/invoke-node';
 export * from './src/lexical/nodes/invoke/collapse/invoke-node-collapse';
 export * from './src/lexical/nodes/joining/joining-node.parser';
