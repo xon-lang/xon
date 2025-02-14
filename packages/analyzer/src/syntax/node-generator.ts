@@ -1,8 +1,7 @@
 import {
   AnalyzerContext,
-  Node,
-  NodeParserFunction,
   newEofNode,
+  Node,
   parseCharacterNode,
   parseCommaNode,
   parseCommentNode,
@@ -18,9 +17,9 @@ import {
   parseUnknownNode,
   parseWhitespaceNode,
 } from '#analyzer';
-import {ArrayData, newArrayData, newTextRange} from '#common';
+import {ArrayData, newArrayData, newTextRange, Nothing} from '#common';
 
-function nodeParsers(): ArrayData<NodeParserFunction> {
+function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> {
   return newArrayData([
     parseWhitespaceNode,
     parseNlNode,

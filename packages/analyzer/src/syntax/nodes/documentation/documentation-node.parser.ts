@@ -1,12 +1,12 @@
 import {
   AnalyzerContext,
+  DocumentationLabelNode,
   DocumentationNode,
   newDocumentationNode,
   parseDocumentationCloseNode,
   parseDocumentationDescriptionNode,
   parseDocumentationLabelNode,
   parseDocumentationOpenNode,
-  parsersToNodes,
 } from '#analyzer';
 import {newArrayData, nothing, Nothing} from '#common';
 
@@ -18,7 +18,18 @@ export function parseDocumentationNode(context: AnalyzerContext): DocumentationN
   }
 
   const descriptionNode = parseDocumentationDescriptionNode(context);
-  const labels = parsersToNodes(context, newArrayData([parseDocumentationLabelNode]));
+  const labels = newArrayData<DocumentationLabelNode>();
+
+  while (true) {
+    const node = parseDocumentationLabelNode(context);
+
+    if (!node) {
+      break;
+    }
+
+    labels.addLastItem(node);
+  }
+
   const closeNodeNode = parseDocumentationCloseNode(context);
 
   return newDocumentationNode(openNode, labels, descriptionNode, closeNodeNode);
