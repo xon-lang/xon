@@ -1,10 +1,10 @@
-import {$SyntaxNode2, analyzerPackageType, LexicalNode2, SyntaxNode2} from '#analyzer';
+import {analyzerPackageType, LexicalNode, SyntaxNode} from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type CommentNode = SyntaxNode2 &
+export type CommentNode = SyntaxNode &
   Brand<'Analyzer.CommentNode'> & {
-    contentNode?: LexicalNode2 | Nothing;
+    contentNode?: LexicalNode | Nothing;
   };
 
-export const $CommentNode = analyzerPackageType<CommentNode>('CommentNode', $SyntaxNode2);
+export const $CommentNode = analyzerPackageType<CommentNode>('CommentNode', SyntaxNode);

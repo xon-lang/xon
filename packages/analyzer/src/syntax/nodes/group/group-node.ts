@@ -1,16 +1,15 @@
 import {
-  $SyntaxNode2,
   analyzerPackageType,
   GroupCloseNode,
   GroupItemNode,
   GroupOpenNode,
   newSyntaxNode,
-  SyntaxNode2,
+  SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
 import {$Type, Brand} from '#typing';
 
-export type GroupNode = SyntaxNode2 &
+export type GroupNode = SyntaxNode &
   Brand<'Analyzer.GroupNode'> & {
     open: GroupOpenNode;
     items: ArrayData<GroupItemNode>;
@@ -18,7 +17,7 @@ export type GroupNode = SyntaxNode2 &
   };
 
 // todo remove 'lambda' and use as simple object
-export const $GroupNode = analyzerPackageType<GroupNode>('GroupNode', $SyntaxNode2);
+export const $GroupNode = analyzerPackageType<GroupNode>('GroupNode', SyntaxNode);
 
 export function newGroupNode(
   $type: $Type,

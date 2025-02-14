@@ -1,9 +1,9 @@
-import {$GroupNode, invokeNode, Node2, NodeCollapseResult} from '#analyzer';
+import {$GroupNode, invokeNode, Node, NodeCollapseResult} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function collapseInvokeNode(
-  nodes: ArrayData<Node2>,
+  nodes: ArrayData<Node>,
   startIndex?: Integer | Nothing,
 ): NodeCollapseResult {
   return nodes.firstMap((groupNode, index) => {

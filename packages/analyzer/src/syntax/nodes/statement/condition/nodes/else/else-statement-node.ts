@@ -1,7 +1,7 @@
 import {
   $StatementNode2,
   ElseKeywordNode,
-  Node2,
+  Node,
   StatementNode2,
   analyzerPackageType,
   newSyntaxNode,
@@ -22,7 +22,7 @@ export const $ElseStatementNode = analyzerPackageType<ElseStatementNode>(
 export function newElseStatementNode(
   indentLevel: Integer,
   keywordNode: ElseKeywordNode,
-  errorNodes?: ArrayData<Node2> | Nothing,
+  errorNodes?: ArrayData<Node> | Nothing,
 ): ElseStatementNode {
   return newSyntaxNode<ElseStatementNode>({
     $: $ElseStatementNode,

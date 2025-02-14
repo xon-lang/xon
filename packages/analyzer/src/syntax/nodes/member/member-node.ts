@@ -1,26 +1,25 @@
 import {
-  $SyntaxNode2,
   analyzerPackageType,
   diagnoseMemberNode,
   IdNode,
   newSyntaxNode,
-  Node2,
+  Node,
   OperatorNode,
-  SyntaxNode2,
+  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type MemberNode = SyntaxNode2 &
+export type MemberNode = SyntaxNode &
   Brand<'Analyzer.MemberNode'> & {
-    instance: Node2;
+    instance: Node;
     operator: OperatorNode;
     id?: IdNode | Nothing;
   };
 
-export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', $SyntaxNode2);
+export const $MemberNode = analyzerPackageType<MemberNode>('MemberNode', SyntaxNode);
 
-export function newMemberNode(instance: Node2, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
+export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
   return newSyntaxNode({
     $: $MemberNode,
     canBeExpression: true,

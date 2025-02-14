@@ -1,15 +1,15 @@
-import {$SyntaxNode, analyzerPackageType, GroupNode, newSyntaxNode, Node2, SyntaxNode2} from '#analyzer';
+import {$SyntaxNode, analyzerPackageType, GroupNode, newSyntaxNode, Node, SyntaxNode} from '#analyzer';
 import {Brand} from '#typing';
 
-export type InvokeNode = SyntaxNode2 &
+export type InvokeNode = SyntaxNode &
   Brand<'Analyzer.InvokeNode'> & {
-    instance: Node2;
+    instance: Node;
     group: GroupNode;
   };
 
 export const $InvokeNode = analyzerPackageType<InvokeNode>('InvokeNode', $SyntaxNode);
 
-export function invokeNode(instance: Node2, group: GroupNode): InvokeNode {
+export function invokeNode(instance: Node, group: GroupNode): InvokeNode {
   return newSyntaxNode({
     $: $InvokeNode,
     canBeExpression: true,

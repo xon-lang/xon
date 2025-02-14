@@ -1,4 +1,4 @@
-import {$InfixNode, $SyntaxNode2, analyzerPackageType, InfixNode, newSyntaxNode, Node, OperatorNode, SyntaxNode2} from '#analyzer';
+import {$InfixNode, analyzerPackageType, InfixNode, Node, OperatorNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type PlusInfixNode = InfixNode &

@@ -1,10 +1,10 @@
-import {$LexicalNode2, analyzerPackageType, LexicalNode2} from '#analyzer';
+import {analyzerPackageType, LexicalNode} from '#analyzer';
 import {newText, TextRange} from '#common';
 import {Brand} from '#typing';
 
-export type EofNode = LexicalNode2 & Brand<'Analyzer.EofNode'>;
+export type EofNode = LexicalNode & Brand<'Analyzer.EofNode'>;
 
-export const $EofNode = analyzerPackageType<EofNode>('EofNode', $LexicalNode2);
+export const $EofNode = analyzerPackageType<EofNode>('EofNode', LexicalNode);
 
 export function newEofNode(range: TextRange): EofNode {
   return {

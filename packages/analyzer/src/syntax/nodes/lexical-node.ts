@@ -1,4 +1,4 @@
-import {$Node, AnalyzerContext, analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
+import {AnalyzerContext, analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -14,47 +14,38 @@ import {
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, is, Model} from '#typing';
 
-export type LexicalNode = Model & {
-  text: Text;
-  range: TextRange;
-};
-
-export const $LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Node);
-
-// --------------------------------------------------------
-
-export type Node2 = Model &
+export type Node = Model &
   Brand<'Analyzer.Node2'> & {
     range: TextRange;
-    parent?: Node2 | Nothing;
-    children?: ArrayData<Node2> | Nothing;
+    parent?: Node | Nothing;
+    children?: ArrayData<Node> | Nothing;
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
-    hiddenNodes?: ArrayData<Node2> | Nothing;
+    hiddenNodes?: ArrayData<Node> | Nothing;
     canBeExpression?: Boolean2 | Nothing;
 
     diagnose?(): ArrayData<AnalyzerDiagnostic>;
     format?(): ArrayData<FormatterItem>;
   };
 
-export const $Node2 = analyzerPackageType<Node2>('Node2');
+export const $Node = analyzerPackageType<Node>('Node');
 
-export type LexicalNode2 = Node2 &
-  Brand<'Analyzer.LexicalNode2'> & {
+export type LexicalNode = Node &
+  Brand<'Analyzer.LexicalNode'> & {
     text: Text;
   };
 
-export const $LexicalNode2 = analyzerPackageType<LexicalNode2>('LexicalNode2', $Node2);
+export const LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Node);
 
-export function newLexicalNode<T extends LexicalNode2>(params: T): T {
+export function newLexicalNode<T extends LexicalNode>(params: T): T {
   return params;
 }
 
-export type SyntaxNode2 = Node2 & Brand<'Analyzer.SyntaxNode2'>;
+export type SyntaxNode = Node & Brand<'Analyzer.SyntaxNode'>;
 
-export const $SyntaxNode2 = analyzerPackageType<SyntaxNode2>('SyntaxNode2', $Node2);
+export const SyntaxNode = analyzerPackageType<SyntaxNode>('SyntaxNode', $Node);
 
-export function newSyntaxNode<T extends Node2>(
+export function newSyntaxNode<T extends Node>(
   params: Omit<T, 'children' | 'range'> | Record<string, unknown>,
 ): T {
   // todo optimize and simplify it
@@ -63,8 +54,8 @@ export function newSyntaxNode<T extends Node2>(
       // todo remove 'parent' exception
       .filter(([key]) => key !== 'parent')
       .map(([_, value]) => value)
-      .filter((value) => is(value, $Node2) || is(value, $ArrayData<Node2>($Node2)))
-      .flatMap((value) => (is(value, $Node2) ? value : value._items)),
+      .filter((value) => is(value, $Node) || is(value, $ArrayData<Node>($Node)))
+      .flatMap((value) => (is(value, $Node) ? value : value._items)),
   );
 
   const range = rangeFromNodes2(children);
@@ -87,11 +78,11 @@ export function newSyntaxNode<T extends Node2>(
   return node;
 }
 
-export function textFromNodes2(nodes: ArrayData<LexicalNode2>): Text {
+export function textFromNodes2(nodes: ArrayData<LexicalNode>): Text {
   return newText(nodes.map((x) => x.text));
 }
 
-export function rangeFromNodes2(nodes: ArrayData<Node2>): TextRange {
+export function rangeFromNodes2(nodes: ArrayData<Node>): TextRange {
   const {first, last} = nodes.firstLast()!;
 
   if (!first || !last) {
@@ -101,9 +92,9 @@ export function rangeFromNodes2(nodes: ArrayData<Node2>): TextRange {
   return newTextRange(first.range.start.clone(), last.range.stop.clone());
 }
 
-export type NodeParserFunction<T extends Node2 = Node2> = (context: AnalyzerContext) => T | Nothing;
+export type NodeParserFunction<T extends Node = Node> = (context: AnalyzerContext) => T | Nothing;
 
-export function parsersToNodes<T extends Node2>(
+export function parsersToNodes<T extends Node>(
   context: AnalyzerContext,
   parsers: ArrayData<NodeParserFunction<T>>,
 ): ArrayData<T> {
@@ -120,14 +111,14 @@ export function parsersToNodes<T extends Node2>(
   }
 }
 
-export function parsersToNodesCleanupHidden<T extends Node2>(
+export function parsersToNodesCleanupHidden<T extends Node>(
   context: AnalyzerContext,
   parsers: ArrayData<NodeParserFunction<T>>,
 ): {
   nodes: ArrayData<T>;
-  afterHiddenNodes: ArrayData<Node2>;
+  afterHiddenNodes: ArrayData<Node>;
 } {
-  let hiddenNodes = newArrayData<Node2>();
+  let hiddenNodes = newArrayData<Node>();
   const nodes = newArrayData<T>();
 
   while (true) {

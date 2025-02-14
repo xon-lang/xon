@@ -1,6 +1,6 @@
 import {
   AnalyzerContext,
-  Node2,
+  Node,
   NodeParserFunction,
   newEofNode,
   parseCharacterNode,
@@ -39,8 +39,8 @@ function nodeParsers(): ArrayData<NodeParserFunction> {
   ]);
 }
 
-export function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
-  let hiddenNodes = newArrayData<Node2>();
+export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
+  let hiddenNodes = newArrayData<Node>();
 
   while (true) {
     const node = nodeParsers().firstMap((parse) => parse(context));
@@ -70,7 +70,7 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<Node2> {
   }
 }
 
-export function* nonHiddenNodeGenerator(context: AnalyzerContext): Generator<Node2> {
+export function* nonHiddenNodeGenerator(context: AnalyzerContext): Generator<Node> {
   for (const node of nodeGenerator(context)) {
     if (!node.isHidden) {
       yield node;

@@ -1,9 +1,9 @@
-import {collapseNodes, ExpressionStatementNode, newExpressionStatementNode, Node2} from '#analyzer';
+import {collapseNodes, ExpressionStatementNode, newExpressionStatementNode, Node} from '#analyzer';
 import {ArrayData, Integer} from '#common';
 
 export function parseExpressionStatementNode(
   indent: Integer,
-  nodes: ArrayData<Node2>,
+  nodes: ArrayData<Node>,
 ): ExpressionStatementNode {
   nodes = collapseNodes(nodes);
 

@@ -1,16 +1,15 @@
 import {
-  $SyntaxNode2,
   analyzerPackageType,
   DocumentationDescriptionNode,
   DocumentationLabelOperatorNode,
   IdNode,
   newSyntaxNode,
-  SyntaxNode2,
+  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type DocumentationLabelNode = SyntaxNode2 &
+export type DocumentationLabelNode = SyntaxNode &
   Brand<'Analyzer.DocumentationLabelNode'> & {
     operatorNode: DocumentationLabelOperatorNode;
     idNode?: IdNode | Nothing;
@@ -19,7 +18,7 @@ export type DocumentationLabelNode = SyntaxNode2 &
 
 export const $DocumentationLabelNode = analyzerPackageType<DocumentationLabelNode>(
   'DocumentationLabelNode',
-  $SyntaxNode2,
+  SyntaxNode,
 );
 
 export function newDocumentationLabelNode(

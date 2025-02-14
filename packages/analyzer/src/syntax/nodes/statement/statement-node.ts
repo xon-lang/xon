@@ -1,16 +1,16 @@
-import {$SyntaxNode2, Node2, SyntaxNode2, analyzerPackageType} from '#analyzer';
+import {Node, SyntaxNode, analyzerPackageType} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type StatementNode2 = SyntaxNode2 &
+export type StatementNode2 = SyntaxNode &
   Brand<'Analyzer.StatementNode2'> & {
     indent: Integer;
-    errorNodes?: ArrayData<Node2> | Nothing;
+    errorNodes?: ArrayData<Node> | Nothing;
     parent?: StatementNode2 | Nothing;
     body?: ArrayData<StatementNode2> | Nothing;
   };
 
-export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNode2', $SyntaxNode2);
+export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNode2', SyntaxNode);
 
 // export function newStatementNode(
 //   indentLevel: Integer,

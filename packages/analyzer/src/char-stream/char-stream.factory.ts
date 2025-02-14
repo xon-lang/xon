@@ -1,4 +1,4 @@
-import {$CharacterStream, CharacterStream, LexicalNode2, NL} from '#analyzer';
+import {$CharacterStream, CharacterStream, LexicalNode, NL} from '#analyzer';
 import {
   Boolean2,
   Char,
@@ -23,7 +23,7 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
       $type: $Type,
       predicate: (char: Char, index: Integer, text: Text) => Boolean2 | Nothing,
       length?: Integer | Nothing,
-    ): LexicalNode2 | Nothing {
+    ): LexicalNode | Nothing {
       if (sourcePosition.index >= sourceLength) {
         return nothing;
       }

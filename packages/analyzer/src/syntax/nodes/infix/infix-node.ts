@@ -1,16 +1,16 @@
-import {$SyntaxNode2, analyzerPackageType, newSyntaxNode, Node2, OperatorNode, SyntaxNode2} from '#analyzer';
+import {analyzerPackageType, newSyntaxNode, Node, OperatorNode, SyntaxNode} from '#analyzer';
 import {$Type, Brand} from '#typing';
 
-export type InfixNode = SyntaxNode2 &
+export type InfixNode = SyntaxNode &
   Brand<'Analyzer.InfixNode'> & {
-    left: Node2;
+    left: Node;
     operator: OperatorNode;
-    right: Node2;
+    right: Node;
   };
 
-export const $InfixNode = analyzerPackageType<InfixNode>('InfixNode', $SyntaxNode2);
+export const $InfixNode = analyzerPackageType<InfixNode>('InfixNode', SyntaxNode);
 
-export function infixNode($: $Type, left: Node2, operator: OperatorNode, right: Node2): InfixNode {
+export function infixNode($: $Type, left: Node, operator: OperatorNode, right: Node): InfixNode {
   return newSyntaxNode({$, canBeExpression: true, left, operator, right});
 }
 

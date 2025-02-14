@@ -1,10 +1,10 @@
-import {$IfKeywordNode, collapseNodes, IfStatementNode, newIfStatementNode, Node2} from '#analyzer';
+import {$IfKeywordNode, collapseNodes, IfStatementNode, newIfStatementNode, Node} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function parseIfStatementNode(
   indentLevel: Integer,
-  nodes: ArrayData<Node2>,
+  nodes: ArrayData<Node>,
 ): IfStatementNode | Nothing {
   const keywordNode = nodes.first();
 

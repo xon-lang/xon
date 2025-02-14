@@ -1,4 +1,4 @@
-import {$OperatorNode, infixNode, Node2, NodeCollapseFn, NodeCollapseResult} from '#analyzer';
+import {$OperatorNode, infixNode, Node, NodeCollapseFn, NodeCollapseResult} from '#analyzer';
 import {ArrayData, Boolean2, Dictionary, Integer, nothing, Text} from '#common';
 import {$Type, is} from '#typing';
 
@@ -6,7 +6,7 @@ export function collapseInfixNode(
   similarPriorityOperators: Dictionary<Text, $Type>,
   isLeftRecursive: Boolean2,
 ): NodeCollapseFn {
-  return (nodes: ArrayData<Node2>, startIndex: Integer): NodeCollapseResult => {
+  return (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult => {
     const method = isLeftRecursive ? 'firstMap' : 'lastMap';
 
     return nodes[method]((operatorNode, index) => {

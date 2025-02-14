@@ -1,5 +1,4 @@
 import {
-  $SyntaxNode2,
   analyzerPackageType,
   diagnoseStringNode,
   formatStringNode,
@@ -7,19 +6,19 @@ import {
   StringCloseNode,
   StringContentNode,
   StringOpenNode,
-  SyntaxNode2,
+  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type StringNode = SyntaxNode2 &
+export type StringNode = SyntaxNode &
   Brand<'Analyzer.StringNode'> & {
     openNode: StringOpenNode;
     contentNode?: StringContentNode | Nothing;
     closeNode?: StringCloseNode | Nothing;
   };
 
-export const $StringNode = analyzerPackageType<StringNode>('StringNode', $SyntaxNode2);
+export const $StringNode = analyzerPackageType<StringNode>('StringNode', SyntaxNode);
 
 export function newStringNode(
   openNode: StringOpenNode,

@@ -1,6 +1,6 @@
-import {$LexicalNode2, analyzerPackageType, LexicalNode2} from '#analyzer';
+import {analyzerPackageType, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
-export type KeywordNode = LexicalNode2 & Brand<'Analyzer.KeywordNode'>;
+export type KeywordNode = LexicalNode & Brand<'Analyzer.KeywordNode'>;
 
-export const $KeywordNode = analyzerPackageType<KeywordNode>('KeywordNode', $LexicalNode2);
+export const $KeywordNode = analyzerPackageType<KeywordNode>('KeywordNode', LexicalNode);

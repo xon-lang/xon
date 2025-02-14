@@ -6,12 +6,12 @@ import {
   DocumentationLabelNode,
   DocumentationOpenNode,
   newSyntaxNode,
-  SyntaxNode2,
+  SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type DocumentationNode = SyntaxNode2 &
+export type DocumentationNode = SyntaxNode &
   Brand<'Analyzer.DocumentationNode'> & {
     openNode: DocumentationOpenNode;
     descriptionNode?: DocumentationDescriptionNode | Nothing;

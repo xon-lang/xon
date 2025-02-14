@@ -1,10 +1,10 @@
-import {$ElseKeywordNode, ElseStatementNode, newElseStatementNode, Node2} from '#analyzer';
+import {$ElseKeywordNode, ElseStatementNode, newElseStatementNode, Node} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function parseElseStatementNode(
   indentLevel: Integer,
-  nodes: ArrayData<Node2>,
+  nodes: ArrayData<Node>,
 ): ElseStatementNode | Nothing {
   const keywordNode = nodes.first();
 

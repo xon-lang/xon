@@ -1,5 +1,4 @@
 import {
-  $SyntaxNode2,
   AnalyzerContext,
   analyzerPackageType,
   CharacterCloseNode,
@@ -8,19 +7,19 @@ import {
   diagnoseCharacterNode,
   formatCharacterNode,
   newSyntaxNode,
-  SyntaxNode2,
+  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type CharacterNode = SyntaxNode2 &
+export type CharacterNode = SyntaxNode &
   Brand<'Analyzer.CharacterNode'> & {
     openNode: CharacterOpenNode;
     contentNode?: CharacterContentNode | Nothing;
     closeNode?: CharacterCloseNode | Nothing;
   };
 
-export const $CharacterNode = analyzerPackageType<CharacterNode>('CharacterNode', $SyntaxNode2);
+export const $CharacterNode = analyzerPackageType<CharacterNode>('CharacterNode', SyntaxNode);
 
 export function newCharacterNode(
   context: AnalyzerContext,

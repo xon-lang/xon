@@ -1,7 +1,7 @@
 import {
   $StatementNode2,
   IfKeywordNode,
-  Node2,
+  Node,
   StatementNode2,
   analyzerPackageType,
   diagnoseIfStatementNode,
@@ -13,7 +13,7 @@ import {Brand} from '#typing';
 export type IfStatementNode = StatementNode2 &
   Brand<'Analyzer.IfStatementNode'> & {
     keywordNode: IfKeywordNode;
-    conditionExpressionNode?: Node2 | Nothing;
+    conditionExpressionNode?: Node | Nothing;
   };
 
 export const $IfStatementNode = analyzerPackageType<IfStatementNode>('IfStatementNode', $StatementNode2);
@@ -21,8 +21,8 @@ export const $IfStatementNode = analyzerPackageType<IfStatementNode>('IfStatemen
 export function newIfStatementNode(
   indentLevel: Integer,
   keywordNode: IfKeywordNode,
-  conditionExpressionNode?: Node2 | Nothing,
-  errorNodes?: ArrayData<Node2> | Nothing,
+  conditionExpressionNode?: Node | Nothing,
+  errorNodes?: ArrayData<Node> | Nothing,
 ): IfStatementNode {
   return newSyntaxNode<IfStatementNode>({
     $: $IfStatementNode,

@@ -1,10 +1,10 @@
-import {$StatementNode2, Node2, StatementNode2, analyzerPackageType, newSyntaxNode} from '#analyzer';
+import {$StatementNode2, Node, StatementNode2, analyzerPackageType, newSyntaxNode} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type ExpressionStatementNode = StatementNode2 &
   Brand<'Analyzer.ExpressionStatementNode'> & {
-    expression: Node2;
+    expression: Node;
   };
 
 export const $ExpressionStatementNode = analyzerPackageType<ExpressionStatementNode>(
@@ -14,8 +14,8 @@ export const $ExpressionStatementNode = analyzerPackageType<ExpressionStatementN
 
 export function newExpressionStatementNode(
   indent: Integer,
-  expression: Node2,
-  errorNodes?: ArrayData<Node2> | Nothing,
+  expression: Node,
+  errorNodes?: ArrayData<Node> | Nothing,
 ): ExpressionStatementNode {
   return newSyntaxNode<ExpressionStatementNode>({
     $: $ExpressionStatementNode,

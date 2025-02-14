@@ -2,7 +2,7 @@ import {
   $NlNode,
   AnalyzerContext,
   collapseStatements,
-  Node2,
+  Node,
   nodeGenerator,
   parseElseStatementNode,
   parseExpressionStatementNode,
@@ -14,15 +14,15 @@ import {is} from '#typing';
 
 export function parseStatements(
   context: AnalyzerContext,
-  predicate?: ((node: Node2) => Boolean2) | Nothing,
+  predicate?: ((node: Node) => Boolean2) | Nothing,
 ): {
   statements: ArrayData<StatementNode2>;
-  breakNode?: Node2 | Nothing;
+  breakNode?: Node | Nothing;
 } {
   let lastStatement: StatementNode2 | Nothing = nothing;
   let statements = newArrayData<StatementNode2>();
-  let breakNode: Node2 | Nothing = nothing;
-  let nodes = newArrayData<Node2>();
+  let breakNode: Node | Nothing = nothing;
+  let nodes = newArrayData<Node>();
 
   const handle = () => {
     if (nodes.isEmpty()) {
@@ -73,7 +73,7 @@ function collapseAllStatement(statements: ArrayData<StatementNode2>): ArrayData<
 
 export type StatementParserFunction<T extends StatementNode2 = StatementNode2> = (
   indent: Integer,
-  nodes: ArrayData<Node2>,
+  nodes: ArrayData<Node>,
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
@@ -83,7 +83,7 @@ function statementParsers(): ArrayData<StatementParserFunction> {
 function handleStatement(
   statements: ArrayData<StatementNode2>,
   lastStatement: StatementNode2 | Nothing,
-  nodes: ArrayData<Node2>,
+  nodes: ArrayData<Node>,
 ): StatementNode2 {
   const parent = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
   const indent = (parent?.indent ?? -1) + 1;
