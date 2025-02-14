@@ -34,7 +34,7 @@ export type LexicalNode = Node &
     text: Text;
   };
 
-export const LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Node);
+export const $LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Node);
 
 export function newLexicalNode<T extends LexicalNode>(params: T): T {
   return params;

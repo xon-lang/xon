@@ -1,4 +1,5 @@
 import {
+  $SyntaxNode,
   analyzerPackageType,
   DocumentationDescriptionNode,
   DocumentationLabelOperatorNode,
@@ -18,7 +19,7 @@ export type DocumentationLabelNode = SyntaxNode &
 
 export const $DocumentationLabelNode = analyzerPackageType<DocumentationLabelNode>(
   'DocumentationLabelNode',
-  SyntaxNode,
+  $SyntaxNode,
 );
 
 export function newDocumentationLabelNode(
