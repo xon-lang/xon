@@ -1,4 +1,5 @@
 import {
+  $ExpressionStatementNode,
   $SyntaxNode2,
   analyzerPackageType,
   CommaNode,
@@ -8,7 +9,7 @@ import {
   SyntaxNode2,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
-import {Brand} from '#typing';
+import {Brand, is} from '#typing';
 
 export type GroupItemNode = SyntaxNode2 &
   Brand<'Analyzer.GroupItemNode'> & {
@@ -24,7 +25,11 @@ export function newItemNode(
   comma?: CommaNode | Nothing,
 ): GroupItemNode {
   const node: GroupItemNode = newSyntaxNode({$: $GroupItemNode, statements, comma});
-  node.value = statements.first()?.value;
+  const firstStatement = statements.first();
+
+  if (is(firstStatement, $ExpressionStatementNode)) {
+    node.value = firstStatement.expression;
+  }
 
   return node;
 }

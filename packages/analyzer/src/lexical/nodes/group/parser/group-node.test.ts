@@ -143,7 +143,7 @@ test('Items on several lines', () => {
   expect(is(node.items.first()?.value, $IntegerNode)).toBeTruthy();
   expect(is(node.items.last()?.value, $IntegerNode)).toBeTruthy();
   expect(node.items.last()?.comma).toBeFalsy();
-  expect(node.close?.hiddenNodes?.count()).toBe(0);
+  expect(node.close?.hiddenNodes?.count()).toBeFalsy();
   expect(is(node.items.at(3)?.value, $IntegerNode)).toBeTruthy();
   expect((node.items.at(3)?.value as IntegerNode).contentNode.text.toNativeString()).toBe('5');
 });
