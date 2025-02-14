@@ -79,7 +79,6 @@ export * from './src/semantic/node/value/unknown/unknown-value-semantic';
 export * from './src/syntax/node-collapse';
 export * from './src/syntax/node-generator';
 export * from './src/syntax/tokens';
-export * from './src/syntax/nodes/lexical-node';
 export * from './src/syntax/nodes/node';
 export * from './src/syntax/nodes/character/character-node';
 export * from './src/syntax/nodes/character/diagnostic/character-node-diagnostic';
