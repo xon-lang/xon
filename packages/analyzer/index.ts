@@ -3,7 +3,6 @@
  */
 
 export * from './package';
-export * from './src/node';
 export * from './src/char-stream/char-stream.factory';
 export * from './src/char-stream/char-stream.model';
 export * from './src/context/analyzer-context.factory';
@@ -217,10 +216,6 @@ export * from './src/semantic/node/value/member/member-value-semantic';
 export * from './src/semantic/node/value/string/string-value-semantic-parser';
 export * from './src/semantic/node/value/string/string-value-semantic';
 export * from './src/semantic/node/value/unknown/unknown-value-semantic';
-export * from './src/syntax/syntax-analyzer.factory';
-export * from './src/syntax/syntax-analyzer.model';
-export * from './src/syntax/node/syntax-node.factory';
-export * from './src/syntax/node/syntax-node';
 export * from './src/syntax/node/assign/assign-node';
 export * from './src/syntax/node/assignment/assignment-node-parse';
 export * from './src/syntax/node/assignment/assignment-node';
@@ -234,8 +229,4 @@ export * from './src/syntax/node/postfix/postfix-node-parse';
 export * from './src/syntax/node/postfix/postfix-node';
 export * from './src/syntax/node/prefix/prefix-node-parse';
 export * from './src/syntax/node/prefix/prefix-node';
-export * from './src/syntax/node/return/return-node-parse';
-export * from './src/syntax/node/return/return-node';
 export * from './src/syntax/node/type/type-node';
-export * from './src/syntax/statement/statement-node-collapse';
-export * from './src/syntax/statement/statement-node';
