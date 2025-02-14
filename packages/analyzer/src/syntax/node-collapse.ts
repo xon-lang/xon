@@ -6,7 +6,7 @@ import {
   collapseMemberNode,
   Node,
   PLUS,
-  StatementNode2,
+  StatementNode,
 } from '#analyzer';
 import {ArrayData, Integer, newArrayData, newDictionary, newKeyValue, Nothing} from '#common';
 
@@ -82,12 +82,12 @@ export function collapseNodes(nodes: ArrayData<Node>): ArrayData<Node> {
 }
 
 // todo try to join with 'nodeCollapses'
-function statementCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn<StatementNode2>}> {
+function statementCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn<StatementNode>}> {
   return newArrayData([{min: 1, collapse: collapseConditionStatementNode}]);
 }
 
 // todo try to join with 'collapseNodes'
-export function collapseStatements(nodes: ArrayData<StatementNode2>): ArrayData<StatementNode2> {
+export function collapseStatements(nodes: ArrayData<StatementNode>): ArrayData<StatementNode> {
   if (nodes.isEmpty()) {
     return nodes;
   }

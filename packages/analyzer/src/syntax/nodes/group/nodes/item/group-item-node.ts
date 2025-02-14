@@ -4,7 +4,7 @@ import {
   CommaNode,
   newSyntaxNode,
   Node,
-  StatementNode2,
+  StatementNode,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
@@ -12,7 +12,7 @@ import {Brand, is} from '#typing';
 
 export type GroupItemNode = SyntaxNode &
   Brand<'Analyzer.GroupItemNode'> & {
-    statements: ArrayData<StatementNode2>;
+    statements: ArrayData<StatementNode>;
     comma?: CommaNode | Nothing;
     value?: Node | Nothing;
   };
@@ -20,7 +20,7 @@ export type GroupItemNode = SyntaxNode &
 export const $GroupItemNode = analyzerPackageType<GroupItemNode>('GroupItemNode', SyntaxNode);
 
 export function newItemNode(
-  statements: ArrayData<StatementNode2>,
+  statements: ArrayData<StatementNode>,
   comma?: CommaNode | Nothing,
 ): GroupItemNode {
   const node: GroupItemNode = newSyntaxNode({$: $GroupItemNode, statements, comma});

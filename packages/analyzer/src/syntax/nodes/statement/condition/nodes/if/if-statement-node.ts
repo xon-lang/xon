@@ -1,8 +1,8 @@
 import {
-  $StatementNode2,
+  $StatementNode,
   IfKeywordNode,
   Node,
-  StatementNode2,
+  StatementNode,
   analyzerPackageType,
   diagnoseIfStatementNode,
   newSyntaxNode,
@@ -10,13 +10,13 @@ import {
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type IfStatementNode = StatementNode2 &
+export type IfStatementNode = StatementNode &
   Brand<'Analyzer.IfStatementNode'> & {
     keywordNode: IfKeywordNode;
     conditionExpressionNode?: Node | Nothing;
   };
 
-export const $IfStatementNode = analyzerPackageType<IfStatementNode>('IfStatementNode', $StatementNode2);
+export const $IfStatementNode = analyzerPackageType<IfStatementNode>('IfStatementNode', $StatementNode);
 
 export function newIfStatementNode(
   indentLevel: Integer,

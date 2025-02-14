@@ -2,15 +2,15 @@ import {Node, SyntaxNode, analyzerPackageType} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type StatementNode2 = SyntaxNode &
+export type StatementNode = SyntaxNode &
   Brand<'Analyzer.StatementNode2'> & {
     indent: Integer;
     errorNodes?: ArrayData<Node> | Nothing;
-    parent?: StatementNode2 | Nothing;
-    body?: ArrayData<StatementNode2> | Nothing;
+    parent?: StatementNode | Nothing;
+    body?: ArrayData<StatementNode> | Nothing;
   };
 
-export const $StatementNode2 = analyzerPackageType<StatementNode2>('StatementNode2', SyntaxNode);
+export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode', SyntaxNode);
 
 // export function newStatementNode(
 //   indentLevel: Integer,

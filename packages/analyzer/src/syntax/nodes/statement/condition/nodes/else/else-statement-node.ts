@@ -1,23 +1,20 @@
 import {
-  $StatementNode2,
+  $StatementNode,
   ElseKeywordNode,
   Node,
-  StatementNode2,
+  StatementNode,
   analyzerPackageType,
   newSyntaxNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type ElseStatementNode = StatementNode2 &
+export type ElseStatementNode = StatementNode &
   Brand<'Analyzer.ElseStatementNode'> & {
     keywordNode: ElseKeywordNode;
   };
 
-export const $ElseStatementNode = analyzerPackageType<ElseStatementNode>(
-  'ElseStatementNode',
-  $StatementNode2,
-);
+export const $ElseStatementNode = analyzerPackageType<ElseStatementNode>('ElseStatementNode', $StatementNode);
 
 export function newElseStatementNode(
   indentLevel: Integer,

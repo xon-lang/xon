@@ -7,7 +7,7 @@ import {
   parseElseStatementNode,
   parseExpressionStatementNode,
   parseIfStatementNode,
-  StatementNode2,
+  StatementNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
 import {is} from '#typing';
@@ -16,11 +16,11 @@ export function parseStatements(
   context: AnalyzerContext,
   predicate?: ((node: Node) => Boolean2) | Nothing,
 ): {
-  statements: ArrayData<StatementNode2>;
+  statements: ArrayData<StatementNode>;
   breakNode?: Node | Nothing;
 } {
-  let lastStatement: StatementNode2 | Nothing = nothing;
-  let statements = newArrayData<StatementNode2>();
+  let lastStatement: StatementNode | Nothing = nothing;
+  let statements = newArrayData<StatementNode>();
   let breakNode: Node | Nothing = nothing;
   let nodes = newArrayData<Node>();
 
@@ -61,7 +61,7 @@ export function parseStatements(
   };
 }
 
-function collapseAllStatement(statements: ArrayData<StatementNode2>): ArrayData<StatementNode2> {
+function collapseAllStatement(statements: ArrayData<StatementNode>): ArrayData<StatementNode> {
   for (const statement of statements) {
     if (statement.body) {
       collapseAllStatement(statement.body);
@@ -71,7 +71,7 @@ function collapseAllStatement(statements: ArrayData<StatementNode2>): ArrayData<
   return collapseStatements(statements);
 }
 
-export type StatementParserFunction<T extends StatementNode2 = StatementNode2> = (
+export type StatementParserFunction<T extends StatementNode = StatementNode> = (
   indent: Integer,
   nodes: ArrayData<Node>,
 ) => T | Nothing;
@@ -81,13 +81,13 @@ function statementParsers(): ArrayData<StatementParserFunction> {
 }
 
 function handleStatement(
-  statements: ArrayData<StatementNode2>,
-  lastStatement: StatementNode2 | Nothing,
+  statements: ArrayData<StatementNode>,
+  lastStatement: StatementNode | Nothing,
   nodes: ArrayData<Node>,
-): StatementNode2 {
+): StatementNode {
   const parent = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
   const indent = (parent?.indent ?? -1) + 1;
-  let statement: StatementNode2 | Nothing;
+  let statement: StatementNode | Nothing;
 
   statement =
     statementParsers().firstMap((parse) => parse(indent, nodes)) ??
@@ -105,9 +105,9 @@ function handleStatement(
 }
 
 function getParentStatementForIndent(
-  statement: StatementNode2 | Nothing,
+  statement: StatementNode | Nothing,
   indentPosition: TextPosition,
-): StatementNode2 | Nothing {
+): StatementNode | Nothing {
   if (!statement) {
     return nothing;
   }
