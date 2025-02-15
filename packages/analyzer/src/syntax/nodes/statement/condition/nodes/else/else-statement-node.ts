@@ -1,11 +1,4 @@
-import {
-  $StatementNode,
-  ElseKeywordNode,
-  Node,
-  StatementNode,
-  analyzerPackageType,
-  newSyntaxNode,
-} from '#analyzer';
+import {$AnalyzerType, $StatementNode, ElseKeywordNode, newSyntaxNode, Node, StatementNode} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
@@ -14,7 +7,8 @@ export type ElseStatementNode = StatementNode &
     keywordNode: ElseKeywordNode;
   };
 
-export const $ElseStatementNode = analyzerPackageType<ElseStatementNode>('ElseStatementNode', $StatementNode);
+export const $ElseStatementNode = () =>
+  $AnalyzerType<ElseStatementNode>('ElseStatementNode', $StatementNode());
 
 export function newElseStatementNode(
   indentLevel: Integer,
@@ -22,7 +16,7 @@ export function newElseStatementNode(
   errorNodes?: ArrayData<Node> | Nothing,
 ): ElseStatementNode {
   return newSyntaxNode<ElseStatementNode>({
-    $: $ElseStatementNode,
+    $: $ElseStatementNode(),
     indent: indentLevel,
     keywordNode,
     errorNodes,

@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $TypeDeclarationSemantic,
-  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -14,10 +14,11 @@ export type ParameterTypeDeclarationSemantic = TypeDeclarationSemantic & {
   value?: TypeSemantic | Nothing;
 };
 
-export const $ParameterTypeDeclarationSemantic = analyzerPackageType<ParameterTypeDeclarationSemantic>(
-  'ParameterTypeDeclarationSemantic',
-  $TypeDeclarationSemantic,
-);
+export const $ParameterTypeDeclarationSemantic = () =>
+  $AnalyzerType<ParameterTypeDeclarationSemantic>(
+    'ParameterTypeDeclarationSemantic',
+    $TypeDeclarationSemantic(),
+  );
 
 export function parameterTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -28,7 +29,7 @@ export function parameterTypeDeclarationSemantic(
   name: Text,
 ): ParameterTypeDeclarationSemantic {
   return {
-    $: $ParameterTypeDeclarationSemantic,
+    $: $ParameterTypeDeclarationSemantic(),
     nodeLink,
     usages: newArrayData(),
     documentation,

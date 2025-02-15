@@ -1,4 +1,4 @@
-import {Boolean2, commonPackageType, Integer} from '#common';
+import {$CommonType, Boolean2, Integer} from '#common';
 import {Model} from '#typing';
 
 export type TextPosition = Model & {
@@ -12,4 +12,4 @@ export type TextPosition = Model & {
   equals(other: TextPosition): Boolean2;
 };
 
-export const $TextPosition = commonPackageType<TextPosition>('TextPosition');
+export const $TextPosition = () => $CommonType<TextPosition>('TextPosition');

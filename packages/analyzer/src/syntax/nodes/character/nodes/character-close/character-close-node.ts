@@ -1,9 +1,7 @@
-import {$LexicalNode, LexicalNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $LexicalNode, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type CharacterCloseNode = LexicalNode & Brand<'Analyzer.CharacterCloseNode'>;
 
-export const $CharacterCloseNode = analyzerPackageType<CharacterCloseNode>(
-  'CharacterCloseNode',
-  $LexicalNode,
-);
+export const $CharacterCloseNode = () =>
+  $AnalyzerType<CharacterCloseNode>('CharacterCloseNode', $LexicalNode());

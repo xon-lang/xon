@@ -15,7 +15,7 @@ export function arrayTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ArrayTypeSemantic | Nothing {
-  if (!is(node, $BracketGroupNode)) {
+  if (!is(node, $BracketGroupNode())) {
     return nothing;
   }
 

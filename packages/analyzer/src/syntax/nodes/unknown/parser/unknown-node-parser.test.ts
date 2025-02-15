@@ -10,7 +10,7 @@ test('unknown', () => {
   const node = parseUnknownNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $UnknownNode)).toBe(true);
+  expect(is(node, $UnknownNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('a');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);

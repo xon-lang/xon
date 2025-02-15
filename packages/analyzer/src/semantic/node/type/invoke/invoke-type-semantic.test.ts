@@ -21,21 +21,21 @@ test('a is integer', () => {
 
   expect(semantic.declarationManager.count()).toBe(2);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic.toNativeString(),
+    $AttributeValueDeclarationSemantic().toNativeString(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(1)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
   expect((constNode.type?.value as IdNode)?.text.toNativeString()).toBe('Integer');
   expect((constNode.type?.value as IdNode)?.semantic?.$.toNativeString()).toBe(
-    $IdTypeSemantic.toNativeString(),
+    $IdTypeSemantic().toNativeString(),
   );
 
   // const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
-  // expect(typeSemantic.declaration?.$).toBe($NominalTypeDeclarationSemantic);
+  // expect(typeSemantic.declaration?.$).toBe($NominalTypeDeclarationSemantic());
 });

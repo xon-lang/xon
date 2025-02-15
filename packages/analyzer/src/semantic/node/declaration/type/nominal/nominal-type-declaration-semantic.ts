@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $TypeDeclarationSemantic,
-  analyzerPackageType,
   AttributeValueDeclarationSemantic,
   DeclarationNode,
   DeclarationScope,
@@ -19,10 +19,8 @@ export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
 };
 
-export const $NominalTypeDeclarationSemantic = analyzerPackageType<NominalTypeDeclarationSemantic>(
-  'NominalTypeDeclarationSemantic',
-  $TypeDeclarationSemantic,
-);
+export const $NominalTypeDeclarationSemantic = () =>
+  $AnalyzerType<NominalTypeDeclarationSemantic>('NominalTypeDeclarationSemantic', $TypeDeclarationSemantic());
 
 export function nominalTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -32,7 +30,7 @@ export function nominalTypeDeclarationSemantic(
   name: Text,
 ): NominalTypeDeclarationSemantic {
   return {
-    $: $NominalTypeDeclarationSemantic,
+    $: $NominalTypeDeclarationSemantic(),
     nodeLink,
     usages: newArrayData(),
     documentation,

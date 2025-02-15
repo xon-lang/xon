@@ -14,7 +14,7 @@ export function parseReturnStatementNode(
 ): ReturnStatementNode | Nothing {
   const keywordNode = nodes.first();
 
-  if (!is(keywordNode, $ReturnKeywordNode)) {
+  if (!is(keywordNode, $ReturnKeywordNode())) {
     return nothing;
   }
 

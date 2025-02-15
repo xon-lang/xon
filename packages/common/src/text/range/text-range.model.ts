@@ -1,4 +1,4 @@
-import {Boolean2, commonPackageType, TextPosition} from '#common';
+import {$CommonType, Boolean2, TextPosition} from '#common';
 import {Model} from '#typing';
 
 export type TextRange = Model & {
@@ -14,4 +14,4 @@ export type TextRange = Model & {
   equals(other: TextRange): Boolean2;
 };
 
-export const $TextRange = commonPackageType<TextRange>('TextRange');
+export const $TextRange = () => $CommonType<TextRange>('TextRange');

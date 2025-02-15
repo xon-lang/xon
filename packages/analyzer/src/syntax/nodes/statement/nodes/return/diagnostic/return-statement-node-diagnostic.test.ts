@@ -25,7 +25,7 @@ function returnNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const node = parseReturnStatementNode(0, nodes) as ReturnStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ReturnStatementNode)).toBe(true);
+  expect(is(node, $ReturnStatementNode())).toBe(true);
 
   return node.diagnose!();
 }

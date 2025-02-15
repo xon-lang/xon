@@ -2,7 +2,7 @@ import {$FunctionData, Boolean2, FunctionData} from '#common';
 
 export function newFunctionData<T extends Function>(fn: T): FunctionData<T> {
   return {
-    $: $FunctionData,
+    $: $FunctionData(),
     invoke: fn,
 
     equals(other: FunctionData): Boolean2 {

@@ -63,7 +63,7 @@ export function parameterDeclarationsParse(
   groupNode: GroupNode,
 ): ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic> {
   const declarationNodes = groupNode.items.filterMap((node) => {
-    if (is(node.value, $DeclarationNode)) {
+    if (is(node.value, $DeclarationNode())) {
       return node.value;
     }
 
@@ -72,7 +72,7 @@ export function parameterDeclarationsParse(
   });
 
   const declarations = declarationNodes.map((node) => {
-    const isParameterType = is(groupNode, $AngleGroupNode);
+    const isParameterType = is(groupNode, $AngleGroupNode());
     const declaration = isParameterType
       ? createParameterTypeDeclaration(analyzer, node)
       : createParameterValueDeclaration(analyzer, node);
@@ -106,25 +106,25 @@ function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<Declarat
 function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode): void {
   const semantic = node.id?.semantic;
 
-  if (!is(semantic, $DeclarationSemantic)) {
+  if (!is(semantic, $DeclarationSemantic())) {
     return;
   }
 
-  if (is(semantic, $NominalTypeDeclarationSemantic)) {
+  if (is(semantic, $NominalTypeDeclarationSemantic())) {
     analyzer.pushDeclarationScope();
     nominalTypeDeclarationSemanticHandle(analyzer, semantic, node);
     analyzer.popDeclarationScope();
-  } else if (is(semantic, $StructuralTypeDeclarationSemantic)) {
+  } else if (is(semantic, $StructuralTypeDeclarationSemantic())) {
     analyzer.pushDeclarationScope();
     structuralTypeDeclarationSemanticHandle(analyzer, semantic, node);
     analyzer.popDeclarationScope();
-  } else if (is(semantic, $ParameterTypeDeclarationSemantic)) {
+  } else if (is(semantic, $ParameterTypeDeclarationSemantic())) {
     parameterTypeDeclarationSemanticHandle(analyzer, semantic, node);
-  } else if (is(semantic, $AttributeValueDeclarationSemantic)) {
+  } else if (is(semantic, $AttributeValueDeclarationSemantic())) {
     analyzer.pushDeclarationScope();
     attributeValueDeclarationSemanticHandle(analyzer, semantic, node);
     analyzer.popDeclarationScope();
-  } else if (is(semantic, $ParameterValueDeclarationSemantic)) {
+  } else if (is(semantic, $ParameterValueDeclarationSemantic())) {
     parameterValueDeclarationSemanticHandle(analyzer, semantic, node);
   }
 }
@@ -155,11 +155,11 @@ function nodeDependencies(node: Node | Nothing): ArrayData<Text> {
   }
 
   // todo add other types (literals, operators, ...)
-  if (is(node, $IdNode)) {
+  if (is(node, $IdNode())) {
     return newArrayData([node.text]);
   }
 
-  if (is(node, $SyntaxNode)) {
+  if (is(node, $SyntaxNode())) {
     return node.children.flatMap((x) => nodeDependencies(x));
   }
 

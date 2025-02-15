@@ -1,10 +1,10 @@
 import {Nothing} from '#common';
-import {$Type, Model, newType} from '#typing';
+import {$NewType, $Type, Model} from '#typing';
 
-export function interpreterPackageType<T extends Model>(
+export function $InterpreterType<T extends Model>(
   name: string,
   parent?: $Type | Nothing,
   generics?: $Type[] | Nothing,
 ): $Type<T> {
-  return newType<T>('Interpreter', name, parent, generics);
+  return $NewType<T>('Interpreter', name, parent, generics);
 }

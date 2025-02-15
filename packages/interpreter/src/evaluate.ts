@@ -16,19 +16,19 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
     return nothing;
   }
 
-  if (is(node, $ParenGroupNode)) {
+  if (is(node, $ParenGroupNode())) {
     return node.items.map((x) => evaluate(x.value ?? nothing));
   }
 
-  if (is(node, $IntegerNode)) {
-    return node.value;
+  if (is(node, $IntegerNode())) {
+    return +node.contentNode.text.toNativeString();
   }
 
-  if (is(node, $StringNode) || is(node, $CharacterNode)) {
-    return node.content?.text.toNativeString();
+  if (is(node, $StringNode()) || is(node, $CharacterNode())) {
+    return node.contentNode?.text.toNativeString();
   }
 
-  if (is(node, $InfixNode)) {
+  if (is(node, $InfixNode())) {
     const a: Anything = evaluate(node.left, argsMap);
     const b: Anything = evaluate(node.right, argsMap);
     const operator: Text = node.operator.text.equals('^') ? newText('**') : node.operator.text;
@@ -36,13 +36,13 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
     return customEval(newText(`${escapeToString(a)} ${operator} ${escapeToString(b)}`));
   }
 
-  if (is(node, $PrefixNode)) {
+  if (is(node, $PrefixNode())) {
     const a: Anything = evaluate(node.value, argsMap);
 
     return customEval(newText(`${node.operator.text.toNativeString()}${escapeToString(a)}`));
   }
 
-  if (is(node, $IdNode)) {
+  if (is(node, $IdNode())) {
     if (argsMap[node.text.toNativeString()]) {
       return argsMap[node.text.toNativeString()];
     }

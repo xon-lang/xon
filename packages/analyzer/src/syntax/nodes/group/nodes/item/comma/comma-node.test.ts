@@ -10,5 +10,5 @@ test('comma', () => {
   const node = parseCommaNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $CommaNode)).toBe(true);
+  expect(is(node, $CommaNode())).toBe(true);
 });

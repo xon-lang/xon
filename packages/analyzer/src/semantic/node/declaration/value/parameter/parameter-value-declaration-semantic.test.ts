@@ -19,7 +19,7 @@ test('only a', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('a'))
     ?.at2(0) as AttributeValueDeclarationSemantic;
-  expect(declaration.$).toBe($AttributeValueDeclarationSemantic);
+  expect(declaration.$).toBe($AttributeValueDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('const');
   expect(declaration.name.toNativeString()).toBe('a');
 

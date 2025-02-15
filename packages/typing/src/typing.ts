@@ -6,12 +6,13 @@ export interface $Type<T = Model> {
   generics?: $Type[] | null | undefined;
 
   toString(): string;
+  // todo remove it
   toNativeString(): string;
   nameEquals(other: $Type): boolean;
   is(other: $Type): boolean;
 }
 
-export function newType<T extends Model>(
+export function $NewType<T extends Model>(
   packageName: string,
   name: string,
   parent?: $Type | null | undefined,
@@ -36,7 +37,7 @@ export function newType<T extends Model>(
     },
 
     is(other: $Type): boolean {
-      if (this.parent?.is(other) || other.nameEquals($Model)) {
+      if (this.parent?.is(other) || other.nameEquals($Model())) {
         return true;
       }
 
@@ -63,7 +64,7 @@ export interface Model {
   // is?<T extends $Type>($type: T): this is Exclude<T['type'], undefined>;
 }
 
-export const $Model = newType<Model>('Typing', 'Model');
+export const $Model = () => $NewType<Model>('Typing', 'Model');
 
 // todo remove 'is' and use 'Model.is()'
 export function is<T extends $Type>(model: any, type: T): model is Exclude<T['type'], undefined> {

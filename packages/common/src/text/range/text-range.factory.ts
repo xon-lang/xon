@@ -15,12 +15,12 @@ export function newTextRange(start?: TextPosition | Nothing, stop?: TextPosition
   stop ??= newTextPosition();
 
   return {
-    $: $TextRange,
+    $: $TextRange(),
     start,
     stop,
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
-      if (is(positionOrRange, $TextPosition)) {
+      if (is(positionOrRange, $TextPosition())) {
         return positionOrRange.index >= this.start.index && positionOrRange.index <= this.stop.index;
       }
 

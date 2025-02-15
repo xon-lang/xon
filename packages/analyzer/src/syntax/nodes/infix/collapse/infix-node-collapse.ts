@@ -10,7 +10,7 @@ export function collapseInfixNode(
     const method = isLeftRecursive ? 'firstMap' : 'lastMap';
 
     return nodes[method]((operatorNode, index) => {
-      if (!is(operatorNode, $OperatorNode)) {
+      if (!is(operatorNode, $OperatorNode())) {
         return nothing;
       }
 

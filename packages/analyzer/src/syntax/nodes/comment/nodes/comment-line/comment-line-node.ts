@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $CommentNode,
-  analyzerPackageType,
   CommentLineContentNode,
   CommentLineOperatorNode,
   CommentNode,
@@ -15,11 +15,11 @@ export type CommentLineNode = CommentNode &
     contentNode?: CommentLineContentNode | Nothing;
   };
 
-export const $CommentLineNode = analyzerPackageType<CommentLineNode>('CommentLineNode', $CommentNode);
+export const $CommentLineNode = () => $AnalyzerType<CommentLineNode>('CommentLineNode', $CommentNode());
 
 export function newCommentLineNode(
   operatorNode: CommentLineOperatorNode,
   contentNode?: CommentLineContentNode | Nothing,
 ): CommentLineNode {
-  return newSyntaxNode({$: $CommentLineNode, operatorNode, contentNode});
+  return newSyntaxNode({$: $CommentLineNode(), operatorNode, contentNode});
 }

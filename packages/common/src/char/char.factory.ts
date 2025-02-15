@@ -9,7 +9,7 @@ const DIGIT_9_CODE = '9'.charCodeAt(0);
 
 export function newChar(charString: string): Char {
   return {
-    $: $Char,
+    $: $Char(),
     _string: charString,
 
     isUpperLetter(): Boolean2 {

@@ -1,14 +1,4 @@
-import {
-  $ArrayData,
-  $Char,
-  ArrayData,
-  Boolean2,
-  Char,
-  commonPackageType,
-  Integer,
-  Nothing,
-  Number2,
-} from '#common';
+import {$ArrayData, $Char, $CommonType, ArrayData, Boolean2, Char, Integer, Nothing, Number2} from '#common';
 
 export interface Text extends ArrayData<Char> {
   lineText(line: Integer): Text;
@@ -28,4 +18,4 @@ export interface Text extends ArrayData<Char> {
   toNativeString(): string;
 }
 
-export const $Text = commonPackageType<Text>('Text', $ArrayData($Char));
+export const $Text = () => $CommonType<Text>('Text', $ArrayData($Char()));

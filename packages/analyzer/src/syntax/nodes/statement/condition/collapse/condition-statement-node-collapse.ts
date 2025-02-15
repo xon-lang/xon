@@ -13,12 +13,12 @@ export function collapseConditionStatementNode(
   startIndex?: Integer | Nothing,
 ): NodeCollapseResult<StatementNode> {
   return nodes.firstMap((ifStatementNode, index) => {
-    if (!is(ifStatementNode, $IfStatementNode)) {
+    if (!is(ifStatementNode, $IfStatementNode())) {
       return nothing;
     }
 
     const nextNode = nodes.at(index + 1);
-    const elseStatementNode = is(nextNode, $ElseStatementNode) ? nextNode : nothing;
+    const elseStatementNode = is(nextNode, $ElseStatementNode()) ? nextNode : nothing;
 
     return {node: newConditionStatementNode(ifStatementNode, elseStatementNode), index};
   }, startIndex);

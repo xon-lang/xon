@@ -1,10 +1,10 @@
 import {Nothing} from '#common';
-import {$Type, Model, newType} from '#typing';
+import {$NewType, $Type, Model} from '#typing';
 
-export function vscodePackageType<T extends Model>(
+export function $VscodeType<T extends Model>(
   name: string,
   parent?: $Type | Nothing,
   generics?: $Type[] | Nothing,
 ): $Type<T> {
-  return newType<T>('VsCode', name, parent, generics);
+  return $NewType<T>('Vscode', name, parent, generics);
 }

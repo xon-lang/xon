@@ -41,7 +41,7 @@ function ifNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const node = parseIfStatementNode(0, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $IfStatementNode)).toBe(true);
+  expect(is(node, $IfStatementNode())).toBe(true);
 
   return node.diagnose!();
 }

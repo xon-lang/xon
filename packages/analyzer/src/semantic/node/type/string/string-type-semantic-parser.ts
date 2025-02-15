@@ -13,7 +13,7 @@ export function stringTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): StringTypeSemantic | Nothing {
-  if (!is(node, $StringNode)) {
+  if (!is(node, $StringNode())) {
     return nothing;
   }
 

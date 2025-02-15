@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   Node,
   OperatorNode,
   SyntaxAnalyzer,
@@ -15,10 +15,10 @@ export type TypeNode = SyntaxNode & {
   value: Node;
 };
 
-export const $TypeNode = analyzerPackageType<TypeNode>('TypeNode', $SyntaxNode);
+export const $TypeNode = () => $AnalyzerType<TypeNode>('TypeNode', $SyntaxNode());
 
 export function typeNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: Node): TypeNode {
-  const node = syntaxNode(analyzer, {$: $TypeNode, operator, value, semantics: nothing});
+  const node = syntaxNode(analyzer, {$: $TypeNode(), operator, value, semantics: nothing});
 
   format(analyzer, node);
 

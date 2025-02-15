@@ -11,12 +11,12 @@ import {Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): IdValueSemantic | Nothing {
-  if (!is(node, $IdNode)) {
+  if (!is(node, $IdNode())) {
     return nothing;
   }
 
   const declaration = analyzer.declarationManager.find(
-    $ValueDeclarationSemantic,
+    $ValueDeclarationSemantic(),
     node.text,
     nothing,
     nothing,

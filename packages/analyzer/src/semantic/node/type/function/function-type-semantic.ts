@@ -1,16 +1,16 @@
 import {
+  $AnalyzerType,
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
+  isInSet,
   Node,
   ParameterTypeDeclarationSemantic,
   ParameterValueDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  analyzerPackageType,
-  isInSet,
 } from '#analyzer';
 import {ArrayData, Boolean2} from '#common';
 import {is} from '#typing';
@@ -20,10 +20,8 @@ export type FunctionTypeSemantic = TypeSemantic & {
   result: TypeSemantic;
 };
 
-export const $FunctionTypeSemantic = analyzerPackageType<FunctionTypeSemantic>(
-  'FunctionTypeSemantic',
-  $TypeSemantic,
-);
+export const $FunctionTypeSemantic = () =>
+  $AnalyzerType<FunctionTypeSemantic>('FunctionTypeSemantic', $TypeSemantic());
 
 export function functionTypeSemantic(
   analyzer: SemanticAnalyzer,
@@ -32,17 +30,17 @@ export function functionTypeSemantic(
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
-    $: $FunctionTypeSemantic,
+    $: $FunctionTypeSemantic(),
     nodeLink,
     declaration: analyzer.declarationManager.find(
-      $NominalTypeDeclarationSemantic,
+      $NominalTypeDeclarationSemantic(),
       analyzer.config.literalTypeNames.functionTypeName,
     ),
     parameters,
     result,
 
     is(other: TypeSemantic): Boolean2 {
-      if (is(other, $SetTypeSemantic)) {
+      if (is(other, $SetTypeSemantic())) {
         return isInSet(this, other);
       }
 

@@ -1,16 +1,16 @@
 import {
+  $AnalyzerType,
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
+  isInSet,
+  newDeclarationScope,
   Node,
   SemanticAnalyzer,
   TypeDeclarationSemantic,
   TypeSemantic,
-  analyzerPackageType,
-  isInSet,
-  newDeclarationScope,
 } from '#analyzer';
 import {Boolean2, Nothing, Text} from '#common';
 import {is} from '#typing';
@@ -19,7 +19,7 @@ export type IdTypeSemantic = TypeSemantic & {
   name: Text;
 };
 
-export const $IdTypeSemantic = analyzerPackageType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic);
+export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic());
 
 // todo should we remove it ???
 export function idTypeSemantic(
@@ -33,13 +33,13 @@ export function idTypeSemantic(
   }
 
   return {
-    $: $IdTypeSemantic,
+    $: $IdTypeSemantic(),
     nodeLink,
     name: name,
     declaration,
 
     is(other: TypeSemantic): Boolean2 {
-      if (is(other, $SetTypeSemantic)) {
+      if (is(other, $SetTypeSemantic())) {
         return isInSet(this, other);
       }
 
@@ -48,7 +48,7 @@ export function idTypeSemantic(
       }
 
       // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
-      if (is(this.declaration, $NominalTypeDeclarationSemantic)) {
+      if (is(this.declaration, $NominalTypeDeclarationSemantic())) {
         return this.declaration.baseType?.is(other) ?? false;
       }
 
@@ -58,9 +58,9 @@ export function idTypeSemantic(
     eq(other: TypeSemantic): Boolean2 {
       // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
       if (
-        is(this.declaration, $NominalTypeDeclarationSemantic) &&
-        is(other, $IdTypeSemantic) &&
-        is(other.declaration, $NominalTypeDeclarationSemantic)
+        is(this.declaration, $NominalTypeDeclarationSemantic()) &&
+        is(other, $IdTypeSemantic()) &&
+        is(other.declaration, $NominalTypeDeclarationSemantic())
       ) {
         return this.declaration.equals(other.declaration);
       }
@@ -69,7 +69,7 @@ export function idTypeSemantic(
     },
 
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      if (is(this.declaration, $NominalTypeDeclarationSemantic)) {
+      if (is(this.declaration, $NominalTypeDeclarationSemantic())) {
         return this.declaration.attributes;
       }
 

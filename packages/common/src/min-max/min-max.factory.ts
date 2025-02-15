@@ -2,7 +2,7 @@ import {$MinMax, Boolean2, Integer, MinMax} from '#common';
 
 export function newMinMax(min: Integer, max: Integer): MinMax {
   return {
-    $: $MinMax,
+    $: $MinMax(),
     min,
     max,
 

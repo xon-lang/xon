@@ -14,7 +14,7 @@ import {readFileSync, statSync} from 'node:fs';
 
 export function newTextResource(location: Text | Nothing, data: Text): TextResource {
   return {
-    $: $TextResource,
+    $: $TextResource(),
     location,
     data,
 

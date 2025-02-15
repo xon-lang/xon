@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   AssignNode,
   GroupNode,
   SyntaxAnalyzer,
@@ -17,7 +17,7 @@ export type LambdaNode = SyntaxNode & {
   assign: AssignNode | Nothing;
 };
 
-export const $LambdaNode = analyzerPackageType<LambdaNode>('LambdaNode', $SyntaxNode);
+export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $SyntaxNode());
 
 export function lambdaNode(
   analyzer: SyntaxAnalyzer,
@@ -26,7 +26,14 @@ export function lambdaNode(
   type: TypeNode | Nothing,
   assign: AssignNode | Nothing,
 ): LambdaNode {
-  const node = syntaxNode(analyzer, {$: $LambdaNode, generics, parameters, type, assign, isExpression: true});
+  const node = syntaxNode(analyzer, {
+    $: $LambdaNode(),
+    generics,
+    parameters,
+    type,
+    assign,
+    isExpression: true,
+  });
 
   format(analyzer, node);
 

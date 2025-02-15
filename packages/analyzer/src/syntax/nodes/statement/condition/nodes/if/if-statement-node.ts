@@ -1,11 +1,11 @@
 import {
+  $AnalyzerType,
   $StatementNode,
+  diagnoseIfStatementNode,
   IfKeywordNode,
+  newSyntaxNode,
   Node,
   StatementNode,
-  analyzerPackageType,
-  diagnoseIfStatementNode,
-  newSyntaxNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -16,7 +16,7 @@ export type IfStatementNode = StatementNode &
     conditionExpressionNode?: Node | Nothing;
   };
 
-export const $IfStatementNode = analyzerPackageType<IfStatementNode>('IfStatementNode', $StatementNode);
+export const $IfStatementNode = () => $AnalyzerType<IfStatementNode>('IfStatementNode', $StatementNode());
 
 export function newIfStatementNode(
   indentLevel: Integer,
@@ -25,7 +25,7 @@ export function newIfStatementNode(
   errorNodes?: ArrayData<Node> | Nothing,
 ): IfStatementNode {
   return newSyntaxNode<IfStatementNode>({
-    $: $IfStatementNode,
+    $: $IfStatementNode(),
     indent: indentLevel,
     keywordNode,
     conditionExpressionNode,

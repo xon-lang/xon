@@ -37,7 +37,7 @@ export function declarationNodeParse(): SyntaxParseFn {
     _startIndex: Integer,
     parentStatement: StatementNode | Nothing,
   ) => {
-    if (is(nodes.first(), $DeclarationNode)) {
+    if (is(nodes.first(), $DeclarationNode())) {
       return nothing;
     }
 
@@ -90,7 +90,7 @@ function getDeclarationParts(
   const typeOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is(node, $OperatorNode) &&
+      is(node, $OperatorNode()) &&
       node.text.equals(COLON) &&
       nodes.at2(index + 1).isExpression
     ) {
@@ -107,7 +107,7 @@ function getDeclarationParts(
 
     const type = typeNode(analyzer, typeOperatorFound.node, typeValue);
 
-    if (is(assignOperator, $OperatorNode) && assignOperator.text.equals(ASSIGN) && assignValue.isExpression) {
+    if (is(assignOperator, $OperatorNode()) && assignOperator.text.equals(ASSIGN) && assignValue.isExpression) {
       const assign = assignNode(analyzer, assignOperator, assignValue);
 
       return {spliceIndex: typeOperatorFound.index - 1, deleteCount: 5, ...header, type, assign};
@@ -123,7 +123,7 @@ function getDeclarationParts(
   const assignOperatorFound = nodeFindMap(nodes, 0, true, (node, index, nodes) => {
     if (
       index - 1 === 0 &&
-      is(node, $OperatorNode) &&
+      is(node, $OperatorNode()) &&
       node.text.equals(ASSIGN) &&
       nodes.at2(index + 1).isExpression
     ) {
@@ -157,9 +157,9 @@ function getHeader(
       parameters?: GroupNode | Nothing;
     }
   | Nothing {
-  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode));
+  const documentation = node?.hiddenNodes?.last<DocumentationNode>((x) => is(x, $DocumentationNode()));
 
-  if (is(node, $PrefixNode) && TYPE_KEYWORDS.hasItem(node.operator.text)) {
+  if (is(node, $PrefixNode()) && TYPE_KEYWORDS.hasItem(node.operator.text)) {
     const underModifier = getUnderModifier(analyzer, node.value);
 
     if (!underModifier) {
@@ -194,16 +194,16 @@ function getUnderModifier(
     return nothing;
   }
 
-  if (is(node, $IdNode)) {
+  if (is(node, $IdNode())) {
     return {idHiddenNodes: node.hiddenNodes, id: node};
   }
 
-  if (is(node, $InvokeNode)) {
+  if (is(node, $InvokeNode())) {
     if (
-      is(node.instance, $InvokeNode) &&
-      is(node.instance.instance, $IdNode) &&
-      is(node.instance.group, $AngleGroupNode) &&
-      is(node.group, $ParenGroupNode)
+      is(node.instance, $InvokeNode()) &&
+      is(node.instance.instance, $IdNode()) &&
+      is(node.instance.group, $AngleGroupNode()) &&
+      is(node.group, $ParenGroupNode())
     ) {
       parseDeclarations(analyzer, node.instance.group);
       parseDeclarations(analyzer, node.group);
@@ -216,14 +216,14 @@ function getUnderModifier(
       };
     }
 
-    if (is(node.instance, $IdNode)) {
+    if (is(node.instance, $IdNode())) {
       parseDeclarations(analyzer, node.group);
 
-      if (is(node.group, $AngleGroupNode)) {
+      if (is(node.group, $AngleGroupNode())) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, generics: node.group};
       }
 
-      if (is(node.group, $ParenGroupNode)) {
+      if (is(node.group, $ParenGroupNode())) {
         return {idHiddenNodes: node.hiddenNodes, id: node.instance, parameters: node.group};
       }
     }
@@ -234,7 +234,7 @@ function getUnderModifier(
 
 function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
   for (const item of group.items) {
-    if (is(item.value, $IdNode)) {
+    if (is(item.value, $IdNode())) {
       item.value = partialToDeclaration(analyzer, {id: item.value});
     }
   }
@@ -242,7 +242,7 @@ function parseDeclarations(analyzer: SyntaxAnalyzer, group: GroupNode): void {
 
 export function isTypeDeclarationNode(declarationNode: Node | Nothing): declarationNode is DeclarationNode {
   if (
-    is(declarationNode, $DeclarationNode) &&
+    is(declarationNode, $DeclarationNode()) &&
     declarationNode.modifier?.text &&
     declarationNode.modifier.text.equals(TYPE)
   ) {

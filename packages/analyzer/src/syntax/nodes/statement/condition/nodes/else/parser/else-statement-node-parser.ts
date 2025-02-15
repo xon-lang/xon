@@ -8,7 +8,7 @@ export function parseElseStatementNode(
 ): ElseStatementNode | Nothing {
   const keywordNode = nodes.first();
 
-  if (!is(keywordNode, $ElseKeywordNode)) {
+  if (!is(keywordNode, $ElseKeywordNode())) {
     return nothing;
   }
 

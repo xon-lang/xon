@@ -23,7 +23,7 @@ function conditionNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const node = parseStatements(context).statements.at(0) as ConditionStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ConditionStatementNode)).toBe(true);
+  expect(is(node, $ConditionStatementNode())).toBe(true);
 
   return node.diagnose!();
 }

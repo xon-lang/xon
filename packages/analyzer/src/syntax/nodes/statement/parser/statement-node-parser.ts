@@ -42,7 +42,7 @@ export function parseStatements(
     }
 
     if (node.isHidden) {
-      if (is(node, $NlNode)) {
+      if (is(node, $NlNode())) {
         handle();
       }
 

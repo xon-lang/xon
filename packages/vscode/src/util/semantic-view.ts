@@ -10,11 +10,11 @@ import {newText, Nothing, nothing, Text} from '#common';
 import {is} from '#typing';
 
 export function typeSemanticToString(semantic: TypeSemantic): Text | Nothing {
-  if (is(semantic, $IdTypeSemantic) && semantic.declaration) {
+  if (is(semantic, $IdTypeSemantic()) && semantic.declaration) {
     return semantic.declaration.name;
   }
 
-  if (is(semantic, $FunctionTypeSemantic)) {
+  if (is(semantic, $FunctionTypeSemantic())) {
     const parameters = semantic.parameters
       .map(declarationSemanticHeaderToString)
       .map((x) => x?.toNativeString() ?? '')
@@ -28,13 +28,13 @@ export function typeSemanticToString(semantic: TypeSemantic): Text | Nothing {
 }
 
 export function declarationSemanticHeaderToString(semantic: DeclarationSemantic): Text | Nothing {
-  if (is(semantic, $NominalTypeDeclarationSemantic)) {
+  if (is(semantic, $NominalTypeDeclarationSemantic())) {
     const baseType = semantic.baseType ? ': ' + typeSemanticToString(semantic.baseType) : '';
 
     return newText(`${semantic.name.toNativeString()}${baseType}`);
   }
 
-  if (is(semantic, $AttributeValueDeclarationSemantic)) {
+  if (is(semantic, $AttributeValueDeclarationSemantic())) {
     const type = semantic.type ? ': ' + typeSemanticToString(semantic.type) : '';
 
     return newText(`${semantic.name.toNativeString()}${type}`);

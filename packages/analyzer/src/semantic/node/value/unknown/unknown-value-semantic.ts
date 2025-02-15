@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $ValueSemantic,
-  analyzerPackageType,
   Node,
   SemanticAnalyzer,
   UnknownTypeSemantic,
@@ -11,14 +11,12 @@ import {Brand} from '#typing';
 
 export type UnknownValueSemantic = ValueSemantic & Brand<'Analyzer.UnknownValueSemantic'>;
 
-export const $UnknownValueSemantic = analyzerPackageType<UnknownValueSemantic>(
-  'UnknownValueSemantic',
-  $ValueSemantic,
-);
+export const $UnknownValueSemantic = () =>
+  $AnalyzerType<UnknownValueSemantic>('UnknownValueSemantic', $ValueSemantic());
 
 export function unknownValueSemantic(nodeLink: Node, type: UnknownTypeSemantic): UnknownValueSemantic {
   return {
-    $: $UnknownValueSemantic,
+    $: $UnknownValueSemantic(),
     nodeLink,
     type,
 

@@ -3,7 +3,7 @@ import {Nothing} from '#common';
 
 export function parseBracketOpenNode(context: AnalyzerContext): BracketOpenNode | Nothing {
   return context.source.takeWhile(
-    $BracketOpenNode,
+    $BracketOpenNode(),
     (x, i) => BRACKET_OPEN.at2(i).equals(x),
     BRACKET_OPEN.count(),
   );

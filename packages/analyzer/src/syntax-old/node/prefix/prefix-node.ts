@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   ASSIGN,
   COLON,
   Node,
@@ -15,10 +15,10 @@ export type PrefixNode = SyntaxNode & {
   value: Node;
 };
 
-export const $PrefixNode = analyzerPackageType<PrefixNode>('PrefixNode', $SyntaxNode);
+export const $PrefixNode = () => $AnalyzerType<PrefixNode>('PrefixNode', $SyntaxNode());
 
 export function prefixNode(analyzer: SyntaxAnalyzer, operator: OperatorNode, value: Node): PrefixNode {
-  const node = syntaxNode(analyzer, {$: $PrefixNode, operator, value, isExpression: true});
+  const node = syntaxNode(analyzer, {$: $PrefixNode(), operator, value, isExpression: true});
 
   format(analyzer, node);
 

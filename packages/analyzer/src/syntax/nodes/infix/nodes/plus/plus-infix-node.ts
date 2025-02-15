@@ -1,4 +1,4 @@
-import {$InfixNode, analyzerPackageType, InfixNode, Node, OperatorNode} from '#analyzer';
+import {$AnalyzerType, $InfixNode, InfixNode, Node, OperatorNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type PlusInfixNode = InfixNode &
@@ -8,7 +8,7 @@ export type PlusInfixNode = InfixNode &
     right: Node;
   };
 
-export const $PlusInfixNode = analyzerPackageType<PlusInfixNode>('PlusInfixNode', $InfixNode);
+export const $PlusInfixNode = () => $AnalyzerType<PlusInfixNode>('PlusInfixNode', $InfixNode());
 
 // function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {
 //   const keepSingleWhitespace = !node.operator.text.equals(RANGE);

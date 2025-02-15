@@ -1,9 +1,7 @@
-import {$LexicalNode, LexicalNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $LexicalNode, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type CommentBlockCloseNode = LexicalNode & Brand<'Analyzer.CommentBlockCloseNode'>;
 
-export const $CommentBlockCloseNode = analyzerPackageType<CommentBlockCloseNode>(
-  'CommentBlockCloseNode',
-  $LexicalNode,
-);
+export const $CommentBlockCloseNode = () =>
+  $AnalyzerType<CommentBlockCloseNode>('CommentBlockCloseNode', $LexicalNode());

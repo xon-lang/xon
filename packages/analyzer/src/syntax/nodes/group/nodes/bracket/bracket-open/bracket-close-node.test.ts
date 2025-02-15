@@ -14,6 +14,6 @@ test('open bracket', () => {
   const context = newAnalyzerContext(source);
   const node = parseBracketOpenNode(context);
 
-  expect(is(node, $BracketOpenNode)).toBe(true);
+  expect(is(node, $BracketOpenNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('[');
 });

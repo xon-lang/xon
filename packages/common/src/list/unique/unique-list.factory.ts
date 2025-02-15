@@ -59,7 +59,7 @@ export function newUniqueList<T extends Anything_V2>(array: ArrayData<T> = newAr
     },
 
     takeWhile(
-      predicate?: (value: T, index: Integer) => Boolean2,
+      predicate: (value: T, index: Integer) => Boolean2,
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): UniqueList<T> {

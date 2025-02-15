@@ -14,7 +14,7 @@ test('string close', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringCloseNode(context);
 
-  expect(is(node, $StringCloseNode)).toBe(true);
+  expect(is(node, $StringCloseNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('"');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);

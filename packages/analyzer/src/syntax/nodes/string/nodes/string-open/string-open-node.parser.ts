@@ -3,7 +3,7 @@ import {Nothing} from '#common';
 
 export function parseStringOpenNode(context: AnalyzerContext): StringOpenNode | Nothing {
   return context.source.takeWhile(
-    $StringOpenNode,
+    $StringOpenNode(),
     (x, i) => STRING_OPEN.at2(i).equals(x),
     STRING_OPEN.count(),
   );

@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   DocumentationDescriptionNode,
   DocumentationLabelOperatorNode,
   IdNode,
@@ -17,15 +17,13 @@ export type DocumentationLabelNode = SyntaxNode &
     descriptionNode?: DocumentationDescriptionNode | Nothing;
   };
 
-export const $DocumentationLabelNode = analyzerPackageType<DocumentationLabelNode>(
-  'DocumentationLabelNode',
-  $SyntaxNode,
-);
+export const $DocumentationLabelNode = () =>
+  $AnalyzerType<DocumentationLabelNode>('DocumentationLabelNode', $SyntaxNode());
 
 export function newDocumentationLabelNode(
   operatorNode: DocumentationLabelOperatorNode,
   idNode?: IdNode | Nothing,
   descriptionNode?: DocumentationDescriptionNode | Nothing,
 ): DocumentationLabelNode {
-  return newSyntaxNode({$: $DocumentationLabelNode, operatorNode, idNode, descriptionNode});
+  return newSyntaxNode({$: $DocumentationLabelNode(), operatorNode, idNode, descriptionNode});
 }

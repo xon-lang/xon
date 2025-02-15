@@ -9,7 +9,7 @@ test('underscore', () => {
   const context = newAnalyzerContext(source);
   const node = parseIdKeywordOperatorNode(context);
 
-  expect(is(node, $IdNode)).toBe(true);
+  expect(is(node, $IdNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('_');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);
@@ -21,7 +21,7 @@ test('underscore letters', () => {
   const context = newAnalyzerContext(source);
   const node = parseIdKeywordOperatorNode(context);
 
-  expect(is(node, $IdNode)).toBe(true);
+  expect(is(node, $IdNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('_abc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(4);
@@ -33,7 +33,7 @@ test('underscore gap letters', () => {
   const context = newAnalyzerContext(source);
   const node = parseIdKeywordOperatorNode(context);
 
-  expect(is(node, $IdNode)).toBe(true);
+  expect(is(node, $IdNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('_');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);
@@ -54,7 +54,7 @@ test('letters and digits', () => {
   const context = newAnalyzerContext(source);
   const node = parseIdKeywordOperatorNode(context);
 
-  expect(is(node, $IdNode)).toBe(true);
+  expect(is(node, $IdNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('abc123');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(6);
@@ -66,7 +66,7 @@ test('letters and underscore', () => {
   const context = newAnalyzerContext(source);
   const node = parseIdKeywordOperatorNode(context);
 
-  expect(is(node, $IdNode)).toBe(true);
+  expect(is(node, $IdNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('abc_');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(4);

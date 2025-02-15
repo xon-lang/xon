@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $NumberNode,
-  analyzerPackageType,
   IntegerContentNode,
   newSyntaxNode,
   NumberNode,
@@ -16,7 +16,7 @@ export type FloatNode = NumberNode &
     fractionalPartNode?: IntegerContentNode | Nothing;
   };
 
-export const $FloatNode = analyzerPackageType<FloatNode>('FloatNode', $NumberNode);
+export const $FloatNode = () => $AnalyzerType<FloatNode>('FloatNode', $NumberNode());
 
 export function newFloatNode(
   integerPartNode: IntegerContentNode,
@@ -24,7 +24,7 @@ export function newFloatNode(
   fractionalPartNode?: IntegerContentNode | Nothing,
 ): FloatNode {
   return newSyntaxNode({
-    $: $FloatNode,
+    $: $FloatNode(),
     canBeExpression: true,
     integerPartNode,
     radixPointNode,

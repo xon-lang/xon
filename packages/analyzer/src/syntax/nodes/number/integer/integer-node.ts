@@ -1,4 +1,4 @@
-import {$NumberNode, analyzerPackageType, IntegerContentNode, newSyntaxNode, NumberNode} from '#analyzer';
+import {$AnalyzerType, $NumberNode, IntegerContentNode, newSyntaxNode, NumberNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type IntegerNode = NumberNode &
@@ -6,8 +6,8 @@ export type IntegerNode = NumberNode &
     contentNode: IntegerContentNode;
   };
 
-export const $IntegerNode = analyzerPackageType<IntegerNode>('IntegerNode', $NumberNode);
+export const $IntegerNode = () => $AnalyzerType<IntegerNode>('IntegerNode', $NumberNode());
 
 export function newIntegerNode(contentNode: IntegerContentNode): IntegerNode {
-  return newSyntaxNode({$: $IntegerNode, canBeExpression: true, contentNode});
+  return newSyntaxNode({$: $IntegerNode(), canBeExpression: true, contentNode});
 }

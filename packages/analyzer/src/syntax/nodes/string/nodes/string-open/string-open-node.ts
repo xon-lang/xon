@@ -1,6 +1,6 @@
-import {$LexicalNode, LexicalNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $LexicalNode, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type StringOpenNode = LexicalNode & Brand<'Analyzer.StringOpenNode'>;
 
-export const $StringOpenNode = analyzerPackageType<StringOpenNode>('StringOpenNode', $LexicalNode);
+export const $StringOpenNode = () => $AnalyzerType<StringOpenNode>('StringOpenNode', $LexicalNode());

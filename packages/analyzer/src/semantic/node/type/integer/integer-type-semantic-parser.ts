@@ -13,7 +13,7 @@ export function integerTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IntegerTypeSemantic | Nothing {
-  if (!is(node, $IntegerNode)) {
+  if (!is(node, $IntegerNode())) {
     return nothing;
   }
 

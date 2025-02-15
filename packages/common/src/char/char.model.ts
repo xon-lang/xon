@@ -1,4 +1,4 @@
-import {Boolean2, commonPackageType} from '#common';
+import {$CommonType, Boolean2} from '#common';
 import {Model} from '#typing';
 
 export interface Char extends Model {
@@ -13,4 +13,4 @@ export interface Char extends Model {
   toNativeString(): string;
 }
 
-export const $Char = commonPackageType<Char>('Char');
+export const $Char = () => $CommonType<Char>('Char');

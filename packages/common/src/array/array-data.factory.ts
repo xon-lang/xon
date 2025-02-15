@@ -307,18 +307,6 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return nothing;
     },
 
-    findMap<V>(predicateSelect: (value: T, index: Integer) => V | Nothing): V | Nothing {
-      for (let index = 0; index < this.count(); index++) {
-        const result = predicateSelect(this.at2(index), index);
-
-        if (result) {
-          return result;
-        }
-      }
-
-      return nothing;
-    },
-
     filterMap<V extends Model>(
       predicateSelect: (value: T, index: Integer, array: ArrayData<T>) => V | Nothing,
     ): ArrayData<V> {

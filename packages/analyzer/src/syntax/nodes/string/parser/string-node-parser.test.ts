@@ -9,7 +9,7 @@ test('string', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
-  expect(is(node, $StringNode)).toBe(true);
+  expect(is(node, $StringNode())).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
   expect(node?.contentNode?.text.toNativeString()).toBe('ab\n\nc');
   expect(node?.closeNode?.text.toNativeString()).toBe('"');
@@ -27,7 +27,7 @@ test('string only quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
-  expect(is(node, $StringNode)).toBe(true);
+  expect(is(node, $StringNode())).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
   expect(node?.contentNode?.text.toNativeString()).toBe('a');
   expect(node?.closeNode).toBe(nothing);
@@ -41,7 +41,7 @@ test('empty string single quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
-  expect(is(node, $StringNode)).toBe(true);
+  expect(is(node, $StringNode())).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
   expect(node?.contentNode).toBe(nothing);
   expect(node?.closeNode).toBe(nothing);
@@ -55,7 +55,7 @@ test('empty string double quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
 
-  expect(is(node, $StringNode)).toBe(true);
+  expect(is(node, $StringNode())).toBe(true);
   expect(node?.openNode.text.toNativeString()).toBe('"');
   expect(node?.contentNode).toBe(nothing);
   expect(node?.closeNode?.text.toNativeString()).toBe('"');

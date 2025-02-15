@@ -11,7 +11,7 @@ test('after integer', () => {
   const node = statements.at(0)?.value as PostfixNode;
 
   expect(statements.count()).toBe(1);
-  expect(node.$).toBe($PostfixNode);
+  expect(node.$).toBe($PostfixNode());
   expect(node.operator.text.toNativeString()).toBe('!');
   expect(evaluate(node.value)).toBe(1);
 });

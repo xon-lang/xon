@@ -15,7 +15,7 @@ test('description before close', () => {
   const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $DocumentationNode)).toBe(true);
+  expect(is(node, $DocumentationNode())).toBe(true);
   expect(node?.descriptionNode?.text.toNativeString()).toBe('abc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(9);
@@ -28,7 +28,7 @@ test('description before close', () => {
   const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $DocumentationNode)).toBe(true);
+  expect(is(node, $DocumentationNode())).toBe(true);
   expect(node?.descriptionNode?.text.toNativeString()).toBe(' abc\n\n\n def==');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(16);
@@ -41,7 +41,7 @@ test('description labels', () => {
   const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $DocumentationNode)).toBe(true);
+  expect(is(node, $DocumentationNode())).toBe(true);
   expect(node?.descriptionNode?.text.toNativeString()).toBe(' abc\n\n\n def ');
   expect(node?.descriptionNode?.range.start.index).toBe(3);
   expect(node?.descriptionNode?.range.stop.index).toBe(15);
@@ -65,7 +65,7 @@ test('no main description', () => {
   const node = parseDocumentationNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $DocumentationNode)).toBe(true);
+  expect(is(node, $DocumentationNode())).toBe(true);
   expect(node?.descriptionNode).toBeFalsy();
 
   expect(node?.labels.count()).toBe(1);

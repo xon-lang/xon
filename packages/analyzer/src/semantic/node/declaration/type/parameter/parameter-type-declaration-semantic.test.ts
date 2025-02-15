@@ -27,7 +27,7 @@ const a<:T:Number, V:T:>(p: T): V
   const declaration = semantic.declarationManager.declarations
     .get(newText('a'))
     ?.at2(0) as AttributeValueDeclarationSemantic;
-  expect(declaration.$).toBe($AttributeValueDeclarationSemantic);
+  expect(declaration.$).toBe($AttributeValueDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('const');
   expect(declaration.name.toNativeString()).toBe('a');
 
@@ -40,11 +40,11 @@ const a<:T:Number, V:T:>(p: T): V
 
   const genericV = generics.at(1) as ParameterTypeDeclarationSemantic;
   expect(genericV.name.toNativeString()).toBe('V');
-  // expect(genericV.type.$).toBe($IdTypeSemantic);
+  // expect(genericV.type.$).toBe($IdTypeSemantic());
   // expect((genericV.type as IdTypeSemantic).name).toBe('T');
 
   const resultType = type.result as FunctionTypeSemantic;
-  expect(type.result.$).toBe($FunctionTypeSemantic);
+  expect(type.result.$).toBe($FunctionTypeSemantic());
 
   const parameters = resultType.parameters;
   expect(parameters.count()).toBe(1);
@@ -52,10 +52,10 @@ const a<:T:Number, V:T:>(p: T): V
   const param = parameters.at(0) as ParameterValueDeclarationSemantic;
   expect(param.name.toNativeString()).toBe('p');
   expect(param.type.declaration?.name.toNativeString()).toBe('T');
-  expect(param.type.declaration?.$).toBe($ParameterTypeDeclarationSemantic);
-  expect(param.type.declaration?.type.$).toBe($IdTypeSemantic);
+  expect(param.type.declaration?.$).toBe($ParameterTypeDeclarationSemantic());
+  expect(param.type.declaration?.type.$).toBe($IdTypeSemantic());
   expect((param.type.declaration?.type as IdTypeSemantic).declaration?.$).toBe(
-    $NominalTypeDeclarationSemantic,
+    $NominalTypeDeclarationSemantic(),
   );
   expect((param.type.declaration?.type as IdTypeSemantic).declaration?.name.toNativeString()).toBe('Number');
 

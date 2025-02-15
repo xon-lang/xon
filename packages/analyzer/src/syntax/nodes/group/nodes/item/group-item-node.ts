@@ -1,7 +1,7 @@
 import {
+  $AnalyzerType,
   $ExpressionStatementNode,
   $SyntaxNode,
-  analyzerPackageType,
   CommaNode,
   newSyntaxNode,
   Node,
@@ -18,16 +18,16 @@ export type GroupItemNode = SyntaxNode &
     value?: Node | Nothing;
   };
 
-export const $GroupItemNode = analyzerPackageType<GroupItemNode>('GroupItemNode', $SyntaxNode);
+export const $GroupItemNode = () => $AnalyzerType<GroupItemNode>('GroupItemNode', $SyntaxNode());
 
 export function newItemNode(
   statements: ArrayData<StatementNode>,
   comma?: CommaNode | Nothing,
 ): GroupItemNode {
-  const node: GroupItemNode = newSyntaxNode({$: $GroupItemNode, statements, comma});
+  const node: GroupItemNode = newSyntaxNode({$: $GroupItemNode(), statements, comma});
   const firstStatement = statements.first();
 
-  if (is(firstStatement, $ExpressionStatementNode)) {
+  if (is(firstStatement, $ExpressionStatementNode())) {
     node.value = firstStatement.expression;
   }
 

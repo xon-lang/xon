@@ -1,4 +1,4 @@
-import {$SyntaxNode, Node, SyntaxNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $SyntaxNode, Node, SyntaxNode} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
@@ -10,14 +10,14 @@ export type StatementNode = SyntaxNode &
     body?: ArrayData<StatementNode> | Nothing;
   };
 
-export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode', $SyntaxNode);
+export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode', $SyntaxNode());
 
 // export function newStatementNode(
 //   indentLevel: Integer,
 //   errorNodes: ArrayData<Node2> | Nothing,
 // ): StatementNode2 {
 //   const node = newSyntaxNode<StatementNode2>({
-//     $: $StatementNode2,
+//     $: $StatementNode(),
 //     indentLevel,
 //     errorNodes,
 //   });
@@ -51,7 +51,7 @@ export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode'
 //     return;
 //   }
 
-//   const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode)) ?? -1;
+//   const lastNlIndex = statement.hiddenNodes.lastIndex((x) => is(x, $NlNode())) ?? -1;
 
 //   if (lastNlIndex >= 0) {
 //     const beforeNlHiddenNodes = statement.hiddenNodes.slice(0, lastNlIndex + 1);
@@ -76,7 +76,7 @@ export const $StatementNode = analyzerPackageType<StatementNode>('StatementNode'
 //   const indentText = newText(' ').repeat(INDENT_SPACE_LENGTH * statement.indentLevel);
 //   const afterIndentHiddenNodes = statement.hiddenNodes.slice(lastNlIndex + 1);
 //   const nonWhitespaceNodes = afterIndentHiddenNodes.filter(
-//     (x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode),
+//     (x): x is LexicalNode => is(x, $LexicalNode()) && !is(x, $WhitespaceNode()),
 //   );
 
 //   const text = indentText

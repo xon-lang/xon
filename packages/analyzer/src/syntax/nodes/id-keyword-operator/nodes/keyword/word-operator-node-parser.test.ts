@@ -15,7 +15,7 @@ test('Control operator return', () => {
   const text = newText('return');
   const node = operatorFromText(text);
 
-  expect(is(node, $ControlKeywordNode)).toBe(true);
+  expect(is(node, $ControlKeywordNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('return');
 });
 
@@ -23,7 +23,7 @@ test('Modifier operator const', () => {
   const text = newText('const');
   const node = operatorFromText(text);
 
-  expect(is(node, $DeclarationKeywordNode)).toBe(true);
+  expect(is(node, $DeclarationKeywordNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('const');
 });
 
@@ -33,7 +33,7 @@ function operatorFromText(text: Text): OperatorNode {
   const node = parseIdKeywordOperatorNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $KeywordNode)).toBe(true);
+  expect(is(node, $KeywordNode())).toBe(true);
 
   return node as OperatorNode;
 }

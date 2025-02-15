@@ -1,20 +1,11 @@
-import {
-  $Semantic,
-  analyzerPackageType,
-  DeclarationSemantic,
-  Node,
-  Semantic,
-  SemanticAnalyzer,
-} from '#analyzer';
+import {$AnalyzerType, $Semantic, DeclarationSemantic, Node, Semantic, SemanticAnalyzer} from '#analyzer';
 
 export type DocumentationIdSemantic = Semantic & {
   declaration: DeclarationSemantic;
 };
 
-export const $DocumentationIdSemantic = analyzerPackageType<DocumentationIdSemantic>(
-  'DocumentationIdSemantic',
-  $Semantic,
-);
+export const $DocumentationIdSemantic = () =>
+  $AnalyzerType<DocumentationIdSemantic>('DocumentationIdSemantic', $Semantic());
 
 export function documentationIdSemantic(
   analyzer: SemanticAnalyzer,
@@ -22,7 +13,7 @@ export function documentationIdSemantic(
   declaration: DeclarationSemantic,
 ): DocumentationIdSemantic {
   return {
-    $: $DocumentationIdSemantic,
+    $: $DocumentationIdSemantic(),
     nodeLink,
     declaration,
   };

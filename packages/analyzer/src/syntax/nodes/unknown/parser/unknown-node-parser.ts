@@ -2,7 +2,7 @@ import {$UnknownNode, AnalyzerContext, newUnknownNode, UnknownNode} from '#analy
 import {nothing, Nothing} from '#common';
 
 export function parseUnknownNode(context: AnalyzerContext): UnknownNode | Nothing {
-  const result = context.source.takeWhile($UnknownNode, () => true, 1);
+  const result = context.source.takeWhile($UnknownNode(), () => true, 1);
 
   if (!result) {
     return nothing;

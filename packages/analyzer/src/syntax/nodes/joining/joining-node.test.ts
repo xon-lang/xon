@@ -10,7 +10,7 @@ test('no space', () => {
   const node = parseJoiningNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $JoiningNode)).toBe(true);
+  expect(is(node, $JoiningNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('~');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
@@ -25,7 +25,7 @@ test('with space', () => {
   const node = parseJoiningNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $JoiningNode)).toBe(true);
+  expect(is(node, $JoiningNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('~   ');
   expect(node?.range.stop.index).toBe(4);
   expect(node?.range.stop.line).toBe(0);
@@ -38,7 +38,7 @@ test('with new line', () => {
   const node = parseJoiningNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $JoiningNode)).toBe(true);
+  expect(is(node, $JoiningNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('~   \n \r \n\n   ');
   expect(node?.range.stop.index).toBe(13);
   expect(node?.range.stop.line).toBe(3);

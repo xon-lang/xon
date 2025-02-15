@@ -16,8 +16,8 @@ export function typeDeclarationTypescriptTranslate(
 ): Text {
   const exportText = true ? 'export ' : '';
 
-  if (is(semantic, $NominalTypeDeclarationSemantic)) {
-    const parameters = is(semantic.type, $FunctionTypeSemantic)
+  if (is(semantic, $NominalTypeDeclarationSemantic())) {
+    const parameters = is(semantic.type, $FunctionTypeSemantic())
       ? `<${semantic.type.parameters
           .map((x) => translator.typeDeclaration(x))
           .toNativeArray()
@@ -33,14 +33,14 @@ export function typeDeclarationTypescriptTranslate(
     return newText(`${exportText}type ${semantic.name}${parameters} = ${baseType}{}`);
   }
 
-  if (is(semantic, $StructuralTypeDeclarationSemantic)) {
+  if (is(semantic, $StructuralTypeDeclarationSemantic())) {
     const type = translator.type(semantic.type);
 
     return newText(`${exportText}type ${semantic.name} = ${type}`);
   }
 
   // todo fix @ts-ignore
-  if (is(semantic, $ParameterTypeDeclarationSemantic)) {
+  if (is(semantic, $ParameterTypeDeclarationSemantic())) {
     // @ts-ignore
     const type = semantic.nodeLink.type ? ' extends ' + translator.type(semantic.type) : '';
     // @ts-ignore

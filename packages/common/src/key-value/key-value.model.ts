@@ -1,4 +1,4 @@
-import {Anything, Boolean2, commonPackageType} from '#common';
+import {$CommonType, Anything, Boolean2} from '#common';
 import {$Model, Model} from '#typing';
 
 export type KeyValue<K = Anything, V = Anything> = Model & {
@@ -9,5 +9,5 @@ export type KeyValue<K = Anything, V = Anything> = Model & {
   equals(other: KeyValue<K, V>, onlyKeyCompare: Boolean2): Boolean2;
 };
 
-export const $KeyValue = <T extends Model, V extends Model>($T = $Model, $V = $Model) =>
-  commonPackageType<KeyValue<T, V>>('KeyValue', undefined, [$T, $V]);
+export const $KeyValue = <T extends Model, V extends Model>($T = $Model(), $V = $Model()) =>
+  $CommonType<KeyValue<T, V>>('KeyValue', undefined, [$T, $V]);

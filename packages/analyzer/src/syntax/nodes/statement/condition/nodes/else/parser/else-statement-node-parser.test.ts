@@ -31,7 +31,7 @@ function getElseStatementNode(text: Text): ElseStatementNode {
   const node = parseElseStatementNode(0, nodes) as ElseStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ElseStatementNode)).toBe(true);
+  expect(is(node, $ElseStatementNode())).toBe(true);
 
   return node;
 }

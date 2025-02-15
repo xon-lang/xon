@@ -14,7 +14,7 @@ test('Symbol operator plus', () => {
   const text = newText('+');
   const node = operatorFromText(text);
 
-  expect(is(node, $SymbolOperatorNode)).toBe(true);
+  expect(is(node, $SymbolOperatorNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('+');
 });
 
@@ -24,7 +24,7 @@ function operatorFromText(text: Text): OperatorNode {
   const node = parseSymbolOperatorNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $OperatorNode)).toBe(true);
+  expect(is(node, $OperatorNode())).toBe(true);
 
   return node as OperatorNode;
 }

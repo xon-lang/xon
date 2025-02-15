@@ -17,18 +17,18 @@ export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): RangeTypeSemantic | Nothing {
-  if (!is(node, $InfixNode) || !node.operator.text.equals(RANGE)) {
+  if (!is(node, $InfixNode()) || !node.operator.text.equals(RANGE)) {
     return nothing;
   }
 
   const declaration = analyzer.declarationManager.find(
-    $TypeDeclarationSemantic,
+    $TypeDeclarationSemantic(),
     analyzer.config.literalTypeNames.integerTypeName,
     nothing,
     nothing,
   );
 
-  if (!declaration || !is(declaration, $NominalTypeDeclarationSemantic)) {
+  if (!declaration || !is(declaration, $NominalTypeDeclarationSemantic())) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) =>
       x.declarationNotFound(analyzer.config.literalTypeNames.integerTypeName),
     );
@@ -47,11 +47,11 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  if (!is(from, $IntegerTypeSemantic)) {
+  if (!is(from, $IntegerTypeSemantic())) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.left.reference, (x) => x.notImplemented());
   }
 
-  if (!is(to, $IntegerTypeSemantic)) {
+  if (!is(to, $IntegerTypeSemantic())) {
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.right.reference, (x) => x.notImplemented());
   }
 

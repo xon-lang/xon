@@ -10,7 +10,7 @@ test('a = 1', () => {
   const node = statements.at(0)?.value as AssignmentNode;
 
   expect(statements.count()).toBe(1);
-  expect(node.$).toBe($AssignmentNode);
+  expect(node.$).toBe($AssignmentNode());
   expect(node.id.text.toNativeString()).toBe('a');
   expect(node.assign.operator.text.toNativeString()).toBe('=');
   expect((node.assign.value as IntegerNode).value).toBe(1);

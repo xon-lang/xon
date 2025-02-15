@@ -13,7 +13,7 @@ export function invokeValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): InvokeValueSemantic | Nothing {
-  if (!is(node, $InvokeNode)) {
+  if (!is(node, $InvokeNode())) {
     return nothing;
   }
 

@@ -23,17 +23,17 @@ test('only a', () => {
     ?.at2(0) as NominalTypeDeclarationSemantic;
 
   expect(semanticAnalyzer.declarationManager.count()).toBe(1);
-  expect(type.$).toBe($NominalTypeDeclarationSemantic);
+  expect(type.$).toBe($NominalTypeDeclarationSemantic());
   expect(type.modifier?.toNativeString()).toBe('type');
   expect(type.name.toNativeString()).toBe('A');
 
   expect(type.attributes?.declarations.count()).toBe(1);
 
   const attributeP = type.attributes?.find(
-    $ValueDeclarationSemantic,
+    $ValueDeclarationSemantic(),
     newText('p'),
   ) as AttributeValueDeclarationSemantic;
-  expect(attributeP.$).toBe($AttributeValueDeclarationSemantic);
+  expect(attributeP.$).toBe($AttributeValueDeclarationSemantic());
   expect(attributeP.name.toNativeString()).toBe('p');
   expect((attributeP.type as IdTypeSemantic).declaration?.name.toNativeString()).toBe('A');
 });
@@ -49,16 +49,16 @@ test('declare b then a, a extends b', () => {
   const typeA = semantic.declarationManager.declarations
     .get(newText('A'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(typeA.$).toBe($NominalTypeDeclarationSemantic);
+  expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeA.modifier?.toNativeString()).toBe('type');
   expect(typeA.name.toNativeString()).toBe('A');
-  expect(typeA.baseType?.$).toBe($IdTypeSemantic);
+  expect(typeA.baseType?.$).toBe($IdTypeSemantic());
   expect((typeA.baseType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
     .get(newText('B'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(typeB.$).toBe($NominalTypeDeclarationSemantic);
+  expect(typeB.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeB.modifier?.toNativeString()).toBe('type');
   expect(typeB.name.toNativeString()).toBe('B');
 });
@@ -74,16 +74,16 @@ test('declare a then b, a extends b', () => {
   const typeA = semantic.declarationManager.declarations
     .get(newText('A'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(typeA.$).toBe($NominalTypeDeclarationSemantic);
+  expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeA.modifier?.toNativeString()).toBe('type');
   expect(typeA.name.toNativeString()).toBe('A');
-  expect(typeA.baseType?.$).toBe($IdTypeSemantic);
+  expect(typeA.baseType?.$).toBe($IdTypeSemantic());
   expect((typeA.baseType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
     .get(newText('B'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(typeB.$).toBe($NominalTypeDeclarationSemantic);
+  expect(typeB.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeB.modifier?.toNativeString()).toBe('type');
   expect(typeB.name.toNativeString()).toBe('B');
 });
@@ -97,9 +97,9 @@ test('infix plus operator', () => {
   expect(semantic.declarationManager.count()).toBe(1);
 
   // const typeA = semantic.declarationManager.declarations.get(newTextData('A'))?.at2(0) as NominalTypeDeclarationSemantic;
-  // expect(typeA.$).toBe($NominalTypeDeclarationSemantic);
+  // expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   // expect(typeA.modifier).toBe('type');
   // expect(typeA.name).toBe('A');
-  // expect(typeA.type?.$).toBe($IdTypeSemantic);
+  // expect(typeA.type?.$).toBe($IdTypeSemantic());
   // expect((typeA.type as IdTypeSemantic)?.declaration?.name).toBe('B');
 });

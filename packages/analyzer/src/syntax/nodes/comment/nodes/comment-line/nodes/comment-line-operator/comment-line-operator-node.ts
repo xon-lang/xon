@@ -1,9 +1,7 @@
-import {$LexicalNode, analyzerPackageType, LexicalNode} from '#analyzer';
+import {$AnalyzerType, $LexicalNode, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type CommentLineOperatorNode = LexicalNode & Brand<'Analyzer.CommentLineOperatorNode'>;
 
-export const $CommentLineOperatorNode = analyzerPackageType<CommentLineOperatorNode>(
-  'CommentLineOperatorNode',
-  $LexicalNode,
-);
+export const $CommentLineOperatorNode = () =>
+  $AnalyzerType<CommentLineOperatorNode>('CommentLineOperatorNode', $LexicalNode());

@@ -28,20 +28,20 @@ import {$Type, is} from '#typing';
 export function parseGroupNode(context: AnalyzerContext): GroupNode | Nothing {
   const openNode = parseGroupOpenNode(context);
 
-  if (is(openNode, $AngleOpenNode)) {
-    return groupNodeParseInner(context, $AngleGroupNode, openNode, $AngleCloseNode);
+  if (is(openNode, $AngleOpenNode())) {
+    return groupNodeParseInner(context, $AngleGroupNode(), openNode, $AngleCloseNode());
   }
 
-  if (is(openNode, $BraceOpenNode)) {
-    return groupNodeParseInner(context, $BraceGroupNode, openNode, $BraceCloseNode);
+  if (is(openNode, $BraceOpenNode())) {
+    return groupNodeParseInner(context, $BraceGroupNode(), openNode, $BraceCloseNode());
   }
 
-  if (is(openNode, $BracketOpenNode)) {
-    return groupNodeParseInner(context, $BracketGroupNode, openNode, $BracketCloseNode);
+  if (is(openNode, $BracketOpenNode())) {
+    return groupNodeParseInner(context, $BracketGroupNode(), openNode, $BracketCloseNode());
   }
 
-  if (is(openNode, $ParenOpenNode)) {
-    return groupNodeParseInner(context, $ParenGroupNode, openNode, $ParenCloseNode);
+  if (is(openNode, $ParenOpenNode())) {
+    return groupNodeParseInner(context, $ParenGroupNode(), openNode, $ParenCloseNode());
   }
 
   return nothing;
@@ -58,20 +58,20 @@ function groupNodeParseInner(
   while (true) {
     const {breakNode, statements} = parseStatements(
       context,
-      (node) => is(node, $CommaNode) || is(node, $closeNodeType),
+      (node) => is(node, $CommaNode()) || is(node, $closeNodeType),
     );
 
     if (!breakNode) {
       return newGroupNode($groupType, openNode, items, nothing);
     }
 
-    if (is(breakNode, $CommaNode)) {
+    if (is(breakNode, $CommaNode())) {
       items.addLastItem(newItemNode(statements, breakNode));
 
       continue;
     }
 
-    if (is(breakNode, $GroupCloseNode)) {
+    if (is(breakNode, $GroupCloseNode())) {
       if (!statements.isEmpty()) {
         items.addLastItem(newItemNode(statements, nothing));
       }

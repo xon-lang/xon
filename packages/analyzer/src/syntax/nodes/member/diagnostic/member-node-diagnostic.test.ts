@@ -30,10 +30,10 @@ function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseMemberNode(nodes)?.node as MemberNode;
+  const node = collapseMemberNode(nodes, 0)?.node as MemberNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $MemberNode)).toBe(true);
+  expect(is(node, $MemberNode())).toBe(true);
 
   return node.diagnose!();
 }

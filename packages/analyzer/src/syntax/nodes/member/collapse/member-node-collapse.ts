@@ -4,7 +4,7 @@ import {is} from '#typing';
 
 export function collapseMemberNode(nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult {
   return nodes.firstMap((operatorNode, index) => {
-    if (!is(operatorNode, $SymbolOperatorNode) || !operatorNode.text.equals(POINT)) {
+    if (!is(operatorNode, $SymbolOperatorNode()) || !operatorNode.text.equals(POINT)) {
       return nothing;
     }
 
@@ -15,7 +15,7 @@ export function collapseMemberNode(nodes: ArrayData<Node>, startIndex: Integer):
     }
 
     const rightNode = nodes.at(index + 1);
-    const idNode = is(rightNode, $IdNode) ? rightNode : nothing;
+    const idNode = is(rightNode, $IdNode()) ? rightNode : nothing;
 
     return {node: newMemberNode(instanceNode, operatorNode, idNode), index: index - 1};
   }, startIndex);

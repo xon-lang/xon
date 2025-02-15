@@ -4,7 +4,7 @@ import {$Model, is} from '#typing';
 export function newKeyValue<K, V>(key: K, value: V): KeyValue<K, V> {
   return {
     // todo set valid types
-    $: $KeyValue(is(key, $Model) ? key.$ : $Model, is(value, $Model) ? value.$ : $Model),
+    $: $KeyValue(is(key, $Model()) ? key.$ : $Model(), is(value, $Model()) ? value.$ : $Model()),
     key,
     value,
 

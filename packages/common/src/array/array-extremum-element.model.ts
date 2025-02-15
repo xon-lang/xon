@@ -1,4 +1,4 @@
-import {commonPackageType, Integer, Number2} from '#common';
+import {$CommonType, Integer, Number2} from '#common';
 import {$Model, $Type, extractType, Model} from '#typing';
 
 export type ArrayExtremumElement<T = unknown, V extends Number2 = Number2> = Model & {
@@ -8,9 +8,9 @@ export type ArrayExtremumElement<T = unknown, V extends Number2 = Number2> = Mod
 };
 
 export const $ArrayExtremumElement = <T = unknown, V extends Number2 = Number2>(
-  $T: $Type = $Model,
-  $V: $Type = $Model,
-) => commonPackageType<ArrayExtremumElement<T, V>>('ArrayExtremumElement', undefined, [$T, $V]);
+  $T: $Type = $Model(),
+  $V: $Type = $Model(),
+) => $CommonType<ArrayExtremumElement<T, V>>('ArrayExtremumElement', undefined, [$T, $V]);
 
 export function newExtremumArrayElement<T = unknown, V extends Number2 = Number2>(
   index: Integer,

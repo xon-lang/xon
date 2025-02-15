@@ -1,4 +1,4 @@
-import {$Semantic, analyzerPackageType, DeclarationNode, Semantic, TypeSemantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, DeclarationNode, Semantic, TypeSemantic} from '#analyzer';
 import {ArrayData, Boolean2, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -14,7 +14,5 @@ export type DeclarationSemantic = Semantic &
     equals(other: DeclarationSemantic): Boolean2;
   };
 
-export const $DeclarationSemantic = analyzerPackageType<DeclarationSemantic>(
-  'DeclarationSemantic',
-  $Semantic,
-);
+export const $DeclarationSemantic = () =>
+  $AnalyzerType<DeclarationSemantic>('DeclarationSemantic', $Semantic());

@@ -8,7 +8,7 @@ export function parseIfStatementNode(
 ): IfStatementNode | Nothing {
   const keywordNode = nodes.first();
 
-  if (!is(keywordNode, $IfKeywordNode)) {
+  if (!is(keywordNode, $IfKeywordNode())) {
     return nothing;
   }
 

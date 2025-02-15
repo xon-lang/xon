@@ -14,6 +14,6 @@ test('whitespace', () => {
   const context = newAnalyzerContext(source);
   const node = parseWhitespaceNode(context);
 
-  expect(is(node, $WhitespaceNode)).toBe(true);
+  expect(is(node, $WhitespaceNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('    ');
 });

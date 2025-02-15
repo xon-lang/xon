@@ -38,7 +38,7 @@ export function nominalTypeDeclarationSemanticHandle(
 
   if (node.attributes) {
     const attributes = statementDeclarationsParse(analyzer, node.attributes).filter((x) =>
-      is(x, $AttributeValueDeclarationSemantic),
+      is(x, $AttributeValueDeclarationSemantic()),
     );
 
     for (const attribute of attributes) {

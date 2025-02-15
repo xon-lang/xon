@@ -1,10 +1,10 @@
 import {Nothing} from '#common';
-import {$Type, Model, newType} from '#typing';
+import {$NewType, $Type, Model} from '#typing';
 
-export function translatorPackageType<T extends Model>(
+export function $TranslatorType<T extends Model>(
   name: string,
   parent?: $Type | Nothing,
   generics?: $Type[] | Nothing,
 ): $Type<T> {
-  return newType<T>('Translator', name, parent, generics);
+  return $NewType<T>('Translator', name, parent, generics);
 }

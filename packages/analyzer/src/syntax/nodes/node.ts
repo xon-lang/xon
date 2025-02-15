@@ -1,4 +1,4 @@
-import {analyzerPackageType, FormatterItem, Semantic} from '#analyzer';
+import {$AnalyzerType, FormatterItem, Semantic} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -27,14 +27,14 @@ export type Node = Model &
     format?(): ArrayData<FormatterItem>;
   };
 
-export const $Node = analyzerPackageType<Node>('Node');
+export const $Node = () => $AnalyzerType<Node>('Node');
 
 export type LexicalNode = Node &
   Brand<'Analyzer.LexicalNode'> & {
     text: Text;
   };
 
-export const $LexicalNode = analyzerPackageType<LexicalNode>('LexicalNode', $Node);
+export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Node());
 
 export function newLexicalNode<T extends LexicalNode>(params: T): T {
   return params;
@@ -42,7 +42,7 @@ export function newLexicalNode<T extends LexicalNode>(params: T): T {
 
 export type SyntaxNode = Node & Brand<'Analyzer.SyntaxNode'>;
 
-export const $SyntaxNode = analyzerPackageType<SyntaxNode>('SyntaxNode', $Node);
+export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
 
 export function newSyntaxNode<T extends Node>(
   params: Omit<T, 'children' | 'range'> | Record<string, unknown>,
@@ -53,8 +53,8 @@ export function newSyntaxNode<T extends Node>(
       // todo remove 'parent' exception
       .filter(([key]) => key !== 'parent')
       .map(([_, value]) => value)
-      .filter((value) => is(value, $Node) || is(value, $ArrayData<Node>($Node)))
-      .flatMap((value) => (is(value, $Node) ? value : value._items)),
+      .filter((value) => is(value, $Node()) || is(value, $ArrayData<Node>($Node())))
+      .flatMap((value) => (is(value, $Node()) ? value : value._items)),
   );
 
   const {first, last} = children.firstLast();

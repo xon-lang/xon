@@ -3,7 +3,7 @@ import {Nothing} from '#common';
 
 export function parseIntegerContentNode(context: AnalyzerContext): IntegerContentNode | Nothing {
   return context.source.takeWhile(
-    $IntegerContentNode,
+    $IntegerContentNode(),
     (x, i) => (i > 0 && x.equals(UNDERSCORE)) || x.isDigit(),
   );
 }

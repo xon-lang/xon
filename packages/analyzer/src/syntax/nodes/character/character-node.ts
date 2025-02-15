@@ -1,7 +1,7 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
   AnalyzerContext,
-  analyzerPackageType,
   CharacterCloseNode,
   CharacterContentNode,
   CharacterOpenNode,
@@ -20,7 +20,7 @@ export type CharacterNode = SyntaxNode &
     closeNode?: CharacterCloseNode | Nothing;
   };
 
-export const $CharacterNode = analyzerPackageType<CharacterNode>('CharacterNode', $SyntaxNode);
+export const $CharacterNode = () => $AnalyzerType<CharacterNode>('CharacterNode', $SyntaxNode());
 
 export function newCharacterNode(
   context: AnalyzerContext,
@@ -29,7 +29,7 @@ export function newCharacterNode(
   closeNode?: CharacterCloseNode | Nothing,
 ): CharacterNode {
   return newSyntaxNode({
-    $: $CharacterNode,
+    $: $CharacterNode(),
     canBeExpression: true,
     openNode,
     contentNode,

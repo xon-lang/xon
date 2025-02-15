@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $Semantic,
-  analyzerPackageType,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Semantic,
@@ -18,4 +18,4 @@ export type TypeSemantic = Semantic & {
   eq(other: TypeSemantic): Boolean2;
 };
 
-export const $TypeSemantic = analyzerPackageType<TypeSemantic>('TypeSemantic', $Semantic);
+export const $TypeSemantic = () => $AnalyzerType<TypeSemantic>('TypeSemantic', $Semantic());

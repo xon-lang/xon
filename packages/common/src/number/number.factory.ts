@@ -2,7 +2,7 @@
 
 // export function newNumber2(number: number): Number2 {
 //   return {
-//     $: $Number,
+//     $: $Number(),
 //     _number: number,
 
 //     equals(other: Number2): Boolean2 {

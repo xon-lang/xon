@@ -12,14 +12,14 @@ export function valueDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,
   semantic: ValueDeclarationSemantic,
 ): Text {
-  if (is(semantic, $AttributeValueDeclarationSemantic)) {
+  if (is(semantic, $AttributeValueDeclarationSemantic())) {
     const name = semantic.alternativeName;
     const type = translator.type(semantic.type);
 
     return newText(`${name.toNativeString()}: ${type}`);
   }
 
-  if (is(semantic, $ParameterValueDeclarationSemantic)) {
+  if (is(semantic, $ParameterValueDeclarationSemantic())) {
     const name = semantic.name;
     const type = translator.type(semantic.type);
 

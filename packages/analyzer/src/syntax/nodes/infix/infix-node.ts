@@ -1,4 +1,4 @@
-import {$SyntaxNode, analyzerPackageType, newSyntaxNode, Node, OperatorNode, SyntaxNode} from '#analyzer';
+import {$AnalyzerType, $SyntaxNode, newSyntaxNode, Node, OperatorNode, SyntaxNode} from '#analyzer';
 import {$Type, Brand} from '#typing';
 
 export type InfixNode = SyntaxNode &
@@ -8,7 +8,7 @@ export type InfixNode = SyntaxNode &
     right: Node;
   };
 
-export const $InfixNode = analyzerPackageType<InfixNode>('InfixNode', $SyntaxNode);
+export const $InfixNode = () => $AnalyzerType<InfixNode>('InfixNode', $SyntaxNode());
 
 export function infixNode($: $Type, left: Node, operator: OperatorNode, right: Node): InfixNode {
   return newSyntaxNode({$, canBeExpression: true, left, operator, right});

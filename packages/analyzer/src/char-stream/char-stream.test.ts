@@ -6,5 +6,5 @@ import {expect, test} from 'vitest';
 test('character stream', () => {
   const charStream = newCharacterStreamFromText(newText('abc'));
 
-  expect(is(charStream, $CharacterStream)).toBe(true);
+  expect(is(charStream, $CharacterStream())).toBe(true);
 });

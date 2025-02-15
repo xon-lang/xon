@@ -28,13 +28,13 @@ test('a is integer or float', () => {
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic.toNativeString(),
+    $AttributeValueDeclarationSemantic().toNativeString(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(2)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
@@ -42,10 +42,10 @@ test('a is integer or float', () => {
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as UnionTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$).toBe($UnionTypeSemantic);
-  expect(typeSemantic?.left.$).toBe($IdTypeSemantic);
+  expect(typeSemantic?.$).toBe($UnionTypeSemantic());
+  expect(typeSemantic?.left.$).toBe($IdTypeSemantic());
   expect((typeSemantic?.left as IdTypeSemantic).declaration?.name.toNativeString()).toBe('Integer');
-  expect(typeSemantic?.right.$).toBe($IdTypeSemantic);
+  expect(typeSemantic?.right.$).toBe($IdTypeSemantic());
   expect((typeSemantic?.right as IdTypeSemantic).declaration?.name.toNativeString()).toBe('Float');
 });
 
@@ -67,8 +67,8 @@ test('1 check type', () => {
 
   const aType = aConst.type ? typeNodeType(semantic, aConst.type) : nothing;
   const bType = bConst.type ? typeNodeType(semantic, bConst.type) : nothing;
-  expect(aType?.$.toNativeString()).toBe($IdTypeSemantic.toNativeString());
-  expect(bType?.$.toNativeString()).toBe($UnionTypeSemantic.toNativeString());
+  expect(aType?.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
+  expect(bType?.$.toNativeString()).toBe($UnionTypeSemantic().toNativeString());
   expect(bType && aType?.is(bType)).toBe(true);
 });
 
@@ -90,7 +90,7 @@ test('2 check type', () => {
   const getConst = (name: Text) =>
     (
       semantic.declarationManager.find(
-        $ValueDeclarationSemantic,
+        $ValueDeclarationSemantic(),
         name,
         nothing,
         nothing,
@@ -101,9 +101,9 @@ test('2 check type', () => {
   const bType = getConst(newText('b'));
   const cType = getConst(newText('c'));
 
-  expect(aType.$.toNativeString()).toBe($UnionTypeSemantic.toNativeString());
-  expect(bType.$.toNativeString()).toBe($IdTypeSemantic.toNativeString());
-  expect(cType.$.toNativeString()).toBe($IdTypeSemantic.toNativeString());
+  expect(aType.$.toNativeString()).toBe($UnionTypeSemantic().toNativeString());
+  expect(bType.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
+  expect(cType.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
 
   expect(bType.is(aType)).toBe(true);
   expect(cType.is(aType)).toBe(false);

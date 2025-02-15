@@ -1,14 +1,14 @@
 import {
+  $AnalyzerType,
   $SetTypeSemantic,
   $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
+  isInSet,
+  newDeclarationScope,
   Node,
   SemanticAnalyzer,
   TypeSemantic,
-  analyzerPackageType,
-  isInSet,
-  newDeclarationScope,
 } from '#analyzer';
 import {ArrayData, Boolean2} from '#common';
 import {is} from '#typing';
@@ -19,10 +19,8 @@ export type InvokeTypeSemantic = TypeSemantic & {
   args: ArrayData<TypeSemantic>;
 };
 
-export const $InvokeTypeSemantic = analyzerPackageType<InvokeTypeSemantic>(
-  'InvokeTypeSemantic',
-  $TypeSemantic,
-);
+export const $InvokeTypeSemantic = () =>
+  $AnalyzerType<InvokeTypeSemantic>('InvokeTypeSemantic', $TypeSemantic());
 
 export function invokeTypeSemantic(
   analyzer: SemanticAnalyzer,
@@ -31,13 +29,13 @@ export function invokeTypeSemantic(
   args: ArrayData<TypeSemantic>,
 ): InvokeTypeSemantic {
   return {
-    $: $InvokeTypeSemantic,
+    $: $InvokeTypeSemantic(),
     nodeLink,
     instance,
     args,
 
     is(other: TypeSemantic): Boolean2 {
-      if (is(other, $SetTypeSemantic)) {
+      if (is(other, $SetTypeSemantic())) {
         return isInSet(this, other);
       }
 

@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $StatementNode,
-  analyzerPackageType,
   diagnoseConditionStatementNode,
   ElseStatementNode,
   IfStatementNode,
@@ -16,17 +16,15 @@ export type ConditionStatementNode = StatementNode &
     elseStatement?: ElseStatementNode | Nothing;
   };
 
-export const $ConditionStatementNode = analyzerPackageType<ConditionStatementNode>(
-  'ConditionStatementNode',
-  $StatementNode,
-);
+export const $ConditionStatementNode = () =>
+  $AnalyzerType<ConditionStatementNode>('ConditionStatementNode', $StatementNode());
 
 export function newConditionStatementNode(
   ifStatement: IfStatementNode,
   elseStatement?: ElseStatementNode | Nothing,
 ): ConditionStatementNode {
   return newSyntaxNode({
-    $: $ConditionStatementNode,
+    $: $ConditionStatementNode(),
     indent: ifStatement.indent,
     parent: ifStatement.parent,
     ifStatement,

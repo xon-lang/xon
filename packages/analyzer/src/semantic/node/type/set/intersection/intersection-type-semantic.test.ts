@@ -28,14 +28,14 @@ test('a is integer', () => {
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $AttributeValueDeclarationSemantic,
+    $AttributeValueDeclarationSemantic(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(2)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic.toNativeString(),
+    $AttributeValueDeclarationSemantic().toNativeString(),
   );
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
@@ -44,10 +44,10 @@ test('a is integer', () => {
   const typeSemantic = constNode.type
     ? (typeNodeType(semantic, constNode.type) as IntersectionTypeSemantic)
     : nothing;
-  expect(typeSemantic?.$).toBe($IntersectionTypeSemantic);
-  expect(typeSemantic?.left.$).toBe($IdTypeSemantic);
+  expect(typeSemantic?.$).toBe($IntersectionTypeSemantic());
+  expect(typeSemantic?.left.$).toBe($IdTypeSemantic());
   expect((typeSemantic?.left as IdTypeSemantic).declaration?.name.toNativeString()).toBe('Integer');
-  expect(typeSemantic?.right.$).toBe($IdTypeSemantic);
+  expect(typeSemantic?.right.$).toBe($IdTypeSemantic());
   expect((typeSemantic?.right as IdTypeSemantic).declaration?.name.toNativeString()).toBe('Float');
 });
 
@@ -69,7 +69,7 @@ test('check type', () => {
   const getConst = (name: Text) =>
     (
       semantic.declarationManager.find(
-        $ValueDeclarationSemantic,
+        $ValueDeclarationSemantic(),
         name,
         nothing,
         nothing,
@@ -80,9 +80,9 @@ test('check type', () => {
   const bType = getConst(newText('b'));
   const cType = getConst(newText('c'));
 
-  expect(aType.$.toNativeString()).toBe($IntersectionTypeSemantic.toNativeString());
-  expect(bType.$.toNativeString()).toBe($IdTypeSemantic.toNativeString());
-  expect(cType.$.toNativeString()).toBe($IdTypeSemantic.toNativeString());
+  expect(aType.$.toNativeString()).toBe($IntersectionTypeSemantic().toNativeString());
+  expect(bType.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
+  expect(cType.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
 
   expect(bType.is(aType)).toBe(true);
   expect(cType.is(aType)).toBe(false);

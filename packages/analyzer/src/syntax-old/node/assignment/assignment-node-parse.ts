@@ -15,14 +15,14 @@ import {is} from '#typing';
 export function assignmentNodeParse(): SyntaxParseFn {
   return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, true, (node, index, nodes) => {
-      if (!is(node, $OperatorNode) || !node.text.equals(ASSIGN)) {
+      if (!is(node, $OperatorNode()) || !node.text.equals(ASSIGN)) {
         return nothing;
       }
 
       const id = nodes.at(index - 1);
       const value = nodes.at2(index + 1);
 
-      if (!is(id, $IdNode) || !value.isExpression) {
+      if (!is(id, $IdNode()) || !value.isExpression) {
         return nothing;
       }
 

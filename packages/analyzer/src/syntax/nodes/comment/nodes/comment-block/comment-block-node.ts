@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $CommentNode,
-  analyzerPackageType,
   CommentBlockCloseNode,
   CommentBlockContentNode,
   CommentBlockOpenNode,
@@ -17,12 +17,12 @@ export type CommentBlockNode = CommentNode &
     closeNode?: CommentBlockCloseNode | Nothing;
   };
 
-export const $CommentBlockNode = analyzerPackageType<CommentBlockNode>('CommentBlockNode', $CommentNode);
+export const $CommentBlockNode = () => $AnalyzerType<CommentBlockNode>('CommentBlockNode', $CommentNode());
 
 export function newCommentBlockNode(
   openNode: CommentBlockOpenNode,
   contentNode?: CommentBlockContentNode | Nothing,
   closeNode?: CommentBlockCloseNode | Nothing,
 ): CommentBlockNode {
-  return newSyntaxNode({$: $CommentBlockNode, openNode, contentNode, closeNode});
+  return newSyntaxNode({$: $CommentBlockNode(), openNode, contentNode, closeNode});
 }

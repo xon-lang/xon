@@ -15,7 +15,7 @@ test('with value', () => {
   const semanticAnalyzer = createSemanticAnalyzer(syntax);
 
   const returnNode = semanticAnalyzer.statements.at(0)?.value as ReturnNode;
-  expect(returnNode.$).toBe($ReturnNode);
+  expect(returnNode.$).toBe($ReturnNode());
 
   const idSemantic = returnNode.value?.semantic as IntegerValueSemantic;
   expect(idSemantic.type.value).toBe(3);

@@ -14,6 +14,6 @@ test('close paren', () => {
   const context = newAnalyzerContext(source);
   const node = parseParenCloseNode(context);
 
-  expect(is(node, $ParenCloseNode)).toBe(true);
+  expect(is(node, $ParenCloseNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe(')');
 });

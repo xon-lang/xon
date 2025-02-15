@@ -23,14 +23,14 @@ test('no generics', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('Number'))
     ?.at2(0) as StructuralTypeDeclarationSemantic;
-  expect(declaration.$).toBe($StructuralTypeDeclarationSemantic);
+  expect(declaration.$).toBe($StructuralTypeDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('type');
   expect(declaration.name.toNativeString()).toBe('Number');
 
   const type = declaration.type as UnionTypeSemantic;
-  expect(type.$).toBe($UnionTypeSemantic);
-  expect(type.left.$).toBe($IntegerTypeSemantic);
-  expect(type.right.$).toBe($IntegerTypeSemantic);
+  expect(type.$).toBe($UnionTypeSemantic());
+  expect(type.left.$).toBe($IntegerTypeSemantic());
+  expect(type.right.$).toBe($IntegerTypeSemantic());
 });
 
 test('has generics', () => {
@@ -43,18 +43,18 @@ test('has generics', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('Number'))
     ?.at2(0) as StructuralTypeDeclarationSemantic;
-  expect(declaration.$).toBe($StructuralTypeDeclarationSemantic);
+  expect(declaration.$).toBe($StructuralTypeDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('type');
   expect(declaration.name.toNativeString()).toBe('Number');
 
   const type = declaration.type as FunctionTypeSemantic;
-  expect(type.$).toBe($FunctionTypeSemantic);
+  expect(type.$).toBe($FunctionTypeSemantic());
   expect(type.parameters.count()).toBe(3);
   expect(type.parameters.at(2)?.name.toNativeString()).toBe('U');
 
   const resultType = type.result as UnionTypeSemantic;
-  expect(resultType.$).toBe($UnionTypeSemantic);
-  expect(resultType.left.$).toBe($UnionTypeSemantic);
-  expect(resultType.right.$).toBe($IdTypeSemantic);
+  expect(resultType.$).toBe($UnionTypeSemantic());
+  expect(resultType.left.$).toBe($UnionTypeSemantic());
+  expect(resultType.right.$).toBe($IdTypeSemantic());
   expect((resultType.right as IdTypeSemantic).name.toNativeString()).toBe('U');
 });

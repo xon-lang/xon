@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   OperatorNode,
   StringNode,
   SyntaxAnalyzer,
@@ -14,14 +14,14 @@ export type ImportNode = SyntaxNode & {
   value: StringNode | Nothing;
 };
 
-export const $ImportNode = analyzerPackageType<ImportNode>('ImportNode', $SyntaxNode);
+export const $ImportNode = () => $AnalyzerType<ImportNode>('ImportNode', $SyntaxNode());
 
 export function importNode(
   analyzer: SyntaxAnalyzer,
   operator: OperatorNode,
   value: StringNode | Nothing,
 ): ImportNode {
-  const node = syntaxNode(analyzer, {$: $ImportNode, operator, value, isExpression: true});
+  const node = syntaxNode(analyzer, {$: $ImportNode(), operator, value, isExpression: true});
 
   validate(analyzer, node);
   format(analyzer, node);

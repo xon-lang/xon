@@ -14,7 +14,7 @@ test('string content', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringContentNode(context);
 
-  expect(is(node, $StringContentNode)).toBe(true);
+  expect(is(node, $StringContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('a');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
@@ -30,7 +30,7 @@ test('string content with close quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseStringContentNode(context);
 
-  expect(is(node, $StringContentNode)).toBe(true);
+  expect(is(node, $StringContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('a\nc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);

@@ -7,7 +7,7 @@ export function collapseInvokeNode(
   startIndex?: Integer | Nothing,
 ): NodeCollapseResult {
   return nodes.firstMap((groupNode, index) => {
-    if (index === 0 || !is(groupNode, $GroupNode)) {
+    if (index === 0 || !is(groupNode, $GroupNode())) {
       return nothing;
     }
 

@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   diagnoseStringNode,
   formatStringNode,
   newSyntaxNode,
@@ -19,7 +19,7 @@ export type StringNode = SyntaxNode &
     closeNode?: StringCloseNode | Nothing;
   };
 
-export const $StringNode = analyzerPackageType<StringNode>('StringNode', $SyntaxNode);
+export const $StringNode = () => $AnalyzerType<StringNode>('StringNode', $SyntaxNode());
 
 export function newStringNode(
   openNode: StringOpenNode,
@@ -27,7 +27,7 @@ export function newStringNode(
   closeNode?: StringCloseNode | Nothing,
 ): StringNode {
   return newSyntaxNode({
-    $: $StringNode,
+    $: $StringNode(),
     canBeExpression: true,
     openNode,
     contentNode,

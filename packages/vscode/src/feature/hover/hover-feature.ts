@@ -72,31 +72,31 @@ function semanticToText(semantic: Semantic | Nothing): Text | Nothing {
     return newText('');
   }
 
-  if (is(semantic, $DeclarationSemantic)) {
+  if (is(semantic, $DeclarationSemantic())) {
     return declarationToText(semantic);
   }
 
-  if (is(semantic, $ValueSemantic)) {
+  if (is(semantic, $ValueSemantic())) {
     return semanticToText(semantic.type);
   }
 
-  if (is(semantic, $IdTypeSemantic)) {
+  if (is(semantic, $IdTypeSemantic())) {
     return declarationToText(semantic.declaration);
   }
 
-  if (is(semantic, $CharTypeSemantic)) {
+  if (is(semantic, $CharTypeSemantic())) {
     const declaration = declarationToText(semantic.declaration);
 
     return newText(`${declaration}('${semantic.value}')`);
   }
 
-  if (is(semantic, $StringTypeSemantic)) {
+  if (is(semantic, $StringTypeSemantic())) {
     const declaration = declarationToText(semantic.declaration);
 
     return newText(`${declaration}("${semantic.value}")`);
   }
 
-  if (is(semantic, $IntegerTypeSemantic)) {
+  if (is(semantic, $IntegerTypeSemantic())) {
     const declaration = declarationToText(semantic.declaration);
 
     return newText(`${declaration}(${semantic.value})`);

@@ -17,7 +17,7 @@ test('If statement with errors', () => {
   const node = getIfStatementNode(text);
 
   expect(node.errorNodes?.count()).toBe(2);
-  expect(is(node.conditionExpressionNode, $IntegerNode)).toBe(true);
+  expect(is(node.conditionExpressionNode, $IntegerNode())).toBe(true);
   expect((node.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
@@ -26,7 +26,7 @@ test('If statement without errors', () => {
   const node = getIfStatementNode(text);
 
   expect(node.errorNodes?.count()).toBe(0);
-  expect(is(node.conditionExpressionNode, $IntegerNode)).toBe(true);
+  expect(is(node.conditionExpressionNode, $IntegerNode())).toBe(true);
   expect((node.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
@@ -37,7 +37,7 @@ function getIfStatementNode(text: Text): IfStatementNode {
   const node = parseIfStatementNode(0, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $IfStatementNode)).toBe(true);
+  expect(is(node, $IfStatementNode())).toBe(true);
 
   return node;
 }

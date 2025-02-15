@@ -1,7 +1,7 @@
 import {
+  $AnalyzerType,
   $LexicalNode,
   AnalyzerContext,
-  analyzerPackageType,
   diagnoseUnknownNode,
   LexicalNode,
   newLexicalNode,
@@ -11,11 +11,11 @@ import {Brand} from '#typing';
 
 export type UnknownNode = LexicalNode & Brand<'Analyzer.UnknownNode'>;
 
-export const $UnknownNode = analyzerPackageType<UnknownNode>('UnknownNode', $LexicalNode);
+export const $UnknownNode = () => $AnalyzerType<UnknownNode>('UnknownNode', $LexicalNode());
 
 export function newUnknownNode(context: AnalyzerContext, text: Text, range: TextRange): UnknownNode {
   return newLexicalNode({
-    $: $UnknownNode,
+    $: $UnknownNode(),
     text,
     range,
 

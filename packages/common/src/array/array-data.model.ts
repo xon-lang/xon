@@ -1,8 +1,8 @@
 import {
+  $CommonType,
   ArrayExtremumElement,
   ArraySplitByModel,
   Boolean2,
-  commonPackageType,
   Integer,
   Nothing,
   Number2,
@@ -107,5 +107,5 @@ export type ArraySafePredicate<T, V extends T> = (value: T, index: Integer) => v
 export type ArraySelect<T, V> = (value: T, index: Integer) => V;
 export type ArrayPredicateSelect<T, V> = ArraySelect<T, V | Nothing>;
 
-export const $ArrayData = <T>($T: $Type = $Model) =>
-  commonPackageType<ArrayData<T>>('ArrayData', undefined, [$T]);
+export const $ArrayData = <T>($T: $Type = $Model()) =>
+  $CommonType<ArrayData<T>>('ArrayData', undefined, [$T]);

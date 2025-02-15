@@ -2,7 +2,7 @@ import {$TextReference, Boolean2, Text, TextRange, TextReference, TextResource} 
 
 export function newTextReference(resource: TextResource, range: TextRange): TextReference {
   return {
-    $: $TextReference,
+    $: $TextReference(),
     resource,
     range,
 

@@ -22,7 +22,7 @@ export function functionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): FunctionTypeSemantic | Nothing {
-  if (!is(node, $LambdaNode)) {
+  if (!is(node, $LambdaNode())) {
     return nothing;
   }
 

@@ -14,7 +14,7 @@ export function stringValueSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): StringValueSemantic | Nothing {
-  if (!is(node, $StringNode)) {
+  if (!is(node, $StringNode())) {
     return nothing;
   }
 

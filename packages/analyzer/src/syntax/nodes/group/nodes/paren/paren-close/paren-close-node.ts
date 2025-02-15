@@ -1,6 +1,6 @@
-import {$GroupCloseNode, GroupCloseNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $GroupCloseNode, GroupCloseNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type ParenCloseNode = GroupCloseNode & Brand<'Analyzer.ParenCloseNode'>;
 
-export const $ParenCloseNode = analyzerPackageType<ParenCloseNode>('ParenCloseNode', $GroupCloseNode);
+export const $ParenCloseNode = () => $AnalyzerType<ParenCloseNode>('ParenCloseNode', $GroupCloseNode());

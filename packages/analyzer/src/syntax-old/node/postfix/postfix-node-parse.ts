@@ -6,9 +6,9 @@ export function postfixNodeParse(operators: ArrayData<Text>, isLeftRecursive: Bo
   return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
-        !is(node, $OperatorNode) ||
+        !is(node, $OperatorNode()) ||
         !operators.hasItem(node.text) ||
-        (index !== nodes.count() - 1 && !is(nodes.at(index + 1), $OperatorNode))
+        (index !== nodes.count() - 1 && !is(nodes.at(index + 1), $OperatorNode()))
       ) {
         return nothing;
       }

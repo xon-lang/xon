@@ -14,7 +14,7 @@ export function unionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): UnionTypeSemantic | Nothing {
-  if (is(node, $InfixNode) && node.operator.text.equals(UNION)) {
+  if (is(node, $InfixNode()) && node.operator.text.equals(UNION)) {
     const left = typeSemanticParse(analyzer, node.left);
     const right = typeSemanticParse(analyzer, node.right);
 

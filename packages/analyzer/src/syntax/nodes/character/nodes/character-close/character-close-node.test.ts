@@ -14,7 +14,7 @@ test('character close', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharacterCloseNode(context);
 
-  expect(is(node, $CharacterCloseNode)).toBe(true);
+  expect(is(node, $CharacterCloseNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe("'");
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);

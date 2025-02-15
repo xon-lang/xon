@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SetTypeSemantic,
-  analyzerPackageType,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   Node,
@@ -13,11 +13,11 @@ export type NotTypeSemantic = SetTypeSemantic & {
   value: TypeSemantic;
 };
 
-export const $NotTypeSemantic = analyzerPackageType<NotTypeSemantic>('NotTypeSemantic', $SetTypeSemantic);
+export const $NotTypeSemantic = () => $AnalyzerType<NotTypeSemantic>('NotTypeSemantic', $SetTypeSemantic());
 
 export function notTypeSemantic(nodeLink: Node, value: TypeSemantic): NotTypeSemantic {
   const semantic: NotTypeSemantic = {
-    $: $NotTypeSemantic,
+    $: $NotTypeSemantic(),
     nodeLink,
     value,
 

@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $TypeDeclarationSemantic,
-  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -13,10 +13,11 @@ import {Brand} from '#typing';
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic &
   Brand<'Analyzer.StructuralTypeDeclarationSemantic'>;
 
-export const $StructuralTypeDeclarationSemantic = analyzerPackageType<StructuralTypeDeclarationSemantic>(
-  'StructuralTypeDeclarationSemantic',
-  $TypeDeclarationSemantic,
-);
+export const $StructuralTypeDeclarationSemantic = () =>
+  $AnalyzerType<StructuralTypeDeclarationSemantic>(
+    'StructuralTypeDeclarationSemantic',
+    $TypeDeclarationSemantic(),
+  );
 
 export function structuralTypeDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -27,7 +28,7 @@ export function structuralTypeDeclarationSemantic(
   name: Text,
 ): StructuralTypeDeclarationSemantic {
   return {
-    $: $StructuralTypeDeclarationSemantic,
+    $: $StructuralTypeDeclarationSemantic(),
     nodeLink,
     usages: newArrayData(),
     documentation,

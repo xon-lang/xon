@@ -5,8 +5,8 @@
 //   ParameterType = 'ParameterType',
 
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   AssignNode,
   DocumentationNode,
   GroupNode,
@@ -35,7 +35,7 @@ export type DeclarationNode = SyntaxNode & {
   attributes?: ArrayData<DeclarationNode> | Nothing;
 };
 
-export const $DeclarationNode = analyzerPackageType<DeclarationNode>('DeclarationNode', $SyntaxNode);
+export const $DeclarationNode = () => $AnalyzerType<DeclarationNode>('DeclarationNode', $SyntaxNode());
 
 export function declarationNode(
   analyzer: SyntaxAnalyzer,
@@ -48,7 +48,7 @@ export function declarationNode(
   assign: AssignNode | Nothing,
 ): DeclarationNode {
   const node = syntaxNode(analyzer, {
-    $: $DeclarationNode,
+    $: $DeclarationNode(),
     documentation,
     modifier,
     id,

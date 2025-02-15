@@ -35,7 +35,7 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
-    if (is(node?.parent, $MemberNode) && node.parent.instance.semantic) {
+    if (is(node?.parent, $MemberNode()) && node.parent.instance.semantic) {
       const attributes = getAttributes(node.parent.instance.semantic);
 
       if (attributes) {
@@ -48,11 +48,11 @@ export class DotCompletionItemProvider implements CompletionItemProvider {
 }
 
 function getAttributes(semantic: Semantic): ArrayData<ValueDeclarationSemantic> | Nothing {
-  if (is(semantic, $TypeSemantic)) {
+  if (is(semantic, $TypeSemantic())) {
     return semantic.attributes().all();
   }
 
-  if (is(semantic, $ValueSemantic) && semantic.type) {
+  if (is(semantic, $ValueSemantic()) && semantic.type) {
     return semantic.type.attributes().all();
   }
 
@@ -62,7 +62,7 @@ function getAttributes(semantic: Semantic): ArrayData<ValueDeclarationSemantic> 
 function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): CompletionItem {
   const item = new CompletionItem(semantic.name.toNativeString(), getCompletionItemKind(semantic));
 
-  if (is(semantic.type, $IdTypeSemantic) && semantic.type.declaration) {
+  if (is(semantic.type, $IdTypeSemantic()) && semantic.type.declaration) {
     item.detail = semantic.type.declaration.name.toNativeString();
   }
 
@@ -70,7 +70,7 @@ function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): Comp
 }
 
 export function getCompletionItemKind(semantic: ValueDeclarationSemantic): CompletionItemKind {
-  if (is(semantic.type, $FunctionTypeSemantic)) {
+  if (is(semantic.type, $FunctionTypeSemantic())) {
     return CompletionItemKind.Method;
   }
 

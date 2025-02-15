@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   Node,
   OperatorNode,
   SyntaxAnalyzer,
@@ -13,10 +13,10 @@ export type PostfixNode = SyntaxNode & {
   operator: OperatorNode;
 };
 
-export const $PostfixNode = analyzerPackageType<PostfixNode>('PostfixNode', $SyntaxNode);
+export const $PostfixNode = () => $AnalyzerType<PostfixNode>('PostfixNode', $SyntaxNode());
 
 export function postfixNode(analyzer: SyntaxAnalyzer, value: Node, operator: OperatorNode): PostfixNode {
-  const node = syntaxNode(analyzer, {$: $PostfixNode, value, operator, isExpression: true});
+  const node = syntaxNode(analyzer, {$: $PostfixNode(), value, operator, isExpression: true});
 
   format(analyzer, node);
 

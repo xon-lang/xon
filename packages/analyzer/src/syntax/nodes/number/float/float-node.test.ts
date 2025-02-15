@@ -15,7 +15,7 @@ test('float', () => {
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as FloatNode;
 
-  expect(is(node, $FloatNode)).toBe(true);
+  expect(is(node, $FloatNode())).toBe(true);
   expect(node?.integerPartNode.text.toNativeString()).toBe('123');
   expect(node?.fractionalPartNode?.text.toNativeString()).toBe('456');
 });
@@ -26,7 +26,7 @@ test('float with underscore', () => {
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as FloatNode;
 
-  expect(is(node, $FloatNode)).toBe(true);
+  expect(is(node, $FloatNode())).toBe(true);
   expect(node?.integerPartNode.text.toNativeString()).toBe('1_2_3');
   expect(node?.fractionalPartNode?.text.toNativeString()).toBe('456___');
 });

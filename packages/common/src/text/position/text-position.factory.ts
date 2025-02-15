@@ -3,13 +3,13 @@ import {is} from '#typing';
 
 export function newTextPosition(index: Integer = 0, line: Integer = 0, column: Integer = 0): TextPosition {
   return {
-    $: $TextPosition,
+    $: $TextPosition(),
     index,
     line,
     column,
 
     update(indexOrPosition: Integer | TextPosition, line?: Integer, column?: Integer): void {
-      if (is(indexOrPosition, $TextPosition)) {
+      if (is(indexOrPosition, $TextPosition())) {
         this.index = indexOrPosition.index;
         this.line = indexOrPosition.line;
         this.column = indexOrPosition.column;

@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $ValueDeclarationSemantic,
-  analyzerPackageType,
   DeclarationNode,
   DeclarationSemantic,
   SemanticAnalyzer,
@@ -14,10 +14,11 @@ export type AttributeValueDeclarationSemantic = ValueDeclarationSemantic & {
   alternativeName: Text;
 };
 
-export const $AttributeValueDeclarationSemantic = analyzerPackageType<AttributeValueDeclarationSemantic>(
-  'AttributeValueDeclarationSemantic',
-  $ValueDeclarationSemantic,
-);
+export const $AttributeValueDeclarationSemantic = () =>
+  $AnalyzerType<AttributeValueDeclarationSemantic>(
+    'AttributeValueDeclarationSemantic',
+    $ValueDeclarationSemantic(),
+  );
 
 export function attributeValueDeclarationSemantic(
   analyzer: SemanticAnalyzer,
@@ -27,7 +28,7 @@ export function attributeValueDeclarationSemantic(
   name: Text,
 ): AttributeValueDeclarationSemantic {
   return {
-    $: $AttributeValueDeclarationSemantic,
+    $: $AttributeValueDeclarationSemantic(),
     nodeLink,
     usages: newArrayData(),
     documentation,

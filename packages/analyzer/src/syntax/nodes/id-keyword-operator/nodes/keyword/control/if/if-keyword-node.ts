@@ -1,6 +1,6 @@
-import {$ControlKeywordNode, KeywordNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $ControlKeywordNode, KeywordNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type IfKeywordNode = KeywordNode & Brand<'Analyzer.IfKeywordNode'>;
 
-export const $IfKeywordNode = analyzerPackageType<IfKeywordNode>('IfKeywordNode', $ControlKeywordNode);
+export const $IfKeywordNode = () => $AnalyzerType<IfKeywordNode>('IfKeywordNode', $ControlKeywordNode());

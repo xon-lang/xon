@@ -1,13 +1,4 @@
-import {
-  $ArrayData,
-  $KeyValue,
-  Anything,
-  ArrayData,
-  Boolean2,
-  KeyValue,
-  Nothing,
-  commonPackageType,
-} from '#common';
+import {$ArrayData, $CommonType, $KeyValue, Anything, ArrayData, Boolean2, KeyValue, Nothing} from '#common';
 import {$Model, $Type, Model} from '#typing';
 
 export interface Dictionary<K = Anything, V = Anything> extends ArrayData<KeyValue<K, V>> {
@@ -21,5 +12,5 @@ export interface Dictionary<K = Anything, V = Anything> extends ArrayData<KeyVal
   set(key: K, value: V): void;
 }
 
-export const $Dictionary = <T extends Model, V extends Model>($T: $Type = $Model, $V: $Type = $Model) =>
-  commonPackageType<Dictionary<T, V>>('Dictionary', $ArrayData($KeyValue($T, $V)), [$T, $V]);
+export const $Dictionary = <T extends Model, V extends Model>($T: $Type = $Model(), $V: $Type = $Model()) =>
+  $CommonType<Dictionary<T, V>>('Dictionary', $ArrayData($KeyValue($T, $V)), [$T, $V]);

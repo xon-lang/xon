@@ -1,11 +1,11 @@
 import {
+  $AnalyzerType,
   $StatementNode,
+  diagnoseReturnStatementNode,
+  newSyntaxNode,
   Node,
   ReturnKeywordNode,
   StatementNode,
-  analyzerPackageType,
-  diagnoseReturnStatementNode,
-  newSyntaxNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -16,10 +16,8 @@ export type ReturnStatementNode = StatementNode &
     expressionNode?: Node | Nothing;
   };
 
-export const $ReturnStatementNode = analyzerPackageType<ReturnStatementNode>(
-  'ReturnStatementNode',
-  $StatementNode,
-);
+export const $ReturnStatementNode = () =>
+  $AnalyzerType<ReturnStatementNode>('ReturnStatementNode', $StatementNode());
 
 export function newReturnStatementNode(
   indent: Integer,
@@ -28,7 +26,7 @@ export function newReturnStatementNode(
   errorNodes?: ArrayData<Node> | Nothing,
 ): ReturnStatementNode {
   return newSyntaxNode<ReturnStatementNode>({
-    $: $ReturnStatementNode,
+    $: $ReturnStatementNode(),
     indent,
     keywordNode,
     expressionNode,

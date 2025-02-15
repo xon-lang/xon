@@ -80,7 +80,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
 
       const firstHiddenNode = node.hiddenNodes.first();
 
-      if (node.hiddenNodes.count() === 1 && is(firstHiddenNode, $WhitespaceNode)) {
+      if (node.hiddenNodes.count() === 1 && is(firstHiddenNode, $WhitespaceNode())) {
         const whitespace = firstHiddenNode;
 
         if (!keepSingleSpace) {
@@ -162,8 +162,8 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
 
     formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text {
       const splittedByNl = hiddenNodes
-        .filter((x): x is LexicalNode => is(x, $LexicalNode) && !is(x, $WhitespaceNode))
-        .splitBy<NlNode>((x) => is(x, $NlNode));
+        .filter((x): x is LexicalNode => is(x, $LexicalNode()) && !is(x, $WhitespaceNode()))
+        .splitBy<NlNode>((x) => is(x, $NlNode()));
 
       const formatSplittedByNl = splittedByNl.map((x) => {
         const formattedSplitter = newText(this.formatNlNode(x.splitter));

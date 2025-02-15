@@ -20,12 +20,12 @@ test('no generics', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('Number'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(declaration.$.toNativeString()).toBe($NominalTypeDeclarationSemantic.toNativeString());
+  expect(declaration.$.toNativeString()).toBe($NominalTypeDeclarationSemantic().toNativeString());
   expect(declaration.modifier?.toNativeString()).toBe('type');
   expect(declaration.name.toNativeString()).toBe('Number');
 
   const type = declaration.type as IdTypeSemantic;
-  expect(type.$).toBe($IdTypeSemantic);
+  expect(type.$).toBe($IdTypeSemantic());
   expect(type.name.toNativeString()).toBe('Number');
 });
 
@@ -39,12 +39,12 @@ test('has generics', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('Number'))
     ?.at2(0) as NominalTypeDeclarationSemantic;
-  expect(declaration.$).toBe($NominalTypeDeclarationSemantic);
+  expect(declaration.$).toBe($NominalTypeDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('type');
   expect(declaration.name.toNativeString()).toBe('Number');
 
   const type = declaration.type as FunctionTypeSemantic;
-  expect(type.$).toBe($FunctionTypeSemantic);
+  expect(type.$).toBe($FunctionTypeSemantic());
   expect(type.parameters.count()).toBe(3);
   expect(type.parameters.at(2)?.name.toNativeString()).toBe('U');
   expect(type.result.declaration?.name.toNativeString()).toBe('Number');

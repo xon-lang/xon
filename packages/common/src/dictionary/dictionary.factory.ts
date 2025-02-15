@@ -14,8 +14,8 @@ import {$Model, is, modelEquals} from '#typing';
 
 export function newDictionary<K, V>(array: ArrayData<KeyValue<K, V>> = newArrayData()): Dictionary<K, V> {
   const firstElement = array.first();
-  const $KeyType = is(firstElement?.key, $Model) ? firstElement.key.$ : $Model;
-  const $ValueType = is(firstElement?.value, $Model) ? firstElement.value.$ : $Model;
+  const $KeyType = is(firstElement?.key, $Model()) ? firstElement.key.$ : $Model();
+  const $ValueType = is(firstElement?.value, $Model()) ? firstElement.value.$ : $Model();
 
   return {
     ...array,

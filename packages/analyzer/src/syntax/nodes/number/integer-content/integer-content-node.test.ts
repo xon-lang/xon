@@ -14,7 +14,7 @@ test('integer content', () => {
   const context = newAnalyzerContext(source);
   const node = parseIntegerContentNode(context);
 
-  expect(is(node, $IntegerContentNode)).toBe(true);
+  expect(is(node, $IntegerContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('123');
 });
 
@@ -24,7 +24,7 @@ test('integer content underscore', () => {
   const context = newAnalyzerContext(source);
   const node = parseIntegerContentNode(context);
 
-  expect(is(node, $IntegerContentNode)).toBe(true);
+  expect(is(node, $IntegerContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('123_456');
 });
 

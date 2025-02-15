@@ -53,7 +53,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is(node.semantic, $ImportValueSemantic)) {
+    if (is(node.semantic, $ImportValueSemantic())) {
       if (node.semantic.resource?.location) {
         return navigateToLocation(node.range, node.semantic.resource.location)?.toNativeArray();
       }
@@ -61,11 +61,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is(node.semantic, $DeclarationSemantic)) {
+    if (is(node.semantic, $DeclarationSemantic())) {
       return navigateToUsages(node.range, node.semantic).toNativeArray();
     }
 
-    if (is(node.semantic, $IdTypeSemantic)) {
+    if (is(node.semantic, $IdTypeSemantic())) {
       if (!node.semantic.declaration) {
         return nothing;
       }
@@ -73,11 +73,11 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
     }
 
-    if (is(node.semantic, $DocumentationIdSemantic)) {
+    if (is(node.semantic, $DocumentationIdSemantic())) {
       return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
     }
 
-    if (is(node.semantic, $ValueSemantic)) {
+    if (is(node.semantic, $ValueSemantic())) {
       const declaration = node.semantic.type?.declaration;
 
       if (!declaration) {

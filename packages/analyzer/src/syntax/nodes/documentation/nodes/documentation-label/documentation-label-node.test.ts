@@ -15,7 +15,7 @@ test('single at', () => {
   const node = parseDocumentationLabelNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $DocumentationLabelNode)).toBe(true);
+  expect(is(node, $DocumentationLabelNode())).toBe(true);
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);
 });
@@ -27,7 +27,7 @@ test('at parameter', () => {
   const node = parseDocumentationLabelNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $DocumentationLabelNode)).toBe(true);
+  expect(is(node, $DocumentationLabelNode())).toBe(true);
   expect(node?.operatorNode.text.toNativeString()).toBe('@');
   expect(node?.idNode?.text.toNativeString()).toBe('param');
   expect(node?.range.start.index).toBe(0);

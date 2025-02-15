@@ -1,6 +1,6 @@
 import {
+  $AnalyzerType,
   $SyntaxNode,
-  analyzerPackageType,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
   DocumentationLabelNode,
@@ -19,7 +19,7 @@ export type DocumentationNode = SyntaxNode &
     closeNode?: DocumentationCloseNode | Nothing;
   };
 
-export const $DocumentationNode = analyzerPackageType<DocumentationNode>('DocumentationNode', $SyntaxNode);
+export const $DocumentationNode = () => $AnalyzerType<DocumentationNode>('DocumentationNode', $SyntaxNode());
 
 export function newDocumentationNode(
   openNode: DocumentationOpenNode,
@@ -28,7 +28,7 @@ export function newDocumentationNode(
   closeNode?: DocumentationCloseNode | Nothing,
 ): DocumentationNode {
   return newSyntaxNode({
-    $: $DocumentationNode,
+    $: $DocumentationNode(),
     isHidden: true,
     openNode,
     descriptionNode,

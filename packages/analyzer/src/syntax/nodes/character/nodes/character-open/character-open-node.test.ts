@@ -14,7 +14,7 @@ test('character open', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharacterOpenNode(context);
 
-  expect(is(node, $CharacterOpenNode)).toBe(true);
+  expect(is(node, $CharacterOpenNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe("'");
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);

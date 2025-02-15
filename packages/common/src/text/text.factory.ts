@@ -18,8 +18,6 @@ import {
 } from '#common';
 import {is} from '#typing';
 
-const NL = newText('\n');
-
 export function newText(strings: ArrayData<Text>, separator?: Text | Nothing): Text;
 export function newText(characters: ArrayData<Char>): Text;
 export function newText(string: string): Text;
@@ -32,7 +30,7 @@ export function newText(
 
   if (typeof value === 'string') {
     array = stringToCharArray(value);
-  } else if (is(value, $ArrayData<Text>($Text))) {
+  } else if (is(value, $ArrayData<Text>($Text()))) {
     // todo find the best way (join, convert, merge, concat, ....)
     if (separator) {
       array = stringToCharArray(value._items.join(separator.toNativeString()));
@@ -46,10 +44,10 @@ export function newText(
   return {
     ...array,
 
-    $: $Text,
+    $: $Text(),
 
     slice(rangeOrStartIndex: TextRange | Integer, stopIndex?: Integer | Nothing): Text {
-      if (is(rangeOrStartIndex, $TextRange)) {
+      if (is(rangeOrStartIndex, $TextRange())) {
         const {start, stop} = rangeOrStartIndex;
 
         return newText(array.slice(start.index, stop.index));
@@ -59,6 +57,8 @@ export function newText(
     },
 
     lineText(line: Integer): Text {
+      const NL = newText('\n');
+
       if (line === 0) {
         const stopIndex = this.firstItemsIndex(NL);
 
@@ -206,7 +206,7 @@ export function newText(
         return this.toNativeString() === other;
       }
 
-      if (is(other, $Char)) {
+      if (is(other, $Char())) {
         return this.toNativeString() === other.toNativeString();
       }
 

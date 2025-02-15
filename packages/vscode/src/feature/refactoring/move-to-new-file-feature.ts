@@ -45,7 +45,7 @@ class MoveToNewFileProvider implements CodeActionProvider {
     const semantic = getDocumentSemantic(document, this.channel);
     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, range.start));
 
-    if (!is(node, $IdNode)) {
+    if (!is(node, $IdNode())) {
       return nothing;
     }
 

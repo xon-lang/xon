@@ -11,7 +11,7 @@ export function parseDocumentationDescriptionNode(
   context: AnalyzerContext,
 ): DocumentationDescriptionNode | Nothing {
   return context.source.takeWhile(
-    $DocumentationDescriptionNode,
+    $DocumentationDescriptionNode(),
     (_x, i, z) => !z.startsWith(AT, i) && !z.startsWith(DOCUMENTATION_CLOSE, i),
   );
 }

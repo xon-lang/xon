@@ -6,9 +6,9 @@ export function prefixNodeParse(operators: ArrayData<Text>, isLeftRecursive: Boo
   return (analyzer: SyntaxAnalyzer, nodes: ArrayData<Node>, startIndex: Integer) => {
     return nodeFindMap(nodes, startIndex, isLeftRecursive, (node, index, nodes) => {
       if (
-        !is(node, $OperatorNode) ||
+        !is(node, $OperatorNode()) ||
         !operators.hasItem(node.text) ||
-        (index !== 0 && !is(nodes.at(index - 1), $OperatorNode))
+        (index !== 0 && !is(nodes.at(index - 1), $OperatorNode()))
       ) {
         return nothing;
       }

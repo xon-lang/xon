@@ -1,17 +1,17 @@
 import {
+  $AnalyzerType,
   $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
+  isInSet,
+  newDeclarationScope,
   Node,
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
   TypeSemantic,
-  analyzerPackageType,
-  isInSet,
-  newDeclarationScope,
 } from '#analyzer';
 import {Boolean2, Char, Nothing} from '#common';
 import {is} from '#typing';
@@ -21,20 +21,20 @@ export type CharTypeSemantic = TypeSemantic & {
   value: Char;
 };
 
-export const $CharTypeSemantic = analyzerPackageType<CharTypeSemantic>('CharTypeSemantic', $TypeSemantic);
+export const $CharTypeSemantic = () => $AnalyzerType<CharTypeSemantic>('CharTypeSemantic', $TypeSemantic());
 
 export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, value: Char): CharTypeSemantic {
   return {
-    $: $CharTypeSemantic,
+    $: $CharTypeSemantic(),
     nodeLink,
     declaration: analyzer.declarationManager.find(
-      $NominalTypeDeclarationSemantic,
+      $NominalTypeDeclarationSemantic(),
       analyzer.config.literalTypeNames.charTypeName,
     ),
     value,
 
     is(other: TypeSemantic): Boolean2 {
-      if (is(other, $SetTypeSemantic)) {
+      if (is(other, $SetTypeSemantic())) {
         return isInSet(this, other);
       }
 
@@ -42,7 +42,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
         return true;
       }
 
-      if (is(other, $IdTypeSemantic) && other.declaration) {
+      if (is(other, $IdTypeSemantic()) && other.declaration) {
         return this.declaration?.equals(other.declaration) || (this.declaration?.type?.is(other) ?? false);
       }
 
@@ -50,7 +50,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
     },
 
     eq(other: TypeSemantic): Boolean2 {
-      if (is(other, $CharTypeSemantic)) {
+      if (is(other, $CharTypeSemantic())) {
         return this.value === other.value;
       }
 

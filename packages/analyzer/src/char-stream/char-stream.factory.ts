@@ -17,7 +17,7 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
   const sourceLength = source.count();
 
   return {
-    $: $CharacterStream,
+    $: $CharacterStream(),
 
     takeWhile(
       $type: $Type,

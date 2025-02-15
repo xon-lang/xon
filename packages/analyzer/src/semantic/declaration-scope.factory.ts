@@ -17,7 +17,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
   imports?: ArrayData<DeclarationScope<T>> | Nothing,
 ): DeclarationScope<T> {
   return {
-    $: $DeclarationScope,
+    $: $DeclarationScope(),
     imports,
     parent,
     declarations: newDictionary(),
@@ -27,7 +27,7 @@ export function newDeclarationScope<T extends DeclarationSemantic = DeclarationS
     },
 
     add(declaration: T): void {
-      // if (is(declaration, $ValueDeclarationSemantic) && this.find($DeclarationSemantic, declaration.name)) {
+      // if (is(declaration, $ValueDeclarationSemantic()) && this.find($DeclarationSemantic(), declaration.name)) {
       //   analyzer.diagnosticManager.addPredefinedDiagnostic(declaration.nodeLink.reference, (x) =>
       //     x.declarationAlreadyExists(),
       //   );

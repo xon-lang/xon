@@ -1,5 +1,5 @@
 import {LexicalNode} from '#analyzer';
-import {Boolean2, Char, commonPackageType, Integer, Nothing, Text} from '#common';
+import {$CommonType, Boolean2, Char, Integer, Nothing, Text} from '#common';
 import {$Type, Brand, Model} from '#typing';
 
 export type CharacterStream = Model &
@@ -11,4 +11,4 @@ export type CharacterStream = Model &
     ): LexicalNode | Nothing;
   };
 
-export const $CharacterStream = commonPackageType<CharacterStream>('CharacterStream');
+export const $CharacterStream = () => $CommonType<CharacterStream>('CharacterStream');

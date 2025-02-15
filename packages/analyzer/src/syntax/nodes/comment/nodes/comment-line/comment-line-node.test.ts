@@ -14,7 +14,7 @@ test('line comment', () => {
   const context = newAnalyzerContext(source);
   const node = parseCommentLineNode(context);
 
-  expect(is(node, $CommentLineNode)).toBe(true);
+  expect(is(node, $CommentLineNode())).toBe(true);
   expect(node?.contentNode?.text.toNativeString()).toBe(' abc ');
   expect(node?.contentNode?.range.start.index).toBe(2);
   expect(node?.contentNode?.range.stop.index).toBe(7);

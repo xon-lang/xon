@@ -14,7 +14,7 @@ test('character content', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharacterContentNode(context);
 
-  expect(is(node, $CharacterContentNode)).toBe(true);
+  expect(is(node, $CharacterContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('a');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
@@ -30,7 +30,7 @@ test('character content with close quote', () => {
   const context = newAnalyzerContext(source);
   const node = parseCharacterContentNode(context);
 
-  expect(is(node, $CharacterContentNode)).toBe(true);
+  expect(is(node, $CharacterContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('a\nc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);

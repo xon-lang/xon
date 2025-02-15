@@ -25,28 +25,30 @@ import {
 import {Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#common';
 import {$Type} from '#typing';
 
-const wordMap: Dictionary<Text, $Type> = newDictionary(
-  newArrayData([
-    // declarations
-    newKeyValue(TYPE, $TypeKeywordNode),
-    newKeyValue(CONST, $ConstKeywordNode),
-    // modifiers
-    newKeyValue(PUBLIC, $PublicKeywordNode),
-    // controls
-    newKeyValue(IF, $IfKeywordNode),
-    newKeyValue(ELSE, $ElseKeywordNode),
-    newKeyValue(RETURN, $ReturnKeywordNode),
-    // operators
-    newKeyValue(AS, $AsOperatorNode),
-    newKeyValue(IS, $IsOperatorNode),
-  ]),
-);
+function getTokenTypeMap(): Dictionary<Text, $Type> {
+  return newDictionary(
+    newArrayData([
+      // declarations
+      newKeyValue(TYPE, $TypeKeywordNode()),
+      newKeyValue(CONST, $ConstKeywordNode()),
+      // modifiers
+      newKeyValue(PUBLIC, $PublicKeywordNode()),
+      // controls
+      newKeyValue(IF, $IfKeywordNode()),
+      newKeyValue(ELSE, $ElseKeywordNode()),
+      newKeyValue(RETURN, $ReturnKeywordNode()),
+      // operators
+      newKeyValue(AS, $AsOperatorNode()),
+      newKeyValue(IS, $IsOperatorNode()),
+    ]),
+  );
+}
 
 export function parseIdKeywordOperatorNode(
   context: AnalyzerContext,
 ): IdNode | KeywordNode | OperatorNode | Nothing {
   const node = context.source.takeWhile(
-    $IdNode,
+    $IdNode(),
     (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || UNDERSCORE.equals(x),
   );
 
@@ -54,7 +56,7 @@ export function parseIdKeywordOperatorNode(
     return nothing;
   }
 
-  const $Type = wordMap.get(node.text);
+  const $Type = getTokenTypeMap().get(node.text);
 
   if ($Type) {
     node.$ = $Type;

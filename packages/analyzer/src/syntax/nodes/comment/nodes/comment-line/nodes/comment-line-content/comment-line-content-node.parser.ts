@@ -2,5 +2,5 @@ import {$CommentLineContentNode, AnalyzerContext, CommentLineContentNode, NL} fr
 import {Nothing} from '#common';
 
 export function parseCommentLineContentNode(context: AnalyzerContext): CommentLineContentNode | Nothing {
-  return context.source.takeWhile($CommentLineContentNode, (_x, i, z) => !z.startsWith(NL, i));
+  return context.source.takeWhile($CommentLineContentNode(), (_x, i, z) => !z.startsWith(NL, i));
 }

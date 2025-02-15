@@ -22,14 +22,14 @@ test('import core', () => {
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $AttributeValueDeclarationSemantic,
+    $AttributeValueDeclarationSemantic(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(1)?.value as DeclarationNode;
   expect(constNode).toBeTruthy();
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic);
+  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
 
   const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
@@ -38,6 +38,6 @@ test('import core', () => {
     ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
     : nothing;
   expect(typeSemantic).toBeTruthy();
-  expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic.toNativeString());
+  expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic().toNativeString());
   expect(typeSemantic?.value.toNativeString()).toBe('abc');
 });

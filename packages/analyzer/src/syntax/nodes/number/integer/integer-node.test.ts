@@ -15,7 +15,7 @@ test('integer', () => {
   const context = newAnalyzerContext(source);
   const node = parseNumberNode(context) as IntegerNode;
 
-  expect(is(node, $IntegerNode)).toBe(true);
+  expect(is(node, $IntegerNode())).toBe(true);
   expect(node?.contentNode.text.toNativeString()).toBe('123');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(3);

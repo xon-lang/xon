@@ -10,9 +10,9 @@ test('import string', () => {
   const node = statements.at(0)?.value as ImportNode;
 
   expect(statements.count()).toBe(1);
-  expect(node.$).toBe($ImportNode);
+  expect(node.$).toBe($ImportNode());
   expect(node.operator.text.toNativeString()).toBe('import');
-  expect(node.value?.$).toBe($StringNode);
+  expect(node.value?.$).toBe($StringNode());
   expect((node.value as StringNode).content?.text.toNativeString()).toBe('xon/core');
 });
 
@@ -24,7 +24,7 @@ test('import integer', () => {
   const node = statements.at(0)?.value as ImportNode;
 
   expect(statements.count()).toBe(1);
-  expect(node.$).toBe($ImportNode);
+  expect(node.$).toBe($ImportNode());
   expect(node.operator.text.toNativeString()).toBe('import');
   expect(node.value).toBeFalsy();
 });

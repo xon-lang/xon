@@ -17,9 +17,9 @@ test('Invoke with two arguments', () => {
   const text = newText("f(3, 'str')");
   const node = getInvokeNode(text);
 
-  expect(is(node.instance, $IdNode)).toBe(true);
+  expect(is(node.instance, $IdNode())).toBe(true);
   expect((node.instance as IdNode).text.toNativeString()).toBe('f');
-  expect(is(node.group, $GroupNode)).toBe(true);
+  expect(is(node.group, $GroupNode())).toBe(true);
   expect(node.group.items.count()).toBe(2);
 });
 
@@ -30,7 +30,7 @@ function getInvokeNode(text: Text): InvokeNode {
   const node = collapseInvokeNode(nodes)?.node as InvokeNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $InvokeNode)).toBe(true);
+  expect(is(node, $InvokeNode())).toBe(true);
 
   return node;
 }

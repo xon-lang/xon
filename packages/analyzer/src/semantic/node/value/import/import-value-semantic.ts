@@ -1,14 +1,12 @@
-import {$ValueSemantic, analyzerPackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
+import {$AnalyzerType, $ValueSemantic, Node, TypeSemantic, ValueSemantic} from '#analyzer';
 import {Nothing, Resource} from '#common';
 
 export type ImportValueSemantic = ValueSemantic & {
   resource: Resource | Nothing;
 };
 
-export const $ImportValueSemantic = analyzerPackageType<ImportValueSemantic>(
-  'ImportValueSemantic',
-  $ValueSemantic,
-);
+export const $ImportValueSemantic = () =>
+  $AnalyzerType<ImportValueSemantic>('ImportValueSemantic', $ValueSemantic());
 
 export function importValueSemantic(
   nodeLink: Node,
@@ -16,7 +14,7 @@ export function importValueSemantic(
   type: TypeSemantic,
 ): ImportValueSemantic {
   return {
-    $: $ImportValueSemantic,
+    $: $ImportValueSemantic(),
     nodeLink,
     type,
     resource,

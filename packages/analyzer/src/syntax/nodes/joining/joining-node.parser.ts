@@ -3,7 +3,7 @@ import {Nothing} from '#common';
 
 export function parseJoiningNode(context: AnalyzerContext): JoiningNode | Nothing {
   const node = context.source.takeWhile(
-    $JoiningNode,
+    $JoiningNode(),
     (x, i) => x.equals(JOINING) || (i > 0 && (x.equals(SPACE) || x.equals(CR) || x.equals(LF))),
   );
 

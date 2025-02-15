@@ -12,9 +12,9 @@ import {newText, Text} from '#common';
 import {AnalyzerDiagnosticManager, createDiagnosticManager} from '#diagnostic';
 import {
   $Translator,
+  $TranslatorType,
   statementTypescriptTranslate,
   Translator,
-  translatorPackageType,
   typeDeclarationTypescriptTranslate,
   typeTypescriptTranslate,
   valueDeclarationTypescriptTranslate,
@@ -33,11 +33,11 @@ export type TypescriptTranslator = Translator & {
   error(node: Node): Text;
 };
 
-export const $TypescriptTranslator = translatorPackageType('TypescriptTranslator', $Translator);
+export const $TypescriptTranslator = () => $TranslatorType('TypescriptTranslator', $Translator());
 
 export function newTypescriptTranslator(semanticAnalyzer: SemanticAnalyzer): TypescriptTranslator {
   return {
-    $: $TypescriptTranslator,
+    $: $TypescriptTranslator(),
     diagnosticManager: createDiagnosticManager(semanticAnalyzer.resource),
 
     type(semantic: TypeSemantic): Text {

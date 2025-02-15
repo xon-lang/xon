@@ -17,7 +17,7 @@ test('Return statement with errors', () => {
   const node = getReturnStatementNode(text);
 
   expect(node.errorNodes?.count()).toBe(2);
-  expect(is(node.expressionNode, $IntegerNode)).toBe(true);
+  expect(is(node.expressionNode, $IntegerNode())).toBe(true);
   expect((node.expressionNode as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
@@ -26,7 +26,7 @@ test('Return statement without errors', () => {
   const node = getReturnStatementNode(text);
 
   expect(node.errorNodes?.count()).toBe(0);
-  expect(is(node.expressionNode, $IntegerNode)).toBe(true);
+  expect(is(node.expressionNode, $IntegerNode())).toBe(true);
   expect((node.expressionNode as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
@@ -37,7 +37,7 @@ function getReturnStatementNode(text: Text): ReturnStatementNode {
   const node = parseReturnStatementNode(0, nodes) as ReturnStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ReturnStatementNode)).toBe(true);
+  expect(is(node, $ReturnStatementNode())).toBe(true);
 
   return node;
 }

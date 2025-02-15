@@ -10,7 +10,7 @@ test('cr lf', () => {
   const node = parseNlNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $NlNode)).toBe(true);
+  expect(is(node, $NlNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('\r\n');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
@@ -25,7 +25,7 @@ test('cr lf whitespace', () => {
   const node = parseNlNode(context);
 
   expect(node).toBeTruthy();
-  expect(is(node, $NlNode)).toBe(true);
+  expect(is(node, $NlNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('\n');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);

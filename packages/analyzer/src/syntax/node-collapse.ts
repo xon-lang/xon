@@ -22,7 +22,7 @@ function nodeCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn}> {
     {min: 2, collapse: collapseMemberNode},
     {
       min: 3,
-      collapse: collapseInfixNode(newDictionary(newArrayData([newKeyValue(PLUS, $PlusInfixNode)])), true),
+      collapse: collapseInfixNode(newDictionary(newArrayData([newKeyValue(PLUS, $PlusInfixNode())])), true),
     },
   ]);
 }

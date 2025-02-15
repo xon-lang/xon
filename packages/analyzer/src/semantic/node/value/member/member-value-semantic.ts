@@ -1,4 +1,4 @@
-import {$ValueSemantic, analyzerPackageType, Node, TypeSemantic, ValueSemantic} from '#analyzer';
+import {$AnalyzerType, $ValueSemantic, Node, TypeSemantic, ValueSemantic} from '#analyzer';
 import {Nothing, Text} from '#common';
 
 export type MemberValueSemantic = ValueSemantic & {
@@ -6,10 +6,8 @@ export type MemberValueSemantic = ValueSemantic & {
   name: Text | Nothing;
 };
 
-export const $MemberValueSemantic = analyzerPackageType<MemberValueSemantic>(
-  'MemberValueSemantic',
-  $ValueSemantic,
-);
+export const $MemberValueSemantic = () =>
+  $AnalyzerType<MemberValueSemantic>('MemberValueSemantic', $ValueSemantic());
 
 export function memberValueSemantic(
   nodeLink: Node,
@@ -18,7 +16,7 @@ export function memberValueSemantic(
   type: TypeSemantic,
 ): MemberValueSemantic {
   return {
-    $: $MemberValueSemantic,
+    $: $MemberValueSemantic(),
     nodeLink,
     instance,
     name,

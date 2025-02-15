@@ -14,7 +14,7 @@ test('block comment', () => {
   const context = newAnalyzerContext(source);
   const node = parseCommentBlockNode(context);
 
-  expect(is(node, $CommentBlockNode)).toBe(true);
+  expect(is(node, $CommentBlockNode())).toBe(true);
   expect(node?.contentNode?.text.toNativeString()).toBe('   abc ');
   expect(node?.contentNode?.range.start.index).toBe(3);
   expect(node?.contentNode?.range.stop.index).toBe(10);

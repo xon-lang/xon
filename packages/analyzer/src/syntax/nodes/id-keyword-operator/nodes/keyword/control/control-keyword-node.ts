@@ -1,9 +1,7 @@
-import {$KeywordNode, KeywordNode, analyzerPackageType} from '#analyzer';
+import {$AnalyzerType, $KeywordNode, KeywordNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type ControlKeywordNode = KeywordNode & Brand<'Analyzer.ControlKeywordNode'>;
 
-export const $ControlKeywordNode = analyzerPackageType<ControlKeywordNode>(
-  'ControlKeywordNode',
-  $KeywordNode,
-);
+export const $ControlKeywordNode = () =>
+  $AnalyzerType<ControlKeywordNode>('ControlKeywordNode', $KeywordNode());

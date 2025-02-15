@@ -17,7 +17,7 @@ test('Condition without else', () => {
 
   expect(node.ifStatement.keywordNode.text.toNativeString()).toBe('if');
   expect(node.elseStatement).toBeFalsy();
-  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode)).toBeTruthy();
+  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode())).toBeTruthy();
   expect((node.ifStatement.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe(
     '0',
   );
@@ -30,7 +30,7 @@ test('Condition with else', () => {
 
   expect(node.ifStatement.keywordNode.text.toNativeString()).toBe('if');
   expect(node.elseStatement?.keywordNode.text.toNativeString()).toBe('else');
-  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode)).toBeTruthy();
+  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode())).toBeTruthy();
   expect((node.ifStatement.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe(
     '0',
   );
@@ -44,7 +44,7 @@ function getConditionStatementNode(text: Text): ConditionStatementNode {
   const node = parseStatements(context).statements.at(0) as ConditionStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ConditionStatementNode)).toBe(true);
+  expect(is(node, $ConditionStatementNode())).toBe(true);
 
   return node;
 }

@@ -14,7 +14,7 @@ test('comment content', () => {
   const context = newAnalyzerContext(source);
   const node = parseCommentLineContentNode(context);
 
-  expect(is(node, $CommentLineContentNode)).toBe(true);
+  expect(is(node, $CommentLineContentNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe('a');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);

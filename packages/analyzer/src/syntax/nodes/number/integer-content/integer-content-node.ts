@@ -1,9 +1,7 @@
-import {$LexicalNode, analyzerPackageType, LexicalNode} from '#analyzer';
+import {$AnalyzerType, $LexicalNode, LexicalNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type IntegerContentNode = LexicalNode & Brand<'Analyzer.IntegerContentNode'>;
 
-export const $IntegerContentNode = analyzerPackageType<IntegerContentNode>(
-  'IntegerContentNode',
-  $LexicalNode,
-);
+export const $IntegerContentNode = () =>
+  $AnalyzerType<IntegerContentNode>('IntegerContentNode', $LexicalNode());

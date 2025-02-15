@@ -14,6 +14,6 @@ test('close angle', () => {
   const context = newAnalyzerContext(source);
   const node = parseAngleCloseNode(context);
 
-  expect(is(node, $AngleCloseNode)).toBe(true);
+  expect(is(node, $AngleCloseNode())).toBe(true);
   expect(node?.text.toNativeString()).toBe(':>');
 });
