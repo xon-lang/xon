@@ -197,6 +197,9 @@ export * from './src/syntax/nodes/statement/condition/nodes/if/diagnostic/if-sta
 export * from './src/syntax/nodes/statement/condition/nodes/if/parser/if-statement-node-parser';
 export * from './src/syntax/nodes/statement/expression/expression-statement-node';
 export * from './src/syntax/nodes/statement/expression/parser/expression-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/return/return-statement-node';
+export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/parser/statement-node-parser';
 export * from './src/syntax/nodes/string/string-node';
 export * from './src/syntax/nodes/string/diagnostic/string-node-diagnostic';
