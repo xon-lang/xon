@@ -225,8 +225,6 @@ export * from './src/syntax-old/node/assignment/assignment-node-parse';
 export * from './src/syntax-old/node/assignment/assignment-node';
 export * from './src/syntax-old/node/declaration/declaration-node-parse';
 export * from './src/syntax-old/node/declaration/declaration-node';
-export * from './src/syntax-old/node/import/import-node-parse';
-export * from './src/syntax-old/node/import/import-node';
 export * from './src/syntax-old/node/lambda/lambda-node-parse';
 export * from './src/syntax-old/node/lambda/lambda-node';
 export * from './src/syntax-old/node/postfix/postfix-node-parse';
