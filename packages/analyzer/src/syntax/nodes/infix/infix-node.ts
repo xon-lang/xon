@@ -3,15 +3,15 @@ import {$Type, Brand} from '#typing';
 
 export type InfixNode = SyntaxNode &
   Brand<'Analyzer.InfixNode'> & {
-    left: Node;
-    operator: OperatorNode;
-    right: Node;
+    leftNode: Node;
+    operatorNode: OperatorNode;
+    rightNode: Node;
   };
 
 export const $InfixNode = () => $AnalyzerType<InfixNode>('InfixNode', $SyntaxNode());
 
-export function infixNode($: $Type, left: Node, operator: OperatorNode, right: Node): InfixNode {
-  return newSyntaxNode({$, canBeExpression: true, left, operator, right});
+export function infixNode($: $Type, leftNode: Node, operatorNode: OperatorNode, rightNode: Node): InfixNode {
+  return newSyntaxNode({$, canBeExpression: true, leftNode, operatorNode, rightNode});
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {

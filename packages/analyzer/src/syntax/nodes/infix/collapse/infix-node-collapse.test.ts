@@ -19,11 +19,11 @@ test('Plus two integers', () => {
   const node = getInfixNode(text);
 
   expect(is(node, $PlusInfixNode())).toBe(true);
-  expect(node.operator.text.toNativeString()).toBe('+');
-  expect(is(node.left, $IntegerNode())).toBe(true);
-  expect((node.left as IntegerNode).contentNode.text.toNativeString()).toBe('1');
-  expect(is(node.right, $IntegerNode())).toBe(true);
-  expect((node.right as IntegerNode).contentNode.text.toNativeString()).toBe('2');
+  expect(node.operatorNode.text.toNativeString()).toBe('+');
+  expect(is(node.leftNode, $IntegerNode())).toBe(true);
+  expect((node.leftNode as IntegerNode).contentNode.text.toNativeString()).toBe('1');
+  expect(is(node.rightNode, $IntegerNode())).toBe(true);
+  expect((node.rightNode as IntegerNode).contentNode.text.toNativeString()).toBe('2');
 });
 
 function getInfixNode(text: Text): InfixNode {

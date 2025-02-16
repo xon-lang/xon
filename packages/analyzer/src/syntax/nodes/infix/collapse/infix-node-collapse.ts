@@ -20,14 +20,14 @@ export function collapseInfixNode(
         return nothing;
       }
 
-      const left = nodes.at2(index - 1);
-      const right = nodes.at2(index + 1);
+      const leftNode = nodes.at2(index - 1);
+      const rightNode = nodes.at2(index + 1);
 
-      if (!left.canBeExpression || !right.canBeExpression) {
+      if (!leftNode.canBeExpression || !rightNode.canBeExpression) {
         return nothing;
       }
 
-      return {node: infixNode(operatorType, left, operatorNode, right), index: index - 1};
+      return {node: infixNode(operatorType, leftNode, operatorNode, rightNode), index: index - 1};
     }, startIndex);
   };
 }

@@ -1,11 +1,10 @@
-import {$AnalyzerType, $InfixNode, InfixNode, Node, OperatorNode} from '#analyzer';
+import {$AnalyzerType, $InfixNode, InfixNode, OperatorNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type PlusInfixNode = InfixNode &
   Brand<'Analyzer.PlusInfixNode'> & {
-    left: Node;
+    // todo use 'PlusOperatorNode' instead of 'OperatorNode'
     operator: OperatorNode;
-    right: Node;
   };
 
 export const $PlusInfixNode = () => $AnalyzerType<PlusInfixNode>('PlusInfixNode', $InfixNode());
