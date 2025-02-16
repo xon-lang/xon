@@ -1,9 +1,9 @@
-import {$AnalyzerType, $PostfixNode, Node, OperatorNode, PostfixNode} from '#analyzer';
+import {$AnalyzerType, $PostfixNode, ExclamationOperatorNode, Node, PostfixNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type ExclamationPostfixNode = PostfixNode &
   Brand<'Analyzer.ExclamationPostfixNode'> & {
-    operatorNode: OperatorNode;
+    operatorNode: ExclamationOperatorNode;
     valueNode: Node;
   };
 
