@@ -4,6 +4,7 @@ import {
   $ElseKeywordNode,
   $IdNode,
   $IfKeywordNode,
+  $ImportKeywordNode,
   $IsOperatorNode,
   $PublicKeywordNode,
   $ReturnKeywordNode,
@@ -14,6 +15,7 @@ import {
   ELSE,
   IdNode,
   IF,
+  IMPORT,
   IS,
   KeywordNode,
   OperatorNode,
@@ -34,6 +36,7 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
       // modifiers
       newKeyValue(PUBLIC, $PublicKeywordNode()),
       // controls
+      newKeyValue(IMPORT, $ImportKeywordNode()),
       newKeyValue(IF, $IfKeywordNode()),
       newKeyValue(ELSE, $ElseKeywordNode()),
       newKeyValue(RETURN, $ReturnKeywordNode()),

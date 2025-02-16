@@ -151,6 +151,7 @@ export * from './src/syntax/nodes/group/parser/group-node-parser';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/id/id-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/control-keyword-node';
+export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/import-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/else/else-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/if/if-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/return/return-keyword-node';
@@ -197,6 +198,9 @@ export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/diagnostic/
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/parser/if-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/expression/expression-statement-node';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/import/import-statement-node';
+export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/return-statement-node';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
