@@ -1,6 +1,6 @@
 import {
   $InfixNode,
-  INTERSECTION,
+  AND,
   IntersectionTypeSemantic,
   intersectionTypeSemantic,
   Node,
@@ -14,7 +14,7 @@ export function intersectionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): IntersectionTypeSemantic | Nothing {
-  if (is(node, $InfixNode()) && node.operatorNode.text.equals(INTERSECTION)) {
+  if (is(node, $InfixNode()) && node.operatorNode.text.equals(AND)) {
     const left = typeSemanticParse(analyzer, node.leftNode);
     const right = typeSemanticParse(analyzer, node.rightNode);
 

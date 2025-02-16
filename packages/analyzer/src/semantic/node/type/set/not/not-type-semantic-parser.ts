@@ -1,7 +1,7 @@
 import {
   $PrefixNode,
+  EXCLAMATION,
   Node,
-  NOT,
   NotTypeSemantic,
   notTypeSemantic,
   SemanticAnalyzer,
@@ -11,7 +11,7 @@ import {Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): NotTypeSemantic | Nothing {
-  if (is(node, $PrefixNode()) && node.operatorNode.text.equals(NOT)) {
+  if (is(node, $PrefixNode()) && node.operatorNode.text.equals(EXCLAMATION)) {
     const value = typeSemanticParse(analyzer, node.valueNode);
 
     if (value) {

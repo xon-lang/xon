@@ -70,18 +70,17 @@ export const POINT = newText('.');
 export const META = newText('::');
 export const RANGE = newText('..');
 export const AT = newText('@');
-export const INTERSECTION = newText('&');
-export const UNION = newText('|');
-export const COMPLEMENT = newText('\\');
-export const NOT = newText('!');
+export const AND = newText('&');
+export const OR = newText('|');
+export const SLASH = newText('/');
+export const BACKSLASH = newText('\\');
+export const EXCLAMATION = newText('!');
 export const REST = newText('...');
 export const PLUS = newText('+');
 export const MINUS = newText('-');
-export const OPTIONAL = newText('?');
-export const PROMISE = newText('!');
+export const QUESTION = newText('?');
 export const POW = newText('^');
-export const MULTIPLY = newText('*');
-export const DIVIDE = newText('/');
+export const ASTERISK = newText('*');
 export const MOD = newText('%');
 export const GREAT = newText('>');
 export const GREAT_EQUALS = newText('>=');
@@ -97,18 +96,17 @@ export const SYMBOL_OPERATORS = newArrayData([
   META,
   RANGE,
   AT,
-  INTERSECTION,
-  UNION,
-  COMPLEMENT,
-  NOT,
+  AND,
+  OR,
+  BACKSLASH,
+  EXCLAMATION,
   REST,
   PLUS,
   MINUS,
-  OPTIONAL,
-  PROMISE,
+  QUESTION,
   POW,
-  MULTIPLY,
-  DIVIDE,
+  ASTERISK,
+  SLASH,
   MOD,
   GREAT,
   GREAT_EQUALS,

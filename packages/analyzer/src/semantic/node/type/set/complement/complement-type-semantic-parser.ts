@@ -1,6 +1,6 @@
 import {
   $InfixNode,
-  COMPLEMENT,
+  BACKSLASH,
   ComplementTypeSemantic,
   complementTypeSemantic,
   Node,
@@ -14,7 +14,7 @@ export function complementTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): ComplementTypeSemantic | Nothing {
-  if (is(node, $InfixNode()) && node.operatorNode.text.equals(COMPLEMENT)) {
+  if (is(node, $InfixNode()) && node.operatorNode.text.equals(BACKSLASH)) {
     const left = typeSemanticParse(analyzer, node.leftNode);
     const right = typeSemanticParse(analyzer, node.rightNode);
 

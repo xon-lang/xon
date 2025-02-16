@@ -1,10 +1,10 @@
 import {
   $InfixNode,
   Node,
+  OR,
   SemanticAnalyzer,
-  UNION,
-  UnionTypeSemantic,
   typeSemanticParse,
+  UnionTypeSemantic,
   unionTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
@@ -14,7 +14,7 @@ export function unionTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): UnionTypeSemantic | Nothing {
-  if (is(node, $InfixNode()) && node.operatorNode.text.equals(UNION)) {
+  if (is(node, $InfixNode()) && node.operatorNode.text.equals(OR)) {
     const left = typeSemanticParse(analyzer, node.leftNode);
     const right = typeSemanticParse(analyzer, node.rightNode);
 

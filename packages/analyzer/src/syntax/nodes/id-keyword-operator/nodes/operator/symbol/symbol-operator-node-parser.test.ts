@@ -18,6 +18,14 @@ test('Symbol operator plus', () => {
   expect(node?.text.toNativeString()).toBe('+');
 });
 
+test('Symbol operator exclamation', () => {
+  const text = newText('!');
+  const node = operatorFromText(text);
+
+  expect(is(node, $SymbolOperatorNode())).toBe(true);
+  expect(node?.text.toNativeString()).toBe('!');
+});
+
 function operatorFromText(text: Text): OperatorNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
