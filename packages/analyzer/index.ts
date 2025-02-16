@@ -187,6 +187,9 @@ export * from './src/syntax/nodes/number/integer-content/integer-content-node.pa
 export * from './src/syntax/nodes/number/integer-content/integer-content-node';
 export * from './src/syntax/nodes/number/radix-point-operator/radix-point-node.parser';
 export * from './src/syntax/nodes/number/radix-point-operator/radix-point-node';
+export * from './src/syntax/nodes/prefix/prefix-node';
+export * from './src/syntax/nodes/prefix/collapse/prefix-node-collapse';
+export * from './src/syntax/nodes/prefix/nodes/plus/plus-prefix-node';
 export * from './src/syntax/nodes/statement/statement-node';
 export * from './src/syntax/nodes/statement/nodes/condition/condition-statement-node';
 export * from './src/syntax/nodes/statement/nodes/condition/collapse/condition-statement-node-collapse';
@@ -229,6 +232,4 @@ export * from './src/syntax-old/node/lambda/lambda-node-parse';
 export * from './src/syntax-old/node/lambda/lambda-node';
 export * from './src/syntax-old/node/postfix/postfix-node-parse';
 export * from './src/syntax-old/node/postfix/postfix-node';
-export * from './src/syntax-old/node/prefix/prefix-node-parse';
-export * from './src/syntax-old/node/prefix/prefix-node';
 export * from './src/syntax-old/node/type/type-node';
