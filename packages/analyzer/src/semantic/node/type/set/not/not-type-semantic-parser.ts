@@ -11,8 +11,8 @@ import {Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function notTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): NotTypeSemantic | Nothing {
-  if (is(node, $PrefixNode()) && node.operator.text.equals(NOT)) {
-    const value = typeSemanticParse(analyzer, node.value);
+  if (is(node, $PrefixNode()) && node.operatorNode.text.equals(NOT)) {
+    const value = typeSemanticParse(analyzer, node.valueNode);
 
     if (value) {
       return notTypeSemantic(node, value);
