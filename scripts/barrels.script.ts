@@ -40,11 +40,11 @@ async function createBarrel(directory: string) {
       const relativePath = join(file.parentPath, file.name).replace(directory, '').replace(/\\/g, '/');
       return `export * from '.${relativePath.replace('.ts', '')}';`;
     })
-    .sort((a, b) => a.localeCompare(b))
+    .sort((a, b) => a.split('/').length - b.split('/').length)
     .join('\n');
 
   const barrelPath = join(directory, 'index.ts');
-  await fs.writeFile(barrelPath, exports);
+  await fs.writeFile(barrelPath, exports + '\n');
 }
 
 async function main() {
