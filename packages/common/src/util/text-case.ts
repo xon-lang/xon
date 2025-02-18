@@ -1,18 +1,5 @@
 // TAKEN FROM: https://github.com/blakeembrey/change-case/blob/main/packages/change-case/src/index.ts
 
-import {
-  Dictionary,
-  FunctionData,
-  newArrayData,
-  newDictionary,
-  newFunctionData,
-  newKeyValue,
-  newText,
-  nothing,
-  Nothing,
-  Text,
-} from '#common';
-
 // Regexps involved with splitting words in various case formats.
 const SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;
 const SPLIT_UPPER_UPPER_RE = /(\p{Lu})([\p{Lu}][\p{Ll}])/gu;
@@ -272,29 +259,25 @@ function splitPrefixSuffix(input: string, options: Options = {}): [string, strin
 
 export type CaseFn = (input: string, options?: PascalCaseOptions) => string;
 
-const caseFunctions: Dictionary<Text, FunctionData> = newDictionary(
-  newArrayData([
-    newKeyValue(newText('camel'), newFunctionData(camelCase)),
-    newKeyValue(newText('capital'), newFunctionData(capitalCase)),
-    newKeyValue(newText('constant'), newFunctionData(constantCase)),
-    newKeyValue(newText('dot'), newFunctionData(dotCase)),
-    newKeyValue(newText('kebab'), newFunctionData(kebabCase)),
-    newKeyValue(newText('no'), newFunctionData(noCase)),
-    newKeyValue(newText('pascal'), newFunctionData(pascalCase)),
-    newKeyValue(newText('pascalSnake'), newFunctionData(pascalSnakeCase)),
-    newKeyValue(newText('path'), newFunctionData(pathCase)),
-    newKeyValue(newText('sentence'), newFunctionData(sentenceCase)),
-    newKeyValue(newText('snake'), newFunctionData(snakeCase)),
-    newKeyValue(newText('train'), newFunctionData(trainCase)),
-  ]),
-);
+export function getCaseFnByName(name: string): CaseFn | null | undefined {
+  const match: Record<string, CaseFn> = {
+    camel: camelCase,
+    capital: capitalCase,
+    constant: constantCase,
+    dot: dotCase,
+    kebab: kebabCase,
+    no: noCase,
+    pascal: pascalCase,
+    pascalSnake: pascalSnakeCase,
+    path: pathCase,
+    sentence: sentenceCase,
+    snake: snakeCase,
+    train: trainCase,
+  };
 
-export function changeTextCase(caseName: Text, text: Text): Text | Nothing {
-  const fn = caseFunctions.get(caseName);
+  return match[name];
+}
 
-  if (fn) {
-    return newText(fn.invoke(text.toNativeString()));
-  }
-
-  return nothing;
+export function changeTextCase(caseName: string, text: string): string | null | undefined {
+  return getCaseFnByName(caseName)?.call(null, text);
 }
