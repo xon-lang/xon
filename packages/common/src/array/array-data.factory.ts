@@ -277,7 +277,11 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       predicateSelect: (value: T, index: Integer) => V | Nothing,
       startIndex?: Integer | Nothing,
     ): V | Nothing {
-      startIndex ??= 0;
+      startIndex ??= this.firstIndex();
+
+      if (!startIndex) {
+        return nothing;
+      }
 
       for (let index = startIndex; index < this.count(); index++) {
         const result = predicateSelect(this.at2(index), index);
@@ -294,7 +298,11 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       predicateSelect: (value: T, index: Integer) => V | Nothing,
       startIndex?: Integer | Nothing,
     ): V | Nothing {
-      startIndex ??= this.count() - 1;
+      startIndex ??= this.lastIndex();
+
+      if (!startIndex) {
+        return nothing;
+      }
 
       for (let index = startIndex; index >= 0; index--) {
         const result = predicateSelect(this.at2(index), index);
