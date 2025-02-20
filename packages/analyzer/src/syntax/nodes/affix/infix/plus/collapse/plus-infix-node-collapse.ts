@@ -25,7 +25,11 @@ export function collapsePlusInfixNode(): NodeCollapseFn<PlusInfixNode> {
           return nothing;
         }
 
-        return {node: newPlusInfixNode(leftNode, operatorNode, rightNode), index: index - 1};
+        return {
+          index: index - 1,
+          deleteCount: 3,
+          node: newPlusInfixNode(leftNode, operatorNode, rightNode),
+        };
       }, startIndex);
     },
   };
