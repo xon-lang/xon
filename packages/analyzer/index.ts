@@ -21,6 +21,7 @@ export * from './src/syntax-old/node/declaration/declaration-node';
 export * from './src/syntax/nodes/whitespace/whitespace-node.parser';
 export * from './src/syntax/nodes/whitespace/whitespace-node';
 export * from './src/syntax/nodes/unknown/unknown-node';
+export * from './src/syntax/nodes/type-assign/extract-target-type-assign';
 export * from './src/syntax/nodes/string/string-node';
 export * from './src/syntax/nodes/statement/statement-node';
 export * from './src/syntax/nodes/number/number-node.parser';

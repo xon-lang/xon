@@ -87,8 +87,7 @@ export function collapseNodes(nodes: ArrayData<Node>): ArrayData<Node> {
           break;
         }
 
-        const deleteCount = result.node.children?.count() ?? 0;
-        nodes = nodes.replaceItem(result.index, deleteCount, result.node);
+        nodes = nodes.replaceItem(result.index, result.deleteCount, result.node);
         index = result.index - 1;
       }
     }

@@ -1,15 +1,15 @@
 import {
-  $IdNode,
-  $IntegerNode,
   $AssignNode,
   $AssignOperatorNode,
+  $IdNode,
+  $IntegerNode,
+  AssignNode,
   collapseAssignNode,
   IdNode,
   IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
-  AssignNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
@@ -34,9 +34,11 @@ function getAssignNode(text: Text): AssignNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseAssignNode().collapse(nodes, nodes.lastIndex()!)!.node;
+  const {index, deleteCount, node} = collapseAssignNode().collapse(nodes, nodes.lastIndex()!)!;
 
   expect(node).toBeTruthy();
+  expect(index).toBe(0);
+  expect(deleteCount).toBe(3);
   expect(is(node, $AssignNode())).toBe(true);
 
   return node;

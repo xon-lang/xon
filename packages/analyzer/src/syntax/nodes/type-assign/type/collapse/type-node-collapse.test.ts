@@ -34,9 +34,11 @@ function getTypeNode(text: Text): TypeNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseTypeNode().collapse(nodes, nodes.lastIndex()!)!.node;
+  const {index, deleteCount, node} = collapseTypeNode().collapse(nodes, nodes.lastIndex()!)!;
 
   expect(node).toBeTruthy();
+  expect(index).toBe(0);
+  expect(deleteCount).toBe(3);
   expect(is(node, $TypeNode())).toBe(true);
 
   return node;
