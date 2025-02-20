@@ -279,7 +279,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     ): V | Nothing {
       startIndex ??= this.firstIndex();
 
-      if (!startIndex) {
+      if (startIndex == null) {
         return nothing;
       }
 
@@ -300,7 +300,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     ): V | Nothing {
       startIndex ??= this.lastIndex();
 
-      if (!startIndex) {
+      if (startIndex == null) {
         return nothing;
       }
 

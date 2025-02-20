@@ -23,19 +23,19 @@ test('Assign two integers', () => {
   expect((node.leftNode as IdNode).text.toNativeString()).toBe('a');
   expect(node.rightNode?.canBeExpression).toBe(true);
   expect(is(node.rightNode, $IntegerNode())).toBe(true);
-  expect((node.rightNode as IntegerNode).contentNode.text.toNativeString()).toBe('2');
+  expect((node.rightNode as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });
 
 function getAssignInfixNode(text: Text): AssignInfixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseAssignInfixNode().collapse(nodes, 0)?.node as AssignInfixNode;
+  const node = collapseAssignInfixNode().collapse(nodes, nodes.lastIndex()!)?.node as AssignInfixNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $AssignInfixNode())).toBe(true);
   expect(is(node.operatorNode, $AssignOperatorNode())).toBe(true);
-  expect(node.operatorNode.text.toNativeString()).toBe('+');
+  expect(node.operatorNode.text.toNativeString()).toBe('=');
   expect(node.leftNode.canBeExpression).toBe(true);
 
   return node;
