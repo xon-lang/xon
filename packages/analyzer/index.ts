@@ -208,6 +208,7 @@ export * from './src/syntax/nodes/documentation/nodes/documentation-label/docume
 export * from './src/syntax/nodes/documentation/nodes/documentation-label/documentation-label-operator/documentation-label-operator-node';
 export * from './src/syntax/nodes/affix/prefix/nodes/plus/plus-prefix-node';
 export * from './src/syntax/nodes/affix/postfix/nodes/exclamation/exclamation-postfix-node';
+export * from './src/syntax/nodes/affix/infix/type/collapse/type-infix-node-collapse';
 export * from './src/syntax/nodes/affix/infix/plus/collapse/plus-infix-node-collapse';
 export * from './src/syntax/nodes/affix/infix/assign/collapse/assign-infix-node-collapse';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';

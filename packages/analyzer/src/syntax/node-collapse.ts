@@ -2,6 +2,7 @@ import {
   collapseAssignInfixNode,
   collapseConditionStatementNode,
   collapsePlusInfixNode,
+  collapseTypeInfixNode,
   Node,
   StatementNode,
 } from '#analyzer';
@@ -22,7 +23,7 @@ function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayD
     },
     {
       isLeftRecursive: false,
-      collapses: newArrayData([collapseAssignInfixNode()]),
+      collapses: newArrayData([collapseTypeInfixNode(), collapseAssignInfixNode()]),
     },
   ]);
 }

@@ -1,10 +1,10 @@
 import {
-  $AssignInfixNode,
-  $AssignOperatorNode,
+  $TypeInfixNode,
+  $TypeOperatorNode,
   $IdNode,
   $IntegerNode,
-  AssignInfixNode,
-  collapseAssignInfixNode,
+  TypeInfixNode,
+  collapseTypeInfixNode,
   IdNode,
   IntegerNode,
   newAnalyzerContext,
@@ -15,9 +15,9 @@ import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Assign integer', () => {
-  const text = newText('a=1');
-  const node = getAssignInfixNode(text);
+test('Type integer', () => {
+  const text = newText('a: 1');
+  const node = getTypeInfixNode(text);
 
   expect(is(node.leftNode, $IdNode())).toBe(true);
   expect((node.leftNode as IdNode).text.toNativeString()).toBe('a');
@@ -26,16 +26,16 @@ test('Assign integer', () => {
   expect((node.rightNode as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });
 
-function getAssignInfixNode(text: Text): AssignInfixNode {
+function getTypeInfixNode(text: Text): TypeInfixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseAssignInfixNode().collapse(nodes, nodes.lastIndex()!)?.node as AssignInfixNode;
+  const node = collapseTypeInfixNode().collapse(nodes, nodes.lastIndex()!)?.node as TypeInfixNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $AssignInfixNode())).toBe(true);
-  expect(is(node.operatorNode, $AssignOperatorNode())).toBe(true);
-  expect(node.operatorNode.text.toNativeString()).toBe('=');
+  expect(is(node, $TypeInfixNode())).toBe(true);
+  expect(is(node.operatorNode, $TypeOperatorNode())).toBe(true);
+  expect(node.operatorNode.text.toNativeString()).toBe(':');
   expect(node.leftNode.canBeExpression).toBe(true);
 
   return node;
