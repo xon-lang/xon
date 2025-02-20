@@ -1,17 +1,14 @@
-import {$AffixNode, $AnalyzerType, AffixNode, newSyntaxNode, Node, OperatorNode} from '#analyzer';
-import {$Type, Brand} from '#typing';
+import {$AffixNode, $AnalyzerType, AffixNode, Node} from '#analyzer';
+import {Nothing} from '#common';
+import {Brand} from '#typing';
 
 export type InfixNode = AffixNode &
   Brand<'Analyzer.InfixNode'> & {
-    leftNode: Node;
-    rightNode: Node;
+    leftNode?: Node | Nothing;
+    rightNode?: Node | Nothing;
   };
 
 export const $InfixNode = () => $AnalyzerType<InfixNode>('InfixNode', $AffixNode());
-
-export function infixNode($: $Type, leftNode: Node, operatorNode: OperatorNode, rightNode: Node): InfixNode {
-  return newSyntaxNode({$, canBeExpression: true, leftNode, operatorNode, rightNode});
-}
 
 // function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {
 //   const keepSingleWhitespace = !node.operator.text.equals(RANGE);
