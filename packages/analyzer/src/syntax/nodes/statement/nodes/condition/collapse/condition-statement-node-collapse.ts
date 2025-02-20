@@ -22,7 +22,11 @@ export function collapseConditionStatementNode(): NodeCollapseFn<StatementNode> 
         const nextNode = nodes.at(index + 1);
         const elseStatementNode = is(nextNode, $ElseStatementNode()) ? nextNode : nothing;
 
-        return {node: newConditionStatementNode(ifStatementNode, elseStatementNode), index};
+        return {
+          index,
+          deleteCount: 2,
+          node: newConditionStatementNode(ifStatementNode, elseStatementNode),
+        };
       }, startIndex);
     },
   };
