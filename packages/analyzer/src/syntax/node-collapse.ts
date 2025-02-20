@@ -1,8 +1,7 @@
 import {
-  collapseAssignInfixNode,
   collapseConditionStatementNode,
   collapsePlusInfixNode,
-  collapseTypeInfixNode,
+  collapseTypeNode,
   Node,
   StatementNode,
 } from '#analyzer';
@@ -13,7 +12,9 @@ export type NodeCollapseFn<T extends Node = Node> = {
   collapse: (nodes: ArrayData<Node>, startIndex: Integer) => NodeCollapseResult<T>;
 };
 
-export type NodeCollapseResult<T extends Node = Node> = {index: Integer; node: T} | Nothing;
+export type NodeCollapseResult<T extends Node = Node> =
+  | {index: Integer; deleteCount: Integer; node: T}
+  | Nothing;
 
 function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayData<NodeCollapseFn>}> {
   return newArrayData([
@@ -23,7 +24,7 @@ function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayD
     },
     {
       isLeftRecursive: false,
-      collapses: newArrayData([collapseTypeInfixNode(), collapseAssignInfixNode()]),
+      collapses: newArrayData([collapseTypeNode()]),
     },
   ]);
 }
@@ -68,8 +69,7 @@ export function collapseNodes(nodes: ArrayData<Node>): ArrayData<Node> {
           break;
         }
 
-        const deleteCount = result.node.children?.count() ?? 0;
-        nodes = nodes.replaceItem(result.index, deleteCount, result.node);
+        nodes = nodes.replaceItem(result.index, result.deleteCount, result.node);
         index = result.index + 1;
       }
     } else {
@@ -117,8 +117,7 @@ export function collapseStatements(nodes: ArrayData<StatementNode>): ArrayData<S
         break;
       }
 
-      const deleteCount = result.node.children?.count() ?? 0;
-      nodes = nodes.replaceItem(result.index, deleteCount, result.node);
+      nodes = nodes.replaceItem(result.index, result.deleteCount, result.node);
       index = result.index + 1;
 
       if (index >= nodes.count() || nodes.count() < min) {

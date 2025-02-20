@@ -44,9 +44,7 @@ export type SyntaxNode = Node & Brand<'Analyzer.SyntaxNode'>;
 
 export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
 
-export function newSyntaxNode<T extends Node>(
-  params: Omit<T, 'children' | 'range'> | Record<string, unknown>,
-): T {
+export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'range'>): T {
   // todo optimize and simplify it
   const children = newArrayData(
     Object.entries(params)
