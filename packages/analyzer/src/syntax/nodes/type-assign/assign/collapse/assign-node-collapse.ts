@@ -1,11 +1,12 @@
 import {
   $AssignOperatorNode,
-  Node,
-  NodeCollapseFn,
-  NodeCollapseResult,
+  $TypeNode,
   AssignNode,
   newAssignNode,
   newAssignValueNode,
+  Node,
+  NodeCollapseFn,
+  NodeCollapseResult,
 } from '#analyzer';
 import {ArrayData, Integer, nothing} from '#common';
 import {is} from '#typing';
@@ -27,7 +28,7 @@ export function collapseAssignNode(): NodeCollapseFn<AssignNode> {
           rightNode?.canBeExpression ? rightNode : nothing,
         );
 
-        if (leftNode?.canBeExpression) {
+        if (leftNode?.canBeExpression || is(leftNode, $TypeNode())) {
           return {
             index: index - 1,
             deleteCount: 1 + assignValueNode.children!.count(),
