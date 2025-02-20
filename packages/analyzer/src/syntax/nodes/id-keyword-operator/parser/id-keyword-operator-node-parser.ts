@@ -9,6 +9,7 @@ import {
   $PublicKeywordNode,
   $ReturnKeywordNode,
   $TypeKeywordNode,
+  $VarKeywordNode,
   AnalyzerContext,
   AS,
   CONST,
@@ -23,6 +24,7 @@ import {
   RETURN,
   TYPE,
   UNDERSCORE,
+  VAR,
 } from '#analyzer';
 import {Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#common';
 import {$Type} from '#typing';
@@ -33,6 +35,7 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
       // declarations
       newKeyValue(TYPE, $TypeKeywordNode()),
       newKeyValue(CONST, $ConstKeywordNode()),
+      newKeyValue(VAR, $VarKeywordNode()),
       // modifiers
       newKeyValue(PUBLIC, $PublicKeywordNode()),
       // controls
