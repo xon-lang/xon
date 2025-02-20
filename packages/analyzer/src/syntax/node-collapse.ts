@@ -1,28 +1,28 @@
 import {
-  $PlusInfixNode,
+  collapseAssignInfixNode,
   collapseConditionStatementNode,
-  collapseInfixNode,
-  collapseInvokeNode,
-  collapseMemberNode,
+  collapsePlusInfixNode,
   Node,
-  PLUS,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, newArrayData, newDictionary, newKeyValue, Nothing} from '#common';
+import {ArrayData, Integer, newArrayData, Nothing} from '#common';
 
-export type NodeCollapseFn<T extends Node = Node> = (
-  nodes: ArrayData<T>,
-  startIndex: Integer,
-) => NodeCollapseResult<T>;
+export type NodeCollapseFn<T extends Node = Node> = {
+  min: Integer;
+  collapse: (nodes: ArrayData<Node>, startIndex: Integer) => NodeCollapseResult<T>;
+};
+
 export type NodeCollapseResult<T extends Node = Node> = {index: Integer; node: T} | Nothing;
 
-function nodeCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn}> {
+function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayData<NodeCollapseFn>}> {
   return newArrayData([
-    {min: 2, collapse: collapseInvokeNode},
-    {min: 2, collapse: collapseMemberNode},
     {
-      min: 3,
-      collapse: collapseInfixNode(newDictionary(newArrayData([newKeyValue(PLUS, $PlusInfixNode())])), true),
+      isLeftRecursive: true,
+      collapses: newArrayData([collapsePlusInfixNode()]),
+    },
+    {
+      isLeftRecursive: false,
+      collapses: newArrayData([collapseAssignInfixNode()]),
     },
   ]);
 }
@@ -54,26 +54,36 @@ export function collapseNodes(nodes: ArrayData<Node>): ArrayData<Node> {
     return nodes;
   }
 
-  for (const {min, collapse} of nodeCollapses()) {
-    if (nodes.count() < min) {
-      continue;
-    }
+  for (const {isLeftRecursive, collapses} of nodeCollapses()) {
+    if (isLeftRecursive) {
+      let index = 0;
 
-    let index = 0;
+      while (true) {
+        const result = collapses.firstMap(
+          ({min, collapse}) => nodes.count() - index >= min && collapse(nodes, index),
+        );
 
-    while (true) {
-      const result = collapse(nodes, index);
+        if (!result) {
+          break;
+        }
 
-      if (!result) {
-        break;
+        const deleteCount = result.node.children?.count() ?? 0;
+        nodes = nodes.replaceItem(result.index, deleteCount, result.node);
+        index = result.index + 1;
       }
+    } else {
+      let index = nodes.count() - 1;
 
-      const deleteCount = result.node.children?.count() ?? 0;
-      nodes = nodes.replaceItem(result.index, deleteCount, result.node);
-      index = result.index + 1;
+      while (true) {
+        const result = collapses.firstMap(({min, collapse}) => index + 1 >= min && collapse(nodes, index));
 
-      if (index >= nodes.count() || nodes.count() < min) {
-        break;
+        if (!result) {
+          break;
+        }
+
+        const deleteCount = result.node.children?.count() ?? 0;
+        nodes = nodes.replaceItem(result.index, deleteCount, result.node);
+        index = result.index - 1;
       }
     }
   }
@@ -82,8 +92,8 @@ export function collapseNodes(nodes: ArrayData<Node>): ArrayData<Node> {
 }
 
 // todo try to join with 'nodeCollapses'
-function statementCollapses(): ArrayData<{min: Integer; collapse: NodeCollapseFn<StatementNode>}> {
-  return newArrayData([{min: 1, collapse: collapseConditionStatementNode}]);
+function statementCollapses(): ArrayData<NodeCollapseFn<StatementNode>> {
+  return newArrayData([collapseConditionStatementNode()]);
 }
 
 // todo try to join with 'collapseNodes'
