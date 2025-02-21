@@ -1,22 +1,28 @@
-import {$GroupNode, invokeNode, Node, NodeCollapseResult} from '#analyzer';
-import {ArrayData, Integer, Nothing, nothing} from '#common';
+import {$GroupNode, InvokeNode, invokeNode, Node, NodeCollapseFn, NodeCollapseResult} from '#analyzer';
+import {ArrayData, Integer, nothing} from '#common';
 import {is} from '#typing';
 
-export function collapseInvokeNode(
-  nodes: ArrayData<Node>,
-  startIndex?: Integer | Nothing,
-): NodeCollapseResult {
-  return nodes.firstMap((groupNode, index) => {
-    if (index === 0 || !is(groupNode, $GroupNode())) {
-      return nothing;
-    }
+export function collapseInvokeNode(): NodeCollapseFn<InvokeNode> {
+  return {
+    min: 2,
+    collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<InvokeNode> => {
+      return nodes.firstMap((groupNode, index) => {
+        if (index === 0 || !is(groupNode, $GroupNode())) {
+          return nothing;
+        }
 
-    const instanceNode = nodes.at(index - 1);
+        const instanceNode = nodes.at(index - 1);
 
-    if (!instanceNode?.canBeExpression) {
-      return nothing;
-    }
+        if (!instanceNode?.canBeExpression) {
+          return nothing;
+        }
 
-    return {node: invokeNode(instanceNode, groupNode), index: index - 1};
-  }, startIndex);
+        return {
+          index: index - 1,
+          deleteCount: 2,
+          node: invokeNode(instanceNode, groupNode),
+        };
+      }, startIndex);
+    },
+  };
 }

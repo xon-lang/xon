@@ -27,7 +27,7 @@ function getInvokeNode(text: Text): InvokeNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseInvokeNode(nodes)?.node as InvokeNode;
+  const node = collapseInvokeNode().collapse(nodes, 0)!.node;
 
   expect(node).toBeTruthy();
   expect(is(node, $InvokeNode())).toBe(true);
