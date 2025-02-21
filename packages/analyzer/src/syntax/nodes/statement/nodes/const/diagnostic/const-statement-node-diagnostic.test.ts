@@ -1,31 +1,31 @@
 import {
-  $ReturnStatementNode,
+  $ConstStatementNode,
+  ConstStatementNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
-  parseReturnStatementNode,
-  ReturnStatementNode,
+  parseConstStatementNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Return statement has no errors', () => {
-  const text = newText('return 1');
-  const diagnostics = returnNodeDiagnostics(text);
+test('Const statement has no errors', () => {
+  const text = newText('const a: 1 = 2');
+  const diagnostics = constStatementNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(0);
 });
 
-function returnNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
+function constStatementNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseReturnStatementNode(0, nodes) as ReturnStatementNode;
+  const node = parseConstStatementNode(0, nodes) as ConstStatementNode;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ReturnStatementNode())).toBe(true);
+  expect(is(node, $ConstStatementNode())).toBe(true);
 
   return node.diagnose!();
 }

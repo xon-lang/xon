@@ -2,7 +2,7 @@ import {
   $ConstKeywordNode,
   collapseNodes,
   ConstStatementNode,
-  extractTargetTypeAssign,
+  extractDeclarationInfo,
   newConstStatementNode,
   Node,
 } from '#analyzer';
@@ -20,7 +20,7 @@ export function parseConstStatementNode(
   }
 
   nodes = collapseNodes(nodes.slice(1));
-  const {target, type, assign} = extractTargetTypeAssign(nodes.first());
+  const {target, type, assign} = extractDeclarationInfo(nodes.first());
 
   return newConstStatementNode(indent, keywordNode, target, type, assign, nodes);
 }
