@@ -75,6 +75,7 @@ function collapseAllStatement(statements: ArrayData<StatementNode>): ArrayData<S
 export type StatementParserFunction<T extends StatementNode = StatementNode> = (
   indent: Integer,
   nodes: ArrayData<Node>,
+  parent?: StatementNode | Nothing,
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
@@ -91,7 +92,7 @@ function handleStatement(
   let statement: StatementNode | Nothing;
 
   statement =
-    statementParsers().firstMap((parse) => parse(indent, nodes)) ??
+    statementParsers().firstMap((parse) => parse(indent, nodes, parent)) ??
     parseExpressionStatementNode(indent, nodes);
 
   if (parent) {
