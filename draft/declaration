@@ -1,12 +1,12 @@
-type Point
+Point
   x: Number
   y: Number
 
-type Size
+Size
   x: Number
   y: Number
 
-type Rectangle
+Rectangle
   x1: Number
   y1: Number
   x2: Number
