@@ -35,15 +35,11 @@ export const BRACE_CLOSE = newText('}');
 export const ANGLE_OPEN = newText('<:');
 export const ANGLE_CLOSE = newText(':>');
 
-export const TYPE = newText('type');
-export const CONSTRUCT = newText('construct');
 export const PREFIX = newText('prefix');
 export const INFIX = newText('infix');
 export const POSTFIX = newText('postfix');
 
-export const TYPE_KEYWORDS = newArrayData([TYPE, CONSTRUCT, PREFIX, INFIX, POSTFIX]).sort(
-  (a, b) => a.count() - b.count(),
-);
+export const TYPE_KEYWORDS = newArrayData([PREFIX, INFIX, POSTFIX]).sort((a, b) => a.count() - b.count());
 
 export const PUBLIC = newText('public');
 
