@@ -1,6 +1,6 @@
 import {
   $AsOperatorNode,
-  $ConstKeywordNode,
+  $ConstructKeywordNode,
   $ElseKeywordNode,
   $IdNode,
   $IfKeywordNode,
@@ -9,10 +9,9 @@ import {
   $PublicKeywordNode,
   $ReturnKeywordNode,
   $TypeKeywordNode,
-  $VarKeywordNode,
   AnalyzerContext,
   AS,
-  CONST,
+  CONSTRUCT,
   ELSE,
   IdNode,
   IF,
@@ -24,7 +23,6 @@ import {
   RETURN,
   TYPE,
   UNDERSCORE,
-  VAR,
 } from '#analyzer';
 import {Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#common';
 import {$Type} from '#typing';
@@ -32,10 +30,9 @@ import {$Type} from '#typing';
 function getTokenTypeMap(): Dictionary<Text, $Type> {
   return newDictionary(
     newArrayData([
-      // declarations
+      // declarations ???
       newKeyValue(TYPE, $TypeKeywordNode()),
-      newKeyValue(CONST, $ConstKeywordNode()),
-      newKeyValue(VAR, $VarKeywordNode()),
+      newKeyValue(CONSTRUCT, $ConstructKeywordNode()),
       // modifiers
       newKeyValue(PUBLIC, $PublicKeywordNode()),
       // controls
