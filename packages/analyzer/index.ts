@@ -228,9 +228,8 @@ export * from './src/syntax/nodes/id-keyword-operator/nodes/operator/symbol/node
 export * from './src/syntax/nodes/id-keyword-operator/nodes/operator/symbol/nodes/plus-operator-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/operator/symbol/nodes/type-operator-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/modifier/public/public-keyword-node';
-export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/declaration/var/var-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/declaration/type/type-keyword-node';
-export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/declaration/const/const-keyword-node';
+export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/declaration/construct/construct-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/nodes/else-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/nodes/if-keyword-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/keyword/control/nodes/import-keyword-node';
