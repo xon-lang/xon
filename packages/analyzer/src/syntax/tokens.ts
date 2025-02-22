@@ -36,14 +36,12 @@ export const ANGLE_OPEN = newText('<:');
 export const ANGLE_CLOSE = newText(':>');
 
 export const TYPE = newText('type');
-export const CONST = newText('const');
-export const VAR = newText('var');
-export const IDEM = newText('idem');
+export const CONSTRUCT = newText('construct');
 export const PREFIX = newText('prefix');
 export const INFIX = newText('infix');
 export const POSTFIX = newText('postfix');
 
-export const TYPE_KEYWORDS = newArrayData([TYPE, CONST, VAR, IDEM, PREFIX, INFIX, POSTFIX]).sort(
+export const TYPE_KEYWORDS = newArrayData([TYPE, CONSTRUCT, PREFIX, INFIX, POSTFIX]).sort(
   (a, b) => a.count() - b.count(),
 );
 
