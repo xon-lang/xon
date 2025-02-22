@@ -1,0 +1,2 @@
+# meta operator for compile operations
+some:= #(1 + 2 * 3) // this value will be calculated in compile time
