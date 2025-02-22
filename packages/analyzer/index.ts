@@ -183,6 +183,7 @@ export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-state
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/value/value-declaration-statement-node';
 export * from './src/syntax/nodes/statement/nodes/const/parser/const-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/const/diagnostic/const-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/diagnostic/condition-statement-node-diagnostic';
@@ -219,6 +220,8 @@ export * from './src/syntax/nodes/statement/nodes/type/structural-type/parser/st
 export * from './src/syntax/nodes/statement/nodes/type/structural-type/diagnostic/structural-type-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/type/nominal-type/parser/nominal-type-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/type/nominal-type/diagnostic/nominal-type-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/declaration/value/parser/value-declaration-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/value/diagnostic/value-declaration-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/else/else-statement-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/operator/word/nodes/as-operator-node';
