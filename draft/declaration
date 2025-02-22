@@ -1,0 +1,33 @@
+type Point
+  x: Number
+  y: Number
+
+type Size
+  x: Number
+  y: Number
+
+type Rectangle
+  x1: Number
+  y1: Number
+  x2: Number
+  y2: Number
+  width: Number
+  height: Number
+
+  square(): Number
+
+
+
+
+// 'newRectangle' is function
+newRectangle(x: Number, y: Number, width: Number, height: Number) = Rectangle {
+    x1: x,
+    y1: y,
+    x2: x + width,
+    y2: y + height,
+    width,
+    height,
+
+    square(): Number
+      return $width * $height
+  }
