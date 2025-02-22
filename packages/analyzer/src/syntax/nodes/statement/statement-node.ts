@@ -3,7 +3,7 @@ import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type StatementNode = SyntaxNode &
-  Brand<'Analyzer.StatementNode2'> & {
+  Brand<'Analyzer.StatementNode'> & {
     indent: Integer;
     errorNodes?: ArrayData<Node> | Nothing;
     parent?: StatementNode | Nothing;
@@ -14,9 +14,9 @@ export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode'
 
 // export function newStatementNode(
 //   indentLevel: Integer,
-//   errorNodes: ArrayData<Node2> | Nothing,
-// ): StatementNode2 {
-//   const node = newSyntaxNode<StatementNode2>({
+//   errorNodes: ArrayData<Node> | Nothing,
+// ): StatementNode {
+//   const node = newSyntaxNode<StatementNode>({
 //     $: $StatementNode(),
 //     indentLevel,
 //     errorNodes,
@@ -25,12 +25,12 @@ export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode'
 //   return node;
 // }
 
-// export function constructStatementNode2(
-//   parentStatement: StatementNode2 | Nothing,
+// export function constructStatementNode(
+//   parentStatement: StatementNode | Nothing,
 //   nodes: ArrayData<Node>,
 //   indent: TextRange,
 //   isFirstStatement: Boolean2,
-// ): StatementNode2 {
+// ): StatementNode {
 //   statementNodeCollapse(analyzer, parentStatement, nodes);
 
 //   // for (const node of nodes.slice(1)) {
@@ -42,7 +42,7 @@ export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode'
 
 // function format(
 //   {formatterManager}: SyntaxAnalyzer,
-//   statement: StatementNode2,
+//   statement: StatementNode,
 //   isFirstStatement: Boolean2,
 // ): void {
 //   const INDENT_SPACE_LENGTH = 2;

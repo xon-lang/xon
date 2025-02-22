@@ -14,7 +14,7 @@ import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, is, Model} from '#typing';
 
 export type Node = Model &
-  Brand<'Analyzer.Node2'> & {
+  Brand<'Analyzer.Node'> & {
     range: TextRange;
     parent?: Node | Nothing;
     children?: ArrayData<Node> | Nothing;

@@ -25,12 +25,12 @@ export const $StructuralTypeStatementNode = () =>
 export function newStructuralTypeStatementNode(
   indent: Integer,
   keyword: TypeKeywordNode,
-  id: Node,
+  id: IdNode,
   parameters: AngleGroupNode | Nothing,
   assign: AssignValueNode,
   errorNodes: ArrayData<Node> | Nothing,
 ): StructuralTypeStatementNode {
-  return newSyntaxNode<StructuralTypeStatementNode>({
+  return newSyntaxNode({
     $: $StructuralTypeStatementNode(),
     indent,
     keyword: keyword,

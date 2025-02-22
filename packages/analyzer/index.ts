@@ -177,6 +177,7 @@ export * from './src/semantic/node/declaration/type/parameter/parameter-type-dec
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic-handle';
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
 export * from './src/syntax/nodes/statement/nodes/type/structural-type/structural-type-statement-node';
+export * from './src/syntax/nodes/statement/nodes/type/nominal-type/nominal-type-statement-node';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
@@ -216,6 +217,8 @@ export * from './src/syntax/nodes/affix/postfix/nodes/exclamation/exclamation-po
 export * from './src/syntax/nodes/affix/infix/plus/collapse/plus-infix-node-collapse';
 export * from './src/syntax/nodes/statement/nodes/type/structural-type/parser/structural-type-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/type/structural-type/diagnostic/structural-type-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/type/nominal-type/parser/nominal-type-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/type/nominal-type/diagnostic/nominal-type-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/else/else-statement-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/operator/word/nodes/as-operator-node';
