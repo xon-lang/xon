@@ -2,7 +2,7 @@ import {
   $AnalyzerType,
   $StatementNode,
   AssignValueNode,
-  diagnoseValueDeclarationStatementNode,
+  diagnoseValueDeclarationNode,
   IdNode,
   newSyntaxNode,
   Node,
@@ -12,26 +12,26 @@ import {
 import {ArrayData, Boolean2, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type ValueDeclarationStatementNode = StatementNode &
-  Brand<'Analyzer.ValueDeclarationStatementNode'> & {
+export type ValueDeclarationNode = StatementNode &
+  Brand<'Analyzer.ValueDeclarationNode'> & {
     isMutable: Boolean2;
     target?: IdNode | Nothing;
     type?: TypeValueNode | Nothing;
     assign?: AssignValueNode | Nothing;
   };
 
-export const $ValueDeclarationStatementNode = () =>
-  $AnalyzerType<ValueDeclarationStatementNode>('ValueDeclarationStatementNode', $StatementNode());
+export const $ValueDeclarationNode = () =>
+  $AnalyzerType<ValueDeclarationNode>('ValueDeclarationNode', $StatementNode());
 
-export function newValueDeclarationStatementNode(
+export function newValueDeclarationNode(
   indent: Integer,
   target?: IdNode | Nothing,
   type?: TypeValueNode | Nothing,
   assign?: AssignValueNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
-): ValueDeclarationStatementNode {
-  return newSyntaxNode<ValueDeclarationStatementNode>({
-    $: $ValueDeclarationStatementNode(),
+): ValueDeclarationNode {
+  return newSyntaxNode<ValueDeclarationNode>({
+    $: $ValueDeclarationNode(),
     indent,
     isMutable: false,
     target,
@@ -39,6 +39,6 @@ export function newValueDeclarationStatementNode(
     assign,
     errorNodes,
 
-    diagnose: diagnoseValueDeclarationStatementNode,
+    diagnose: diagnoseValueDeclarationNode,
   });
 }

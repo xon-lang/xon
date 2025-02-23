@@ -2,17 +2,17 @@ import {
   $IdNode,
   collapseNodes,
   extractDeclarationInfo,
-  newValueDeclarationStatementNode,
+  newValueDeclarationNode,
   Node,
-  ValueDeclarationStatementNode,
+  ValueDeclarationNode,
 } from '#analyzer';
 import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
-export function parseValueDeclarationStatementNode(
+export function parseValueDeclarationNode(
   indent: Integer,
   nodes: ArrayData<Node>,
-): ValueDeclarationStatementNode | Nothing {
+): ValueDeclarationNode | Nothing {
   nodes = collapseNodes(nodes);
   const firstNode = nodes.first();
   const {target, type, assign} = extractDeclarationInfo(firstNode);
@@ -21,5 +21,5 @@ export function parseValueDeclarationStatementNode(
     return nothing;
   }
 
-  return newValueDeclarationStatementNode(indent, target, type, assign, nodes.slice(1));
+  return newValueDeclarationNode(indent, target, type, assign, nodes.slice(1));
 }

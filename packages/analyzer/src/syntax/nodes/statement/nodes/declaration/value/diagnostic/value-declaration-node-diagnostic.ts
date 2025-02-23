@@ -1,9 +1,9 @@
-import {ValueDeclarationStatementNode} from '#analyzer';
+import {ValueDeclarationNode} from '#analyzer';
 import {ArrayData, newArrayData} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 
-export function diagnoseValueDeclarationStatementNode(
-  this: ValueDeclarationStatementNode,
+export function diagnoseValueDeclarationNode(
+  this: ValueDeclarationNode,
 ): ArrayData<AnalyzerDiagnostic> {
   const diagnostics = newArrayData<AnalyzerDiagnostic>();
 
