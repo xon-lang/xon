@@ -27,7 +27,7 @@ export function parseTypeDeclarationNode(
   const {target, parameters, type, assign} = extractDeclarationInfo(nodes.first());
 
   if (is(target, $IdNode()) && (!parameters || is(parameters, $AngleGroupNode()))) {
-    if (type && !assign) {
+    if (!assign) {
       return newNominalTypeDeclarationNode(indent, keyword, target, parameters, type, nodes);
     }
 
