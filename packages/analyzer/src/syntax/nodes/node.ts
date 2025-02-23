@@ -36,10 +36,6 @@ export type LexicalNode = Node &
 
 export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Node());
 
-export function newLexicalNode<T extends LexicalNode>(params: T): T {
-  return params;
-}
-
 export type SyntaxNode = Node & Brand<'Analyzer.SyntaxNode'>;
 
 export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
