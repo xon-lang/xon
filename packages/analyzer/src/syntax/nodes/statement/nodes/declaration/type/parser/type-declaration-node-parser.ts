@@ -5,6 +5,7 @@ import {
   collapseNodes,
   extractDeclarationInfo,
   newNominalTypeDeclarationNode,
+  newStructuralTypeDeclarationNode,
   newTypeDeclarationNode,
   Node,
   TypeDeclarationNode,
@@ -12,7 +13,7 @@ import {
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
-export function parseNominalTypeDeclarationNode(
+export function parseTypeDeclarationNode(
   indent: Integer,
   nodes: ArrayData<Node>,
 ): TypeDeclarationNode | Nothing {
@@ -25,9 +26,15 @@ export function parseNominalTypeDeclarationNode(
   nodes = collapseNodes(nodes.slice(1));
   const {target, parameters, type, assign} = extractDeclarationInfo(nodes.first());
 
-  if (!is(target, $IdNode()) || (parameters && !is(parameters, $AngleGroupNode())) || assign) {
-    return newTypeDeclarationNode(indent, keyword, nodes);
+  if (is(target, $IdNode()) && (!parameters || is(parameters, $AngleGroupNode()))) {
+    if (type && !assign) {
+      return newNominalTypeDeclarationNode(indent, keyword, target, parameters, type, nodes);
+    }
+
+    if (!type && assign) {
+      return newStructuralTypeDeclarationNode(indent, keyword, target, parameters, assign, nodes);
+    }
   }
 
-  return newNominalTypeDeclarationNode(indent, keyword, target, parameters, type, nodes);
+  return newTypeDeclarationNode(indent, keyword, nodes);
 }
