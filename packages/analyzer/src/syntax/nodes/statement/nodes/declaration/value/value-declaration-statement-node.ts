@@ -15,10 +15,9 @@ import {Brand} from '#typing';
 export type ValueDeclarationStatementNode = StatementNode &
   Brand<'Analyzer.ValueDeclarationStatementNode'> & {
     target?: IdNode | Nothing;
-  } & (
-    | {type: TypeValueNode | Nothing; assign?: AssignValueNode | Nothing}
-    | {type?: TypeValueNode | Nothing; assign: AssignValueNode | Nothing}
-  );
+    type?: TypeValueNode | Nothing;
+    assign?: AssignValueNode | Nothing;
+  };
 
 export const $ValueDeclarationStatementNode = () =>
   $AnalyzerType<ValueDeclarationStatementNode>('ValueDeclarationStatementNode', $StatementNode());

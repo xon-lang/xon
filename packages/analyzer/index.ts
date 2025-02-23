@@ -121,7 +121,7 @@ export * from './src/syntax/nodes/string/nodes/string-content/string-content-nod
 export * from './src/syntax/nodes/string/nodes/string-content/string-content-node';
 export * from './src/syntax/nodes/string/nodes/string-close/string-close-node.parser';
 export * from './src/syntax/nodes/string/nodes/string-close/string-close-node';
-export * from './src/syntax/nodes/statement/nodes/type/type-statement-node';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/type-declaration-node';
 export * from './src/syntax/nodes/statement/nodes/return/return-statement-node';
 export * from './src/syntax/nodes/statement/nodes/import/import-statement-node';
 export * from './src/syntax/nodes/statement/nodes/expression/expression-statement-node';
@@ -176,8 +176,8 @@ export * from './src/semantic/node/declaration/type/parameter/parameter-type-dec
 export * from './src/semantic/node/declaration/type/parameter/parameter-type-declaration-semantic';
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic-handle';
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
-export * from './src/syntax/nodes/statement/nodes/type/structural-type/structural-type-statement-node';
-export * from './src/syntax/nodes/statement/nodes/type/nominal-type/nominal-type-statement-node';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/structural/structural-type-declaration-node';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/nominal/nominal-type-declaration-node';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
@@ -216,10 +216,10 @@ export * from './src/syntax/nodes/documentation/nodes/documentation-label/docume
 export * from './src/syntax/nodes/affix/prefix/nodes/plus/plus-prefix-node';
 export * from './src/syntax/nodes/affix/postfix/nodes/exclamation/exclamation-postfix-node';
 export * from './src/syntax/nodes/affix/infix/plus/collapse/plus-infix-node-collapse';
-export * from './src/syntax/nodes/statement/nodes/type/structural-type/parser/structural-type-statement-node-parser';
-export * from './src/syntax/nodes/statement/nodes/type/structural-type/diagnostic/structural-type-statement-node-diagnostic';
-export * from './src/syntax/nodes/statement/nodes/type/nominal-type/parser/nominal-type-statement-node-parser';
-export * from './src/syntax/nodes/statement/nodes/type/nominal-type/diagnostic/nominal-type-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/structural/parser/structural-type-declaration-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/structural/diagnostic/structural-type-declaration-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/nominal/parser/nominal-type-declaration-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/nominal/diagnostic/nominal-type-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/parser/value-declaration-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/diagnostic/value-declaration-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';
