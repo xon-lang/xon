@@ -8,7 +8,7 @@ import {newText} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('string close', () => {
+test('String close', () => {
   const text = newText('"a');
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
