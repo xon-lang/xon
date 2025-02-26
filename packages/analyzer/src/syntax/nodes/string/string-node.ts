@@ -4,6 +4,7 @@ import {
   diagnoseStringNode,
   formatStringNode,
   newSyntaxNode,
+  semantifyStringNode,
   StringCloseNode,
   StringContentNode,
   StringOpenNode,
@@ -35,5 +36,6 @@ export function newStringNode(
 
     diagnose: diagnoseStringNode,
     format: formatStringNode,
+    semantify: semantifyStringNode,
   });
 }

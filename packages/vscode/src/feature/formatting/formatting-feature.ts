@@ -1,4 +1,4 @@
-import {FormatterItem} from '#analyzer';
+import {AnalyzerFormatter} from '#analyzer';
 import {ArrayData} from '#common';
 import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 import {
@@ -86,6 +86,6 @@ function getDocumentFormatters(document: TextDocument, channel: OutputChannel): 
   return semantic.syntaxAnalyzer.formatterManager.items.map(convertFormatter);
 }
 
-function convertFormatter(formatter: FormatterItem): TextEdit {
+function convertFormatter(formatter: AnalyzerFormatter): TextEdit {
   return TextEdit.replace(convertRange(formatter.range), formatter.text.toNativeString());
 }
