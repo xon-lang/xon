@@ -1,6 +1,6 @@
 import {Text, TextRange} from '#common';
 
-export type FormatterItem = {
+export type AnalyzerFormatter = {
   range: TextRange;
   text: Text;
 };

@@ -2,7 +2,7 @@ import {
   $LexicalNode,
   $NlNode,
   $WhitespaceNode,
-  FormatterItem,
+  AnalyzerFormatter,
   LexicalNode,
   NL,
   NlNode,
@@ -24,9 +24,9 @@ import {is} from '#typing';
 
 export type FormatterManager = {
   resource: TextResource;
-  items: ArrayData<FormatterItem>;
+  items: ArrayData<AnalyzerFormatter>;
 
-  addItem(formatter: FormatterItem): void;
+  addItem(formatter: AnalyzerFormatter): void;
   getFormattedText(): Text;
   formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
   formatRemainingHiddenNodes(
@@ -47,7 +47,7 @@ export function newFormatterManager(resource: TextResource): FormatterManager {
     resource,
     items: newArrayData(),
 
-    addItem(formatter: FormatterItem): void {
+    addItem(formatter: AnalyzerFormatter): void {
       this.items.addLastItem(formatter);
     },
 
