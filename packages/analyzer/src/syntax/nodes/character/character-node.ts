@@ -23,7 +23,6 @@ export type CharacterNode = SyntaxNode &
 export const $CharacterNode = () => $AnalyzerType<CharacterNode>('CharacterNode', $SyntaxNode());
 
 export function newCharacterNode(
-  context: AnalyzerContext,
   openNode: CharacterOpenNode,
   contentNode?: CharacterContentNode | Nothing,
   closeNode?: CharacterCloseNode | Nothing,
