@@ -1,4 +1,4 @@
-import {$AnalyzerType, FormatterItem, Semantic} from '#analyzer';
+import {$AnalyzerType, DiagnosticContext, FormatterContext, Semantic, SemanticContext} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -10,7 +10,6 @@ import {
   Text,
   TextRange,
 } from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, is, Model} from '#typing';
 
 export type Node = Model &
@@ -23,8 +22,9 @@ export type Node = Model &
     hiddenNodes?: ArrayData<Node> | Nothing;
     canBeExpression?: Boolean2 | Nothing;
 
-    diagnose?(): ArrayData<AnalyzerDiagnostic>;
-    format?(): ArrayData<FormatterItem>;
+    diagnose?(context: DiagnosticContext): void;
+    format?(context: FormatterContext): void;
+    semantify?(context: SemanticContext): void;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');

@@ -1,16 +1,13 @@
 import {
   $AnalyzerType,
   $IdTypeSemantic,
-  $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   isInSet,
   newDeclarationScope,
-  Node,
   NominalTypeDeclarationSemantic,
-  SemanticAnalyzer,
   TypeSemantic,
 } from '#analyzer';
 import {Boolean2, Nothing, Text} from '#common';
@@ -24,18 +21,13 @@ export type StringTypeSemantic = TypeSemantic & {
 export const $StringTypeSemantic = () =>
   $AnalyzerType<StringTypeSemantic>('StringTypeSemantic', $TypeSemantic());
 
-export function stringTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
+export function newStringTypeSemantic(
+  declaration: NominalTypeDeclarationSemantic | Nothing,
   value: Text,
 ): StringTypeSemantic {
   return {
     $: $StringTypeSemantic(),
-    nodeLink,
-    declaration: analyzer.declarationManager.find(
-      $NominalTypeDeclarationSemantic(),
-      analyzer.config.literalTypeNames.stringTypeName,
-    ),
+    declaration,
     value,
 
     is(other: TypeSemantic): Boolean2 {

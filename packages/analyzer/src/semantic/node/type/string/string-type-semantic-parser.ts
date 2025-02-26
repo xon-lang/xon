@@ -4,7 +4,7 @@ import {
   SemanticAnalyzer,
   StringNode,
   StringTypeSemantic,
-  stringTypeSemantic,
+  newStringTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -21,5 +21,5 @@ export function stringTypeSemanticTryParse(
 }
 
 export function stringTypeSemanticParse(analyzer: SemanticAnalyzer, node: StringNode): StringTypeSemantic {
-  return stringTypeSemantic(analyzer, node, node.value);
+  return newStringTypeSemantic(analyzer, node, node.value);
 }
