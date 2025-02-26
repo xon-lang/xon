@@ -1,4 +1,9 @@
-import {newAnalyzerContext, newCharacterStreamFromText, parseUnknownNode} from '#analyzer';
+import {
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  newDiagnosticContext,
+  parseUnknownNode,
+} from '#analyzer';
 import {ArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {expect, test} from 'vitest';
@@ -15,6 +20,9 @@ function unknownNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseUnknownNode(context);
+  const diagnosticContext = newDiagnosticContext();
 
-  return node!.diagnose!();
+  node!.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

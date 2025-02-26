@@ -1,12 +1,9 @@
-import {ConditionStatementNode} from '#analyzer';
-import {ArrayData, newArrayData} from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
+import {ConditionStatementNode, DiagnosticContext} from '#analyzer';
 
-export function diagnoseConditionStatementNode(this: ConditionStatementNode): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
-  return diagnostics;
-}
+export function diagnoseConditionStatementNode(
+  this: ConditionStatementNode,
+  context: DiagnosticContext,
+): void {}
 
 // function expectIdentifier(range: TextRange): AnalyzerDiagnostic {
 //   return newDiagnostic(

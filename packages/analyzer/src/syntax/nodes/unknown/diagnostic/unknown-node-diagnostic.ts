@@ -1,5 +1,5 @@
-import {UnknownNode} from '#analyzer';
-import {ArrayData, TextRange, newArrayData, newText} from '#common';
+import {DiagnosticContext, UnknownNode} from '#analyzer';
+import {TextRange, newText} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -7,8 +7,8 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseUnknownNode(this: UnknownNode): ArrayData<AnalyzerDiagnostic> {
-  return newArrayData([unknownCharacter(this.range)]);
+export function diagnoseUnknownNode(this: UnknownNode, context: DiagnosticContext): void {
+  context.add(unknownCharacter(this.range));
 }
 
 function unknownCharacter(range: TextRange): AnalyzerDiagnostic {

@@ -2,6 +2,7 @@ import {
   $StructuralTypeDeclarationNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   nonHiddenNodeGenerator,
   parseTypeDeclarationNode,
   StructuralTypeDeclarationNode,
@@ -23,9 +24,12 @@ function constStatementNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
   const node = parseTypeDeclarationNode(0, nodes) as StructuralTypeDeclarationNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $StructuralTypeDeclarationNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

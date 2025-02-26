@@ -1,17 +1,12 @@
-import {NominalTypeDeclarationNode} from '#analyzer';
-import {ArrayData, newArrayData} from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
+import {DiagnosticContext, NominalTypeDeclarationNode} from '#analyzer';
 
 export function diagnoseNominalTypeDeclarationNode(
   this: NominalTypeDeclarationNode,
-): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+  context: DiagnosticContext,
+): void {
   // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
   //   diagnostics.addLastItem(expectExpression(this.range));
   // }
-
-  return diagnostics;
 }
 
 // function expectExpression(range: TextRange): AnalyzerDiagnostic {

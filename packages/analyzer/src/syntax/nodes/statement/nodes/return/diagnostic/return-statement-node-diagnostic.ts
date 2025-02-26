@@ -1,15 +1,9 @@
-import {ReturnStatementNode} from '#analyzer';
-import {ArrayData, newArrayData} from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
+import {DiagnosticContext, ReturnStatementNode} from '#analyzer';
 
-export function diagnoseReturnStatementNode(this: ReturnStatementNode): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+export function diagnoseReturnStatementNode(this: ReturnStatementNode, context: DiagnosticContext): void {
   // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
   //   diagnostics.addLastItem(expectExpression(this.range));
   // }
-
-  return diagnostics;
 }
 
 // function expectExpression(range: TextRange): AnalyzerDiagnostic {

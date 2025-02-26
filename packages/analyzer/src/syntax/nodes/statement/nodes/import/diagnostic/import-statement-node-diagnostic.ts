@@ -1,5 +1,5 @@
-import {ImportStatementNode} from '#analyzer';
-import {ArrayData, newArrayData, newText, TextRange} from '#common';
+import {DiagnosticContext, ImportStatementNode} from '#analyzer';
+import {newText, TextRange} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -7,14 +7,10 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseImportStatementNode(this: ImportStatementNode): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+export function diagnoseImportStatementNode(this: ImportStatementNode, context: DiagnosticContext): void {
   if (!this.expressionNode || !this.expressionNode.canBeExpression) {
-    diagnostics.addLastItem(expectExpression(this.range));
+    context.add(expectExpression(this.range));
   }
-
-  return diagnostics;
 }
 
 function expectExpression(range: TextRange): AnalyzerDiagnostic {

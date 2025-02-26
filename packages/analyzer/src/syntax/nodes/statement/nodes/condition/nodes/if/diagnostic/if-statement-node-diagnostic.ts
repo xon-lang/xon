@@ -1,5 +1,5 @@
-import {IfStatementNode} from '#analyzer';
-import {ArrayData, newArrayData, newText, TextRange} from '#common';
+import {DiagnosticContext, IfStatementNode} from '#analyzer';
+import {newText, TextRange} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -7,14 +7,10 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseIfStatementNode(this: IfStatementNode): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+export function diagnoseIfStatementNode(this: IfStatementNode, context: DiagnosticContext): void {
   if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
-    diagnostics.addLastItem(expectExpression(this.range));
+    context.add(expectExpression(this.range));
   }
-
-  return diagnostics;
 }
 
 function expectExpression(range: TextRange): AnalyzerDiagnostic {

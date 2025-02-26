@@ -1,5 +1,5 @@
-import {MemberNode} from '#analyzer';
-import {ArrayData, TextRange, newArrayData, newText} from '#common';
+import {DiagnosticContext, MemberNode} from '#analyzer';
+import {TextRange, newText} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -7,14 +7,10 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseMemberNode(this: MemberNode): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+export function diagnoseMemberNode(this: MemberNode, context: DiagnosticContext): void {
   if (!this.id) {
-    diagnostics.addLastItem(expectIdentifier(this.range));
+    context.add(expectIdentifier(this.range));
   }
-
-  return diagnostics;
 }
 
 function expectIdentifier(range: TextRange): AnalyzerDiagnostic {

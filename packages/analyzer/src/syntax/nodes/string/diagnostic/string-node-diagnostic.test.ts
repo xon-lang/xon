@@ -1,4 +1,9 @@
-import {newAnalyzerContext, newCharacterStreamFromText, parseStringNode} from '#analyzer';
+import {
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  newDiagnosticContext,
+  parseStringNode,
+} from '#analyzer';
 import {ArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {expect, test} from 'vitest';
@@ -22,6 +27,9 @@ function stringNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStringNode(context);
+  const diagnosticContext = newDiagnosticContext();
 
-  return node!.diagnose!();
+  node!.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

@@ -2,6 +2,7 @@ import {
   $ValueDeclarationNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   nonHiddenNodeGenerator,
   parseValueDeclarationNode,
   ValueDeclarationNode,
@@ -23,9 +24,12 @@ function constStatementNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
   const node = parseValueDeclarationNode(0, nodes) as ValueDeclarationNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $ValueDeclarationNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

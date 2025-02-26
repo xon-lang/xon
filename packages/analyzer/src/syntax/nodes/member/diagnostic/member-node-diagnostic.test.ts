@@ -4,6 +4,7 @@ import {
   MemberNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   nonHiddenNodeGenerator,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
@@ -31,9 +32,12 @@ function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
   const node = collapseMemberNode(nodes, 0)?.node as MemberNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $MemberNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

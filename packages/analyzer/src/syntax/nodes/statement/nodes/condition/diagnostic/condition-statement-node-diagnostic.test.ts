@@ -3,6 +3,7 @@ import {
   ConditionStatementNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   parseStatements,
 } from '#analyzer';
 import {ArrayData, newText, Text} from '#common';
@@ -21,9 +22,12 @@ function conditionNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const node = parseStatements(context).statements.at(0) as ConditionStatementNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $ConditionStatementNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

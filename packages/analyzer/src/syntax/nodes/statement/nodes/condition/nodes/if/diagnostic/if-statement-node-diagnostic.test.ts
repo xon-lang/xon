@@ -3,6 +3,7 @@ import {
   IfStatementNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   nonHiddenNodeGenerator,
   parseIfStatementNode,
 } from '#analyzer';
@@ -39,9 +40,12 @@ function ifNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
   const node = parseIfStatementNode(0, nodes) as IfStatementNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $IfStatementNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

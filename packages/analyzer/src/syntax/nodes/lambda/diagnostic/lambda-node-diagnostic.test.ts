@@ -5,6 +5,7 @@ import {
   LambdaNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   nonHiddenNodeGenerator,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
@@ -24,10 +25,13 @@ function returnNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
   const node = collapseNodes(nodes).first() as LambdaNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $LambdaNode())).toBe(true);
   expect(is(node.group, $GroupNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }

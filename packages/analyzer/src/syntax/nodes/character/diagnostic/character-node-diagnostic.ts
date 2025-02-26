@@ -1,5 +1,5 @@
-import {CharacterNode} from '#analyzer';
-import {ArrayData, TextRange, newArrayData, newText} from '#common';
+import {AnalyzerContext, CharacterNode} from '#analyzer';
+import {TextRange, newText} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -7,18 +7,14 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseCharacterNode(this: CharacterNode): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+export function diagnoseCharacterNode(this: CharacterNode, context: AnalyzerContext): void {
   if (!this.contentNode || this.contentNode.text.count() > 1) {
-    diagnostics.addLastItem(expectOnlyCharacter(this.openNode.range));
+    context.addDiagnostic(expectOnlyCharacter(this.openNode.range));
   }
 
   if (!this.closeNode) {
-    diagnostics.addLastItem(expectCloseToken(this.openNode.range));
+    context.addDiagnostic(expectCloseToken(this.openNode.range));
   }
-
-  return diagnostics;
 }
 
 function expectOnlyCharacter(range: TextRange): AnalyzerDiagnostic {
@@ -26,7 +22,7 @@ function expectOnlyCharacter(range: TextRange): AnalyzerDiagnostic {
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newText(`Expect only character`),
+    newText(`Only character expect`),
   );
 }
 
@@ -35,6 +31,6 @@ function expectCloseToken(range: TextRange): AnalyzerDiagnostic {
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newText(`Expect close token`),
+    newText(`Close expect token`),
   );
 }

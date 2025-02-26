@@ -1,17 +1,12 @@
-import {StructuralTypeDeclarationNode} from '#analyzer';
-import {ArrayData, newArrayData} from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
+import {DiagnosticContext, StructuralTypeDeclarationNode} from '#analyzer';
 
 export function diagnoseStructuralTypeDeclarationNode(
   this: StructuralTypeDeclarationNode,
-): ArrayData<AnalyzerDiagnostic> {
-  const diagnostics = newArrayData<AnalyzerDiagnostic>();
-
+  context: DiagnosticContext,
+): void {
   // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
   //   diagnostics.addLastItem(expectExpression(this.range));
   // }
-
-  return diagnostics;
 }
 
 // function expectExpression(range: TextRange): AnalyzerDiagnostic {

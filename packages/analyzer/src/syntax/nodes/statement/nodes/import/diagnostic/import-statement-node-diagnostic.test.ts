@@ -3,6 +3,7 @@ import {
   ImportStatementNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticContext,
   nonHiddenNodeGenerator,
   parseImportStatementNode,
 } from '#analyzer';
@@ -23,9 +24,12 @@ function returnNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
   const node = parseImportStatementNode(0, nodes) as ImportStatementNode;
+  const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
   expect(is(node, $ImportStatementNode())).toBe(true);
 
-  return node.diagnose!();
+  node.diagnose!(diagnosticContext);
+
+  return diagnosticContext.diagnostics;
 }
