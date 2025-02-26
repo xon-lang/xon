@@ -1,4 +1,4 @@
-import {$AnalyzerType, $ValueSemantic, Node, StringTypeSemantic, ValueSemantic} from '#analyzer';
+import {$AnalyzerType, $ValueSemantic, StringTypeSemantic, ValueSemantic} from '#analyzer';
 
 export type StringValueSemantic = ValueSemantic & {
   type: StringTypeSemantic;
@@ -7,12 +7,9 @@ export type StringValueSemantic = ValueSemantic & {
 export const $StringValueSemantic = () =>
   $AnalyzerType<StringValueSemantic>('StringValueSemantic', $ValueSemantic());
 
-// todo should we use 'value: Integer' or always can get from 'type' ???
-
-export function stringValueSemantic(nodeLink: Node, type: StringTypeSemantic): StringValueSemantic {
+export function newStringValueSemantic(type: StringTypeSemantic): StringValueSemantic {
   return {
     $: $StringValueSemantic(),
-    nodeLink,
     type,
   };
 }

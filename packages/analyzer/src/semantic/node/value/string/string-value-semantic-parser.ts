@@ -4,8 +4,8 @@ import {
   SemanticAnalyzer,
   StringNode,
   StringValueSemantic,
+  newStringValueSemantic,
   stringTypeSemanticParse,
-  stringValueSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -27,5 +27,5 @@ export function stringValueSemanticParse(
 ): StringValueSemantic | Nothing {
   const type = stringTypeSemanticParse(analyzer, node);
 
-  return stringValueSemantic(node, type);
+  return newStringValueSemantic(node, type);
 }

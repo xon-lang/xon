@@ -20,6 +20,7 @@
     "postpublish",
     "postversion",
     "proto",
+    "semantify",
     "seti",
     "ts-nocheck",
     "vsix"
