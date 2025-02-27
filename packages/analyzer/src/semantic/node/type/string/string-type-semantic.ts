@@ -6,15 +6,14 @@ import {
   AttributeValueDeclarationSemantic,
   DeclarationScope,
   isInSet,
-  newDeclarationScope,
   NominalTypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {Boolean2, Nothing, Text} from '#common';
+import {Boolean2, Text} from '#common';
 import {is} from '#typing';
 
 export type StringTypeSemantic = TypeSemantic & {
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+  declaration: NominalTypeDeclarationSemantic;
   value: Text;
 };
 
@@ -22,7 +21,7 @@ export const $StringTypeSemantic = () =>
   $AnalyzerType<StringTypeSemantic>('StringTypeSemantic', $TypeSemantic());
 
 export function newStringTypeSemantic(
-  declaration: NominalTypeDeclarationSemantic | Nothing,
+  declaration: NominalTypeDeclarationSemantic,
   value: Text,
 ): StringTypeSemantic {
   return {
@@ -40,7 +39,7 @@ export function newStringTypeSemantic(
       }
 
       if (is(other, $IdTypeSemantic()) && other.declaration) {
-        return this.declaration?.equals(other.declaration) || (this.declaration?.type?.is(other) ?? false);
+        // return this.declaration.equals(other.declaration) || (this.declaration.type?.is(other) ?? false);
       }
 
       return false;
@@ -55,7 +54,7 @@ export function newStringTypeSemantic(
     },
 
     attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return this.declaration?.attributes?.clone() ?? newDeclarationScope();
+      return {} as DeclarationScope<AttributeValueDeclarationSemantic>;
     },
   };
 }

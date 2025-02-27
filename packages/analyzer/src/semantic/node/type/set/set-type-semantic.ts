@@ -16,6 +16,7 @@ export type SetTypeSemantic = TypeSemantic & Brand<'Analyzer.SetTypeSemantic'>;
 
 export const $SetTypeSemantic = () => $AnalyzerType<SetTypeSemantic>('SetTypeSemantic', $TypeSemantic());
 
+// todo swap parameters
 export function isInSet(type: TypeSemantic, setType: SetTypeSemantic): Boolean2 {
   if (is(setType, $IntersectionTypeSemantic())) {
     return type.is(setType.left) && type.is(setType.right);

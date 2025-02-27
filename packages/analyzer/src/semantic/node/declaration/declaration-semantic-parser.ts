@@ -14,8 +14,8 @@ import {
   DeclarationNode,
   DeclarationSemantic,
   GroupNode,
+  newNominalTypeDeclarationSemantic,
   Node,
-  nominalTypeDeclarationSemantic,
   nominalTypeDeclarationSemanticHandle,
   ParameterTypeDeclarationSemantic,
   parameterTypeDeclarationSemantic,
@@ -176,7 +176,7 @@ function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: Declaration
       return structuralTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
     }
 
-    return nominalTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
+    return newNominalTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
   }
 
   return attributeValueDeclarationSemantic(analyzer, node, documentation, modifier, name);
