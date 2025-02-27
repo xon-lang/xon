@@ -5,3 +5,10 @@ export type ValueSemantic = Semantic & {
 };
 
 export const $ValueSemantic = () => $AnalyzerType<ValueSemantic>('ValueSemantic', $Semantic());
+
+export function newValueSemantic(type: TypeSemantic): ValueSemantic {
+  return {
+    $: $ValueSemantic(),
+    type,
+  };
+}

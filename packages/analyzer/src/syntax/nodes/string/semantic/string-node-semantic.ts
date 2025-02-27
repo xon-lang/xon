@@ -1,4 +1,4 @@
-import {newStringTypeSemantic, newStringValueSemantic, SemanticContext, StringNode} from '#analyzer';
+import {newStringTypeSemantic, newValueSemantic, SemanticContext, StringNode} from '#analyzer';
 import {newText, nothing} from '#common';
 
 export function semantifyStringNode(this: StringNode, context: SemanticContext): void {
@@ -7,6 +7,6 @@ export function semantifyStringNode(this: StringNode, context: SemanticContext):
   if (context.scope.isTypeScope) {
     this.semantic = type;
   } else {
-    this.semantic = newStringValueSemantic(type);
+    this.semantic = newValueSemantic(type);
   }
 }
