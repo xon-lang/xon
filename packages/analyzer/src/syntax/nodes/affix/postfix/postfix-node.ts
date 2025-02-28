@@ -9,7 +9,7 @@ export type PostfixNode = AffixNode &
 export const $PostfixNode = () => $AnalyzerType<PostfixNode>('PostfixNode', $AffixNode());
 
 export function postfixNode($: $Type, valueNode: Node, operatorNode: OperatorNode): PostfixNode {
-  return newSyntaxNode({$, canBeExpression: true, valueNode, operatorNode});
+  return newSyntaxNode({$, canBeExpression: true, valueNode, operator: operatorNode});
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {

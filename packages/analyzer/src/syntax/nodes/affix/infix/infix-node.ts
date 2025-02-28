@@ -4,8 +4,8 @@ import {Brand} from '#typing';
 
 export type InfixNode = AffixNode &
   Brand<'Analyzer.InfixNode'> & {
-    leftNode?: Node | Nothing;
-    rightNode?: Node | Nothing;
+    left?: Node | Nothing;
+    right?: Node | Nothing;
   };
 
 export const $InfixNode = () => $AnalyzerType<InfixNode>('InfixNode', $AffixNode());

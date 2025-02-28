@@ -17,10 +17,10 @@ test('Plus two integers', () => {
   const text = newText('1+2');
   const node = getPlusInfixNode(text);
 
-  expect(is(node.leftNode, $IntegerNode())).toBe(true);
-  expect((node.leftNode as IntegerNode).contentNode.text.toNativeString()).toBe('1');
-  expect(is(node.rightNode, $IntegerNode())).toBe(true);
-  expect((node.rightNode as IntegerNode).contentNode.text.toNativeString()).toBe('2');
+  expect(is(node.left, $IntegerNode())).toBe(true);
+  expect((node.left as IntegerNode).contentNode.text.toNativeString()).toBe('1');
+  expect(is(node.right, $IntegerNode())).toBe(true);
+  expect((node.right as IntegerNode).contentNode.text.toNativeString()).toBe('2');
 });
 
 function getPlusInfixNode(text: Text): PlusInfixNode {
@@ -31,10 +31,10 @@ function getPlusInfixNode(text: Text): PlusInfixNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $PlusInfixNode())).toBe(true);
-  expect(is(node.operatorNode, $PlusOperatorNode())).toBe(true);
-  expect(node.operatorNode.text.toNativeString()).toBe('+');
-  expect(node.leftNode.canBeExpression).toBe(true);
-  expect(node.rightNode.canBeExpression).toBe(true);
+  expect(is(node.operator, $PlusOperatorNode())).toBe(true);
+  expect(node.operator.text.toNativeString()).toBe('+');
+  expect(node.left.canBeExpression).toBe(true);
+  expect(node.right.canBeExpression).toBe(true);
 
   return node;
 }

@@ -3,17 +3,19 @@ import {Brand} from '#typing';
 
 export type PlusInfixNode = InfixNode &
   Brand<'Analyzer.PlusInfixNode'> & {
-    leftNode: Node;
+    left: Node;
     operator: PlusOperatorNode;
-    rightNode: Node;
+    right: Node;
   };
 
 export const $PlusInfixNode = () => $AnalyzerType<PlusInfixNode>('PlusInfixNode', $InfixNode());
 
-export function newPlusInfixNode(
-  leftNode: Node,
-  operatorNode: PlusOperatorNode,
-  rightNode: Node,
-): PlusInfixNode {
-  return newSyntaxNode({$: $PlusInfixNode(), canBeExpression: true, leftNode, operatorNode, rightNode});
+export function newPlusInfixNode(left: Node, operator: PlusOperatorNode, right: Node): PlusInfixNode {
+  return newSyntaxNode({
+    $: $PlusInfixNode(),
+    canBeExpression: true,
+    left,
+    operator,
+    right,
+  });
 }

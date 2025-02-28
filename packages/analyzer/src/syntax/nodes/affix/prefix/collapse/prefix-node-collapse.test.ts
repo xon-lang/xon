@@ -19,7 +19,7 @@ test('Plus integer', () => {
   const node = getPrefixNode(text);
 
   expect(is(node, $PlusPrefixNode())).toBe(true);
-  expect(node.operatorNode.text.toNativeString()).toBe('+');
+  expect(node.operator.text.toNativeString()).toBe('+');
   expect(is(node.valueNode, $IntegerNode())).toBe(true);
   expect((node.valueNode as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });

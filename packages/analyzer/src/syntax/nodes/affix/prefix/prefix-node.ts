@@ -9,7 +9,7 @@ export type PrefixNode = AffixNode &
 export const $PrefixNode = () => $AnalyzerType<PrefixNode>('PrefixNode', $AffixNode());
 
 export function prefixNode($: $Type, operatorNode: OperatorNode, valueNode: Node): PrefixNode {
-  return newSyntaxNode({$, canBeExpression: true, operatorNode, valueNode});
+  return newSyntaxNode({$, canBeExpression: true, operator: operatorNode, valueNode});
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {

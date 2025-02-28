@@ -8,7 +8,6 @@ import {
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
-  PLUS,
   PostfixNode,
 } from '#analyzer';
 import {newArrayData, newDictionary, newKeyValue, newText, Text} from '#common';
@@ -20,7 +19,7 @@ test('Exclamation integer', () => {
   const node = getPostfixNode(text);
 
   expect(is(node, $ExclamationPostfixNode())).toBe(true);
-  expect(node.operatorNode.text.toNativeString()).toBe('!');
+  expect(node.operator.text.toNativeString()).toBe('!');
   expect(is(node.valueNode, $IntegerNode())).toBe(true);
   expect((node.valueNode as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });
