@@ -44,14 +44,14 @@ export function functionTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
       return false;
     },
 
-    eq(_other: TypeSemantic): Boolean2 {
+    equals(_other: TypeSemantic): Boolean2 {
       return false;
     },
 

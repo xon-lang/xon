@@ -15,7 +15,7 @@ export type TypeSemantic = Semantic & {
 
   // todo '(unknown is unknown === false)' ???
   is(other: TypeSemantic): Boolean2;
-  eq(other: TypeSemantic): Boolean2;
+  equals(other: TypeSemantic): Boolean2;
 };
 
 export const $TypeSemantic = () => $AnalyzerType<TypeSemantic>('TypeSemantic', $Semantic());

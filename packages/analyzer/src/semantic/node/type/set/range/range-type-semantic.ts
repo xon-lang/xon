@@ -56,7 +56,7 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    eq(other: TypeSemantic): Boolean2 {
+    equals(other: TypeSemantic): Boolean2 {
       if (is(other, $RangeTypeSemantic())) {
         return this.from === other.from && this.to === other.to && this.step === other.step;
       }

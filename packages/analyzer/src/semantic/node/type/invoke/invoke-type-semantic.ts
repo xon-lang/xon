@@ -39,14 +39,14 @@ export function invokeTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
       return false;
     },
 
-    eq(other: TypeSemantic): Boolean2 {
+    equals(other: TypeSemantic): Boolean2 {
       return false;
     },
 

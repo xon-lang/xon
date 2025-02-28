@@ -38,7 +38,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
@@ -49,7 +49,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
       return false;
     },
 
-    eq(other: TypeSemantic): Boolean2 {
+    equals(other: TypeSemantic): Boolean2 {
       if (is(other, $CharTypeSemantic())) {
         return this.value === other.value;
       }

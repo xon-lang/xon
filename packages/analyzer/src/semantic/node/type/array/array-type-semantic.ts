@@ -42,7 +42,7 @@ export function arrayTypeSemantic(
         return isInSet(this, other);
       }
 
-      if (this.eq(other)) {
+      if (this.equals(other)) {
         return true;
       }
 
@@ -53,7 +53,7 @@ export function arrayTypeSemantic(
       return false;
     },
 
-    eq(other: TypeSemantic): Boolean2 {
+    equals(other: TypeSemantic): Boolean2 {
       if (is(other, $ArrayTypeSemantic())) {
         return this.items === other.items;
       }

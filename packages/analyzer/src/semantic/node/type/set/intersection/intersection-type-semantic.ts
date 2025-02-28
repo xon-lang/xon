@@ -29,10 +29,10 @@ export function intersectionTypeSemantic(
     right,
 
     is(other: TypeSemantic): Boolean2 {
-      return this.eq(other);
+      return this.equals(other);
     },
 
-    eq(_other: TypeSemantic): Boolean2 {
+    equals(_other: TypeSemantic): Boolean2 {
       return false;
     },
 
