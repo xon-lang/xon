@@ -18,6 +18,6 @@ function expectIdentifier(range: TextRange): AnalyzerDiagnostic {
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newText(`Expect identifier`),
+    newText(`Identifier expect`),
   );
 }

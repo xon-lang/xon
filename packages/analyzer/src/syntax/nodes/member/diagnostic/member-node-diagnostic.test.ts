@@ -19,12 +19,12 @@ test('No errors', () => {
   expect(diagnostics.count()).toBe(0);
 });
 
-test('Expect identifier', () => {
+test('Identifier expect', () => {
   const text = newText('abc.');
   const diagnostics = memberNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect identifier');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Identifier expect');
 });
 
 function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {

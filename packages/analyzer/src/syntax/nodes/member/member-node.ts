@@ -6,6 +6,7 @@ import {
   newSyntaxNode,
   Node,
   OperatorNode,
+  semantifyMemberNode,
   SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
@@ -29,6 +30,7 @@ export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNod
     id,
 
     diagnose: diagnoseMemberNode,
+    semantify: semantifyMemberNode,
   });
 }
 
