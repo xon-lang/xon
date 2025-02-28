@@ -17,7 +17,7 @@ export function rangeTypeSemanticTryParse(
   analyzer: SemanticAnalyzer,
   node: Node,
 ): RangeTypeSemantic | Nothing {
-  if (!is(node, $InfixNode()) || !node.operatorNode.text.equals(RANGE)) {
+  if (!is(node, $InfixNode()) || !node.operator.text.equals(RANGE)) {
     return nothing;
   }
 
@@ -36,8 +36,8 @@ export function rangeTypeSemanticTryParse(
     return nothing;
   }
 
-  const from = typeSemanticParse(analyzer, node.leftNode);
-  const to = typeSemanticParse(analyzer, node.rightNode);
+  const from = typeSemanticParse(analyzer, node.left);
+  const to = typeSemanticParse(analyzer, node.right);
   // todo add step
   const step = nothing;
 
@@ -48,11 +48,11 @@ export function rangeTypeSemanticTryParse(
   }
 
   if (!is(from, $IntegerTypeSemantic())) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.leftNode.reference, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.left.reference, (x) => x.notImplemented());
   }
 
   if (!is(to, $IntegerTypeSemantic())) {
-    analyzer.diagnosticManager.addPredefinedDiagnostic(node.rightNode.reference, (x) => x.notImplemented());
+    analyzer.diagnosticManager.addPredefinedDiagnostic(node.right.reference, (x) => x.notImplemented());
   }
 
   return rangeTypeSemantic(node, declaration, from, to, step);
