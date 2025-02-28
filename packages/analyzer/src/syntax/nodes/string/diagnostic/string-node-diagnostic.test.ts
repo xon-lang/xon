@@ -15,12 +15,12 @@ test('String has no errors', () => {
   expect(diagnostics.count()).toBe(0);
 });
 
-test('Expect close token', () => {
+test('Close token expect', () => {
   const text = newText('"abc');
   const diagnostics = stringNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect close token');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Close token expect');
 });
 
 function stringNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {

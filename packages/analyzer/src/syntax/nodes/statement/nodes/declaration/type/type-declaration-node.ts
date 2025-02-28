@@ -2,6 +2,8 @@ import {
   $AnalyzerType,
   $StatementNode,
   AngleGroupNode,
+  HighlightContext,
+  HighlightTokenType,
   newSyntaxNode,
   Node,
   StatementNode,
@@ -30,5 +32,9 @@ export function newTypeDeclarationNode(
     indent,
     keyword,
     errorNodes,
+
+    highlight(context: HighlightContext): void {
+      context.add(HighlightTokenType.StorageType, this.keyword.range);
+    },
   });
 }

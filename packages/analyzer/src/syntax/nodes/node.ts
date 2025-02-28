@@ -1,4 +1,11 @@
-import {$AnalyzerType, DiagnosticContext, FormatterContext, Semantic, SemanticContext} from '#analyzer';
+import {
+  $AnalyzerType,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
+  Semantic,
+  SemanticContext,
+} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -25,6 +32,7 @@ export type Node = Model &
     diagnose?(context: DiagnosticContext): void;
     format?(context: FormatterContext): void;
     semantify?(context: SemanticContext): void;
+    highlight?(context: HighlightContext): void;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');

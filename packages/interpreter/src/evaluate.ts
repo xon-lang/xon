@@ -29,9 +29,9 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $InfixNode())) {
-    const a: Anything = evaluate(node.leftNode, argsMap);
-    const b: Anything = evaluate(node.rightNode, argsMap);
-    const operator: Text = node.operatorNode.text.equals('^') ? newText('**') : node.operatorNode.text;
+    const a: Anything = evaluate(node.left, argsMap);
+    const b: Anything = evaluate(node.right, argsMap);
+    const operator: Text = node.operator.text.equals('^') ? newText('**') : node.operator.text;
 
     return customEval(newText(`${escapeToString(a)} ${operator} ${escapeToString(b)}`));
   }
