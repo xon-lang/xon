@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
-  AnalyzerContext,
   CharacterCloseNode,
   CharacterContentNode,
   CharacterOpenNode,

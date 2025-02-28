@@ -1,4 +1,4 @@
-import {AnalyzerContext, CharacterNode} from '#analyzer';
+import {CharacterNode, DiagnosticContext} from '#analyzer';
 import {TextRange, newText} from '#common';
 import {
   AnalyzerDiagnostic,
@@ -7,13 +7,13 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseCharacterNode(this: CharacterNode, context: AnalyzerContext): void {
+export function diagnoseCharacterNode(this: CharacterNode, context: DiagnosticContext): void {
   if (!this.contentNode || this.contentNode.text.count() > 1) {
-    context.addDiagnostic(expectOnlyCharacter(this.openNode.range));
+    context.add(expectOnlyCharacter(this.openNode.range));
   }
 
   if (!this.closeNode) {
-    context.addDiagnostic(expectCloseToken(this.openNode.range));
+    context.add(expectCloseToken(this.openNode.range));
   }
 }
 
@@ -31,6 +31,6 @@ function expectCloseToken(range: TextRange): AnalyzerDiagnostic {
     range,
     AnalyzerDiagnosticType.SYNTAX,
     AnalyzerDiagnosticSeverity.ERROR,
-    newText(`Close expect token`),
+    newText(`Close token expect`),
   );
 }

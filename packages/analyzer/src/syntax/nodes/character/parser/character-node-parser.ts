@@ -18,5 +18,5 @@ export function parseCharacterNode(context: AnalyzerContext): CharacterNode | No
   const contentNode = parseCharacterContentNode(context);
   const closeNode = parseCharacterCloseNode(context);
 
-  return newCharacterNode(context, openNode, contentNode, closeNode);
+  return newCharacterNode(openNode, contentNode, closeNode);
 }

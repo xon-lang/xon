@@ -15,28 +15,28 @@ test('No errors', () => {
   expect(diagnostics.count()).toBe(0);
 });
 
-test('Expect only character but empty', () => {
+test('Only character expect but empty', () => {
   const text = newText("''");
   const diagnostics = charNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect only character');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Only character expect');
 });
 
-test('Expect only character but many', () => {
+test('Only character expect but many', () => {
   const text = newText("'abc'");
   const diagnostics = charNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect only character');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Only character expect');
 });
 
-test('Expect close token', () => {
+test('Close token expect', () => {
   const text = newText("'a");
   const diagnostics = charNodeDiagnostics(text);
 
   expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Expect close token');
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Close token expect');
 });
 
 function charNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
