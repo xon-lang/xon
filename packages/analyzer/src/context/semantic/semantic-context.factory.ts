@@ -3,21 +3,15 @@ import {
   newNominalTypeDeclarationSemantic,
   newSemanticScope,
   SemanticContext,
-  SemanticToken,
 } from '#analyzer';
-import {Boolean2, newArrayData, newText} from '#common';
+import {Boolean2, newText} from '#common';
 
 export function newSemanticContext(): SemanticContext {
   return {
     $: $SemanticContext(),
-    tokens: newArrayData(),
     scope: newSemanticScope(),
     literal: {
       stringDeclaration: newNominalTypeDeclarationSemantic(newText('String')),
-    },
-
-    addToken(token: SemanticToken): void {
-      this.tokens.addLastItem(token);
     },
 
     pushScope(isType: Boolean2): void {
