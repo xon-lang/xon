@@ -3,10 +3,10 @@ import {
   ArrayTypeSemantic,
   arrayTypeSemantic,
   BracketGroupNode,
+  newUnknownTypeSemantic,
   Node,
   SemanticAnalyzer,
   typeSemanticParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -27,7 +27,7 @@ export function arrayTypeSemanticParse(
   node: BracketGroupNode,
 ): ArrayTypeSemantic {
   const items = node.items.map((x) =>
-    x.value ? typeSemanticParse(analyzer, x.value) : unknownTypeSemantic(analyzer, x),
+    x.value ? typeSemanticParse(analyzer, x.value) : newUnknownTypeSemantic(analyzer, x),
   );
   const semantic = arrayTypeSemantic(analyzer, node, items);
 
