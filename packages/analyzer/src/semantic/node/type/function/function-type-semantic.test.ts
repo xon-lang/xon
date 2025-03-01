@@ -1,8 +1,8 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $FunctionTypeSemantic,
   $ParameterValueDeclarationSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
   FunctionTypeSemantic,
@@ -24,17 +24,15 @@ test('a is function', () => {
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic().toNativeString(),
+    $AttributeDeclarationSemantic().toNativeString(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(2)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic().toNativeString(),
-  );
+  expect(constNode.id?.semantic?.$.toNativeString()).toBe($AttributeDeclarationSemantic().toNativeString());
 
-  const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
   // expect(constNode.type?.value.$).toBe($Node.DECLARATION);
 

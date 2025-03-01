@@ -5,15 +5,15 @@ import {
   documentationIdSemantic,
   DocumentationNode,
   FunctionTypeSemantic,
-  functionTypeSemantic,
   GroupNode,
+  newFunctionTypeSemantic,
+  newUnknownTypeSemantic,
   Node,
   parameterDeclarationsParse,
   ParameterTypeDeclarationSemantic,
   ParameterValueDeclarationSemantic,
   SemanticAnalyzer,
   typeSemanticParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {ArrayData, newArrayData, Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -33,9 +33,9 @@ export function functionTypeSemanticTryParse(
   const result = node.type
     ? typeSemanticParse(analyzer, node.type.value)
     : // todo use another range than 'node'
-      unknownTypeSemantic(analyzer, node);
+      newUnknownTypeSemantic(analyzer, node);
 
-  const semantic = functionTypeSemantic(analyzer, node, parameters, result);
+  const semantic = newFunctionTypeSemantic(analyzer, node, parameters, result);
 
   return semantic;
 }

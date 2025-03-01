@@ -1,18 +1,15 @@
 import {
   $AnalyzerType,
-  $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
-  DeclarationScope,
   isInSet,
-  Node,
+  newAttributeList,
+  NominalTypeDeclarationSemantic,
   ParameterTypeDeclarationSemantic,
   ParameterValueDeclarationSemantic,
-  SemanticAnalyzer,
   TypeSemantic,
 } from '#analyzer';
-import {ArrayData, Boolean2} from '#common';
+import {ArrayData, Boolean2, Nothing} from '#common';
 import {is} from '#typing';
 
 export type FunctionTypeSemantic = TypeSemantic & {
@@ -23,21 +20,17 @@ export type FunctionTypeSemantic = TypeSemantic & {
 export const $FunctionTypeSemantic = () =>
   $AnalyzerType<FunctionTypeSemantic>('FunctionTypeSemantic', $TypeSemantic());
 
-export function functionTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  parameters: ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic>,
+export function newFunctionTypeSemantic(
+  declaration: NominalTypeDeclarationSemantic | Nothing,
+  parameters: ArrayData<ParameterTypeDeclarationSemantic> | ArrayData<ParameterValueDeclarationSemantic>,
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
     $: $FunctionTypeSemantic(),
-    nodeLink,
-    declaration: analyzer.declarationManager.find(
-      $NominalTypeDeclarationSemantic(),
-      analyzer.config.literalTypeNames.functionTypeName,
-    ),
+    declaration,
     parameters,
     result,
+    attributes: newAttributeList(),
 
     is(other: TypeSemantic): Boolean2 {
       if (is(other, $SetTypeSemantic())) {
@@ -53,10 +46,6 @@ export function functionTypeSemantic(
 
     equals(_other: TypeSemantic): Boolean2 {
       return false;
-    },
-
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      throw new Error('Not implemented');
     },
   };
 }
