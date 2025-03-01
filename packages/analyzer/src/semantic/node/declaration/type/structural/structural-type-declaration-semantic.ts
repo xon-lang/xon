@@ -3,9 +3,9 @@ import {
   $TypeDeclarationSemantic,
   DeclarationNode,
   DeclarationSemantic,
+  newUnknownTypeSemantic,
   SemanticAnalyzer,
   TypeDeclarationSemantic,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {Boolean2, newArrayData, Nothing, Text} from '#common';
 import {Brand} from '#typing';
@@ -34,7 +34,7 @@ export function structuralTypeDeclarationSemantic(
     documentation,
     modifier,
     name,
-    type: unknownTypeSemantic(analyzer, nodeLink),
+    type: newUnknownTypeSemantic(analyzer, nodeLink),
 
     equals(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions

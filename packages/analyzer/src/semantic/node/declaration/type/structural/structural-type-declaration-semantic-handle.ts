@@ -1,11 +1,11 @@
 import {
   DeclarationNode,
-  functionTypeSemantic,
+  newFunctionTypeSemantic,
+  newUnknownTypeSemantic,
   parametersParse,
   SemanticAnalyzer,
   StructuralTypeDeclarationSemantic,
   typeSemanticParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 
 export function structuralTypeDeclarationSemanticHandle(
@@ -15,11 +15,11 @@ export function structuralTypeDeclarationSemanticHandle(
 ): void {
   const resultType = node.assign
     ? typeSemanticParse(analyzer, node.assign.value)
-    : unknownTypeSemantic(analyzer, node);
+    : newUnknownTypeSemantic(analyzer, node);
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);
-    semantic.type = functionTypeSemantic(analyzer, node.generics, generics, resultType);
+    semantic.type = newFunctionTypeSemantic(analyzer, node.generics, generics, resultType);
 
     return;
   }
