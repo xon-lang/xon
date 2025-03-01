@@ -1,10 +1,10 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $FunctionTypeSemantic,
   $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
   $ParameterTypeDeclarationSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   FunctionTypeSemantic,
   IdTypeSemantic,
   ParameterTypeDeclarationSemantic,
@@ -26,8 +26,8 @@ const a<:T:Number, V:T:>(p: T): V
 
   const declaration = semantic.declarationManager.declarations
     .get(newText('a'))
-    ?.at2(0) as AttributeValueDeclarationSemantic;
-  expect(declaration.$).toBe($AttributeValueDeclarationSemantic());
+    ?.at2(0) as AttributeDeclarationSemantic;
+  expect(declaration.$).toBe($AttributeDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('const');
   expect(declaration.name.toNativeString()).toBe('a');
 
