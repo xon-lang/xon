@@ -1,17 +1,13 @@
-import {$TextReference, Boolean2, Text, TextRange, TextReference, TextResource} from '#common';
+import {$TextReference, Boolean2, Text, TextRange, TextReference} from '#common';
 
-export function newTextReference(resource: TextResource, range: TextRange): TextReference {
+export function newTextReference(location: Text, range: TextRange): TextReference {
   return {
     $: $TextReference(),
-    resource,
+    location,
     range,
 
     equals(other: TextReference): Boolean2 {
-      return this.resource.equals(other.resource) && this.range.equals(other.range);
-    },
-
-    rangeText(): Text {
-      return this.resource.data.slice(this.range.start.index, this.range.stop.index);
+      return this.location.equals(other.location) && this.range.equals(other.range);
     },
   };
 }
