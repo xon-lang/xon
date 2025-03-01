@@ -4,9 +4,9 @@ import {
   ImportNode,
   ImportValueSemantic,
   importValueSemantic,
+  newUnknownTypeSemantic,
   SemanticAnalyzer,
   syntaxFromResource,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {newArrayData, newText, Nothing, nothing, Text, textResourceFromLocation} from '#common';
 import {libDir} from '#xon-lib';
@@ -19,7 +19,7 @@ export function importValueSemanticParse(
   node: ImportNode,
 ): ImportValueSemantic | Nothing {
   if (!node.value) {
-    return importValueSemantic(node, nothing, unknownTypeSemantic(analyzer, node));
+    return importValueSemantic(node, nothing, newUnknownTypeSemantic(analyzer, node));
   }
 
   // todo should fix 'node.value.content?.text ?? ''' ???
@@ -45,7 +45,7 @@ export function importValueSemanticParse(
   analyzer.declarationManager.imports.addLastItem(declarationManager);
 
   // todo fix import type. should not be unknown
-  return importValueSemantic(node, resource, unknownTypeSemantic(analyzer, node));
+  return importValueSemantic(node, resource, newUnknownTypeSemantic(analyzer, node));
 }
 
 export function declarationManagerFromImportString(importString: Text): DeclarationScope | Nothing {

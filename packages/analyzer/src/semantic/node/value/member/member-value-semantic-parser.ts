@@ -6,7 +6,7 @@ import {
   SemanticAnalyzer,
   TypeSemantic,
   memberValueSemantic,
-  unknownTypeSemantic,
+  newUnknownTypeSemantic,
   valueSemanticParse,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
@@ -23,7 +23,7 @@ export function memberValueSemanticTryParse(
   const instanceSemantic = valueSemanticParse(analyzer, node.instance);
   node.instance.semantic = instanceSemantic;
 
-  let memberType: TypeSemantic = unknownTypeSemantic(analyzer, node.id ?? node.operator);
+  let memberType: TypeSemantic = newUnknownTypeSemantic(analyzer, node.id ?? node.operator);
 
   if (instanceSemantic && node.id) {
     const attributes = instanceSemantic.type
