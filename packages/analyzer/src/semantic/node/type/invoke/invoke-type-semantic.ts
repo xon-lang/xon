@@ -6,8 +6,6 @@ import {
   DeclarationScope,
   isInSet,
   newDeclarationScope,
-  Node,
-  SemanticAnalyzer,
   TypeSemantic,
 } from '#analyzer';
 import {ArrayData, Boolean2} from '#common';
@@ -15,22 +13,18 @@ import {is} from '#typing';
 
 export type InvokeTypeSemantic = TypeSemantic & {
   instance: TypeSemantic;
-  // todo use a separate semantic than array
   args: ArrayData<TypeSemantic>;
 };
 
 export const $InvokeTypeSemantic = () =>
   $AnalyzerType<InvokeTypeSemantic>('InvokeTypeSemantic', $TypeSemantic());
 
-export function invokeTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
+export function newInvokeTypeSemantic(
   instance: TypeSemantic,
   args: ArrayData<TypeSemantic>,
 ): InvokeTypeSemantic {
   return {
     $: $InvokeTypeSemantic(),
-    nodeLink,
     instance,
     args,
 

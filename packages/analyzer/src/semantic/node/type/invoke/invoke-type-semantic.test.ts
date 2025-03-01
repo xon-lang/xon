@@ -1,7 +1,7 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $IdTypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
   IdNode,
@@ -21,15 +21,15 @@ test('a is integer', () => {
 
   expect(semantic.declarationManager.count()).toBe(2);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic().toNativeString(),
+    $AttributeDeclarationSemantic().toNativeString(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(1)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
+  expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
-  const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
   expect((constNode.type?.value as IdNode)?.text.toNativeString()).toBe('Integer');
   expect((constNode.type?.value as IdNode)?.semantic?.$.toNativeString()).toBe(

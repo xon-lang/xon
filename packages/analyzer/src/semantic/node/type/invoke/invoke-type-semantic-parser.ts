@@ -2,11 +2,11 @@ import {
   $AngleGroupNode,
   $InvokeNode,
   InvokeTypeSemantic,
-  invokeTypeSemantic,
+  newInvokeTypeSemantic,
+  newUnknownTypeSemantic,
   Node,
   SemanticAnalyzer,
   typeSemanticParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -26,7 +26,7 @@ export function invokeTypeSemanticTryParse(
   }
 
   const args = node.group.items.map((x) =>
-    x.value ? typeSemanticParse(analyzer, x.value) : unknownTypeSemantic(analyzer, x),
+    x.value ? typeSemanticParse(analyzer, x.value) : newUnknownTypeSemantic(analyzer, x),
   );
   const instance = typeSemanticParse(analyzer, node.instance);
 
@@ -34,5 +34,5 @@ export function invokeTypeSemanticTryParse(
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.instance.reference, (x) => x.notImplemented());
   }
 
-  return invokeTypeSemantic(analyzer, node, instance, args);
+  return newInvokeTypeSemantic(analyzer, node, instance, args);
 }
