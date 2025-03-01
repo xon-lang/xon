@@ -3,8 +3,8 @@ import {
   $ValueDeclarationSemantic,
   DeclarationNode,
   DeclarationSemantic,
+  newUnknownTypeSemantic,
   SemanticAnalyzer,
-  unknownTypeSemantic,
   ValueDeclarationSemantic,
 } from '#analyzer';
 import {Boolean2, newArrayData, newText, Nothing, Text} from '#common';
@@ -35,7 +35,7 @@ export function attributeValueDeclarationSemantic(
     modifier,
     name,
     alternativeName: alternativeName(name),
-    type: unknownTypeSemantic(analyzer, nodeLink),
+    type: newUnknownTypeSemantic(analyzer, nodeLink),
 
     equals(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions

@@ -2,11 +2,11 @@ import {
   AttributeValueDeclarationSemantic,
   DeclarationNode,
   functionTypeSemantic,
+  newUnknownTypeSemantic,
   parametersParse,
   SemanticAnalyzer,
   TypeSemantic,
   typeSemanticParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 
@@ -17,7 +17,7 @@ export function attributeValueDeclarationSemanticHandle(
 ): void {
   let generics: ReturnType<typeof parametersParse> | Nothing = nothing;
   let parameters: ReturnType<typeof parametersParse> | Nothing = nothing;
-  let type: TypeSemantic = unknownTypeSemantic(analyzer, node.type?.value ?? node.assign?.value ?? node);
+  let type: TypeSemantic = newUnknownTypeSemantic(analyzer, node.type?.value ?? node.assign?.value ?? node);
 
   if (node.generics) {
     generics = parametersParse(analyzer, node, node.generics);
