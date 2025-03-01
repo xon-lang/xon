@@ -1,12 +1,15 @@
-import {$AnalyzerType} from '#analyzer';
-import {Boolean2, Nothing} from '#common';
+import {$AnalyzerType, DeclarationSemantic} from '#analyzer';
+import {ArrayData, Boolean2, Dictionary, Nothing, Text} from '#common';
 import {Brand, Model} from '#typing';
 
 export type SemanticScope = Model &
   Brand<'Analyzer.SemanticScope'> & {
     parent?: SemanticScope | Nothing;
     isTypeScope?: Boolean2 | Nothing;
-    // declarations: Dictionary<Text, ArrayData<T>>;
+    _declarations?: Dictionary<Text, ArrayData<DeclarationSemantic>> | Nothing;
+
+    add(declaration: DeclarationSemantic): void;
+    find(name: Text): DeclarationSemantic | Nothing;
   };
 
 export const $SemanticScope = () => $AnalyzerType<SemanticScope>('SemanticScope');
