@@ -2,10 +2,10 @@ import {
   $IdNode,
   $ValueDeclarationSemantic,
   IdValueSemantic,
-  idValueSemantic,
+  newIdValueSemantic,
+  newUnknownTypeSemantic,
   Node,
   SemanticAnalyzer,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -27,7 +27,7 @@ export function idValueSemanticTryParse(analyzer: SemanticAnalyzer, node: Node):
   }
 
   const name = node.text;
-  const type = declaration?.type ?? unknownTypeSemantic(analyzer, node);
+  const type = declaration?.type ?? newUnknownTypeSemantic(analyzer, node);
 
-  return idValueSemantic(node, name, declaration, type);
+  return newIdValueSemantic(node, name, declaration, type);
 }

@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $ValueSemantic,
-  Node,
   TypeSemantic,
   ValueDeclarationSemantic,
   ValueSemantic,
@@ -15,19 +14,17 @@ export type IdValueSemantic = ValueSemantic & {
 
 export const $IdValueSemantic = () => $AnalyzerType<IdValueSemantic>('IdValueSemantic', $ValueSemantic());
 
-export function idValueSemantic(
-  nodeLink: Node,
+export function newIdValueSemantic(
   name: Text,
   declaration: ValueDeclarationSemantic | Nothing,
   type: TypeSemantic,
 ): IdValueSemantic {
-  if (declaration) {
-    declaration.usages.addLastItem(nodeLink.reference);
-  }
+  // if (declaration) {
+  //   declaration.usages.addLastItem(nodeLink.reference);
+  // }
 
   return {
     $: $IdValueSemantic(),
-    nodeLink,
     name,
     type,
     declaration,
