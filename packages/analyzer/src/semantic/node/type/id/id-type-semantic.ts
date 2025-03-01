@@ -4,11 +4,7 @@ import {
   $SetTypeSemantic,
   $TypeSemantic,
   AttributeValueDeclarationSemantic,
-  DeclarationScope,
   isInSet,
-  newDeclarationScope,
-  Node,
-  SemanticAnalyzer,
   TypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
@@ -21,21 +17,17 @@ export type IdTypeSemantic = TypeSemantic & {
 
 export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic());
 
-// todo should we remove it ???
-export function idTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
+export function newIdTypeSemantic(
   name: Text,
   declaration: TypeDeclarationSemantic | Nothing,
 ): IdTypeSemantic {
-  if (declaration) {
-    declaration.usages.addLastItem(nodeLink.reference);
-  }
+  // if (declaration) {
+  //   declaration.usages.addLastItem(nodeLink.reference);
+  // }
 
   return {
     $: $IdTypeSemantic(),
-    nodeLink,
-    name: name,
+    name,
     declaration,
 
     is(other: TypeSemantic): Boolean2 {
@@ -49,7 +41,7 @@ export function idTypeSemantic(
 
       // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
       if (is(this.declaration, $NominalTypeDeclarationSemantic())) {
-        return this.declaration.baseType?.is(other) ?? false;
+        return this.declaration.extendsType?.is(other) ?? false;
       }
 
       return false;
@@ -68,12 +60,8 @@ export function idTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      if (is(this.declaration, $NominalTypeDeclarationSemantic())) {
-        return this.declaration.attributes;
-      }
-
-      return newDeclarationScope();
+    getAttribute(name: Text): AttributeValueDeclarationSemantic | Nothing {
+      return;
     },
   };
 }

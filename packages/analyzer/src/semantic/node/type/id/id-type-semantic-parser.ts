@@ -5,7 +5,7 @@ import {
   Node,
   SemanticAnalyzer,
   TypeSemantic,
-  idTypeSemantic,
+  newIdTypeSemantic,
 } from '#analyzer';
 import {Nothing, nothing} from '#common';
 import {is} from '#typing';
@@ -24,5 +24,5 @@ export function idTypeSemanticTryParse(analyzer: SemanticAnalyzer, node: Node): 
     analyzer.diagnosticManager.addPredefinedDiagnostic(node.reference, (x) => x.cannotBeUsedAsAType());
   }
 
-  return idTypeSemantic(analyzer, node, name, declaration);
+  return newIdTypeSemantic(analyzer, node, name, declaration);
 }
