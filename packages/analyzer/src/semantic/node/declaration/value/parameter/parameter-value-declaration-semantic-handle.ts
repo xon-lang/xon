@@ -1,11 +1,11 @@
 import {
   DeclarationNode,
-  functionTypeSemantic,
+  newFunctionTypeSemantic,
+  newUnknownTypeSemantic,
   parametersParse,
   ParameterValueDeclarationSemantic,
   SemanticAnalyzer,
   typeSemanticParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 
 export function parameterValueDeclarationSemanticHandle(
@@ -15,7 +15,7 @@ export function parameterValueDeclarationSemanticHandle(
 ): void {
   const valueType = node.assign
     ? typeSemanticParse(analyzer, node.assign.value)
-    : unknownTypeSemantic(analyzer, node);
+    : newUnknownTypeSemantic(analyzer, node);
 
   let type = node.type ? typeSemanticParse(analyzer, node.type.value) : valueType;
 
@@ -25,12 +25,12 @@ export function parameterValueDeclarationSemanticHandle(
 
   if (node.parameters) {
     const parameters = parametersParse(analyzer, node, node.parameters);
-    type = functionTypeSemantic(analyzer, node.parameters, parameters, type);
+    type = newFunctionTypeSemantic(analyzer, node.parameters, parameters, type);
   }
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);
-    type = functionTypeSemantic(analyzer, node.generics, generics, type);
+    type = newFunctionTypeSemantic(analyzer, node.generics, generics, type);
   }
 
   semantic.type = type;

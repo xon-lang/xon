@@ -3,8 +3,8 @@ import {
   $ValueDeclarationSemantic,
   DeclarationNode,
   DeclarationSemantic,
+  newUnknownTypeSemantic,
   SemanticAnalyzer,
-  unknownTypeSemantic,
   ValueDeclarationSemantic,
 } from '#analyzer';
 import {Boolean2, newArrayData, Nothing, Text} from '#common';
@@ -33,7 +33,7 @@ export function parameterValueDeclarationSemantic(
     documentation,
     modifier,
     name,
-    type: unknownTypeSemantic(analyzer, nodeLink),
+    type: newUnknownTypeSemantic(analyzer, nodeLink),
 
     equals(other: DeclarationSemantic): Boolean2 {
       // todo recheck 'eq' conditions
