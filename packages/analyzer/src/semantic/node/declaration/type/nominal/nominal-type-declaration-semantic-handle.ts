@@ -1,8 +1,8 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   DeclarationNode,
-  functionTypeSemantic,
-  idTypeSemantic,
+  newFunctionTypeSemantic,
+  newIdTypeSemantic,
   NominalTypeDeclarationSemantic,
   parametersParse,
   SemanticAnalyzer,
@@ -19,17 +19,17 @@ export function nominalTypeDeclarationSemanticHandle(
   // todo use 'unknownType' type instead of 'nothing' ???
   // todo use 'Something' type instead of 'nothing' ???
   if (node.type) {
-    semantic.baseType = typeSemanticParse(analyzer, node.type.value);
-    for (const attribute of semantic.baseType.attributes().all()) {
+    semantic.extendsType = typeSemanticParse(analyzer, node.type.value);
+    for (const attribute of semantic.extendsType.attributes().all()) {
       semantic.attributes.add(attribute);
     }
   }
 
-  const resultType = idTypeSemantic(analyzer, node.id, node.id.text, semantic);
+  const resultType = newIdTypeSemantic(analyzer, node.id, node.id.text, semantic);
 
   if (node.generics) {
     const generics = parametersParse(analyzer, node, node.generics);
-    semantic.type = functionTypeSemantic(analyzer, node.generics, generics, resultType);
+    semantic.type = newFunctionTypeSemantic(analyzer, node.generics, generics, resultType);
 
     return;
   }
@@ -38,7 +38,7 @@ export function nominalTypeDeclarationSemanticHandle(
 
   if (node.attributes) {
     const attributes = statementDeclarationsParse(analyzer, node.attributes).filter((x) =>
-      is(x, $AttributeValueDeclarationSemantic()),
+      is(x, $AttributeDeclarationSemantic()),
     );
 
     for (const attribute of attributes) {
