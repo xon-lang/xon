@@ -1,6 +1,6 @@
 import {
   $AngleGroupNode,
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $DeclarationNode,
   $DeclarationSemantic,
   $IdNode,
@@ -9,11 +9,11 @@ import {
   $ParameterValueDeclarationSemantic,
   $StructuralTypeDeclarationSemantic,
   $SyntaxNode,
-  attributeValueDeclarationSemantic,
   attributeValueDeclarationSemanticHandle,
   DeclarationNode,
   DeclarationSemantic,
   GroupNode,
+  newAttributeDeclarationSemantic,
   newNominalTypeDeclarationSemantic,
   Node,
   nominalTypeDeclarationSemanticHandle,
@@ -120,7 +120,7 @@ function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode)
     analyzer.popDeclarationScope();
   } else if (is(semantic, $ParameterTypeDeclarationSemantic())) {
     parameterTypeDeclarationSemanticHandle(analyzer, semantic, node);
-  } else if (is(semantic, $AttributeValueDeclarationSemantic())) {
+  } else if (is(semantic, $AttributeDeclarationSemantic())) {
     analyzer.pushDeclarationScope();
     attributeValueDeclarationSemanticHandle(analyzer, semantic, node);
     analyzer.popDeclarationScope();
@@ -179,7 +179,7 @@ function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: Declaration
     return newNominalTypeDeclarationSemantic(analyzer, node, documentation, modifier, name);
   }
 
-  return attributeValueDeclarationSemantic(analyzer, node, documentation, modifier, name);
+  return newAttributeDeclarationSemantic(analyzer, node, documentation, modifier, name);
 }
 
 function createParameterTypeDeclaration(

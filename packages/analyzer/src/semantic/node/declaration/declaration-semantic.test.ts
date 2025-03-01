@@ -1,9 +1,9 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
   $ValueDeclarationSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   createSemanticAnalyzer,
   IdTypeSemantic,
   NominalTypeDeclarationSemantic,
@@ -32,8 +32,8 @@ test('only a', () => {
   const attributeP = type.attributes?.find(
     $ValueDeclarationSemantic(),
     newText('p'),
-  ) as AttributeValueDeclarationSemantic;
-  expect(attributeP.$).toBe($AttributeValueDeclarationSemantic());
+  ) as AttributeDeclarationSemantic;
+  expect(attributeP.$).toBe($AttributeDeclarationSemantic());
   expect(attributeP.name.toNativeString()).toBe('p');
   expect((attributeP.type as IdTypeSemantic).declaration?.name.toNativeString()).toBe('A');
 });
@@ -52,8 +52,8 @@ test('declare b then a, a extends b', () => {
   expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeA.modifier?.toNativeString()).toBe('type');
   expect(typeA.name.toNativeString()).toBe('A');
-  expect(typeA.baseType?.$).toBe($IdTypeSemantic());
-  expect((typeA.baseType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
+  expect(typeA.extendsType?.$).toBe($IdTypeSemantic());
+  expect((typeA.extendsType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
     .get(newText('B'))
@@ -77,8 +77,8 @@ test('declare a then b, a extends b', () => {
   expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeA.modifier?.toNativeString()).toBe('type');
   expect(typeA.name.toNativeString()).toBe('A');
-  expect(typeA.baseType?.$).toBe($IdTypeSemantic());
-  expect((typeA.baseType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
+  expect(typeA.extendsType?.$).toBe($IdTypeSemantic());
+  expect((typeA.extendsType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
     .get(newText('B'))

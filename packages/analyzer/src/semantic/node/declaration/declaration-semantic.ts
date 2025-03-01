@@ -4,9 +4,9 @@ import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
   Brand<'Analyzer.DeclarationSemantic'> & {
-    name: Text;
-    documentation?: Text | Nothing;
     usages: ArrayData<TextReference>;
+    documentation?: Text | Nothing;
+    name: Text;
 
     equals(other: DeclarationSemantic): Boolean2;
   };
