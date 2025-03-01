@@ -26,9 +26,9 @@ export function typeDeclarationTypescriptTranslate(
 
     // todo fix it
     const baseType =
-      (semantic.baseType.declaration?.name ?? 'Something') === 'Something'
+      (semantic.extendsType.declaration?.name ?? 'Something') === 'Something'
         ? ''
-        : translator.type(semantic.baseType) + ' & ';
+        : translator.type(semantic.extendsType) + ' & ';
 
     return newText(`${exportText}type ${semantic.name}${parameters} = ${baseType}{}`);
   }
