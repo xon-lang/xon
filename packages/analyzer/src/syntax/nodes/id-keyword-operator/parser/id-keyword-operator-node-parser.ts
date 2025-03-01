@@ -1,6 +1,5 @@
 import {
   $AsOperatorNode,
-  $ConstructKeywordNode,
   $ElseKeywordNode,
   $IdNode,
   $IfKeywordNode,
@@ -11,7 +10,6 @@ import {
   $TypeKeywordNode,
   AnalyzerContext,
   AS,
-  CONSTRUCT,
   ELSE,
   IdNode,
   IF,
@@ -21,6 +19,7 @@ import {
   OperatorNode,
   PUBLIC,
   RETURN,
+  semantifyIdNode,
   TYPE,
   UNDERSCORE,
 } from '#analyzer';
@@ -32,7 +31,6 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
     newArrayData([
       // declarations ???
       newKeyValue(TYPE, $TypeKeywordNode()),
-      newKeyValue(CONSTRUCT, $ConstructKeywordNode()),
       // modifiers
       newKeyValue(PUBLIC, $PublicKeywordNode()),
       // controls
@@ -58,6 +56,8 @@ export function parseIdKeywordOperatorNode(
   if (!node) {
     return nothing;
   }
+
+  node.semantify = semantifyIdNode;
 
   const $Type = getTokenTypeMap().get(node.text);
 
