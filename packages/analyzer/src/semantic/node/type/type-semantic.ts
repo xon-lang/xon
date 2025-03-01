@@ -1,19 +1,17 @@
 import {
   $AnalyzerType,
   $Semantic,
-  AttributeValueDeclarationSemantic,
-  DeclarationScope,
+  AttributeTypeDeclarationSemantic,
   Semantic,
   TypeDeclarationSemantic,
 } from '#analyzer';
-import {Boolean2, Nothing} from '#common';
+import {ArrayData, Boolean2, Nothing, Text} from '#common';
 
 export type TypeSemantic = Semantic & {
   declaration?: TypeDeclarationSemantic | Nothing;
 
-  attributes(): DeclarationScope<AttributeValueDeclarationSemantic>;
-
-  // todo '(unknown is unknown === false)' ???
+  getAttribute(name: Text): AttributeTypeDeclarationSemantic | Nothing;
+  getAttributes(): ArrayData<AttributeTypeDeclarationSemantic> | Nothing;
   is(other: TypeSemantic): Boolean2;
   equals(other: TypeSemantic): Boolean2;
 };

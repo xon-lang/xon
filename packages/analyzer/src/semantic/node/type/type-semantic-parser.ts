@@ -7,6 +7,7 @@ import {
   integerTypeSemanticTryParse,
   intersectionTypeSemanticTryParse,
   invokeTypeSemanticTryParse,
+  newUnknownTypeSemantic,
   Node,
   notTypeSemanticTryParse,
   rangeTypeSemanticTryParse,
@@ -15,14 +16,14 @@ import {
   TypeNode,
   TypeSemantic,
   unionTypeSemanticTryParse,
-  unknownTypeSemantic,
 } from '#analyzer';
 import {ArrayData, newArrayData, Nothing} from '#common';
 
 type TypeSemanticTryParseFn = (analyzer: SemanticAnalyzer, node: Node) => TypeSemantic | Nothing;
 
 export function typeSemanticParse(analyzer: SemanticAnalyzer, node: Node): TypeSemantic {
-  const semantic = parsers().firstMap((parse) => parse(analyzer, node)) ?? unknownTypeSemantic(analyzer, node);
+  const semantic =
+    parsers().firstMap((parse) => parse(analyzer, node)) ?? newUnknownTypeSemantic(analyzer, node);
   node.semantic = semantic;
 
   return semantic;
@@ -34,7 +35,7 @@ export function typeNodeType(analyzer: SemanticAnalyzer, node: TypeNode): TypeSe
     return typeSemanticParse(analyzer, node.value);
   }
 
-  return unknownTypeSemantic(analyzer, node);
+  return newUnknownTypeSemantic(analyzer, node);
 }
 
 function parsers(): ArrayData<TypeSemanticTryParseFn> {
