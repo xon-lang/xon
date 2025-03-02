@@ -1,13 +1,13 @@
 import {
   $IdNode,
-  $UsageSemantic,
+  $UsageTypeSemantic,
   IdNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newNominalTypeDeclarationSemantic,
   newSemanticContext,
   parseIdKeywordOperatorNode,
-  UsageSemantic,
+  UsageTypeSemantic,
 } from '#analyzer';
 import {newText, Text} from '#common';
 import {is} from '#typing';
@@ -17,8 +17,8 @@ test('Id node semantics', () => {
   const text = newText('A');
   const {semantic} = getIdNode(text);
 
-  expect(is(semantic, $UsageSemantic())).toBe(true);
-  expect((semantic as UsageSemantic).declaration?.name.toNativeString()).toBe('A');
+  expect(is(semantic, $UsageTypeSemantic())).toBe(true);
+  expect((semantic as UsageTypeSemantic).declaration?.name.toNativeString()).toBe('A');
 });
 
 function getIdNode(text: Text): IdNode {

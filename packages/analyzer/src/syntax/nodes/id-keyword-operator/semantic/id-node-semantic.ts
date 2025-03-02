@@ -1,7 +1,12 @@
-import {IdNode, newUsageSemantic, SemanticContext} from '#analyzer';
+import {IdNode, newUsageTypeSemantic, newUsageValueSemantic, SemanticContext} from '#analyzer';
+import {newText, newTextReference} from '#common';
 
 export function semantifyIdNode(this: IdNode, context: SemanticContext): void {
-  const declaration = context.scope.find(this.text);
+  const declaration = context.scope.get(this.text);
 
-  this.semantic = newUsageSemantic(this.text, declaration?.getType(), declaration);
+  if (context.scope.isTypeScope) {
+    this.semantic = newUsageTypeSemantic(this.text, declaration, newTextReference(newText(), this.range));
+  } else {
+    this.semantic = newUsageValueSemantic(this.text, declaration, newTextReference(newText(), this.range));
+  }
 }
