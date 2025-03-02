@@ -2,7 +2,7 @@ import {
   $IntegerNode,
   IntegerNode,
   IntegerTypeSemantic,
-  integerTypeSemantic,
+  newIntegerTypeSemantic,
   Node,
   SemanticAnalyzer,
 } from '#analyzer';
@@ -21,5 +21,5 @@ export function integerTypeSemanticTryParse(
 }
 
 export function integerTypeSemanticParse(analyzer: SemanticAnalyzer, node: IntegerNode): IntegerTypeSemantic {
-  return integerTypeSemantic(analyzer, node, node.value);
+  return newIntegerTypeSemantic(analyzer, node, node.value);
 }
