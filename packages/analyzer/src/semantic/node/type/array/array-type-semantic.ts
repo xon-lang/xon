@@ -4,7 +4,7 @@ import {
   $SetTypeSemantic,
   $TypeDeclarationSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   isInSet,
   Node,
@@ -61,7 +61,7 @@ export function arrayTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       throw new Error('Not implemented');
     },
   };

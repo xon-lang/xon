@@ -7,12 +7,12 @@ import {
   ParameterTypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {ArrayData, Boolean2} from '#common';
+import {ArrayData, Boolean2, Nothing} from '#common';
 import {is} from '#typing';
 
 export type FunctionTypeSemantic = TypeSemantic & {
   parameters: ArrayData<ParameterTypeDeclarationSemantic>;
-  result: TypeSemantic;
+  result?: TypeSemantic | Nothing;
 };
 
 export const $FunctionTypeSemantic = () =>
@@ -20,7 +20,7 @@ export const $FunctionTypeSemantic = () =>
 
 export function newFunctionTypeSemantic(
   parameters: ArrayData<ParameterTypeDeclarationSemantic>,
-  result: TypeSemantic,
+  result?: TypeSemantic | Nothing,
 ): FunctionTypeSemantic {
   return {
     $: $FunctionTypeSemantic(),

@@ -3,7 +3,7 @@ import {
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   isInSet,
   TypeDeclarationSemantic,
   TypeSemantic,
@@ -60,7 +60,7 @@ export function newIdTypeSemantic(
       return false;
     },
 
-    getAttribute(name: Text): AttributeValueDeclarationSemantic | Nothing {
+    getAttribute(name: Text): AttributeDeclarationSemantic | Nothing {
       return;
     },
   };

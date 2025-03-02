@@ -2,7 +2,7 @@ import {
   $AnalyzerType,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   isInSet,
   newDeclarationScope,
@@ -44,7 +44,7 @@ export function newInvokeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       return newDeclarationScope();
       // throw new Error('Not implemented');
     },
