@@ -1,15 +1,14 @@
-import {$AnalyzerType, $Semantic, Semantic, TypeSemantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, Semantic, UsageSemantic} from '#analyzer';
 import {ArrayData, Boolean2, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
   Brand<'Analyzer.DeclarationSemantic'> & {
-    usages: ArrayData<TextReference>;
+    usages: ArrayData<UsageSemantic>;
     name: Text;
     documentation?: Text | Nothing;
+    reference?: TextReference | Nothing;
 
-    // todo should we use 'getType' or property 'type' ???
-    getType(): TypeSemantic;
     equals(other: DeclarationSemantic): Boolean2;
   };
 
