@@ -29,8 +29,8 @@ export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNod
     operator,
     id,
 
-    diagnose: diagnoseMemberNode,
     semantify: semantifyMemberNode,
+    diagnose: diagnoseMemberNode,
   });
 }
 

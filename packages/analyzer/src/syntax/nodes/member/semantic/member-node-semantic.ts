@@ -1,7 +1,9 @@
-import {$ValueSemantic, MemberNode, newUsageSemantic, SemanticContext} from '#analyzer';
+import {$ValueSemantic, MemberNode, newUsageValueSemantic, SemanticContext} from '#analyzer';
+import {newText, newTextReference} from '#common';
 import {is} from '#typing';
 
 export function semantifyMemberNode(this: MemberNode, context: SemanticContext): void {
+  // todo remove all 'semantify' checks for all nodes
   if (this.instance.semantify) {
     this.instance.semantify(context);
   }
@@ -13,10 +15,14 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
   if (context.scope.isTypeScope) {
     // ...
   } else if (is(this.instance.semantic, $ValueSemantic())) {
-    const attribute = this.instance.semantic.type.getAttribute(this.id.text);
+    const attribute = this.instance.semantic.type?.attributes?.get(this.id.text);
 
     if (attribute) {
-      this.id.semantic = newUsageSemantic(this.id.text, attribute.getType(), attribute);
+      this.id.semantic = newUsageValueSemantic(
+        this.id.text,
+        attribute,
+        newTextReference(newText(), this.id.range),
+      );
     }
   }
 

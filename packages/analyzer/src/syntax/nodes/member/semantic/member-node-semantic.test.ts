@@ -1,30 +1,54 @@
 import {
-  $StringTypeSemantic,
+  $MemberNode,
+  $UsageTypeSemantic,
+  collapseMemberNode,
+  MemberNode,
   newAnalyzerContext,
+  newAttributeDeclarationSemantic,
+  newAttributeList,
   newCharacterStreamFromText,
+  newObjectTypeSemantic,
   newSemanticContext,
-  parseStringNode,
-  Semantic,
+  newVariableValueDeclarationSemantic,
+  nonHiddenNodeGenerator,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('String type', () => {
-  const text = newText('"abc"');
-  const semantics = getStringNodeSemantics(text);
+test('Member node semantics', () => {
+  const text = newText('user.name');
+  const {instance, id, semantic} = getMemberNode(text);
+
+  expect(is(instance.semantic, $UsageTypeSemantic())).toBe(true);
+  expect(is(id?.semantic, $UsageTypeSemantic())).toBe(true);
 });
 
-function getStringNodeSemantics(text: Text): Semantic {
+function getMemberNode(text: Text): MemberNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const node = parseStringNode(context)!;
+  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const node = collapseMemberNode(nodes, 0)?.node as MemberNode;
   const semanticContext = newSemanticContext();
-  semanticContext.pushScope(true);
+
+  semanticContext.scope.add(
+    newVariableValueDeclarationSemantic(
+      newText('user'),
+      newObjectTypeSemantic(
+        newAttributeList(
+          newArrayData([
+            newAttributeDeclarationSemantic(newText('name')),
+            newAttributeDeclarationSemantic(newText('age')),
+          ]),
+        ),
+      ),
+    ),
+  );
 
   node.semantify!(semanticContext);
 
-  expect(is(node.semantic, $StringTypeSemantic())).toBe(true);
+  expect(node).toBeTruthy();
+  expect(is(node, $MemberNode())).toBe(true);
 
-  return node.semantic!;
+  return node;
 }
