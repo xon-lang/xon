@@ -1,4 +1,4 @@
-import {newArrayData, newChar, newText} from '#common';
+import {newArrayData, newCharacter, newText} from '#common';
 
 export const COMMENT_LINE = newText('//');
 
@@ -15,13 +15,13 @@ export const CHAR_OPEN = newText("'");
 export const CHAR_CLOSE = newText("'");
 
 export const NL = newText('\n');
-export const CR = newChar('\r');
-export const LF = newChar('\n');
+export const CR = newCharacter('\r');
+export const LF = newCharacter('\n');
 export const CRLF = newText('\r\n');
-export const COMMA = newChar(',');
-export const JOINING = newChar('~');
-export const SPACE = newChar(' ');
-export const UNDERSCORE = newChar('_');
+export const COMMA = newCharacter(',');
+export const JOINING = newCharacter('~');
+export const SPACE = newCharacter(' ');
+export const UNDERSCORE = newCharacter('_');
 
 export const PAREN_OPEN = newText('(');
 export const PAREN_CLOSE = newText(')');
