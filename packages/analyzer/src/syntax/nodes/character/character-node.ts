@@ -1,3 +1,4 @@
+import { semantifyCharacterNode } from '#analyzer';
 import {
   $AnalyzerType,
   $SyntaxNode,
@@ -35,5 +36,6 @@ export function newCharacterNode(
 
     diagnose: diagnoseCharacterNode,
     format: formatCharacterNode,
+    semantify: semantifyCharacterNode
   });
 }

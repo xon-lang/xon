@@ -7,12 +7,12 @@ import {
   NominalTypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {Boolean2, Nothing, Text} from '#common';
+import {Boolean2, Character, Nothing} from '#common';
 import {Brand, is} from '#typing';
 
 export type CharacterTypeSemantic = TypeSemantic &
   Brand<'Analyzer.CharacterTypeSemantic'> & {
-    value: Text;
+    value: Character;
     declaration?: NominalTypeDeclarationSemantic | Nothing;
   };
 
@@ -20,7 +20,7 @@ export const $CharacterTypeSemantic = () =>
   $AnalyzerType<CharacterTypeSemantic>('CharacterTypeSemantic', $TypeSemantic());
 
 export function newCharacterTypeSemantic(
-  value: Text,
+  value: Character,
   declaration?: NominalTypeDeclarationSemantic | Nothing,
 ): CharacterTypeSemantic {
   return {
