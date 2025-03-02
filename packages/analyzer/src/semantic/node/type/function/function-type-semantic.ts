@@ -4,16 +4,14 @@ import {
   $TypeSemantic,
   isInSet,
   newAttributeList,
-  NominalTypeDeclarationSemantic,
   ParameterTypeDeclarationSemantic,
-  ParameterValueDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {ArrayData, Boolean2, Nothing} from '#common';
+import {ArrayData, Boolean2} from '#common';
 import {is} from '#typing';
 
 export type FunctionTypeSemantic = TypeSemantic & {
-  parameters: ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic>;
+  parameters: ArrayData<ParameterTypeDeclarationSemantic>;
   result: TypeSemantic;
 };
 
@@ -21,13 +19,11 @@ export const $FunctionTypeSemantic = () =>
   $AnalyzerType<FunctionTypeSemantic>('FunctionTypeSemantic', $TypeSemantic());
 
 export function newFunctionTypeSemantic(
-  declaration: NominalTypeDeclarationSemantic | Nothing,
-  parameters: ArrayData<ParameterTypeDeclarationSemantic> | ArrayData<ParameterValueDeclarationSemantic>,
+  parameters: ArrayData<ParameterTypeDeclarationSemantic>,
   result: TypeSemantic,
 ): FunctionTypeSemantic {
   return {
     $: $FunctionTypeSemantic(),
-    declaration,
     parameters,
     result,
     attributes: newAttributeList(),
