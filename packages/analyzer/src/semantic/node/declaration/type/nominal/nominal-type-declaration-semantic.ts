@@ -1,20 +1,17 @@
 import {
   $AnalyzerType,
   $TypeDeclarationSemantic,
+  AttributeList,
   DeclarationSemantic,
-  newFunctionTypeSemantic,
-  newIdTypeSemantic,
-  newInvokeTypeSemantic,
   ParameterTypeDeclarationSemantic,
   TypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {ArrayData, Boolean2, newArrayData, nothing, Nothing, Text} from '#common';
+import {ArrayData, Boolean2, newArrayData, Nothing, Text} from '#common';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
-  parameters?: ArrayData<ParameterTypeDeclarationSemantic> | Nothing;
   extendsType?: TypeSemantic | Nothing;
-  // attributes: DeclarationScope<AttributeValueDeclarationSemantic>;
+  attributes?: AttributeList | Nothing;
 };
 
 export const $NominalTypeDeclarationSemantic = () =>
@@ -22,33 +19,30 @@ export const $NominalTypeDeclarationSemantic = () =>
 
 export function newNominalTypeDeclarationSemantic(
   name: Text,
-  documentation?: Text | Nothing,
   parameters?: ArrayData<ParameterTypeDeclarationSemantic> | Nothing,
   extendsType?: TypeSemantic | Nothing,
+  attributes?: AttributeList | Nothing,
+  documentation?: Text | Nothing,
 ): NominalTypeDeclarationSemantic {
   return {
     $: $NominalTypeDeclarationSemantic(),
     usages: newArrayData(),
     name,
-    documentation,
     parameters,
     extendsType,
-    // attributes: newDeclarationScope(),
-
-    getType(args?: ArrayData<TypeSemantic> | Nothing): TypeSemantic {
-      if (this.parameters?.some()) {
-        if (args?.some()) {
-          return newInvokeTypeSemantic(newIdTypeSemantic(this.name, this), args);
-        }
-
-        return newFunctionTypeSemantic(nothing, this.parameters, newIdTypeSemantic(this.name, this));
-      }
-
-      return newIdTypeSemantic(this.name, this);
-    },
+    attributes,
+    documentation,
 
     equals(other: DeclarationSemantic): Boolean2 {
-      return this === other;
+      if (this === other) {
+        return true;
+      }
+
+      if (this.reference) {
+        return !!other.reference && this.reference.equals(other.reference);
+      }
+
+      return this.name === other.name;
     },
   };
 }
