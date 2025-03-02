@@ -1,10 +1,17 @@
-import {$AnalyzerType, $Semantic, Semantic, TypeSemantic, UsageSemantic} from '#analyzer';
+import {
+  $AnalyzerType,
+  $Semantic,
+  Semantic,
+  TypeSemantic,
+  UsageTypeSemantic,
+  UsageValueSemantic,
+} from '#analyzer';
 import {ArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
   Brand<'Analyzer.DeclarationSemantic'> & {
-    usages: ArrayData<UsageSemantic>;
+    usages: ArrayData<UsageTypeSemantic | UsageValueSemantic>;
     name: Text;
     documentation?: Text | Nothing;
     reference?: TextReference | Nothing;
