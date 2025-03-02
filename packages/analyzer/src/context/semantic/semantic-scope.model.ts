@@ -9,7 +9,7 @@ export type SemanticScope = Model &
     _declarations?: Dictionary<Text, ArrayData<DeclarationSemantic>> | Nothing;
 
     add(declaration: DeclarationSemantic): void;
-    find(name: Text): DeclarationSemantic | Nothing;
+    get(name: Text): DeclarationSemantic | Nothing;
   };
 
 export const $SemanticScope = () => $AnalyzerType<SemanticScope>('SemanticScope');
