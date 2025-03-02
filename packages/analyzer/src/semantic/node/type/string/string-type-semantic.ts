@@ -3,26 +3,25 @@ import {
   $IdTypeSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
   isInSet,
   NominalTypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {Boolean2, Text} from '#common';
-import {is} from '#typing';
+import {Boolean2, Nothing, Text} from '#common';
+import {Brand, is} from '#typing';
 
-export type StringTypeSemantic = TypeSemantic & {
-  declaration: NominalTypeDeclarationSemantic;
-  value: Text;
-};
+export type StringTypeSemantic = TypeSemantic &
+  Brand<'Analyzer.StringTypeSemantic'> & {
+    value: Text;
+    declaration?: NominalTypeDeclarationSemantic | Nothing;
+  };
 
 export const $StringTypeSemantic = () =>
   $AnalyzerType<StringTypeSemantic>('StringTypeSemantic', $TypeSemantic());
 
 export function newStringTypeSemantic(
-  declaration: NominalTypeDeclarationSemantic,
   value: Text,
+  declaration?: NominalTypeDeclarationSemantic | Nothing,
 ): StringTypeSemantic {
   return {
     $: $StringTypeSemantic(),
@@ -51,10 +50,6 @@ export function newStringTypeSemantic(
       }
 
       return false;
-    },
-
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
-      return {} as DeclarationScope<AttributeDeclarationSemantic>;
     },
   };
 }
