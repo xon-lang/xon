@@ -3,7 +3,7 @@ import {
   $IdTypeSemantic,
   $IntersectionTypeSemantic,
   $ValueDeclarationSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   createSemanticAnalyzer,
   DeclarationNode,
   IdTypeSemantic,
@@ -38,7 +38,7 @@ test('a is integer', () => {
     $AttributeValueDeclarationSemantic().toNativeString(),
   );
 
-  const idSemantic = constNode.id?.semantic as AttributeValueDeclarationSemantic;
+  const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
   const typeSemantic = constNode.type
@@ -73,7 +73,7 @@ test('check type', () => {
         name,
         nothing,
         nothing,
-      ) as AttributeValueDeclarationSemantic
+      ) as AttributeDeclarationSemantic
     ).type as TypeSemantic;
 
   const aType = getConst(newText('a'));

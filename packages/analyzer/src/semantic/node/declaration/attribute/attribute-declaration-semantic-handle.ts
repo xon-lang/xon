@@ -1,5 +1,5 @@
 import {
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationNode,
   functionTypeSemantic,
   newUnknownTypeSemantic,
@@ -12,7 +12,7 @@ import {Nothing, nothing} from '#common';
 
 export function attributeValueDeclarationSemanticHandle(
   analyzer: SemanticAnalyzer,
-  semantic: AttributeValueDeclarationSemantic,
+  semantic: AttributeDeclarationSemantic,
   node: DeclarationNode,
 ): void {
   let generics: ReturnType<typeof parametersParse> | Nothing = nothing;

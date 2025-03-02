@@ -4,7 +4,7 @@ import {
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   isInSet,
   newDeclarationScope,
@@ -62,7 +62,7 @@ export function integerTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };

@@ -2,7 +2,7 @@ import {
   $AnalyzerType,
   $IntegerTypeSemantic,
   $SetTypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   isInSet,
   Node,
@@ -64,7 +64,7 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       throw new Error('Not implemented');
     },
   };

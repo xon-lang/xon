@@ -3,7 +3,7 @@ import {
   $IdTypeSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   isInSet,
   NominalTypeDeclarationSemantic,
@@ -53,8 +53,8 @@ export function newStringTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
-      return {} as DeclarationScope<AttributeValueDeclarationSemantic>;
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
+      return {} as DeclarationScope<AttributeDeclarationSemantic>;
     },
   };
 }

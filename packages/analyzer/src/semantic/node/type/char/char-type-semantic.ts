@@ -4,7 +4,7 @@ import {
   $NominalTypeDeclarationSemantic,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   isInSet,
   newDeclarationScope,
@@ -57,7 +57,7 @@ export function charTypeSemantic(analyzer: SemanticAnalyzer, nodeLink: Node, val
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       return this.declaration?.attributes?.clone() ?? newDeclarationScope();
     },
   };

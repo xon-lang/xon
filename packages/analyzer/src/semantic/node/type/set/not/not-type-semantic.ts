@@ -1,7 +1,7 @@
 import {
   $AnalyzerType,
   $SetTypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   Node,
   SetTypeSemantic,
@@ -29,7 +29,7 @@ export function notTypeSemantic(nodeLink: Node, value: TypeSemantic): NotTypeSem
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       // todo investigate
       throw new Error('Not implemented');
     },

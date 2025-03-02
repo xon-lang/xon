@@ -1,7 +1,7 @@
 import {
   $AnalyzerType,
   $SetTypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   Node,
   SetTypeSemantic,
@@ -36,7 +36,7 @@ export function intersectionTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       return this.left.attributes().intersection(this.right.attributes());
     },
   };

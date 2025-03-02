@@ -1,7 +1,7 @@
 import {
   $AnalyzerType,
   $SetTypeSemantic,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationScope,
   Node,
   SetTypeSemantic,
@@ -36,7 +36,7 @@ export function unionTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeValueDeclarationSemantic> {
+    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
       return this.left.attributes().union(this.right.attributes());
     },
   };
