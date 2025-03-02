@@ -1,6 +1,7 @@
 import {
   $IdTypeSemantic,
   $MemberNode,
+  $StringTypeSemantic,
   collapseMemberNode,
   MemberNode,
   newAnalyzerContext,
@@ -9,8 +10,10 @@ import {
   newCharacterStreamFromText,
   newObjectTypeSemantic,
   newSemanticContext,
+  newStringTypeSemantic,
   newVariableValueDeclarationSemantic,
   nonHiddenNodeGenerator,
+  StringTypeSemantic,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
@@ -18,10 +21,12 @@ import {expect, test} from 'vitest';
 
 test('Member node semantics', () => {
   const text = newText('user.name');
-  const {instance, id, semantic} = getMemberNode(text);
+  const node = getMemberNode(text);
 
-  expect(is(instance.semantic, $IdTypeSemantic())).toBe(true);
-  expect(is(id?.semantic, $IdTypeSemantic())).toBe(true);
+  expect(is(node.instance.semantic, $IdTypeSemantic())).toBe(true);
+  expect(is(node.id?.semantic, $IdTypeSemantic())).toBe(true);
+  expect(is(node.semantic, $StringTypeSemantic())).toBe(true);
+  expect((node.semantic as StringTypeSemantic).value.toNativeString()).toBe('John');
 });
 
 function getMemberNode(text: Text): MemberNode {
@@ -37,7 +42,7 @@ function getMemberNode(text: Text): MemberNode {
       newObjectTypeSemantic(
         newAttributeList(
           newArrayData([
-            newAttributeDeclarationSemantic(newText('name')),
+            newAttributeDeclarationSemantic(newText('name'), newStringTypeSemantic(newText('John'))),
             newAttributeDeclarationSemantic(newText('age')),
           ]),
         ),
