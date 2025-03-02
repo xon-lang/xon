@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $ParameterValueDeclarationSemantic,
   Semantic,
   ValueDeclarationSemantic,
@@ -12,7 +12,7 @@ export function valueDeclarationTypescriptTranslate(
   translator: TypescriptTranslator,
   semantic: ValueDeclarationSemantic,
 ): Text {
-  if (is(semantic, $AttributeValueDeclarationSemantic())) {
+  if (is(semantic, $AttributeDeclarationSemantic())) {
     const name = semantic.alternativeName;
     const type = translator.type(semantic.type);
 

@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   AttributeDeclarationSemantic,
   FunctionTypeSemantic,
   IdTypeSemantic,
@@ -20,7 +20,7 @@ test('only a', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('+'))
     ?.at2(0) as AttributeDeclarationSemantic;
-  expect(declaration.$).toBe($AttributeValueDeclarationSemantic());
+  expect(declaration.$).toBe($AttributeDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('infix');
   expect(declaration.name.toNativeString()).toBe('+');
   expect(declaration.alternativeName.toNativeString()).toBe('__plus__');

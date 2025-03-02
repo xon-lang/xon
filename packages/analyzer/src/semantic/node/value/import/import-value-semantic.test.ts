@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $StringTypeSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
@@ -22,14 +22,14 @@ test('import core', () => {
 
   expect(semantic.declarationManager.count()).toBe(1);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $AttributeValueDeclarationSemantic(),
+    $AttributeDeclarationSemantic(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(1)?.value as DeclarationNode;
   expect(constNode).toBeTruthy();
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
+  expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');

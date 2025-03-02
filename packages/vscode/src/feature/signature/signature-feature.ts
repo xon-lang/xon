@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $CommaNode,
   $DeclarationSemantic,
   $FunctionTypeSemantic,
@@ -10,7 +10,7 @@ import {
   $IdTypeSemantic,
   $IdValueSemantic,
   $InvokeNode,
-  AttributeValueDeclarationSemantic,
+  AttributeDeclarationSemantic,
   DeclarationSemantic,
   IdNode,
   InvokeNode,
@@ -68,7 +68,7 @@ class LanguageSignatureProvider implements SignatureHelpProvider {
     if (is(invokeParameterIndex.invokeNode.instance, $IdNode())) {
       const declaration = getIdNodeDeclaration(invokeParameterIndex.invokeNode.instance);
 
-      if (is(declaration, $AttributeValueDeclarationSemantic())) {
+      if (is(declaration, $AttributeDeclarationSemantic())) {
         return getSignatureHelp(declaration, invokeParameterIndex.parameterIndex);
       }
     }
@@ -121,10 +121,7 @@ function getIdNodeDeclaration(node: IdNode): DeclarationSemantic | Nothing {
   return nothing;
 }
 
-function getSignatureHelp(
-  declaration: AttributeValueDeclarationSemantic,
-  parameterIndex: Integer,
-): SignatureHelp {
+function getSignatureHelp(declaration: AttributeDeclarationSemantic, parameterIndex: Integer): SignatureHelp {
   const signatureHelp = new SignatureHelp();
   const signature = getSignatureInformation(declaration);
 
@@ -135,7 +132,7 @@ function getSignatureHelp(
   return signatureHelp;
 }
 
-function getSignatureInformation(declaration: AttributeValueDeclarationSemantic): SignatureInformation {
+function getSignatureInformation(declaration: AttributeDeclarationSemantic): SignatureInformation {
   const declarationHeader = declarationSemanticHeaderToString(declaration)?.toNativeString() ?? '';
 
   const description = declaration.documentation?.setPadding(0)?.trim().toNativeString() ?? '';

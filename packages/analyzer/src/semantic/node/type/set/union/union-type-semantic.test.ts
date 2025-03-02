@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $IdTypeSemantic,
   $UnionTypeSemantic,
   $ValueDeclarationSemantic,
@@ -28,13 +28,13 @@ test('a is integer or float', () => {
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic().toNativeString(),
+    $AttributeDeclarationSemantic().toNativeString(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(2)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
+  expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');

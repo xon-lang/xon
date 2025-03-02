@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $IdTypeSemantic,
   $IntersectionTypeSemantic,
   $ValueDeclarationSemantic,
@@ -28,15 +28,13 @@ test('a is integer', () => {
 
   expect(semantic.declarationManager.count()).toBe(3);
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).$).toBe(
-    $AttributeValueDeclarationSemantic(),
+    $AttributeDeclarationSemantic(),
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
   const constNode = syntax.statements.at(2)?.value as DeclarationNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
-  expect(constNode.id?.semantic?.$.toNativeString()).toBe(
-    $AttributeValueDeclarationSemantic().toNativeString(),
-  );
+  expect(constNode.id?.semantic?.$.toNativeString()).toBe($AttributeDeclarationSemantic().toNativeString());
 
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');

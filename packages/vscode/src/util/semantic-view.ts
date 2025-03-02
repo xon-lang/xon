@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   $FunctionTypeSemantic,
   $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
@@ -34,7 +34,7 @@ export function declarationSemanticHeaderToString(semantic: DeclarationSemantic)
     return newText(`${semantic.name.toNativeString()}${baseType}`);
   }
 
-  if (is(semantic, $AttributeValueDeclarationSemantic())) {
+  if (is(semantic, $AttributeDeclarationSemantic())) {
     const type = semantic.type ? ': ' + typeSemanticToString(semantic.type) : '';
 
     return newText(`${semantic.name.toNativeString()}${type}`);
