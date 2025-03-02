@@ -1,4 +1,4 @@
-import {$AnalyzerType, $Semantic, Semantic, UsageSemantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, Semantic, TypeSemantic, UsageSemantic} from '#analyzer';
 import {ArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -8,6 +8,8 @@ export type DeclarationSemantic = Semantic &
     name: Text;
     documentation?: Text | Nothing;
     reference?: TextReference | Nothing;
+
+    getType(): TypeSemantic | Nothing;
   };
 
 export const $DeclarationSemantic = () =>

@@ -1,4 +1,10 @@
-import {$AnalyzerType, $TypeDeclarationSemantic, TypeDeclarationSemantic, TypeSemantic} from '#analyzer';
+import {
+  $AnalyzerType,
+  $TypeDeclarationSemantic,
+  newFunctionTypeSemantic,
+  TypeDeclarationSemantic,
+  TypeSemantic,
+} from '#analyzer';
 import {newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -26,5 +32,13 @@ export function structuralTypeDeclarationSemantic(
     type,
     documentation,
     reference,
+
+    getType(): TypeSemantic | Nothing {
+      if (this.parameters?.some()) {
+        return newFunctionTypeSemantic(this.parameters, this.type);
+      }
+
+      return this.type;
+    },
   };
 }

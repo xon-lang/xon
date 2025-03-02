@@ -7,9 +7,7 @@ import {
 } from '#analyzer';
 import {Boolean2, newArrayData, Nothing, Text, TextReference} from '#common';
 
-export type VariableValueDeclarationSemantic = ValueDeclarationSemantic & {
-  type?: TypeSemantic | Nothing;
-};
+export type VariableValueDeclarationSemantic = ValueDeclarationSemantic;
 
 export const $VariableValueDeclarationSemantic = () =>
   $AnalyzerType<VariableValueDeclarationSemantic>(

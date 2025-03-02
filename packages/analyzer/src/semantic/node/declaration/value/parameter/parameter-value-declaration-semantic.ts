@@ -1,13 +1,11 @@
 import {
   $AnalyzerType,
   $ValueDeclarationSemantic,
-  DeclarationNode,
   DeclarationSemantic,
-  newUnknownTypeSemantic,
-  SemanticAnalyzer,
+  TypeSemantic,
   ValueDeclarationSemantic,
 } from '#analyzer';
-import {Boolean2, newArrayData, Nothing, Text} from '#common';
+import {Boolean2, newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type ParameterValueDeclarationSemantic = ValueDeclarationSemantic &
@@ -20,27 +18,24 @@ export const $ParameterValueDeclarationSemantic = () =>
   );
 
 export function parameterValueDeclarationSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: DeclarationNode,
-  documentation: Text | Nothing,
-  modifier: Text | Nothing,
   name: Text,
+  type?: TypeSemantic | Nothing,
+  documentation?: Text | Nothing,
+  reference?: TextReference | Nothing,
 ): ParameterValueDeclarationSemantic {
   return {
     $: $ParameterValueDeclarationSemantic(),
-    nodeLink,
     usages: newArrayData(),
     documentation,
-    modifier,
     name,
-    type: newUnknownTypeSemantic(analyzer, nodeLink),
+    type,
+    reference,
+
+    getType(): TypeSemantic | Nothing {
+      return this.type;
+    },
 
     equals(other: DeclarationSemantic): Boolean2 {
-      // todo recheck 'eq' conditions
-      if (this.nodeLink && other.nodeLink) {
-        return this.nodeLink.reference.equals(other.nodeLink.reference);
-      }
-
       return false;
     },
   };

@@ -3,6 +3,8 @@ import {
   $TypeDeclarationSemantic,
   AttributeList,
   DeclarationSemantic,
+  newFunctionTypeSemantic,
+  newNominalTypeSemantic,
   ParameterTypeDeclarationSemantic,
   TypeDeclarationSemantic,
   TypeSemantic,
@@ -34,6 +36,14 @@ export function newNominalTypeDeclarationSemantic(
     extendsType,
     attributes,
     documentation,
+
+    getType(): TypeSemantic | Nothing {
+      if (this.parameters?.some()) {
+        return newFunctionTypeSemantic(this.parameters, newNominalTypeSemantic(this));
+      }
+
+      return newNominalTypeSemantic(this);
+    },
 
     equals(other: DeclarationSemantic): Boolean2 {
       if (this === other) {
