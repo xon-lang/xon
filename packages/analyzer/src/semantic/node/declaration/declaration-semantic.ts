@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, Semantic, UsageSemantic} from '#analyzer';
-import {ArrayData, Boolean2, Nothing, Text, TextReference} from '#common';
+import {ArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
@@ -8,8 +8,6 @@ export type DeclarationSemantic = Semantic &
     name: Text;
     documentation?: Text | Nothing;
     reference?: TextReference | Nothing;
-
-    equals(other: DeclarationSemantic): Boolean2;
   };
 
 export const $DeclarationSemantic = () =>

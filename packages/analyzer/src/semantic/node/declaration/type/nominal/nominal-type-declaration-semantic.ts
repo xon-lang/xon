@@ -12,6 +12,8 @@ import {ArrayData, Boolean2, newArrayData, Nothing, Text} from '#common';
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   extendsType?: TypeSemantic | Nothing;
   attributes?: AttributeList | Nothing;
+
+  equals(other: DeclarationSemantic): Boolean2;
 };
 
 export const $NominalTypeDeclarationSemantic = () =>

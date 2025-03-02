@@ -1,5 +1,5 @@
 import {
-  $AttributeValueDeclarationSemantic,
+  $AttributeDeclarationSemantic,
   AttributeDeclarationSemantic,
   FunctionTypeSemantic,
   ParameterValueDeclarationSemantic,
@@ -19,7 +19,7 @@ test('only a', () => {
   const declaration = semantic.declarationManager.declarations
     .get(newText('a'))
     ?.at2(0) as AttributeDeclarationSemantic;
-  expect(declaration.$).toBe($AttributeValueDeclarationSemantic());
+  expect(declaration.$).toBe($AttributeDeclarationSemantic());
   expect(declaration.modifier?.toNativeString()).toBe('const');
   expect(declaration.name.toNativeString()).toBe('a');
 
