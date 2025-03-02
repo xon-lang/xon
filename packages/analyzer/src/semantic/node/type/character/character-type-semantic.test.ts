@@ -67,7 +67,7 @@ test('emoji', () => {
   const typeASemantic = constA.type ? (typeNodeType(semantic, constA.type) as CharTypeSemantic) : nothing;
   expect(typeASemantic?.$.toNativeString()).toBe($CharTypeSemantic().toNativeString());
   expect(typeASemantic?.value.toNativeString()).toBe('👩‍❤️‍💋‍👩');
-  expect(typeASemantic?.declaration?.name.toNativeString()).toBe('Char');
+  expect(typeASemantic?.declaration?.name.toNativeString()).toBe('Character');
 
   const constB = syntax.statements.at(1)?.value as DeclarationNode;
   const typeBSemantic = constB.type ? (typeNodeType(semantic, constB.type) as CharTypeSemantic) : nothing;

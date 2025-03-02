@@ -15,12 +15,12 @@ type Nothing: Anything
 type Number: Something
 type Integer: Number
 
-type Char: Something
+type Character: Something
 
 type Array{T}: Something
   length: Integer
 
-type String: Array<:Char:>
+type String: Array<:Character:>
   length: Integer
 
 type Range: Something

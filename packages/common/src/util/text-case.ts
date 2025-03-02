@@ -238,15 +238,15 @@ function splitPrefixSuffix(input: string, options: Options = {}): [string, strin
   let suffixIndex = input.length;
 
   while (prefixIndex < input.length) {
-    const char = input.charAt(prefixIndex);
-    if (!prefixCharacters.includes(char)) break;
+    const character = input.charAt(prefixIndex);
+    if (!prefixCharacters.includes(character)) break;
     prefixIndex++;
   }
 
   while (suffixIndex > prefixIndex) {
     const index = suffixIndex - 1;
-    const char = input.charAt(index);
-    if (!suffixCharacters.includes(char)) break;
+    const character = input.charAt(index);
+    if (!suffixCharacters.includes(character)) break;
     suffixIndex = index;
   }
 

@@ -1,7 +1,7 @@
 import {$CharacterStream, CharacterStream, LexicalNode, NL} from '#analyzer';
 import {
   Boolean2,
-  Char,
+  Character,
   Integer,
   newTextPosition,
   newTextRange,
@@ -21,7 +21,7 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
 
     takeWhile(
       $type: $Type,
-      predicate: (char: Char, index: Integer, text: Text) => Boolean2 | Nothing,
+      predicate: (character: Character, index: Integer, text: Text) => Boolean2 | Nothing,
       length?: Integer | Nothing,
     ): LexicalNode | Nothing {
       if (sourcePosition.index >= sourceLength) {
@@ -54,8 +54,8 @@ function getStopTextPosition(text: Text, startPosition: TextPosition): TextPosit
   let line = startPosition.line;
   let column = startPosition.column;
 
-  for (const char of text) {
-    if (NL.equals(char)) {
+  for (const character of text) {
+    if (NL.equals(character)) {
       line += 1;
       column = 0;
 

@@ -24,7 +24,7 @@ export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
     somethingTypeName: newText('Something'),
     nothingTypeName: newText('Nothing'),
     integerTypeName: newText('Integer'),
-    charTypeName: newText('Char'),
+    charTypeName: newText('Character'),
     stringTypeName: newText('String'),
     rangeTypeName: newText('Range'),
     arrayTypeName: newText('Array'),
