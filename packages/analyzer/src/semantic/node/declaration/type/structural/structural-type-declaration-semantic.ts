@@ -5,7 +5,7 @@ import {
   TypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {Boolean2, newArrayData, Nothing, Text} from '#common';
+import {Boolean2, newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic &
@@ -23,6 +23,7 @@ export function structuralTypeDeclarationSemantic(
   name: Text,
   type?: TypeSemantic | Nothing,
   documentation?: Text | Nothing,
+  reference?: TextReference | Nothing,
 ): StructuralTypeDeclarationSemantic {
   return {
     $: $StructuralTypeDeclarationSemantic(),
@@ -30,6 +31,7 @@ export function structuralTypeDeclarationSemantic(
     name,
     type,
     documentation,
+    reference,
 
     equals(other: DeclarationSemantic): Boolean2 {
       if (this === other) {
