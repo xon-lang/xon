@@ -1,17 +1,17 @@
 import {
   $AnalyzerType,
   $TypeDeclarationSemantic,
-  DeclarationNode,
   DeclarationSemantic,
-  newUnknownTypeSemantic,
-  SemanticAnalyzer,
   TypeDeclarationSemantic,
+  TypeSemantic,
 } from '#analyzer';
 import {Boolean2, newArrayData, Nothing, Text} from '#common';
 import {Brand} from '#typing';
 
 export type StructuralTypeDeclarationSemantic = TypeDeclarationSemantic &
-  Brand<'Analyzer.StructuralTypeDeclarationSemantic'>;
+  Brand<'Analyzer.StructuralTypeDeclarationSemantic'> & {
+    type: TypeSemantic | Nothing;
+  };
 
 export const $StructuralTypeDeclarationSemantic = () =>
   $AnalyzerType<StructuralTypeDeclarationSemantic>(
@@ -20,29 +20,27 @@ export const $StructuralTypeDeclarationSemantic = () =>
   );
 
 export function structuralTypeDeclarationSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: DeclarationNode,
-  documentation: Text | Nothing,
-  // todo we always know 'type' modifier
-  modifier: Text | Nothing,
   name: Text,
+  type?: TypeSemantic | Nothing,
+  documentation?: Text | Nothing,
 ): StructuralTypeDeclarationSemantic {
   return {
     $: $StructuralTypeDeclarationSemantic(),
-    nodeLink,
     usages: newArrayData(),
-    documentation,
-    modifier,
     name,
-    type: newUnknownTypeSemantic(analyzer, nodeLink),
+    type,
+    documentation,
 
     equals(other: DeclarationSemantic): Boolean2 {
-      // todo recheck 'eq' conditions
-      if (this.nodeLink && other.nodeLink) {
-        return this.nodeLink.reference.equals(other.nodeLink.reference);
+      if (this === other) {
+        return true;
       }
 
-      return false;
+      if (this.reference) {
+        return !!other.reference && this.reference.equals(other.reference);
+      }
+
+      return this.name === other.name;
     },
   };
 }
