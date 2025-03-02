@@ -1,11 +1,11 @@
-import {$Char, newChar} from '#common';
+import {$Character, newCharacter} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('char', () => {
-  const a = newChar('A');
+test('Character A', () => {
+  const a = newCharacter('A');
 
-  expect(is(a, $Char())).toBe(true);
+  expect(is(a, $Character())).toBe(true);
   expect(a.isDigit()).toBe(false);
   expect(a.isLetter()).toBe(true);
   expect(a.isLetterOrDigit()).toBe(true);

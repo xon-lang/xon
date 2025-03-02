@@ -1,32 +1,32 @@
 import {
   $ArrayData,
-  $Char,
+  $Character,
   $Text,
   $TextRange,
   ArrayData,
   Boolean2,
-  Char,
+  Character,
   Integer,
   Nothing,
   Number2,
   Text,
   TextRange,
   newArrayData,
-  newChar,
+  newCharacter,
   nothing,
   stringToCharArray,
 } from '#common';
 import {is} from '#typing';
 
 export function newText(strings: ArrayData<Text>, separator?: Text | Nothing): Text;
-export function newText(characters: ArrayData<Char>): Text;
+export function newText(characters: ArrayData<Character>): Text;
 export function newText(string: string): Text;
 export function newText(): Text;
 export function newText(
-  value?: string | ArrayData<Char> | ArrayData<Text> | Nothing,
+  value?: string | ArrayData<Character> | ArrayData<Text> | Nothing,
   separator?: Text | Nothing,
 ): Text {
-  let array: ArrayData<Char>;
+  let array: ArrayData<Character>;
 
   if (typeof value === 'string') {
     array = stringToCharArray(value);
@@ -38,7 +38,7 @@ export function newText(
       array = value.flat();
     }
   } else {
-    array = value ?? newArrayData<Char>();
+    array = value ?? newArrayData<Character>();
   }
 
   return {
@@ -97,19 +97,19 @@ export function newText(
       );
     },
 
-    addFirstItems(items: ArrayData<Char>): Text {
+    addFirstItems(items: ArrayData<Character>): Text {
       return newText(array.addFirstItems(items));
     },
 
-    addFirstItem(item: Char): Text {
+    addFirstItem(item: Character): Text {
       return newText(array.addFirstItem(item));
     },
 
-    addLastItems(items: ArrayData<Char>): Text {
+    addLastItems(items: ArrayData<Character>): Text {
       return newText(array.addLastItems(items));
     },
 
-    addLastItem(item: Char): Text {
+    addLastItem(item: Character): Text {
       return newText(array.addLastItem(item));
     },
 
@@ -122,7 +122,7 @@ export function newText(
     },
 
     takeWhile(
-      predicate: (value: Char, index: Integer) => Boolean2,
+      predicate: (value: Character, index: Integer) => Boolean2,
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): Text {
@@ -133,11 +133,11 @@ export function newText(
       return newText(array.take(length, startIndex));
     },
 
-    sort(compareFn?: (a: Char, b: Char) => Number2): Text {
+    sort(compareFn?: (a: Character, b: Character) => Number2): Text {
       return newText(array.sort(compareFn));
     },
 
-    sortBy(select: (item: Char) => Number2, ascending?: Boolean2): Text {
+    sortBy(select: (item: Character) => Number2, ascending?: Boolean2): Text {
       return newText(array.sortBy(select, ascending));
     },
 
@@ -148,7 +148,7 @@ export function newText(
 
       const lines = this.split(newText('\n')).map((text) => ({
         text,
-        padding: text.takeWhile((x) => x.equals(newChar(' '))).count(),
+        padding: text.takeWhile((x) => x.equals(newCharacter(' '))).count(),
       }));
 
       const minLinePadding = lines.reduce(
@@ -201,12 +201,12 @@ export function newText(
       return newText(array.clone());
     },
 
-    equals(other: Char | ArrayData<Char> | string): Boolean2 {
+    equals(other: Character | ArrayData<Character> | string): Boolean2 {
       if (typeof other === 'string') {
         return this.toNativeString() === other;
       }
 
-      if (is(other, $Char())) {
+      if (is(other, $Character())) {
         return this.toNativeString() === other.toNativeString();
       }
 

@@ -1,7 +1,7 @@
 import {$CommonType, Boolean2} from '#common';
 import {Model} from '#typing';
 
-export interface Char extends Model {
+export interface Character extends Model {
   _string: string;
 
   isUpperLetter(): Boolean2;
@@ -9,8 +9,8 @@ export interface Char extends Model {
   isLetter(): Boolean2;
   isDigit(): Boolean2;
   isLetterOrDigit(): Boolean2;
-  equals(other: Char): Boolean2;
+  equals(other: Character): Boolean2;
   toNativeString(): string;
 }
 
-export const $Char = () => $CommonType<Char>('Char');
+export const $Character = () => $CommonType<Character>('Character');
