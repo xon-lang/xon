@@ -1,6 +1,6 @@
 import {
+  $IdTypeSemantic,
   $MemberNode,
-  $UsageTypeSemantic,
   collapseMemberNode,
   MemberNode,
   newAnalyzerContext,
@@ -20,8 +20,8 @@ test('Member node semantics', () => {
   const text = newText('user.name');
   const {instance, id, semantic} = getMemberNode(text);
 
-  expect(is(instance.semantic, $UsageTypeSemantic())).toBe(true);
-  expect(is(id?.semantic, $UsageTypeSemantic())).toBe(true);
+  expect(is(instance.semantic, $IdTypeSemantic())).toBe(true);
+  expect(is(id?.semantic, $IdTypeSemantic())).toBe(true);
 });
 
 function getMemberNode(text: Text): MemberNode {

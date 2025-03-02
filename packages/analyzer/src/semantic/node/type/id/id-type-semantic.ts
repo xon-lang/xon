@@ -1,67 +1,50 @@
 import {
   $AnalyzerType,
-  $NominalTypeDeclarationSemantic,
-  $SetTypeSemantic,
   $TypeSemantic,
-  AttributeDeclarationSemantic,
-  isInSet,
+  DeclarationSemantic,
   TypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {Boolean2, Nothing, Text} from '#common';
-import {is} from '#typing';
+import {Boolean2, Nothing, Text, TextReference} from '#common';
+import {Brand} from '#typing';
 
-export type IdTypeSemantic = TypeSemantic & {
-  name: Text;
-};
+export type IdTypeSemantic = TypeSemantic &
+  Brand<'Analyzer.IdTypeSemantic'> & {
+    name: Text;
+    type?: TypeSemantic | Nothing;
+    declaration?: DeclarationSemantic | Nothing;
+    reference?: TextReference | Nothing;
+  };
 
-export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic());
+export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('UsageSemantic', $TypeSemantic());
 
 export function newIdTypeSemantic(
   name: Text,
-  declaration: TypeDeclarationSemantic | Nothing,
+  declaration?: TypeDeclarationSemantic | Nothing,
+  reference?: TextReference | Nothing,
 ): IdTypeSemantic {
-  // if (declaration) {
-  //   declaration.usages.addLastItem(nodeLink.reference);
-  // }
+  const type = declaration?.getType();
 
-  return {
+  const usage: IdTypeSemantic = {
     $: $IdTypeSemantic(),
     name,
+    type,
     declaration,
-
-    is(other: TypeSemantic): Boolean2 {
-      if (is(other, $SetTypeSemantic())) {
-        return isInSet(this, other);
-      }
-
-      if (this.equals(other)) {
-        return true;
-      }
-
-      // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
-      if (is(this.declaration, $NominalTypeDeclarationSemantic())) {
-        return this.declaration.extendsType?.is(other) ?? false;
-      }
-
-      return false;
-    },
+    reference,
+    attributes: type?.attributes,
 
     equals(other: TypeSemantic): Boolean2 {
-      // todo use 'TypeDeclarationSemantic' instead of 'NominalTypeDeclarationSemantic'
-      if (
-        is(this.declaration, $NominalTypeDeclarationSemantic()) &&
-        is(other, $IdTypeSemantic()) &&
-        is(other.declaration, $NominalTypeDeclarationSemantic())
-      ) {
-        return this.declaration.equals(other.declaration);
-      }
-
-      return false;
+      return this.type?.equals(other) ?? false;
     },
 
-    getAttribute(name: Text): AttributeDeclarationSemantic | Nothing {
-      return;
+    is(other: TypeSemantic): Boolean2 {
+      return this.type?.is(other) ?? false;
     },
   };
+
+  if (declaration) {
+    declaration.usages.addLastItem(usage);
+  }
+
+  return usage;
 }

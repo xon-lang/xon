@@ -1,4 +1,4 @@
-import {$ValueSemantic, MemberNode, newUsageValueSemantic, SemanticContext} from '#analyzer';
+import {$TypeSemantic, MemberNode, newIdTypeSemantic, SemanticContext} from '#analyzer';
 import {newText, newTextReference} from '#common';
 import {is} from '#typing';
 
@@ -12,19 +12,16 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
     return;
   }
 
-  if (context.scope.isTypeScope) {
-    // ...
-  } else if (is(this.instance.semantic, $ValueSemantic())) {
-    const attribute = this.instance.semantic.type?.attributes?.get(this.id.text);
-
-    if (attribute) {
-      this.id.semantic = newUsageValueSemantic(
-        this.id.text,
-        attribute,
-        newTextReference(newText(), this.id.range),
-      );
-    }
+  if (!is(this.instance.semantic, $TypeSemantic())) {
+    return;
   }
 
-  this.semantic = this.id.semantic?.type;
+  const attribute = this.instance.semantic.attributes?.get(this.id.text);
+
+  if (!attribute) {
+    return;
+  }
+
+  this.id.semantic = newIdTypeSemantic(this.id.text, attribute, newTextReference(newText(), this.id.range));
+  this.semantic = this.id.semantic.type;
 }

@@ -96,7 +96,6 @@ export * from './src/syntax/nodes/character/diagnostic/character-node-diagnostic
 export * from './src/syntax/nodes/affix/prefix/prefix-node';
 export * from './src/syntax/nodes/affix/postfix/postfix-node';
 export * from './src/syntax/nodes/affix/infix/infix-node';
-export * from './src/semantic/node/value/usage/usage-value-semantic';
 export * from './src/semantic/node/value/unknown/unknown-value-semantic';
 export * from './src/semantic/node/value/string/string-value-semantic-parser';
 export * from './src/semantic/node/value/string/string-value-semantic';
@@ -112,7 +111,6 @@ export * from './src/semantic/node/value/id/id-value-semantic-parser';
 export * from './src/semantic/node/value/id/id-value-semantic';
 export * from './src/semantic/node/value/char/char-value-semantic-parser';
 export * from './src/semantic/node/value/char/char-value-semantic';
-export * from './src/semantic/node/type/usage/usage-type-semantic';
 export * from './src/semantic/node/type/unknown/unknown-type-semantic';
 export * from './src/semantic/node/type/string/string-type-semantic-parser';
 export * from './src/semantic/node/type/string/string-type-semantic';
