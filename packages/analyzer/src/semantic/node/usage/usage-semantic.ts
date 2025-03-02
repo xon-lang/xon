@@ -12,14 +12,13 @@ export const $UsageSemantic = () => $AnalyzerType<UsageSemantic>('UsageSemantic'
 
 export function newUsageSemantic(
   name: Text,
-  type?: TypeSemantic | Nothing,
   declaration?: DeclarationSemantic | Nothing,
   reference?: TextReference | Nothing,
 ): UsageSemantic {
   const usage: UsageSemantic = {
     $: $UsageSemantic(),
     name,
-    type,
+    type: declaration?.getType(),
     declaration,
     reference,
   };
