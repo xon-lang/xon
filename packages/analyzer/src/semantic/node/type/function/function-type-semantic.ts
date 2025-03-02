@@ -8,12 +8,13 @@ import {
   TypeSemantic,
 } from '#analyzer';
 import {ArrayData, Boolean2, Nothing} from '#common';
-import {is} from '#typing';
+import {Brand, is} from '#typing';
 
-export type FunctionTypeSemantic = TypeSemantic & {
-  parameters: ArrayData<ParameterTypeDeclarationSemantic>;
-  result?: TypeSemantic | Nothing;
-};
+export type FunctionTypeSemantic = TypeSemantic &
+  Brand<'Analyzer.FunctionTypeSemantic'> & {
+    parameters: ArrayData<ParameterTypeDeclarationSemantic>;
+    result?: TypeSemantic | Nothing;
+  };
 
 export const $FunctionTypeSemantic = () =>
   $AnalyzerType<FunctionTypeSemantic>('FunctionTypeSemantic', $TypeSemantic());
