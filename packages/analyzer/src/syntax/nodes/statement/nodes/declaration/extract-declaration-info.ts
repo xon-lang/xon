@@ -40,7 +40,7 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
   }
 
   if (is(node, $LambdaNode())) {
-    const {group, type, assign} = node;
+    const {parameters: group, type, assign} = node;
 
     return {target: group, type, assign};
   }

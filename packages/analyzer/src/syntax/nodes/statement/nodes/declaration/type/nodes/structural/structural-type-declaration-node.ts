@@ -15,8 +15,10 @@ import {Brand} from '#typing';
 
 export type StructuralTypeDeclarationNode = TypeDeclarationNode &
   Brand<'Analyzer.StructuralTypeDeclarationNode'> & {
+    keyword: TypeKeywordNode;
     id: IdNode;
     assign: AssignValueNode;
+    parameters?: AngleGroupNode | Nothing;
   };
 
 export const $StructuralTypeDeclarationNode = () =>
