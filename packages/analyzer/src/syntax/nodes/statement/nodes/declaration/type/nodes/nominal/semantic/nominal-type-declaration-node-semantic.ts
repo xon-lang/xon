@@ -21,8 +21,9 @@ export function semantifyNominalTypeDeclarationNode(
   }
 
   if (is(this.type?.value?.semantic, $TypeSemantic())) {
-    this.id.semantic = newNominalTypeDeclarationSemantic(this.id.text, nothing, this.type.value.semantic);
-    context.scope.add(this.id.semantic);
+    this.semantic = newNominalTypeDeclarationSemantic(this.id.text, nothing, this.type.value.semantic);
+    this.id.semantic = this.semantic;
+    context.scope.add(this.semantic);
   }
 
   context.popScope();

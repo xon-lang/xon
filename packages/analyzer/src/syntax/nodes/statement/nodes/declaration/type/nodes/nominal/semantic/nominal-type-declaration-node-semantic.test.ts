@@ -1,9 +1,12 @@
 import {
+  $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
+  IdTypeSemantic,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
   NominalTypeDeclarationNode,
+  NominalTypeDeclarationSemantic,
   nonHiddenNodeGenerator,
   parseTypeDeclarationNode,
 } from '#analyzer';
@@ -13,10 +16,14 @@ import {expect, test} from 'vitest';
 
 test('Integer declaration type', () => {
   const text = newText('type Integer: Number');
-  const semantics = getNominalTypeDeclarationNode(text);
+  const semantic = getNominalTypeDeclarationNode(text);
+
+  expect(semantic.name.toNativeString()).toBe('Integer');
+  expect(is(semantic.extendsType, $IdTypeSemantic())).toBe(true);
+  expect((semantic.extendsType as IdTypeSemantic).name.toNativeString()).toBe('Number');
 });
 
-function getNominalTypeDeclarationNode(text: Text): NominalTypeDeclarationNode {
+function getNominalTypeDeclarationNode(text: Text): NominalTypeDeclarationSemantic {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
@@ -27,6 +34,7 @@ function getNominalTypeDeclarationNode(text: Text): NominalTypeDeclarationNode {
   node.semantify!(semanticContext);
 
   expect(is(node.semantic, $NominalTypeDeclarationSemantic())).toBe(true);
+  expect(is(node.id.semantic, $NominalTypeDeclarationSemantic())).toBe(true);
 
-  return node;
+  return node.semantic!;
 }

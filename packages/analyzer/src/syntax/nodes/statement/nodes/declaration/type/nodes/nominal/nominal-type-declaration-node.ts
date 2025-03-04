@@ -6,6 +6,8 @@ import {
   IdNode,
   newSyntaxNode,
   Node,
+  NominalTypeDeclarationSemantic,
+  semantifyNominalTypeDeclarationNode,
   TypeDeclarationNode,
   TypeKeywordNode,
   TypeValueNode,
@@ -19,6 +21,7 @@ export type NominalTypeDeclarationNode = TypeDeclarationNode &
     id: IdNode;
     type?: TypeValueNode | Nothing;
     parameters?: AngleGroupNode | Nothing;
+    semantic?: NominalTypeDeclarationSemantic | Nothing;
   };
 
 export const $NominalTypeDeclarationNode = () =>
@@ -41,6 +44,7 @@ export function newNominalTypeDeclarationNode(
     type,
     errorNodes,
 
+    semantify: semantifyNominalTypeDeclarationNode,
     diagnose: diagnoseNominalTypeDeclarationNode,
   });
 }
