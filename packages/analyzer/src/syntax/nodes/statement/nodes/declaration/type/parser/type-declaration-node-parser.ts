@@ -6,7 +6,6 @@ import {
   extractDeclarationInfo,
   newNominalTypeDeclarationNode,
   newStructuralTypeDeclarationNode,
-  newTypeDeclarationNode,
   Node,
   TypeDeclarationNode,
 } from '#analyzer';
@@ -36,5 +35,5 @@ export function parseTypeDeclarationNode(
     }
   }
 
-  return newTypeDeclarationNode(indent, keyword, nodes);
+  return nothing;
 }
