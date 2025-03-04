@@ -15,8 +15,10 @@ import {Brand} from '#typing';
 
 export type NominalTypeDeclarationNode = TypeDeclarationNode &
   Brand<'Analyzer.NominalTypeDeclarationNode'> & {
+    keyword: TypeKeywordNode;
     id: IdNode;
     type?: TypeValueNode | Nothing;
+    parameters?: AngleGroupNode | Nothing;
   };
 
 export const $NominalTypeDeclarationNode = () =>
