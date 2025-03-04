@@ -13,7 +13,7 @@ import {Brand} from '#typing';
 
 export type LambdaNode = SyntaxNode &
   Brand<'Analyzer.LambdaNode'> & {
-    group: GroupNode;
+    parameters: GroupNode;
   } & (
     | {type: TypeValueNode | Nothing; assign?: AssignValueNode | Nothing}
     | {type?: TypeValueNode | Nothing; assign: AssignValueNode | Nothing}
@@ -22,13 +22,13 @@ export type LambdaNode = SyntaxNode &
 export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $SyntaxNode());
 
 export function newLambdaNode(
-  group: GroupNode,
+  parameters: GroupNode,
   type?: TypeValueNode | Nothing,
   assign?: AssignValueNode | Nothing,
 ): LambdaNode {
   return newSyntaxNode<LambdaNode>({
     $: $LambdaNode(),
-    group,
+    parameters,
     type,
     assign,
 

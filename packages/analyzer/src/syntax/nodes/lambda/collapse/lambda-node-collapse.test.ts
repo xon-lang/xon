@@ -17,8 +17,8 @@ test('Lambda integer type and value', () => {
   const text = newText('(a): 1 = 2');
   const node = getLambdaNode(text);
 
-  expect(node.group.items.count()).toBe(1);
-  expect((node.group.items.at(0)?.value as IdNode).text.toNativeString()).toBe('a');
+  expect(node.parameters.items.count()).toBe(1);
+  expect((node.parameters.items.at(0)?.value as IdNode).text.toNativeString()).toBe('a');
 
   expect((node.type?.value as IntegerNode).contentNode.text.toNativeString()).toBe('1');
   expect((node.assign?.value as IntegerNode).contentNode.text.toNativeString()).toBe('2');
@@ -32,7 +32,7 @@ function getLambdaNode(text: Text): LambdaNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $LambdaNode())).toBe(true);
-  expect(is(node.group, $GroupNode())).toBe(true);
+  expect(is(node.parameters, $GroupNode())).toBe(true);
 
   return node;
 }

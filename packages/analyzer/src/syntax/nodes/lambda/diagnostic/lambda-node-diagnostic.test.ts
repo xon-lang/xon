@@ -29,7 +29,7 @@ function returnNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
 
   expect(node).toBeTruthy();
   expect(is(node, $LambdaNode())).toBe(true);
-  expect(is(node.group, $GroupNode())).toBe(true);
+  expect(is(node.parameters, $GroupNode())).toBe(true);
 
   node.diagnose!(diagnosticContext);
 
