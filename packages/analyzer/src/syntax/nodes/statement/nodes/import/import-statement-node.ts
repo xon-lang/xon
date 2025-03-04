@@ -13,9 +13,8 @@ import {Brand} from '#typing';
 
 export type ImportStatementNode = StatementNode &
   Brand<'Analyzer.ImportStatementNode'> & {
-    keywordNode: ImportKeywordNode;
-    // todo rename to 'pathNode' or something else
-    expressionNode?: StringNode | Nothing;
+    keyword: ImportKeywordNode;
+    expression?: StringNode | Nothing;
   };
 
 export const $ImportStatementNode = () =>
@@ -23,15 +22,15 @@ export const $ImportStatementNode = () =>
 
 export function newImportStatementNode(
   indent: Integer,
-  keywordNode: ImportKeywordNode,
-  expressionNode?: Node | Nothing,
+  keyword: ImportKeywordNode,
+  expression?: StringNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ImportStatementNode {
   return newSyntaxNode<ImportStatementNode>({
     $: $ImportStatementNode(),
     indent,
-    keywordNode,
-    expressionNode,
+    keyword,
+    expression,
     errorNodes,
 
     diagnose: diagnoseImportStatementNode,
