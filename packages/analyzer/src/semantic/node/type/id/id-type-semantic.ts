@@ -23,15 +23,12 @@ export function newIdTypeSemantic(
   declaration?: TypeDeclarationSemantic | Nothing,
   reference?: TextReference | Nothing,
 ): IdTypeSemantic {
-  const type = declaration?.getType();
-
   const usage: IdTypeSemantic = {
     $: $IdTypeSemantic(),
     name,
-    type,
     declaration,
     reference,
-    attributes: type?.attributes,
+    attributes: declaration?.attributes,
 
     equals(other: TypeSemantic): Boolean2 {
       return this.type?.equals(other) ?? false;

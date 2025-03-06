@@ -29,10 +29,6 @@ export function newVariableValueDeclarationSemantic(
     type,
     reference,
 
-    getType(): TypeSemantic | Nothing {
-      return this.type;
-    },
-
     equals(other: DeclarationSemantic): Boolean2 {
       return false;
     },

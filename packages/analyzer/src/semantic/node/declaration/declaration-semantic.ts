@@ -1,22 +1,14 @@
-import {
-  $AnalyzerType,
-  $Semantic,
-  Semantic,
-  TypeSemantic,
-  UsageTypeSemantic,
-  UsageValueSemantic,
-} from '#analyzer';
+import {$AnalyzerType, $Semantic, AttributeList, IdTypeSemantic, Semantic} from '#analyzer';
 import {ArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
   Brand<'Analyzer.DeclarationSemantic'> & {
-    usages: ArrayData<UsageTypeSemantic | UsageValueSemantic>;
+    usages: ArrayData<IdTypeSemantic>;
     name: Text;
     documentation?: Text | Nothing;
     reference?: TextReference | Nothing;
-
-    getType(): TypeSemantic | Nothing;
+    attributes?: AttributeList | Nothing;
   };
 
 export const $DeclarationSemantic = () =>

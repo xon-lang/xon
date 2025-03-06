@@ -24,9 +24,5 @@ export function newAttributeDeclarationSemantic(
     type,
     documentation,
     reference,
-
-    getType(): TypeSemantic | Nothing {
-      return this.type;
-    },
   };
 }

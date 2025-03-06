@@ -1,6 +1,7 @@
 import {
   $IdNode,
   $IdTypeSemantic,
+  $NominalTypeDeclarationSemantic,
   IdNode,
   IdTypeSemantic,
   newAnalyzerContext,
@@ -18,6 +19,7 @@ test('Id node semantics', () => {
   const {semantic} = getIdNode(text);
 
   expect(is(semantic, $IdTypeSemantic())).toBe(true);
+  expect(is((semantic as IdTypeSemantic).declaration, $NominalTypeDeclarationSemantic())).toBe(true);
   expect((semantic as IdTypeSemantic).declaration?.name.toNativeString()).toBe('A');
 });
 
