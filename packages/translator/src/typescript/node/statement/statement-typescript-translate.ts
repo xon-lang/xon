@@ -1,5 +1,4 @@
 import {
-  $DeclarationNode,
   $TypeDeclarationSemantic,
   $ValueDeclarationSemantic,
   $ValueSemantic,

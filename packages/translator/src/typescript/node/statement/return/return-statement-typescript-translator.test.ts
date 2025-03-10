@@ -1,7 +1,5 @@
 import {
-  $IntegerNode,
   $ReturnStatementNode,
-  IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
@@ -9,25 +7,24 @@ import {
   ReturnStatementNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
+import {translateTypescriptReturnStatement} from '#translator';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Return statement with errors', () => {
+test('Return statement with expression', () => {
   const text = newText('return 7 17 37');
   const node = getReturnStatementNode(text);
+  const translated = translateTypescriptReturnStatement(node);
 
-  expect(node.errorNodes?.count()).toBe(2);
-  expect(is(node.expression, $IntegerNode())).toBe(true);
-  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+  expect(translated.toNativeString()).toBe('return 7;');
 });
 
-test('Return statement without errors', () => {
-  const text = newText('return 7');
+test('Return statement without expression', () => {
+  const text = newText('return');
   const node = getReturnStatementNode(text);
+  const translated = translateTypescriptReturnStatement(node);
 
-  expect(node.errorNodes?.count()).toBe(0);
-  expect(is(node.expression, $IntegerNode())).toBe(true);
-  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+  expect(translated.toNativeString()).toBe('return;');
 });
 
 function getReturnStatementNode(text: Text): ReturnStatementNode {

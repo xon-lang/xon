@@ -12,8 +12,8 @@ import {Brand} from '#typing';
 
 export type ReturnStatementNode = StatementNode &
   Brand<'Analyzer.ReturnStatementNode'> & {
-    keywordNode: ReturnKeywordNode;
-    expressionNode?: Node | Nothing;
+    keyword: ReturnKeywordNode;
+    expression?: Node | Nothing;
   };
 
 export const $ReturnStatementNode = () =>
@@ -21,15 +21,15 @@ export const $ReturnStatementNode = () =>
 
 export function newReturnStatementNode(
   indent: Integer,
-  keywordNode: ReturnKeywordNode,
-  expressionNode?: Node | Nothing,
+  keyword: ReturnKeywordNode,
+  expression?: Node | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ReturnStatementNode {
   return newSyntaxNode<ReturnStatementNode>({
     $: $ReturnStatementNode(),
     indent,
-    keywordNode,
-    expressionNode,
+    keyword,
+    expression,
     errorNodes,
 
     diagnose: diagnoseReturnStatementNode,
