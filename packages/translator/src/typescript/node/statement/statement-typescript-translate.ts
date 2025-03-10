@@ -1,9 +1,18 @@
-import {$ExpressionStatementNode, $ImportStatementNode, $ReturnStatementNode, StatementNode} from '#analyzer';
+import {
+  $ExpressionStatementNode,
+  $ImportStatementNode,
+  $ReturnStatementNode,
+  $TypeDeclarationNode,
+  $ValueDeclarationNode,
+  StatementNode,
+} from '#analyzer';
 import {newText, Text} from '#common';
 import {
   translateTypescriptExpressionStatement,
   translateTypescriptImportStatement,
   translateTypescriptReturnStatement,
+  translateTypescriptTypeDeclarationStatement,
+  translateTypescriptValueDeclarationStatement,
 } from '#translator';
 import {is} from '#typing';
 
@@ -14,6 +23,14 @@ export function translateTypescriptStatement(node: StatementNode): Text {
 
   if (is(node, $ImportStatementNode())) {
     return translateTypescriptImportStatement(node);
+  }
+
+  if (is(node, $TypeDeclarationNode())) {
+    return translateTypescriptTypeDeclarationStatement(node);
+  }
+
+  if (is(node, $ValueDeclarationNode())) {
+    return translateTypescriptValueDeclarationStatement(node);
   }
 
   if (is(node, $ReturnStatementNode())) {
