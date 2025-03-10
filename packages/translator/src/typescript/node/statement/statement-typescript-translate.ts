@@ -1,74 +1,78 @@
-import {
-  $TypeDeclarationSemantic,
-  $ValueDeclarationSemantic,
-  $ValueSemantic,
-  NL,
-  Semantic,
-  StatementNode,
-} from '#analyzer';
+import {$ExpressionStatementNode, $ReturnStatementNode, StatementNode} from '#analyzer';
 import {newText, Text} from '#common';
-import {TypescriptTranslator} from '#translator';
+import {translateTypescriptExpressionStatement, translateTypescriptReturnStatement} from '#translator';
 import {is} from '#typing';
 
-export function statementTypescriptTranslate(
-  translator: TypescriptTranslator,
-  statement: StatementNode,
-): Text {
-  const statementTranslated = statementTranslate(translator, statement);
-
-  const bodyTranslated = newText(
-    statement.body.map((node) => newText(translator.statement(node))),
-    NL,
-  ).margin(2);
-
-  if (!bodyTranslated.isEmpty()) {
-    return statementTranslated.addLastItems(NL).addLastItems(bodyTranslated);
+export function translateTypescriptStatement(node: StatementNode): Text {
+  if (is(node, $ExpressionStatementNode())) {
+    return translateTypescriptExpressionStatement(node);
   }
 
-  return statementTranslated;
+  if (is(node, $ReturnStatementNode())) {
+    return translateTypescriptReturnStatement(node);
+  }
+
+  return newText('/* error statement */');
 }
+//   export function statementTypescriptTranslate(
+//   translator: TypescriptTranslator,
+//   statement: StatementNode,
+// ): Text {
+//   const statementTranslated = statementTranslate(translator, statement);
 
-function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): Text {
-  const node = statement.value;
+//   const bodyTranslated = newText(
+//     statement.body.map((node) => newText(translator.statement(node))),
+//     NL,
+//   ).margin(2);
 
-  if (is(node, $DeclarationNode())) {
-    if (!node.id.semantic) {
-      return translator.error(node.id);
-    }
+//   if (!bodyTranslated.isEmpty()) {
+//     return statementTranslated.addLastItems(NL).addLastItems(bodyTranslated);
+//   }
 
-    return declarationTranslate(translator, node.id.semantic);
-  }
+//   return statementTranslated;
+// }
 
-  if (is(node, $ReturnNode())) {
-    if (node.value) {
-      const value = is(node.value.semantic, $ValueSemantic())
-        ? translator.value(node.value.semantic)
-        : translator.error(node.value);
+// function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): Text {
+//   const node = statement.value;
 
-      return newText(`return ${value}`);
-    }
+//   if (is(node, $DeclarationNode())) {
+//     if (!node.id.semantic) {
+//       return translator.error(node.id);
+//     }
 
-    return newText(`return`);
-  }
+//     return declarationTranslate(translator, node.id.semantic);
+//   }
 
-  if (node.isExpression && is(node.semantic, $ValueSemantic())) {
-    return translator.value(node.semantic);
-  }
+//   if (is(node, $ReturnNode())) {
+//     if (node.value) {
+//       const value = is(node.value.semantic, $ValueSemantic())
+//         ? translator.value(node.value.semantic)
+//         : translator.error(node.value);
 
-  return translator.error(node);
-}
+//       return newText(`return ${value}`);
+//     }
 
-function declarationTranslate(
-  translator: TypescriptTranslator,
-  semantic: Semantic, // DeclarationSemantic
-): Text {
-  if (is(semantic, $TypeDeclarationSemantic())) {
-    return translator.typeDeclaration(semantic);
-  }
+//     return newText(`return`);
+//   }
 
-  if (is(semantic, $ValueDeclarationSemantic())) {
-    return newText('const ').addLastItems(translator.valueDeclaration(semantic));
-  }
+//   if (node.isExpression && is(node.semantic, $ValueSemantic())) {
+//     return translator.value(node.semantic);
+//   }
 
-  return translator.error(semantic.nodeLink);
-}
+//   return translator.error(node);
+// }
+
+// function declarationTranslate(
+//   translator: TypescriptTranslator,
+//   semantic: Semantic, // DeclarationSemantic
+// ): Text {
+//   if (is(semantic, $TypeDeclarationSemantic())) {
+//     return translator.typeDeclaration(semantic);
+//   }
+
+//   if (is(semantic, $ValueDeclarationSemantic())) {
+//     return newText('const ').addLastItems(translator.valueDeclaration(semantic));
+//   }
+
+//   return translator.error(semantic.nodeLink);
+// }
