@@ -1,11 +1,19 @@
-import {$ExpressionStatementNode, $ReturnStatementNode, StatementNode} from '#analyzer';
+import {$ExpressionStatementNode, $ImportStatementNode, $ReturnStatementNode, StatementNode} from '#analyzer';
 import {newText, Text} from '#common';
-import {translateTypescriptExpressionStatement, translateTypescriptReturnStatement} from '#translator';
+import {
+  translateTypescriptExpressionStatement,
+  translateTypescriptImportStatement,
+  translateTypescriptReturnStatement,
+} from '#translator';
 import {is} from '#typing';
 
 export function translateTypescriptStatement(node: StatementNode): Text {
   if (is(node, $ExpressionStatementNode())) {
     return translateTypescriptExpressionStatement(node);
+  }
+
+  if (is(node, $ImportStatementNode())) {
+    return translateTypescriptImportStatement(node);
   }
 
   if (is(node, $ReturnStatementNode())) {
