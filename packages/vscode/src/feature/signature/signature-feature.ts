@@ -135,7 +135,7 @@ function getSignatureHelp(declaration: AttributeDeclarationSemantic, parameterIn
 function getSignatureInformation(declaration: AttributeDeclarationSemantic): SignatureInformation {
   const declarationHeader = declarationSemanticHeaderToString(declaration)?.toNativeString() ?? '';
 
-  const description = declaration.documentation?.padding(0)?.trim().toNativeString() ?? '';
+  const description = declaration.documentation?.margin(0)?.trim().toNativeString() ?? '';
   const descriptionMarkdown = new MarkdownString(description);
   const signature = new SignatureInformation(declarationHeader, descriptionMarkdown);
 

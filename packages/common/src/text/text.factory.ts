@@ -141,7 +141,7 @@ export function newText(
       return newText(array.sortBy(select, ascending));
     },
 
-    padding(value: Integer): Text {
+    margin(value: Integer): Text {
       if (this.isEmpty()) {
         return this;
       }

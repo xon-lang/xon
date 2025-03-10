@@ -13,7 +13,7 @@ import {
 export interface Text extends ArrayData<Character> {
   lineText(line: Integer): Text;
   split(separator: Text): ArrayData<Text>;
-  padding(value: Integer): Text;
+  margin(value: Integer): Text;
   // todo add trim* parameter
   trim(): Text;
   trimStart(): Text;
