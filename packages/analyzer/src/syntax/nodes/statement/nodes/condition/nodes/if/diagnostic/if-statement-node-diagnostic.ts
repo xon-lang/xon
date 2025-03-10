@@ -8,7 +8,7 @@ import {
 } from '#diagnostic';
 
 export function diagnoseIfStatementNode(this: IfStatementNode, context: DiagnosticContext): void {
-  if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
+  if (!this.expression || !this.expression.canBeExpression) {
     context.add(expectExpression(this.range));
   }
 }

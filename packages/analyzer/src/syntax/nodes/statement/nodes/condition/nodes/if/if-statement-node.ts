@@ -12,23 +12,23 @@ import {Brand} from '#typing';
 
 export type IfStatementNode = StatementNode &
   Brand<'Analyzer.IfStatementNode'> & {
-    keywordNode: IfKeywordNode;
-    conditionExpressionNode?: Node | Nothing;
+    keyword: IfKeywordNode;
+    expression?: Node | Nothing;
   };
 
 export const $IfStatementNode = () => $AnalyzerType<IfStatementNode>('IfStatementNode', $StatementNode());
 
 export function newIfStatementNode(
-  indentLevel: Integer,
-  keywordNode: IfKeywordNode,
-  conditionExpressionNode?: Node | Nothing,
+  indent: Integer,
+  keyword: IfKeywordNode,
+  expression?: Node | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): IfStatementNode {
   return newSyntaxNode<IfStatementNode>({
     $: $IfStatementNode(),
-    indent: indentLevel,
-    keywordNode,
-    conditionExpressionNode,
+    indent,
+    keyword,
+    expression,
     errorNodes,
 
     diagnose: diagnoseIfStatementNode,

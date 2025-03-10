@@ -4,21 +4,21 @@ import {Brand} from '#typing';
 
 export type ElseStatementNode = StatementNode &
   Brand<'Analyzer.ElseStatementNode'> & {
-    keywordNode: ElseKeywordNode;
+    keyword: ElseKeywordNode;
   };
 
 export const $ElseStatementNode = () =>
   $AnalyzerType<ElseStatementNode>('ElseStatementNode', $StatementNode());
 
 export function newElseStatementNode(
-  indentLevel: Integer,
-  keywordNode: ElseKeywordNode,
+  indent: Integer,
+  keyword: ElseKeywordNode,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ElseStatementNode {
   return newSyntaxNode<ElseStatementNode>({
     $: $ElseStatementNode(),
-    indent: indentLevel,
-    keywordNode,
+    indent,
+    keyword,
     errorNodes,
   });
 }

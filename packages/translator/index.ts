@@ -9,5 +9,6 @@ export * from './src/typescript/node/statement/type-declaration/type-declaration
 export * from './src/typescript/node/statement/return/return-statement-typescript-translator';
 export * from './src/typescript/node/statement/import/import-statement-typescript-translator';
 export * from './src/typescript/node/statement/expression/expression-statement-typescript-translator';
+export * from './src/typescript/node/statement/condition/condition-statement-typescript-translator';
 export * from './src/typescript/node/declaration/value/value-declaration-typescript-translate';
 export * from './src/typescript/node/declaration/type/type-declaration-typescript-translate';

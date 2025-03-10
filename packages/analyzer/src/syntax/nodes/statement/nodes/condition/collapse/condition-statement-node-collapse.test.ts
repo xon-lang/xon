@@ -15,12 +15,10 @@ test('Condition without else', () => {
   const text = newText('if 0\n  1\n  2');
   const node = getConditionStatementNode(text);
 
-  expect(node.ifStatement.keywordNode.text.toNativeString()).toBe('if');
+  expect(node.ifStatement.keyword.text.toNativeString()).toBe('if');
   expect(node.elseStatement).toBeFalsy();
-  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode())).toBeTruthy();
-  expect((node.ifStatement.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe(
-    '0',
-  );
+  expect(is(node.ifStatement.expression, $IntegerNode())).toBeTruthy();
+  expect((node.ifStatement.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
   expect(node.ifStatement.body?.count()).toBe(2);
 });
 
@@ -28,12 +26,10 @@ test('Condition with else', () => {
   const text = newText('if 0\n  1\n  2\nelse\n 3\n 4\n 5');
   const node = getConditionStatementNode(text);
 
-  expect(node.ifStatement.keywordNode.text.toNativeString()).toBe('if');
-  expect(node.elseStatement?.keywordNode.text.toNativeString()).toBe('else');
-  expect(is(node.ifStatement.conditionExpressionNode, $IntegerNode())).toBeTruthy();
-  expect((node.ifStatement.conditionExpressionNode as IntegerNode).contentNode.text.toNativeString()).toBe(
-    '0',
-  );
+  expect(node.ifStatement.keyword.text.toNativeString()).toBe('if');
+  expect(node.elseStatement?.keyword.text.toNativeString()).toBe('else');
+  expect(is(node.ifStatement.expression, $IntegerNode())).toBeTruthy();
+  expect((node.ifStatement.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
   expect(node.ifStatement.body?.count()).toBe(2);
   expect(node.elseStatement?.body?.count()).toBe(3);
 });

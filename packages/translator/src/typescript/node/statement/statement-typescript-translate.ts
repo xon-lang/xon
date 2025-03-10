@@ -1,4 +1,5 @@
 import {
+  $ConditionStatementNode,
   $ExpressionStatementNode,
   $ImportStatementNode,
   $ReturnStatementNode,
@@ -8,6 +9,7 @@ import {
 } from '#analyzer';
 import {newText, Text} from '#common';
 import {
+  translateTypescriptConditionStatement,
   translateTypescriptExpressionStatement,
   translateTypescriptImportStatement,
   translateTypescriptReturnStatement,
@@ -31,6 +33,10 @@ export function translateTypescriptStatement(node: StatementNode): Text {
 
   if (is(node, $ValueDeclarationNode())) {
     return translateTypescriptValueDeclarationStatement(node);
+  }
+
+  if (is(node, $ConditionStatementNode())) {
+    return translateTypescriptConditionStatement(node);
   }
 
   if (is(node, $ReturnStatementNode())) {
