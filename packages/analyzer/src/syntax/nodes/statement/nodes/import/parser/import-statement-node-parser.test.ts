@@ -25,7 +25,7 @@ test('Import statement without errors', () => {
 
   expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $StringNode())).toBe(true);
-  expect((node.expression as StringNode).contentNode?.text.toNativeString()).toBe('@xon/core');
+  expect((node.expression as StringNode).content?.text.toNativeString()).toBe('@xon/core');
 });
 
 function getImportStatementNode(text: Text): ImportStatementNode {

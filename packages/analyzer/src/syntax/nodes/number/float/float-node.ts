@@ -11,23 +11,23 @@ import {Brand} from '#typing';
 
 export type FloatNode = NumberNode &
   Brand<'Analyzer.FloatNode'> & {
-    integerPartNode: IntegerContentNode;
-    radixPointNode?: RadixPointNode | Nothing;
-    fractionalPartNode?: IntegerContentNode | Nothing;
+    integer: IntegerContentNode;
+    radixPoint?: RadixPointNode | Nothing;
+    fraction?: IntegerContentNode | Nothing;
   };
 
 export const $FloatNode = () => $AnalyzerType<FloatNode>('FloatNode', $NumberNode());
 
 export function newFloatNode(
-  integerPartNode: IntegerContentNode,
-  radixPointNode?: RadixPointNode | Nothing,
-  fractionalPartNode?: IntegerContentNode | Nothing,
+  integer: IntegerContentNode,
+  radixPoint?: RadixPointNode | Nothing,
+  fraction?: IntegerContentNode | Nothing,
 ): FloatNode {
   return newSyntaxNode({
     $: $FloatNode(),
     canBeExpression: true,
-    integerPartNode,
-    radixPointNode,
-    fractionalPartNode,
+    integer,
+    radixPoint,
+    fraction,
   });
 }

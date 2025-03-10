@@ -3,13 +3,13 @@ import {$Type, Brand} from '#typing';
 
 export type PrefixNode = AffixNode &
   Brand<'Analyzer.PrefixNode'> & {
-    valueNode: Node;
+    value: Node;
   };
 
 export const $PrefixNode = () => $AnalyzerType<PrefixNode>('PrefixNode', $AffixNode());
 
-export function prefixNode($: $Type, operatorNode: OperatorNode, valueNode: Node): PrefixNode {
-  return newSyntaxNode({$, canBeExpression: true, operator: operatorNode, valueNode});
+export function prefixNode($: $Type, operator: OperatorNode, value: Node): PrefixNode {
+  return newSyntaxNode({$, canBeExpression: true, operator, value});
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {

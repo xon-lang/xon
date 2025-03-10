@@ -3,13 +3,13 @@ import {$Type, Brand} from '#typing';
 
 export type PostfixNode = AffixNode &
   Brand<'Analyzer.PostfixNode'> & {
-    valueNode: Node;
+    value: Node;
   };
 
 export const $PostfixNode = () => $AnalyzerType<PostfixNode>('PostfixNode', $AffixNode());
 
-export function postfixNode($: $Type, valueNode: Node, operatorNode: OperatorNode): PostfixNode {
-  return newSyntaxNode({$, canBeExpression: true, valueNode, operator: operatorNode});
+export function postfixNode($: $Type, value: Node, operator: OperatorNode): PostfixNode {
+  return newSyntaxNode({$, canBeExpression: true, value, operator});
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {

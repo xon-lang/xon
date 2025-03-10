@@ -8,12 +8,12 @@ import {
 } from '#diagnostic';
 
 export function diagnoseCharacterNode(this: CharacterNode, context: DiagnosticContext): void {
-  if (!this.contentNode || this.contentNode.text.count() > 1) {
-    context.add(expectOnlyCharacter(this.openNode.range));
+  if (!this.content || this.content.text.count() > 1) {
+    context.add(expectOnlyCharacter(this.open.range));
   }
 
-  if (!this.closeNode) {
-    context.add(expectCloseToken(this.openNode.range));
+  if (!this.close) {
+    context.add(expectCloseToken(this.open.range));
   }
 }
 

@@ -8,8 +8,8 @@ import {
 } from '#diagnostic';
 
 export function diagnoseStringNode(this: StringNode, context: DiagnosticContext): void {
-  if (!this.closeNode) {
-    context.add(expectCloseToken(this.openNode.range));
+  if (!this.close) {
+    context.add(expectCloseToken(this.open.range));
   }
 }
 

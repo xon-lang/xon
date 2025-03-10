@@ -2,7 +2,7 @@ import {newStringTypeSemantic, newValueSemantic, SemanticContext, StringNode} fr
 import {newText} from '#common';
 
 export function semantifyStringNode(this: StringNode, context: SemanticContext): void {
-  const type = newStringTypeSemantic(context.literal.stringDeclaration, this.contentNode?.text ?? newText());
+  const type = newStringTypeSemantic(context.literal.stringDeclaration, this.content?.text ?? newText());
 
   if (context.scope.isTypeScope) {
     this.semantic = type;

@@ -1,4 +1,3 @@
-import { semantifyCharacterNode } from '#analyzer';
 import {
   $AnalyzerType,
   $SyntaxNode,
@@ -8,6 +7,7 @@ import {
   diagnoseCharacterNode,
   formatCharacterNode,
   newSyntaxNode,
+  semantifyCharacterNode,
   SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
@@ -15,27 +15,27 @@ import {Brand} from '#typing';
 
 export type CharacterNode = SyntaxNode &
   Brand<'Analyzer.CharacterNode'> & {
-    openNode: CharacterOpenNode;
-    contentNode?: CharacterContentNode | Nothing;
-    closeNode?: CharacterCloseNode | Nothing;
+    open: CharacterOpenNode;
+    content?: CharacterContentNode | Nothing;
+    close?: CharacterCloseNode | Nothing;
   };
 
 export const $CharacterNode = () => $AnalyzerType<CharacterNode>('CharacterNode', $SyntaxNode());
 
 export function newCharacterNode(
-  openNode: CharacterOpenNode,
-  contentNode?: CharacterContentNode | Nothing,
-  closeNode?: CharacterCloseNode | Nothing,
+  open: CharacterOpenNode,
+  content?: CharacterContentNode | Nothing,
+  close?: CharacterCloseNode | Nothing,
 ): CharacterNode {
   return newSyntaxNode({
     $: $CharacterNode(),
     canBeExpression: true,
-    openNode,
-    contentNode,
-    closeNode,
+    open,
+    content,
+    close,
 
     diagnose: diagnoseCharacterNode,
     format: formatCharacterNode,
-    semantify: semantifyCharacterNode
+    semantify: semantifyCharacterNode,
   });
 }

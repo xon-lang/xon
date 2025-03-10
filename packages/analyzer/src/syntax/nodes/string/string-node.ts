@@ -15,24 +15,24 @@ import {Brand} from '#typing';
 
 export type StringNode = SyntaxNode &
   Brand<'Analyzer.StringNode'> & {
-    openNode: StringOpenNode;
-    contentNode?: StringContentNode | Nothing;
-    closeNode?: StringCloseNode | Nothing;
+    open: StringOpenNode;
+    content?: StringContentNode | Nothing;
+    close?: StringCloseNode | Nothing;
   };
 
 export const $StringNode = () => $AnalyzerType<StringNode>('StringNode', $SyntaxNode());
 
 export function newStringNode(
-  openNode: StringOpenNode,
-  contentNode?: StringContentNode | Nothing,
-  closeNode?: StringCloseNode | Nothing,
+  open: StringOpenNode,
+  content?: StringContentNode | Nothing,
+  close?: StringCloseNode | Nothing,
 ): StringNode {
   return newSyntaxNode({
     $: $StringNode(),
     canBeExpression: true,
-    openNode,
-    contentNode,
-    closeNode,
+    open,
+    content,
+    close,
 
     diagnose: diagnoseStringNode,
     format: formatStringNode,
