@@ -19,7 +19,7 @@ export function statementTypescriptTranslate(
   const bodyTranslated = newText(
     statement.body.map((node) => newText(translator.statement(node))),
     NL,
-  ).setPadding(2);
+  ).padding(2);
 
   if (!bodyTranslated.isEmpty()) {
     return statementTranslated.addLastItems(NL).addLastItems(bodyTranslated);

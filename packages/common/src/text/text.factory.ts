@@ -141,7 +141,7 @@ export function newText(
       return newText(array.sortBy(select, ascending));
     },
 
-    setPadding(padding: Integer): Text {
+    padding(value: Integer): Text {
       if (this.isEmpty()) {
         return this;
       }
@@ -156,7 +156,7 @@ export function newText(
         this.count(),
       );
 
-      if (minLinePadding === padding) {
+      if (minLinePadding === value) {
         return this;
       }
 
@@ -165,7 +165,7 @@ export function newText(
           return x.text;
         }
 
-        const indent = newText(' ').repeat(x.padding + (padding - minLinePadding));
+        const indent = newText(' ').repeat(x.padding + (value - minLinePadding));
 
         return indent.addLastItems(x.text.trimStart());
       });
