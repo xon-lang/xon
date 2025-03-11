@@ -1,6 +1,6 @@
-import {semanticFromResource} from '#analyzer';
-import {newText, newTextResource} from '#common';
-import {newTypescriptTranslator} from '#translator';
+import {newAnalyzerContext, newCharacterStreamFromText, parseStatements} from '#analyzer';
+import {newText} from '#common';
+import {translateTypescriptStatement} from '#translator';
 import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -35,16 +35,16 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
 function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
   try {
     const filepath = document.uri.fsPath;
-    const resource = newTextResource(newText(filepath), newText(document.getText()));
-    const semanticAnalyzer = semanticFromResource(resource);
-    const translator = newTypescriptTranslator(semanticAnalyzer);
+    const source = newCharacterStreamFromText(newText(document.getText()));
+    const context = newAnalyzerContext(source);
+    const {statements} = parseStatements(context);
+    const translated = newText(statements.map(translateTypescriptStatement), newText('\n'));
 
     const dirname = path.dirname(filepath);
     const filename = path.basename(filepath) + '.gen.ts';
     const destinationPath = path.resolve(dirname, filename);
-    const result = translator.translate();
 
-    fs.writeFileSync(destinationPath, result.toNativeString());
+    fs.writeFileSync(destinationPath, `${translated}\n`);
   } catch (error: any) {
     channel.appendLine(error?.toString());
   }
