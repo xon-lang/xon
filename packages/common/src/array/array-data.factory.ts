@@ -46,6 +46,10 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       startIndex?: Integer | Nothing,
       stopIndex?: Integer | Nothing,
     ): Boolean2 {
+      if (this.count() === 0) {
+        return true;
+      }
+
       startIndex ??= 0;
       stopIndex ??= this.count();
 

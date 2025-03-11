@@ -1,14 +1,14 @@
 import {ArrayData, newArrayData, newDictionary, newKeyValue, newText, Text, topologicalSort} from '#common';
 import {expect, test} from 'vitest';
 
-test('empty', () => {
+test('Empty', () => {
   const dependencies = newDictionary<Text, ArrayData<Text>>();
   const {order, cycle} = topologicalSort(dependencies);
   expect(order.count()).toBe(0);
   expect(cycle.count()).toBe(0);
 });
 
-test('no dependencies', () => {
+test('No dependencies', () => {
   const dependencies = newDictionary(newArrayData([newKeyValue(newText('A'), newArrayData<Text>())]));
 
   const {order, cycle} = topologicalSort(dependencies);
@@ -18,7 +18,7 @@ test('no dependencies', () => {
   expect(cycle.count()).toBe(0);
 });
 
-test('non existence', () => {
+test('Non existence', () => {
   const dependencies = newDictionary(newArrayData([newKeyValue(newText('A'), newArrayData([newText('B')]))]));
 
   const {order, cycle} = topologicalSort(dependencies);
@@ -28,7 +28,7 @@ test('non existence', () => {
   expect(cycle.count()).toBe(0);
 });
 
-test('self', () => {
+test('Self', () => {
   const dependencies = newDictionary(newArrayData([newKeyValue(newText('A'), newArrayData([newText('A')]))]));
 
   const {order, cycle} = topologicalSort(dependencies);
@@ -38,7 +38,7 @@ test('self', () => {
   expect(cycle.at(0)?.toNativeString()).toBe('A');
 });
 
-test('no cycle', () => {
+test('No cycle', () => {
   const dependencies = newDictionary(
     newArrayData([
       newKeyValue(newText('A'), newArrayData<Text>()),
@@ -59,7 +59,7 @@ test('no cycle', () => {
   expect(cycle.count()).toBe(0);
 });
 
-test('with cycle', () => {
+test('With cycle', () => {
   const dependencies = newDictionary(
     newArrayData([
       newKeyValue(newText('A'), newArrayData<Text>()),
@@ -84,7 +84,7 @@ test('with cycle', () => {
   expect(cycle.at(1)?.toNativeString()).toBe('H');
 });
 
-test('cycle 2', () => {
+test('Cycle 2', () => {
   const dependencies = newDictionary(
     newArrayData([
       newKeyValue(newText('A'), newArrayData([newText('B')])),
@@ -102,7 +102,7 @@ test('cycle 2', () => {
   expect(cycle.at(1)?.toNativeString()).toBe('B');
 });
 
-test('cycle 3', () => {
+test('Cycle 3', () => {
   const dependencies = newDictionary(
     newArrayData([
       newKeyValue(newText('A'), newArrayData([newText('A')])),

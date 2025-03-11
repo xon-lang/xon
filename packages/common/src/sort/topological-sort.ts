@@ -24,7 +24,7 @@ export function topologicalSort(dependencies: Dictionary<Text, ArrayData<Text>>)
     });
 
     order.addLastItems(items);
-    items._items.forEach((x) => used.addLastItem(x));
+    items.forEach((x) => used.addLastItem(x));
 
     if (cycle.count() === length) {
       break;
