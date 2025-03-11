@@ -1,208 +1,208 @@
-import {
-  $LexicalNode,
-  $NlNode,
-  $WhitespaceNode,
-  AnalyzerFormatter,
-  LexicalNode,
-  NL,
-  NlNode,
-  Node,
-  StatementNode,
-} from '#analyzer';
-import {
-  ArrayData,
-  Boolean2,
-  Nothing,
-  Text,
-  TextResource,
-  newArrayData,
-  newText,
-  rangeFromNodes,
-  rangeFromPosition,
-} from '#common';
-import {is} from '#typing';
+// import {
+//   $LexicalNode,
+//   $NlNode,
+//   $WhitespaceNode,
+//   AnalyzerFormatter,
+//   LexicalNode,
+//   NL,
+//   NlNode,
+//   Node,
+//   StatementNode,
+// } from '#analyzer';
+// import {
+//   ArrayData,
+//   Boolean2,
+//   Nothing,
+//   Text,
+//   TextResource,
+//   newArrayData,
+//   newText,
+//   rangeFromNodes,
+//   rangeFromPosition,
+// } from '#common';
+// import {is} from '#typing';
 
-export type FormatterManager = {
-  resource: TextResource;
-  items: ArrayData<AnalyzerFormatter>;
+// export type FormatterManager = {
+//   resource: TextResource;
+//   items: ArrayData<AnalyzerFormatter>;
 
-  addItem(formatter: AnalyzerFormatter): void;
-  getFormattedText(): Text;
-  formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
-  formatRemainingHiddenNodes(
-    statements: ArrayData<StatementNode>,
-    lastStatement: StatementNode | Nothing,
-    hiddenNodes: ArrayData<Node>,
-  ): void;
-  formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text;
-  formatNlNode(node: NlNode | Nothing): Text;
-  isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2;
-};
+//   addItem(formatter: AnalyzerFormatter): void;
+//   getFormattedText(): Text;
+//   formatChildNode(node: Node, keepSingleSpace: Boolean2): void;
+//   formatRemainingHiddenNodes(
+//     statements: ArrayData<StatementNode>,
+//     lastStatement: StatementNode | Nothing,
+//     hiddenNodes: ArrayData<Node>,
+//   ): void;
+//   formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text;
+//   formatNlNode(node: NlNode | Nothing): Text;
+//   isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2;
+// };
 
-const INSERT_FINAL_NEWLINE = true;
-const MAX_NEW_LINES = 2;
+// const INSERT_FINAL_NEWLINE = true;
+// const MAX_NEW_LINES = 2;
 
-export function newFormatterManager(resource: TextResource): FormatterManager {
-  return {
-    resource,
-    items: newArrayData(),
+// export function newFormatterManager(resource: TextResource): FormatterManager {
+//   return {
+//     resource,
+//     items: newArrayData(),
 
-    addItem(formatter: AnalyzerFormatter): void {
-      this.items.addLastItem(formatter);
-    },
+//     addItem(formatter: AnalyzerFormatter): void {
+//       this.items.addLastItem(formatter);
+//     },
 
-    getFormattedText(): Text {
-      let index = 0;
-      let formattedText = newText();
-      const formatters = this.items.sortBy((x) => x.range.start.index);
+//     getFormattedText(): Text {
+//       let index = 0;
+//       let formattedText = newText();
+//       const formatters = this.items.sortBy((x) => x.range.start.index);
 
-      for (const {range, text} of formatters) {
-        formattedText.addLastItems(this.resource.data.slice(index, range.start.index)).addLastItems(text);
-        index = range.stop.index;
-      }
+//       for (const {range, text} of formatters) {
+//         formattedText.addLastItems(this.resource.data.slice(index, range.start.index)).addLastItems(text);
+//         index = range.stop.index;
+//       }
 
-      formattedText.addLastItems(this.resource.data.slice(index, this.resource.data.count()));
+//       formattedText.addLastItems(this.resource.data.slice(index, this.resource.data.count()));
 
-      return formattedText;
-    },
+//       return formattedText;
+//     },
 
-    formatChildNode(node: Node, keepSingleSpace: Boolean2): void {
-      if (!node.hiddenNodes || node.hiddenNodes.isEmpty()) {
-        if (keepSingleSpace) {
-          this.addItem({
-            range: rangeFromPosition(node.range.start),
-            text: newText(' '),
-          });
-        }
+//     formatChildNode(node: Node, keepSingleSpace: Boolean2): void {
+//       if (!node.hiddenNodes || node.hiddenNodes.isEmpty()) {
+//         if (keepSingleSpace) {
+//           this.addItem({
+//             range: rangeFromPosition(node.range.start),
+//             text: newText(' '),
+//           });
+//         }
 
-        return;
-      }
+//         return;
+//       }
 
-      const firstHiddenNode = node.hiddenNodes.first();
+//       const firstHiddenNode = node.hiddenNodes.first();
 
-      if (node.hiddenNodes.count() === 1 && is(firstHiddenNode, $WhitespaceNode())) {
-        const whitespace = firstHiddenNode;
+//       if (node.hiddenNodes.count() === 1 && is(firstHiddenNode, $WhitespaceNode())) {
+//         const whitespace = firstHiddenNode;
 
-        if (!keepSingleSpace) {
-          this.addItem({
-            range: whitespace.range.clone(),
-            text: newText(),
-          });
+//         if (!keepSingleSpace) {
+//           this.addItem({
+//             range: whitespace.range.clone(),
+//             text: newText(),
+//           });
 
-          return;
-        }
+//           return;
+//         }
 
-        if (whitespace.text.equals(' ')) {
-          return;
-        }
+//         if (whitespace.text.equals(' ')) {
+//           return;
+//         }
 
-        this.addItem({
-          range: whitespace.range.clone(),
-          text: newText(' '),
-        });
+//         this.addItem({
+//           range: whitespace.range.clone(),
+//           text: newText(' '),
+//         });
 
-        return;
-      }
+//         return;
+//       }
 
-      const text = this.formatHiddenNodes(node.hiddenNodes, true);
+//       const text = this.formatHiddenNodes(node.hiddenNodes, true);
 
-      if (this.isSameContent(node.hiddenNodes, text)) {
-        return;
-      }
+//       if (this.isSameContent(node.hiddenNodes, text)) {
+//         return;
+//       }
 
-      this.addItem({
-        range: rangeFromNodes(node.hiddenNodes),
-        text,
-      });
-    },
+//       this.addItem({
+//         range: rangeFromNodes(node.hiddenNodes),
+//         text,
+//       });
+//     },
 
-    formatRemainingHiddenNodes(
-      statements: ArrayData<StatementNode>,
-      lastStatement: StatementNode | Nothing,
-      hiddenNodes: ArrayData<Node>,
-    ): void {
-      if (hiddenNodes.isEmpty()) {
-        if (!lastStatement || !INSERT_FINAL_NEWLINE) {
-          return;
-        }
+//     formatRemainingHiddenNodes(
+//       statements: ArrayData<StatementNode>,
+//       lastStatement: StatementNode | Nothing,
+//       hiddenNodes: ArrayData<Node>,
+//     ): void {
+//       if (hiddenNodes.isEmpty()) {
+//         if (!lastStatement || !INSERT_FINAL_NEWLINE) {
+//           return;
+//         }
 
-        this.addItem({
-          range: rangeFromPosition(lastStatement.range.stop),
-          text: NL,
-        });
+//         this.addItem({
+//           range: rangeFromPosition(lastStatement.range.stop),
+//           text: NL,
+//         });
 
-        return;
-      }
+//         return;
+//       }
 
-      let text = this.formatHiddenNodes(hiddenNodes, false).trimEnd();
+//       let text = this.formatHiddenNodes(hiddenNodes, false).trimEnd();
 
-      if (statements.isEmpty()) {
-        text = text.trimStart();
-      }
+//       if (statements.isEmpty()) {
+//         text = text.trimStart();
+//       }
 
-      if (!statements.isEmpty() || text.count() > 0) {
-        if (INSERT_FINAL_NEWLINE) {
-          text.addLastItems(NL);
-        }
+//       if (!statements.isEmpty() || text.count() > 0) {
+//         if (INSERT_FINAL_NEWLINE) {
+//           text.addLastItems(NL);
+//         }
 
-        if (!NL.equals(text.at2(0))) {
-          text = newText(' ').addLastItems(text);
-        }
-      }
+//         if (!NL.equals(text.at2(0))) {
+//           text = newText(' ').addLastItems(text);
+//         }
+//       }
 
-      if (this.isSameContent(hiddenNodes, text)) {
-        return;
-      }
+//       if (this.isSameContent(hiddenNodes, text)) {
+//         return;
+//       }
 
-      this.addItem({
-        range: rangeFromNodes(hiddenNodes),
-        text,
-      });
-    },
+//       this.addItem({
+//         range: rangeFromNodes(hiddenNodes),
+//         text,
+//       });
+//     },
 
-    formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text {
-      const splittedByNl = hiddenNodes
-        .filter((x): x is LexicalNode => is(x, $LexicalNode()) && !is(x, $WhitespaceNode()))
-        .splitBy<NlNode>((x) => is(x, $NlNode()));
+//     formatHiddenNodes(hiddenNodes: ArrayData<Node>, isNoFirstChildNode: Boolean2): Text {
+//       const splittedByNl = hiddenNodes
+//         .filter((x): x is LexicalNode => is(x, $LexicalNode()) && !is(x, $WhitespaceNode()))
+//         .splitBy<NlNode>((x) => is(x, $NlNode()));
 
-      const formatSplittedByNl = splittedByNl.map((x) => {
-        const formattedSplitter = newText(this.formatNlNode(x.splitter));
-        const formattedItems = newText(
-          x.items.map((z) => z.text),
-          newText(' '),
-        );
+//       const formatSplittedByNl = splittedByNl.map((x) => {
+//         const formattedSplitter = newText(this.formatNlNode(x.splitter));
+//         const formattedItems = newText(
+//           x.items.map((z) => z.text),
+//           newText(' '),
+//         );
 
-        return formattedSplitter.addLastItems(formattedItems);
-      });
+//         return formattedSplitter.addLastItems(formattedItems);
+//       });
 
-      const text = newText(formatSplittedByNl);
+//       const text = newText(formatSplittedByNl);
 
-      if (text.count() > 0 && isNoFirstChildNode) {
-        return newText(` ${text.toNativeString()} `);
-      }
+//       if (text.count() > 0 && isNoFirstChildNode) {
+//         return newText(` ${text.toNativeString()} `);
+//       }
 
-      return text;
-    },
+//       return text;
+//     },
 
-    formatNlNode(node: NlNode | Nothing): Text {
-      if (!node) {
-        return newText();
-      }
+//     formatNlNode(node: NlNode | Nothing): Text {
+//       if (!node) {
+//         return newText();
+//       }
 
-      const nlCount = node.range.stop.line - node.range.start.line;
+//       const nlCount = node.range.stop.line - node.range.start.line;
 
-      return NL.repeat(Math.min(nlCount, MAX_NEW_LINES));
-    },
+//       return NL.repeat(Math.min(nlCount, MAX_NEW_LINES));
+//     },
 
-    isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2 {
-      if (hiddenNodes.isEmpty()) {
-        return text.isEmpty();
-      }
+//     isSameContent(hiddenNodes: ArrayData<Node>, text: Text): Boolean2 {
+//       if (hiddenNodes.isEmpty()) {
+//         return text.isEmpty();
+//       }
 
-      const startIndex = hiddenNodes.first()!.range.start.index;
-      const stopIndex = hiddenNodes.last()!.range.stop.index;
+//       const startIndex = hiddenNodes.first()!.range.start.index;
+//       const stopIndex = hiddenNodes.last()!.range.stop.index;
 
-      return resource.data.slice(startIndex, stopIndex).equals(text);
-    },
-  };
-}
+//       return resource.data.slice(startIndex, stopIndex).equals(text);
+//     },
+//   };
+// }
