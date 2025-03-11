@@ -16,7 +16,7 @@ export type IdTypeSemantic = TypeSemantic &
     reference?: TextReference | Nothing;
   };
 
-export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('UsageSemantic', $TypeSemantic());
+export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic());
 
 export function newIdTypeSemantic(
   name: Text,

@@ -1,21 +1,21 @@
-import {
-  CharValueSemantic,
-  Node,
-  SemanticAnalyzer,
-  charTypeSemanticTryParse,
-  charValueSemantic,
-} from '#analyzer';
-import {Nothing, nothing} from '#common';
+// import {
+//   CharValueSemantic,
+//   Node,
+//   SemanticAnalyzer,
+//   charTypeSemanticTryParse,
+//   charValueSemantic,
+// } from '#analyzer';
+// import {Nothing, nothing} from '#common';
 
-export function charValueSemanticTryParse(
-  analyzer: SemanticAnalyzer,
-  node: Node,
-): CharValueSemantic | Nothing {
-  const type = charTypeSemanticTryParse(analyzer, node);
+// export function charValueSemanticTryParse(
+//   analyzer: SemanticAnalyzer,
+//   node: Node,
+// ): CharValueSemantic | Nothing {
+//   const type = charTypeSemanticTryParse(analyzer, node);
 
-  if (!type) {
-    return nothing;
-  }
+//   if (!type) {
+//     return nothing;
+//   }
 
-  return charValueSemantic(node, type);
-}
+//   return charValueSemantic(node, type);
+// }
