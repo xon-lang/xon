@@ -41,16 +41,50 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this.at(index)!;
     },
 
-    every(predicate: ArrayPredicate<T>): Boolean2 {
-      return this._items.every((v, i) => predicate(v, i));
+    every(
+      predicate: ArrayPredicate<T>,
+      startIndex?: Integer | Nothing,
+      stopIndex?: Integer | Nothing,
+    ): Boolean2 {
+      startIndex ??= 0;
+      stopIndex ??= this.count();
+
+      if (startIndex >= stopIndex) {
+        return false;
+      }
+
+      for (let i = startIndex ?? 0; i < stopIndex; i++) {
+        if (!predicate(this.at(i)!, i)) {
+          return false;
+        }
+      }
+
+      return true;
     },
 
-    some(predicate?: ArrayPredicate<T> | Nothing): Boolean2 {
+    some(
+      predicate?: ArrayPredicate<T> | Nothing,
+      startIndex?: Integer | Nothing,
+      stopIndex?: Integer | Nothing,
+    ): Boolean2 {
       if (!predicate) {
         return this.count() > 0;
       }
 
-      return this._items.some((v, i) => predicate(v, i));
+      startIndex ??= 0;
+      stopIndex ??= this.count();
+
+      if (startIndex >= stopIndex) {
+        return false;
+      }
+
+      for (let i = startIndex; i < stopIndex; i++) {
+        if (predicate(this.at(i)!, i)) {
+          return true;
+        }
+      }
+
+      return false;
     },
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): ArrayData<T> {

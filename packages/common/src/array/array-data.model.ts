@@ -17,8 +17,16 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   at(index: Integer): T | Nothing;
   // todo remove 'at2'
   at2(index: Integer): T;
-  every(predicate: ArrayPredicate<T>): Boolean2;
-  some(predicate?: ArrayPredicate<T> | Nothing): Boolean2;
+  every(
+    predicate: ArrayPredicate<T>,
+    startIndex?: Integer | Nothing,
+    stopIndex?: Integer | Nothing,
+  ): Boolean2;
+  some(
+    predicate?: ArrayPredicate<T> | Nothing,
+    startIndex?: Integer | Nothing,
+    stopIndex?: Integer | Nothing,
+  ): Boolean2;
   slice(startIndex: Integer, stopIndex?: Integer | Nothing): this;
   isEmpty(): Boolean2;
 

@@ -35,6 +35,8 @@ export * from './src/text/position/text-position.factory';
 export * from './src/text/position/text-position.model';
 export * from './src/resource/text/text-resource.factory';
 export * from './src/resource/text/text-resource.model';
+export * from './src/list/unique/unique-list.factory';
+export * from './src/list/unique/unique-list.model';
 export * from './src/array/methods/split-by/split-by.array-method';
 export * from './src/array/methods/replace-items/replace-items.array-method';
 export * from './src/array/methods/replace-item/replace-item.array-method';
