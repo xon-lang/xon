@@ -24,6 +24,7 @@ test('Member node semantics', () => {
   const node = getMemberNode(text);
 
   expect(is(node.instance.semantic, $IdTypeSemantic())).toBe(true);
+  expect(node.id?.semantic).toBeTruthy();
   expect(is(node.id?.semantic, $IdTypeSemantic())).toBe(true);
   expect(is(node.semantic, $StringTypeSemantic())).toBe(true);
   expect((node.semantic as StringTypeSemantic).value.toNativeString()).toBe('John');

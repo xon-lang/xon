@@ -1,4 +1,10 @@
-import {$TypeSemantic, MemberNode, newIdTypeSemantic, SemanticContext} from '#analyzer';
+import {
+  $TypeSemantic,
+  $ValueDeclarationSemantic,
+  MemberNode,
+  newIdTypeSemantic,
+  SemanticContext,
+} from '#analyzer';
 import {newText, newTextReference} from '#common';
 import {is} from '#typing';
 
@@ -23,5 +29,8 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
   }
 
   this.id.semantic = newIdTypeSemantic(this.id.text, attribute, newTextReference(newText(), this.id.range));
-  this.semantic = this.id.semantic.type;
+
+  if (is(attribute, $ValueDeclarationSemantic())) {
+    this.semantic = attribute.type;
+  }
 }
