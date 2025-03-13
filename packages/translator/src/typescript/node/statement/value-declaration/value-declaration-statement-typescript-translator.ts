@@ -17,8 +17,8 @@ export function translateTypescriptValueDeclarationStatement(node: ValueDeclarat
 
     let value = newText();
 
-    if (node.assign?.expression) {
-      value = newText(` = ${translateTypescriptType(node.assign.expression)}`);
+    if (node.value?.expression) {
+      value = newText(` = ${translateTypescriptType(node.value.expression)}`);
     }
 
     return newText(`${node.id.text}${type}${value}`);

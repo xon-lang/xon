@@ -1,12 +1,12 @@
 import {
-  $AssignNode,
   $InvokeNode,
   $LambdaNode,
   $TypeNode,
-  AssignExpressionNode,
+  $ValueNode,
   GroupNode,
   Node,
-  TypeExpressionNode,
+  OperatorExpressionNode,
+  ValueExpressionNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {is} from '#typing';
@@ -14,8 +14,8 @@ import {is} from '#typing';
 export type ExtractedDeclarationInfo = {
   target?: Node | Nothing;
   parameters?: GroupNode | Nothing;
-  type?: TypeExpressionNode | Nothing;
-  assign?: AssignExpressionNode | Nothing;
+  type?: OperatorExpressionNode | Nothing;
+  assign?: ValueExpressionNode | Nothing;
 };
 
 export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarationInfo {
@@ -33,14 +33,14 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
     return {target, parameters, type: node.type};
   }
 
-  if (is(node, $AssignNode())) {
+  if (is(node, $ValueNode())) {
     const {target, parameters, type} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, type, assign: node.assign};
+    return {target, parameters, type, assign: node.value};
   }
 
   if (is(node, $LambdaNode())) {
-    const {parameters: group, type, assign} = node;
+    const {parameters: group, type, value: assign} = node;
 
     return {target: group, type, assign};
   }

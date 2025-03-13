@@ -1,10 +1,10 @@
 import {
-  collapseAssignNode,
   collapseConditionStatementNode,
   collapseInvokeNode,
   collapseLambdaNode,
   collapsePlusInfixNode,
   collapseTypeNode,
+  collapseValueNode,
   Node,
   StatementNode,
 } from '#analyzer';
@@ -35,7 +35,7 @@ function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayD
     },
     {
       isLeftRecursive: false,
-      collapses: newArrayData([collapseAssignNode()]),
+      collapses: newArrayData([collapseValueNode()]),
     },
     {
       isLeftRecursive: false,

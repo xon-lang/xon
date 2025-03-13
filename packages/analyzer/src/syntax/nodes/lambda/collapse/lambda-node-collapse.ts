@@ -1,7 +1,7 @@
 import {
-  $AssignNode,
   $ParenGroupNode,
   $TypeNode,
+  $ValueNode,
   extractDeclarationInfo,
   LambdaNode,
   newLambdaNode,
@@ -17,7 +17,7 @@ export function collapseLambdaNode(): NodeCollapseFn<LambdaNode> {
     min: 1,
     collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<LambdaNode> => {
       return nodes.lastMap((typeAssign, index) => {
-        if (!is(typeAssign, $TypeNode()) && !is(typeAssign, $AssignNode())) {
+        if (!is(typeAssign, $TypeNode()) && !is(typeAssign, $ValueNode())) {
           return nothing;
         }
 

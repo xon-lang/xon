@@ -4,7 +4,7 @@ import {
   NodeCollapseFn,
   NodeCollapseResult,
   TypeNode,
-  newTypeExpressionNode,
+  newOperatorExpressionNode,
   newTypeNode,
 } from '#analyzer';
 import {ArrayData, Integer, nothing} from '#common';
@@ -22,7 +22,7 @@ export function collapseTypeNode(): NodeCollapseFn<TypeNode> {
         const leftNode = nodes.at(index - 1);
         const rightNode = nodes.at(index + 1);
 
-        const typeValueNode = newTypeExpressionNode(
+        const operatorExpressionNode = newOperatorExpressionNode(
           operatorNode,
           rightNode?.canBeExpression ? rightNode : nothing,
         );
@@ -30,15 +30,15 @@ export function collapseTypeNode(): NodeCollapseFn<TypeNode> {
         if (leftNode?.canBeExpression) {
           return {
             index: index - 1,
-            deleteCount: 1 + typeValueNode.children!.count(),
-            node: newTypeNode(leftNode, typeValueNode),
+            deleteCount: 1 + operatorExpressionNode.children!.count(),
+            node: newTypeNode(leftNode, operatorExpressionNode),
           };
         }
 
         return {
           index: index - 1,
-          deleteCount: typeValueNode.children!.count(),
-          node: newTypeNode(nothing, typeValueNode),
+          deleteCount: operatorExpressionNode.children!.count(),
+          node: newTypeNode(nothing, operatorExpressionNode),
         };
       }, startIndex);
     },

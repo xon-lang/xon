@@ -2,14 +2,14 @@ import {
   $AnalyzerType,
   $DeclarationNode,
   AngleGroupNode,
-  AssignExpressionNode,
   DeclarationNode,
   diagnoseValueDeclarationNode,
   IdNode,
   KeywordNode,
   newSyntaxNode,
   Node,
-  TypeExpressionNode,
+  OperatorExpressionNode,
+  ValueExpressionNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -18,8 +18,8 @@ export type ValueDeclarationNode = DeclarationNode &
   Brand<'Analyzer.ValueDeclarationNode'> & {
     isMutable: Boolean2;
     parameters?: AngleGroupNode | Nothing;
-    type?: TypeExpressionNode | Nothing;
-    assign?: AssignExpressionNode | Nothing;
+    type?: OperatorExpressionNode | Nothing;
+    value?: ValueExpressionNode | Nothing;
   };
 
 export const $ValueDeclarationNode = () =>
@@ -30,8 +30,8 @@ export function newValueDeclarationNode(
   keyword: KeywordNode | Nothing,
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
   parameters?: AngleGroupNode | Nothing,
-  type?: TypeExpressionNode | Nothing,
-  assign?: AssignExpressionNode | Nothing,
+  type?: OperatorExpressionNode | Nothing,
+  assign?: ValueExpressionNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ValueDeclarationNode {
   return newSyntaxNode<ValueDeclarationNode>({
@@ -42,7 +42,7 @@ export function newValueDeclarationNode(
     id,
     parameters,
     type,
-    assign,
+    value: assign,
     errorNodes,
 
     diagnose: diagnoseValueDeclarationNode,

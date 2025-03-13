@@ -19,7 +19,7 @@ test('Value declaration statement with type and assign', () => {
 
   expect(is(node.id, $IdNode())).toBe(true);
   expect(is(node.type?.expression, $IdNode())).toBe(true);
-  expect(is(node.assign?.expression, $IntegerNode())).toBe(true);
+  expect(is(node.value?.expression, $IntegerNode())).toBe(true);
 });
 
 test('Type alias declaration statement with type and assign', () => {
@@ -30,8 +30,8 @@ test('Type alias declaration statement with type and assign', () => {
   expect(is(node.id, $IdNode())).toBe(true);
   expect(node.id.text.toNativeString()).toBe('Zero');
   expect(node.type).toBeFalsy();
-  expect(is(node.assign?.expression, $IntegerNode())).toBe(true);
-  expect((node.assign?.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
+  expect(is(node.value?.expression, $IntegerNode())).toBe(true);
+  expect((node.value?.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
 });
 
 function getValueDeclarationNode(text: Text): ValueDeclarationNode {
@@ -42,7 +42,7 @@ function getValueDeclarationNode(text: Text): ValueDeclarationNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $ValueDeclarationNode())).toBe(true);
-  expect(!!node.type || !!node.assign).toBe(true);
+  expect(!!node.type || !!node.value).toBe(true);
 
   return node;
 }

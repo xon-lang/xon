@@ -1,20 +1,20 @@
 import {
   $AssignOperatorNode,
   $TypeNode,
-  AssignNode,
-  newAssignExpressionNode,
-  newAssignNode,
+  newOperatorExpressionNode,
+  newValueNode,
   Node,
   NodeCollapseFn,
   NodeCollapseResult,
+  ValueNode,
 } from '#analyzer';
 import {ArrayData, Integer, nothing} from '#common';
 import {is} from '#typing';
 
-export function collapseAssignNode(): NodeCollapseFn<AssignNode> {
+export function collapseValueNode(): NodeCollapseFn<ValueNode> {
   return {
     min: 1,
-    collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<AssignNode> => {
+    collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<ValueNode> => {
       return nodes.lastMap((operatorNode, index) => {
         if (!is(operatorNode, $AssignOperatorNode())) {
           return nothing;
@@ -23,7 +23,7 @@ export function collapseAssignNode(): NodeCollapseFn<AssignNode> {
         const leftNode = nodes.at(index - 1);
         const rightNode = nodes.at(index + 1);
 
-        const assignValueNode = newAssignExpressionNode(
+        const operatorExpressionNode = newOperatorExpressionNode(
           operatorNode,
           rightNode?.canBeExpression ? rightNode : nothing,
         );
@@ -31,15 +31,15 @@ export function collapseAssignNode(): NodeCollapseFn<AssignNode> {
         if (leftNode?.canBeExpression || is(leftNode, $TypeNode())) {
           return {
             index: index - 1,
-            deleteCount: 1 + assignValueNode.children!.count(),
-            node: newAssignNode(leftNode, assignValueNode),
+            deleteCount: 1 + operatorExpressionNode.children!.count(),
+            node: newValueNode(leftNode, operatorExpressionNode),
           };
         }
 
         return {
           index: index - 1,
-          deleteCount: assignValueNode.children!.count(),
-          node: newAssignNode(nothing, assignValueNode),
+          deleteCount: operatorExpressionNode.children!.count(),
+          node: newValueNode(nothing, operatorExpressionNode),
         };
       }, startIndex);
     },
