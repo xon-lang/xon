@@ -1,5 +1,6 @@
 import {$IdNode, ValueDeclarationNode} from '#analyzer';
 import {newText, Text} from '#common';
+import {translateTypescriptType} from '#translator';
 import {is} from '#typing';
 
 export function translateTypescriptValueDeclarationStatement(node: ValueDeclarationNode): Text {
@@ -8,7 +9,19 @@ export function translateTypescriptValueDeclarationStatement(node: ValueDeclarat
   }
 
   if (is(node.id, $IdNode())) {
-    return newText(`const ${node.id.text} = 0`);
+    let type = newText();
+
+    if (node.type?.expression) {
+      type = newText(`: ${translateTypescriptType(node.type.expression)}`);
+    }
+
+    let value = newText();
+
+    if (node.assign?.expression) {
+      value = newText(` = ${translateTypescriptType(node.assign.expression)}`);
+    }
+
+    return newText(`${node.id.text}${type}${value}`);
   }
 
   return newText(`/* error value declaration */`);

@@ -60,10 +60,10 @@ export * from './src/semantic/node/declaration/declaration-semantic-parser';
 export * from './src/semantic/node/declaration/declaration-semantic';
 export * from './src/syntax/nodes/unknown/parser/unknown-node-parser';
 export * from './src/syntax/nodes/unknown/diagnostic/unknown-node-diagnostic';
-export * from './src/syntax/nodes/type-assign/type/type-node';
 export * from './src/syntax/nodes/type-assign/type/type-expression-node';
-export * from './src/syntax/nodes/type-assign/assign/assign-node';
+export * from './src/syntax/nodes/type-assign/type/type-node';
 export * from './src/syntax/nodes/type-assign/assign/assign-expression-node';
+export * from './src/syntax/nodes/type-assign/assign/assign-node';
 export * from './src/syntax/nodes/string/semantic/string-node-semantic';
 export * from './src/syntax/nodes/string/parser/string-node-parser';
 export * from './src/syntax/nodes/string/formatter/string-node-formatter';
@@ -235,7 +235,9 @@ export * from './src/syntax/nodes/affix/postfix/nodes/exclamation/exclamation-po
 export * from './src/syntax/nodes/affix/infix/plus/collapse/plus-infix-node-collapse';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/parser/value-declaration-node-parser';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/diagnostic/value-declaration-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/semantic/nominal-type-declaration-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/parser/type-declaration-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/diagnostic/type-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/else/else-statement-node';
 export * from './src/syntax/nodes/id-keyword-operator/nodes/operator/word/nodes/as-operator-node';
@@ -264,5 +266,3 @@ export * from './src/syntax/nodes/comment/nodes/comment-block/nodes/comment-bloc
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/parser/if-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/diagnostic/if-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/else/parser/else-statement-node-parser';
-export * from './src/syntax/nodes/statement/nodes/declaration/type/semantic/nominal-type-declaration-node-semantic';
-export * from './src/syntax/nodes/statement/nodes/declaration/type/diagnostic/type-declaration-node-diagnostic';

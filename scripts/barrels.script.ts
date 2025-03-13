@@ -14,7 +14,7 @@ const directories = [
 
 const excludeDirectories = ['dist'];
 const excludeFiles = ['index.ts'];
-const excludeExtensions = ['.spec.ts', '.test.ts'];
+const excludeExtensions = ['.spec.ts', '.test.ts', '.gen.ts'];
 
 async function createBarrel(directory: string) {
   const files = await fs.readdir(directory, {withFileTypes: true, recursive: true});
