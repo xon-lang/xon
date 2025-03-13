@@ -1,16 +1,4 @@
-import {
-  LANGUAGE_NAME,
-  configureCompletionFeature,
-  configureDefinitionFeature,
-  configureDiagnosticFeature,
-  configureFormattingFeature,
-  configureHighlightingFeature,
-  configureHoverFeature,
-  configureMoveToNewFileFeature,
-  configureRenameFeature,
-  configureSignatureFeature,
-  configureTranslatorFeature,
-} from '#vscode';
+import {LANGUAGE_NAME, configureTranslatorFeature} from '#vscode';
 import {ExtensionContext, window} from 'vscode';
 
 export function activate(context: ExtensionContext) {

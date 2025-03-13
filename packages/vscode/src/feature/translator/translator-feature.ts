@@ -44,7 +44,8 @@ function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
     const filename = path.basename(filepath) + '.gen.ts';
     const destinationPath = path.resolve(dirname, filename);
 
-    fs.writeFileSync(destinationPath, `${translated}\n`);
+    fs.writeFileSync(destinationPath, `// @ts-nocheck\n\n${translated}\n`);
+    channel.appendLine(`${filepath} - translated`);
   } catch (error: any) {
     channel.appendLine(error?.toString());
   }
