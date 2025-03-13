@@ -1,10 +1,10 @@
-import {$AnalyzerType, $StatementNode, IdNode, StatementNode} from '#analyzer';
+import {$AnalyzerType, $DeclarationStatementNode, DeclarationStatementNode, IdNode} from '#analyzer';
 import {Brand} from '#typing';
 
-export type TypeDeclarationNode = StatementNode &
+export type TypeDeclarationNode = DeclarationStatementNode &
   Brand<'Analyzer.TypeDeclarationNode'> & {
     id: IdNode;
   };
 
 export const $TypeDeclarationNode = () =>
-  $AnalyzerType<TypeDeclarationNode>('TypeDeclarationNode', $StatementNode());
+  $AnalyzerType<TypeDeclarationNode>('TypeDeclarationNode', $DeclarationStatementNode());
