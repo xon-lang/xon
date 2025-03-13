@@ -3,10 +3,10 @@ import {
   $InvokeNode,
   $LambdaNode,
   $TypeNode,
-  AssignValueNode,
+  AssignExpressionNode,
   GroupNode,
   Node,
-  TypeValueNode,
+  TypeExpressionNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {is} from '#typing';
@@ -14,8 +14,8 @@ import {is} from '#typing';
 export type ExtractedDeclarationInfo = {
   target?: Node | Nothing;
   parameters?: GroupNode | Nothing;
-  type?: TypeValueNode | Nothing;
-  assign?: AssignValueNode | Nothing;
+  type?: TypeExpressionNode | Nothing;
+  assign?: AssignExpressionNode | Nothing;
 };
 
 export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarationInfo {

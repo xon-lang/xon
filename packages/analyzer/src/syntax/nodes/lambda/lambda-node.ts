@@ -1,12 +1,12 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
-  AssignValueNode,
+  AssignExpressionNode,
   diagnoseLambdaNode,
   GroupNode,
   newSyntaxNode,
   SyntaxNode,
-  TypeValueNode,
+  TypeExpressionNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
@@ -15,16 +15,16 @@ export type LambdaNode = SyntaxNode &
   Brand<'Analyzer.LambdaNode'> & {
     parameters: GroupNode;
   } & (
-    | {type: TypeValueNode | Nothing; assign?: AssignValueNode | Nothing}
-    | {type?: TypeValueNode | Nothing; assign: AssignValueNode | Nothing}
+    | {type: TypeExpressionNode | Nothing; assign?: AssignExpressionNode | Nothing}
+    | {type?: TypeExpressionNode | Nothing; assign: AssignExpressionNode | Nothing}
   );
 
 export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $SyntaxNode());
 
 export function newLambdaNode(
   parameters: GroupNode,
-  type?: TypeValueNode | Nothing,
-  assign?: AssignValueNode | Nothing,
+  type?: TypeExpressionNode | Nothing,
+  assign?: AssignExpressionNode | Nothing,
 ): LambdaNode {
   return newSyntaxNode<LambdaNode>({
     $: $LambdaNode(),

@@ -1,8 +1,8 @@
 import {
   $IdNode,
   $TypeDeclarationNode,
+  $TypeExpressionNode,
   $TypeKeywordNode,
-  $TypeValueNode,
   IdNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
@@ -20,9 +20,9 @@ test('Type declaration id and base type', () => {
 
   expect(is(node, $TypeDeclarationNode())).toBe(true);
   expect(node.id.text.toNativeString()).toBe('Zero');
-  expect(is(node.type, $TypeValueNode())).toBe(true);
-  expect(is(node.type?.value, $IdNode())).toBe(true);
-  expect((node.type?.value as IdNode).text.toNativeString()).toBe('Integer');
+  expect(is(node.type, $TypeExpressionNode())).toBe(true);
+  expect(is(node.type?.expression, $IdNode())).toBe(true);
+  expect((node.type?.expression as IdNode).text.toNativeString()).toBe('Integer');
 
   expect(is(node.id, $IdNode())).toBe(true);
 });

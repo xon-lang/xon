@@ -2,8 +2,8 @@ import {
   $AssignOperatorNode,
   $TypeNode,
   AssignNode,
+  newAssignExpressionNode,
   newAssignNode,
-  newAssignValueNode,
   Node,
   NodeCollapseFn,
   NodeCollapseResult,
@@ -23,7 +23,7 @@ export function collapseAssignNode(): NodeCollapseFn<AssignNode> {
         const leftNode = nodes.at(index - 1);
         const rightNode = nodes.at(index + 1);
 
-        const assignValueNode = newAssignValueNode(
+        const assignValueNode = newAssignExpressionNode(
           operatorNode,
           rightNode?.canBeExpression ? rightNode : nothing,
         );

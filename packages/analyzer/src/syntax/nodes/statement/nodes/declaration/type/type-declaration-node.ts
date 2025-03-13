@@ -9,8 +9,8 @@ import {
   Node,
   NominalTypeDeclarationSemantic,
   semantifyNominalTypeDeclarationNode,
+  TypeExpressionNode,
   TypeKeywordNode,
-  TypeValueNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -18,7 +18,7 @@ import {Brand} from '#typing';
 export type TypeDeclarationNode = DeclarationNode &
   Brand<'Analyzer.TypeDeclarationNode'> & {
     keyword: TypeKeywordNode;
-    type?: TypeValueNode | Nothing;
+    type?: TypeExpressionNode | Nothing;
     parameters?: AngleGroupNode | Nothing;
     semantic?: NominalTypeDeclarationSemantic | Nothing;
   };
@@ -31,7 +31,7 @@ export function newTypeDeclarationNode(
   keyword: TypeKeywordNode,
   id: IdNode,
   parameters: AngleGroupNode | Nothing,
-  type?: TypeValueNode | Nothing,
+  type?: TypeExpressionNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): TypeDeclarationNode {
   return newSyntaxNode({

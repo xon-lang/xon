@@ -14,14 +14,14 @@ export function semantifyNominalTypeDeclarationNode(
   context.pushScope();
 
   // const parameters = this.parameters?.items.map(x=>x.semantify())
-  if (this.type?.value?.semantify) {
+  if (this.type?.expression?.semantify) {
     context.scope.isTypeScope = true;
-    this.type?.value?.semantify(context);
+    this.type?.expression?.semantify(context);
     context.scope.isTypeScope = false;
   }
 
-  if (is(this.type?.value?.semantic, $TypeSemantic())) {
-    this.semantic = newNominalTypeDeclarationSemantic(this.id.text, nothing, this.type.value.semantic);
+  if (is(this.type?.expression?.semantic, $TypeSemantic())) {
+    this.semantic = newNominalTypeDeclarationSemantic(this.id.text, nothing, this.type.expression.semantic);
     this.id.semantic = this.semantic;
     context.scope.add(this.semantic);
   }

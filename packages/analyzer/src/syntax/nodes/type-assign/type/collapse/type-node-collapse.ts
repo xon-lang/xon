@@ -4,8 +4,8 @@ import {
   NodeCollapseFn,
   NodeCollapseResult,
   TypeNode,
+  newTypeExpressionNode,
   newTypeNode,
-  newTypeValueNode,
 } from '#analyzer';
 import {ArrayData, Integer, nothing} from '#common';
 import {is} from '#typing';
@@ -22,7 +22,7 @@ export function collapseTypeNode(): NodeCollapseFn<TypeNode> {
         const leftNode = nodes.at(index - 1);
         const rightNode = nodes.at(index + 1);
 
-        const typeValueNode = newTypeValueNode(
+        const typeValueNode = newTypeExpressionNode(
           operatorNode,
           rightNode?.canBeExpression ? rightNode : nothing,
         );

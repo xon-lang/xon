@@ -25,9 +25,9 @@ test('Assign integer', () => {
   expect(is(node.assign.operator, $AssignOperatorNode())).toBe(true);
   expect(node.assign.operator.text.toNativeString()).toBe('=');
 
-  expect(node.assign.value?.canBeExpression).toBe(true);
-  expect(is(node.assign.value, $IntegerNode())).toBe(true);
-  expect((node.assign.value as IntegerNode).contentNode.text.toNativeString()).toBe('1');
+  expect(node.assign.expression?.canBeExpression).toBe(true);
+  expect(is(node.assign.expression, $IntegerNode())).toBe(true);
+  expect((node.assign.expression as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });
 
 function getAssignNode(text: Text): AssignNode {
