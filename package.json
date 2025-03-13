@@ -12,7 +12,7 @@
   "scripts": {
     "test": "vitest run",
     "dev": "tsc --noEmit --watch",
-    "vscode:build": "rm -rf 'packages/vscode/dist' && esbuild 'packages/vscode/src/main.ts' --bundle --outfile='packages/vscode/dist/vscode/src/main.js' --external:vscode --format=cjs --platform=node",
+    "vscode:build": "rm -rf 'packages/vscode/dist' && esbuild 'packages/vscode/src/main.ts' --bundle --outfile='packages/vscode/dist/main.js' --external:vscode \"--external:*.gen.ts\" --format=cjs --platform=node",
     "barrels": "tsc -p scripts/tsconfig.json && node scripts/dist/barrels.script.js"
   }
 }
