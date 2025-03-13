@@ -1,9 +1,6 @@
-import {DiagnosticContext, StructuralTypeDeclarationNode} from '#analyzer';
+import {DiagnosticContext, ValueDeclarationNode} from '#analyzer';
 
-export function diagnoseStructuralTypeDeclarationNode(
-  this: StructuralTypeDeclarationNode,
-  context: DiagnosticContext,
-): void {
+export function diagnoseValueDeclarationNode(this: ValueDeclarationNode, context: DiagnosticContext): void {
   // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
   //   diagnostics.addLastItem(expectExpression(this.range));
   // }

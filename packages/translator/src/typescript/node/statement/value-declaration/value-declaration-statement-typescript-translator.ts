@@ -3,12 +3,12 @@ import {newText, Text} from '#common';
 import {is} from '#typing';
 
 export function translateTypescriptValueDeclarationStatement(node: ValueDeclarationNode): Text {
-  if (!node.target) {
+  if (!node.id) {
     return newText(`/* error value declaration */`);
   }
 
-  if (is(node.target, $IdNode())) {
-    return newText(`const ${node.target.text} = 0`);
+  if (is(node.id, $IdNode())) {
+    return newText(`const ${node.id.text} = 0`);
   }
 
   return newText(`/* error value declaration */`);

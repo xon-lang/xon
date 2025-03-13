@@ -2,9 +2,9 @@ import {
   $IdNode,
   collapseNodes,
   extractDeclarationInfo,
-  newParameterDeclarationNode,
+  newValueDeclarationNode,
   Node,
-  ParameterDeclarationNode,
+  ValueDeclarationNode,
 } from '#analyzer';
 import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
@@ -12,7 +12,7 @@ import {is} from '#typing';
 export function parseParameterDeclarationNode(
   indent: Integer,
   nodes: ArrayData<Node>,
-): ParameterDeclarationNode | Nothing {
+): ValueDeclarationNode | Nothing {
   nodes = collapseNodes(nodes);
   const firstNode = nodes.first();
   const {target, type, assign} = extractDeclarationInfo(firstNode);
@@ -21,5 +21,5 @@ export function parseParameterDeclarationNode(
     return nothing;
   }
 
-  return newParameterDeclarationNode(indent, target, type, assign, nodes.slice(1));
+  return newValueDeclarationNode(indent, target, type, assign, nodes.slice(1));
 }

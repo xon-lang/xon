@@ -17,6 +17,7 @@ import {Brand} from '#typing';
 
 export type NominalTypeDeclarationNode = TypeDeclarationNode &
   Brand<'Analyzer.NominalTypeDeclarationNode'> & {
+    keyword: TypeKeywordNode;
     type?: TypeValueNode | Nothing;
     parameters?: AngleGroupNode | Nothing;
     semantic?: NominalTypeDeclarationSemantic | Nothing;

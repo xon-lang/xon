@@ -1,11 +1,11 @@
 import {
-  $ParameterDeclarationNode,
+  $ValueDeclarationNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newDiagnosticContext,
   nonHiddenNodeGenerator,
-  ParameterDeclarationNode,
   parseParameterDeclarationNode,
+  ValueDeclarationNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
@@ -23,11 +23,11 @@ function constStatementNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseParameterDeclarationNode(0, nodes) as ParameterDeclarationNode;
+  const node = parseParameterDeclarationNode(0, nodes) as ValueDeclarationNode;
   const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
-  expect(is(node, $ParameterDeclarationNode())).toBe(true);
+  expect(is(node, $ValueDeclarationNode())).toBe(true);
 
   node.diagnose!(diagnosticContext);
 
