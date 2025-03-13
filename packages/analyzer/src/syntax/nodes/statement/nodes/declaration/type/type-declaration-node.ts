@@ -1,8 +1,15 @@
-import {$AnalyzerType, $DeclarationStatementNode, DeclarationStatementNode, IdNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $DeclarationStatementNode,
+  DeclarationStatementNode,
+  IdNode,
+  TypeKeywordNode,
+} from '#analyzer';
 import {Brand} from '#typing';
 
 export type TypeDeclarationNode = DeclarationStatementNode &
   Brand<'Analyzer.TypeDeclarationNode'> & {
+    keyword: TypeKeywordNode;
     id: IdNode;
   };
 

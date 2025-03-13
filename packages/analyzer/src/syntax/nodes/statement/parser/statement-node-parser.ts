@@ -7,9 +7,9 @@ import {
   parseElseStatementNode,
   parseExpressionStatementNode,
   parseIfStatementNode,
+  parseParameterDeclarationNode,
   parseReturnStatementNode,
   parseTypeDeclarationNode,
-  parseValueDeclarationNode,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
@@ -83,7 +83,7 @@ export type StatementParserFunction<T extends StatementNode = StatementNode> = (
 function statementParsers(): ArrayData<StatementParserFunction> {
   return newArrayData([
     parseTypeDeclarationNode,
-    parseValueDeclarationNode,
+    parseParameterDeclarationNode,
     parseIfStatementNode,
     parseElseStatementNode,
     parseReturnStatementNode,

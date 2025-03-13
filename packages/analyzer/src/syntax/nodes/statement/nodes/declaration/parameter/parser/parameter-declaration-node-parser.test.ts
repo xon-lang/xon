@@ -1,12 +1,12 @@
 import {
   $IdNode,
   $IntegerNode,
-  $ValueDeclarationNode,
+  $ParameterDeclarationNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
-  parseValueDeclarationNode,
-  ValueDeclarationNode,
+  ParameterDeclarationNode,
+  parseParameterDeclarationNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
@@ -21,14 +21,14 @@ test('Value declaration statement with type and assign', () => {
   expect(is(node.assign?.value, $IntegerNode())).toBe(true);
 });
 
-function getValueDeclarationNode(text: Text): ValueDeclarationNode {
+function getValueDeclarationNode(text: Text): ParameterDeclarationNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseValueDeclarationNode(0, nodes)!;
+  const node = parseParameterDeclarationNode(0, nodes)!;
 
   expect(node).toBeTruthy();
-  expect(is(node, $ValueDeclarationNode())).toBe(true);
+  expect(is(node, $ParameterDeclarationNode())).toBe(true);
   expect(!!node.type || !!node.assign).toBe(true);
 
   return node;

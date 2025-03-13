@@ -1,7 +1,7 @@
-import {DiagnosticContext, VariableValueDeclarationNode} from '#analyzer';
+import {DiagnosticContext, ParameterDeclarationNode} from '#analyzer';
 
-export function diagnoseVariableValueDeclarationNode(
-  this: VariableValueDeclarationNode,
+export function diagnoseParameterDeclarationNode(
+  this: ParameterDeclarationNode,
   context: DiagnosticContext,
 ): void {
   // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
