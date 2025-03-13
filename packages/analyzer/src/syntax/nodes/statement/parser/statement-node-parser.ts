@@ -8,6 +8,8 @@ import {
   parseExpressionStatementNode,
   parseIfStatementNode,
   parseReturnStatementNode,
+  parseTypeDeclarationNode,
+  parseValueDeclarationNode,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
@@ -79,7 +81,13 @@ export type StatementParserFunction<T extends StatementNode = StatementNode> = (
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
-  return newArrayData([parseIfStatementNode, parseElseStatementNode, parseReturnStatementNode]);
+  return newArrayData([
+    parseTypeDeclarationNode,
+    parseValueDeclarationNode,
+    parseIfStatementNode,
+    parseElseStatementNode,
+    parseReturnStatementNode,
+  ]);
 }
 
 function handleStatement(
