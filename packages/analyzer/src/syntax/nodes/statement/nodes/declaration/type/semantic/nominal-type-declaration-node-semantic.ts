@@ -1,14 +1,14 @@
 import {
   $TypeSemantic,
   newNominalTypeDeclarationSemantic,
-  NominalTypeDeclarationNode,
   SemanticContext,
+  TypeDeclarationNode,
 } from '#analyzer';
 import {nothing} from '#common';
 import {is} from '#typing';
 
 export function semantifyNominalTypeDeclarationNode(
-  this: NominalTypeDeclarationNode,
+  this: TypeDeclarationNode,
   context: SemanticContext,
 ): void {
   context.pushScope();

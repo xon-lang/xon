@@ -1,9 +1,6 @@
-import {DiagnosticContext, NominalTypeDeclarationNode} from '#analyzer';
+import {DiagnosticContext, TypeDeclarationNode} from '#analyzer';
 
-export function diagnoseNominalTypeDeclarationNode(
-  this: NominalTypeDeclarationNode,
-  context: DiagnosticContext,
-): void {
+export function diagnoseTypeDeclarationNode(this: TypeDeclarationNode, context: DiagnosticContext): void {
   // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
   //   diagnostics.addLastItem(expectExpression(this.range));
   // }

@@ -6,6 +6,7 @@ import {
   DeclarationNode,
   diagnoseValueDeclarationNode,
   IdNode,
+  KeywordNode,
   newSyntaxNode,
   Node,
   TypeValueNode,
@@ -26,6 +27,7 @@ export const $ValueDeclarationNode = () =>
 
 export function newValueDeclarationNode(
   indent: Integer,
+  keyword: KeywordNode | Nothing,
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
   parameters?: AngleGroupNode | Nothing,
   type?: TypeValueNode | Nothing,
@@ -36,6 +38,7 @@ export function newValueDeclarationNode(
     $: $ValueDeclarationNode(),
     indent,
     isMutable: false,
+    keyword,
     id,
     parameters,
     type,

@@ -4,7 +4,7 @@ import {
   newCharacterStreamFromText,
   newDiagnosticContext,
   nonHiddenNodeGenerator,
-  parseParameterDeclarationNode,
+  parseValueDeclarationNode,
   ValueDeclarationNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
@@ -23,7 +23,7 @@ function constStatementNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseParameterDeclarationNode(0, nodes) as ValueDeclarationNode;
+  const node = parseValueDeclarationNode(0, nodes) as ValueDeclarationNode;
   const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();

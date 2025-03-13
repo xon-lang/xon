@@ -1,9 +1,9 @@
-import {$NominalTypeDeclarationNode, $StructuralTypeDeclarationNode, TypeDeclarationNode} from '#analyzer';
+import {$StructuralTypeDeclarationNode, $TypeDeclarationNode, TypeDeclarationNode} from '#analyzer';
 import {newText, Text} from '#common';
 import {is} from '#typing';
 
 export function translateTypescriptTypeDeclarationStatement(node: TypeDeclarationNode): Text {
-  if (is(node, $NominalTypeDeclarationNode())) {
+  if (is(node, $TypeDeclarationNode())) {
     return newText(`type ${node.id.text} = {}`);
   }
 

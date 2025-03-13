@@ -1,5 +1,6 @@
 import {
   $IdNode,
+  $TypeKeywordNode,
   collapseNodes,
   extractDeclarationInfo,
   newValueDeclarationNode,
@@ -9,17 +10,26 @@ import {
 import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
-export function parseParameterDeclarationNode(
+export function parseValueDeclarationNode(
   indent: Integer,
   nodes: ArrayData<Node>,
 ): ValueDeclarationNode | Nothing {
-  nodes = collapseNodes(nodes);
   const firstNode = nodes.first();
-  const {target, type, assign} = extractDeclarationInfo(firstNode);
+  const keyword = is(firstNode, $TypeKeywordNode()) ? firstNode : nothing;
+
+  if (keyword) {
+    nodes = nodes.slice(1);
+  }
+
+  nodes = collapseNodes(nodes);
+  const {target, type, assign} = extractDeclarationInfo(nodes.first());
 
   if (!is(target, $IdNode()) || (!type && !assign)) {
     return nothing;
   }
 
-  return newValueDeclarationNode(indent, target, type, assign, nodes.slice(1));
+  // todo fix it
+  const parameters = nothing;
+
+  return newValueDeclarationNode(indent, keyword, target, parameters, type, assign, nodes.slice(1));
 }

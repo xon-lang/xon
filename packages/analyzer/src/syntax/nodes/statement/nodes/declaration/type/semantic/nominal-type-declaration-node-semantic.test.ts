@@ -5,10 +5,10 @@ import {
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
-  NominalTypeDeclarationNode,
   NominalTypeDeclarationSemantic,
   nonHiddenNodeGenerator,
   parseTypeDeclarationNode,
+  TypeDeclarationNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
@@ -27,7 +27,7 @@ function getNominalTypeDeclarationNode(text: Text): NominalTypeDeclarationSemant
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseTypeDeclarationNode(0, nodes) as NominalTypeDeclarationNode;
+  const node = parseTypeDeclarationNode(0, nodes) as TypeDeclarationNode;
   const semanticContext = newSemanticContext();
   semanticContext.pushScope(true);
 

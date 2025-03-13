@@ -4,8 +4,7 @@ import {
   $TypeKeywordNode,
   collapseNodes,
   extractDeclarationInfo,
-  newNominalTypeDeclarationNode,
-  newStructuralTypeDeclarationNode,
+  newTypeDeclarationNode,
   Node,
   TypeDeclarationNode,
 } from '#analyzer';
@@ -25,15 +24,9 @@ export function parseTypeDeclarationNode(
   nodes = collapseNodes(nodes.slice(1));
   const {target, parameters, type, assign} = extractDeclarationInfo(nodes.first());
 
-  if (is(target, $IdNode()) && (!parameters || is(parameters, $AngleGroupNode()))) {
-    if (!assign) {
-      return newNominalTypeDeclarationNode(indent, keyword, target, parameters, type, nodes);
-    }
-
-    if (!type && assign) {
-      return newStructuralTypeDeclarationNode(indent, keyword, target, parameters, assign, nodes);
-    }
+  if (assign || !is(target, $IdNode()) || (parameters && !is(parameters, $AngleGroupNode()))) {
+    return nothing;
   }
 
-  return nothing;
+  return newTypeDeclarationNode(indent, keyword, target, parameters, type, nodes);
 }

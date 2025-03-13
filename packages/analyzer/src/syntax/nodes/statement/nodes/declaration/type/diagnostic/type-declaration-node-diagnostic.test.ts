@@ -1,5 +1,5 @@
 import {
-  $NominalTypeDeclarationNode,
+  $TypeDeclarationNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newDiagnosticContext,
@@ -26,7 +26,7 @@ function constStatementNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic
   const diagnosticContext = newDiagnosticContext();
 
   expect(node).toBeTruthy();
-  expect(is(node, $NominalTypeDeclarationNode())).toBe(true);
+  expect(is(node, $TypeDeclarationNode())).toBe(true);
 
   node.diagnose!(diagnosticContext);
 
