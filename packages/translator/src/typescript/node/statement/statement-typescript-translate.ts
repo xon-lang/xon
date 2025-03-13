@@ -7,7 +7,7 @@ import {
   $ValueDeclarationNode,
   StatementNode,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {ArrayData, newText, Text} from '#common';
 import {
   translateTypescriptConditionStatement,
   translateTypescriptExpressionStatement,
@@ -107,3 +107,9 @@ export function translateTypescriptStatement(node: StatementNode): Text {
 
 //   return translator.error(semantic.nodeLink);
 // }
+
+export function translateTypescriptBody(body: ArrayData<StatementNode>): Text {
+  const translatedBody = newText(body.map(translateTypescriptStatement), newText('\n'));
+
+  return newText(`{\n${translatedBody.margin(2)}\n}\n`);
+}

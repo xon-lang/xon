@@ -9,6 +9,8 @@ export function translateTypescriptValueDeclarationStatement(node: ValueDeclarat
   }
 
   if (is(node.id, $IdNode())) {
+    const keyword = node.keyword ? newText(`${node.keyword?.text} `) : newText();
+
     let type = newText();
 
     if (node.type?.expression) {
@@ -21,7 +23,7 @@ export function translateTypescriptValueDeclarationStatement(node: ValueDeclarat
       value = newText(` = ${translateTypescriptType(node.value.expression)}`);
     }
 
-    return newText(`${node.id.text}${type}${value}`);
+    return newText(`${keyword}${node.id.text}${type}${value}`);
   }
 
   return newText(`/* error value declaration */`);
