@@ -15,7 +15,7 @@ import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Assign integer', () => {
+test('Integer value', () => {
   const text = newText('a= 1');
   const node = getAssignNode(text);
 
