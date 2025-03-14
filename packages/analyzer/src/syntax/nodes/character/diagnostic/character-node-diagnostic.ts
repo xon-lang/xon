@@ -21,7 +21,7 @@ function expectOnlyCharacter(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
     AnalyzerDiagnosticType.SYNTAX,
-    AnalyzerDiagnosticSeverity.ERROR,
+    AnalyzerDiagnosticSeverity.Error,
     newText(`Only character expect`),
   );
 }
@@ -30,7 +30,7 @@ function expectCloseToken(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
     AnalyzerDiagnosticType.SYNTAX,
-    AnalyzerDiagnosticSeverity.ERROR,
+    AnalyzerDiagnosticSeverity.Error,
     newText(`Close token expect`),
   );
 }

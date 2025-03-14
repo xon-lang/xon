@@ -15,7 +15,7 @@ function unknownCharacter(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
     AnalyzerDiagnosticType.SYNTAX,
-    AnalyzerDiagnosticSeverity.ERROR,
+    AnalyzerDiagnosticSeverity.Error,
     newText(`Unknown character`),
   );
 }
