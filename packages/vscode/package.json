@@ -29,7 +29,7 @@
     "Debuggers",
     "Formatters"
   ],
-  "main": "dist/main",
+  "main": "./dist/vscode/src/main",
   "contributes": {
     "languages": [
       {
