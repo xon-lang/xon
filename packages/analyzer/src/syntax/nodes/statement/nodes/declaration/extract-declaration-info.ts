@@ -6,7 +6,6 @@ import {
   GroupNode,
   Node,
   OperatorExpressionNode,
-  ValueExpressionNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {is} from '#typing';
@@ -15,7 +14,7 @@ export type ExtractedDeclarationInfo = {
   target?: Node | Nothing;
   parameters?: GroupNode | Nothing;
   type?: OperatorExpressionNode | Nothing;
-  assign?: ValueExpressionNode | Nothing;
+  assign?: OperatorExpressionNode | Nothing;
 };
 
 export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarationInfo {

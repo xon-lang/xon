@@ -6,7 +6,6 @@ import {
   newSyntaxNode,
   OperatorExpressionNode,
   SyntaxNode,
-  ValueExpressionNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
@@ -15,8 +14,8 @@ export type LambdaNode = SyntaxNode &
   Brand<'Analyzer.LambdaNode'> & {
     parameters: GroupNode;
   } & (
-    | {type: OperatorExpressionNode | Nothing; value?: ValueExpressionNode | Nothing}
-    | {type?: OperatorExpressionNode | Nothing; value: ValueExpressionNode | Nothing}
+    | {type: OperatorExpressionNode | Nothing; value?: OperatorExpressionNode | Nothing}
+    | {type?: OperatorExpressionNode | Nothing; value: OperatorExpressionNode | Nothing}
   );
 
 export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $SyntaxNode());
@@ -24,7 +23,7 @@ export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $Syntax
 export function newLambdaNode(
   parameters: GroupNode,
   type?: OperatorExpressionNode | Nothing,
-  value?: ValueExpressionNode | Nothing,
+  value?: OperatorExpressionNode | Nothing,
 ): LambdaNode {
   return newSyntaxNode<LambdaNode>({
     $: $LambdaNode(),

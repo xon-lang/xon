@@ -9,7 +9,6 @@ import {
   newSyntaxNode,
   Node,
   OperatorExpressionNode,
-  ValueExpressionNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -19,7 +18,7 @@ export type ValueDeclarationNode = DeclarationNode &
     isMutable: Boolean2;
     parameters?: AngleGroupNode | Nothing;
     type?: OperatorExpressionNode | Nothing;
-    value?: ValueExpressionNode | Nothing;
+    value?: OperatorExpressionNode | Nothing;
   };
 
 export const $ValueDeclarationNode = () =>
@@ -31,7 +30,7 @@ export function newValueDeclarationNode(
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
   parameters?: AngleGroupNode | Nothing,
   type?: OperatorExpressionNode | Nothing,
-  assign?: ValueExpressionNode | Nothing,
+  assign?: OperatorExpressionNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ValueDeclarationNode {
   return newSyntaxNode<ValueDeclarationNode>({
