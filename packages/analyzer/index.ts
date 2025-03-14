@@ -200,6 +200,7 @@ export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-state
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/expression/diagnostic/expression-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/value-declaration-node';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/type-declaration-node';
 export * from './src/syntax/nodes/statement/nodes/condition/diagnostic/condition-statement-node-diagnostic';

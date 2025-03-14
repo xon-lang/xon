@@ -1,6 +1,7 @@
 export * from './package';
 export * from './src/config';
 export * from './src/main';
+export * from './src/text-document-analyzer';
 export * from './src/util/convert';
 export * from './src/util/semantic-view';
 export * from './src/util/util';
