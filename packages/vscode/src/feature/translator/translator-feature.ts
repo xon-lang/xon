@@ -1,7 +1,6 @@
-import {newAnalyzerContext, newCharacterStreamFromText, parseStatements} from '#analyzer';
 import {newText} from '#common';
 import {translateTypescriptStatement} from '#translator';
-import {EXTENSION_CONFIG, LANGUAGE_NAME} from '#vscode';
+import {EXTENSION_CONFIG, LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
@@ -34,12 +33,9 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
 
 function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
   try {
-    const filepath = document.uri.fsPath;
-    const source = newCharacterStreamFromText(newText(document.getText()));
-    const context = newAnalyzerContext(source);
-    const {statements} = parseStatements(context);
+    const {statements} = newTextDocumentAnalyzer(document, channel);
     const translated = newText(statements.map(translateTypescriptStatement), newText('\n'));
-
+    const filepath = document.uri.fsPath;
     const dirname = path.dirname(filepath);
     const filename = path.basename(filepath) + '.gen.ts';
     const destinationPath = path.resolve(dirname, filename);
