@@ -41,6 +41,7 @@ function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
     const destinationPath = path.resolve(dirname, filename);
 
     fs.writeFileSync(destinationPath, `// @ts-nocheck\n\n${translated}\n`);
+    channel.clear();
     channel.appendLine(`${filepath} - translated`);
   } catch (error: any) {
     channel.appendLine(error?.toString());

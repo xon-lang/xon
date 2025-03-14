@@ -47,8 +47,6 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
 
   const analyzer = newTextDocumentAnalyzer(document, channel);
 
-  channel.appendLine('ddd' + analyzer.diagnostics.count().toString());
-
   diagnostics.clear();
   diagnostics.set(document.uri, convertDiagnostic(analyzer.diagnostics).toNativeArray());
 }

@@ -29,8 +29,26 @@
       "match": "\\d+"
     },
     {
-      "name": "string.xon",
-      "match": "\".*?\"|'.*?'"
+      "name": "string.quoted.double.xon",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.xon",
+          "match": "\\\\."
+        }
+      ]
+    },
+    {
+      "name": "string.quoted.single.xon",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.xon",
+          "match": "\\\\."
+        }
+      ]
     },
     {
       "name": "storage.type.xon",
