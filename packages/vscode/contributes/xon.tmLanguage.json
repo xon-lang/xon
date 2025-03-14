@@ -51,8 +51,18 @@
       ]
     },
     {
-      "name": "storage.type.xon",
-      "match": "\\b(type|object|const|literal)\\b"
+      "begin": "\\b(type)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.xon"
+        }
+      },
+      "end": "\\b[A-Za-z_][A-Za-z0-9_]*\\b",
+      "endCaptures": {
+        "0": {
+          "name": "entity.name.type.xon"
+        }
+      }
     },
     {
       "name": "keyword.control.xon",
