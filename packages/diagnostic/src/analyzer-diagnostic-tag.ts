@@ -1,4 +1,4 @@
 export enum AnalyzerDiagnosticTag {
-  UNNECESSARY = 'UNNECESSARY',
-  DEPRECATED = 'DEPRECATED',
+  Unnecessary = 'Unnecessary',
+  Deprecated = 'Deprecated',
 }
