@@ -1,5 +1,6 @@
 import {HighlightContext, HighlightTokenType, TypeDeclarationNode} from '#analyzer';
 
 export function highlightTypeDeclarationNode(this: TypeDeclarationNode, context: HighlightContext): void {
-  context.add(HighlightTokenType.StorageType, this.id.range);
+  // todo remove it here and add to tm grammar
+  context.add(HighlightTokenType.Type, this.id.range);
 }

@@ -1,56 +1,47 @@
-import {LANGUAGE_NAME} from '#vscode';
+import {convertRange, LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
 import {
   CancellationToken,
   DocumentSemanticTokensProvider,
   ExtensionContext,
+  languages,
   OutputChannel,
   ProviderResult,
   SemanticTokens,
   SemanticTokensBuilder,
   SemanticTokensLegend,
   TextDocument,
-  languages,
 } from 'vscode';
 
-const selector = {language: LANGUAGE_NAME, scheme: 'file'};
-const tokenTypes = ['keyword_modifier', 'keyword_control', 'keyword_operator'];
-// const tokenModifiers = ["declaration", "documentation"];
-const legend = new SemanticTokensLegend(tokenTypes, []);
-
 export function configureHighlightingFeature(context: ExtensionContext, channel: OutputChannel) {
+  const selector = {language: LANGUAGE_NAME, scheme: 'file'};
+  const tokenTypes = ['type'];
+  const tokenModifiers = ['declaration'];
+  const legend = new SemanticTokensLegend(tokenTypes, tokenModifiers);
+
   context.subscriptions.push(
-    languages.registerDocumentSemanticTokensProvider(selector, new DocumentSemanticTokens(channel), legend),
+    languages.registerDocumentSemanticTokensProvider(
+      selector,
+      new DocumentSemanticTokens(legend, channel),
+      legend,
+    ),
   );
 }
 
 class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
-  constructor(private channel: OutputChannel) {}
+  constructor(private legend: SemanticTokensLegend, private channel: OutputChannel) {}
 
   provideDocumentSemanticTokens(
     document: TextDocument,
-    token: CancellationToken,
+    cancellationToken: CancellationToken,
   ): ProviderResult<SemanticTokens> {
-    // const syntax = getDocumentSyntax(document, this.channel);
-    const tokensBuilder = new SemanticTokensBuilder(legend);
+    const {highlights} = newTextDocumentAnalyzer(document, this.channel);
+    const tokensBuilder = new SemanticTokensBuilder(this.legend);
 
-    // for (const operator of syntax.operators) {
-    //   if (operator.keywordType) {
-    //     const tokenType = getKeywordTokenType(operator.keywordType);
-    //     tokensBuilder.push(convertRange(operator.range), tokenType);
-    //   }
-    // }
+    for (const {range, type} of highlights) {
+      this.channel.appendLine(`Highlighting: ${type}}`);
+      tokensBuilder.push(convertRange(range), type.toString());
+    }
 
     return tokensBuilder.build();
   }
 }
-
-// function getKeywordTokenType(keywordType: KeywordType): (typeof tokenTypes)[Number2] {
-//   switch (keywordType) {
-//     case KeywordType.MODIFIER:
-//       return 'keyword_modifier';
-//     case KeywordType.CONTROL:
-//       return 'keyword_control';
-//     case KeywordType.OPERATOR:
-//       return 'keyword_operator';
-//   }
-// }

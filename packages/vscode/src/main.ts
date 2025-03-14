@@ -1,4 +1,4 @@
-import {configureDiagnosticFeature, configureTranslatorFeature, LANGUAGE_NAME} from '#vscode';
+import {configureDiagnosticFeature, configureHighlightingFeature, configureTranslatorFeature, LANGUAGE_NAME} from '#vscode';
 import {ExtensionContext, window} from 'vscode';
 
 export function activate(context: ExtensionContext) {
@@ -8,7 +8,7 @@ export function activate(context: ExtensionContext) {
 
   configureDiagnosticFeature(context, channel);
   // configureFormattingFeature(context, channel);
-  // configureHighlightingFeature(context, channel);
+  configureHighlightingFeature(context, channel);
   // configureHoverFeature(context, channel);
   // configureDefinitionFeature(context, channel);
   // configureCompletionFeature(context, channel);

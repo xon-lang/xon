@@ -54,21 +54,6 @@
         "path": "./contributes/xon.tmLanguage.json"
       }
     ],
-    "semanticTokenScopes": [
-      {
-        "scopes": {
-          "keyword_modifier": [
-            "storage.type"
-          ],
-          "keyword_control": [
-            "keyword.control"
-          ],
-          "keyword_operator": [
-            "keyword.operator.expression"
-          ]
-        }
-      }
-    ],
     "commands": [
       {
         "command": "xon.translateToTypescript",
