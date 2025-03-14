@@ -36,11 +36,7 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   if (is(node, $StringNode())) {
-    if (node.content) {
-      return newText(`"${node.content.text}"`);
-    }
-
-    return newText('/* error string */');
+    return newText(`\`${node.content?.text ?? ''}\``);
   }
 
   if (is(node, $IdNode())) {
