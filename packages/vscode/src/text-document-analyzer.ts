@@ -1,7 +1,9 @@
 import {
+  HighlightToken,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newDiagnosticContext,
+  newHighlightContext,
   parseStatements,
   StatementNode,
 } from '#analyzer';
@@ -14,6 +16,7 @@ import {OutputChannel, TextDocument} from 'vscode';
 export type TextDocumentAnalyzer = Model &
   Brand<'Analyzer.TextDocumentAnalyzer'> & {
     statements: ArrayData<StatementNode>;
+    highlights: ArrayData<HighlightToken>;
     diagnostics: ArrayData<AnalyzerDiagnostic>;
   };
 
@@ -29,14 +32,20 @@ export function newTextDocumentAnalyzer(
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
 
+  const highlightContext = newHighlightContext();
   const diagnosticContext = newDiagnosticContext();
 
-  statements.forEach((x) => x.diagnose && x.diagnose(diagnosticContext));
-  // channel.appendLine(error?.toString() ?? 'Error');
+  for (const statement of statements) {
+    statement.highlight && statement.highlight(highlightContext);
+    statement.diagnose && statement.diagnose(diagnosticContext);
+  }
+
+  channel.appendLine('Handled document: ' + document.uri.fsPath);
 
   return {
     $: $TextDocumentAnalyzer(),
     statements,
+    highlights: highlightContext.highlights,
     diagnostics: diagnosticContext.diagnostics,
   };
 }

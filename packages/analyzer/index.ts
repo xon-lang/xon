@@ -237,6 +237,7 @@ export * from './src/syntax/nodes/statement/nodes/declaration/value/parser/value
 export * from './src/syntax/nodes/statement/nodes/declaration/value/diagnostic/value-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/semantic/nominal-type-declaration-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/parser/type-declaration-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/highlight/highlight-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/diagnostic/type-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/else/else-statement-node';

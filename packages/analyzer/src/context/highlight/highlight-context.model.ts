@@ -4,7 +4,7 @@ import {Brand, Model} from '#typing';
 
 export type HighlightContext = Model &
   Brand<'Analyzer.HighlightContext'> & {
-    tokens: ArrayData<HighlightToken>;
+    highlights: ArrayData<HighlightToken>;
 
     add(type: HighlightTokenType, range: TextRange): void;
   };

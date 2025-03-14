@@ -16,7 +16,7 @@ import {expect, test} from 'vitest';
 
 test('Type declaration id and base type', () => {
   const text = newText('type Zero: Integer');
-  const node = getTNominalTypeDeclarationNode(text) as TypeDeclarationNode;
+  const node = getTypeDeclarationNode(text) as TypeDeclarationNode;
 
   expect(is(node, $TypeDeclarationNode())).toBe(true);
   expect(node.id.text.toNativeString()).toBe('Zero');
@@ -27,7 +27,7 @@ test('Type declaration id and base type', () => {
   expect(is(node.id, $IdNode())).toBe(true);
 });
 
-function getTNominalTypeDeclarationNode(text: Text): TypeDeclarationNode {
+function getTypeDeclarationNode(text: Text): TypeDeclarationNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));

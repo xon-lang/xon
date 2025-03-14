@@ -4,6 +4,7 @@ import {
   AngleGroupNode,
   DeclarationNode,
   diagnoseTypeDeclarationNode,
+  highlightTypeDeclarationNode,
   IdNode,
   newSyntaxNode,
   Node,
@@ -44,6 +45,7 @@ export function newTypeDeclarationNode(
     errorNodes,
 
     semantify: semantifyNominalTypeDeclarationNode,
+    highlight: highlightTypeDeclarationNode,
     diagnose: diagnoseTypeDeclarationNode,
   });
 }
