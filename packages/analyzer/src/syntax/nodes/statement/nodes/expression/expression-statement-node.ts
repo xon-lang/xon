@@ -1,4 +1,11 @@
-import {$AnalyzerType, $StatementNode, newSyntaxNode, Node, StatementNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $StatementNode,
+  diagnoseExpressionStatementNode,
+  newSyntaxNode,
+  Node,
+  StatementNode,
+} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
@@ -20,5 +27,7 @@ export function newExpressionStatementNode(
     indent,
     expression,
     errorNodes,
+
+    diagnose: diagnoseExpressionStatementNode,
   });
 }
