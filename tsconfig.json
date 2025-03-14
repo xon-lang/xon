@@ -26,14 +26,14 @@
     // "noUnusedParameters": true,
     "outDir": "packages/vscode/dist",
     "paths": {
-      "#typing": ["packages/typing/*", "packages/typing"],
-      "#common": ["packages/common/*", "packages/common"],
-      "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic"],
-      "#analyzer": ["packages/analyzer/*", "packages/analyzer"],
-      "#interpreter": ["packages/interpreter/*", "packages/interpreter"],
-      "#translator": ["packages/translator/*", "packages/translator"],
-      "#vscode": ["packages/vscode/*", "packages/vscode"],
-      "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib"]
+      "#typing": ["packages/typing/*", "packages/typing/index"],
+      "#common": ["packages/common/*", "packages/common/index"],
+      "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic/index"],
+      "#analyzer": ["packages/analyzer/*", "packages/analyzer/index"],
+      "#interpreter": ["packages/interpreter/*", "packages/interpreter/index"],
+      "#translator": ["packages/translator/*", "packages/translator/index"],
+      "#vscode": ["packages/vscode/*", "packages/vscode/index"],
+      "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib/index"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -44,5 +44,5 @@
     "useUnknownInCatchVariables": true
   },
   // "include": ["src/**/*.ts", "../common/**/*.ts"],
-  "exclude": ["**/*.gen.ts", "**/dist"]
+  "exclude": ["**/*.gen.ts", "**/dist/*.ts"]
 }
