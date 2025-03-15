@@ -1,15 +1,40 @@
-import {$IdNode, ValueDeclarationNode} from '#analyzer';
-import {newText, Text} from '#common';
+import {
+  $ExpressionStatementNode,
+  $IdNode,
+  $ValueDeclarationNode,
+  StatementNode,
+  ValueDeclarationNode,
+} from '#analyzer';
+import {Boolean2, newText, Text} from '#common';
 import {translateTypescriptType} from '#translator';
 import {is} from '#typing';
 
-export function translateTypescriptValueDeclarationStatement(node: ValueDeclarationNode): Text {
+export function translateTypescriptValueDeclarationStatement(
+  node: StatementNode,
+  isAttribute: Boolean2,
+): Text {
+  if (is(node, $ValueDeclarationNode())) {
+    return translateValueDeclaration(node, isAttribute);
+  }
+
+  if (is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
+    return newText(`${node.expression.text}`);
+  }
+
+  return newText(`/* error value2 declaration */`);
+}
+
+function translateValueDeclaration(node: ValueDeclarationNode, isAttribute: Boolean2): Text {
   if (!node.id) {
     return newText(`/* error value declaration */`);
   }
 
   if (is(node.id, $IdNode())) {
-    const keyword = node.keyword ? newText(`${node.keyword?.text} `) : newText();
+    const keyword = node.keyword
+      ? newText(`${node.keyword?.text} `)
+      : isAttribute
+      ? newText()
+      : newText('let ');
 
     let type = newText();
 

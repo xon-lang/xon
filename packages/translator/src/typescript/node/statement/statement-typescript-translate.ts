@@ -32,7 +32,7 @@ export function translateTypescriptStatement(node: StatementNode): Text {
   }
 
   if (is(node, $ValueDeclarationNode())) {
-    return translateTypescriptValueDeclarationStatement(node);
+    return translateTypescriptValueDeclarationStatement(node, false);
   }
 
   if (is(node, $ConditionStatementNode())) {
