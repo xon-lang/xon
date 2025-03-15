@@ -16,7 +16,7 @@ export function diagnoseMemberNode(this: MemberNode, context: DiagnosticContext)
 function expectIdentifier(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Identifier expect`),
   );

@@ -16,7 +16,7 @@ export function diagnoseImportStatementNode(this: ImportStatementNode, context: 
 function expectExpression(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Expect expression`),
   );

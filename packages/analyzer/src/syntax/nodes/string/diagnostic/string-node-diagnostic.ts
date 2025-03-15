@@ -16,7 +16,7 @@ export function diagnoseStringNode(this: StringNode, context: DiagnosticContext)
 function expectCloseToken(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Close token expect`),
   );

@@ -21,7 +21,7 @@ export function diagnoseExpressionStatementNode(
 function errorNode(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Syntax error`),
   );

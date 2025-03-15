@@ -14,7 +14,7 @@ export function diagnoseUnknownNode(this: UnknownNode, context: DiagnosticContex
 function unknownCharacter(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Unknown character`),
   );

@@ -1,4 +1,4 @@
 export enum AnalyzerDiagnosticType {
-  SYNTAX = 'SYNTAX',
-  SEMANTIC = 'SEMANTIC',
+  Syntax = 'Syntax',
+  Semantic = 'Semantic',
 }
