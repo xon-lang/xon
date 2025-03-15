@@ -23,7 +23,7 @@ export function newSemanticScope(
     },
 
     get(name: Text): DeclarationSemantic | Nothing {
-      return this._declarations?.get(name)?.first();
+      return this._declarations?.get(name)?.first() ?? this.parent?.get(name);
     },
   };
 }
