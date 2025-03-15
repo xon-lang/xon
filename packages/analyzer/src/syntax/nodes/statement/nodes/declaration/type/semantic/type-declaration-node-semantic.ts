@@ -4,7 +4,7 @@ import {
   SemanticContext,
   TypeDeclarationNode,
 } from '#analyzer';
-import {newTextReference, nothing} from '#common';
+import {nothing} from '#common';
 import {is} from '#typing';
 
 export function semantifyTypeDeclarationNode(this: TypeDeclarationNode, context: SemanticContext): void {
@@ -15,7 +15,7 @@ export function semantifyTypeDeclarationNode(this: TypeDeclarationNode, context:
     context.popScope();
   }
 
-  const reference = newTextReference(context.sourceLocation, this.id.range);
+  const reference = context.getReference(this.id.range);
 
   const semantic = newNominalTypeDeclarationSemantic(
     reference,

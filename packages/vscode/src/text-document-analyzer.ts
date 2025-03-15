@@ -31,12 +31,12 @@ export function newTextDocumentAnalyzer(
   channel: OutputChannel,
 ): TextDocumentAnalyzer {
   const text = newText(document.getText());
-  // const filepath = document.uri.fsPath;
+  const location = newText(document.uri.fsPath);
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
 
-  const semanticContext = newSemanticContext();
+  const semanticContext = newSemanticContext(location);
   const highlightContext = newHighlightContext();
   const diagnosticContext = newDiagnosticContext();
 

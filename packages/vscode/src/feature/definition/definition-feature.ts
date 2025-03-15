@@ -33,7 +33,6 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const analyzer = newTextDocumentAnalyzer(document, this.channel);
     const node = analyzer.findNode(vsCodeToXonPosition(document, position));
 
-
     if (!node?.semantic) {
       return nothing;
     }
@@ -49,8 +48,6 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     // if (is(node.semantic, $DeclarationSemantic())) {
     //   return navigateToUsages(node.range, node.semantic).toNativeArray();
     // }
-
-    this.channel.appendLine(`node: ${node.$}`);
 
     if (is(node.semantic, $IdTypeSemantic())) {
       if (!node.semantic.declaration) {
