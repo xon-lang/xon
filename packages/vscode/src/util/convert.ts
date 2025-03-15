@@ -1,25 +1,25 @@
 import {newTextPosition, newTextRange, TextPosition, TextRange} from '#common';
 import {Position, Range, TextDocument} from 'vscode';
 
-export function convertRange(range: TextRange): Range {
-  const start = convertPosition(range.start);
-  const stop = convertPosition(range.stop);
+export function xonToVsCodeRange(range: TextRange): Range {
+  const start = xonToVsCodePosition(range.start);
+  const stop = xonToVsCodePosition(range.stop);
 
   return new Range(start, stop);
 }
 
-export function convertPosition(position: TextPosition): Position {
+export function xonToVsCodePosition(position: TextPosition): Position {
   return new Position(position.line, position.column);
 }
 
-export function convertVscodeRange(document: TextDocument, range: Range): TextRange {
-  const start = convertVscodePosition(document, range.start);
-  const stop = convertVscodePosition(document, range.end);
+export function vsCodeToXonRange(document: TextDocument, range: Range): TextRange {
+  const start = vsCodeToXonPosition(document, range.start);
+  const stop = vsCodeToXonPosition(document, range.end);
 
   return newTextRange(start, stop);
 }
 
-export function convertVscodePosition(document: TextDocument, position: Position): TextPosition {
+export function vsCodeToXonPosition(document: TextDocument, position: Position): TextPosition {
   const index = document.offsetAt(position);
 
   return newTextPosition(index, position.line, position.character);
