@@ -9,6 +9,7 @@ import {
   newSyntaxNode,
   Node,
   OperatorExpressionNode,
+  semantifyValueDeclarationNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -44,6 +45,7 @@ export function newValueDeclarationNode(
     value: assign,
     errorNodes,
 
+    semantify: semantifyValueDeclarationNode,
     diagnose: diagnoseValueDeclarationNode,
   });
 }
