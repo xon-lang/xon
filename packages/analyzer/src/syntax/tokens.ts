@@ -1,3 +1,5 @@
+// todo rename file to lexical-tokens.ts
+
 import {newArrayData, newCharacter, newText} from '#common';
 
 export const COMMENT_LINE = newText('//');

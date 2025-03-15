@@ -4,7 +4,7 @@ import {
   SemanticContext,
   TypeDeclarationNode,
 } from '#analyzer';
-import {nothing} from '#common';
+import {newTextReference, nothing} from '#common';
 import {is} from '#typing';
 
 export function semantifyNominalTypeDeclarationNode(
@@ -21,7 +21,15 @@ export function semantifyNominalTypeDeclarationNode(
   }
 
   if (is(this.type?.expression?.semantic, $TypeSemantic())) {
-    this.semantic = newNominalTypeDeclarationSemantic(this.id.text, nothing, this.type.expression.semantic);
+    const reference = newTextReference(context.sourceLocation, this.id.range);
+
+    this.semantic = newNominalTypeDeclarationSemantic(
+      reference,
+      this.id.text,
+      nothing,
+      this.type.expression.semantic,
+    );
+
     this.id.semantic = this.semantic;
     context.scope.add(this.semantic);
   }

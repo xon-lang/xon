@@ -10,18 +10,18 @@ import {Brand} from '#typing';
 
 export type IdTypeSemantic = TypeSemantic &
   Brand<'Analyzer.IdTypeSemantic'> & {
+    reference: TextReference;
     name: Text;
     type?: TypeSemantic | Nothing;
     declaration?: DeclarationSemantic | Nothing;
-    reference?: TextReference | Nothing;
   };
 
 export const $IdTypeSemantic = () => $AnalyzerType<IdTypeSemantic>('IdTypeSemantic', $TypeSemantic());
 
 export function newIdTypeSemantic(
+  reference: TextReference,
   name: Text,
   declaration?: TypeDeclarationSemantic | Nothing,
-  reference?: TextReference | Nothing,
 ): IdTypeSemantic {
   const usage: IdTypeSemantic = {
     $: $IdTypeSemantic(),

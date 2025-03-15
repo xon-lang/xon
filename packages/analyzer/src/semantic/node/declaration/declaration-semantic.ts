@@ -4,10 +4,10 @@ import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
   Brand<'Analyzer.DeclarationSemantic'> & {
+    reference: TextReference;
     usages: ArrayData<IdTypeSemantic>;
     name: Text;
     documentation?: Text | Nothing;
-    reference?: TextReference | Nothing;
     attributes?: AttributeList | Nothing;
   };
 

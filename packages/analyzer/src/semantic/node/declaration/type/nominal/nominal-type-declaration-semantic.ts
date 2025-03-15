@@ -7,7 +7,7 @@ import {
   TypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
-import {ArrayData, Boolean2, newArrayData, Nothing, Text} from '#common';
+import {ArrayData, Boolean2, newArrayData, Nothing, Text, TextReference} from '#common';
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   extendsType?: TypeSemantic | Nothing;
@@ -20,6 +20,7 @@ export const $NominalTypeDeclarationSemantic = () =>
   $AnalyzerType<NominalTypeDeclarationSemantic>('NominalTypeDeclarationSemantic', $TypeDeclarationSemantic());
 
 export function newNominalTypeDeclarationSemantic(
+  reference: TextReference,
   name: Text,
   parameters?: ArrayData<ParameterTypeDeclarationSemantic> | Nothing,
   extendsType?: TypeSemantic | Nothing,
@@ -28,6 +29,7 @@ export function newNominalTypeDeclarationSemantic(
 ): NominalTypeDeclarationSemantic {
   return {
     $: $NominalTypeDeclarationSemantic(),
+    reference,
     usages: newArrayData(),
     name,
     parameters,
