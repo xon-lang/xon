@@ -7,10 +7,7 @@ import {
 import {newTextReference, nothing} from '#common';
 import {is} from '#typing';
 
-export function semantifyNominalTypeDeclarationNode(
-  this: TypeDeclarationNode,
-  context: SemanticContext,
-): void {
+export function semantifyTypeDeclarationNode(this: TypeDeclarationNode, context: SemanticContext): void {
   context.pushScope();
 
   // const parameters = this.parameters?.items.map(x=>x.semantify())

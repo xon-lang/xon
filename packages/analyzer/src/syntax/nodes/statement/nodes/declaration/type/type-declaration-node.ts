@@ -10,7 +10,7 @@ import {
   Node,
   NominalTypeDeclarationSemantic,
   OperatorExpressionNode,
-  semantifyNominalTypeDeclarationNode,
+  semantifyTypeDeclarationNode,
   TypeKeywordNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
@@ -44,7 +44,7 @@ export function newTypeDeclarationNode(
     type,
     errorNodes,
 
-    semantify: semantifyNominalTypeDeclarationNode,
+    semantify: semantifyTypeDeclarationNode,
     highlight: highlightTypeDeclarationNode,
     diagnose: diagnoseTypeDeclarationNode,
   });
