@@ -15,7 +15,7 @@ import {
   nonHiddenNodeGenerator,
   StringTypeSemantic,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#common';
+import {newArrayData, newText, newTextRange, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
@@ -39,6 +39,7 @@ function getMemberNode(text: Text): MemberNode {
 
   semanticContext.scope.add(
     newVariableValueDeclarationSemantic(
+      semanticContext.getReference(newTextRange()),
       newText('user'),
       newObjectTypeSemantic(
         newAttributeList(

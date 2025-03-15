@@ -5,7 +5,6 @@ import {
   newIdTypeSemantic,
   SemanticContext,
 } from '#analyzer';
-import {newText, newTextReference} from '#common';
 import {is} from '#typing';
 
 export function semantifyMemberNode(this: MemberNode, context: SemanticContext): void {
@@ -28,7 +27,8 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
     return;
   }
 
-  this.id.semantic = newIdTypeSemantic(this.id.text, attribute, newTextReference(newText(), this.id.range));
+  const reference = context.getReference(this.id.range);
+  this.id.semantic = newIdTypeSemantic(reference, this.id.text, attribute);
 
   if (is(attribute, $ValueDeclarationSemantic())) {
     this.semantic = attribute.type;

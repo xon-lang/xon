@@ -16,19 +16,19 @@ export const $VariableValueDeclarationSemantic = () =>
   );
 
 export function newVariableValueDeclarationSemantic(
+  reference: TextReference,
   name: Text,
   type?: TypeSemantic | Nothing,
   documentation?: Text | Nothing,
-  reference?: TextReference | Nothing,
 ): VariableValueDeclarationSemantic {
   return {
     $: $VariableValueDeclarationSemantic(),
+    reference,
     usages: newArrayData(),
     documentation,
     name,
     type,
     attributes: type?.attributes,
-    reference,
 
     equals(other: DeclarationSemantic): Boolean2 {
       return false;
