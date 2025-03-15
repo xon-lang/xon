@@ -4,6 +4,7 @@ import {
   newCharacterStreamFromText,
   newDiagnosticContext,
   newHighlightContext,
+  newSemanticContext,
   Node,
   parseStatements,
   StatementNode,
@@ -35,10 +36,12 @@ export function newTextDocumentAnalyzer(
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
 
+  const semanticContext = newSemanticContext();
   const highlightContext = newHighlightContext();
   const diagnosticContext = newDiagnosticContext();
 
   for (const statement of statements) {
+    statement.semantify && statement.semantify(semanticContext);
     statement.highlight && statement.highlight(highlightContext);
     statement.diagnose && statement.diagnose(diagnosticContext);
   }

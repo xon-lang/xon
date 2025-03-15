@@ -1,95 +1,82 @@
-// import {
-//   $DeclarationSemantic,
-//   $DocumentationIdSemantic,
-//   $IdTypeSemantic,
-//   $ImportValueSemantic,
-//   $ValueSemantic,
-//   DeclarationSemantic,
-// } from '#analyzer';
-// import {
-//   ArrayData,
-//   Nothing,
-//   Text,
-//   TextRange,
-//   TextReference,
-//   newArrayData,
-//   newTextRange,
-//   nothing,
-// } from '#common';
-// import {is} from '#typing';
-// import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
-// import {
-//   CancellationToken,
-//   DefinitionLink,
-//   DefinitionProvider,
-//   ExtensionContext,
-//   LocationLink,
-//   OutputChannel,
-//   Position,
-//   ProviderResult,
-//   TextDocument,
-//   Uri,
-//   languages,
-// } from 'vscode';
+import {$IdTypeSemantic} from '#analyzer';
+import {ArrayData, Nothing, Text, TextRange, TextReference, newArrayData, nothing} from '#common';
+import {is} from '#typing';
+import {LANGUAGE_NAME, newTextDocumentAnalyzer, vsCodeToXonPosition, xonToVsCodeRange} from '#vscode';
+import {
+  CancellationToken,
+  DefinitionLink,
+  DefinitionProvider,
+  ExtensionContext,
+  LocationLink,
+  OutputChannel,
+  Position,
+  ProviderResult,
+  TextDocument,
+  Uri,
+  languages,
+} from 'vscode';
 
-// export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
-//   context.subscriptions.push(
-//     languages.registerDefinitionProvider(LANGUAGE_NAME, new LanguageDefinitionProvider(channel)),
-//   );
-// }
+export function configureDefinitionFeature(context: ExtensionContext, channel: OutputChannel) {
+  context.subscriptions.push(
+    languages.registerDefinitionProvider(LANGUAGE_NAME, new LanguageDefinitionProvider(channel)),
+  );
+}
 
-// class LanguageDefinitionProvider implements DefinitionProvider {
-//   constructor(private channel: OutputChannel) {}
+class LanguageDefinitionProvider implements DefinitionProvider {
+  constructor(private channel: OutputChannel) {}
 
-//   provideDefinition(
-//     document: TextDocument,
-//     position: Position,
-//     token: CancellationToken,
-//   ): ProviderResult<DefinitionLink[]> {
-//     const semantic = getDocumentSemantic(document, this.channel);
-//     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
+  provideDefinition(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken,
+  ): ProviderResult<DefinitionLink[]> {
+    const analyzer = newTextDocumentAnalyzer(document, this.channel);
+    const node = analyzer.findNode(vsCodeToXonPosition(document, position));
 
-//     if (!node?.semantic) {
-//       return nothing;
-//     }
 
-//     if (is(node.semantic, $ImportValueSemantic())) {
-//       if (node.semantic.resource?.location) {
-//         return navigateToLocation(node.range, node.semantic.resource.location)?.toNativeArray();
-//       }
+    if (!node?.semantic) {
+      return nothing;
+    }
 
-//       return nothing;
-//     }
+    // if (is(node.semantic, $ImportValueSemantic())) {
+    //   if (node.semantic.resource?.location) {
+    //     return navigateToLocation(node.range, node.semantic.resource.location)?.toNativeArray();
+    //   }
 
-//     if (is(node.semantic, $DeclarationSemantic())) {
-//       return navigateToUsages(node.range, node.semantic).toNativeArray();
-//     }
+    //   return nothing;
+    // }
 
-//     if (is(node.semantic, $IdTypeSemantic())) {
-//       if (!node.semantic.declaration) {
-//         return nothing;
-//       }
+    // if (is(node.semantic, $DeclarationSemantic())) {
+    //   return navigateToUsages(node.range, node.semantic).toNativeArray();
+    // }
 
-//       return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
-//     }
+    this.channel.appendLine(`node: ${node.$}`);
 
-//     if (is(node.semantic, $DocumentationIdSemantic())) {
-//       return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
-//     }
+    if (is(node.semantic, $IdTypeSemantic())) {
+      if (!node.semantic.declaration) {
+        return nothing;
+      }
 
-//     if (is(node.semantic, $ValueSemantic())) {
-//       const declaration = node.semantic.type?.declaration;
+      return navigateToReference(node.range, node.semantic.declaration.reference)?.toNativeArray();
+    }
 
-//       if (!declaration) {
-//         return nothing;
-//       }
+    // if (is(node.semantic, $DocumentationIdSemantic())) {
+    //   return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
+    // }
 
-//       return navigateToReference(node.range, declaration.nodeLink)?.toNativeArray();
-//     }
+    // if (is(node.semantic, $ValueSemantic())) {
+    //   const declaration = node.semantic.type?.declaration;
 
-//     return nothing;
-//   }
-// }
+    //   if (!declaration) {
+    //     return nothing;
+    //   }
+
+    //   return navigateToReference(node.range, declaration.nodeLink)?.toNativeArray();
+    // }
+
+    return nothing;
+  }
+}
 
 // function navigateToUsages(
 //   originalRange: TextRange,
@@ -103,12 +90,12 @@
 //     }
 
 //     const uri = Uri.parse(usage.resource.location.toNativeString());
-//     const range = convertRange(usage.range);
+//     const range = xonToVsCodeRange(usage.range);
 
 //     const link: LocationLink = {
 //       targetUri: uri,
 //       targetRange: range,
-//       originSelectionRange: convertRange(originalRange),
+//       originSelectionRange: xonToVsCodeRange(originalRange),
 //     };
 
 //     links.addLastItem(link);
@@ -117,31 +104,31 @@
 //   return links;
 // }
 
-// function navigateToReference(
-//   originalRange: TextRange,
-//   reference: TextReference,
-// ): ArrayData<LocationLink> | Nothing {
-//   if (!reference.resource.location) {
-//     return nothing;
-//   }
+function navigateToReference(
+  originalRange: TextRange,
+  reference: TextReference,
+): ArrayData<LocationLink> | Nothing {
+  if (!reference.location) {
+    return nothing;
+  }
 
-//   return navigateToLocation(originalRange, reference.resource.location, reference.range);
-// }
+  return navigateToLocation(originalRange, reference.location, reference.range);
+}
 
-// function navigateToLocation(
-//   originalRange: TextRange,
-//   location: Text,
-//   sourceRange?: TextRange | Nothing,
-// ): ArrayData<LocationLink> | Nothing {
-//   const targetUri = Uri.parse(location.toNativeString());
-//   const targetRange = sourceRange ? convertRange(sourceRange) : convertRange(newTextRange());
-//   const originSelectionRange = convertRange(originalRange);
+function navigateToLocation(
+  originalRange: TextRange,
+  location: Text,
+  sourceRange: TextRange,
+): ArrayData<LocationLink> | Nothing {
+  const targetUri = Uri.parse(location.toNativeString());
+  const targetRange = xonToVsCodeRange(sourceRange);
+  const originSelectionRange = xonToVsCodeRange(originalRange);
 
-//   return newArrayData([
-//     {
-//       targetUri,
-//       targetRange,
-//       originSelectionRange,
-//     },
-//   ]);
-// }
+  return newArrayData([
+    {
+      targetUri,
+      targetRange,
+      originSelectionRange,
+    },
+  ]);
+}

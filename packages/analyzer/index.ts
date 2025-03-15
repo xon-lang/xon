@@ -233,9 +233,10 @@ export * from './src/syntax/nodes/documentation/nodes/documentation-label/docume
 export * from './src/syntax/nodes/affix/prefix/nodes/plus/plus-prefix-node';
 export * from './src/syntax/nodes/affix/postfix/nodes/exclamation/exclamation-postfix-node';
 export * from './src/syntax/nodes/affix/infix/plus/collapse/plus-infix-node-collapse';
+export * from './src/syntax/nodes/statement/nodes/declaration/value/semantic/value-declaration-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/parser/value-declaration-node-parser';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/diagnostic/value-declaration-node-diagnostic';
-export * from './src/syntax/nodes/statement/nodes/declaration/type/semantic/nominal-type-declaration-node-semantic';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/semantic/type-declaration-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/parser/type-declaration-node-parser';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/highlight/type-declaration-node-highlight';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/diagnostic/type-declaration-node-diagnostic';
