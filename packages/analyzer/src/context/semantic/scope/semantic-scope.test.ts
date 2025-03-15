@@ -3,14 +3,17 @@ import {newText, newTextRange, newTextReference} from '#common';
 import {expect, test} from 'vitest';
 
 test('Semantic scope', () => {
-  const scope = newSemanticScope();
+  const parentScope = newSemanticScope();
 
-  scope.add(
+  parentScope.add(
     newNominalTypeDeclarationSemantic(newTextReference(newText(), newTextRange()), newText('Number')),
   );
 
-  const declaration = scope.get(newText('Number'));
+  const childScope = newSemanticScope(parentScope);
 
-  expect(scope._declarations?.count()).toBe(1);
+  const declaration = childScope.get(newText('Number'));
+
+  expect(parentScope._declarations?.count()).toBe(1);
+  expect(childScope._declarations).toBeFalsy();
   expect(declaration?.name.toNativeString()).toBe('Number');
 });
