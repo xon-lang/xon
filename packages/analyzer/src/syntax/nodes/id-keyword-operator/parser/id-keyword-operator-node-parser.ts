@@ -10,6 +10,7 @@ import {
   $TypeKeywordNode,
   AnalyzerContext,
   AS,
+  diagnoseIdNode,
   ELSE,
   IdNode,
   IF,
@@ -58,6 +59,7 @@ export function parseIdKeywordOperatorNode(
   }
 
   node.semantify = semantifyIdNode;
+  node.diagnose = diagnoseIdNode;
 
   const $Type = getTokenTypeMap().get(node.text);
 

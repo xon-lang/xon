@@ -20,7 +20,7 @@ export function diagnoseCharacterNode(this: CharacterNode, context: DiagnosticCo
 function expectOnlyCharacter(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Only character expect`),
   );
@@ -29,7 +29,7 @@ function expectOnlyCharacter(range: TextRange): AnalyzerDiagnostic {
 function expectCloseToken(range: TextRange): AnalyzerDiagnostic {
   return newDiagnostic(
     range,
-    AnalyzerDiagnosticType.SYNTAX,
+    AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Close token expect`),
   );
