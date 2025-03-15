@@ -13,7 +13,7 @@ export type SemanticContext = Model &
 
     pushScope(isType?: Boolean2): void;
     popScope(): void;
-    reference(range: TextRange): TextReference;
+    getReference(range: TextRange): TextReference;
   };
 
 export const $SemanticContext = () => $AnalyzerType<SemanticContext>('SemanticContext');

@@ -40,7 +40,7 @@ export function newSemanticContext(sourceLocation?: Text | Nothing): SemanticCon
       }
     },
 
-    reference(range: TextRange): TextReference {
+    getReference(range: TextRange): TextReference {
       return newTextReference(this.sourceLocation, range);
     },
   };
