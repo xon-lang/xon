@@ -1,6 +1,6 @@
 import {ArrayData, newArrayData} from '#common';
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#diagnostic';
-import {convertRange, LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
+import {LANGUAGE_NAME, newTextDocumentAnalyzer, xonToVsCodeRange} from '#vscode';
 import {
   Diagnostic,
   DiagnosticCollection,
@@ -55,7 +55,7 @@ function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): 
   const diagnostics = newArrayData<Diagnostic>();
 
   for (const analyzerDiagnostic of analyzerDiagnostics) {
-    const range = convertRange(analyzerDiagnostic.range);
+    const range = xonToVsCodeRange(analyzerDiagnostic.range);
 
     const diagnostic = new Diagnostic(
       range,

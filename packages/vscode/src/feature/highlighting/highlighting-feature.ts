@@ -1,4 +1,4 @@
-import {convertRange, LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
+import {LANGUAGE_NAME, newTextDocumentAnalyzer, xonToVsCodeRange} from '#vscode';
 import {
   CancellationToken,
   DocumentSemanticTokensProvider,
@@ -39,7 +39,7 @@ class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
 
     for (const {range, type} of highlights) {
       this.channel.appendLine(`Highlighting: ${type}}`);
-      tokensBuilder.push(convertRange(range), type.toString());
+      tokensBuilder.push(xonToVsCodeRange(range), type.toString());
     }
 
     return tokensBuilder.build();
