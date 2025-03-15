@@ -1,16 +1,11 @@
 import {DiagnosticContext, ValueDeclarationNode} from '#analyzer';
 
 export function diagnoseValueDeclarationNode(this: ValueDeclarationNode, context: DiagnosticContext): void {
-  // if (!this.conditionExpressionNode || !this.conditionExpressionNode.canBeExpression) {
-  //   diagnostics.addLastItem(expectExpression(this.range));
-  // }
-}
+  if (this.type?.expression?.diagnose) {
+    this.type?.expression.diagnose(context);
+  }
 
-// function expectExpression(range: TextRange): AnalyzerDiagnostic {
-//   return newDiagnostic(
-//     range,
-//     AnalyzerDiagnosticType.SYNTAX,
-//     AnalyzerDiagnosticSeverity.ERROR,
-//     newText(`Expect expression`),
-//   );
-// }
+  if (this.value?.expression?.diagnose) {
+    this.value?.expression.diagnose(context);
+  }
+}
