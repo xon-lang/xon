@@ -8,28 +8,23 @@ import {newTextReference, nothing} from '#common';
 import {is} from '#typing';
 
 export function semantifyTypeDeclarationNode(this: TypeDeclarationNode, context: SemanticContext): void {
-  context.pushScope();
-
   // const parameters = this.parameters?.items.map(x=>x.semantify())
   if (this.type?.expression?.semantify) {
-    context.scope.isTypeScope = true;
+    context.pushScope(true);
     this.type?.expression?.semantify(context);
-    context.scope.isTypeScope = false;
+    context.popScope();
   }
 
-  if (is(this.type?.expression?.semantic, $TypeSemantic())) {
-    const reference = newTextReference(context.sourceLocation, this.id.range);
+  const reference = newTextReference(context.sourceLocation, this.id.range);
 
-    this.semantic = newNominalTypeDeclarationSemantic(
-      reference,
-      this.id.text,
-      nothing,
-      this.type.expression.semantic,
-    );
+  const semantic = newNominalTypeDeclarationSemantic(
+    reference,
+    this.id.text,
+    nothing,
+    is(this.type?.expression?.semantic, $TypeSemantic()) ? this.type.expression.semantic : nothing,
+  );
 
-    this.id.semantic = this.semantic;
-    context.scope.add(this.semantic);
-  }
-
-  context.popScope();
+  this.semantic = semantic;
+  this.id.semantic = semantic;
+  context.scope.add(semantic);
 }
