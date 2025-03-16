@@ -3,7 +3,7 @@ import {
   $DeclarationSemantic,
   $FileImportScope,
   DeclarationSemantic,
-  ImportScope,
+  FileImportScope,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
@@ -13,10 +13,11 @@ import {ArrayData, Dictionary, newArrayData, newDictionary, newText, Nothing, Te
 import {is} from '#typing';
 import {readFileSync} from 'node:fs';
 
-export function newFileImportScope(filePath: Text): ImportScope {
+export function newFileImportScope(location: Text): FileImportScope {
   return {
     $: $FileImportScope(),
-    _declarations: getDeclarations(filePath),
+    location,
+    _declarations: getDeclarations(location),
 
     get(name: Text): DeclarationSemantic | Nothing {
       return this._declarations?.get(name)?.first();
