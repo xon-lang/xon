@@ -7,7 +7,7 @@ export type ImportValueSemantic = ValueSemantic & {
 export const $ImportValueSemantic = () =>
   $AnalyzerType<ImportValueSemantic>('ImportValueSemantic', $ValueSemantic());
 
-export function importValueSemantic(scope: ImportScope): ImportValueSemantic {
+export function newImportValueSemantic(scope: ImportScope): ImportValueSemantic {
   return {
     $: $ImportValueSemantic(),
 
