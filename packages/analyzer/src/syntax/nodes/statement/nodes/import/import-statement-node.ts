@@ -6,6 +6,7 @@ import {
   ImportValueSemantic,
   newSyntaxNode,
   Node,
+  semantifyImportStatementNode,
   StatementNode,
   StringNode,
 } from '#analyzer';
@@ -35,6 +36,7 @@ export function newImportStatementNode(
     expression,
     errorNodes,
 
+    semantify: semantifyImportStatementNode,
     diagnose: diagnoseImportStatementNode,
   });
 }

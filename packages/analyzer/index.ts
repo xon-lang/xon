@@ -201,6 +201,7 @@ export * from './src/semantic/node/declaration/type/nominal/nominal-type-declara
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/import/semantic/import-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
