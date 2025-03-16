@@ -7,6 +7,7 @@ import {
   parseElseStatementNode,
   parseExpressionStatementNode,
   parseIfStatementNode,
+  parseImportStatementNode,
   parseReturnStatementNode,
   parseTypeDeclarationNode,
   parseValueDeclarationNode,
@@ -82,6 +83,7 @@ export type StatementParserFunction<T extends StatementNode = StatementNode> = (
 
 function statementParsers(): ArrayData<StatementParserFunction> {
   return newArrayData([
+    parseImportStatementNode,
     parseTypeDeclarationNode,
     parseValueDeclarationNode,
     parseIfStatementNode,

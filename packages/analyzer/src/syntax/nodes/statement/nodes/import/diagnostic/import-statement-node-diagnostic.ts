@@ -1,5 +1,5 @@
 import {DiagnosticContext, ImportStatementNode} from '#analyzer';
-import {newText, TextRange} from '#common';
+import {newText, Text, TextRange} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -8,8 +8,14 @@ import {
 } from '#diagnostic';
 
 export function diagnoseImportStatementNode(this: ImportStatementNode, context: DiagnosticContext): void {
-  if (!this.expression || !this.expression.canBeExpression) {
+  if (!this.expression?.content) {
     context.add(expectExpression(this.range));
+
+    return;
+  }
+
+  if (!this.semantic) {
+    context.add(cannotFindModule(this.expression.content.text, this.expression.range));
   }
 }
 
@@ -19,5 +25,14 @@ function expectExpression(range: TextRange): AnalyzerDiagnostic {
     AnalyzerDiagnosticType.Syntax,
     AnalyzerDiagnosticSeverity.Error,
     newText(`Expect expression`),
+  );
+}
+
+function cannotFindModule(path: Text, range: TextRange): AnalyzerDiagnostic {
+  return newDiagnostic(
+    range,
+    AnalyzerDiagnosticType.Syntax,
+    AnalyzerDiagnosticSeverity.Error,
+    newText(`Cannot find module '${path}'`),
   );
 }
