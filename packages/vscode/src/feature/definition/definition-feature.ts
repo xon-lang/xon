@@ -1,5 +1,14 @@
-import {$IdTypeSemantic} from '#analyzer';
-import {ArrayData, Nothing, Text, TextRange, TextReference, newArrayData, nothing} from '#common';
+import {$FileImportScope, $IdTypeSemantic, $ImportValueSemantic} from '#analyzer';
+import {
+  ArrayData,
+  Nothing,
+  Text,
+  TextRange,
+  TextReference,
+  newArrayData,
+  newTextRange,
+  nothing,
+} from '#common';
 import {is} from '#typing';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, vsCodeToXonPosition, xonToVsCodeRange} from '#vscode';
 import {
@@ -37,13 +46,13 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    // if (is(node.semantic, $ImportValueSemantic())) {
-    //   if (node.semantic.resource?.location) {
-    //     return navigateToLocation(node.range, node.semantic.resource.location)?.toNativeArray();
-    //   }
+    if (is(node.semantic, $ImportValueSemantic())) {
+      if (is(node.semantic.scope, $FileImportScope())) {
+        return navigateToLocation(node.range, node.semantic.scope.location, newTextRange())?.toNativeArray();
+      }
 
-    //   return nothing;
-    // }
+      return nothing;
+    }
 
     // if (is(node.semantic, $DeclarationSemantic())) {
     //   return navigateToUsages(node.range, node.semantic).toNativeArray();
