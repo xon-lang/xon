@@ -3,6 +3,7 @@ import {
   $StatementNode,
   diagnoseImportStatementNode,
   ImportKeywordNode,
+  ImportValueSemantic,
   newSyntaxNode,
   Node,
   StatementNode,
@@ -15,6 +16,7 @@ export type ImportStatementNode = StatementNode &
   Brand<'Analyzer.ImportStatementNode'> & {
     keyword: ImportKeywordNode;
     expression?: StringNode | Nothing;
+    semantic?: ImportValueSemantic | Nothing;
   };
 
 export const $ImportStatementNode = () =>
