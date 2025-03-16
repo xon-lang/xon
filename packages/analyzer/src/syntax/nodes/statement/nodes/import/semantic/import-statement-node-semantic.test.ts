@@ -15,7 +15,7 @@ import {resolve} from 'node:path';
 import {expect, test} from 'vitest';
 
 test('Import node scope', () => {
-  const text = newText('import "import-node-semantic-test-file.xon"');
+  const text = newText('import "import-statement-node-semantic-test-file.xon"');
   const semantic = getImportStatementNode(text);
 
   expect(semantic.scope._declarations?.count()).toBe(1);

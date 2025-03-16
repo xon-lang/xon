@@ -18,6 +18,8 @@ export function semantifyImportStatementNode(this: ImportStatementNode, context:
 
   const importScope = newFileImportScope(newText(filePath));
   const semantic = newImportValueSemantic(importScope);
-  this.expression.semantic = semantic;
+
   this.semantic = semantic;
+  this.expression.semantic = semantic;
+  this.expression.content.semantic = semantic;
 }
