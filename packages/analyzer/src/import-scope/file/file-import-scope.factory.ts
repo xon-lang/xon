@@ -14,7 +14,7 @@ import {is} from '#typing';
 import {readFileSync} from 'node:fs';
 
 export function newFileImportScope(filePath: Text): ImportScope {
-  // todo use async version
+  // todo use async version of 'readFileSync'
   const buffer = readFileSync(filePath.toNativeString());
   const text = newText(buffer.toString());
   const source = newCharacterStreamFromText(text);
@@ -39,6 +39,7 @@ export function newFileImportScope(filePath: Text): ImportScope {
 
   return {
     $: $FileImportScope(),
+    _declarations,
 
     get(name: Text): DeclarationSemantic | Nothing {
       return this._declarations?.get(name)?.first();
