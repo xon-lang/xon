@@ -16,6 +16,7 @@ export * from './src/character-stream/character-stream.factory';
 export * from './src/character-stream/character-stream.model';
 export * from './src/syntax/nodes/node';
 export * from './src/semantic/node/semantic';
+export * from './src/import-scope/file/file-import-scope.factory';
 export * from './src/import-scope/file/file-import-scope';
 export * from './src/context/semantic/semantic-context.factory';
 export * from './src/context/semantic/semantic-context.model';
