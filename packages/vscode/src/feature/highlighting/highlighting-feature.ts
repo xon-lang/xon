@@ -34,7 +34,7 @@ class DocumentSemanticTokens implements DocumentSemanticTokensProvider {
     document: TextDocument,
     cancellationToken: CancellationToken,
   ): ProviderResult<SemanticTokens> {
-    const {highlights} = newTextDocumentAnalyzer(document, this.channel);
+    const highlights = newTextDocumentAnalyzer(document, this.channel).getHighlights();
     const tokensBuilder = new SemanticTokensBuilder(this.legend);
 
     for (const {range, type} of highlights) {

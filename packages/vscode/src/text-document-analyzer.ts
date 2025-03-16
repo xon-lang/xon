@@ -18,10 +18,10 @@ import {OutputChannel, TextDocument} from 'vscode';
 export type TextDocumentAnalyzer = Model &
   Brand<'Analyzer.TextDocumentAnalyzer'> & {
     statements: ArrayData<StatementNode>;
-    highlights: ArrayData<HighlightToken>;
-    diagnostics: ArrayData<AnalyzerDiagnostic>;
 
     findNode(position: TextPosition): Node | Nothing;
+    getHighlights(): ArrayData<HighlightToken>;
+    getDiagnostics(): ArrayData<AnalyzerDiagnostic>;
   };
 
 export const $TextDocumentAnalyzer = () => $VscodeType<TextDocumentAnalyzer>('TextDocumentAnalyzer');
@@ -37,13 +37,9 @@ export function newTextDocumentAnalyzer(
   const {statements} = parseStatements(context);
 
   const semanticContext = newSemanticContext(location);
-  const highlightContext = newHighlightContext();
-  const diagnosticContext = newDiagnosticContext();
 
   for (const statement of statements) {
     statement.semantify && statement.semantify(semanticContext);
-    statement.highlight && statement.highlight(highlightContext);
-    statement.diagnose && statement.diagnose(diagnosticContext);
   }
 
   channel.appendLine('Handled document: ' + document.uri.fsPath);
@@ -51,13 +47,31 @@ export function newTextDocumentAnalyzer(
   return {
     $: $TextDocumentAnalyzer(),
     statements,
-    highlights: highlightContext.highlights,
-    diagnostics: diagnosticContext.diagnostics,
 
     findNode(position: TextPosition): Node | Nothing {
       const statement = findChildStatementNode(this.statements, position);
 
       return statement ? findChildNode(statement, position) : nothing;
+    },
+
+    getHighlights() {
+      const highlightContext = newHighlightContext();
+
+      for (const statement of this.statements) {
+        statement.highlight && statement.highlight(highlightContext);
+      }
+
+      return highlightContext.highlights;
+    },
+
+    getDiagnostics() {
+      const diagnosticContext = newDiagnosticContext();
+
+      for (const statement of this.statements) {
+        statement.diagnose && statement.diagnose(diagnosticContext);
+      }
+
+      return diagnosticContext.diagnostics;
     },
   };
 }

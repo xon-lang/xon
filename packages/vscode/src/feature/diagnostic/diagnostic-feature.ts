@@ -48,7 +48,7 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
   const analyzer = newTextDocumentAnalyzer(document, channel);
 
   diagnostics.clear();
-  diagnostics.set(document.uri, convertDiagnostic(analyzer.diagnostics).toNativeArray());
+  diagnostics.set(document.uri, convertDiagnostic(analyzer.getDiagnostics()).toNativeArray());
 }
 
 function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): ArrayData<Diagnostic> {
