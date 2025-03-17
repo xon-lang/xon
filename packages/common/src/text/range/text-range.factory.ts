@@ -21,10 +21,10 @@ export function newTextRange(start?: TextPosition | Nothing, stop?: TextPosition
 
     contains(positionOrRange: TextPosition | TextRange): Boolean2 {
       if (is(positionOrRange, $TextPosition())) {
-        return positionOrRange.index >= this.start.index && positionOrRange.index <= this.stop.index;
+        return positionOrRange.index >= this.start.index && positionOrRange.index < this.stop.index;
       }
 
-      return positionOrRange.start.index >= this.start.index && positionOrRange.stop.index <= this.stop.index;
+      return positionOrRange.start.index >= this.start.index && positionOrRange.stop.index < this.stop.index;
     },
 
     union(other: TextRange): TextRange {
