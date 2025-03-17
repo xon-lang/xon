@@ -1,6 +1,6 @@
 import {ImportStatementNode, newFileImportScope, newImportValueSemantic, SemanticContext} from '#analyzer';
 import {newText} from '#common';
-import {existsSync} from 'node:fs';
+import {existsSync, statSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 
 export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
@@ -12,7 +12,7 @@ export function semantifyImportStatementNode(this: ImportStatementNode, context:
   const dirName = dirname(context.sourceLocation.toNativeString());
   const filePath = resolve(dirName, importPath);
 
-  if (!existsSync(filePath)) {
+  if (!existsSync(filePath) || !statSync(filePath).isFile()) {
     return;
   }
 
