@@ -1,9 +1,11 @@
-import {$CommonType, Nothing, Text} from '#common';
-import {$Model, Model} from '#typing';
+import {$CommonType, Boolean2, URI} from '#common';
+import {Brand, Model} from '#typing';
 
-export type Resource<T> = Model & {
-  location: Text | Nothing;
-  data: T;
-};
+export type Resource = Model &
+  Brand<'Common.Resource'> & {
+    uri: URI;
 
-export const $Resource = <T>($T = $Model()) => $CommonType<Resource<T>>('Resource', undefined, [$T]);
+    exists(): Boolean2;
+  };
+
+export const $Resource = () => $CommonType<Resource>('Resource');
