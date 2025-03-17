@@ -1,9 +1,15 @@
 import {$ImportStatementNode, $StringNode, StringNode} from '#analyzer';
-import {newCharacter, newText} from '#common';
+import {
+  $DirectoryResource,
+  $FileResource,
+  newCharacter,
+  newDirectoryResource,
+  newText,
+  newURI,
+} from '#common';
 import {is} from '#typing';
 import {newTextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
-import {existsSync, readdirSync, statSync} from 'node:fs';
-import {basename, dirname, resolve} from 'node:path';
+import {dirname, resolve} from 'node:path';
 import {
   CancellationToken,
   CompletionContext,
@@ -43,30 +49,27 @@ export class ImportCompletionItemProvider implements CompletionItemProvider {
     const lastSlashIndex = contentUntilPosition.lastItemIndex(newCharacter('/'));
     const contentUntilSlash = contentUntilPosition.slice(0, lastSlashIndex ?? 0).toNativeString();
 
-    const iterateDir = resolve(dirname(document.uri.fsPath), contentUntilSlash);
+    const documentDirectory = newDirectoryResource(
+      newURI(newText(resolve(dirname(document.uri.fsPath), contentUntilSlash))),
+    );
 
-    if (!existsSync(iterateDir)) {
+    if (!documentDirectory.exists()) {
       return;
     }
 
-    const documentBaseName = basename(document.uri.fsPath);
     const items: CompletionItem[] = [];
 
-    for (const path of readdirSync(iterateDir)) {
-      const fullPath = resolve(iterateDir, path);
-      const stat = statSync(fullPath);
-      const baseName = basename(fullPath);
+    for (const resource of documentDirectory.getResources()) {
+      if (is(resource, $FileResource())) {
+        items.push(new CompletionItem(resource.name.toNativeString(), CompletionItemKind.File));
 
-      if (baseName === documentBaseName) {
         continue;
       }
 
-      if (stat.isFile()) {
-        items.push(new CompletionItem(baseName, CompletionItemKind.File));
-      }
+      if (is(resource, $DirectoryResource())) {
+        items.push(new CompletionItem(resource.name.toNativeString(), CompletionItemKind.File));
 
-      if (stat.isDirectory()) {
-        items.push(new CompletionItem(baseName, CompletionItemKind.Folder));
+        continue;
       }
     }
 
