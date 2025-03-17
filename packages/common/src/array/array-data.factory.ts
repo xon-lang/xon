@@ -278,29 +278,32 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return this.firstItemsIndex(items) != nothing;
     },
 
-    // todo should we return new array/immutability ???
     addFirstItems(items: ArrayData<T>): ArrayData<T> {
-      this._items.unshift(...items);
+      const array = [...this._items];
+      array.unshift(...items);
 
-      return this;
+      return newArrayData(array);
     },
 
     addFirstItem(item: T): ArrayData<T> {
-      this._items.unshift(item);
+      const array = [...this._items];
+      array.unshift(item);
 
-      return this;
+      return newArrayData(array);
     },
 
     addLastItems(items: ArrayData<T>): ArrayData<T> {
-      this._items.push(...items);
+      const array = [...this._items];
+      array.push(...items);
 
-      return this;
+      return newArrayData(array);
     },
 
     addLastItem(item: T): ArrayData<T> {
-      this._items.push(item);
+      const array = [...this._items];
+      array.push(item);
 
-      return this;
+      return newArrayData(array);
     },
 
     removeFirst(length?: Integer | Nothing): ArrayData<T> {
