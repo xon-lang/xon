@@ -19,6 +19,10 @@ export type TextDocumentAnalyzer = Model &
   Brand<'Analyzer.TextDocumentAnalyzer'> & {
     statements: ArrayData<StatementNode>;
 
+    findClosestNode<T extends Node = Node>(
+      predicate: (node: Node) => node is T,
+      position: TextPosition,
+    ): T | Nothing;
     findNode(position: TextPosition): Node | Nothing;
     getHighlights(): ArrayData<HighlightToken>;
     getDiagnostics(): ArrayData<AnalyzerDiagnostic>;
@@ -48,6 +52,19 @@ export function newTextDocumentAnalyzer(
     $: $TextDocumentAnalyzer(),
     statements,
 
+    findClosestNode<T extends Node = Node>(
+      predicate: (node: Node) => node is T,
+      position: TextPosition,
+    ): T | Nothing {
+      const node = this.findNode(position);
+
+      if (!node) {
+        return nothing;
+      }
+
+      return findClosestNode(predicate, node);
+    },
+
     findNode(position: TextPosition): Node | Nothing {
       const statement = findChildStatementNode(this.statements, position);
 
@@ -74,6 +91,21 @@ export function newTextDocumentAnalyzer(
       return diagnosticContext.diagnostics;
     },
   };
+}
+
+function findClosestNode<T extends Node = Node>(
+  predicate: (node: Node) => node is T,
+  node: Node,
+): T | Nothing {
+  if (predicate(node)) {
+    return node;
+  }
+
+  if (!node.parent) {
+    return nothing;
+  }
+
+  return findClosestNode(predicate, node.parent);
 }
 
 function findChildStatementNode(

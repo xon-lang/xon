@@ -17,3 +17,4 @@ export * from './src/feature/definition/definition-feature';
 export * from './src/feature/completion/completion-feature';
 export * from './src/feature/completion/items/dot-completion-feature';
 export * from './src/feature/completion/items/id-completion-feature';
+export * from './src/feature/completion/items/import-completion-feature';

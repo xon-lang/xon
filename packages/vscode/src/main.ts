@@ -1,4 +1,5 @@
 import {
+  configureCompletionFeature,
   configureDefinitionFeature,
   configureDiagnosticFeature,
   configureHighlightingFeature,
@@ -17,7 +18,7 @@ export function activate(context: ExtensionContext) {
   configureHighlightingFeature(context, channel);
   // configureHoverFeature(context, channel);
   configureDefinitionFeature(context, channel);
-  // configureCompletionFeature(context, channel);
+  configureCompletionFeature(context, channel);
   // configureRenameFeature(context, channel);
   // configureMoveToNewFileFeature(context, channel);
   // configureSignatureFeature(context, channel);
