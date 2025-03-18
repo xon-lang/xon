@@ -4,6 +4,7 @@ import {
   diagnoseExpressionStatementNode,
   newSyntaxNode,
   Node,
+  semantifyExpressionStatementNode,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
@@ -28,6 +29,7 @@ export function newExpressionStatementNode(
     expression,
     errorNodes,
 
+    semantify: semantifyExpressionStatementNode,
     diagnose: diagnoseExpressionStatementNode,
   });
 }
