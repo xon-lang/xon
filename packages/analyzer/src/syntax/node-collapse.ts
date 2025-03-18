@@ -2,6 +2,7 @@ import {
   collapseConditionStatementNode,
   collapseInvokeNode,
   collapseLambdaNode,
+  collapseMemberNode,
   collapsePlusInfixNode,
   collapseTypeNode,
   collapseValueNode,
@@ -21,6 +22,10 @@ export type NodeCollapseResult<T extends Node = Node> =
 
 function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayData<NodeCollapseFn>}> {
   return newArrayData([
+    {
+      isLeftRecursive: true,
+      collapses: newArrayData([collapseMemberNode()]),
+    },
     {
       isLeftRecursive: true,
       collapses: newArrayData([collapseInvokeNode()]),
