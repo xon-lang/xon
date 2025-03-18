@@ -204,6 +204,7 @@ export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-state
 export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/expression/semantic/expression-statement-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/expression/diagnostic/expression-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/declaration/value/value-declaration-node';
@@ -243,6 +244,7 @@ export * from './src/syntax/nodes/statement/nodes/declaration/value/parser/value
 export * from './src/syntax/nodes/statement/nodes/declaration/value/diagnostic/value-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/semantic/type-declaration-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/parser/type-declaration-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/type/highlight/type-declaration-node-highlight.test~';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/highlight/type-declaration-node-highlight';
 export * from './src/syntax/nodes/statement/nodes/declaration/type/diagnostic/type-declaration-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';

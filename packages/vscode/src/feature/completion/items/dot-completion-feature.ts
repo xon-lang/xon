@@ -1,78 +1,82 @@
-// import {
-//   $FunctionTypeSemantic,
-//   $IdTypeSemantic,
-//   $MemberNode,
-//   $TypeSemantic,
-//   $ValueSemantic,
-//   Semantic,
-//   ValueDeclarationSemantic,
-// } from '#analyzer';
-// import {ArrayData, nothing, Nothing} from '#common';
-// import {is} from '#typing';
-// import {convertVscodePosition, getDocumentSemantic} from '#vscode';
-// import {
-//   CancellationToken,
-//   CompletionContext,
-//   CompletionItem,
-//   CompletionItemKind,
-//   CompletionItemProvider,
-//   CompletionList,
-//   OutputChannel,
-//   Position,
-//   ProviderResult,
-//   TextDocument,
-// } from 'vscode';
+import {
+  $FunctionTypeSemantic,
+  $IdTypeSemantic,
+  $MemberNode,
+  $TypeSemantic,
+  AttributeDeclarationSemantic,
+  MemberNode,
+  Semantic,
+} from '#analyzer';
+import {ArrayData, nothing, Nothing} from '#common';
+import {is} from '#typing';
+import {newTextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
+import {
+  CancellationToken,
+  CompletionContext,
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  CompletionList,
+  OutputChannel,
+  Position,
+  ProviderResult,
+  TextDocument,
+} from 'vscode';
 
-// export class DotCompletionItemProvider implements CompletionItemProvider {
-//   constructor(private channel: OutputChannel) {}
+export class DotCompletionItemProvider implements CompletionItemProvider {
+  constructor(private channel: OutputChannel) {}
 
-//   provideCompletionItems(
-//     document: TextDocument,
-//     position: Position,
-//     _token: CancellationToken,
-//     _context: CompletionContext,
-//   ): ProviderResult<CompletionItem[] | CompletionList<CompletionItem>> {
-//     const semantic = getDocumentSemantic(document, this.channel);
-//     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
+  provideCompletionItems(
+    document: TextDocument,
+    position: Position,
+    _token: CancellationToken,
+    _context: CompletionContext,
+  ): ProviderResult<CompletionItem[] | CompletionList<CompletionItem>> {
+    const analyzer = newTextDocumentAnalyzer(document, this.channel);
 
-//     if (is(node?.parent, $MemberNode()) && node.parent.instance.semantic) {
-//       const attributes = getAttributes(node.parent.instance.semantic);
+    const node = analyzer.findClosestNode(
+      (node): node is MemberNode => is(node, $MemberNode()),
+      vsCodeToXonPosition(document, position.with({character: position.character - 1})),
+    );
 
-//       if (attributes) {
-//         return attributes.map(createAttributeCompletionItem).toNativeArray();
-//       }
-//     }
+    if (!node?.instance.semantic) {
+      return;
+    }
 
-//     return nothing;
-//   }
-// }
+    console.log(node?.instance.semantic);
 
-// function getAttributes(semantic: Semantic): ArrayData<ValueDeclarationSemantic> | Nothing {
-//   if (is(semantic, $TypeSemantic())) {
-//     return semantic.attributes().all();
-//   }
+    const attributes = getAttributes(node.instance.semantic);
 
-//   if (is(semantic, $ValueSemantic()) && semantic.type) {
-//     return semantic.type.attributes().all();
-//   }
+    return attributes?.map(createCompletionItem).toNativeArray();
+  }
+}
 
-//   return nothing;
-// }
+function getAttributes(semantic: Semantic): ArrayData<AttributeDeclarationSemantic> | Nothing {
+  if (is(semantic, $TypeSemantic())) {
+    return semantic.attributes?._declarations.flatMap((x) => x.value);
+  }
 
-// function createAttributeCompletionItem(semantic: ValueDeclarationSemantic): CompletionItem {
-//   const item = new CompletionItem(semantic.name.toNativeString(), getCompletionItemKind(semantic));
+  // if (is(semantic, $ValueSemantic()) && semantic.type) {
+  //   return semantic.type.attributes().all();
+  // }
 
-//   if (is(semantic.type, $IdTypeSemantic()) && semantic.type.declaration) {
-//     item.detail = semantic.type.declaration.name.toNativeString();
-//   }
+  return nothing;
+}
 
-//   return item;
-// }
+function createCompletionItem(semantic: AttributeDeclarationSemantic): CompletionItem {
+  const item = new CompletionItem(semantic.name.toNativeString(), getCompletionItemKind(semantic));
 
-// export function getCompletionItemKind(semantic: ValueDeclarationSemantic): CompletionItemKind {
-//   if (is(semantic.type, $FunctionTypeSemantic())) {
-//     return CompletionItemKind.Method;
-//   }
+  if (is(semantic.type, $IdTypeSemantic()) && semantic.type.declaration) {
+    item.detail = semantic.type.declaration.name.toNativeString();
+  }
 
-//   return CompletionItemKind.Field;
-// }
+  return item;
+}
+
+export function getCompletionItemKind(semantic: AttributeDeclarationSemantic): CompletionItemKind {
+  if (is(semantic.type, $FunctionTypeSemantic())) {
+    return CompletionItemKind.Method;
+  }
+
+  return CompletionItemKind.Field;
+}
