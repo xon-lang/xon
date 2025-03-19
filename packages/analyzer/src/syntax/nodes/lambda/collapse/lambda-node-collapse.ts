@@ -21,7 +21,7 @@ export function collapseLambdaNode(): NodeCollapseFn<LambdaNode> {
           return nothing;
         }
 
-        const {target, type, assign} = extractDeclarationInfo(typeAssign);
+        const {target, type, value: assign} = extractDeclarationInfo(typeAssign);
 
         if (!is(target, $ParenGroupNode())) {
           return nothing;

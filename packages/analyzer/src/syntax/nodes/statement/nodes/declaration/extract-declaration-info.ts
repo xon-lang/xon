@@ -14,7 +14,7 @@ export type ExtractedDeclarationInfo = {
   target?: Node | Nothing;
   parameters?: GroupNode | Nothing;
   type?: OperatorExpressionNode | Nothing;
-  assign?: OperatorExpressionNode | Nothing;
+  value?: OperatorExpressionNode | Nothing;
 };
 
 export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarationInfo {
@@ -35,13 +35,13 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
   if (is(node, $ValueNode())) {
     const {target, parameters, type} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, type, assign: node.value};
+    return {target, parameters, type, value: node.value};
   }
 
   if (is(node, $LambdaNode())) {
-    const {parameters: group, type, value: assign} = node;
+    const {parameters: group, type, value} = node;
 
-    return {target: group, type, assign};
+    return {target: group, type, value};
   }
 
   return {target: node};

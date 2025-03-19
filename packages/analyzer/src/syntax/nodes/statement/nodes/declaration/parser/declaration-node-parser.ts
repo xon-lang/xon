@@ -19,7 +19,7 @@ export function parseDeclarationNode(indent: Integer, nodes: ArrayData<Node>): D
   }
 
   nodes = collapseNodes(nodes);
-  const {target, type, assign} = extractDeclarationInfo(nodes.first());
+  const {target, type, value: assign} = extractDeclarationInfo(nodes.first());
 
   if (!is(target, $IdNode()) || (!type && !assign && !keyword)) {
     return nothing;
