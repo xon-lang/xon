@@ -1,10 +1,9 @@
 import {
   $ConditionStatementNode,
+  $DeclarationNode,
   $ExpressionStatementNode,
   $ImportStatementNode,
   $ReturnStatementNode,
-  $TypeDeclarationNode,
-  $ValueDeclarationNode,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, newText, Text} from '#common';
@@ -27,11 +26,11 @@ export function translateTypescriptStatement(node: StatementNode): Text {
     return translateTypescriptImportStatement(node);
   }
 
-  if (is(node, $TypeDeclarationNode())) {
+  if (is(node, $DeclarationNode())) {
     return translateTypescriptTypeDeclarationStatement(node);
   }
 
-  if (is(node, $ValueDeclarationNode())) {
+  if (is(node, $DeclarationNode())) {
     return translateTypescriptValueDeclarationStatement(node, false);
   }
 

@@ -1,10 +1,4 @@
-import {
-  $ExpressionStatementNode,
-  $IdNode,
-  $ValueDeclarationNode,
-  StatementNode,
-  ValueDeclarationNode,
-} from '#analyzer';
+import {$DeclarationNode, $ExpressionStatementNode, $IdNode, DeclarationNode, StatementNode} from '#analyzer';
 import {Boolean2, newText, Text} from '#common';
 import {translateTypescriptType} from '#translator';
 import {is} from '#typing';
@@ -13,7 +7,7 @@ export function translateTypescriptValueDeclarationStatement(
   node: StatementNode,
   isAttribute: Boolean2,
 ): Text {
-  if (is(node, $ValueDeclarationNode())) {
+  if (is(node, $DeclarationNode())) {
     return translateValueDeclaration(node, isAttribute);
   }
 
@@ -24,7 +18,7 @@ export function translateTypescriptValueDeclarationStatement(
   return newText(`/* error value2 declaration */`);
 }
 
-function translateValueDeclaration(node: ValueDeclarationNode, isAttribute: Boolean2): Text {
+function translateValueDeclaration(node: DeclarationNode, isAttribute: Boolean2): Text {
   if (!node.id) {
     return newText(`/* error value declaration */`);
   }

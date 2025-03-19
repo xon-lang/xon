@@ -1,10 +1,10 @@
-import {$TypeDeclarationNode, StatementNode, TypeDeclarationNode} from '#analyzer';
+import {$DeclarationNode, DeclarationNode, StatementNode} from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
 import {translateTypescriptValueDeclarationStatement} from '#translator';
 import {is} from '#typing';
 
-export function translateTypescriptTypeDeclarationStatement(node: TypeDeclarationNode): Text {
-  if (is(node, $TypeDeclarationNode())) {
+export function translateTypescriptTypeDeclarationStatement(node: DeclarationNode): Text {
+  if (is(node, $DeclarationNode())) {
     const body = translateAttributes(node.body ?? newArrayData());
 
     return newText(`type ${node.id.text} = ${body}`);

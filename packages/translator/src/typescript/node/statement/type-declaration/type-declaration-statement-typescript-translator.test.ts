@@ -1,9 +1,4 @@
-import {
-  newAnalyzerContext,
-  newCharacterStreamFromText,
-  parseStatements,
-  TypeDeclarationNode,
-} from '#analyzer';
+import {DeclarationNode, newAnalyzerContext, newCharacterStreamFromText, parseStatements} from '#analyzer';
 import {newText, Text} from '#common';
 import {translateTypescriptTypeDeclarationStatement} from '#translator';
 import {expect, test} from 'vitest';
@@ -16,13 +11,13 @@ test('Nominal type statement', () => {
   expect(translated.toNativeString()).toBe('type A = {}');
 });
 
-function getNominalTypeDeclarationNode(text: Text): TypeDeclarationNode {
+function getNominalTypeDeclarationNode(text: Text): DeclarationNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
-  const node = statements.first() as TypeDeclarationNode;
+  const node = statements.first() as DeclarationNode;
   // const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  // const node = parseTypeDeclarationNode(0, nodes) as NominalTypeDeclarationNode;
+  // const node = parseDeclarationNode(0, nodes) as NominalTypeDeclarationNode;
 
   expect(node).toBeTruthy();
 
