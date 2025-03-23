@@ -144,6 +144,7 @@ export * from './src/syntax/nodes/string/nodes/string-content/string-content-nod
 export * from './src/syntax/nodes/string/nodes/string-content/string-content-node';
 export * from './src/syntax/nodes/string/nodes/string-close/string-close-node.parser';
 export * from './src/syntax/nodes/string/nodes/string-close/string-close-node';
+export * from './src/syntax/nodes/statement/nodes/unknown/unknown-statement-node';
 export * from './src/syntax/nodes/statement/nodes/return/return-statement-node';
 export * from './src/syntax/nodes/statement/nodes/import/import-statement-node';
 export * from './src/syntax/nodes/statement/nodes/expression/expression-statement-node';
@@ -198,6 +199,7 @@ export * from './src/semantic/node/declaration/type/parameter/parameter-type-dec
 export * from './src/semantic/node/declaration/type/parameter/parameter-type-declaration-semantic';
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic-handle';
 export * from './src/semantic/node/declaration/type/nominal/nominal-type-declaration-semantic';
+export * from './src/syntax/nodes/statement/nodes/unknown/diagnostic/unknown-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantic';

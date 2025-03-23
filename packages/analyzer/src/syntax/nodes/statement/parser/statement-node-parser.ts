@@ -2,6 +2,7 @@ import {
   $NlNode,
   AnalyzerContext,
   collapseStatements,
+  newUnknownStatementNode,
   Node,
   nodeGenerator,
   parseDeclarationNode,
@@ -87,6 +88,7 @@ function statementParsers(): ArrayData<StatementParserFunction> {
     parseIfStatementNode,
     parseElseStatementNode,
     parseReturnStatementNode,
+    parseExpressionStatementNode,
   ]);
 }
 
@@ -101,7 +103,7 @@ function handleStatement(
 
   statement =
     statementParsers().firstMap((parse) => parse(indent, nodes, parent)) ??
-    parseExpressionStatementNode(indent, nodes);
+    newUnknownStatementNode(indent, nodes);
 
   if (parent) {
     parent.body ??= newArrayData();

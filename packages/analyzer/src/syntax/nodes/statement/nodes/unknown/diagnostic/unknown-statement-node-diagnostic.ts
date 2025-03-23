@@ -1,4 +1,4 @@
-import {DiagnosticContext, ExpressionStatementNode} from '#analyzer';
+import {DiagnosticContext, UnknownStatementNode} from '#analyzer';
 import {newText, TextRange} from '#common';
 import {
   AnalyzerDiagnostic,
@@ -7,11 +7,7 @@ import {
   newDiagnostic,
 } from '#diagnostic';
 
-export function diagnoseExpressionStatementNode(
-  this: ExpressionStatementNode,
-  context: DiagnosticContext,
-): void {
-  this.expression.diagnose(context);
+export function diagnoseUnknownStatementNode(this: UnknownStatementNode, context: DiagnosticContext): void {
   this.errorNodes?.forEach((x) => context.add(errorNode(x.range)));
 }
 

@@ -8,13 +8,15 @@ import {
   Node,
   semantifyExpressionStatementNode,
   StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type ExpressionStatementNode = StatementNode &
   Brand<'Analyzer.ExpressionStatementNode'> & {
-    expression: Node;
+    // todo change to ExpressionNode
+    expression: SyntaxNode;
   };
 
 export const $ExpressionStatementNode = () =>
@@ -22,7 +24,7 @@ export const $ExpressionStatementNode = () =>
 
 export function newExpressionStatementNode(
   indent: Integer,
-  expression: Node,
+  expression: SyntaxNode,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ExpressionStatementNode {
   return newSyntaxNode<ExpressionStatementNode>({

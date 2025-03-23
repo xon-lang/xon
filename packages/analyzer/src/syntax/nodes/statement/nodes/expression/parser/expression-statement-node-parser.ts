@@ -1,11 +1,23 @@
-import {collapseNodes, ExpressionStatementNode, newExpressionStatementNode, Node} from '#analyzer';
-import {ArrayData, Integer} from '#common';
+import {
+  $SyntaxNode,
+  collapseNodes,
+  ExpressionStatementNode,
+  newExpressionStatementNode,
+  Node,
+} from '#analyzer';
+import {ArrayData, Integer, nothing, Nothing} from '#common';
+import {is} from '#typing';
 
 export function parseExpressionStatementNode(
   indent: Integer,
   nodes: ArrayData<Node>,
-): ExpressionStatementNode {
+): ExpressionStatementNode | Nothing {
   nodes = collapseNodes(nodes);
+  const firstNode = nodes.first();
 
-  return newExpressionStatementNode(indent, nodes.first()!, nodes.slice(1));
+  if (!is(firstNode, $SyntaxNode())) {
+    return nothing;
+  }
+
+  return newExpressionStatementNode(indent, firstNode, nodes.slice(1));
 }
