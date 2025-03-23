@@ -1,13 +1,14 @@
-import {ImportStatementNode} from '#analyzer';
+import {$StringNode, ImportStatementNode} from '#analyzer';
 import {newText, Text} from '#common';
-import {translateTypescriptValue} from '#translator';
+import {is} from '#typing';
 
 export function translateTypescriptImportStatement(node: ImportStatementNode): Text {
-  if (!node.expression) {
+  if (!is(node.expression, $StringNode()) || !node.expression.content) {
     return newText(`/* error import */;`);
   }
 
-  const expression = translateTypescriptValue(node.expression);
+  // todo fix import path (should be provider related)
+  const path = node.expression.content.text.toNativeString().replace(/^(.+?)(\.[^.]+)?$/, '$1.ts');
 
-  return newText(`import ${expression};`);
+  return newText(`import '${path}';`);
 }
