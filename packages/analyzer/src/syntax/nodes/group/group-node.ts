@@ -1,10 +1,14 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
+  DiagnosticContext,
+  FormatterContext,
   GroupCloseNode,
   GroupItemNode,
   GroupOpenNode,
+  HighlightContext,
   newSyntaxNode,
+  SemanticContext,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
@@ -32,6 +36,11 @@ export function newGroupNode(
     open,
     items,
     close,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }
 

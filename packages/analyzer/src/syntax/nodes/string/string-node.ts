@@ -3,6 +3,7 @@ import {
   $SyntaxNode,
   diagnoseStringNode,
   formatStringNode,
+  HighlightContext,
   newSyntaxNode,
   semantifyStringNode,
   StringCloseNode,
@@ -34,8 +35,9 @@ export function newStringNode(
     content,
     close,
 
+    semantify: semantifyStringNode,
     diagnose: diagnoseStringNode,
     format: formatStringNode,
-    semantify: semantifyStringNode,
+    highlight(context: HighlightContext): void {},
   });
 }

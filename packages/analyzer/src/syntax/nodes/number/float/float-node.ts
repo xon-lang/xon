@@ -1,10 +1,14 @@
 import {
   $AnalyzerType,
   $NumberNode,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
   IntegerContentNode,
   newSyntaxNode,
   NumberNode,
   RadixPointNode,
+  SemanticContext,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
@@ -29,5 +33,10 @@ export function newFloatNode(
     integer,
     radixPoint,
     fraction,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

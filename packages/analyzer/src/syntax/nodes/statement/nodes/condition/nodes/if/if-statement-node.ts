@@ -2,9 +2,12 @@ import {
   $AnalyzerType,
   $StatementNode,
   diagnoseIfStatementNode,
+  FormatterContext,
+  HighlightContext,
   IfKeywordNode,
   newSyntaxNode,
   Node,
+  SemanticContext,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
@@ -31,6 +34,9 @@ export function newIfStatementNode(
     expression,
     errorNodes,
 
+    semantify(context: SemanticContext): void {},
     diagnose: diagnoseIfStatementNode,
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

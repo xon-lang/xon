@@ -1,4 +1,15 @@
-import {$AnalyzerType, $SyntaxNode, GroupNode, newSyntaxNode, Node, SyntaxNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $SyntaxNode,
+  DiagnosticContext,
+  FormatterContext,
+  GroupNode,
+  HighlightContext,
+  newSyntaxNode,
+  Node,
+  SemanticContext,
+  SyntaxNode,
+} from '#analyzer';
 import {Brand} from '#typing';
 
 export type InvokeNode = SyntaxNode &
@@ -15,6 +26,11 @@ export function invokeNode(instance: Node, group: GroupNode): InvokeNode {
     canBeExpression: true,
     instance,
     group,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }
 

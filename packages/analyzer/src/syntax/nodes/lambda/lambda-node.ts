@@ -2,9 +2,12 @@ import {
   $AnalyzerType,
   $SyntaxNode,
   diagnoseLambdaNode,
+  FormatterContext,
   GroupNode,
+  HighlightContext,
   newSyntaxNode,
   OperatorExpressionNode,
+  SemanticContext,
   SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
@@ -31,6 +34,9 @@ export function newLambdaNode(
     type,
     value,
 
+    semantify(context: SemanticContext): void {},
     diagnose: diagnoseLambdaNode,
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

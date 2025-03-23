@@ -2,9 +2,12 @@ import {
   $AnalyzerType,
   $StatementNode,
   diagnoseReturnStatementNode,
+  FormatterContext,
+  HighlightContext,
   newSyntaxNode,
   Node,
   ReturnKeywordNode,
+  SemanticContext,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
@@ -32,6 +35,9 @@ export function newReturnStatementNode(
     expression,
     errorNodes,
 
+    semantify(context: SemanticContext): void {},
     diagnose: diagnoseReturnStatementNode,
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

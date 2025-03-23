@@ -28,11 +28,6 @@ export type Node = Model &
     isHidden?: Boolean2;
     hiddenNodes?: ArrayData<Node> | Nothing;
     canBeExpression?: Boolean2 | Nothing;
-
-    diagnose?(context: DiagnosticContext): void;
-    format?(context: FormatterContext): void;
-    semantify?(context: SemanticContext): void;
-    highlight?(context: HighlightContext): void;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');
@@ -44,7 +39,13 @@ export type LexicalNode = Node &
 
 export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Node());
 
-export type SyntaxNode = Node & Brand<'Analyzer.SyntaxNode'>;
+export type SyntaxNode = Node &
+  Brand<'Analyzer.SyntaxNode'> & {
+    semantify(context: SemanticContext): void;
+    diagnose(context: DiagnosticContext): void;
+    format(context: FormatterContext): void;
+    highlight(context: HighlightContext): void;
+  };
 
 export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
 

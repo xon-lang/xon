@@ -1,4 +1,6 @@
 export * from './package';
+export * from './test/test.1';
+export * from './test/test';
 export * from './src/config';
 export * from './src/main';
 export * from './src/text-document-analyzer';

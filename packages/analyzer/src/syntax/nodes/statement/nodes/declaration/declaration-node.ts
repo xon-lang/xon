@@ -3,6 +3,7 @@ import {
   $StatementNode,
   AngleGroupNode,
   diagnoseDeclarationNode,
+  FormatterContext,
   highlightDeclarationNode,
   IdNode,
   KeywordNode,
@@ -49,6 +50,7 @@ export function newDeclarationNode(
 
     semantify: semantifyDeclarationNode,
     diagnose: diagnoseDeclarationNode,
+    format(context: FormatterContext): void {},
     highlight: highlightDeclarationNode,
   });
 }

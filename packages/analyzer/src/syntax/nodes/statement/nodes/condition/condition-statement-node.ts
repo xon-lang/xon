@@ -3,8 +3,11 @@ import {
   $StatementNode,
   diagnoseConditionStatementNode,
   ElseStatementNode,
+  FormatterContext,
+  HighlightContext,
   IfStatementNode,
   newSyntaxNode,
+  SemanticContext,
   StatementNode,
 } from '#analyzer';
 import {Nothing} from '#common';
@@ -30,6 +33,9 @@ export function newConditionStatementNode(
     ifStatement,
     elseStatement,
 
+    semantify(context: SemanticContext): void {},
     diagnose: diagnoseConditionStatementNode,
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

@@ -2,6 +2,8 @@ import {
   $AnalyzerType,
   $StatementNode,
   diagnoseImportStatementNode,
+  FormatterContext,
+  HighlightContext,
   ImportKeywordNode,
   ImportValueSemantic,
   newSyntaxNode,
@@ -38,5 +40,7 @@ export function newImportStatementNode(
 
     semantify: semantifyImportStatementNode,
     diagnose: diagnoseImportStatementNode,
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

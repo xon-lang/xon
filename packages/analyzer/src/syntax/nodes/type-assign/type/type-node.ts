@@ -1,4 +1,15 @@
-import {$AnalyzerType, $InfixNode, newSyntaxNode, Node, OperatorExpressionNode, SyntaxNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $InfixNode,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
+  newSyntaxNode,
+  Node,
+  OperatorExpressionNode,
+  SemanticContext,
+  SyntaxNode,
+} from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
@@ -11,5 +22,14 @@ export type TypeNode = SyntaxNode &
 export const $TypeNode = () => $AnalyzerType<TypeNode>('TypeNode', $InfixNode());
 
 export function newTypeNode(target: Node | Nothing, type: OperatorExpressionNode): TypeNode {
-  return newSyntaxNode({$: $TypeNode(), target, type});
+  return newSyntaxNode({
+    $: $TypeNode(),
+    target,
+    type,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
+  });
 }

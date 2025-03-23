@@ -4,7 +4,11 @@ import {
   CommentLineContentNode,
   CommentLineOperatorNode,
   CommentNode,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
   newSyntaxNode,
+  SemanticContext,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
@@ -21,5 +25,14 @@ export function newCommentLineNode(
   operatorNode: CommentLineOperatorNode,
   contentNode?: CommentLineContentNode | Nothing,
 ): CommentLineNode {
-  return newSyntaxNode({$: $CommentLineNode(), operatorNode, contentNode});
+  return newSyntaxNode({
+    $: $CommentLineNode(),
+    operatorNode,
+    contentNode,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
+  });
 }

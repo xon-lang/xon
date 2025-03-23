@@ -1,4 +1,15 @@
-import {$AnalyzerType, $InfixNode, InfixNode, newSyntaxNode, Node, PlusOperatorNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $InfixNode,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
+  InfixNode,
+  newSyntaxNode,
+  Node,
+  PlusOperatorNode,
+  SemanticContext,
+} from '#analyzer';
 import {Brand} from '#typing';
 
 export type PlusInfixNode = InfixNode &
@@ -17,5 +28,10 @@ export function newPlusInfixNode(left: Node, operator: PlusOperatorNode, right: 
     left,
     operator,
     right,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

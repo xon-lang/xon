@@ -2,6 +2,8 @@ import {
   $AnalyzerType,
   $SyntaxNode,
   diagnoseMemberNode,
+  FormatterContext,
+  HighlightContext,
   IdNode,
   newSyntaxNode,
   Node,
@@ -31,6 +33,8 @@ export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNod
 
     semantify: semantifyMemberNode,
     diagnose: diagnoseMemberNode,
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }
 

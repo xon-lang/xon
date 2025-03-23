@@ -1,4 +1,4 @@
-import {$AnalyzerType, $LexicalNode, AnalyzerContext, diagnoseUnknownNode, LexicalNode} from '#analyzer';
+import {$AnalyzerType, $LexicalNode, AnalyzerContext, LexicalNode} from '#analyzer';
 import {Text, TextRange} from '#common';
 import {Brand} from '#typing';
 
@@ -11,7 +11,5 @@ export function newUnknownNode(context: AnalyzerContext, text: Text, range: Text
     $: $UnknownNode(),
     text,
     range,
-
-    diagnose: diagnoseUnknownNode,
   };
 }

@@ -1,4 +1,15 @@
-import {$AnalyzerType, $StatementNode, ElseKeywordNode, newSyntaxNode, Node, StatementNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $StatementNode,
+  DiagnosticContext,
+  ElseKeywordNode,
+  FormatterContext,
+  HighlightContext,
+  newSyntaxNode,
+  Node,
+  SemanticContext,
+  StatementNode,
+} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
@@ -20,5 +31,10 @@ export function newElseStatementNode(
     indent,
     keyword,
     errorNodes,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

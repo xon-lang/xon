@@ -6,6 +6,7 @@ import {
   CharacterOpenNode,
   diagnoseCharacterNode,
   formatCharacterNode,
+  HighlightContext,
   newSyntaxNode,
   semantifyCharacterNode,
   SyntaxNode,
@@ -34,8 +35,9 @@ export function newCharacterNode(
     content,
     close,
 
+    semantify: semantifyCharacterNode,
     diagnose: diagnoseCharacterNode,
     format: formatCharacterNode,
-    semantify: semantifyCharacterNode,
+    highlight(context: HighlightContext): void {},
   });
 }

@@ -63,7 +63,6 @@ export * from './src/semantic/node/declaration/declaration-semantic';
 export * from './src/context/semantic/scope/semantic-scope.factory';
 export * from './src/context/semantic/scope/semantic-scope.model';
 export * from './src/syntax/nodes/unknown/parser/unknown-node-parser';
-export * from './src/syntax/nodes/unknown/diagnostic/unknown-node-diagnostic';
 export * from './src/syntax/nodes/type-assign/value/value-node';
 export * from './src/syntax/nodes/type-assign/type/type-node';
 export * from './src/syntax/nodes/string/semantic/string-node-semantic';

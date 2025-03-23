@@ -1,11 +1,15 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
+  DiagnosticContext,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
   DocumentationLabelNode,
   DocumentationOpenNode,
+  FormatterContext,
+  HighlightContext,
   newSyntaxNode,
+  SemanticContext,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
@@ -34,5 +38,10 @@ export function newDocumentationNode(
     descriptionNode,
     labels,
     closeNode,
+
+    semantify(context: SemanticContext): void{},
+    diagnose(context: DiagnosticContext): void{},
+    format(context: FormatterContext): void{},
+    highlight(context: HighlightContext): void{},
   });
 }

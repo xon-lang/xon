@@ -11,9 +11,8 @@ export function diagnoseExpressionStatementNode(
   this: ExpressionStatementNode,
   context: DiagnosticContext,
 ): void {
-  if (this.expression.diagnose) {
-    this.expression.diagnose(context);
-  }
+  // todo create UnknownStatement
+  // this.expression.diagnose(context);
 
   this.errorNodes?.forEach((x) => context.add(errorNode(x.range)));
 }
