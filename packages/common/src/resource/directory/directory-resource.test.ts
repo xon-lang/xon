@@ -1,9 +1,9 @@
-import {newArrayData, newDirectoryResource, newText, newURI} from '#common';
+import {newArrayData, newDirectoryResource, newText, newUri} from '#common';
 import {resolve} from 'node:path';
 import {expect, test} from 'vitest';
 
 test('Directory resource', () => {
-  const uri = newURI(newText(resolve(__dirname)));
+  const uri = newUri(newText(resolve(__dirname)));
   const directory = newDirectoryResource(uri);
 
   expect(directory.exists()).toBe(true);

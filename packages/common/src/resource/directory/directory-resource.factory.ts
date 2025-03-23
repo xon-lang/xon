@@ -5,13 +5,13 @@ import {
   FileResource,
   newFileResource,
   newText,
-  newURI,
-  URI,
+  newUri,
+  Uri,
 } from '#common';
 import {existsSync, readdirSync, statSync} from 'node:fs';
 import {basename, resolve} from 'node:path';
 
-export function newDirectoryResource(uri: URI): DirectoryResource {
+export function newDirectoryResource(uri: Uri): DirectoryResource {
   const name = newText(basename(uri.value.toNativeString()));
 
   return {
@@ -29,11 +29,11 @@ export function newDirectoryResource(uri: URI): DirectoryResource {
         const stat = statSync(resolvedPath);
 
         if (stat.isFile()) {
-          yield newFileResource(newURI(newText(resolvedPath)));
+          yield newFileResource(newUri(newText(resolvedPath)));
         }
 
         if (stat.isDirectory()) {
-          yield newDirectoryResource(newURI(newText(resolvedPath)));
+          yield newDirectoryResource(newUri(newText(resolvedPath)));
         }
       }
     },
