@@ -1,9 +1,9 @@
-import {$CommonType, Boolean2, URI} from '#common';
+import {$CommonType, Boolean2, Uri} from '#common';
 import {Brand, Model} from '#typing';
 
 export type Resource = Model &
   Brand<'Common.Resource'> & {
-    uri: URI;
+    uri: Uri;
 
     exists(): Boolean2;
   };

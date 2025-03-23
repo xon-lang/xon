@@ -5,20 +5,27 @@ import {
   FileResource,
   newDirectoryResource,
   newText,
-  newURI,
-  URI,
+  newUri,
+  Uri,
 } from '#common';
 import {existsSync} from 'node:fs';
-import {basename, dirname, extname} from 'node:path';
+import {basename as base, dirname, extname} from 'node:path';
 
-export function newFileResource(uri: URI): FileResource {
+export function newFileResource(uri: Uri): FileResource {
   // todo move all calculated values to function and memoize/cache them ???
-  const name = newText(basename(uri.value.toNativeString()));
+  const basename = newText(base(uri.value.toNativeString()));
+  const name = newText(
+    basename
+      .toNativeString()
+      .match(/^(.+?)(\.[^.]+)?$/)
+      ?.at(1) ?? '',
+  );
   const extension = newText(extname(uri.value.toNativeString()));
 
   return {
     $: $FileResource(),
     uri,
+    basename,
     name,
     extension,
 
@@ -27,7 +34,7 @@ export function newFileResource(uri: URI): FileResource {
     },
 
     getDirectory(): DirectoryResource {
-      const directoryUri = newURI(newText(dirname(this.uri.value.toNativeString())));
+      const directoryUri = newUri(newText(dirname(this.uri.value.toNativeString())));
 
       return newDirectoryResource(directoryUri);
     },

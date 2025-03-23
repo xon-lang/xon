@@ -1,6 +1,6 @@
-import {$TextFileResource, TextEncodingType, TextFileResource, URI} from '#common';
+import {$TextFileResource, TextEncodingType, TextFileResource, Uri} from '#common';
 
-export function newTextFileResource(uri: URI): TextFileResource {
+export function newTextFileResource(uri: Uri): TextFileResource {
   return {
     $: $TextFileResource(),
     uri,
