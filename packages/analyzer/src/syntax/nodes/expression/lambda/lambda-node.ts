@@ -1,19 +1,19 @@
 import {
   $AnalyzerType,
-  $SyntaxNode,
+  $ExpressionNode,
   diagnoseLambdaNode,
+  ExpressionNode,
   FormatterContext,
   GroupNode,
   HighlightContext,
   newSyntaxNode,
   OperatorExpressionNode,
   SemanticContext,
-  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type LambdaNode = SyntaxNode &
+export type LambdaNode = ExpressionNode &
   Brand<'Analyzer.LambdaNode'> & {
     parameters: GroupNode;
   } & (
@@ -21,7 +21,7 @@ export type LambdaNode = SyntaxNode &
     | {type?: OperatorExpressionNode | Nothing; value: OperatorExpressionNode | Nothing}
   );
 
-export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $SyntaxNode());
+export const $LambdaNode = () => $AnalyzerType<LambdaNode>('LambdaNode', $ExpressionNode());
 
 export function newLambdaNode(
   parameters: GroupNode,

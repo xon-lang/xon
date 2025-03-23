@@ -1,27 +1,27 @@
 import {
   $AnalyzerType,
-  $SyntaxNode,
+  $ExpressionNode,
   CharacterCloseNode,
   CharacterContentNode,
   CharacterOpenNode,
   diagnoseCharacterNode,
+  ExpressionNode,
   formatCharacterNode,
   HighlightContext,
   newSyntaxNode,
   semantifyCharacterNode,
-  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type CharacterNode = SyntaxNode &
+export type CharacterNode = ExpressionNode &
   Brand<'Analyzer.CharacterNode'> & {
     open: CharacterOpenNode;
     content?: CharacterContentNode | Nothing;
     close?: CharacterCloseNode | Nothing;
   };
 
-export const $CharacterNode = () => $AnalyzerType<CharacterNode>('CharacterNode', $SyntaxNode());
+export const $CharacterNode = () => $AnalyzerType<CharacterNode>('CharacterNode', $ExpressionNode());
 
 export function newCharacterNode(
   open: CharacterOpenNode,

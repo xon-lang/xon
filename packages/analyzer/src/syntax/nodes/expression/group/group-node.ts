@@ -1,7 +1,8 @@
 import {
   $AnalyzerType,
-  $SyntaxNode,
+  $ExpressionNode,
   DiagnosticContext,
+  ExpressionNode,
   FormatterContext,
   GroupCloseNode,
   GroupItemNode,
@@ -9,12 +10,11 @@ import {
   HighlightContext,
   newSyntaxNode,
   SemanticContext,
-  SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
 import {$Type, Brand} from '#typing';
 
-export type GroupNode = SyntaxNode &
+export type GroupNode = ExpressionNode &
   Brand<'Analyzer.GroupNode'> & {
     open: GroupOpenNode;
     items: ArrayData<GroupItemNode>;
@@ -22,7 +22,7 @@ export type GroupNode = SyntaxNode &
   };
 
 // todo remove 'lambda' and use as simple object
-export const $GroupNode = () => $AnalyzerType<GroupNode>('GroupNode', $SyntaxNode());
+export const $GroupNode = () => $AnalyzerType<GroupNode>('GroupNode', $ExpressionNode());
 
 export function newGroupNode(
   $type: $Type,

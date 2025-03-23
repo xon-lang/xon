@@ -1,7 +1,8 @@
 import {
   $AnalyzerType,
-  $SyntaxNode,
+  $ExpressionNode,
   diagnoseMemberNode,
+  ExpressionNode,
   FormatterContext,
   HighlightContext,
   IdNode,
@@ -9,19 +10,18 @@ import {
   Node,
   OperatorNode,
   semantifyMemberNode,
-  SyntaxNode,
 } from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type MemberNode = SyntaxNode &
+export type MemberNode = ExpressionNode &
   Brand<'Analyzer.MemberNode'> & {
     instance: Node;
     operator: OperatorNode;
     id?: IdNode | Nothing;
   };
 
-export const $MemberNode = () => $AnalyzerType<MemberNode>('MemberNode', $SyntaxNode());
+export const $MemberNode = () => $AnalyzerType<MemberNode>('MemberNode', $ExpressionNode());
 
 export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
   return newSyntaxNode({
