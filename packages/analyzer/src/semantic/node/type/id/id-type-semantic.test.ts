@@ -39,12 +39,12 @@ test('a is integer', () => {
 
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
-  expect((constNode.type?.value as IdNode)?.text.toNativeString()).toBe('Integer');
-  expect((constNode.type?.value as IdNode)?.semantic?.$.toNativeString()).toBe(
+  expect((constNode.annotation?.value as IdNode)?.text.toNativeString()).toBe('Integer');
+  expect((constNode.annotation?.value as IdNode)?.semantic?.$.toNativeString()).toBe(
     $IdTypeSemantic().toNativeString(),
   );
 
-  const typeSemantic = (constNode.type?.value as IdNode)?.semantic as IdTypeSemantic;
+  const typeSemantic = (constNode.annotation?.value as IdNode)?.semantic as IdTypeSemantic;
   expect(typeSemantic.declaration?.$).toBe($NominalTypeDeclarationSemantic());
 });
 
@@ -73,8 +73,8 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semanticAnalyzer, constNode.type) as InvokeTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semanticAnalyzer, constNode.annotation) as InvokeTypeSemantic)
     : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($InvokeTypeSemantic().toNativeString());
 

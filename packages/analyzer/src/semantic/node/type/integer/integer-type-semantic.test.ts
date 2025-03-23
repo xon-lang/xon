@@ -33,8 +33,8 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as IntegerTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as IntegerTypeSemantic)
     : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($IntegerTypeSemantic().toNativeString());
   expect(typeSemantic?.value).toBe(123);

@@ -35,8 +35,8 @@ test('a is array', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as ArrayTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as ArrayTypeSemantic)
     : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($ArrayTypeSemantic().toNativeString());
   expect(typeSemantic?.items.count()).toBe(3);

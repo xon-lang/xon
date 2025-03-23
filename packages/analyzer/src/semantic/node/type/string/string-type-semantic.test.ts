@@ -33,8 +33,8 @@ test('a is string value', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic().toNativeString());
   expect(typeSemantic?.value.toNativeString()).toBe('abc');
@@ -47,8 +47,8 @@ test('a is string literal', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements.at(0)?.value as DeclarationNode;
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
 
   expect(typeSemantic?.$).toBe($StringTypeSemantic());
@@ -62,8 +62,8 @@ test('a is empty string 1', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements.at(0)?.value as DeclarationNode;
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
 
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic().toNativeString());
@@ -77,8 +77,8 @@ test('a is empty string 2', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements.at(0)?.value as DeclarationNode;
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
 
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic().toNativeString());

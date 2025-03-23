@@ -39,7 +39,9 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type ? (typeNodeType(semantic, constNode.type) as NotTypeSemantic) : nothing;
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as NotTypeSemantic)
+    : nothing;
   expect(typeSemantic?.$.toNativeString()).toBe($NotTypeSemantic().toNativeString());
   expect(typeSemantic?.value.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
   expect((typeSemantic?.value as IdTypeSemantic).declaration?.name.toNativeString()).toBe('Integer');

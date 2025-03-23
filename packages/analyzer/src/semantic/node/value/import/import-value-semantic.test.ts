@@ -34,8 +34,8 @@ test('import core', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as StringTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
   expect(typeSemantic).toBeTruthy();
   expect(typeSemantic?.$.toNativeString()).toBe($StringTypeSemantic().toNativeString());

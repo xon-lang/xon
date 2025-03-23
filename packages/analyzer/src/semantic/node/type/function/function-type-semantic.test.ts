@@ -36,7 +36,7 @@ test('a is function', () => {
   expect(idSemantic.name.toNativeString()).toBe('a');
   // expect(constNode.type?.value.$).toBe($Node.DECLARATION);
 
-  const typeSemantic = constNode.type?.value.semantic as FunctionTypeSemantic;
+  const typeSemantic = constNode.annotation?.value.semantic as FunctionTypeSemantic;
   expect(typeSemantic.$.toNativeString()).toBe($FunctionTypeSemantic().toNativeString());
   expect(typeSemantic.parameters.count()).toBe(1);
   expect(typeSemantic.parameters.at(0)?.$.toNativeString()).toBe(

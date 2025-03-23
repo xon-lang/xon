@@ -39,8 +39,8 @@ test('a is integer or float', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as UnionTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as UnionTypeSemantic)
     : nothing;
   expect(typeSemantic?.$).toBe($UnionTypeSemantic());
   expect(typeSemantic?.left.$).toBe($IdTypeSemantic());
@@ -65,8 +65,8 @@ test('1 check type', () => {
   const aConst = syntax.statements.at(3)?.value as DeclarationNode;
   const bConst = syntax.statements.at(4)?.value as DeclarationNode;
 
-  const aType = aConst.type ? typeNodeType(semantic, aConst.type) : nothing;
-  const bType = bConst.type ? typeNodeType(semantic, bConst.type) : nothing;
+  const aType = aConst.annotation ? typeNodeType(semantic, aConst.annotation) : nothing;
+  const bType = bConst.annotation ? typeNodeType(semantic, bConst.annotation) : nothing;
   expect(aType?.$.toNativeString()).toBe($IdTypeSemantic().toNativeString());
   expect(bType?.$.toNativeString()).toBe($UnionTypeSemantic().toNativeString());
   expect(bType && aType?.is(bType)).toBe(true);

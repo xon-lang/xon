@@ -20,8 +20,8 @@ test('Value declaration statement with type and assign', () => {
   const node = getDeclarationNode(text);
 
   expect(is(node.id, $IdNode())).toBe(true);
-  expect(is(node.type?.expression, $IdNode())).toBe(true);
-  expect(is(node.value?.expression, $IntegerNode())).toBe(true);
+  expect(is(node.annotation?.expression, $IdNode())).toBe(true);
+  expect(is(node.assignment?.expression, $IntegerNode())).toBe(true);
 });
 
 test('Type alias declaration statement with type and assign', () => {
@@ -31,9 +31,9 @@ test('Type alias declaration statement with type and assign', () => {
   expect(node.keyword?.text.toNativeString()).toBe('type');
   expect(is(node.id, $IdNode())).toBe(true);
   expect(node.id.text.toNativeString()).toBe('Zero');
-  expect(node.type).toBeFalsy();
-  expect(is(node.value?.expression, $IntegerNode())).toBe(true);
-  expect((node.value?.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
+  expect(node.annotation).toBeFalsy();
+  expect(is(node.assignment?.expression, $IntegerNode())).toBe(true);
+  expect((node.assignment?.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
 });
 
 test('Type declaration id and base type', () => {
@@ -42,9 +42,9 @@ test('Type declaration id and base type', () => {
 
   expect(is(node, $DeclarationNode())).toBe(true);
   expect(node.id.text.toNativeString()).toBe('Zero');
-  expect(is(node.type, $OperatorExpressionNode())).toBe(true);
-  expect(is(node.type?.expression, $IdNode())).toBe(true);
-  expect((node.type?.expression as IdNode).text.toNativeString()).toBe('Integer');
+  expect(is(node.annotation, $OperatorExpressionNode())).toBe(true);
+  expect(is(node.annotation?.expression, $IdNode())).toBe(true);
+  expect((node.annotation?.expression as IdNode).text.toNativeString()).toBe('Integer');
 
   expect(is(node.id, $IdNode())).toBe(true);
 });
@@ -57,7 +57,7 @@ function getDeclarationNode(text: Text): DeclarationNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $DeclarationNode())).toBe(true);
-  expect(!!node.type || !!node.value).toBe(true);
+  expect(!!node.annotation || !!node.assignment).toBe(true);
 
   return node;
 }

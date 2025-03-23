@@ -39,8 +39,8 @@ test('a is integer', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as IntersectionTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as IntersectionTypeSemantic)
     : nothing;
   expect(typeSemantic?.$).toBe($IntersectionTypeSemantic());
   expect(typeSemantic?.left.$).toBe($IdTypeSemantic());

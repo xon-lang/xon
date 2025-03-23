@@ -33,8 +33,8 @@ test('a is string value', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as CharTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as CharTypeSemantic)
     : nothing;
   expect(typeSemantic?.$).toBe($CharTypeSemantic());
   expect(typeSemantic?.value.toNativeString()).toBe('a');
@@ -47,8 +47,8 @@ test('a is string literal', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
   const constNode = syntax.statements.at(0)?.value as DeclarationNode;
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as CharTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as CharTypeSemantic)
     : nothing;
 
   expect(typeSemantic?.$.toNativeString()).toBe($CharTypeSemantic().toNativeString());
@@ -64,13 +64,17 @@ test('emoji', () => {
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
   const constA = syntax.statements.at(0)?.value as DeclarationNode;
-  const typeASemantic = constA.type ? (typeNodeType(semantic, constA.type) as CharTypeSemantic) : nothing;
+  const typeASemantic = constA.annotation
+    ? (typeNodeType(semantic, constA.annotation) as CharTypeSemantic)
+    : nothing;
   expect(typeASemantic?.$.toNativeString()).toBe($CharTypeSemantic().toNativeString());
   expect(typeASemantic?.value.toNativeString()).toBe('👩‍❤️‍💋‍👩');
   expect(typeASemantic?.declaration?.name.toNativeString()).toBe('Character');
 
   const constB = syntax.statements.at(1)?.value as DeclarationNode;
-  const typeBSemantic = constB.type ? (typeNodeType(semantic, constB.type) as CharTypeSemantic) : nothing;
+  const typeBSemantic = constB.annotation
+    ? (typeNodeType(semantic, constB.annotation) as CharTypeSemantic)
+    : nothing;
   expect(typeBSemantic?.$.toNativeString()).toBe($CharTypeSemantic().toNativeString());
   expect(typeBSemantic?.value.toNativeString()).toBe('👍');
 });

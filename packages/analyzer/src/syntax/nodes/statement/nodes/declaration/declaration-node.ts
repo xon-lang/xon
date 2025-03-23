@@ -21,8 +21,8 @@ export type DeclarationNode = StatementNode &
     id: IdNode;
     isMutable: Boolean2;
     parameters?: AngleGroupNode | Nothing;
-    type?: OperatorExpressionNode | Nothing;
-    value?: OperatorExpressionNode | Nothing;
+    annotation?: OperatorExpressionNode | Nothing;
+    assignment?: OperatorExpressionNode | Nothing;
   };
 
 export const $DeclarationNode = () => $AnalyzerType<DeclarationNode>('DeclarationNode', $StatementNode());
@@ -43,8 +43,8 @@ export function newDeclarationNode(
     keyword,
     id,
     parameters,
-    type,
-    value: assign,
+    annotation: type,
+    assignment: assign,
     errorNodes,
 
     semantify: semantifyDeclarationNode,

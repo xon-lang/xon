@@ -34,8 +34,8 @@ test('a is range', () => {
   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;
   expect(idSemantic.name.toNativeString()).toBe('a');
 
-  const typeSemantic = constNode.type
-    ? (typeNodeType(semantic, constNode.type) as RangeTypeSemantic)
+  const typeSemantic = constNode.annotation
+    ? (typeNodeType(semantic, constNode.annotation) as RangeTypeSemantic)
     : nothing;
 
   expect(typeSemantic?.$.toNativeString()).toBe($RangeTypeSemantic().toNativeString());

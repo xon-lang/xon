@@ -1,15 +1,15 @@
 import {DeclarationNode, newVariableValueDeclarationSemantic, SemanticContext, TypeSemantic} from '#analyzer';
 
 export function semantifyDeclarationNode(this: DeclarationNode, context: SemanticContext): void {
-  if (this.type?.expression?.semantify) {
+  if (this.annotation?.expression?.semantify) {
     context.pushScope(true);
-    this.type?.expression?.semantify(context);
+    this.annotation?.expression?.semantify(context);
     context.popScope();
   }
 
-  if (this.value?.expression?.semantify) {
+  if (this.assignment?.expression?.semantify) {
     context.pushScope(false);
-    this.value?.expression?.semantify(context);
+    this.assignment?.expression?.semantify(context);
     context.popScope();
   }
 
@@ -17,7 +17,7 @@ export function semantifyDeclarationNode(this: DeclarationNode, context: Semanti
     context.getReference(this.id.range),
     this.id.text,
     // todo fix 'as TypeSemantic'
-    this.type?.expression?.semantic as TypeSemantic,
+    this.annotation?.expression?.semantic as TypeSemantic,
   );
 
   context.scope.add(semantic);

@@ -32,14 +32,14 @@ function translateValueDeclaration(node: DeclarationNode, isAttribute: Boolean2)
 
     let type = newText();
 
-    if (node.type?.expression) {
-      type = newText(`: ${translateTypescriptType(node.type.expression)}`);
+    if (node.annotation?.expression) {
+      type = newText(`: ${translateTypescriptType(node.annotation.expression)}`);
     }
 
     let value = newText();
 
-    if (node.value?.expression) {
-      value = newText(` = ${translateTypescriptType(node.value.expression)}`);
+    if (node.assignment?.expression) {
+      value = newText(` = ${translateTypescriptType(node.assignment.expression)}`);
     }
 
     return newText(`${keyword}${node.id.text}${type}${value}`);
