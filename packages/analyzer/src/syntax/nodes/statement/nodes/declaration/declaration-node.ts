@@ -33,8 +33,8 @@ export function newDeclarationNode(
   keyword: KeywordNode | Nothing,
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
   parameters?: AngleGroupNode | Nothing,
-  type?: OperatorExpressionNode | Nothing,
-  assign?: OperatorExpressionNode | Nothing,
+  annotation?: OperatorExpressionNode | Nothing,
+  assignment?: OperatorExpressionNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): DeclarationNode {
   return newSyntaxNode<DeclarationNode>({
@@ -44,8 +44,8 @@ export function newDeclarationNode(
     keyword,
     id,
     parameters,
-    annotation: type,
-    assignment: assign,
+    annotation,
+    assignment,
     errorNodes,
 
     semantify: semantifyDeclarationNode,
