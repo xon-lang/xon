@@ -5,7 +5,7 @@ import {
   newCharacter,
   newDirectoryResource,
   newText,
-  newURI,
+  newUri,
 } from '#common';
 import {is} from '#typing';
 import {newTextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
@@ -50,7 +50,7 @@ export class ImportCompletionItemProvider implements CompletionItemProvider {
     const contentUntilSlash = contentUntilPosition.slice(0, lastSlashIndex ?? 0).toNativeString();
 
     const documentDirectory = newDirectoryResource(
-      newURI(newText(resolve(dirname(document.uri.fsPath), contentUntilSlash))),
+      newUri(newText(resolve(dirname(document.uri.fsPath), contentUntilSlash))),
     );
 
     if (!documentDirectory.exists()) {
@@ -61,7 +61,7 @@ export class ImportCompletionItemProvider implements CompletionItemProvider {
 
     for (const resource of documentDirectory.getResources()) {
       if (is(resource, $FileResource())) {
-        items.push(new CompletionItem(resource.name.toNativeString(), CompletionItemKind.File));
+        items.push(new CompletionItem(resource.basename.toNativeString(), CompletionItemKind.File));
 
         continue;
       }

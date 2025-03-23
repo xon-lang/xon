@@ -9,7 +9,7 @@ import {
   parseStatements,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, newText, nothing, Nothing, TextPosition} from '#common';
+import {ArrayData, newText, newUri, nothing, Nothing, TextPosition, Uri} from '#common';
 import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, Model} from '#typing';
 import {$VscodeType} from '#vscode';
@@ -17,6 +17,7 @@ import {OutputChannel, TextDocument} from 'vscode';
 
 export type TextDocumentAnalyzer = Model &
   Brand<'Analyzer.TextDocumentAnalyzer'> & {
+    documentUri: Uri;
     statements: ArrayData<StatementNode>;
 
     findClosestNode<T extends Node = Node>(
@@ -50,6 +51,7 @@ export function newTextDocumentAnalyzer(
 
   return {
     $: $TextDocumentAnalyzer(),
+    documentUri: newUri(newText(document.uri.fsPath)),
     statements,
 
     findClosestNode<T extends Node = Node>(

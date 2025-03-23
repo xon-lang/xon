@@ -1,8 +1,7 @@
-import {newText} from '#common';
+import {newArrayData, newFileResource, newText} from '#common';
 import {translateTypescriptStatement} from '#translator';
 import {EXTENSION_CONFIG, LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
 import * as fs from 'node:fs';
-import * as path from 'node:path';
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
 
 export function configureTranslatorFeature(context: ExtensionContext, channel: OutputChannel) {
@@ -33,16 +32,17 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
 
 function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
   try {
-    const {statements} = newTextDocumentAnalyzer(document, channel);
-    const translated = newText(statements.map(translateTypescriptStatement), newText('\n'));
-    const filepath = document.uri.fsPath;
-    const dirname = path.dirname(filepath);
-    const filename = path.basename(filepath) + '.gen.ts';
-    const destinationPath = path.resolve(dirname, filename);
+    const analyzer = newTextDocumentAnalyzer(document, channel);
+    const translated = newText(analyzer.statements.map(translateTypescriptStatement), newText('\n'));
+    const file = newFileResource(analyzer.documentUri);
+    const destinationPath = file
+      .getDirectory()
+      .uri.resolve(newArrayData([file.name.addLastItems(newText('.ts'))]))
+      .value.toNativeString();
 
     fs.writeFileSync(destinationPath, `// @ts-nocheck\n\n${translated}\n`);
     channel.clear();
-    channel.appendLine(`${filepath} - translated`);
+    channel.appendLine(`${analyzer.documentUri.value.toNativeString()} - translated`);
   } catch (error: any) {
     channel.appendLine(error?.toString());
   }

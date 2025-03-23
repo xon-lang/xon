@@ -11,7 +11,7 @@ import {ExtensionContext, window} from 'vscode';
 export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel(LANGUAGE_NAME.toUpperCase());
   channel.appendLine('Initialized');
-  channel.show();
+  // channel.show();
 
   configureDiagnosticFeature(context, channel);
   // configureFormattingFeature(context, channel);
