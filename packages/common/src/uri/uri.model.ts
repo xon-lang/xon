@@ -1,16 +1,27 @@
-import {$CommonType, $Resource, Text} from '#common';
+import {$CommonType, $Resource, ArrayData, Text} from '#common';
 import {Brand, Model} from '#typing';
 
-export type URI = Model &
-  Brand<'Common.URI'> & {
+export type Uri = Model &
+  Brand<'Common.Uri'> & {
     value: Text;
 
     // todo use it in future
-    // scheme: Text;
-    // authority?: Text;
-    // path?: Text;
-    // query?: Text;
-    // fragment?: Text;
+
+    // scheme
+    // host
+    // hostname
+    // port
+    // username
+    // password
+    // pathname
+    // search
+    // protocol
+    // authority
+    // query
+    // hash
+    // ...
+
+    resolve(relativePaths: ArrayData<Text>): Uri;
   };
 
-export const $URI = () => $CommonType<URI>('URI', $Resource());
+export const $Uri = () => $CommonType<Uri>('Uri', $Resource());

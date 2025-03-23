@@ -1,8 +1,15 @@
-import {$URI, Text, URI} from '#common';
+import {$Uri, ArrayData, newText, Text, Uri} from '#common';
+import {join} from 'node:path';
 
-export function newURI(value: Text): URI {
+export function newUri(value: Text): Uri {
   return {
-    $: $URI(),
+    $: $Uri(),
     value,
+
+    resolve(relativePaths: ArrayData<Text>): Uri {
+      return newUri(
+        newText(join(this.value.toNativeString(), newText(relativePaths, newText('/')).toNativeString())),
+      );
+    },
   };
 }
