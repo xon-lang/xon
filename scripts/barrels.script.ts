@@ -12,7 +12,7 @@ const directories = [
   'packages/xon-lib',
 ];
 
-const excludeDirectories = ['dist'];
+const excludeDirectories = ['dist', 'vscode/test'];
 const excludeFiles = ['index.ts'];
 const excludeExtensions = ['.spec.ts', '.test.ts', '.gen.ts'];
 
@@ -20,9 +20,6 @@ async function createBarrel(directory: string) {
   const files = await fs.readdir(directory, {withFileTypes: true, recursive: true});
   const exports = files
     .filter((file) => {
-      const relativePath = join(directory, file.name).replace(/\\/g, '/');
-      const dirName = relativePath.split('/')[1];
-
       if (!file.isFile()) {
         return false;
       }
@@ -31,13 +28,14 @@ async function createBarrel(directory: string) {
 
       return (
         ext === '.ts' &&
-        !excludeDirectories.includes(dirName) &&
+        !excludeDirectories.some((x) => file.parentPath.includes(x)) &&
         !excludeFiles.includes(file.name) &&
         !excludeExtensions.some((x) => file.name.endsWith(x))
       );
     })
     .map((file) => {
       const relativePath = join(file.parentPath, file.name).replace(directory, '').replace(/\\/g, '/');
+
       return `export * from '.${relativePath.replace('.ts', '')}';`;
     })
     .sort((a, b) => a.split('/').length - b.split('/').length)
