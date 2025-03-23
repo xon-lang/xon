@@ -1,5 +1,6 @@
 import {
   $AssignOperatorNode,
+  $ExpressionNode,
   $IdNode,
   $IntegerNode,
   $ValueNode,
@@ -25,7 +26,7 @@ test('Integer value', () => {
   expect(is(node.value.operator, $AssignOperatorNode())).toBe(true);
   expect(node.value.operator.text.toNativeString()).toBe('=');
 
-  expect(node.value.expression?.canBeExpression).toBe(true);
+  expect(is(node.value.expression, $ExpressionNode())).toBe(true);
   expect(is(node.value.expression, $IntegerNode())).toBe(true);
   expect((node.value.expression as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });

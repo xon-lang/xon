@@ -1,4 +1,11 @@
-import {$OperatorNode, Node, NodeCollapseFn, NodeCollapseResult, postfixNode} from '#analyzer';
+import {
+  $ExpressionNode,
+  $OperatorNode,
+  Node,
+  NodeCollapseFn,
+  NodeCollapseResult,
+  postfixNode,
+} from '#analyzer';
 import {ArrayData, Boolean2, Dictionary, Integer, nothing, Text} from '#common';
 import {$Type, is} from '#typing';
 
@@ -22,7 +29,7 @@ export function collapsePostfixNode(
 
       const valueNode = nodes.at2(index - 1);
 
-      if (!valueNode.canBeExpression) {
+      if (!is(valueNode, $ExpressionNode())) {
         return nothing;
       }
 

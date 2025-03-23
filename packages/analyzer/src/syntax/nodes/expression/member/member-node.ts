@@ -7,7 +7,6 @@ import {
   HighlightContext,
   IdNode,
   newSyntaxNode,
-  Node,
   OperatorNode,
   semantifyMemberNode,
 } from '#analyzer';
@@ -16,17 +15,20 @@ import {Brand} from '#typing';
 
 export type MemberNode = ExpressionNode &
   Brand<'Analyzer.MemberNode'> & {
-    instance: Node;
+    instance: ExpressionNode;
     operator: OperatorNode;
     id?: IdNode | Nothing;
   };
 
 export const $MemberNode = () => $AnalyzerType<MemberNode>('MemberNode', $ExpressionNode());
 
-export function newMemberNode(instance: Node, operator: OperatorNode, id?: IdNode | Nothing): MemberNode {
+export function newMemberNode(
+  instance: ExpressionNode,
+  operator: OperatorNode,
+  id?: IdNode | Nothing,
+): MemberNode {
   return newSyntaxNode({
     $: $MemberNode(),
-    canBeExpression: true,
     instance,
     operator,
     id,

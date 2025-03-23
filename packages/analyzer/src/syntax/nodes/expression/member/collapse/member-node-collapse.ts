@@ -1,4 +1,5 @@
 import {
+  $ExpressionNode,
   $IdNode,
   $SymbolOperatorNode,
   MemberNode,
@@ -22,7 +23,7 @@ export function collapseMemberNode(): NodeCollapseFn<MemberNode> {
 
         const instanceNode = nodes.at(index - 1);
 
-        if (!instanceNode?.canBeExpression) {
+        if (!is(instanceNode, $ExpressionNode())) {
           return nothing;
         }
 

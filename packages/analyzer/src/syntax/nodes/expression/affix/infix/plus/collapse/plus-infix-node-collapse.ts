@@ -1,4 +1,5 @@
 import {
+  $ExpressionNode,
   $PlusOperatorNode,
   newPlusInfixNode,
   Node,
@@ -21,7 +22,7 @@ export function collapsePlusInfixNode(): NodeCollapseFn<PlusInfixNode> {
         const leftNode = nodes.at(index - 1);
         const rightNode = nodes.at(index + 1);
 
-        if (!leftNode?.canBeExpression || !rightNode?.canBeExpression) {
+        if (!is(leftNode, $ExpressionNode()) || !is(rightNode, $ExpressionNode())) {
           return nothing;
         }
 

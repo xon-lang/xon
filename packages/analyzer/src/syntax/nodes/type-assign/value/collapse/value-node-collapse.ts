@@ -1,5 +1,6 @@
 import {
   $AssignOperatorNode,
+  $ExpressionNode,
   $TypeNode,
   newOperatorExpressionNode,
   newValueNode,
@@ -25,10 +26,10 @@ export function collapseValueNode(): NodeCollapseFn<ValueNode> {
 
         const operatorExpressionNode = newOperatorExpressionNode(
           operatorNode,
-          rightNode?.canBeExpression ? rightNode : nothing,
+          is(rightNode, $ExpressionNode()) ? rightNode : nothing,
         );
 
-        if (leftNode?.canBeExpression || is(leftNode, $TypeNode())) {
+        if (is(leftNode, $ExpressionNode()) || is(leftNode, $TypeNode())) {
           return {
             index: index - 1,
             deleteCount: 1 + operatorExpressionNode.children!.count(),

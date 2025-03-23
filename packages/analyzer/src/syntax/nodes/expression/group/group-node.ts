@@ -32,7 +32,6 @@ export function newGroupNode(
 ): GroupNode {
   return newSyntaxNode({
     $: $type,
-    canBeExpression: true,
     open,
     items,
     close,

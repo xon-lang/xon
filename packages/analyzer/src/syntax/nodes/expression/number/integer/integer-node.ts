@@ -21,7 +21,6 @@ export const $IntegerNode = () => $AnalyzerType<IntegerNode>('IntegerNode', $Num
 export function newIntegerNode(contentNode: IntegerContentNode): IntegerNode {
   return newSyntaxNode({
     $: $IntegerNode(),
-    canBeExpression: true,
     contentNode,
 
     semantify(context: SemanticContext): void {},

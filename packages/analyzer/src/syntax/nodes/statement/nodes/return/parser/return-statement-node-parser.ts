@@ -1,4 +1,5 @@
 import {
+  $ExpressionNode,
   $ReturnKeywordNode,
   collapseNodes,
   newReturnStatementNode,
@@ -21,7 +22,7 @@ export function parseReturnStatementNode(
   nodes = collapseNodes(nodes.slice(1));
   const expressionNode = nodes.first();
 
-  if (expressionNode?.canBeExpression) {
+  if (is(expressionNode, $ExpressionNode())) {
     return newReturnStatementNode(indent, keywordNode, expressionNode, nodes.slice(1));
   }
 

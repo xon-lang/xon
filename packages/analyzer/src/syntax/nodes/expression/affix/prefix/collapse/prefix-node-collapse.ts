@@ -1,4 +1,11 @@
-import {$OperatorNode, Node, NodeCollapseFn, NodeCollapseResult, prefixNode} from '#analyzer';
+import {
+  $ExpressionNode,
+  $OperatorNode,
+  newPrefixNode,
+  Node,
+  NodeCollapseFn,
+  NodeCollapseResult,
+} from '#analyzer';
 import {ArrayData, Boolean2, Dictionary, Integer, nothing, Text} from '#common';
 import {$Type, is} from '#typing';
 
@@ -22,11 +29,11 @@ export function collapsePrefixNode(
 
       const valueNode = nodes.at2(index + 1);
 
-      if (!valueNode.canBeExpression) {
+      if (!is(valueNode, $ExpressionNode())) {
         return nothing;
       }
 
-      return {node: prefixNode(operatorType, operatorNode, valueNode), index: index + 1};
+      return {node: newPrefixNode(operatorType, operatorNode, valueNode), index: index + 1};
     }, startIndex);
   };
 }

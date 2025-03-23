@@ -27,7 +27,6 @@ export type Node = Model &
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
     hiddenNodes?: ArrayData<Node> | Nothing;
-    canBeExpression?: Boolean2 | Nothing;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');

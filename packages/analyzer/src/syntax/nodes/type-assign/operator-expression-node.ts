@@ -1,11 +1,22 @@
-import {$AnalyzerType, $SyntaxNode, newSyntaxNode, Node, SyntaxNode, TypeOperatorNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $SyntaxNode,
+  DiagnosticContext,
+  ExpressionNode,
+  FormatterContext,
+  HighlightContext,
+  newSyntaxNode,
+  SemanticContext,
+  SyntaxNode,
+  TypeOperatorNode,
+} from '#analyzer';
 import {Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type OperatorExpressionNode = SyntaxNode &
   Brand<'Analyzer.OperatorExpressionNode'> & {
     operator: TypeOperatorNode;
-    expression?: Node | Nothing;
+    expression?: ExpressionNode | Nothing;
   };
 
 export const $OperatorExpressionNode = () =>
@@ -13,7 +24,16 @@ export const $OperatorExpressionNode = () =>
 
 export function newOperatorExpressionNode(
   operator: TypeOperatorNode,
-  expression?: Node | Nothing,
+  expression?: ExpressionNode | Nothing,
 ): OperatorExpressionNode {
-  return newSyntaxNode({$: $OperatorExpressionNode(), operator, expression});
+  return newSyntaxNode({
+    $: $OperatorExpressionNode(),
+    operator,
+    expression,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
+  });
 }

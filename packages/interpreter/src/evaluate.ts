@@ -17,7 +17,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $ParenGroupNode())) {
-    return node.items.map((x) => evaluate(x.value ?? nothing));
+    return node.items.map((x) => evaluate(x.expression ?? nothing));
   }
 
   if (is(node, $IntegerNode())) {
@@ -37,7 +37,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $PrefixNode())) {
-    const a: Anything = evaluate(node.value, argsMap);
+    const a: Anything = evaluate(node.expression, argsMap);
 
     return customEval(newText(`${node.operator.text.toNativeString()}${escapeToString(a)}`));
   }

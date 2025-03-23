@@ -1,4 +1,11 @@
-import {$IfKeywordNode, collapseNodes, IfStatementNode, newIfStatementNode, Node} from '#analyzer';
+import {
+  $ExpressionNode,
+  $IfKeywordNode,
+  collapseNodes,
+  IfStatementNode,
+  newIfStatementNode,
+  Node,
+} from '#analyzer';
 import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
@@ -15,7 +22,7 @@ export function parseIfStatementNode(
   nodes = collapseNodes(nodes.slice(1));
   const conditionExpressionNode = nodes.first();
 
-  if (conditionExpressionNode?.canBeExpression) {
+  if (is(conditionExpressionNode, $ExpressionNode())) {
     return newIfStatementNode(indentLevel, keywordNode, conditionExpressionNode, nodes.slice(1));
   }
 

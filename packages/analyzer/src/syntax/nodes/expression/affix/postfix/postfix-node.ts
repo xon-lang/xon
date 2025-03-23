@@ -1,4 +1,15 @@
-import {$AffixNode, $AnalyzerType, AffixNode, newSyntaxNode, Node, OperatorNode} from '#analyzer';
+import {
+  $AffixNode,
+  $AnalyzerType,
+  AffixNode,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
+  newSyntaxNode,
+  Node,
+  OperatorNode,
+  SemanticContext,
+} from '#analyzer';
 import {$Type, Brand} from '#typing';
 
 export type PostfixNode = AffixNode &
@@ -9,7 +20,16 @@ export type PostfixNode = AffixNode &
 export const $PostfixNode = () => $AnalyzerType<PostfixNode>('PostfixNode', $AffixNode());
 
 export function postfixNode($: $Type, value: Node, operator: OperatorNode): PostfixNode {
-  return newSyntaxNode({$, canBeExpression: true, value, operator});
+  return newSyntaxNode({
+    $,
+    value,
+    operator,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
+  });
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {

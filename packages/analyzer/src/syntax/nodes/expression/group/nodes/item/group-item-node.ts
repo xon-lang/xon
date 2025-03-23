@@ -3,8 +3,12 @@ import {
   $ExpressionStatementNode,
   $SyntaxNode,
   CommaNode,
+  DiagnosticContext,
+  ExpressionNode,
+  FormatterContext,
+  HighlightContext,
   newSyntaxNode,
-  Node,
+  SemanticContext,
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
@@ -15,7 +19,7 @@ export type GroupItemNode = SyntaxNode &
   Brand<'Analyzer.GroupItemNode'> & {
     statements: ArrayData<StatementNode>;
     comma?: CommaNode | Nothing;
-    value?: Node | Nothing;
+    expression?: ExpressionNode | Nothing;
   };
 
 export const $GroupItemNode = () => $AnalyzerType<GroupItemNode>('GroupItemNode', $SyntaxNode());
@@ -24,11 +28,20 @@ export function newItemNode(
   statements: ArrayData<StatementNode>,
   comma?: CommaNode | Nothing,
 ): GroupItemNode {
-  const node: GroupItemNode = newSyntaxNode({$: $GroupItemNode(), statements, comma});
+  const node: GroupItemNode = newSyntaxNode({
+    $: $GroupItemNode(),
+    statements,
+    comma,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
+  });
   const firstStatement = statements.first();
 
   if (is(firstStatement, $ExpressionStatementNode())) {
-    node.value = firstStatement.expression;
+    node.expression = firstStatement.expression;
   }
 
   return node;

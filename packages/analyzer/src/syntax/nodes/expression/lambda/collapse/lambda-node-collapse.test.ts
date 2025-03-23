@@ -18,7 +18,7 @@ test('Lambda integer type and value', () => {
   const node = getLambdaNode(text);
 
   expect(node.parameters.items.count()).toBe(1);
-  expect((node.parameters.items.at(0)?.value as IdNode).text.toNativeString()).toBe('a');
+  expect((node.parameters.items.at(0)?.expression as IdNode).text.toNativeString()).toBe('a');
 
   expect((node.type?.expression as IntegerNode).contentNode.text.toNativeString()).toBe('1');
   expect((node.value?.expression as IntegerNode).contentNode.text.toNativeString()).toBe('2');

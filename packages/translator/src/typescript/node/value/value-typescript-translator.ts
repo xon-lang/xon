@@ -59,18 +59,18 @@ export function translateTypescriptValue(node: Node): Text {
 
   if (is(node, $GroupNode())) {
     const items = node.items.map((x) =>
-      x.value ? translateTypescriptValue(x.value) : newText('/* error item */'),
+      x.expression ? translateTypescriptValue(x.expression) : newText('/* error item */'),
     );
 
     return newText(`${node.open.text}${items}${node.close?.text ?? ''}`);
   }
 
   if (is(node, $PrefixNode())) {
-    if (!node.value) {
+    if (!node.expression) {
       return newText('/* error prefix */');
     }
 
-    const value = translateTypescriptValue(node.value);
+    const value = translateTypescriptValue(node.expression);
 
     return newText(`${node.operator.text}${value}`);
   }

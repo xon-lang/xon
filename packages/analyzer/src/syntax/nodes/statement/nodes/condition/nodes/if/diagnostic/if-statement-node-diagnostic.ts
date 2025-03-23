@@ -1,4 +1,4 @@
-import {DiagnosticContext, IfStatementNode} from '#analyzer';
+import {$ExpressionNode, DiagnosticContext, IfStatementNode} from '#analyzer';
 import {newText, TextRange} from '#common';
 import {
   AnalyzerDiagnostic,
@@ -6,9 +6,10 @@ import {
   AnalyzerDiagnosticType,
   newDiagnostic,
 } from '#diagnostic';
+import {is} from '#typing';
 
 export function diagnoseIfStatementNode(this: IfStatementNode, context: DiagnosticContext): void {
-  if (!this.expression || !this.expression.canBeExpression) {
+  if (!this.expression || !is(this.expression, $ExpressionNode())) {
     context.add(expectExpression(this.range));
   }
 }

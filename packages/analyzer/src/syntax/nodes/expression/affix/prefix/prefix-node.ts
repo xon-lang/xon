@@ -1,15 +1,35 @@
-import {$AffixNode, $AnalyzerType, AffixNode, newSyntaxNode, Node, OperatorNode} from '#analyzer';
+import {
+  $AffixNode,
+  $AnalyzerType,
+  AffixNode,
+  DiagnosticContext,
+  FormatterContext,
+  HighlightContext,
+  newSyntaxNode,
+  Node,
+  OperatorNode,
+  SemanticContext,
+} from '#analyzer';
 import {$Type, Brand} from '#typing';
 
 export type PrefixNode = AffixNode &
   Brand<'Analyzer.PrefixNode'> & {
-    value: Node;
+    expression: Node;
   };
 
 export const $PrefixNode = () => $AnalyzerType<PrefixNode>('PrefixNode', $AffixNode());
 
-export function prefixNode($: $Type, operator: OperatorNode, value: Node): PrefixNode {
-  return newSyntaxNode({$, canBeExpression: true, operator, value});
+export function newPrefixNode($: $Type, operator: OperatorNode, expression: Node): PrefixNode {
+  return newSyntaxNode({
+    $,
+    operator,
+    expression,
+
+    semantify(context: SemanticContext): void {},
+    diagnose(context: DiagnosticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
+  });
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {

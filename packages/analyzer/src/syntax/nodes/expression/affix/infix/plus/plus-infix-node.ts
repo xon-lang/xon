@@ -2,11 +2,11 @@ import {
   $AnalyzerType,
   $InfixNode,
   DiagnosticContext,
+  ExpressionNode,
   FormatterContext,
   HighlightContext,
   InfixNode,
   newSyntaxNode,
-  Node,
   PlusOperatorNode,
   SemanticContext,
 } from '#analyzer';
@@ -14,17 +14,20 @@ import {Brand} from '#typing';
 
 export type PlusInfixNode = InfixNode &
   Brand<'Analyzer.PlusInfixNode'> & {
-    left: Node;
+    left: ExpressionNode;
     operator: PlusOperatorNode;
-    right: Node;
+    right: ExpressionNode;
   };
 
 export const $PlusInfixNode = () => $AnalyzerType<PlusInfixNode>('PlusInfixNode', $InfixNode());
 
-export function newPlusInfixNode(left: Node, operator: PlusOperatorNode, right: Node): PlusInfixNode {
+export function newPlusInfixNode(
+  left: ExpressionNode,
+  operator: PlusOperatorNode,
+  right: ExpressionNode,
+): PlusInfixNode {
   return newSyntaxNode({
     $: $PlusInfixNode(),
-    canBeExpression: true,
     left,
     operator,
     right,

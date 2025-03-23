@@ -7,23 +7,21 @@ import {
   GroupNode,
   HighlightContext,
   newSyntaxNode,
-  Node,
   SemanticContext,
 } from '#analyzer';
 import {Brand} from '#typing';
 
 export type InvokeNode = ExpressionNode &
   Brand<'Analyzer.InvokeNode'> & {
-    instance: Node;
+    instance: ExpressionNode;
     group: GroupNode;
   };
 
 export const $InvokeNode = () => $AnalyzerType<InvokeNode>('InvokeNode', $ExpressionNode());
 
-export function invokeNode(instance: Node, group: GroupNode): InvokeNode {
+export function invokeNode(instance: ExpressionNode, group: GroupNode): InvokeNode {
   return newSyntaxNode({
     $: $InvokeNode(),
-    canBeExpression: true,
     instance,
     group,
 

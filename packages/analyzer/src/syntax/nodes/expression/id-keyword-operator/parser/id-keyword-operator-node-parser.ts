@@ -10,17 +10,16 @@ import {
   $TypeKeywordNode,
   AnalyzerContext,
   AS,
-  diagnoseIdNode,
   ELSE,
   IdNode,
   IF,
   IMPORT,
   IS,
   KeywordNode,
+  newIdNode,
   OperatorNode,
   PUBLIC,
   RETURN,
-  semantifyIdNode,
   TYPE,
   UNDERSCORE,
 } from '#analyzer';
@@ -58,9 +57,6 @@ export function parseIdKeywordOperatorNode(
     return nothing;
   }
 
-  node.semantify = semantifyIdNode;
-  node.diagnose = diagnoseIdNode;
-
   const $Type = getTokenTypeMap().get(node.text);
 
   if ($Type) {
@@ -70,7 +66,7 @@ export function parseIdKeywordOperatorNode(
   }
 
   if (node) {
-    node.canBeExpression = true;
+    return newIdNode(node.text, node.range);
   }
 
   return node;

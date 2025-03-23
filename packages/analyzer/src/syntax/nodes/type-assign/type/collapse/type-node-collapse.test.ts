@@ -1,4 +1,5 @@
 import {
+  $ExpressionNode,
   $IdNode,
   $IntegerNode,
   $TypeNode,
@@ -25,7 +26,7 @@ test('Integer type ', () => {
   expect(is(node.type.operator, $TypeOperatorNode())).toBe(true);
   expect(node.type.operator.text.toNativeString()).toBe(':');
 
-  expect(node.type.expression?.canBeExpression).toBe(true);
+  expect(is(node.type.expression, $ExpressionNode())).toBe(true);
   expect(is(node.type.expression, $IntegerNode())).toBe(true);
   expect((node.type.expression as IntegerNode).contentNode.text.toNativeString()).toBe('1');
 });

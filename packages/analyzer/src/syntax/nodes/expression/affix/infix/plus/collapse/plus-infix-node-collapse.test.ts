@@ -1,4 +1,5 @@
 import {
+  $ExpressionNode,
   $IntegerNode,
   $PlusInfixNode,
   $PlusOperatorNode,
@@ -33,8 +34,8 @@ function getPlusInfixNode(text: Text): PlusInfixNode {
   expect(is(node, $PlusInfixNode())).toBe(true);
   expect(is(node.operator, $PlusOperatorNode())).toBe(true);
   expect(node.operator.text.toNativeString()).toBe('+');
-  expect(node.left.canBeExpression).toBe(true);
-  expect(node.right.canBeExpression).toBe(true);
+  expect(is(node.left, $ExpressionNode())).toBe(true);
+  expect(is(node.right, $ExpressionNode())).toBe(true);
 
   return node;
 }
