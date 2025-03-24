@@ -21,7 +21,7 @@ export function collapseLambdaNode(): NodeCollapseFn<LambdaNode> {
           return nothing;
         }
 
-        const {target, type, value: assign} = extractDeclarationInfo(typeAssign);
+        const {target, annotation, assignment} = extractDeclarationInfo(typeAssign);
 
         if (!is(target, $ParenGroupNode())) {
           return nothing;
@@ -30,7 +30,7 @@ export function collapseLambdaNode(): NodeCollapseFn<LambdaNode> {
         return {
           index: index,
           deleteCount: 1,
-          node: newLambdaNode(target, type, assign),
+          node: newLambdaNode(target, annotation, assignment),
         };
       }, startIndex);
     },
