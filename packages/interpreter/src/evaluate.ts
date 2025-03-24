@@ -6,6 +6,7 @@ import {
   $ParenGroupNode,
   $PrefixNode,
   $StringNode,
+  ExpressionStatementNode,
   Node,
 } from '#analyzer';
 import {Anything, newText, Nothing, nothing, Something, Text} from '#common';
@@ -17,7 +18,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $ParenGroupNode())) {
-    return node.items.map((x) => evaluate(x.expression ?? nothing));
+    return node.items.map((x) => evaluate((x.statement as ExpressionStatementNode).expression ?? nothing));
   }
 
   if (is(node, $IntegerNode())) {
