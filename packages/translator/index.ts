@@ -1,4 +1,5 @@
 export * from './package';
+export * from './src/translate-result';
 export * from './src/translator';
 export * from './src/typescript/typescript-translator';
 export * from './src/typescript/node/value/value-typescript-translator';
@@ -9,5 +10,3 @@ export * from './src/typescript/node/statement/import/import-statement-typescrip
 export * from './src/typescript/node/statement/expression/expression-statement-typescript-translator';
 export * from './src/typescript/node/statement/declaration/declaration-statement-typescript-translator';
 export * from './src/typescript/node/statement/condition/condition-statement-typescript-translator';
-export * from './src/typescript/node/declaration/value/value-declaration-typescript-translate';
-export * from './src/typescript/node/declaration/type/type-declaration-typescript-translate';

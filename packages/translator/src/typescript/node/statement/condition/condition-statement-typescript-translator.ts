@@ -7,12 +7,12 @@ export function translateTypescriptConditionStatement(node: ConditionStatementNo
     const ifTranslated = translateIfStatement(node.ifStatement);
     const elseTranslated = translateElseStatement(node.elseStatement);
 
-    return newText(`\n${ifTranslated} ${elseTranslated}\n`);
+    return newText(`${ifTranslated} ${elseTranslated}\n`);
   }
 
   const ifTranslated = translateIfStatement(node.ifStatement);
 
-  return newText(`\n${ifTranslated}\n`);
+  return newText(`${ifTranslated}\n`);
 }
 
 function translateIfStatement(node: IfStatementNode): Text {
