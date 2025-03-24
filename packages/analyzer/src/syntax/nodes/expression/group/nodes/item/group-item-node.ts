@@ -1,10 +1,8 @@
 import {
   $AnalyzerType,
-  $ExpressionStatementNode,
   $SyntaxNode,
   CommaNode,
   DiagnosticContext,
-  ExpressionNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -13,13 +11,13 @@ import {
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
-import {Brand, is} from '#typing';
+import {Brand} from '#typing';
 
 export type GroupItemNode = SyntaxNode &
   Brand<'Analyzer.GroupItemNode'> & {
     statements: ArrayData<StatementNode>;
     comma?: CommaNode | Nothing;
-    expression?: ExpressionNode | Nothing;
+    statement?: StatementNode | Nothing;
   };
 
 export const $GroupItemNode = () => $AnalyzerType<GroupItemNode>('GroupItemNode', $SyntaxNode());
@@ -38,11 +36,8 @@ export function newItemNode(
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });
-  const firstStatement = statements.first();
 
-  if (is(firstStatement, $ExpressionStatementNode())) {
-    node.expression = firstStatement.expression;
-  }
+  node.statement = statements.first();
 
   return node;
 }
