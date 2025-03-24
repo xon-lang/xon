@@ -9,11 +9,10 @@ import {
 import {ArrayData, newText, Text} from '#common';
 import {
   translateTypescriptConditionStatement,
+  translateTypescriptDeclarationStatement,
   translateTypescriptExpressionStatement,
   translateTypescriptImportStatement,
   translateTypescriptReturnStatement,
-  translateTypescriptTypeDeclarationStatement,
-  translateTypescriptValueDeclarationStatement,
 } from '#translator';
 import {is} from '#typing';
 
@@ -27,11 +26,7 @@ export function translateTypescriptStatement(node: StatementNode): Text {
   }
 
   if (is(node, $DeclarationStatementNode())) {
-    return translateTypescriptTypeDeclarationStatement(node);
-  }
-
-  if (is(node, $DeclarationStatementNode())) {
-    return translateTypescriptValueDeclarationStatement(node, false);
+    return translateTypescriptDeclarationStatement(node);
   }
 
   if (is(node, $ConditionStatementNode())) {

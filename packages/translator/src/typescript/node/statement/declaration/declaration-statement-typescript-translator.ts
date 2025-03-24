@@ -1,19 +1,37 @@
-import {$DeclarationStatementNode, DeclarationStatementNode, StatementNode} from '#analyzer';
-import {ArrayData, newArrayData, newText, Text} from '#common';
+import {
+  $DeclarationStatementNode,
+  $ExpressionStatementNode,
+  $IdNode,
+  DeclarationStatementNode,
+  StatementNode,
+  TYPE,
+} from '#analyzer';
+import {ArrayData, Boolean2, newArrayData, newText, Text} from '#common';
+import {translateTypescriptType, translateTypescriptValue} from '#translator';
 import {is} from '#typing';
 
-export function translateTypescriptDeclarationStatement(node: DeclarationStatementNode): Text {
-  if (is(node, $DeclarationStatementNode())) {
-    const body = translateAttributes(node.body ?? newArrayData());
-
-    return newText(`type ${node.id.text} = ${body}`);
+export function translateTypescriptDeclarationStatement(node: StatementNode): Text {
+  if (!is(node, $DeclarationStatementNode())) {
+    return newText(`/* error type declaration */`);
   }
 
-  if (is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
-    return newText(`${node.expression.text}`);
+  if (node.keyword?.text.equals(TYPE)) {
+    return translateTypeDeclaration(node);
   }
 
-  return newText(`/* error type declaration */`);
+  return translateValueDeclaration(node, false);
+}
+
+function translateTypeDeclaration(node: DeclarationStatementNode): Text {
+  if (node.assignment?.expression) {
+    const assignment = translateTypescriptValue(node.assignment.expression);
+
+    return newText(`type ${node.id.text} = ${assignment}`);
+  }
+
+  const body = translateAttributes(node.body ?? newArrayData());
+
+  return newText(`type ${node.id.text} = ${body}`);
 }
 
 function translateAttributes(body: ArrayData<StatementNode>): Text {
@@ -25,8 +43,12 @@ function translateAttributes(body: ArrayData<StatementNode>): Text {
   return newText(`{\n${translatedBody.margin(2)}\n}\n`);
 }
 
-function translateValueDeclaration(node: DeclarationStatementNode, isAttribute: Boolean2): Text {
-  if (!node.id) {
+function translateValueDeclaration(node: StatementNode, isAttribute: Boolean2): Text {
+  if (isAttribute && is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
+    return newText(`${node.expression.text}`);
+  }
+
+  if (!is(node, $DeclarationStatementNode()) || !node.id) {
     return newText(`/* error value declaration */`);
   }
 
