@@ -6,9 +6,15 @@ import {
   StatementNode,
   TYPE,
 } from '#analyzer';
-import {ArrayData, Boolean2, newArrayData, newText, Text} from '#common';
-import {translateTypescriptType, translateTypescriptValue} from '#translator';
+import {ArrayData, newArrayData, newText, Text} from '#common';
+import {translateTypescriptBody, translateTypescriptType, translateTypescriptValue} from '#translator';
 import {is} from '#typing';
+
+enum DeclarationType {
+  Variable,
+  Attribute,
+  Parameter,
+}
 
 export function translateTypescriptDeclarationStatement(node: StatementNode): Text {
   if (!is(node, $DeclarationStatementNode())) {
@@ -19,7 +25,7 @@ export function translateTypescriptDeclarationStatement(node: StatementNode): Te
     return translateTypeDeclaration(node);
   }
 
-  return translateValueDeclaration(node, false);
+  return translateValueDeclaration(node, DeclarationType.Variable);
 }
 
 function translateTypeDeclaration(node: DeclarationStatementNode): Text {
@@ -36,15 +42,19 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
 
 function translateAttributes(body: ArrayData<StatementNode>): Text {
   const translatedBody = newText(
-    body.map((x) => translateValueDeclaration(x, true)),
+    body.map((x) => translateValueDeclaration(x, DeclarationType.Attribute)),
     newText('\n'),
   );
 
   return newText(`{\n${translatedBody.margin(2)}\n}\n`);
 }
 
-function translateValueDeclaration(node: StatementNode, isAttribute: Boolean2): Text {
-  if (isAttribute && is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
+function translateValueDeclaration(node: StatementNode, declarationType: DeclarationType): Text {
+  if (
+    (declarationType === DeclarationType.Attribute || declarationType === DeclarationType.Parameter) &&
+    is(node, $ExpressionStatementNode()) &&
+    is(node.expression, $IdNode())
+  ) {
     return newText(`${node.expression.text}`);
   }
 
@@ -52,27 +62,70 @@ function translateValueDeclaration(node: StatementNode, isAttribute: Boolean2): 
     return newText(`/* error value declaration */`);
   }
 
-  if (is(node.id, $IdNode())) {
-    const keyword = node.keyword
-      ? newText(`${node.keyword?.text} `)
-      : isAttribute
-      ? newText()
-      : newText('let ');
-
-    let type = newText();
-
-    if (node.annotation?.expression) {
-      type = newText(`: ${translateTypescriptType(node.annotation.expression)}`);
-    }
-
-    let value = newText();
-
-    if (node.assignment?.expression) {
-      value = newText(` = ${translateTypescriptType(node.assignment.expression)}`);
-    }
-
-    return newText(`${keyword}${node.id.text}${type}${value}`);
+  if (node.parameters) {
+    return translateToFunction(node, declarationType);
   }
 
-  return newText(`/* error value declaration */`);
+  const keyword = node.keyword
+    ? newText(`${node.keyword?.text} `)
+    : declarationType === DeclarationType.Variable
+    ? newText('let ')
+    : newText();
+
+  let type = newText();
+
+  if (node.annotation?.expression) {
+    type = newText(`: ${translateTypescriptType(node.annotation.expression)}`);
+  }
+
+  let value = newText();
+
+  if (node.assignment?.expression) {
+    value = newText(` = ${translateTypescriptType(node.assignment.expression)}`);
+  }
+
+  return newText(`${keyword}${node.id.text}${type}${value}`);
+}
+
+function translateToFunction(node: DeclarationStatementNode, declarationType: DeclarationType): Text {
+  if (!node.parameters) {
+    return newText();
+  }
+
+  let keyword = newText();
+
+  if (declarationType !== DeclarationType.Attribute) {
+    keyword = node.assignment?.expression ? newText(`const `) : newText(`function `);
+  }
+
+  const parameters = newText(
+    node.parameters.items
+      .map((x) => x.statements.first())
+      .map((x) => (x ? translateValueDeclaration(x, DeclarationType.Parameter) : newText())),
+    newText(', '),
+  );
+
+  let type = newText();
+
+  if (node.annotation?.expression) {
+    type = newText(`: ${translateTypescriptType(node.annotation.expression)}`);
+  }
+
+  if (node.assignment?.expression) {
+    const value = newText(
+      ` = ${node.parameters.open.text}${parameters}${
+        node.parameters.close?.text ?? ''
+      }${type} => ${translateTypescriptType(node.assignment.expression)}`,
+    );
+
+    return newText(`${keyword}${node.id.text}${value}`);
+  }
+
+  const body = translateTypescriptBody(node.body ?? newArrayData());
+
+  return newText(
+    `${keyword}${node.id.text}${node.parameters.open.text}${parameters}${
+      node.parameters.close?.text ?? ''
+    }${type} ${body}`,
+  );
 }
