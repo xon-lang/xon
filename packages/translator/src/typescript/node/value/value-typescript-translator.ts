@@ -10,6 +10,7 @@ import {
   $PostfixNode,
   $PrefixNode,
   $StringNode,
+  ExpressionStatementNode,
   Node,
 } from '#analyzer';
 import {newText, Text} from '#common';
@@ -53,7 +54,11 @@ export function translateTypescriptValue(node: Node): Text {
   if (is(node, $InvokeNode())) {
     const instance = translateTypescriptValue(node.instance);
     const parameters = newText(
-      node.group.items.map((x) => (x.expression ? translateTypescriptValue(x.expression) : newText())),
+      node.group.items.map((x) =>
+        x.statement
+          ? translateTypescriptValue((x.statement as ExpressionStatementNode).expression)
+          : newText(),
+      ),
       newText(', '),
     );
 
@@ -61,11 +66,11 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   if (is(node, $GroupNode())) {
-    if (node.items.count() !== 1 || !node.items.at(0)?.expression) {
+    if (node.items.count() !== 1 || !node.items.at(0)?.statement) {
       return newText('/* error group */');
     }
 
-    const expression = node.items.at(0)?.expression!;
+    const expression = (node.items.at(0)?.statement as ExpressionStatementNode).expression;
     const translatedExpression = translateTypescriptValue(expression);
 
     return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
