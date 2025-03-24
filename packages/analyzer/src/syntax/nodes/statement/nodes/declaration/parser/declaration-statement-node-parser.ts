@@ -22,14 +22,19 @@ export function parseDeclarationStatementNode(
   }
 
   nodes = collapseNodes(nodes);
-  const {target, type, value: assign} = extractDeclarationInfo(nodes.first());
+  const {target, parameters, annotation, assignment} = extractDeclarationInfo(nodes.first());
 
-  if (!is(target, $IdNode()) || (!type && !assign && !keyword)) {
+  if (!is(target, $IdNode()) || (!annotation && !assignment && !keyword)) {
     return nothing;
   }
 
-  // todo fix it
-  const parameters = nothing;
-
-  return newDeclarationStatementNode(indent, keyword, target, parameters, type, assign, nodes.slice(1));
+  return newDeclarationStatementNode(
+    indent,
+    keyword,
+    target,
+    parameters,
+    annotation,
+    assignment,
+    nodes.slice(1),
+  );
 }

@@ -1,9 +1,9 @@
 import {
   $AnalyzerType,
   $StatementNode,
-  AngleGroupNode,
   diagnoseDeclarationStatementNode,
   FormatterContext,
+  GroupNode,
   highlightDeclarationStatementNode,
   IdNode,
   KeywordNode,
@@ -21,7 +21,7 @@ export type DeclarationStatementNode = StatementNode &
     keyword?: KeywordNode | Nothing;
     id: IdNode;
     isMutable: Boolean2;
-    parameters?: AngleGroupNode | Nothing;
+    parameters?: GroupNode | Nothing;
     annotation?: OperatorExpressionNode | Nothing;
     assignment?: OperatorExpressionNode | Nothing;
   };
@@ -33,7 +33,7 @@ export function newDeclarationStatementNode(
   indent: Integer,
   keyword: KeywordNode | Nothing,
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
-  parameters?: AngleGroupNode | Nothing,
+  parameters?: GroupNode | Nothing,
   annotation?: OperatorExpressionNode | Nothing,
   assignment?: OperatorExpressionNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,

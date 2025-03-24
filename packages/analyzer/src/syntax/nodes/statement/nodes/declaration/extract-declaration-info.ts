@@ -13,8 +13,8 @@ import {is} from '#typing';
 export type ExtractedDeclarationInfo = {
   target?: Node | Nothing;
   parameters?: GroupNode | Nothing;
-  type?: OperatorExpressionNode | Nothing;
-  value?: OperatorExpressionNode | Nothing;
+  annotation?: OperatorExpressionNode | Nothing;
+  assignment?: OperatorExpressionNode | Nothing;
 };
 
 export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarationInfo {
@@ -29,19 +29,19 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
   if (is(node, $TypeNode())) {
     const {target, parameters} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, type: node.type};
+    return {target, parameters, annotation: node.type};
   }
 
   if (is(node, $ValueNode())) {
-    const {target, parameters, type} = extractDeclarationInfo(node.target);
+    const {target, parameters, annotation} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, type, value: node.value};
+    return {target, parameters, annotation: annotation, assignment: node.value};
   }
 
   if (is(node, $LambdaNode())) {
     const {parameters: group, type, value} = node;
 
-    return {target: group, type, value};
+    return {target: group, annotation: type, assignment: value};
   }
 
   return {target: node};

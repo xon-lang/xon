@@ -3,6 +3,7 @@ import {
   $IdNode,
   $IntegerNode,
   $OperatorExpressionNode,
+  $ParenGroupNode,
   DeclarationStatementNode,
   IdNode,
   IntegerNode,
@@ -45,6 +46,21 @@ test('Type declaration id and base type', () => {
   expect(is(node.annotation, $OperatorExpressionNode())).toBe(true);
   expect(is(node.annotation?.expression, $IdNode())).toBe(true);
   expect((node.annotation?.expression as IdNode).text.toNativeString()).toBe('Integer');
+
+  expect(is(node.id, $IdNode())).toBe(true);
+});
+
+test('Function declaration', () => {
+  const text = newText('f(a: Integer): Float');
+  const node = getDeclarationStatementNode(text) as DeclarationStatementNode;
+
+  expect(node.id.text.toNativeString()).toBe('f');
+  expect(is(node.parameters, $ParenGroupNode())).toBe(true);
+  expect(node.parameters?.items.count()).toBe(1);
+  expect(is(node.parameters?.items.at(0)?.statement, $DeclarationStatementNode())).toBe(true);
+  expect(is(node.annotation, $OperatorExpressionNode())).toBe(true);
+  expect(is(node.annotation?.expression, $IdNode())).toBe(true);
+  expect((node.annotation?.expression as IdNode).text.toNativeString()).toBe('Float');
 
   expect(is(node.id, $IdNode())).toBe(true);
 });
