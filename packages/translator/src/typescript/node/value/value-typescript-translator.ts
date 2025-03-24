@@ -58,11 +58,14 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   if (is(node, $GroupNode())) {
-    const items = node.items.map((x) =>
-      x.expression ? translateTypescriptValue(x.expression) : newText('/* error item */'),
-    );
+    if (node.items.count() !== 1 || !node.items.at(0)?.expression) {
+      return newText('/* error group */');
+    }
 
-    return newText(`${node.open.text}${items}${node.close?.text ?? ''}`);
+    const expression = node.items.at(0)?.expression!;
+    const translatedExpression = translateTypescriptValue(expression);
+
+    return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
   }
 
   if (is(node, $PrefixNode())) {

@@ -4,11 +4,12 @@ import {translateTypescriptStatement, translateTypescriptValue} from '#translato
 
 export function translateTypescriptConditionStatement(node: ConditionStatementNode): Text {
   if (node.ifStatement.expression && node.ifStatement.body) {
-    const expression = translateTypescriptValue(node.ifStatement.expression);
     const body = newText(
       node.ifStatement.body.map((x) => translateTypescriptStatement(x)),
       newText('\n'),
     ).margin(2);
+
+    const expression = translateTypescriptValue(node.ifStatement.expression);
 
     return newText(`if (${expression}) {\n${body}\n}`);
   }
