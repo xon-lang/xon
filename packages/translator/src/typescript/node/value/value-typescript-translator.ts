@@ -52,9 +52,12 @@ export function translateTypescriptValue(node: Node): Text {
 
   if (is(node, $InvokeNode())) {
     const instance = translateTypescriptValue(node.instance);
-    const group = translateTypescriptValue(node.group);
+    const parameters = newText(
+      node.group.items.map((x) => (x.expression ? translateTypescriptValue(x.expression) : newText())),
+      newText(', '),
+    );
 
-    return newText(`${instance}${group}`);
+    return newText(`${instance}${node.group.open.text}${parameters}${node.group.close?.text ?? ''}`);
   }
 
   if (is(node, $GroupNode())) {
