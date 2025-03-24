@@ -24,7 +24,7 @@ export function collapseConditionStatementNode(): NodeCollapseFn<StatementNode> 
 
         return {
           index,
-          deleteCount: 2,
+          deleteCount: elseStatementNode ? 2 : 1,
           node: newConditionStatementNode(ifStatementNode, elseStatementNode),
         };
       }, startIndex);

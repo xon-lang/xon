@@ -34,6 +34,17 @@ test('Condition with else', () => {
   expect(node.elseStatement?.body?.count()).toBe(3);
 });
 
+test('Two conditions', () => {
+  const text = newText('if 0\n  1\nif 2\n  3');
+  const source = newCharacterStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  const statements = parseStatements(context).statements;
+
+  expect(statements.count()).toBe(2);
+  expect(is(statements.at(0), $ConditionStatementNode())).toBeTruthy();
+  expect(is(statements.at(1), $ConditionStatementNode())).toBeTruthy();
+});
+
 function getConditionStatementNode(text: Text): ConditionStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
