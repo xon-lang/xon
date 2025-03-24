@@ -1,17 +1,43 @@
-import {ConditionStatementNode} from '#analyzer';
+import {ConditionStatementNode, ElseStatementNode, IfStatementNode} from '#analyzer';
 import {newText, Text} from '#common';
 import {translateTypescriptStatement, translateTypescriptValue} from '#translator';
 
 export function translateTypescriptConditionStatement(node: ConditionStatementNode): Text {
-  if (node.ifStatement.expression && node.ifStatement.body) {
+  if (node.elseStatement) {
+    const ifTranslated = translateIfStatement(node.ifStatement);
+    const elseTranslated = translateElseStatement(node.elseStatement);
+
+    return newText(`\n${ifTranslated} ${elseTranslated}\n`);
+  }
+
+  const ifTranslated = translateIfStatement(node.ifStatement);
+
+  return newText(`\n${ifTranslated}\n`);
+}
+
+function translateIfStatement(node: IfStatementNode): Text {
+  if (node.expression && node.body) {
+    const expression = translateTypescriptValue(node.expression);
+
     const body = newText(
-      node.ifStatement.body.map((x) => translateTypescriptStatement(x)),
+      node.body.map((x) => translateTypescriptStatement(x)),
       newText('\n'),
     ).margin(2);
 
-    const expression = translateTypescriptValue(node.ifStatement.expression);
-
     return newText(`if (${expression}) {\n${body}\n}`);
+  }
+
+  return newText(`/* error condition */`);
+}
+
+function translateElseStatement(node: ElseStatementNode): Text {
+  if (node.body) {
+    const body = newText(
+      node.body.map((x) => translateTypescriptStatement(x)),
+      newText('\n'),
+    ).margin(2);
+
+    return newText(`else {\n${body}\n}`);
   }
 
   return newText(`/* error condition */`);
