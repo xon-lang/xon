@@ -1,13 +1,13 @@
 import {
   $IdTypeSemantic,
   $VariableValueDeclarationSemantic,
-  DeclarationNode,
+  DeclarationStatementNode,
   IdTypeSemantic,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
   nonHiddenNodeGenerator,
-  parseDeclarationNode,
+  parseDeclarationStatementNode,
   ValueDeclarationSemantic,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
@@ -16,7 +16,7 @@ import {expect, test} from 'vitest';
 
 test('Value declaration', () => {
   const text = newText('a: Number = 1');
-  const node = getValueDeclarationNode(text);
+  const node = getDeclarationStatementNode(text);
   const semantic = node.semantic as ValueDeclarationSemantic;
 
   expect(semantic.name.toNativeString()).toBe('a');
@@ -24,11 +24,11 @@ test('Value declaration', () => {
   expect((semantic.type as IdTypeSemantic).name.toNativeString()).toBe('Number');
 });
 
-function getValueDeclarationNode(text: Text): DeclarationNode {
+function getDeclarationStatementNode(text: Text): DeclarationStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseDeclarationNode(0, nodes)!;
+  const node = parseDeclarationStatementNode(0, nodes)!;
   const semanticContext = newSemanticContext();
 
   node.semantify!(semanticContext);

@@ -2,15 +2,18 @@ import {
   $IdNode,
   $TypeKeywordNode,
   collapseNodes,
-  DeclarationNode,
+  DeclarationStatementNode,
   extractDeclarationInfo,
-  newDeclarationNode,
+  newDeclarationStatementNode,
   Node,
 } from '#analyzer';
 import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
-export function parseDeclarationNode(indent: Integer, nodes: ArrayData<Node>): DeclarationNode | Nothing {
+export function parseDeclarationStatementNode(
+  indent: Integer,
+  nodes: ArrayData<Node>,
+): DeclarationStatementNode | Nothing {
   const firstNode = nodes.first();
   const keyword = is(firstNode, $TypeKeywordNode()) ? firstNode : nothing;
 
@@ -28,5 +31,5 @@ export function parseDeclarationNode(indent: Integer, nodes: ArrayData<Node>): D
   // todo fix it
   const parameters = nothing;
 
-  return newDeclarationNode(indent, keyword, target, parameters, type, assign, nodes.slice(1));
+  return newDeclarationStatementNode(indent, keyword, target, parameters, type, assign, nodes.slice(1));
 }

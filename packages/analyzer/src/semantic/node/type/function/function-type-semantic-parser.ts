@@ -1,6 +1,6 @@
 // import {
 //   $LambdaNode,
-//   DeclarationNode,
+//   DeclarationStatementNode,
 //   DeclarationSemantic,
 //   documentationIdSemantic,
 //   DocumentationNode,
@@ -42,7 +42,7 @@
 
 // export function parametersParse(
 //   analyzer: SemanticAnalyzer,
-//   node: DeclarationNode,
+//   node: DeclarationStatementNode,
 //   group: GroupNode,
 //   // todo return single type not union
 // ): ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic> {

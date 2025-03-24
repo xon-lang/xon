@@ -1,5 +1,5 @@
 // import {
-//   $DeclarationNode,
+//   $DeclarationStatementNode,
 //   $ImportNode,
 //   SemanticAnalyzer,
 //   StatementNode,
@@ -22,7 +22,7 @@
 //     }
 //   }
 
-//   const declarationNodes = statements.filterMap((x) => (is(x.value, $DeclarationNode()) ? x.value : nothing));
+//   const declarationNodes = statements.filterMap((x) => (is(x.value, $DeclarationStatementNode()) ? x.value : nothing));
 //   statementDeclarationsParse(analyzer, declarationNodes);
 
 //   for (const statement of statements) {

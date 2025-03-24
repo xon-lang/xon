@@ -5,7 +5,7 @@ import {
   $ValueDeclarationSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
-  DeclarationNode,
+  DeclarationStatementNode,
   IdTypeSemantic,
   syntaxFromResource,
   typeNodeType,
@@ -32,7 +32,7 @@ test('a is integer or float', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements.at(2)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(2)?.value as DeclarationStatementNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
@@ -62,8 +62,8 @@ test('1 check type', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax);
 
-  const aConst = syntax.statements.at(3)?.value as DeclarationNode;
-  const bConst = syntax.statements.at(4)?.value as DeclarationNode;
+  const aConst = syntax.statements.at(3)?.value as DeclarationStatementNode;
+  const bConst = syntax.statements.at(4)?.value as DeclarationStatementNode;
 
   const aType = aConst.annotation ? typeNodeType(semantic, aConst.annotation) : nothing;
   const bType = bConst.annotation ? typeNodeType(semantic, bConst.annotation) : nothing;

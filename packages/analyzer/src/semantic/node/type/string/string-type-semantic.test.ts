@@ -3,7 +3,7 @@ import {
   $StringTypeSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
-  DeclarationNode,
+  DeclarationStatementNode,
   StringTypeSemantic,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
@@ -26,7 +26,7 @@ test('a is string value', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements.at(0)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
@@ -46,7 +46,7 @@ test('a is string literal', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
-  const constNode = syntax.statements.at(0)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
   const typeSemantic = constNode.annotation
     ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
@@ -61,7 +61,7 @@ test('a is empty string 1', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
-  const constNode = syntax.statements.at(0)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
   const typeSemantic = constNode.annotation
     ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;
@@ -76,7 +76,7 @@ test('a is empty string 2', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
-  const constNode = syntax.statements.at(0)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
   const typeSemantic = constNode.annotation
     ? (typeNodeType(semantic, constNode.annotation) as StringTypeSemantic)
     : nothing;

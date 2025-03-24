@@ -1,6 +1,14 @@
-import {DeclarationNode, newVariableValueDeclarationSemantic, SemanticContext, TypeSemantic} from '#analyzer';
+import {
+  DeclarationStatementNode,
+  newVariableValueDeclarationSemantic,
+  SemanticContext,
+  TypeSemantic,
+} from '#analyzer';
 
-export function semantifyDeclarationNode(this: DeclarationNode, context: SemanticContext): void {
+export function semantifyDeclarationStatementNode(
+  this: DeclarationStatementNode,
+  context: SemanticContext,
+): void {
   if (this.annotation?.expression?.semantify) {
     context.pushScope(true);
     this.annotation?.expression?.semantify(context);

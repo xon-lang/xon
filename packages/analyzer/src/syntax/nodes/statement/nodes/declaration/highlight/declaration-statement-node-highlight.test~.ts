@@ -1,13 +1,13 @@
 // import {
-//   $DeclarationNode,
+//   $DeclarationStatementNode,
 //   HighlightToken,
 //   HighlightTokenType,
 //   newAnalyzerContext,
 //   newCharacterStreamFromText,
 //   newHighlightContext,
 //   nonHiddenNodeGenerator,
-//   parseDeclarationNode,
-//   DeclarationNode,
+//   parseDeclarationStatementNode,
+//   DeclarationStatementNode,
 // } from '#analyzer';
 // import {ArrayData, newArrayData, newText, Text} from '#common';
 // import {is} from '#typing';
@@ -25,11 +25,11 @@
 //   const source = newCharacterStreamFromText(text);
 //   const context = newAnalyzerContext(source);
 //   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-//   const node = parseDeclarationNode(0, nodes) as DeclarationNode;
+//   const node = parseDeclarationStatementNode(0, nodes) as DeclarationStatementNode;
 //   const highlightContext = newHighlightContext();
 
 //   expect(node).toBeTruthy();
-//   expect(is(node, $DeclarationNode())).toBe(true);
+//   expect(is(node, $DeclarationStatementNode())).toBe(true);
 
 //   if (node.highlight) {
 //     node.highlight(highlightContext);

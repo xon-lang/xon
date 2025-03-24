@@ -4,7 +4,7 @@ import {
   AttributeDeclarationSemantic,
   CharTypeSemantic,
   createSemanticAnalyzer,
-  DeclarationNode,
+  DeclarationStatementNode,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
   typeNodeType,
@@ -26,7 +26,7 @@ test('a is string value', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements.at(0)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
@@ -46,7 +46,7 @@ test('a is string literal', () => {
   const source = newTextResource(nothing, text);
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
-  const constNode = syntax.statements.at(0)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
   const typeSemantic = constNode.annotation
     ? (typeNodeType(semantic, constNode.annotation) as CharTypeSemantic)
     : nothing;
@@ -63,7 +63,7 @@ test('emoji', () => {
   const syntax = syntaxFromResource(source);
   const semantic = createSemanticAnalyzer(syntax, TEST_SEMANTIC_CONFIG);
 
-  const constA = syntax.statements.at(0)?.value as DeclarationNode;
+  const constA = syntax.statements.at(0)?.value as DeclarationStatementNode;
   const typeASemantic = constA.annotation
     ? (typeNodeType(semantic, constA.annotation) as CharTypeSemantic)
     : nothing;
@@ -71,7 +71,7 @@ test('emoji', () => {
   expect(typeASemantic?.value.toNativeString()).toBe('👩‍❤️‍💋‍👩');
   expect(typeASemantic?.declaration?.name.toNativeString()).toBe('Character');
 
-  const constB = syntax.statements.at(1)?.value as DeclarationNode;
+  const constB = syntax.statements.at(1)?.value as DeclarationStatementNode;
   const typeBSemantic = constB.annotation
     ? (typeNodeType(semantic, constB.annotation) as CharTypeSemantic)
     : nothing;

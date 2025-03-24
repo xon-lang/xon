@@ -1,6 +1,6 @@
 import {
   $ConditionStatementNode,
-  $DeclarationNode,
+  $DeclarationStatementNode,
   $ExpressionStatementNode,
   $ImportStatementNode,
   $ReturnStatementNode,
@@ -26,11 +26,11 @@ export function translateTypescriptStatement(node: StatementNode): Text {
     return translateTypescriptImportStatement(node);
   }
 
-  if (is(node, $DeclarationNode())) {
+  if (is(node, $DeclarationStatementNode())) {
     return translateTypescriptTypeDeclarationStatement(node);
   }
 
-  if (is(node, $DeclarationNode())) {
+  if (is(node, $DeclarationStatementNode())) {
     return translateTypescriptValueDeclarationStatement(node, false);
   }
 
@@ -65,7 +65,7 @@ export function translateTypescriptStatement(node: StatementNode): Text {
 // function statementTranslate(translator: TypescriptTranslator, statement: StatementNode): Text {
 //   const node = statement.value;
 
-//   if (is(node, $DeclarationNode())) {
+//   if (is(node, $DeclarationStatementNode())) {
 //     if (!node.id.semantic) {
 //       return translator.error(node.id);
 //     }

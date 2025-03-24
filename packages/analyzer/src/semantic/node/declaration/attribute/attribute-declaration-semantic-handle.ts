@@ -1,6 +1,6 @@
 // import {
 //   AttributeDeclarationSemantic,
-//   DeclarationNode,
+//   DeclarationStatementNode,
 //   functionTypeSemantic,
 //   newUnknownTypeSemantic,
 //   parametersParse,
@@ -13,7 +13,7 @@
 // export function attributeValueDeclarationSemanticHandle(
 //   analyzer: SemanticAnalyzer,
 //   semantic: AttributeDeclarationSemantic,
-//   node: DeclarationNode,
+//   node: DeclarationStatementNode,
 // ): void {
 //   let generics: ReturnType<typeof parametersParse> | Nothing = nothing;
 //   let parameters: ReturnType<typeof parametersParse> | Nothing = nothing;

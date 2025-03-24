@@ -1,6 +1,6 @@
 // import {
 //   $AttributeDeclarationSemantic,
-//   DeclarationNode,
+//   DeclarationStatementNode,
 //   newFunctionTypeSemantic,
 //   newIdTypeSemantic,
 //   NominalTypeDeclarationSemantic,
@@ -14,7 +14,7 @@
 // export function nominalTypeDeclarationSemanticHandle(
 //   analyzer: SemanticAnalyzer,
 //   semantic: NominalTypeDeclarationSemantic,
-//   node: DeclarationNode,
+//   node: DeclarationStatementNode,
 // ): void {
 //   // todo use 'unknownType' type instead of 'nothing' ???
 //   // todo use 'Something' type instead of 'nothing' ???

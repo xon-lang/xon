@@ -1,5 +1,5 @@
 // import {
-//   DeclarationNode,
+//   DeclarationStatementNode,
 //   newFunctionTypeSemantic,
 //   newUnknownTypeSemantic,
 //   parametersParse,
@@ -11,7 +11,7 @@
 // export function parameterValueDeclarationSemanticHandle(
 //   analyzer: SemanticAnalyzer,
 //   semantic: ParameterValueDeclarationSemantic,
-//   node: DeclarationNode,
+//   node: DeclarationStatementNode,
 // ): void {
 //   const valueType = node.assign
 //     ? typeSemanticParse(analyzer, node.assign.value)

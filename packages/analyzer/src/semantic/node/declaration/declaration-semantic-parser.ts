@@ -1,7 +1,7 @@
 // import {
 //   $AngleGroupNode,
 //   $AttributeDeclarationSemantic,
-//   $DeclarationNode,
+//   $DeclarationStatementNode,
 //   $DeclarationSemantic,
 //   $IdNode,
 //   $NominalTypeDeclarationSemantic,
@@ -10,7 +10,7 @@
 //   $StructuralTypeDeclarationSemantic,
 //   $SyntaxNode,
 //   attributeValueDeclarationSemanticHandle,
-//   DeclarationNode,
+//   DeclarationStatementNode,
 //   DeclarationSemantic,
 //   GroupNode,
 //   newAttributeDeclarationSemantic,
@@ -43,7 +43,7 @@
 
 // export function statementDeclarationsParse(
 //   analyzer: SemanticAnalyzer,
-//   nodes: ArrayData<DeclarationNode>,
+//   nodes: ArrayData<DeclarationStatementNode>,
 // ): ArrayData<DeclarationSemantic> {
 //   const declarations = nodes.map((node) => {
 //     const declaration = createDeclarationSemantic(analyzer, node);
@@ -62,8 +62,8 @@
 //   analyzer: SemanticAnalyzer,
 //   groupNode: GroupNode,
 // ): ArrayData<ParameterTypeDeclarationSemantic | ParameterValueDeclarationSemantic> {
-//   const declarationNodes = groupNode.items.filterMap((node) => {
-//     if (is(node.value, $DeclarationNode())) {
+//   const declarationStatementNodes = groupNode.items.filterMap((node) => {
+//     if (is(node.value, $DeclarationStatementNode())) {
 //       return node.value;
 //     }
 
@@ -71,7 +71,7 @@
 //     analyzer.diagnosticManager.addPredefinedDiagnostic(reference, (x) => x.notImplemented());
 //   });
 
-//   const declarations = declarationNodes.map((node) => {
+//   const declarations = declarationStatementNodes.map((node) => {
 //     const isParameterType = is(groupNode, $AngleGroupNode());
 //     const declaration = isParameterType
 //       ? createParameterTypeDeclaration(analyzer, node)
@@ -83,13 +83,13 @@
 //     return declaration;
 //   });
 
-//   declarationsParse(analyzer, declarationNodes);
+//   declarationsParse(analyzer, declarationStatementNodes);
 
 //   return declarations;
 // }
 
-// function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<DeclarationNode>): void {
-//   const dependencies = declarationNodeDependencies(nodes);
+// function declarationsParse(analyzer: SemanticAnalyzer, nodes: ArrayData<DeclarationStatementNode>): void {
+//   const dependencies = declarationStatementNodeDependencies(nodes);
 //   const {order, cycle} = topologicalSort(dependencies);
 
 //   if (!cycle.isEmpty()) {
@@ -103,7 +103,7 @@
 //   }
 // }
 
-// function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationNode): void {
+// function declarationDeepParse(analyzer: SemanticAnalyzer, node: DeclarationStatementNode): void {
 //   const semantic = node.id?.semantic;
 
 //   if (!is(semantic, $DeclarationSemantic())) {
@@ -129,7 +129,7 @@
 //   }
 // }
 
-// function declarationNodeDependencies(nodes: ArrayData<DeclarationNode>): Dictionary<Text, ArrayData<Text>> {
+// function declarationStatementNodeDependencies(nodes: ArrayData<DeclarationStatementNode>): Dictionary<Text, ArrayData<Text>> {
 //   return nodes.reduce((o, node) => {
 //     const name = node.id.text;
 
@@ -166,7 +166,7 @@
 //   return newArrayData();
 // }
 
-// function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: DeclarationNode): DeclarationSemantic {
+// function createDeclarationSemantic(analyzer: SemanticAnalyzer, node: DeclarationStatementNode): DeclarationSemantic {
 //   const documentation = node.documentation?.descriptionNode?.text.setPadding(0).trim();
 //   const modifier = node.modifier?.text;
 //   const name = node.id.text;
@@ -184,7 +184,7 @@
 
 // function createParameterTypeDeclaration(
 //   analyzer: SemanticAnalyzer,
-//   node: DeclarationNode,
+//   node: DeclarationStatementNode,
 // ): ParameterTypeDeclarationSemantic {
 //   const documentation = node.documentation?.descriptionNode?.text.setPadding(0).trim();
 //   const modifier = node.modifier?.text;
@@ -195,7 +195,7 @@
 
 // function createParameterValueDeclaration(
 //   analyzer: SemanticAnalyzer,
-//   node: DeclarationNode,
+//   node: DeclarationStatementNode,
 // ): ParameterValueDeclarationSemantic {
 //   const documentation = node.documentation?.descriptionNode?.text.setPadding(0).trim();
 //   const modifier = node.modifier?.text;

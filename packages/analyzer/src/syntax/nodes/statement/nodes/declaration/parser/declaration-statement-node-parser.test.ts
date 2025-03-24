@@ -1,15 +1,15 @@
 import {
-  $DeclarationNode,
+  $DeclarationStatementNode,
   $IdNode,
   $IntegerNode,
   $OperatorExpressionNode,
-  DeclarationNode,
+  DeclarationStatementNode,
   IdNode,
   IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
-  parseDeclarationNode,
+  parseDeclarationStatementNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
@@ -17,7 +17,7 @@ import {expect, test} from 'vitest';
 
 test('Value declaration statement with type and assign', () => {
   const text = newText('a: Number = 1');
-  const node = getDeclarationNode(text);
+  const node = getDeclarationStatementNode(text);
 
   expect(is(node.id, $IdNode())).toBe(true);
   expect(is(node.annotation?.expression, $IdNode())).toBe(true);
@@ -26,7 +26,7 @@ test('Value declaration statement with type and assign', () => {
 
 test('Type alias declaration statement with type and assign', () => {
   const text = newText('type Zero = 0');
-  const node = getDeclarationNode(text);
+  const node = getDeclarationStatementNode(text);
 
   expect(node.keyword?.text.toNativeString()).toBe('type');
   expect(is(node.id, $IdNode())).toBe(true);
@@ -38,9 +38,9 @@ test('Type alias declaration statement with type and assign', () => {
 
 test('Type declaration id and base type', () => {
   const text = newText('type Zero: Integer');
-  const node = getDeclarationNode(text) as DeclarationNode;
+  const node = getDeclarationStatementNode(text) as DeclarationStatementNode;
 
-  expect(is(node, $DeclarationNode())).toBe(true);
+  expect(is(node, $DeclarationStatementNode())).toBe(true);
   expect(node.id.text.toNativeString()).toBe('Zero');
   expect(is(node.annotation, $OperatorExpressionNode())).toBe(true);
   expect(is(node.annotation?.expression, $IdNode())).toBe(true);
@@ -49,14 +49,14 @@ test('Type declaration id and base type', () => {
   expect(is(node.id, $IdNode())).toBe(true);
 });
 
-function getDeclarationNode(text: Text): DeclarationNode {
+function getDeclarationStatementNode(text: Text): DeclarationStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseDeclarationNode(0, nodes)!;
+  const node = parseDeclarationStatementNode(0, nodes)!;
 
   expect(node).toBeTruthy();
-  expect(is(node, $DeclarationNode())).toBe(true);
+  expect(is(node, $DeclarationStatementNode())).toBe(true);
   expect(!!node.annotation || !!node.assignment).toBe(true);
 
   return node;

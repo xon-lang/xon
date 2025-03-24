@@ -1,24 +1,31 @@
-import {$DeclarationNode, $ExpressionStatementNode, $IdNode, DeclarationNode, StatementNode} from '#analyzer';
-import {Boolean2, newText, Text} from '#common';
-import {translateTypescriptType} from '#translator';
+import {$DeclarationStatementNode, DeclarationStatementNode, StatementNode} from '#analyzer';
+import {ArrayData, newArrayData, newText, Text} from '#common';
 import {is} from '#typing';
 
-export function translateTypescriptValueDeclarationStatement(
-  node: StatementNode,
-  isAttribute: Boolean2,
-): Text {
-  if (is(node, $DeclarationNode())) {
-    return translateValueDeclaration(node, isAttribute);
+export function translateTypescriptDeclarationStatement(node: DeclarationStatementNode): Text {
+  if (is(node, $DeclarationStatementNode())) {
+    const body = translateAttributes(node.body ?? newArrayData());
+
+    return newText(`type ${node.id.text} = ${body}`);
   }
 
   if (is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
     return newText(`${node.expression.text}`);
   }
 
-  return newText(`/* error value2 declaration */`);
+  return newText(`/* error type declaration */`);
 }
 
-function translateValueDeclaration(node: DeclarationNode, isAttribute: Boolean2): Text {
+function translateAttributes(body: ArrayData<StatementNode>): Text {
+  const translatedBody = newText(
+    body.map((x) => translateValueDeclaration(x, true)),
+    newText('\n'),
+  );
+
+  return newText(`{\n${translatedBody.margin(2)}\n}\n`);
+}
+
+function translateValueDeclaration(node: DeclarationStatementNode, isAttribute: Boolean2): Text {
   if (!node.id) {
     return newText(`/* error value declaration */`);
   }

@@ -5,7 +5,7 @@ import {
   $ValueDeclarationSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
-  DeclarationNode,
+  DeclarationStatementNode,
   IdTypeSemantic,
   IntersectionTypeSemantic,
   syntaxFromResource,
@@ -32,7 +32,7 @@ test('a is integer', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements.at(2)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(2)?.value as DeclarationStatementNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$.toNativeString()).toBe($AttributeDeclarationSemantic().toNativeString());
 

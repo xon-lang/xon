@@ -2,22 +2,22 @@ import {
   $AnalyzerType,
   $StatementNode,
   AngleGroupNode,
-  diagnoseDeclarationNode,
+  diagnoseDeclarationStatementNode,
   FormatterContext,
-  highlightDeclarationNode,
+  highlightDeclarationStatementNode,
   IdNode,
   KeywordNode,
   newSyntaxNode,
   Node,
   OperatorExpressionNode,
-  semantifyDeclarationNode,
+  semantifyDeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
-export type DeclarationNode = StatementNode &
-  Brand<'Analyzer.DeclarationNode'> & {
+export type DeclarationStatementNode = StatementNode &
+  Brand<'Analyzer.DeclarationStatementNode'> & {
     keyword?: KeywordNode | Nothing;
     id: IdNode;
     isMutable: Boolean2;
@@ -26,9 +26,10 @@ export type DeclarationNode = StatementNode &
     assignment?: OperatorExpressionNode | Nothing;
   };
 
-export const $DeclarationNode = () => $AnalyzerType<DeclarationNode>('DeclarationNode', $StatementNode());
+export const $DeclarationStatementNode = () =>
+  $AnalyzerType<DeclarationStatementNode>('DeclarationStatementNode', $StatementNode());
 
-export function newDeclarationNode(
+export function newDeclarationStatementNode(
   indent: Integer,
   keyword: KeywordNode | Nothing,
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
@@ -36,9 +37,9 @@ export function newDeclarationNode(
   annotation?: OperatorExpressionNode | Nothing,
   assignment?: OperatorExpressionNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
-): DeclarationNode {
-  return newSyntaxNode<DeclarationNode>({
-    $: $DeclarationNode(),
+): DeclarationStatementNode {
+  return newSyntaxNode<DeclarationStatementNode>({
+    $: $DeclarationStatementNode(),
     indent,
     isMutable: false,
     keyword,
@@ -48,9 +49,9 @@ export function newDeclarationNode(
     assignment,
     errorNodes,
 
-    semantify: semantifyDeclarationNode,
-    diagnose: diagnoseDeclarationNode,
+    semantify: semantifyDeclarationStatementNode,
+    diagnose: diagnoseDeclarationStatementNode,
     format(context: FormatterContext): void {},
-    highlight: highlightDeclarationNode,
+    highlight: highlightDeclarationStatementNode,
   });
 }

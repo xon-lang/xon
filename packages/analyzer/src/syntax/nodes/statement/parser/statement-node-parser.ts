@@ -5,7 +5,7 @@ import {
   newUnknownStatementNode,
   Node,
   nodeGenerator,
-  parseDeclarationNode,
+  parseDeclarationStatementNode,
   parseElseStatementNode,
   parseExpressionStatementNode,
   parseIfStatementNode,
@@ -84,7 +84,7 @@ export type StatementParserFunction<T extends StatementNode = StatementNode> = (
 function statementParsers(): ArrayData<StatementParserFunction> {
   return newArrayData([
     parseImportStatementNode,
-    parseDeclarationNode,
+    parseDeclarationStatementNode,
     parseIfStatementNode,
     parseElseStatementNode,
     parseReturnStatementNode,

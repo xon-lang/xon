@@ -3,7 +3,7 @@ import {
   $StringTypeSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
-  DeclarationNode,
+  DeclarationStatementNode,
   StringTypeSemantic,
   syntaxFromResource,
   typeNodeType,
@@ -26,7 +26,7 @@ test('import core', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements.at(1)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(1)?.value as DeclarationStatementNode;
   expect(constNode).toBeTruthy();
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());

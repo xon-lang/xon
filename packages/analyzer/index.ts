@@ -111,7 +111,7 @@ export * from './src/syntax/nodes/statement/nodes/unknown/unknown-statement-node
 export * from './src/syntax/nodes/statement/nodes/return/return-statement-node';
 export * from './src/syntax/nodes/statement/nodes/import/import-statement-node';
 export * from './src/syntax/nodes/statement/nodes/expression/expression-statement-node';
-export * from './src/syntax/nodes/statement/nodes/declaration/declaration-node';
+export * from './src/syntax/nodes/statement/nodes/declaration/declaration-statement-node';
 export * from './src/syntax/nodes/statement/nodes/declaration/extract-declaration-info';
 export * from './src/syntax/nodes/statement/nodes/condition/condition-statement-node';
 export * from './src/syntax/nodes/expression/string/semantic/string-node-semantic';
@@ -186,11 +186,11 @@ export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-state
 export * from './src/syntax/nodes/statement/nodes/expression/semantic/expression-statement-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/expression/diagnostic/expression-statement-node-diagnostic';
-export * from './src/syntax/nodes/statement/nodes/declaration/semantic/declaration-node-semantic';
-export * from './src/syntax/nodes/statement/nodes/declaration/parser/declaration-node-parser';
-export * from './src/syntax/nodes/statement/nodes/declaration/highlight/type-declaration-node-highlight.test~';
-export * from './src/syntax/nodes/statement/nodes/declaration/highlight/type-declaration-node-highlight';
-export * from './src/syntax/nodes/statement/nodes/declaration/diagnostic/declaration-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/declaration/semantic/declaration-statement-node-semantic';
+export * from './src/syntax/nodes/statement/nodes/declaration/parser/declaration-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/highlight/declaration-statement-node-highlight.test~';
+export * from './src/syntax/nodes/statement/nodes/declaration/highlight/declaration-statement-node-highlight';
+export * from './src/syntax/nodes/statement/nodes/declaration/diagnostic/declaration-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/diagnostic/condition-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/condition/collapse/condition-statement-node-collapse';
 export * from './src/syntax/nodes/expression/string/nodes/string-open/string-open-node.parser';

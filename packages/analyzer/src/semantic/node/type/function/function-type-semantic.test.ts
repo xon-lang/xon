@@ -4,7 +4,7 @@ import {
   $ParameterValueDeclarationSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
-  DeclarationNode,
+  DeclarationStatementNode,
   FunctionTypeSemantic,
   ParameterValueDeclarationSemantic,
   syntaxFromResource,
@@ -28,7 +28,7 @@ test('a is function', () => {
   );
   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
-  const constNode = syntax.statements.at(2)?.value as DeclarationNode;
+  const constNode = syntax.statements.at(2)?.value as DeclarationStatementNode;
   expect(constNode.id?.text.toNativeString()).toBe('a');
   expect(constNode.id?.semantic?.$.toNativeString()).toBe($AttributeDeclarationSemantic().toNativeString());
 
@@ -67,7 +67,7 @@ test('a is function', () => {
 //   expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).$).toBe($AttributeValueDeclarationSemantic());
 //   expect(semantic.declarationManager.declarations.get(newTextData('a'))?.at2(0).name).toBe('a');
 
-//   const constNode = syntax.statements[2].value as DeclarationNode;
+//   const constNode = syntax.statements[2].value as DeclarationStatementNode;
 //   expect(constNode.id?.text.toString()).toBe('a');
 //   expect(constNode.id?.semantic?.$).toBe($AttributeValueDeclarationSemantic());
 

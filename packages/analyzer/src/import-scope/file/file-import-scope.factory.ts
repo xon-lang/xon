@@ -1,6 +1,6 @@
 import {
-  $DeclarationNode,
   $DeclarationSemantic,
+  $DeclarationStatementNode,
   $FileImportScope,
   DeclarationSemantic,
   FileImportScope,
@@ -38,7 +38,7 @@ function getDeclarations(filePath: Text): Dictionary<Text, ArrayData<Declaration
   for (const statement of statements) {
     statement.semantify && statement.semantify(semanticContext);
 
-    if (is(statement, $DeclarationNode()) && is(statement.semantic, $DeclarationSemantic())) {
+    if (is(statement, $DeclarationStatementNode()) && is(statement.semantic, $DeclarationSemantic())) {
       const overloads = declarations.get(statement.semantic.name);
 
       if (overloads) {

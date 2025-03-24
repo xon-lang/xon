@@ -1,6 +1,9 @@
-import {DeclarationNode, DiagnosticContext} from '#analyzer';
+import {DeclarationStatementNode, DiagnosticContext} from '#analyzer';
 
-export function diagnoseDeclarationNode(this: DeclarationNode, context: DiagnosticContext): void {
+export function diagnoseDeclarationStatementNode(
+  this: DeclarationStatementNode,
+  context: DiagnosticContext,
+): void {
   if (this.annotation?.expression?.diagnose) {
     this.annotation?.expression.diagnose(context);
   }
