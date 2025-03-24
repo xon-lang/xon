@@ -57,22 +57,12 @@ export function parseStatements(
 
   handle();
 
-  statements = collapseAllStatement(statements);
+  statements = collapseStatements(statements);
 
   return {
     statements,
     breakNode,
   };
-}
-
-function collapseAllStatement(statements: ArrayData<StatementNode>): ArrayData<StatementNode> {
-  for (const statement of statements) {
-    if (statement.body) {
-      collapseAllStatement(statement.body);
-    }
-  }
-
-  return collapseStatements(statements);
 }
 
 export type StatementParserFunction<T extends StatementNode = StatementNode> = (

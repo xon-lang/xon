@@ -117,33 +117,39 @@ function statementCollapses(): ArrayData<NodeCollapseFn<StatementNode>> {
 }
 
 // todo try to join with 'collapseNodes'
-export function collapseStatements(nodes: ArrayData<StatementNode>): ArrayData<StatementNode> {
-  if (nodes.isEmpty()) {
-    return nodes;
+export function collapseStatements(statements: ArrayData<StatementNode>): ArrayData<StatementNode> {
+  for (const statement of statements) {
+    if (statement.body) {
+      collapseStatements(statement.body);
+    }
+  }
+
+  if (statements.isEmpty()) {
+    return statements;
   }
 
   for (const {min, collapse} of statementCollapses()) {
-    if (nodes.count() < min) {
+    if (statements.count() < min) {
       continue;
     }
 
     let index = 0;
 
     while (true) {
-      const result = collapse(nodes, index);
+      const result = collapse(statements, index);
 
       if (!result) {
         break;
       }
 
-      nodes = nodes.replaceItem(result.index, result.deleteCount, result.node);
+      statements = statements.replaceItem(result.index, result.deleteCount, result.node);
       index = result.index + 1;
 
-      if (index >= nodes.count() || nodes.count() < min) {
+      if (index >= statements.count() || statements.count() < min) {
         break;
       }
     }
   }
 
-  return nodes;
+  return statements;
 }
