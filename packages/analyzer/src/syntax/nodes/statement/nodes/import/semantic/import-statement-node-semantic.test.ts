@@ -1,8 +1,8 @@
 import {
   $ImportStatementNode,
-  $ImportValueSemantic,
+  $ImportStatementNodeSemantic,
   ImportStatementNode,
-  ImportValueSemantic,
+  ImportStatementNodeSemantic,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
@@ -22,7 +22,7 @@ test('Import node scope', () => {
   expect(semantic.scope.get(newText('Rectangle'))?.name.toNativeString()).toBe('Rectangle');
 });
 
-function getImportStatementNode(text: Text): ImportValueSemantic {
+function getImportStatementNode(text: Text): ImportStatementNodeSemantic {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
@@ -33,8 +33,8 @@ function getImportStatementNode(text: Text): ImportValueSemantic {
   const semanticContext = newSemanticContext(newText(resolve(__dirname, 'import-node-semantic.test.ts')));
   node.semantify!(semanticContext);
 
-  expect(is(node.semantic, $ImportValueSemantic())).toBe(true);
-  expect(is(node.expression?.semantic, $ImportValueSemantic())).toBe(true);
+  expect(is(node.semantic, $ImportStatementNodeSemantic())).toBe(true);
+  expect(is(node.expression?.semantic, $ImportStatementNodeSemantic())).toBe(true);
 
   return node.semantic!;
 }

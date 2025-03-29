@@ -1,25 +1,16 @@
-import {ImportStatementNode, newFileImportScope, newImportValueSemantic, SemanticContext} from '#analyzer';
-import {newText} from '#common';
-import {existsSync, statSync} from 'node:fs';
-import {dirname, resolve} from 'node:path';
+import {$AnalyzerType, $Semantic, ImportScope, Semantic} from '#analyzer';
 
-export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
-  if (!this.expression?.content) {
-    return;
-  }
+export type ImportStatementNodeSemantic = Semantic & {
+  scope: ImportScope;
+};
 
-  const importPath = this.expression.content?.text.toNativeString();
-  const dirName = dirname(context.sourceLocation.toNativeString());
-  const filePath = resolve(dirName, importPath);
+export const $ImportStatementNodeSemantic = () =>
+  $AnalyzerType<ImportStatementNodeSemantic>('ImportStatementNodeSemantic', $Semantic());
 
-  if (!existsSync(filePath) || !statSync(filePath).isFile()) {
-    return;
-  }
+export function newImportStatementNodeSemantic(scope: ImportScope): ImportStatementNodeSemantic {
+  return {
+    $: $ImportStatementNodeSemantic(),
 
-  const importScope = newFileImportScope(newText(filePath));
-  const semantic = newImportValueSemantic(importScope);
-
-  this.semantic = semantic;
-  this.expression.semantic = semantic;
-  this.expression.content.semantic = semantic;
+    scope,
+  };
 }
