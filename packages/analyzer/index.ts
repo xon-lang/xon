@@ -76,8 +76,6 @@ export * from './src/semantic/node/value/invoke/invoke-value-semantic-parser';
 export * from './src/semantic/node/value/invoke/invoke-value-semantic';
 export * from './src/semantic/node/value/integer/integer-value-semantic-parser';
 export * from './src/semantic/node/value/integer/integer-value-semantic';
-export * from './src/semantic/node/value/import/import-value-semantic-parser';
-export * from './src/semantic/node/value/import/import-value-semantic';
 export * from './src/semantic/node/value/id/id-value-semantic-parser';
 export * from './src/semantic/node/value/id/id-value-semantic';
 export * from './src/semantic/node/value/char/char-value-semantic-parser';
@@ -181,6 +179,7 @@ export * from './src/syntax/nodes/statement/nodes/unknown/diagnostic/unknown-sta
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantic';
+export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantify';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/expression/semantic/expression-statement-node-semantic';
