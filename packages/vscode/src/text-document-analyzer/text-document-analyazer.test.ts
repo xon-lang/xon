@@ -1,4 +1,5 @@
 import {
+  $ImportStatementNode,
   $StatementNode,
   $StringContentNode,
   $StringNode,
@@ -7,6 +8,7 @@ import {
   parseStatements,
   StatementNode,
   StringContentNode,
+  StringNode,
 } from '#analyzer';
 import {ArrayData, newText, newTextPosition, Text} from '#common';
 import {is} from '#typing';
@@ -43,6 +45,25 @@ test('Find closest node', () => {
   expect(node).toBeTruthy();
   expect(is(node, $StringNode())).toBe(true);
   expect(node!.content?.text.toNativeString()).toBe('abc');
+});
+
+test('Find closest node2', () => {
+  const text = newText('import ""');
+
+  const statements = getStatementNodes(text);
+  const atPositionNode = findNode(statements, newTextPosition(8, 0, 8));
+
+  expect(atPositionNode).toBeTruthy();
+
+  const node = findClosestNode(
+    (node): node is StringNode =>
+      is(node, $StringNode()) && is(node.parent, $ImportStatementNode()) && node === node.parent.expression,
+    atPositionNode!,
+  );
+
+  expect(node).toBeTruthy();
+  expect(is(node, $StringNode())).toBe(true);
+  expect(node!.content).toBeFalsy();
 });
 
 function getStatementNodes(text: Text): ArrayData<StatementNode> {
