@@ -1,10 +1,10 @@
 // import {DotCompletionItemProvider, IdCompletionItemProvider, LANGUAGE_NAME} from '#vscode';
-import {DotCompletionItemProvider, ImportCompletionItemProvider, LANGUAGE_NAME} from '#vscode';
+import {DotCompletionProvider, ImportCompletionProvider, LANGUAGE_NAME} from '#vscode';
 import {ExtensionContext, OutputChannel, languages} from 'vscode';
 
 export function configureCompletionFeature(context: ExtensionContext, channel: OutputChannel) {
   context.subscriptions.push(
-    languages.registerCompletionItemProvider(LANGUAGE_NAME, new DotCompletionItemProvider(channel), '.'),
+    languages.registerCompletionItemProvider(LANGUAGE_NAME, new DotCompletionProvider(channel), '.'),
   );
 
   // context.subscriptions.push(
@@ -14,7 +14,7 @@ export function configureCompletionFeature(context: ExtensionContext, channel: O
   context.subscriptions.push(
     languages.registerCompletionItemProvider(
       LANGUAGE_NAME,
-      new ImportCompletionItemProvider(channel),
+      new ImportCompletionProvider(channel),
       ...['"', '/'],
     ),
   );

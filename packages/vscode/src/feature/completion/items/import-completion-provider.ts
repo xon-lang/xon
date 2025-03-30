@@ -23,7 +23,7 @@ import {
   TextDocument,
 } from 'vscode';
 
-export class ImportCompletionItemProvider implements CompletionItemProvider {
+export class ImportCompletionProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
 
   provideCompletionItems(
@@ -39,6 +39,8 @@ export class ImportCompletionItemProvider implements CompletionItemProvider {
         is(node, $StringNode()) && is(node.parent, $ImportStatementNode()) && node === node.parent.expression,
       vsCodeToXonPosition(document, position),
     );
+
+    console.log('node?.range.start.index', node?.range.start.index);
 
     if (!node) {
       return;

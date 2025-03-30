@@ -23,7 +23,7 @@ import {
   TextDocument,
 } from 'vscode';
 
-export class DotCompletionItemProvider implements CompletionItemProvider {
+export class DotCompletionProvider implements CompletionItemProvider {
   constructor(private channel: OutputChannel) {}
 
   provideCompletionItems(
