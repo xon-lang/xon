@@ -1,18 +1,51 @@
-import {newAnalyzerContext, newCharacterStreamFromText, parseStatements, StatementNode} from '#analyzer';
+import {
+  $StatementNode,
+  $StringContentNode,
+  $StringNode,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseStatements,
+  StatementNode,
+  StringContentNode,
+} from '#analyzer';
 import {ArrayData, newText, newTextPosition, Text} from '#common';
-import {findStatementNode} from '#vscode';
-import {expect, test, vi} from 'vitest';
-
-vi.stubGlobal('vscode', () => ({}));
+import {is} from '#typing';
+import {findClosestNode, findNode, findStatementNode} from '#vscode';
+import {expect, test} from 'vitest';
 
 test('Find statement node', () => {
   const text = newText('import "abc" "def"');
-  const statements = getImportStatementNode(text);
+  const statements = getStatementNodes(text);
+  const node = findStatementNode(statements, newTextPosition(9, 1, 9));
 
-  expect(findStatementNode(statements, newTextPosition(9, 1, 9))).toBeTruthy();
+  expect(node).toBeTruthy();
+  expect(is(node, $StatementNode())).toBe(true);
 });
 
-function getImportStatementNode(text: Text): ArrayData<StatementNode> {
+test('Find node', () => {
+  const text = newText('import "abc" "def"');
+  const statements = getStatementNodes(text);
+  const node = findNode(statements, newTextPosition(9, 0, 9));
+
+  expect(node).toBeTruthy();
+  expect(is(node, $StringContentNode())).toBe(true);
+  expect((node as StringContentNode).text.toNativeString()).toBe('abc');
+});
+
+test('Find closest node', () => {
+  const text = newText('import "abc" "def"');
+  const statements = getStatementNodes(text);
+  const atPositionNode = findNode(statements, newTextPosition(9, 0, 9));
+
+  expect(atPositionNode).toBeTruthy();
+
+  const node = findClosestNode((node) => is(node, $StringNode()), atPositionNode!);
+  expect(node).toBeTruthy();
+  expect(is(node, $StringNode())).toBe(true);
+  expect(node!.content?.text.toNativeString()).toBe('abc');
+});
+
+function getStatementNodes(text: Text): ArrayData<StatementNode> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
