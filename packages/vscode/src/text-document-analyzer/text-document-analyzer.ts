@@ -68,9 +68,7 @@ export function newTextDocumentAnalyzer(
     },
 
     findNode(position: TextPosition): Node | Nothing {
-      const statement = findChildStatementNode(this.statements, position);
-
-      return statement ? findChildNode(statement, position) : nothing;
+      return findNode(this.statements, position);
     },
 
     getHighlights() {
@@ -95,7 +93,30 @@ export function newTextDocumentAnalyzer(
   };
 }
 
-function findClosestNode<T extends Node = Node>(
+export function findStatementNode(
+  body: ArrayData<StatementNode>,
+  position: TextPosition,
+): StatementNode | Nothing {
+  for (const statement of body) {
+    if (statement.range.contains(position)) {
+      if (statement.body) {
+        return findStatementNode(statement.body, position);
+      }
+
+      return statement;
+    }
+  }
+
+  return nothing;
+}
+
+export function findNode(statements: ArrayData<StatementNode>, position: TextPosition): Node | Nothing {
+  const statement = findStatementNode(statements, position);
+
+  return statement ? findChildNode(statement, position) : nothing;
+}
+
+export function findClosestNode<T extends Node = Node>(
   predicate: (node: Node) => node is T,
   node: Node,
 ): T | Nothing {
@@ -108,23 +129,6 @@ function findClosestNode<T extends Node = Node>(
   }
 
   return findClosestNode(predicate, node.parent);
-}
-
-function findChildStatementNode(
-  body: ArrayData<StatementNode>,
-  position: TextPosition,
-): StatementNode | Nothing {
-  for (const statement of body) {
-    if (statement.range.contains(position)) {
-      if (statement.body) {
-        return findChildStatementNode(statement.body, position);
-      }
-
-      return statement;
-    }
-  }
-
-  return nothing;
 }
 
 function findChildNode(parent: Node, position: TextPosition): Node | Nothing {

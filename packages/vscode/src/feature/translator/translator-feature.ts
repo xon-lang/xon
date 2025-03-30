@@ -2,7 +2,7 @@ import {$ImportStatementNode} from '#analyzer';
 import {newArrayData, newFileResource, newText} from '#common';
 import {translateTypescriptStatement} from '#translator';
 import {is} from '#typing';
-import {EXTENSION_CONFIG, LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
+import {LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
 import * as fs from 'node:fs';
 import {commands, ExtensionContext, OutputChannel, TextDocument, window, workspace} from 'vscode';
 
@@ -13,11 +13,11 @@ export function configureTranslatorFeature(context: ExtensionContext, channel: O
         return;
       }
 
-      let translateOnSave = EXTENSION_CONFIG.translateOnSave.get();
+      // let translateOnSave = EXTENSION_CONFIG.translateOnSave.get();
 
-      if (translateOnSave) {
-        saveTranslatedFile(document, channel);
-      }
+      // if (translateOnSave) {
+      saveTranslatedFile(document, channel);
+      // }
     }),
   );
 
