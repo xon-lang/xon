@@ -20,7 +20,7 @@ function translateIfStatement(node: IfStatementNode): Text {
     const expression = translateTypescriptValue(node.expression);
 
     const body = newText(
-      node.body.map((x) => translateTypescriptStatement(x)),
+      node.body.children.map((x) => translateTypescriptStatement(x)),
       newText('\n'),
     ).margin(2);
 
@@ -33,7 +33,7 @@ function translateIfStatement(node: IfStatementNode): Text {
 function translateElseStatement(node: ElseStatementNode): Text {
   if (node.body) {
     const body = newText(
-      node.body.map((x) => translateTypescriptStatement(x)),
+      node.body.children.map((x) => translateTypescriptStatement(x)),
       newText('\n'),
     ).margin(2);
 

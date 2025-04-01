@@ -99,6 +99,8 @@ function handleStatement(
   if (parent) {
     if (!parent.body) {
       parent.body = newBodyNode();
+      parent.children ??= newArrayData();
+      parent.children.addLastItem(parent.body);
       parent.body.parent = parent;
     }
 

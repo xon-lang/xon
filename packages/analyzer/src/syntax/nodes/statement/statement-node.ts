@@ -1,5 +1,4 @@
-import { BodyNode } from '#analyzer';
-import {$AnalyzerType, $SyntaxNode, Node, SyntaxNode} from '#analyzer';
+import {$AnalyzerType, $SyntaxNode, BodyNode, Node, SyntaxNode} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
