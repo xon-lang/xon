@@ -1,3 +1,4 @@
+import { BodyNode } from '#analyzer';
 import {$AnalyzerType, $SyntaxNode, Node, SyntaxNode} from '#analyzer';
 import {ArrayData, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
@@ -6,8 +7,8 @@ export type StatementNode = SyntaxNode &
   Brand<'Analyzer.StatementNode'> & {
     indent: Integer;
     errorNodes?: ArrayData<Node> | Nothing;
-    parent?: StatementNode | Nothing;
-    body?: ArrayData<StatementNode> | Nothing;
+    parent?: BodyNode | Nothing;
+    body?: BodyNode | Nothing;
   };
 
 export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode', $SyntaxNode());

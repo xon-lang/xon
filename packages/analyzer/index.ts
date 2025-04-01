@@ -44,6 +44,7 @@ export * from './src/syntax/nodes/documentation/documentation-node.parser';
 export * from './src/syntax/nodes/documentation/documentation-node';
 export * from './src/syntax/nodes/comment/comment-node-parse';
 export * from './src/syntax/nodes/comment/comment-node';
+export * from './src/syntax/nodes/body/body-node';
 export * from './src/semantic/node/value/value-semantic-parser';
 export * from './src/semantic/node/value/value-semantic';
 export * from './src/semantic/node/type/type-semantic-parser';

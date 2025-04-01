@@ -2,6 +2,7 @@ import {
   $NlNode,
   AnalyzerContext,
   collapseStatements,
+  newBodyNode,
   newUnknownStatementNode,
   Node,
   nodeGenerator,
@@ -96,9 +97,12 @@ function handleStatement(
     newUnknownStatementNode(indent, nodes);
 
   if (parent) {
-    parent.body ??= newArrayData();
-    parent.body.addLastItem(statement);
-    statement.parent = parent;
+    if (!parent.body) {
+      parent.body = newBodyNode();
+      parent.body.parent = parent;
+    }
+
+    parent.body.addStatement(statement);
   } else {
     statements.addLastItem(statement);
   }
@@ -118,5 +122,5 @@ function getParentStatementForIndent(
     return statement;
   }
 
-  return getParentStatementForIndent(statement.parent, indentPosition);
+  return getParentStatementForIndent(statement.parent?.parent, indentPosition);
 }

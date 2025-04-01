@@ -120,7 +120,7 @@ function statementCollapses(): ArrayData<NodeCollapseFn<StatementNode>> {
 export function collapseStatements(statements: ArrayData<StatementNode>): ArrayData<StatementNode> {
   for (const statement of statements) {
     if (statement.body) {
-      collapseStatements(statement.body);
+      collapseStatements(statement.body.children);
     }
   }
 
