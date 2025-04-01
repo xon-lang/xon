@@ -68,7 +68,8 @@ export function newTextDocumentAnalyzer(
     },
 
     findNode(position: TextPosition): Node | Nothing {
-      return findNode(this.statements, position);
+      // todo use body node
+      return this.statements.firstMap((x) => findNode(x, position));
     },
 
     getHighlights() {
@@ -93,29 +94,6 @@ export function newTextDocumentAnalyzer(
   };
 }
 
-export function findStatementNode(
-  body: ArrayData<StatementNode>,
-  position: TextPosition,
-): StatementNode | Nothing {
-  for (const statement of body) {
-    if (statement.range.contains(position)) {
-      if (statement.body) {
-        return findStatementNode(statement.body, position);
-      }
-
-      return statement;
-    }
-  }
-
-  return nothing;
-}
-
-export function findNode(statements: ArrayData<StatementNode>, position: TextPosition): Node | Nothing {
-  const statement = findStatementNode(statements, position);
-
-  return statement ? findChildNode(statement, position) : nothing;
-}
-
 export function findClosestNode<T extends Node = Node>(
   predicate: (node: Node) => node is T,
   node: Node,
@@ -131,14 +109,14 @@ export function findClosestNode<T extends Node = Node>(
   return findClosestNode(predicate, node.parent);
 }
 
-function findChildNode(parent: Node, position: TextPosition): Node | Nothing {
+function findNode(parent: Node, position: TextPosition): Node | Nothing {
   if (!parent.children) {
     return parent;
   }
 
   for (const node of parent.children) {
     if (node.range.contains(position)) {
-      return findChildNode(node, position);
+      return findNode(node, position);
     }
   }
 
