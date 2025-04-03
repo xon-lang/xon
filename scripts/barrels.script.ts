@@ -1,5 +1,5 @@
-import {promises as fs} from 'fs';
-import {extname, join} from 'path';
+import {promises as fs} from 'node:fs';
+import {extname, join} from 'node:path';
 
 const directories = [
   'packages/analyzer',
