@@ -14,10 +14,10 @@ export const $StructuralTypeDeclarationSemantic = () =>
   );
 
 export function structuralTypeDeclarationSemantic(
+  reference: TextReference,
   name: Text,
   type?: TypeSemantic | Nothing,
   documentation?: Text | Nothing,
-  reference?: TextReference | Nothing,
 ): StructuralTypeDeclarationSemantic {
   return {
     $: $StructuralTypeDeclarationSemantic(),

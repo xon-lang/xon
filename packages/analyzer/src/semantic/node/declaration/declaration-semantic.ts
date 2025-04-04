@@ -1,15 +1,39 @@
 import {$AnalyzerType, $Semantic, AttributeList, IdTypeSemantic, Semantic} from '#analyzer';
-import {ArrayData, Nothing, Text, TextReference} from '#common';
+import {ArrayData, newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationSemantic = Semantic &
   Brand<'Analyzer.DeclarationSemantic'> & {
-    reference: TextReference;
     usages: ArrayData<IdTypeSemantic>;
-    name: Text;
+    reference: TextReference;
     documentation?: Text | Nothing;
+    name: Text;
     attributes?: AttributeList | Nothing;
   };
 
 export const $DeclarationSemantic = () =>
   $AnalyzerType<DeclarationSemantic>('DeclarationSemantic', $Semantic());
+
+export function newDeclarationSemantic(
+  reference: TextReference,
+  documentation: Text | Nothing,
+  name: Text,
+  attributes?: AttributeList | Nothing,
+): DeclarationSemantic {
+  return {
+    $: $DeclarationSemantic(),
+    usages: newArrayData(),
+    reference,
+    documentation,
+    name,
+    attributes,
+
+    // getType(): TypeSemantic | Nothing {
+    //   if (this.parameters?.some()) {
+    //     return newFunctionTypeSemantic(this.parameters, this.type);
+    //   }
+
+    //   return this.type;
+    // },
+  };
+}
