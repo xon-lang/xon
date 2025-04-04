@@ -179,7 +179,7 @@ export * from './src/semantic/node/declaration/type/nominal/nominal-type-declara
 export * from './src/syntax/nodes/statement/nodes/unknown/diagnostic/unknown-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
-export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantic';
+export * from './src/syntax/nodes/statement/nodes/import/semantic/import-semantic';
 export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantify';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/import/diagnostic/import-statement-node-diagnostic';
@@ -216,6 +216,8 @@ export * from './src/syntax/nodes/expression/character/nodes/character-close/cha
 export * from './src/syntax/nodes/expression/affix/prefix/collapse/prefix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/postfix/collapse/postfix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/infix/plus/plus-infix-node';
+export * from './src/syntax/nodes/expression/affix/infix/is/is-infix-node';
+export * from './src/syntax/nodes/expression/affix/infix/as/as-infix-node';
 export * from './src/syntax/nodes/documentation/nodes/documentation-label/documentation-label-operator/documentation-label-operator-node.parser';
 export * from './src/syntax/nodes/documentation/nodes/documentation-label/documentation-label-operator/documentation-label-operator-node';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/if/if-statement-node';
@@ -246,6 +248,8 @@ export * from './src/syntax/nodes/expression/group/nodes/angle/angle-close/angle
 export * from './src/syntax/nodes/expression/affix/prefix/nodes/plus/plus-prefix-node';
 export * from './src/syntax/nodes/expression/affix/postfix/nodes/exclamation/exclamation-postfix-node';
 export * from './src/syntax/nodes/expression/affix/infix/plus/collapse/plus-infix-node-collapse';
+export * from './src/syntax/nodes/expression/affix/infix/is/collapse/is-infix-node-collapse';
+export * from './src/syntax/nodes/expression/affix/infix/as/collapse/as-infix-node-collapse';
 export * from './src/syntax/nodes/comment/nodes/comment-line/nodes/comment-line-operator/comment-line-operator-node.parser';
 export * from './src/syntax/nodes/comment/nodes/comment-line/nodes/comment-line-operator/comment-line-operator-node';
 export * from './src/syntax/nodes/comment/nodes/comment-line/nodes/comment-line-content/comment-line-content-node.parser';

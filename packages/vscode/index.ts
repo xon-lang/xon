@@ -5,6 +5,7 @@ export * from './src/main';
 export * from './src/util/convert';
 export * from './src/util/semantic-view';
 export * from './src/util/util';
+export * from './src/text-document-analyzer/text-document-analyazer.test~';
 export * from './src/text-document-analyzer/text-document-analyzer';
 export * from './src/feature/translator/translator-feature';
 export * from './src/feature/signature/signature-feature';
