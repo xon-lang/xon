@@ -1,4 +1,4 @@
-import {$FileImportScope, $IdTypeSemantic, $ImportStatementNodeSemantic} from '#analyzer';
+import {$FileImportScope, $IdTypeSemantic, $ImportSemantic} from '#analyzer';
 import {
   ArrayData,
   Nothing,
@@ -46,7 +46,7 @@ class LanguageDefinitionProvider implements DefinitionProvider {
       return nothing;
     }
 
-    if (is(node.semantic, $ImportStatementNodeSemantic())) {
+    if (is(node.semantic, $ImportSemantic())) {
       if (is(node.semantic.scope, $FileImportScope())) {
         return navigateToLocation(node.range, node.semantic.scope.location, newTextRange())?.toNativeArray();
       }

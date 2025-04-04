@@ -1,19 +1,39 @@
 import {
+  $AsInfixNode,
+  $StringNode,
+  IdNode,
   ImportStatementNode,
+  newDeclarationSemantic,
   newFileImportScope,
-  newImportStatementNodeSemantic,
+  newImportSemantic,
   SemanticContext,
+  StringNode,
 } from '#analyzer';
-import {newText} from '#common';
+import {newText, nothing} from '#common';
+import {is} from '#typing';
 import {existsSync, statSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 
 export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
-  if (!this.expression?.content) {
+  if (!this.expression) {
     return;
   }
 
-  const importPath = this.expression.content?.text.toNativeString();
+  if (is(this.expression, $StringNode())) {
+    semantifyStringNode(this.expression, context);
+  }
+
+  if (is(this.expression, $AsInfixNode()) && is(this.expression.left, $StringNode())) {
+    semantifyStringNode(this.expression.left, context);
+  }
+}
+
+function semantifyStringNode(node: StringNode, context: SemanticContext): void {
+  if (!node.content) {
+    return;
+  }
+
+  const importPath = node.content?.text.toNativeString();
   const dirName = dirname(context.sourceLocation.toNativeString());
   const filePath = resolve(dirName, importPath);
 
@@ -22,9 +42,9 @@ export function semantifyImportStatementNode(this: ImportStatementNode, context:
   }
 
   const importScope = newFileImportScope(newText(filePath));
-  const semantic = newImportStatementNodeSemantic(importScope);
+  node.semantic  = newImportSemantic(importScope);
+}
 
-  this.semantic = semantic;
-  this.expression.semantic = semantic;
-  this.expression.content.semantic = semantic;
+function semantifyIdNode(node: IdNode, context: SemanticContext): void {
+  node.semantic = newDeclarationSemantic(context.getReference(node.range), nothing, node.text, )
 }
