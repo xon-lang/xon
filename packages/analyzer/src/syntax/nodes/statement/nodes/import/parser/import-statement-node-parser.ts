@@ -1,4 +1,5 @@
 import {
+  $AsInfixNode,
   $ImportKeywordNode,
   $StringNode,
   collapseNodes,
@@ -13,18 +14,18 @@ export function parseImportStatementNode(
   indent: Integer,
   nodes: ArrayData<Node>,
 ): ImportStatementNode | Nothing {
-  const keywordNode = nodes.first();
+  const keyword = nodes.first();
 
-  if (!is(keywordNode, $ImportKeywordNode())) {
+  if (!is(keyword, $ImportKeywordNode())) {
     return nothing;
   }
 
   nodes = collapseNodes(nodes.slice(1));
-  const expressionNode = nodes.first();
+  const expression = nodes.first();
 
-  if (is(expressionNode, $StringNode())) {
-    return newImportStatementNode(indent, keywordNode, expressionNode, nodes.slice(1));
+  if (is(expression, $StringNode()) || is(expression, $AsInfixNode())) {
+    return newImportStatementNode(indent, keyword, expression, nodes.slice(1));
   }
 
-  return newImportStatementNode(indent, keywordNode, nothing, nodes);
+  return newImportStatementNode(indent, keyword, nothing, nodes);
 }

@@ -1,11 +1,11 @@
 import {
   $AnalyzerType,
   $StatementNode,
+  AsInfixNode,
   diagnoseImportStatementNode,
   FormatterContext,
   HighlightContext,
   ImportKeywordNode,
-  ImportStatementNodeSemantic,
   newSyntaxNode,
   Node,
   semantifyImportStatementNode,
@@ -18,8 +18,8 @@ import {Brand} from '#typing';
 export type ImportStatementNode = StatementNode &
   Brand<'Analyzer.ImportStatementNode'> & {
     keyword: ImportKeywordNode;
-    expression?: StringNode | Nothing;
-    semantic?: ImportStatementNodeSemantic | Nothing;
+    expression?: StringNode | AsInfixNode | Nothing;
+    semantic?: Nothing;
   };
 
 export const $ImportStatementNode = () =>
@@ -28,7 +28,7 @@ export const $ImportStatementNode = () =>
 export function newImportStatementNode(
   indent: Integer,
   keyword: ImportKeywordNode,
-  expression?: StringNode | Nothing,
+  expression?: StringNode | AsInfixNode | Nothing,
   errorNodes?: ArrayData<Node> | Nothing,
 ): ImportStatementNode {
   return newSyntaxNode<ImportStatementNode>({
