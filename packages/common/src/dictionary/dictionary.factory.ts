@@ -16,39 +16,39 @@ export function newDictionary<K, V>(array: ArrayData<KeyValue<K, V>> = newArrayD
   const firstElement = array.first();
   const $KeyType = is(firstElement?.key, $Model()) ? firstElement.key.$ : $Model();
   const $ValueType = is(firstElement?.value, $Model()) ? firstElement.value.$ : $Model();
+  const base = array.clone();
 
   return {
-    ...array,
-    _base: array,
+    ...base,
 
     $: $Dictionary($KeyType, $ValueType),
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): Dictionary<K, V> {
-      return newDictionary(this._base.slice(startIndex, stopIndex));
+      return newDictionary(base.slice(startIndex, stopIndex));
     },
 
     addFirstItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V> {
-      return newDictionary(this._base.addFirstItems(items));
+      return newDictionary(base.addFirstItems(items));
     },
 
     addFirstItem(item: KeyValue<K, V>): Dictionary<K, V> {
-      return newDictionary(this._base.addFirstItem(item));
+      return newDictionary(base.addFirstItem(item));
     },
 
     addLastItems(items: ArrayData<KeyValue<K, V>>): Dictionary<K, V> {
-      return newDictionary(this._base.addLastItems(items));
+      return newDictionary(base.addLastItems(items));
     },
 
     addLastItem(item: KeyValue<K, V>): Dictionary<K, V> {
-      return newDictionary(this._base.addLastItem(item));
+      return newDictionary(base.addLastItem(item));
     },
 
     removeFirst(length?: Integer | Nothing): Dictionary<K, V> {
-      return newDictionary(this._base.removeFirst(length));
+      return newDictionary(base.removeFirst(length));
     },
 
     removeLast(length?: Integer | Nothing): Dictionary<K, V> {
-      return newDictionary(this._base.removeLast(length));
+      return newDictionary(base.removeLast(length));
     },
 
     takeWhile(
@@ -56,28 +56,30 @@ export function newDictionary<K, V>(array: ArrayData<KeyValue<K, V>> = newArrayD
       startIndex?: Integer,
       includeConditionItem?: Boolean2,
     ): Dictionary<K, V> {
-      return newDictionary(this._base.takeWhile(predicate, startIndex, includeConditionItem));
+      return newDictionary(base.takeWhile(predicate, startIndex, includeConditionItem));
     },
 
     take(length: Integer, startIndex?: Integer): Dictionary<K, V> {
-      return newDictionary(this._base.take(length, startIndex));
+      return newDictionary(base.take(length, startIndex));
     },
 
     sort(compareFn?: (a: KeyValue<K, V>, b: KeyValue<K, V>) => Number2): Dictionary<K, V> {
-      return newDictionary(this._base.sort(compareFn));
+      return newDictionary(base.sort(compareFn));
     },
 
     sortBy(select: (item: KeyValue<K, V>) => Number2, ascending?: Boolean2): Dictionary<K, V> {
-      return newDictionary(this._base.sortBy(select, ascending));
+      return newDictionary(base.sortBy(select, ascending));
     },
 
     equals(other: Dictionary<K, V> | ArrayData<KeyValue<K, V>>): Boolean2 {
-      return this._base.equals(other);
+      return base.equals(other);
     },
 
     clone(): Dictionary<K, V> {
-      return newDictionary(this._base.clone());
+      return newDictionary(base.clone());
     },
+
+    //
 
     keys(): ArrayData<K> {
       return this.map((x) => x.key);
