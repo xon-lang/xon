@@ -21,7 +21,8 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
     return;
   }
 
-  const attribute = this.instance.semantic.attributes?.get(this.id.text);
+  // todo fix '.at(0)'
+  const attribute = this.instance.semantic.attributes?.get(this.id.text)?.at(0);
 
   if (!attribute) {
     return;
