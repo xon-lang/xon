@@ -87,17 +87,12 @@ export function newDictionary<K, V>(array: ArrayData<KeyValue<K, V>> = newArrayD
       return this.map((x) => x.value);
     },
 
-    get(key: K): V | Nothing {
-      return this.first((x) => modelEquals(x.key, key))?.value;
-    },
-
-    // todo remove 'get2'
-    get2(key: K): V {
-      return this.get(key)!;
-    },
-
     has(key: K): Boolean2 {
       return this.some((x) => modelEquals(x.key, key));
+    },
+
+    get(key: K): V | Nothing {
+      return this.first((x) => modelEquals(x.key, key))?.value;
     },
 
     set(key: K, value: V): void {

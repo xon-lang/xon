@@ -40,7 +40,6 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
     predicate?: ArraySafePredicate<T, V> | Nothing,
     startIndex?: Integer | Nothing,
   ): V | Nothing;
-  firstLast(): {first: T | Nothing; last: T | Nothing};
 
   remove(predicate: ArrayPredicate<T>): ArrayData<T> | Nothing;
   replaceItem(startIndex: Integer, deleteCount: Integer, item: T): ArrayData<T>;

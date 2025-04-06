@@ -59,7 +59,8 @@ export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'rang
       .flatMap((value) => (is(value, $Node()) ? value : value._items)),
   );
 
-  const {first, last} = children.firstLast();
+  const first = children.first();
+  const last = children.last();
   // todo recheck - first always must be non nullable value
   const range = first ? newTextRange(first!.range.start.clone(), last!.range.stop.clone()) : newTextRange();
   const node: T = {

@@ -163,13 +163,6 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
       return nothing;
     },
 
-    firstLast(): {first: T | Nothing; last: T | Nothing} {
-      return {
-        first: this.first(),
-        last: this.last(),
-      };
-    },
-
     firstIndex(
       predicate?: ((value: T, index: Integer) => Boolean2) | Nothing,
       startIndex?: Integer | Nothing,

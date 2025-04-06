@@ -6,9 +6,8 @@ export interface Dictionary<K = Anything, V = Anything> extends ArrayData<KeyVal
 
   keys(): ArrayData<K>;
   values(): ArrayData<V>;
-  get(key: K): V | Nothing;
-  get2(key: K): V;
   has(key: K): Boolean2;
+  get(key: K): V | Nothing;
   set(key: K, value: V): void;
 }
 
