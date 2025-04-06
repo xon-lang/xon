@@ -1,4 +1,4 @@
-import {$AnalyzerType, $Semantic, AttributeList, IdTypeSemantic, Semantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, DeclarationScope, IdTypeSemantic, Semantic} from '#analyzer';
 import {ArrayData, newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -8,7 +8,7 @@ export type DeclarationSemantic = Semantic &
     reference: TextReference;
     documentation?: Text | Nothing;
     name: Text;
-    attributes?: AttributeList | Nothing;
+    attributes?: DeclarationScope | Nothing;
   };
 
 export const $DeclarationSemantic = () =>
@@ -18,7 +18,7 @@ export function newDeclarationSemantic(
   reference: TextReference,
   documentation: Text | Nothing,
   name: Text,
-  attributes?: AttributeList | Nothing,
+  attributes?: DeclarationScope | Nothing,
 ): DeclarationSemantic {
   return {
     $: $DeclarationSemantic(),

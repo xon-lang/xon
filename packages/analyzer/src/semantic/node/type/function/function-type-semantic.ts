@@ -3,7 +3,6 @@ import {
   $SetTypeSemantic,
   $TypeSemantic,
   isInSet,
-  newAttributeList,
   ParameterTypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
@@ -27,7 +26,6 @@ export function newFunctionTypeSemantic(
     $: $FunctionTypeSemantic(),
     parameters,
     result,
-    attributes: newAttributeList(),
 
     is(other: TypeSemantic): Boolean2 {
       if (is(other, $SetTypeSemantic())) {

@@ -1,7 +1,7 @@
 import {
   $AnalyzerType,
   $TypeDeclarationSemantic,
-  AttributeList,
+  DeclarationScope,
   DeclarationSemantic,
   ParameterTypeDeclarationSemantic,
   TypeDeclarationSemantic,
@@ -11,7 +11,6 @@ import {ArrayData, Boolean2, newArrayData, Nothing, Text, TextReference} from '#
 
 export type NominalTypeDeclarationSemantic = TypeDeclarationSemantic & {
   extendsType?: TypeSemantic | Nothing;
-  attributes?: AttributeList | Nothing;
 
   equals(other: DeclarationSemantic): Boolean2;
 };
@@ -24,7 +23,7 @@ export function newNominalTypeDeclarationSemantic(
   name: Text,
   parameters?: ArrayData<ParameterTypeDeclarationSemantic> | Nothing,
   extendsType?: TypeSemantic | Nothing,
-  attributes?: AttributeList | Nothing,
+  attributes?: DeclarationScope | Nothing,
   documentation?: Text | Nothing,
 ): NominalTypeDeclarationSemantic {
   return {

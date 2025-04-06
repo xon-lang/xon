@@ -2,7 +2,7 @@ import {
   $AnalyzerType,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeList,
+  DeclarationScope,
   isInSet,
   TypeSemantic,
 } from '#analyzer';
@@ -14,7 +14,7 @@ export type ObjectTypeSemantic = TypeSemantic & Brand<'Analyzer.ObjectTypeSemant
 export const $ObjectTypeSemantic = () =>
   $AnalyzerType<ObjectTypeSemantic>('ObjectTypeSemantic', $TypeSemantic());
 
-export function newObjectTypeSemantic(attributes?: AttributeList | Nothing): ObjectTypeSemantic {
+export function newObjectTypeSemantic(attributes?: DeclarationScope | Nothing): ObjectTypeSemantic {
   return {
     $: $ObjectTypeSemantic(),
     attributes,
