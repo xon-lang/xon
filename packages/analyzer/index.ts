@@ -178,6 +178,7 @@ export * from './src/semantic/node/declaration/type/nominal/nominal-type-declara
 export * from './src/syntax/nodes/statement/nodes/unknown/diagnostic/unknown-statement-node-diagnostic';
 export * from './src/syntax/nodes/statement/nodes/return/parser/return-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/return/diagnostic/return-statement-node-diagnostic';
+export * from './src/syntax/nodes/statement/nodes/import/semantic/import-provider';
 export * from './src/syntax/nodes/statement/nodes/import/semantic/import-semantic';
 export * from './src/syntax/nodes/statement/nodes/import/semantic/import-statement-node-semantify';
 export * from './src/syntax/nodes/statement/nodes/import/parser/import-statement-node-parser';

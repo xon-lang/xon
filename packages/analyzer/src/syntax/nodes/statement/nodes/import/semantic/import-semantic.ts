@@ -1,15 +1,18 @@
-import {$AnalyzerType, $Semantic, ImportScope, Semantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, DeclarationScope, Semantic} from '#analyzer';
+import {Uri} from '#common';
 
 export type ImportSemantic = Semantic & {
-  scope: ImportScope;
+  uri: Uri;
+  scope: DeclarationScope;
 };
 
 export const $ImportSemantic = () => $AnalyzerType<ImportSemantic>('ImportSemantic', $Semantic());
 
-export function newImportSemantic(scope: ImportScope): ImportSemantic {
+export function newImportSemantic(uri: Uri, scope: DeclarationScope): ImportSemantic {
   return {
     $: $ImportSemantic(),
 
+    uri,
     scope,
   };
 }

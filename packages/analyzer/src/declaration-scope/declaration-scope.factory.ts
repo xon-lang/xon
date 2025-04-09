@@ -1,7 +1,9 @@
 import {$DeclarationScope, DeclarationScope, DeclarationSemantic} from '#analyzer';
 import {
+  $Dictionary,
   ArrayData,
   Boolean2,
+  Dictionary,
   Integer,
   KeyValue,
   newArrayData,
@@ -10,21 +12,28 @@ import {
   Number2,
   Text,
 } from '#common';
+import {is} from '#typing';
 
 export function newDeclarationScope(
-  declarations: ArrayData<DeclarationSemantic> = newArrayData(),
+  declarations:
+    | Dictionary<Text, ArrayData<DeclarationSemantic>>
+    | ArrayData<DeclarationSemantic> = newDictionary<Text, ArrayData<DeclarationSemantic>>(),
 ): DeclarationScope {
-  // const array = is(declarations, $ArrayData()) || is(declarations, $Dictionary())? declarations:
-  const base = newDictionary<Text, ArrayData<DeclarationSemantic>>();
+  let base: Dictionary<Text, ArrayData<DeclarationSemantic>>;
 
-  for (const declaration of declarations) {
-    if (!base.has(declaration.name)) {
-      base.set(declaration.name, newArrayData());
+  if (is(declarations, $Dictionary())) {
+    base = declarations;
+  } else {
+    base = newDictionary<Text, ArrayData<DeclarationSemantic>>();
+
+    for (const declaration of declarations) {
+      if (!base.has(declaration.name)) {
+        base.set(declaration.name, newArrayData());
+      }
+
+      base.get(declaration.name)!.addLastItem(declaration);
     }
-
-    base.get(declaration.name)!.addLastItem(declaration);
   }
-
   return {
     ...base,
     $: $DeclarationScope(),

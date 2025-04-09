@@ -1,15 +1,16 @@
 import {
   $AsInfixNode,
   $StringNode,
+  getDeclarationsFromUri,
   IdNode,
   ImportStatementNode,
+  newDeclarationScope,
   newDeclarationSemantic,
-  newFileImportScope,
   newImportSemantic,
   SemanticContext,
   StringNode,
 } from '#analyzer';
-import {newText, nothing} from '#common';
+import {newText, newUri, nothing} from '#common';
 import {is} from '#typing';
 import {existsSync, statSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
@@ -41,10 +42,12 @@ function semantifyStringNode(node: StringNode, context: SemanticContext): void {
     return;
   }
 
-  const importScope = newFileImportScope(newText(filePath));
-  node.semantic  = newImportSemantic(importScope);
+  const uri = newUri(newText(filePath));
+  const declarations = getDeclarationsFromUri(uri);
+  const scope = newDeclarationScope(declarations);
+  node.semantic = newImportSemantic(uri, scope);
 }
 
 function semantifyIdNode(node: IdNode, context: SemanticContext): void {
-  node.semantic = newDeclarationSemantic(context.getReference(node.range), nothing, node.text, )
+  node.semantic = newDeclarationSemantic(context.getReference(node.range), nothing, node.text);
 }
