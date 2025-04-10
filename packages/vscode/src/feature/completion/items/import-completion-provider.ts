@@ -40,8 +40,6 @@ export class ImportCompletionProvider implements CompletionItemProvider {
       vsCodeToXonPosition(document, position),
     );
 
-    console.log('node?.range.start.index', node?.range.start.index);
-
     if (!node) {
       return;
     }
@@ -69,7 +67,7 @@ export class ImportCompletionProvider implements CompletionItemProvider {
       }
 
       if (is(resource, $DirectoryResource())) {
-        items.push(new CompletionItem(resource.name.toNativeString(), CompletionItemKind.File));
+        items.push(new CompletionItem(resource.name.toNativeString(), CompletionItemKind.Folder));
 
         continue;
       }

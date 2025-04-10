@@ -14,6 +14,7 @@ export * from './src/number/number.factory';
 export * from './src/number/number.model';
 export * from './src/min-max/min-max.factory';
 export * from './src/min-max/min-max.model';
+export * from './src/memoize/memoize';
 export * from './src/key-value/key-value.factory';
 export * from './src/key-value/key-value.model';
 export * from './src/function/function-data.factory';
