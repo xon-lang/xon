@@ -6,6 +6,7 @@ import {
   FormatterContext,
   HighlightContext,
   ImportKeywordNode,
+  ImportSemantic,
   newSyntaxNode,
   Node,
   semantifyImportStatementNode,
@@ -19,7 +20,7 @@ export type ImportStatementNode = StatementNode &
   Brand<'Analyzer.ImportStatementNode'> & {
     keyword: ImportKeywordNode;
     expression?: StringNode | AsInfixNode | Nothing;
-    semantic?: Nothing;
+    semantic?: ImportSemantic | Nothing;
   };
 
 export const $ImportStatementNode = () =>

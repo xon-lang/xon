@@ -1,16 +1,14 @@
 import {
   $AsInfixNode,
   $StringNode,
-  getDeclarationsFromUri,
-  IdNode,
+  getDeclarationScopeFromUri,
+  ImportSemantic,
   ImportStatementNode,
-  newDeclarationScope,
-  newDeclarationSemantic,
   newImportSemantic,
   SemanticContext,
   StringNode,
 } from '#analyzer';
-import {newText, newUri, nothing} from '#common';
+import {newText, newUri, Nothing, nothing} from '#common';
 import {is} from '#typing';
 import {existsSync, statSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
@@ -21,33 +19,35 @@ export function semantifyImportStatementNode(this: ImportStatementNode, context:
   }
 
   if (is(this.expression, $StringNode())) {
-    semantifyStringNode(this.expression, context);
+    this.semantic = semantifyStringNode(this.expression, context);
   }
 
   if (is(this.expression, $AsInfixNode()) && is(this.expression.left, $StringNode())) {
-    semantifyStringNode(this.expression.left, context);
+    this.semantic = semantifyStringNode(this.expression.left, context);
   }
 }
 
-function semantifyStringNode(node: StringNode, context: SemanticContext): void {
+function semantifyStringNode(node: StringNode, context: SemanticContext): ImportSemantic | Nothing {
   if (!node.content) {
-    return;
+    return nothing;
   }
 
   const importPath = node.content?.text.toNativeString();
   const dirName = dirname(context.sourceLocation.toNativeString());
-  const filePath = resolve(dirName, importPath);
+  const originalPath = resolve(dirName, importPath);
 
-  if (!existsSync(filePath) || !statSync(filePath).isFile()) {
-    return;
+  if (!existsSync(originalPath) || !statSync(originalPath).isFile()) {
+    return nothing;
   }
 
-  const uri = newUri(newText(filePath));
-  const declarations = getDeclarationsFromUri(uri);
-  const scope = newDeclarationScope(declarations);
-  node.semantic = newImportSemantic(uri, scope);
+  const uri = newUri(newText(originalPath));
+  const scope = getDeclarationScopeFromUri(uri);
+  const semantic = newImportSemantic(newText(originalPath), uri, scope);
+  node.semantic = semantic;
+
+  return semantic;
 }
 
-function semantifyIdNode(node: IdNode, context: SemanticContext): void {
-  node.semantic = newDeclarationSemantic(context.getReference(node.range), nothing, node.text);
-}
+// function semantifyIdNode(node: IdNode, context: SemanticContext): void {
+//   node.semantic = newDeclarationSemantic(context.getReference(node.range), nothing, node.text);
+// }
