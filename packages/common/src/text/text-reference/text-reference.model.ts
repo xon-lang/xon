@@ -1,8 +1,8 @@
-import {$CommonType, Boolean2, Text, TextRange} from '#common';
+import {$CommonType, Boolean2, TextRange, Uri} from '#common';
 import {Model} from '#typing';
 
 export type TextReference = Model & {
-  location: Text;
+  uri: Uri;
   range: TextRange;
 
   equals(reference: TextReference): Boolean2;
