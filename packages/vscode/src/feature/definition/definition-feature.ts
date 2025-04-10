@@ -1,10 +1,10 @@
-import {$FileImportScope, $IdTypeSemantic, $ImportSemantic} from '#analyzer';
+import {$ImportSemantic, $ImportStatementNode, $StringNode, StringNode} from '#analyzer';
 import {
   ArrayData,
   Nothing,
-  Text,
   TextRange,
   TextReference,
+  Uri,
   newArrayData,
   newTextRange,
   nothing,
@@ -21,7 +21,7 @@ import {
   Position,
   ProviderResult,
   TextDocument,
-  Uri,
+  Uri as VsCodeUri,
   languages,
 } from 'vscode';
 
@@ -40,31 +40,28 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     token: CancellationToken,
   ): ProviderResult<DefinitionLink[]> {
     const analyzer = newTextDocumentAnalyzer(document, this.channel);
-    const node = analyzer.findNode(vsCodeToXonPosition(document, position));
+    const xonPosition = vsCodeToXonPosition(document, position);
 
-    if (!node?.semantic) {
-      return nothing;
-    }
+    const node = analyzer.findClosestNode(
+      (node): node is StringNode => is(node, $StringNode()) && is(node.parent, $ImportStatementNode()),
+      xonPosition,
+    );
 
-    if (is(node.semantic, $ImportSemantic())) {
-      if (is(node.semantic.scope, $FileImportScope())) {
-        return navigateToLocation(node.range, node.semantic.scope.location, newTextRange())?.toNativeArray();
-      }
-
-      return nothing;
+    if (node && is(node.semantic, $ImportSemantic())) {
+      return navigateToLocation(node.range, node.semantic.uri, newTextRange())?.toNativeArray();
     }
 
     // if (is(node.semantic, $DeclarationSemantic())) {
     //   return navigateToUsages(node.range, node.semantic).toNativeArray();
     // }
 
-    if (is(node.semantic, $IdTypeSemantic())) {
-      if (!node.semantic.declaration) {
-        return nothing;
-      }
+    // if (is(node.semantic, $IdTypeSemantic())) {
+    //   if (!node.semantic.declaration) {
+    //     return nothing;
+    //   }
 
-      return navigateToReference(node.range, node.semantic.declaration.reference)?.toNativeArray();
-    }
+    //   return navigateToReference(node.range, node.semantic.declaration.reference)?.toNativeArray();
+    // }
 
     // if (is(node.semantic, $DocumentationIdSemantic())) {
     //   return navigateToReference(node.range, node.semantic.declaration.nodeLink)?.toNativeArray();
@@ -114,19 +111,19 @@ function navigateToReference(
   originalRange: TextRange,
   reference: TextReference,
 ): ArrayData<LocationLink> | Nothing {
-  if (!reference.location) {
+  if (!reference.uri) {
     return nothing;
   }
 
-  return navigateToLocation(originalRange, reference.location, reference.range);
+  return navigateToLocation(originalRange, reference.uri, reference.range);
 }
 
 function navigateToLocation(
   originalRange: TextRange,
-  location: Text,
+  uri: Uri,
   sourceRange: TextRange,
 ): ArrayData<LocationLink> | Nothing {
-  const targetUri = Uri.parse(location.toNativeString());
+  const targetUri = VsCodeUri.parse(uri.value.toNativeString());
   const targetRange = xonToVsCodeRange(sourceRange);
   const originSelectionRange = xonToVsCodeRange(originalRange);
 
