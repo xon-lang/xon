@@ -1,4 +1,4 @@
-import {$CommonType, $Resource, ArrayData, Text} from '#common';
+import {$CommonType, $Resource, ArrayData, Boolean2, Text} from '#common';
 import {Brand, Model} from '#typing';
 
 export type Uri = Model &
@@ -22,6 +22,7 @@ export type Uri = Model &
     // ...
 
     resolve(relativePaths: ArrayData<Text>): Uri;
+    equals(other: Uri): Boolean2;
   };
 
 export const $Uri = () => $CommonType<Uri>('Uri', $Resource());
