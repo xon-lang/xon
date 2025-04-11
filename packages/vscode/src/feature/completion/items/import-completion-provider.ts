@@ -57,8 +57,6 @@ function getImportPathCompletions(
     vsCodeToXonPosition(document, position),
   );
 
-  console.log('iim');
-
   if (!node) {
     return nothing;
   }
@@ -104,8 +102,6 @@ function getImportDeclarationCompletions(
     (node) => is(node, $ImportStatementNode()),
     vsCodeToXonPosition(document, position),
   );
-
-  console.log(importNode?.body?.range);
 
   if (!importNode?.body?.range.contains(vsCodeToXonPosition(document, position))) {
     return nothing;
