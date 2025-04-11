@@ -110,14 +110,16 @@ export function findClosestNode<T extends Node = Node>(
 }
 
 function findNode(parent: Node, position: TextPosition): Node | Nothing {
-  if (!parent.children) {
-    return parent;
-  }
-
-  for (const node of parent.children) {
-    if (node.range.contains(position)) {
-      return findNode(node, position);
+  if (parent.range.contains(position)) {
+    if (parent.children) {
+      for (const node of parent.children) {
+        if (node.range.contains(position)) {
+          return findNode(node, position);
+        }
+      }
     }
+
+    return parent;
   }
 
   return nothing;

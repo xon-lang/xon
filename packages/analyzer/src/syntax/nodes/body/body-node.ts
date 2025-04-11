@@ -30,12 +30,12 @@ export function newBodyNode(): BodyNode {
     addStatement(statement: StatementNode): void {
       statement.parent = this;
 
-      if (this.parent) {
-        this.parent.range.stop = statement.range.stop;
+      if (this.children.isEmpty()) {
+        this.range.start = statement.hiddenNodes?.first()?.range.start ?? statement.range.start;
       }
 
-      if (this.children.isEmpty()) {
-        this.range.start = statement.range.start;
+      if (this.parent) {
+        this.parent.range.stop = statement.range.stop;
       }
 
       this.range.stop = statement.range.stop;
