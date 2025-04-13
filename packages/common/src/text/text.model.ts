@@ -20,6 +20,8 @@ export interface Text extends ArrayData<Character> {
   trimEnd(): Text;
   startsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2;
   endsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2;
+  lowerCase(): Text;
+  upperCase(): Text;
   repeat(count: Integer): Text;
   equals(other: Character): Boolean2;
   equals(other: ArrayData<Character>): Boolean2;

@@ -193,6 +193,14 @@ export function newText(
       return this.toNativeString().endsWith(searchText.toNativeString(), startIndex ?? undefined);
     },
 
+    lowerCase(): Text {
+      return newText(this.toNativeString().toLowerCase());
+    },
+
+    upperCase(): Text {
+      return newText(this.toNativeString().toUpperCase());
+    },
+
     repeat(count: Integer): Text {
       return newText(this.toNativeString().repeat(count));
     },
