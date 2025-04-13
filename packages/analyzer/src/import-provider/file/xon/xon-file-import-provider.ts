@@ -4,7 +4,6 @@ import {
   $DeclarationStatementNode,
   $ImportProvider,
   DeclarationScope,
-  DeclarationSemantic,
   FileImportProvider,
   newAnalyzerContext,
   newCharacterStreamFromText,
@@ -12,7 +11,7 @@ import {
   newSemanticContext,
   parseStatements,
 } from '#analyzer';
-import {ArrayData, Boolean2, Dictionary, newArrayData, newDictionary, newText, Text, Uri} from '#common';
+import {Boolean2, newText, Uri} from '#common';
 import {Brand, is} from '#typing';
 import {readFileSync} from 'node:fs';
 
@@ -26,18 +25,16 @@ export function newXonFileImportProvider(): XonFileImportProvider {
     $: $XonFileImportProvider(),
 
     canProvide(uri: Uri): Boolean2 {
-      return uri.value.endsWith(newText('.xon'));
+      return uri.value.lowerCase().endsWith(newText('.xon'));
     },
 
     provideDeclarationScope(uri: Uri): DeclarationScope {
-      const declarations = getDeclarationsFromUri(uri);
-
-      return newDeclarationScope(declarations);
+      return getDeclarationsFromUri(uri);
     },
   };
 }
 
-function getDeclarationsFromUri(uri: Uri): Dictionary<Text, ArrayData<DeclarationSemantic>> {
+function getDeclarationsFromUri(uri: Uri): DeclarationScope {
   // todo use async version of 'readFileSync'
   const buffer = readFileSync(uri.value.toNativeString());
   const text = newText(buffer.toString());
@@ -45,21 +42,15 @@ function getDeclarationsFromUri(uri: Uri): Dictionary<Text, ArrayData<Declaratio
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
   const semanticContext = newSemanticContext(uri.value);
-  const declarations = newDictionary<Text, ArrayData<DeclarationSemantic>>();
+  const declarationsScope = newDeclarationScope();
 
   for (const statement of statements) {
     statement.semantify && statement.semantify(semanticContext);
 
     if (is(statement, $DeclarationStatementNode()) && is(statement.semantic, $DeclarationSemantic())) {
-      const overloads = declarations.get(statement.semantic.name);
-
-      if (overloads) {
-        overloads.addFirstItem(statement.semantic);
-      } else {
-        declarations.set(statement.semantic.name, newArrayData([statement.semantic]));
-      }
+      declarationsScope.add(statement.semantic);
     }
   }
 
-  return declarations;
+  return declarationsScope;
 }
