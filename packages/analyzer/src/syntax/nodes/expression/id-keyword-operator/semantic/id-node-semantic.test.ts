@@ -10,7 +10,7 @@ import {
   newSemanticContext,
   parseIdKeywordOperatorNode,
 } from '#analyzer';
-import {newText, newTextRange, newTextReference, Text} from '#common';
+import {newText, newTextRange, newTextReference, newUri, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
@@ -28,7 +28,9 @@ function getIdNode(text: Text): IdNode {
   const context = newAnalyzerContext(source);
   const node = parseIdKeywordOperatorNode(context) as IdNode;
   const semanticContext = newSemanticContext();
-  semanticContext.scope.add(newNominalTypeDeclarationSemantic(newTextReference(newText(), newTextRange()), newText('A')));
+  semanticContext.scope.add(
+    newNominalTypeDeclarationSemantic(newTextReference(newUri(newText()), newTextRange()), newText('A')),
+  );
   node.semantify!(semanticContext);
 
   expect(node).toBeTruthy();

@@ -15,7 +15,7 @@ import {
   nonHiddenNodeGenerator,
   StringTypeSemantic,
 } from '#analyzer';
-import {newArrayData, newText, newTextRange, Text} from '#common';
+import {newArrayData, newText, newTextRange, newTextReference, newUri, nothing, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
@@ -44,8 +44,17 @@ function getMemberNode(text: Text): MemberNode {
       newObjectTypeSemantic(
         newDeclarationScope(
           newArrayData([
-            newAttributeDeclarationSemantic(newText('name'), newStringTypeSemantic(newText('John'))),
-            newAttributeDeclarationSemantic(newText('age')),
+            newAttributeDeclarationSemantic(
+              newTextReference(newUri(newText('test')), newTextRange()),
+              nothing,
+              newText('name'),
+              newStringTypeSemantic(newText('John')),
+            ),
+            newAttributeDeclarationSemantic(
+              newTextReference(newUri(newText('test')), newTextRange()),
+              nothing,
+              newText('age'),
+            ),
           ]),
         ),
       ),
