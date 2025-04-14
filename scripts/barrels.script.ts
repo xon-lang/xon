@@ -2,19 +2,20 @@ import {promises as fs} from 'node:fs';
 import {extname, join} from 'node:path';
 
 const directories = [
+  'packages/grammar',
   'packages/analyzer',
   'packages/common',
   'packages/diagnostic',
   'packages/interpreter',
   'packages/translator',
   'packages/typing',
-  'packages/vscode',
   'packages/xon-lib',
+  'packages/vscode',
 ];
 
 const excludeDirectories = ['dist', 'vscode/test'];
 const excludeFiles = ['index.ts'];
-const excludeExtensions = ['.spec.ts', '.test.ts', '.gen.ts'];
+const excludeExtensions = ['.spec.ts', '.test.ts', '.gen.ts', 'vite.config.ts'];
 
 async function createBarrel(directory: string) {
   const files = await fs.readdir(directory, {withFileTypes: true, recursive: true});
