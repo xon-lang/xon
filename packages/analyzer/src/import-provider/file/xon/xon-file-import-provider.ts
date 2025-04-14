@@ -41,7 +41,7 @@ function getDeclarationsFromUri(uri: Uri): DeclarationScope {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
-  const semanticContext = newSemanticContext(uri.value);
+  const semanticContext = newSemanticContext(uri);
   const declarationsScope = newDeclarationScope();
 
   for (const statement of statements) {
