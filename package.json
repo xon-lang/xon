@@ -2,17 +2,22 @@
   "name": "xon",
   "author": "nizami",
   "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "tsc --noEmit --watch",
+    "vscode:build": "cd packages/vscode && vite build",
+    "barrels": "tsc -p scripts/tsconfig.json && node scripts/dist/barrels.script.js",
+    "grammar": "tsc -p scripts/tsconfig.json && node scripts/dist/grammar.script.js",
+    "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/json/JsonGrammar.g4"
+  },
+  "dependencies": {
+    "antlr4": "^4.13.2"
+  },
   "devDependencies": {
     "@types/node": "22.14.1",
     "@types/vscode": "1.99.1",
     "typescript": "5.8.3",
     "vite": "6.2.6",
     "vitest": "3.1.1"
-  },
-  "scripts": {
-    "test": "vitest run",
-    "dev": "tsc --noEmit --watch",
-    "vscode:build": "rm -rf 'packages/vscode/dist' && esbuild 'packages/vscode/src/main.ts' --bundle --outfile='packages/vscode/dist/main.js' --external:vscode \"--external:*.gen.ts\" --format=cjs --platform=node",
-    "barrels": "tsc -p scripts/tsconfig.json && node scripts/dist/barrels.script.js"
   }
 }
