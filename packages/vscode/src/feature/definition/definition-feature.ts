@@ -1,4 +1,12 @@
-import {$ImportSemantic, $ImportStatementNode, $StringNode, StringNode} from '#analyzer';
+import {
+  $DeclarationSemantic,
+  $IdNode,
+  $ImportSemantic,
+  $ImportStatementNode,
+  $StringNode,
+  IdNode,
+  StringNode,
+} from '#analyzer';
 import {
   ArrayData,
   Nothing,
@@ -42,13 +50,25 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const analyzer = newTextDocumentAnalyzer(document, this.channel);
     const xonPosition = vsCodeToXonPosition(document, position);
 
-    const node = analyzer.findClosestNode(
+    const inImportNode = !!analyzer.findClosestNode((node) => is(node, $ImportStatementNode()), xonPosition);
+
+    const stringNode = analyzer.findClosestNode(
       (node): node is StringNode => is(node, $StringNode()) && is(node.parent, $ImportStatementNode()),
       xonPosition,
     );
 
-    if (node && is(node.semantic, $ImportSemantic())) {
-      return navigateToLocation(node.range, node.semantic.uri, newTextRange())?.toNativeArray();
+    if (stringNode && is(stringNode.semantic, $ImportSemantic())) {
+      return navigateToLocation(stringNode.range, stringNode.semantic.uri, newTextRange())?.toNativeArray();
+    }
+
+    const idNode = analyzer.findClosestNode((node): node is IdNode => is(node, $IdNode()), xonPosition);
+
+    if (inImportNode && idNode && is(idNode.semantic, $DeclarationSemantic())) {
+      return navigateToLocation(
+        idNode.range,
+        idNode.semantic.reference.uri,
+        idNode.semantic.reference.range,
+      )?.toNativeArray();
     }
 
     // if (is(node.semantic, $DeclarationSemantic())) {

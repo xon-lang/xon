@@ -53,7 +53,7 @@ export class DotCompletionProvider implements CompletionItemProvider {
 
 function getAttributes(semantic: Semantic): ArrayData<AttributeDeclarationSemantic> | Nothing {
   if (is(semantic, $TypeSemantic())) {
-    return semantic.attributes?._declarations.flatMap((x) => x.value);
+    return semantic.attributes?.values().flatMap((x) => x);
   }
 
   // if (is(semantic, $ValueSemantic()) && semantic.type) {
