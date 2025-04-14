@@ -26,6 +26,7 @@
     // "noUnusedParameters": true,
     "outDir": "packages/vscode/dist",
     "paths": {
+      "#grammar": ["packages/grammar/*", "packages/grammar/index"],
       "#typing": ["packages/typing/*", "packages/typing/index"],
       "#common": ["packages/common/*", "packages/common/index"],
       "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic/index"],

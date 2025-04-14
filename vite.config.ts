@@ -9,10 +9,4 @@ export default defineConfig({
   resolve: {
     alias: [{find: /#(.+)/g, replacement: resolve(WORKSPACE_ROOT, 'packages/$1/index.ts')}],
   },
-  test: {
-    environment: 'node',
-    alias: {
-      vscode: resolve(WORKSPACE_ROOT, 'packages/vscode/vscode.mock.ts'),
-    },
-  },
 });
