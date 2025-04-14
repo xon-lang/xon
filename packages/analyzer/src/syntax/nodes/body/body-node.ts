@@ -42,7 +42,11 @@ export function newBodyNode(): BodyNode {
       this.children.addLastItem(statement);
     },
 
-    semantify(context: SemanticContext): void {},
+    semantify(context: SemanticContext): void {
+      for (const statement of this.children) {
+        statement.semantify(context);
+      }
+    },
     diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},

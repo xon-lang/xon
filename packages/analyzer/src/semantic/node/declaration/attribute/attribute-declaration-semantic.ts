@@ -12,17 +12,17 @@ export const $AttributeDeclarationSemantic = () =>
   );
 
 export function newAttributeDeclarationSemantic(
+  reference: TextReference,
+  documentation: Text | Nothing,
   name: Text,
   type?: TypeSemantic | Nothing,
-  documentation?: Text | Nothing,
-  reference?: TextReference | Nothing,
 ): AttributeDeclarationSemantic {
   return {
     $: $AttributeDeclarationSemantic(),
     usages: newArrayData(),
+    reference,
     name,
     type,
     documentation,
-    reference,
   };
 }
