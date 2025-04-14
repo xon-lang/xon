@@ -1,11 +1,11 @@
 import {$AnalyzerType, NominalTypeDeclarationSemantic, SemanticScope} from '#analyzer';
-import {Boolean2, Text, TextRange, TextReference} from '#common';
+import {Boolean2, TextRange, TextReference, Uri} from '#common';
 import {Brand, Model} from '#typing';
 
 export type SemanticContext = Model &
   Brand<'Analyzer.SemanticContext'> & {
     // todo use 'uri' type
-    sourceLocation: Text;
+    sourceUri: Uri;
     scope: SemanticScope;
 
     literal: {

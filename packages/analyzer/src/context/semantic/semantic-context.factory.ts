@@ -9,23 +9,24 @@ import {
   newText,
   newTextRange,
   newTextReference,
+  newUri,
   Nothing,
-  Text,
   TextRange,
   TextReference,
+  Uri,
 } from '#common';
 
-export function newSemanticContext(sourceLocation?: Text | Nothing): SemanticContext {
-  sourceLocation ??= newText('');
+export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
+  sourceUri ??= newUri(newText());
 
   return {
     $: $SemanticContext(),
-    sourceLocation,
+    sourceUri,
     scope: newSemanticScope(),
     literal: {
       // todo get declaration from source code ???
       stringDeclaration: newNominalTypeDeclarationSemantic(
-        newTextReference(sourceLocation, newTextRange()),
+        newTextReference(sourceUri, newTextRange()),
         newText('String'),
       ),
     },
@@ -41,7 +42,7 @@ export function newSemanticContext(sourceLocation?: Text | Nothing): SemanticCon
     },
 
     getReference(range: TextRange): TextReference {
-      return newTextReference(this.sourceLocation, range);
+      return newTextReference(this.sourceUri, range);
     },
   };
 }

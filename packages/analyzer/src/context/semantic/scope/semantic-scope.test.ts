@@ -1,12 +1,12 @@
 import {newNominalTypeDeclarationSemantic, newSemanticScope} from '#analyzer';
-import {newText, newTextRange, newTextReference} from '#common';
+import {newText, newTextRange, newTextReference, newUri} from '#common';
 import {expect, test} from 'vitest';
 
 test('Semantic scope', () => {
   const parentScope = newSemanticScope();
 
   parentScope.add(
-    newNominalTypeDeclarationSemantic(newTextReference(newText(), newTextRange()), newText('Number')),
+    newNominalTypeDeclarationSemantic(newTextReference(newUri(newText()), newTextRange()), newText('Number')),
   );
 
   const childScope = newSemanticScope(parentScope);
@@ -17,3 +17,4 @@ test('Semantic scope', () => {
   expect(childScope._declarations).toBeFalsy();
   expect(declaration?.name.toNativeString()).toBe('Number');
 });
+ 
