@@ -28,7 +28,7 @@ function getPrefixNode(text: Text): PrefixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const collapse = collapsePrefixNode(
+  const {collapse} = collapsePrefixNode(
     newDictionary(newArrayData([newKeyValue(PLUS, $PlusPrefixNode())])),
     true,
   );

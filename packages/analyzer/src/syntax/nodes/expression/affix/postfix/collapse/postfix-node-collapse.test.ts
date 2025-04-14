@@ -28,7 +28,7 @@ function getPostfixNode(text: Text): PostfixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const collapse = collapsePostfixNode(
+  const {collapse} = collapsePostfixNode(
     newDictionary(newArrayData([newKeyValue(EXCLAMATION, $ExclamationPostfixNode())])),
     true,
   );

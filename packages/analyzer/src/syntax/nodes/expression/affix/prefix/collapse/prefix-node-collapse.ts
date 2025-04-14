@@ -13,27 +13,31 @@ export function collapsePrefixNode(
   similarPriorityOperators: Dictionary<Text, $Type>,
   isLeftRecursive: Boolean2,
 ): NodeCollapseFn {
-  return (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult => {
-    const method = isLeftRecursive ? 'firstMap' : 'lastMap';
+  return {
+    min: 2,
 
-    return nodes[method]((operatorNode, index) => {
-      if (!is(operatorNode, $OperatorNode())) {
-        return nothing;
-      }
+    collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult => {
+      const method = isLeftRecursive ? 'firstMap' : 'lastMap';
 
-      const operatorType = similarPriorityOperators.get(operatorNode.text);
+      return nodes[method]((operatorNode, index) => {
+        if (!is(operatorNode, $OperatorNode())) {
+          return nothing;
+        }
 
-      if (!operatorType) {
-        return nothing;
-      }
+        const operatorType = similarPriorityOperators.get(operatorNode.text);
 
-      const valueNode = nodes.at2(index + 1);
+        if (!operatorType) {
+          return nothing;
+        }
 
-      if (!is(valueNode, $ExpressionNode())) {
-        return nothing;
-      }
+        const valueNode = nodes.at2(index + 1);
 
-      return {node: newPrefixNode(operatorType, operatorNode, valueNode), index: index + 1};
-    }, startIndex);
+        if (!is(valueNode, $ExpressionNode())) {
+          return nothing;
+        }
+
+        return {node: newPrefixNode(operatorType, operatorNode, valueNode), index: index + 1, deleteCount: 2};
+      }, startIndex);
+    },
   };
 }
