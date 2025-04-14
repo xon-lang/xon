@@ -36,15 +36,15 @@ export function newTextDocumentAnalyzer(
   channel: OutputChannel,
 ): TextDocumentAnalyzer {
   const text = newText(document.getText());
-  const location = newText(document.uri.fsPath);
+  const uri = newUri(newText(document.uri.fsPath));
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
 
-  const semanticContext = newSemanticContext(location);
+  const semanticContext = newSemanticContext(uri);
 
   for (const statement of statements) {
-    statement.semantify && statement.semantify(semanticContext);
+    statement.semantify && statement.semantify(semanticContext); 
   }
 
   channel.appendLine('Handled document: ' + document.uri.fsPath);

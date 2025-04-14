@@ -1,5 +1,4 @@
 export * from './package';
-export * from './vscode.mock';
 export * from './src/config';
 export * from './src/main';
 export * from './src/util/convert';
