@@ -1,5 +1,7 @@
 import {
   $AsInfixNode,
+  $ExpressionStatementNode,
+  $IdNode,
   $StringNode,
   getDeclarationScopeFromUri,
   ImportSemantic,
@@ -25,6 +27,13 @@ export function semantifyImportStatementNode(this: ImportStatementNode, context:
   if (is(this.expression, $AsInfixNode()) && is(this.expression.left, $StringNode())) {
     this.semantic = semantifyStringNode(this.expression.left, context);
   }
+
+  if (this.body?.children && this.semantic) {
+    for (const statement of this.body?.children) {
+      if (is(statement, $ExpressionStatementNode()) && is(statement.expression, $IdNode()))
+        statement.expression.semantic = this.semantic.scope?.get(statement.expression.text)?.first();
+    }
+  }
 }
 
 function semantifyStringNode(node: StringNode, context: SemanticContext): ImportSemantic | Nothing {
@@ -33,7 +42,7 @@ function semantifyStringNode(node: StringNode, context: SemanticContext): Import
   }
 
   const importPath = node.content?.text.toNativeString();
-  const dirName = dirname(context.sourceLocation.toNativeString());
+  const dirName = dirname(context.sourceUri.value.toNativeString());
   const originalPath = resolve(dirName, importPath);
 
   if (!existsSync(originalPath) || !statSync(originalPath).isFile()) {
