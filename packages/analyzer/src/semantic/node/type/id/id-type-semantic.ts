@@ -28,7 +28,7 @@ export function newIdTypeSemantic(
     name,
     declaration,
     reference,
-    attributes: declaration?.attributes,
+    scope: declaration?.scope,
 
     equals(other: TypeSemantic): Boolean2 {
       return this.type?.equals(other) ?? false;

@@ -3,7 +3,7 @@ import {
   $ExpressionStatementNode,
   $IdNode,
   $StringNode,
-  getDeclarationScopeFromUri,
+  getSemanticScopeFromUri,
   ImportSemantic,
   ImportStatementNode,
   newImportSemantic,
@@ -42,7 +42,7 @@ function semantifyStringNode(node: StringNode, context: SemanticContext): Import
   }
 
   const importPath = node.content?.text.toNativeString();
-  const dirName = dirname(context.sourceUri.value.toNativeString());
+  const dirName = dirname(context.uri.value.toNativeString());
   const originalPath = resolve(dirName, importPath);
 
   if (!existsSync(originalPath) || !statSync(originalPath).isFile()) {
@@ -50,7 +50,7 @@ function semantifyStringNode(node: StringNode, context: SemanticContext): Import
   }
 
   const uri = newUri(newText(originalPath));
-  const scope = getDeclarationScopeFromUri(uri);
+  const scope = getSemanticScopeFromUri(uri);
   const semantic = newImportSemantic(newText(originalPath), uri, scope);
   node.semantic = semantic;
 

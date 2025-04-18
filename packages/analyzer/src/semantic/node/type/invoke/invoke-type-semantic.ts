@@ -2,10 +2,9 @@ import {
   $AnalyzerType,
   $SetTypeSemantic,
   $TypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
   isInSet,
-  newDeclarationScope,
+  newSemanticScope,
+  SemanticScope,
   TypeSemantic,
 } from '#analyzer';
 import {ArrayData, Boolean2} from '#common';
@@ -44,8 +43,8 @@ export function newInvokeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
-      return newDeclarationScope();
+    scope(): SemanticScope {
+      return newSemanticScope();
       // throw new Error('Not implemented');
     },
   };

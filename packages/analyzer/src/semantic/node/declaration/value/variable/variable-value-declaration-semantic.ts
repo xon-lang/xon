@@ -28,7 +28,7 @@ export function newVariableValueDeclarationSemantic(
     documentation,
     name,
     type,
-    attributes: type?.attributes,
+    scope: type?.scope,
 
     equals(other: DeclarationSemantic): Boolean2 {
       return false;

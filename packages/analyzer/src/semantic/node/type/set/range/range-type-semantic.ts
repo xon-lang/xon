@@ -2,11 +2,10 @@ import {
   $AnalyzerType,
   $IntegerTypeSemantic,
   $SetTypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
   isInSet,
   Node,
   NominalTypeDeclarationSemantic,
+  SemanticScope,
   SetTypeSemantic,
   TypeSemantic,
 } from '#analyzer';
@@ -64,7 +63,7 @@ export function rangeTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
+    scope(): SemanticScope {
       throw new Error('Not implemented');
     },
   };

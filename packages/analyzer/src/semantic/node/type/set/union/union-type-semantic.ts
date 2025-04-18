@@ -1,12 +1,4 @@
-import {
-  $AnalyzerType,
-  $SetTypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
-  Node,
-  SetTypeSemantic,
-  TypeSemantic,
-} from '#analyzer';
+import {$AnalyzerType, $SetTypeSemantic, Node, SemanticScope, SetTypeSemantic, TypeSemantic} from '#analyzer';
 import {Boolean2} from '#common';
 
 export type UnionTypeSemantic = SetTypeSemantic & {
@@ -36,8 +28,8 @@ export function unionTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
-      return this.left.attributes().union(this.right.attributes());
+    scope(): SemanticScope {
+      return this.left.scope().union(this.right.scope());
     },
   };
 

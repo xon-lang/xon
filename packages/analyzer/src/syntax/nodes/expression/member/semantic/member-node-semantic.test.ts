@@ -7,9 +7,9 @@ import {
   newAnalyzerContext,
   newAttributeDeclarationSemantic,
   newCharacterStreamFromText,
-  newDeclarationScope,
   newObjectTypeSemantic,
   newSemanticContext,
+  newSemanticScope,
   newStringTypeSemantic,
   newVariableValueDeclarationSemantic,
   nonHiddenNodeGenerator,
@@ -42,7 +42,7 @@ function getMemberNode(text: Text): MemberNode {
       semanticContext.getReference(newTextRange()),
       newText('user'),
       newObjectTypeSemantic(
-        newDeclarationScope(
+        newSemanticScope(
           newArrayData([
             newAttributeDeclarationSemantic(
               newTextReference(newUri(newText('test')), newTextRange()),

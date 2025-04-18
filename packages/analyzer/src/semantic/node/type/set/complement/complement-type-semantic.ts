@@ -1,12 +1,4 @@
-import {
-  $AnalyzerType,
-  $SetTypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
-  Node,
-  SetTypeSemantic,
-  TypeSemantic,
-} from '#analyzer';
+import {$AnalyzerType, $SetTypeSemantic, Node, SemanticScope, SetTypeSemantic, TypeSemantic} from '#analyzer';
 import {Boolean2} from '#common';
 
 export type ComplementTypeSemantic = SetTypeSemantic & {
@@ -36,8 +28,8 @@ export function complementTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
-      return this.left.attributes().complement(this.right.attributes());
+    scope(): SemanticScope {
+      return this.left.scope().complement(this.right.scope());
     },
   };
 

@@ -22,7 +22,7 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
   }
 
   // todo fix '.at(0)'
-  const attribute = this.instance.semantic.attributes?.get(this.id.text)?.at(0);
+  const attribute = this.instance.semantic.scope?.get(this.id.text)?.first();
 
   if (!attribute) {
     return;

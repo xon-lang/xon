@@ -1,9 +1,9 @@
 import {
   $AnalyzerType,
   $TypeDeclarationSemantic,
-  DeclarationScope,
   DeclarationSemantic,
   ParameterTypeDeclarationSemantic,
+  SemanticScope,
   TypeDeclarationSemantic,
   TypeSemantic,
 } from '#analyzer';
@@ -23,7 +23,7 @@ export function newNominalTypeDeclarationSemantic(
   name: Text,
   parameters?: ArrayData<ParameterTypeDeclarationSemantic> | Nothing,
   extendsType?: TypeSemantic | Nothing,
-  attributes?: DeclarationScope | Nothing,
+  scope?: SemanticScope | Nothing,
   documentation?: Text | Nothing,
 ): NominalTypeDeclarationSemantic {
   return {
@@ -33,7 +33,7 @@ export function newNominalTypeDeclarationSemantic(
     name,
     parameters,
     extendsType,
-    attributes,
+    scope: scope,
     documentation,
 
     // getType(): TypeSemantic | Nothing {

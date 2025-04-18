@@ -1,12 +1,4 @@
-import {
-  $AnalyzerType,
-  $SetTypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
-  Node,
-  SetTypeSemantic,
-  TypeSemantic,
-} from '#analyzer';
+import {$AnalyzerType, $SetTypeSemantic, Node, SemanticScope, SetTypeSemantic, TypeSemantic} from '#analyzer';
 import {Boolean2} from '#common';
 
 export type NotTypeSemantic = SetTypeSemantic & {
@@ -29,7 +21,7 @@ export function notTypeSemantic(nodeLink: Node, value: TypeSemantic): NotTypeSem
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
+    scope(): SemanticScope {
       // todo investigate
       throw new Error('Not implemented');
     },

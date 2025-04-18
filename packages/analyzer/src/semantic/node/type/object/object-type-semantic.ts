@@ -2,8 +2,8 @@ import {
   $AnalyzerType,
   $SetTypeSemantic,
   $TypeSemantic,
-  DeclarationScope,
   isInSet,
+  SemanticScope,
   TypeSemantic,
 } from '#analyzer';
 import {Boolean2, Nothing} from '#common';
@@ -14,10 +14,10 @@ export type ObjectTypeSemantic = TypeSemantic & Brand<'Analyzer.ObjectTypeSemant
 export const $ObjectTypeSemantic = () =>
   $AnalyzerType<ObjectTypeSemantic>('ObjectTypeSemantic', $TypeSemantic());
 
-export function newObjectTypeSemantic(attributes?: DeclarationScope | Nothing): ObjectTypeSemantic {
+export function newObjectTypeSemantic(scope?: SemanticScope | Nothing): ObjectTypeSemantic {
   return {
     $: $ObjectTypeSemantic(),
-    attributes,
+    scope,
 
     is(other: TypeSemantic): Boolean2 {
       if (is(other, $SetTypeSemantic())) {

@@ -4,12 +4,11 @@ import {
   $SetTypeSemantic,
   $TypeDeclarationSemantic,
   $TypeSemantic,
-  AttributeDeclarationSemantic,
-  DeclarationScope,
   isInSet,
   Node,
   NominalTypeDeclarationSemantic,
   SemanticAnalyzer,
+  SemanticScope,
   TypeSemantic,
 } from '#analyzer';
 import {ArrayData, Boolean2, Nothing} from '#common';
@@ -61,7 +60,7 @@ export function arrayTypeSemantic(
       return false;
     },
 
-    attributes(): DeclarationScope<AttributeDeclarationSemantic> {
+    scope(): SemanticScope {
       throw new Error('Not implemented');
     },
   };
