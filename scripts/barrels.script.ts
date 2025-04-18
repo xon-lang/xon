@@ -4,11 +4,12 @@ import {extname, join} from 'node:path';
 const directories = [
   'packages/grammar',
   'packages/analyzer',
+  'packages/typing',
   'packages/common',
   'packages/diagnostic',
   'packages/interpreter',
   'packages/translator',
-  'packages/typing',
+  'packages/language-adapter',
   'packages/xon-lib',
   'packages/vscode',
 ];

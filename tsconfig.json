@@ -33,6 +33,7 @@
       "#analyzer": ["packages/analyzer/*", "packages/analyzer/index"],
       "#interpreter": ["packages/interpreter/*", "packages/interpreter/index"],
       "#translator": ["packages/translator/*", "packages/translator/index"],
+      "#language-adapter": ["packages/language-adapter/*", "packages/language-adapter/index"],
       "#vscode": ["packages/vscode/*", "packages/vscode/index"],
       "#xon-lib": ["packages/xon-lib/*", "packages/xon-lib/index"]
     },
