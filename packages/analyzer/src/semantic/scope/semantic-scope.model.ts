@@ -10,6 +10,7 @@ export type SemanticScope = Model &
 
     add(declaration: DeclarationSemantic): void;
     get(name: Text): ArrayData<DeclarationSemantic> | Nothing;
+    all(): ArrayData<DeclarationSemantic> | Nothing;
     count(): Integer;
   };
 

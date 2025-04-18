@@ -55,6 +55,10 @@ export function newSemanticScope(
       return this._declarations?.get(name) ?? this.parent?.get(name);
     },
 
+    all(): ArrayData<DeclarationSemantic> | Nothing {
+      return this._declarations?.values().flat();
+    },
+
     count(): Integer {
       return this._declarations?.count() ?? 0;
     },
