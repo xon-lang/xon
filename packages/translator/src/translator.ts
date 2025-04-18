@@ -1,9 +1,6 @@
-import {Text} from '#common';
 import {$TranslatorType} from '#translator';
-import {Model} from '#typing';
+import {Brand, Model} from '#typing';
 
-export type Translator = Model & {
-  translate(): Text;
-};
+export type Translator = Model & Brand<'Translator.Translator'> & {};
 
 export const $Translator = () => $TranslatorType('Translator');
