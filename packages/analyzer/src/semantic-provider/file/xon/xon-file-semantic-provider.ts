@@ -2,39 +2,40 @@ import {
   $AnalyzerType,
   $DeclarationSemantic,
   $DeclarationStatementNode,
-  $ImportProvider,
-  DeclarationScope,
-  FileImportProvider,
+  $SemanticProvider,
+  FileSemanticProvider,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  newDeclarationScope,
   newSemanticContext,
+  newSemanticScope,
   parseStatements,
+  Semantic,
+  SemanticScope,
 } from '#analyzer';
 import {Boolean2, newText, Uri} from '#common';
 import {Brand, is} from '#typing';
 import {readFileSync} from 'node:fs';
 
-export type XonFileImportProvider = FileImportProvider & Brand<'Analyzer.XonFileImportProvider'>;
+export type XonFileSemanticProvider = FileSemanticProvider & Brand<'Analyzer.XonFileSemanticProvider'>;
 
-export const $XonFileImportProvider = () =>
-  $AnalyzerType<XonFileImportProvider>('XonFileImportProvider', $ImportProvider());
+export const $XonFileSemanticProvider = () =>
+  $AnalyzerType<XonFileSemanticProvider>('XonFileSemanticProvider', $SemanticProvider());
 
-export function newXonFileImportProvider(): XonFileImportProvider {
+export function newXonFileSemanticProvider(): XonFileSemanticProvider {
   return {
-    $: $XonFileImportProvider(),
+    $: $XonFileSemanticProvider(),
 
     canProvide(uri: Uri): Boolean2 {
       return uri.value.lowerCase().endsWith(newText('.xon'));
     },
 
-    provideDeclarationScope(uri: Uri): DeclarationScope {
-      return getDeclarationsFromUri(uri);
+    provideSemantic(uri: Uri): SemanticScope {
+      return getSemanticFromUri(uri);
     },
   };
 }
 
-function getDeclarationsFromUri(uri: Uri): DeclarationScope {
+function getSemanticFromUri(uri: Uri): SemanticScope {
   // todo use async version of 'readFileSync'
   const buffer = readFileSync(uri.value.toNativeString());
   const text = newText(buffer.toString());
@@ -42,15 +43,15 @@ function getDeclarationsFromUri(uri: Uri): DeclarationScope {
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
   const semanticContext = newSemanticContext(uri);
-  const declarationsScope = newDeclarationScope();
+  const semanticScope = newSemanticScope();
 
   for (const statement of statements) {
     statement.semantify && statement.semantify(semanticContext);
 
     if (is(statement, $DeclarationStatementNode()) && is(statement.semantic, $DeclarationSemantic())) {
-      declarationsScope.add(statement.semantic);
+      semanticScope.add(statement.semantic);
     }
   }
 
-  return declarationsScope;
+  return semanticScope;
 }
