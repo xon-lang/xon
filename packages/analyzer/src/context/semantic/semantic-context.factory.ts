@@ -10,6 +10,7 @@ import {
   newTextRange,
   newTextReference,
   newUri,
+  nothing,
   Nothing,
   TextRange,
   TextReference,
@@ -21,7 +22,7 @@ export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
 
   return {
     $: $SemanticContext(),
-    sourceUri,
+    uri: sourceUri,
     scope: newSemanticScope(),
     literal: {
       // todo get declaration from source code ???
@@ -32,7 +33,7 @@ export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
     },
 
     pushScope(isType: Boolean2): void {
-      this.scope = newSemanticScope(this.scope, isType);
+      this.scope = newSemanticScope(nothing, this.scope, isType);
     },
 
     popScope(): void {
@@ -42,7 +43,7 @@ export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
     },
 
     getReference(range: TextRange): TextReference {
-      return newTextReference(this.sourceUri, range);
+      return newTextReference(this.uri, range);
     },
   };
 }

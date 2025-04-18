@@ -4,8 +4,7 @@ import {Brand, Model} from '#typing';
 
 export type SemanticContext = Model &
   Brand<'Analyzer.SemanticContext'> & {
-    // todo use 'uri' type
-    sourceUri: Uri;
+    uri: Uri;
     scope: SemanticScope;
 
     literal: {
