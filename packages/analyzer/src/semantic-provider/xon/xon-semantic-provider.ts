@@ -3,42 +3,51 @@ import {
   $DeclarationSemantic,
   $DeclarationStatementNode,
   $SemanticProvider,
-  FileSemanticProvider,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newObjectTypeSemantic,
   newSemanticContext,
   newSemanticScope,
   parseStatements,
   Semantic,
-  SemanticScope,
+  SemanticProvider,
 } from '#analyzer';
-import {Boolean2, newText, Uri} from '#common';
+import {Boolean2, newText, Nothing, Text, Uri} from '#common';
 import {Brand, is} from '#typing';
 import {readFileSync} from 'node:fs';
 
-export type XonFileSemanticProvider = FileSemanticProvider & Brand<'Analyzer.XonFileSemanticProvider'>;
+export type XonSemanticProvider = SemanticProvider & Brand<'Analyzer.XonSemanticProvider'>;
 
-export const $XonFileSemanticProvider = () =>
-  $AnalyzerType<XonFileSemanticProvider>('XonFileSemanticProvider', $SemanticProvider());
+export const $XonSemanticProvider = () =>
+  $AnalyzerType<XonSemanticProvider>('XonSemanticProvider', $SemanticProvider());
 
-export function newXonFileSemanticProvider(): XonFileSemanticProvider {
+export function newXonSemanticProvider(): XonSemanticProvider {
   return {
-    $: $XonFileSemanticProvider(),
+    $: $XonSemanticProvider(),
 
     canProvide(uri: Uri): Boolean2 {
       return uri.value.lowerCase().endsWith(newText('.xon'));
     },
 
-    provideSemantic(uri: Uri): SemanticScope {
+    provideSemantic(uri: Uri, text?: Text | Nothing): Semantic | Nothing {
+      if (text) {
+        return getSemanticFromText(uri, text);
+      }
+
       return getSemanticFromUri(uri);
     },
   };
 }
 
-function getSemanticFromUri(uri: Uri): SemanticScope {
+function getSemanticFromUri(uri: Uri): Semantic {
   // todo use async version of 'readFileSync'
   const buffer = readFileSync(uri.value.toNativeString());
   const text = newText(buffer.toString());
+
+  return getSemanticFromText(uri, text);
+}
+
+function getSemanticFromText(uri: Uri, text: Text): Semantic {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
@@ -53,5 +62,5 @@ function getSemanticFromUri(uri: Uri): SemanticScope {
     }
   }
 
-  return semanticScope;
+  return newObjectTypeSemantic(semanticScope);
 }
