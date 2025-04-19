@@ -1,4 +1,4 @@
-import {getSemanticScopeFromUri} from '#analyzer';
+import {getSemanticFromUri} from '#analyzer';
 import {newText, newUri} from '#common';
 import {resolve} from 'node:path';
 import {expect, test} from 'vitest';
@@ -6,7 +6,7 @@ import {expect, test} from 'vitest';
 test('Xon file import scope', () => {
   const fileName = 'test-files/import-semantic-test-file.xon';
   const filePath = newText(resolve(__dirname, fileName));
-  const scope = getSemanticScopeFromUri(newUri(filePath))!;
+  const scope = getSemanticFromUri(newUri(filePath))!;
 
   expect(scope).toBeTruthy();
   expect(scope.count()).toBe(1);
@@ -16,7 +16,7 @@ test('Xon file import scope', () => {
 test('Json file import scope', () => {
   const fileName = 'test-files/import-semantic-test-file.json';
   const filePath = newText(resolve(__dirname, fileName));
-  const scope = getSemanticScopeFromUri(newUri(filePath))!;
+  const scope = getSemanticFromUri(newUri(filePath))!;
 
   expect(scope).toBeTruthy();
   expect(scope.count()).toBe(2);

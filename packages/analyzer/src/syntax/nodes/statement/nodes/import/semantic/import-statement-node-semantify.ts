@@ -3,7 +3,7 @@ import {
   $ExpressionStatementNode,
   $IdNode,
   $StringNode,
-  getSemanticScopeFromUri,
+  getSemanticFromUri,
   ImportSemantic,
   ImportStatementNode,
   newImportSemantic,
@@ -50,7 +50,7 @@ function semantifyStringNode(node: StringNode, context: SemanticContext): Import
   }
 
   const uri = newUri(newText(originalPath));
-  const scope = getSemanticScopeFromUri(uri);
+  const scope = getSemanticFromUri(uri);
   const semantic = newImportSemantic(newText(originalPath), uri, scope);
   node.semantic = semantic;
 
