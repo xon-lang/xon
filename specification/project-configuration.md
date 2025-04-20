@@ -4,7 +4,7 @@
 
 ## Structure
 
-```json
+```jsonc
 {
   "name": "project-name", // dash separated words
   "version": "1.0.0", // semantic versioning
