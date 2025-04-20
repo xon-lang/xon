@@ -1,4 +1,4 @@
-# XON <sup><small>alpha</small></sup>
+# XON <sup>alpha</sup>
 
 [![GitHub XON](https://img.shields.io/badge/GitHub-XON-blue)](https://github.com/xon-lang/xon)
 [![GitHub ANALYZER](https://img.shields.io/badge/GitHub-ANALYZER-blue)](https://github.com/xon-lang/xon/tree/main/packages/analyzer)
