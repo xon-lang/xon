@@ -6,18 +6,18 @@
     "test": "vitest run",
     "dev": "tsc --noEmit --watch",
     "vscode:build": "cd packages/vscode && vite build",
-    "barrels": "tsc -p scripts/tsconfig.json && node scripts/dist/barrels.script.js",
     "grammar": "tsc -p scripts/tsconfig.json && node scripts/dist/grammar.script.js",
-    "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/json/JsonGrammar.g4"
+    "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/json/JsonGrammar.g4",
+    "barrels": "tsc -p scripts/tsconfig.json && node scripts/dist/barrels.script.js"
   },
   "dependencies": {
     "antlr4": "^4.13.2"
   },
   "devDependencies": {
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.3",
     "@types/vscode": "1.99.1",
     "typescript": "5.8.3",
-    "vite": "6.3.2",
-    "vitest": "3.1.1"
+    "vite": "6.3.3",
+    "vitest": "3.1.2"
   }
 }
