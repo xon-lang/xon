@@ -1,5 +1,5 @@
 import {resolve} from 'node:path';
-import {defineConfig} from 'vitest/config';
+import {defineConfig} from 'vite';
 
 const WORKSPACE_ROOT = resolve(__dirname, '../../');
 
@@ -9,7 +9,7 @@ export default defineConfig({
   },
   build: {
     minify: false,
-    target: 'node20',
+    target: 'node22',
     lib: {
       entry: resolve(WORKSPACE_ROOT, 'packages/vscode/src/main.ts'),
       formats: ['cjs'],
