@@ -2,15 +2,24 @@ import {
   $AnalyzerType,
   $SemanticProvider,
   newAttributeDeclarationSemantic,
+  newIntegerTypeSemantic,
   newObjectTypeSemantic,
   newSemanticScope,
   newStringTypeSemantic,
   ObjectTypeSemantic,
   Semantic,
   SemanticProvider,
+  TypeSemantic,
 } from '#analyzer';
 import {newText, newTextReference, Nothing, nothing, Text, Uri} from '#common';
-import {antrlRangeToXonRange, Json5Context, JsonGrammarLexer, JsonGrammarParser, ObjContext} from '#grammar';
+import {
+  antrlRangeToXonRange,
+  Json5Context,
+  JsonGrammarLexer,
+  JsonGrammarParser,
+  ObjContext,
+  ValueContext,
+} from '#grammar';
 import {Brand} from '#typing';
 import {CharStream, CommonTokenStream, ParserRuleContext} from 'antlr4';
 import {readFile} from 'node:fs/promises';
@@ -81,10 +90,15 @@ function parseJsonObject(uri: Uri, object: ObjContext): ObjectTypeSemantic {
 
   for (const pair of object.pair_list()) {
     const key = pair.key();
-    const value = pair.value();
 
     // todo should we use non string keys ??? (json5 ???)
     if (!key.getText().startsWith('"')) {
+      continue;
+    }
+
+    const valueType = getValueType(pair.value());
+
+    if (!valueType) {
       continue;
     }
 
@@ -95,7 +109,7 @@ function parseJsonObject(uri: Uri, object: ObjContext): ObjectTypeSemantic {
       reference,
       nothing,
       newText(key.getText().replace(/^\"/, '').replace(/\"$/, '')),
-      newStringTypeSemantic(newText(value.getText())),
+      valueType,
     );
 
     scope.add(declaration);
@@ -104,6 +118,15 @@ function parseJsonObject(uri: Uri, object: ObjContext): ObjectTypeSemantic {
   return newObjectTypeSemantic(scope);
 }
 
-// function parseJsonArray (uri: Uri, object: ArrContext): ArrayTypeSemantic {
+function getValueType(valueContext: ValueContext): TypeSemantic | Nothing {
+  if (valueContext.STRING()) {
+    return newStringTypeSemantic(newText(valueContext.getText().replace(/^\"/, '').replace(/\"$/, '')));
+  }
 
-// }
+  // todo use different semantics for each type of number (+1.e2, 1234, 1234.5, -.2e3, 0x12345678, Infinity, NaN, ...)
+  if (valueContext.number_()) {
+    return newIntegerTypeSemantic(parseFloat(valueContext.number_().getText()));
+  }
+
+  return null;
+}
