@@ -19,7 +19,7 @@ test('Xon file import', async () => {
   const filePath = newText(resolve(__dirname, fileName));
   const fileUri = newUri(filePath);
   const semanticProvider = newSemanticProviderResolver().resolve(fileUri)!;
-  const semantic = (await semanticProvider.provideSemantic(fileUri)) as ObjectTypeSemantic;
+  const semantic = (await semanticProvider.provideSemantic(newUri(newText()), fileUri)) as ObjectTypeSemantic;
 
   expect(semantic).toBeTruthy();
   expect(is(semantic, $ObjectTypeSemantic())).toBe(true);
@@ -32,7 +32,7 @@ test('Json file import', async () => {
   const filePath = newText(resolve(__dirname, fileName));
   const fileUri = newUri(filePath);
   const semanticProvider = newSemanticProviderResolver().resolve(fileUri)!;
-  const semantic = (await semanticProvider.provideSemantic(fileUri)) as ObjectTypeSemantic;
+  const semantic = (await semanticProvider.provideSemantic(newUri(newText()), fileUri)) as ObjectTypeSemantic;
 
   expect(semantic).toBeTruthy();
   expect(is(semantic, $ObjectTypeSemantic())).toBe(true);
