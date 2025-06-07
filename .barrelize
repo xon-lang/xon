@@ -5,7 +5,12 @@
       "root": "packages/analyzer",
       "include": ["**/*.ts"],
       "exclude": ["**/*.test.ts"],
-      "order": ["src/syntax/tokens.ts"]
+      "order": [
+        "package.ts",
+        "src/syntax/tokens.ts",
+        "src/semantic-provider/providers",
+        "src/semantic-provider"
+      ]
     },
     {
       "root": "packages/common",
