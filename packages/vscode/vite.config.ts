@@ -15,7 +15,7 @@ export default defineConfig({
       formats: ['cjs'],
     },
     rollupOptions: {
-      external: ['vscode', 'node:path', 'node:fs'],
+      external: ['vscode', 'node:path', 'node:fs', 'node:fs/promises'],
       output: {
         entryFileNames: 'main.js',
       },

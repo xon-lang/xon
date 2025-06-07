@@ -6,7 +6,11 @@ import {expect, test} from 'vitest';
 test('Xon semantic', async () => {
   const text = newText('type Point');
   const provider = newXonSemanticProvider();
-  const semantic = (await provider.provideSemantic(newUri(newText('test')), text)) as ObjectTypeSemantic;
+  const semantic = (await provider.provideSemantic(
+    newUri(newText()),
+    newUri(newText('test')),
+    text,
+  )) as ObjectTypeSemantic;
 
   expect(is(semantic, $ObjectTypeSemantic())).toBeTruthy();
   expect(semantic.scope?.count()).toBe(1);

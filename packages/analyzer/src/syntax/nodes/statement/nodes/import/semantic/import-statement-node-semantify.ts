@@ -2,61 +2,68 @@ import {
   $AsInfixNode,
   $ExpressionStatementNode,
   $IdNode,
+  $ObjectTypeSemantic,
   $StringNode,
-  getSemanticFromUri,
+  BodyNode,
   ImportSemantic,
   ImportStatementNode,
   newImportSemantic,
+  newSemanticProviderResolver,
   SemanticContext,
   StringNode,
 } from '#analyzer';
-import {newText, newUri, Nothing, nothing} from '#common';
+import {newUri, Nothing, nothing} from '#common';
 import {is} from '#typing';
-import {existsSync, statSync} from 'node:fs';
-import {dirname, resolve} from 'node:path';
 
-export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
+export async function semantifyImportStatementNode(
+  this: ImportStatementNode,
+  context: SemanticContext,
+): Promise<void> {
   if (!this.expression) {
     return;
   }
 
   if (is(this.expression, $StringNode())) {
-    this.semantic = semantifyStringNode(this.expression, context);
+    this.semantic = await semantifyImportPath(this.expression, context);
   }
 
   if (is(this.expression, $AsInfixNode()) && is(this.expression.left, $StringNode())) {
-    this.semantic = semantifyStringNode(this.expression.left, context);
+    this.semantic = await semantifyImportPath(this.expression.left, context);
   }
 
   if (this.body?.children && this.semantic) {
-    for (const statement of this.body?.children) {
-      if (is(statement, $ExpressionStatementNode()) && is(statement.expression, $IdNode()))
-        statement.expression.semantic = this.semantic.scope?.get(statement.expression.text)?.first();
-    }
+    semantifyBodyNode(this.body, this.semantic);
   }
 }
 
-function semantifyStringNode(node: StringNode, context: SemanticContext): ImportSemantic | Nothing {
+async function semantifyImportPath(
+  node: StringNode,
+  context: SemanticContext,
+): Promise<ImportSemantic | Nothing> {
   if (!node.content) {
     return nothing;
   }
 
-  const importPath = node.content?.text.toNativeString();
-  const dirName = dirname(context.uri.value.toNativeString());
-  const originalPath = resolve(dirName, importPath);
+  const importUri = newUri(node.content.text);
+  const importProvider = newSemanticProviderResolver().resolve(importUri);
+  const providedSemantic = await importProvider.provideSemantic(context.uri, importUri);
 
-  if (!existsSync(originalPath) || !statSync(originalPath).isFile()) {
-    return nothing;
-  }
-
-  const uri = newUri(newText(originalPath));
-  const scope = getSemanticFromUri(uri);
-  const semantic = newImportSemantic(newText(originalPath), uri, scope);
+  const semantic = newImportSemantic(node.content?.text, importUri, providedSemantic);
   node.semantic = semantic;
 
   return semantic;
 }
 
-// function semantifyIdNode(node: IdNode, context: SemanticContext): void {
-//   node.semantic = newDeclarationSemantic(context.getReference(node.range), nothing, node.text);
-// }
+function semantifyBodyNode(node: BodyNode, importSemantic: ImportSemantic): void {
+  if (!is(importSemantic.providedSemantic, $ObjectTypeSemantic())) {
+    return;
+  }
+
+  for (const statement of node.children) {
+    if (is(statement, $ExpressionStatementNode()) && is(statement.expression, $IdNode())) {
+      statement.expression.semantic = importSemantic.providedSemantic?.scope
+        ?.get(statement.expression.text)
+        ?.first();
+    }
+  }
+}

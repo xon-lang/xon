@@ -2,14 +2,15 @@ import {
   $AsInfixNode,
   $ExpressionStatementNode,
   $IdNode,
+  $ObjectTypeSemantic,
   $StringNode,
+  BodyNode,
   DiagnosticContext,
   ImportSemantic,
   ImportStatementNode,
-  Node,
   StringNode,
 } from '#analyzer';
-import {ArrayData, newText, Text, TextRange} from '#common';
+import {newText, Text, TextRange} from '#common';
 import {
   AnalyzerDiagnostic,
   AnalyzerDiagnosticSeverity,
@@ -28,7 +29,7 @@ export function diagnoseImportStatementNode(this: ImportStatementNode, context: 
   }
 
   if (this.semantic && this.body) {
-    diagnoseImportDeclarations(context, this.semantic, this.body.children);
+    diagnoseImportBody(context, this.semantic, this.body);
   }
 }
 
@@ -44,25 +45,31 @@ function diagnoseStringNode(context: DiagnosticContext, node: StringNode): void 
   }
 }
 
-function diagnoseImportDeclarations(
-  context: DiagnosticContext,
-  semantic: ImportSemantic,
-  nodes: ArrayData<Node>,
-): void {
-  if (!semantic.scope) {
+function diagnoseImportBody(context: DiagnosticContext, semantic: ImportSemantic, body: BodyNode): void {
+  if (!semantic.providedSemantic) {
     return;
   }
 
-  for (const node of nodes) {
+  if (!is(semantic.providedSemantic, $ObjectTypeSemantic())) {
+    for (const node of body.children) {
+      if (is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
+        context.add(hasNoDeclaration(semantic.originalPath, node.expression.text, node.expression.range));
+      } else {
+        context.add(wrongDeclaration(node.range));
+      }
+    }
+
+    return;
+  }
+
+  for (const node of body.children) {
     if (is(node, $ExpressionStatementNode()) && is(node.expression, $IdNode())) {
-      if (semantic.scope.has(node.expression.text)) {
+      if (semantic.providedSemantic.scope?.has(node.expression.text)) {
         continue;
       }
 
       context.add(hasNoDeclaration(semantic.originalPath, node.expression.text, node.expression.range));
     } else {
-      console.log(node);
-
       context.add(wrongDeclaration(node.range));
     }
   }

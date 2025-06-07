@@ -107,7 +107,7 @@ function getImportDeclarationCompletions(
     return nothing;
   }
 
-  return importNode?.semantic?.scope
+  return importNode?.semantic?.providedSemantic
     ?.keys()
     .map((key) => new CompletionItem(key.toNativeString(), CompletionItemKind.Field))
     .toNativeArray();

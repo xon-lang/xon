@@ -11,7 +11,7 @@ import {
   SemanticProvider,
   TypeSemantic,
 } from '#analyzer';
-import {newText, newTextReference, Nothing, nothing, Text, Uri} from '#common';
+import {newText, newTextReference, newUri, Nothing, nothing, Text, Uri} from '#common';
 import {
   antrlRangeToXonRange,
   Json5Context,
@@ -23,6 +23,7 @@ import {
 import {Brand} from '#typing';
 import {CharStream, CommonTokenStream, ParserRuleContext} from 'antlr4';
 import {readFile} from 'node:fs/promises';
+import {dirname, resolve} from 'node:path';
 
 export type JsonSemanticProvider = SemanticProvider & Brand<'Analyzer.JsonSemanticProvider'>;
 
@@ -33,7 +34,13 @@ export function newJsonSemanticProvider(): JsonSemanticProvider {
   return {
     $: $JsonSemanticProvider(),
 
-    async provideSemantic(uri: Uri, text?: Text | Nothing): Promise<Semantic | Nothing> {
+    async provideSemantic(
+      contextUri: Uri,
+      importUri: Uri,
+      text?: Text | Nothing,
+    ): Promise<Semantic | Nothing> {
+      const uri = resolveFullUri(contextUri, importUri);
+
       if (text) {
         return getSemanticFromText(uri, text);
       }
@@ -41,6 +48,12 @@ export function newJsonSemanticProvider(): JsonSemanticProvider {
       return getSemanticFromUri(uri);
     },
   };
+}
+
+function resolveFullUri(contextUri: Uri, importUri: Uri): Uri {
+  const contextDirPath = dirname(contextUri.value.toNativeString());
+
+  return newUri(newText(resolve(contextDirPath, importUri.value.toNativeString())));
 }
 
 async function getSemanticFromUri(uri: Uri): Promise<Semantic | Nothing> {

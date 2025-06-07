@@ -1,10 +1,10 @@
-import {$AnalyzerType, $Semantic, Semantic, SemanticScope} from '#analyzer';
+import {$AnalyzerType, $Semantic, Semantic} from '#analyzer';
 import {Nothing, Text, Uri} from '#common';
 
 export type ImportSemantic = Semantic & {
   originalPath: Text;
   uri: Uri;
-  scope?: SemanticScope | Nothing;
+  providedSemantic?: Semantic | Nothing;
 };
 
 export const $ImportSemantic = () => $AnalyzerType<ImportSemantic>('ImportSemantic', $Semantic());
@@ -12,7 +12,7 @@ export const $ImportSemantic = () => $AnalyzerType<ImportSemantic>('ImportSemant
 export function newImportSemantic(
   originalPath: Text,
   uri: Uri,
-  scope: SemanticScope | Nothing,
+  providedSemantic: Semantic | Nothing,
 ): ImportSemantic {
   // todo try to calculate 'uri' based on 'originalPath'
   return {
@@ -20,6 +20,6 @@ export function newImportSemantic(
 
     originalPath,
     uri,
-    scope,
+    providedSemantic: providedSemantic,
   };
 }

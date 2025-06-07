@@ -12,9 +12,10 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {newText, Nothing, Text, Uri} from '#common';
+import {newText, newUri, Nothing, Text, Uri} from '#common';
 import {Brand, is} from '#typing';
 import {readFile} from 'node:fs/promises';
+import {dirname, resolve} from 'node:path';
 
 export type XonSemanticProvider = SemanticProvider & Brand<'Analyzer.XonSemanticProvider'>;
 
@@ -25,7 +26,13 @@ export function newXonSemanticProvider(): XonSemanticProvider {
   return {
     $: $XonSemanticProvider(),
 
-    async provideSemantic(uri: Uri, text?: Text | Nothing): Promise<Semantic | Nothing> {
+    async provideSemantic(
+      contextUri: Uri,
+      importUri: Uri,
+      text?: Text | Nothing,
+    ): Promise<Semantic | Nothing> {
+      const uri = resolveFullUri(contextUri, importUri);
+
       if (text) {
         return getSemanticFromText(uri, text);
       }
@@ -33,6 +40,12 @@ export function newXonSemanticProvider(): XonSemanticProvider {
       return getSemanticFromUri(uri);
     },
   };
+}
+
+function resolveFullUri(contextUri: Uri, importUri: Uri): Uri {
+  const contextDirPath = dirname(contextUri.value.toNativeString());
+
+  return newUri(newText(resolve(contextDirPath, importUri.value.toNativeString())));
 }
 
 async function getSemanticFromUri(uri: Uri): Promise<Semantic> {

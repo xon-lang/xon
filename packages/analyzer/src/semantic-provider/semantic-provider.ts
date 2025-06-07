@@ -5,7 +5,7 @@ import {Text} from 'antlr4';
 
 export type SemanticProvider = Model &
   Brand<'Analyzer.SemanticProvider'> & {
-    provideSemantic(uri: Uri, text?: Text | Nothing): Promise<Semantic | Nothing>;
+    provideSemantic(contextUri: Uri, importUri: Uri, text?: Text | Nothing): Promise<Semantic | Nothing>;
   };
 
 export const $SemanticProvider = () => $AnalyzerType<SemanticProvider>('SemanticProvider');

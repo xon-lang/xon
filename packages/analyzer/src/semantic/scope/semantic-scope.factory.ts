@@ -51,6 +51,10 @@ export function newSemanticScope(
       }
     },
 
+    has(name: Text): Boolean2 {
+      return this._declarations?.has(name) ?? false;
+    },
+
     get(name: Text): ArrayData<DeclarationSemantic> | Nothing {
       return this._declarations?.get(name) ?? this.parent?.get(name);
     },

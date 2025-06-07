@@ -9,6 +9,7 @@ export type SemanticScope = Model &
     _declarations?: Dictionary<Text, ArrayData<DeclarationSemantic>> | Nothing;
 
     add(declaration: DeclarationSemantic): void;
+    has(name: Text): Boolean2;
     get(name: Text): ArrayData<DeclarationSemantic> | Nothing;
     all(): ArrayData<DeclarationSemantic> | Nothing;
     count(): Integer;
