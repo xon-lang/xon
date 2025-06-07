@@ -45,6 +45,5 @@
     "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true
   },
-  // "include": ["src/**/*.ts", "../common/**/*.ts"],
   "exclude": ["**/*.gen.ts", "**/dist/*.ts"]
 }
