@@ -3,10 +3,10 @@ import {newText, newUri} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Json semantic', () => {
+test('Json semantic', async () => {
   const text = newText('{"a": 1}');
   const provider = newJsonSemanticProvider();
-  const semantic = provider.provideSemantic(newUri(newText('test')), text) as ObjectTypeSemantic;
+  const semantic = (await provider.provideSemantic(newUri(newText('test')), text)) as ObjectTypeSemantic;
 
   expect(is(semantic, $ObjectTypeSemantic())).toBeTruthy();
   expect(semantic.scope?.count()).toBe(1);

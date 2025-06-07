@@ -9,11 +9,11 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {Boolean2, newText, newTextReference, Nothing, nothing, Text, Uri} from '#common';
+import {newText, newTextReference, Nothing, nothing, Text, Uri} from '#common';
 import {antrlRangeToXonRange, Json5Context, JsonGrammarLexer, JsonGrammarParser, ObjContext} from '#grammar';
 import {Brand} from '#typing';
 import {CharStream, CommonTokenStream, ParserRuleContext} from 'antlr4';
-import {readFileSync} from 'node:fs';
+import {readFile} from 'node:fs/promises';
 
 export type JsonSemanticProvider = SemanticProvider & Brand<'Analyzer.JsonSemanticProvider'>;
 
@@ -24,11 +24,7 @@ export function newJsonSemanticProvider(): JsonSemanticProvider {
   return {
     $: $JsonSemanticProvider(),
 
-    canProvide(uri: Uri): Boolean2 {
-      return uri.value.lowerCase().endsWith(newText('.json'));
-    },
-
-    provideSemantic(uri: Uri, text?: Text | Nothing): Semantic | Nothing {
+    async provideSemantic(uri: Uri, text?: Text | Nothing): Promise<Semantic | Nothing> {
       if (text) {
         return getSemanticFromText(uri, text);
       }
@@ -38,13 +34,11 @@ export function newJsonSemanticProvider(): JsonSemanticProvider {
   };
 }
 
-function getSemanticFromUri(uri: Uri): Semantic | Nothing {
-  // todo use async version of 'readFileSync'
-  const buffer = readFileSync(uri.value.toNativeString());
+async function getSemanticFromUri(uri: Uri): Promise<Semantic | Nothing> {
+  const buffer = await readFile(uri.value.toNativeString());
   const text = newText(buffer.toString());
-  const tree = getJsonTree(text);
 
-  return parseJsonTree(uri, tree);
+  return getSemanticFromText(uri, text);
 }
 
 function getSemanticFromText(uri: Uri, text: Text): Semantic | Nothing {
