@@ -36,7 +36,7 @@ export function newXonSemanticProvider(): XonSemanticProvider {
 }
 
 async function getSemanticFromUri(uri: Uri): Promise<Semantic> {
-  const buffer = readFile(uri.value.toNativeString());
+  const buffer = await readFile(uri.value.toNativeString());
   const text = newText(buffer.toString());
 
   return getSemanticFromText(uri, text);

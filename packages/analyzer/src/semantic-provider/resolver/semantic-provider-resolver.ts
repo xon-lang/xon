@@ -1,10 +1,10 @@
 import {$AnalyzerType, SemanticProvider} from '#analyzer';
-import {Nothing, Uri} from '#common';
+import {Uri} from '#common';
 import {Brand, Model} from '#typing';
 
 export type SemanticProviderResolver = Model &
   Brand<'Analyzer.SemanticProviderResolver'> & {
-    resolve(uri: Uri): SemanticProvider | Nothing;
+    resolve(uri: Uri): SemanticProvider;
   };
 
 export const $SemanticProviderResolver = () =>
