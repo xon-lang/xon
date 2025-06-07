@@ -12,9 +12,9 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {Boolean2, newText, Nothing, Text, Uri} from '#common';
+import {newText, Nothing, Text, Uri} from '#common';
 import {Brand, is} from '#typing';
-import {readFileSync} from 'node:fs';
+import {readFile} from 'node:fs/promises';
 
 export type XonSemanticProvider = SemanticProvider & Brand<'Analyzer.XonSemanticProvider'>;
 
@@ -25,11 +25,7 @@ export function newXonSemanticProvider(): XonSemanticProvider {
   return {
     $: $XonSemanticProvider(),
 
-    canProvide(uri: Uri): Boolean2 {
-      return uri.value.lowerCase().endsWith(newText('.xon'));
-    },
-
-    provideSemantic(uri: Uri, text?: Text | Nothing): Semantic | Nothing {
+    async provideSemantic(uri: Uri, text?: Text | Nothing): Promise<Semantic | Nothing> {
       if (text) {
         return getSemanticFromText(uri, text);
       }
@@ -39,9 +35,8 @@ export function newXonSemanticProvider(): XonSemanticProvider {
   };
 }
 
-function getSemanticFromUri(uri: Uri): Semantic {
-  // todo use async version of 'readFileSync'
-  const buffer = readFileSync(uri.value.toNativeString());
+async function getSemanticFromUri(uri: Uri): Promise<Semantic> {
+  const buffer = readFile(uri.value.toNativeString());
   const text = newText(buffer.toString());
 
   return getSemanticFromText(uri, text);

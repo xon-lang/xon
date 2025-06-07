@@ -3,10 +3,10 @@ import {newText, newUri} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
-test('Xon semantic', () => {
+test('Xon semantic', async () => {
   const text = newText('type Point');
   const provider = newXonSemanticProvider();
-  const semantic = provider.provideSemantic(newUri(newText('test')), text) as ObjectTypeSemantic;
+  const semantic = (await provider.provideSemantic(newUri(newText('test')), text)) as ObjectTypeSemantic;
 
   expect(is(semantic, $ObjectTypeSemantic())).toBeTruthy();
   expect(semantic.scope?.count()).toBe(1);
