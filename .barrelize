@@ -4,7 +4,8 @@
     {
       "root": "packages/analyzer",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts"],
+      "order": ["src/syntax/tokens.ts"]
     },
     {
       "root": "packages/common",
