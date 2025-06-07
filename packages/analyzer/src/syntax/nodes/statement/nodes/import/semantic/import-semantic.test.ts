@@ -1,27 +1,54 @@
-import {getSemanticFromUri} from '#analyzer';
+import {
+  $AttributeDeclarationSemantic,
+  $IntegerTypeSemantic,
+  $ObjectTypeSemantic,
+  $StringTypeSemantic,
+  AttributeDeclarationSemantic,
+  IntegerTypeSemantic,
+  newSemanticProviderResolver,
+  ObjectTypeSemantic,
+  StringTypeSemantic,
+} from '#analyzer';
 import {newText, newUri} from '#common';
+import {is} from '#typing';
 import {resolve} from 'node:path';
 import {expect, test} from 'vitest';
 
-test('Xon file import scope', () => {
+test('Xon file import', async () => {
   const fileName = 'test-files/import-semantic-test-file.xon';
   const filePath = newText(resolve(__dirname, fileName));
-  const scope = getSemanticFromUri(newUri(filePath))!;
+  const fileUri = newUri(filePath);
+  const semanticProvider = newSemanticProviderResolver().resolve(fileUri)!;
+  const semantic = (await semanticProvider.provideSemantic(fileUri)) as ObjectTypeSemantic;
 
-  expect(scope).toBeTruthy();
-  expect(scope.count()).toBe(1);
-  expect(scope.get(newText('Point'))?.first()?.name.toNativeString()).toBe('Point');
+  expect(semantic).toBeTruthy();
+  expect(is(semantic, $ObjectTypeSemantic())).toBe(true);
+  expect(semantic.scope?.count()).toBe(1);
+  expect(semantic.scope?.get(newText('Point'))?.first()?.name.toNativeString()).toBe('Point');
 });
 
-test('Json file import scope', () => {
+test('Json file import', async () => {
   const fileName = 'test-files/import-semantic-test-file.json';
   const filePath = newText(resolve(__dirname, fileName));
-  const scope = getSemanticFromUri(newUri(filePath))!;
+  const fileUri = newUri(filePath);
+  const semanticProvider = newSemanticProviderResolver().resolve(fileUri)!;
+  const semantic = (await semanticProvider.provideSemantic(fileUri)) as ObjectTypeSemantic;
 
-  expect(scope).toBeTruthy();
-  expect(scope.count()).toBe(2);
-  const a = scope.get(newText('width'));
-  const b = a?.first()?.name;
-  expect(scope.get(newText('width'))?.first()?.name.toNativeString()).toBe('width');
-  expect(scope.get(newText('height'))?.first()?.name.toNativeString()).toBe('height');
+  expect(semantic).toBeTruthy();
+  expect(is(semantic, $ObjectTypeSemantic())).toBe(true);
+  expect(semantic.scope?.count()).toBe(2);
+
+  const widthProperty = semantic.scope?.get(newText('width'))?.first() as AttributeDeclarationSemantic;
+
+  expect(is(widthProperty, $AttributeDeclarationSemantic())).toBe(true);
+  expect(widthProperty.name.toNativeString()).toBe('width');
+  expect(is(widthProperty.type, $StringTypeSemantic())).toBe(true);
+  expect((widthProperty.type as StringTypeSemantic).value.toNativeString()).toBe('37px');
+
+  const heightProperty = semantic.scope?.get(newText('height'))?.first() as AttributeDeclarationSemantic;
+
+  expect(is(heightProperty, $AttributeDeclarationSemantic())).toBe(true);
+  expect(heightProperty.name.toNativeString()).toBe('height');
+  expect(is(heightProperty.type, $IntegerTypeSemantic())).toBe(true);
+  expect((heightProperty.type as IntegerTypeSemantic).value).toBe(123);
 });
