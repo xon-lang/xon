@@ -1,0 +1,55 @@
+{
+  "$schema": "node_modules/barrelize/schema.json",
+  "barrels": [
+    {
+      "root": "packages/analyzer",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/common",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/diagnostic",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/grammar",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/interpreter",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/language-adapter",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/translator",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/typing",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    },
+    {
+      "root": "packages/vscode",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts", "test/**", "**/vite.config.ts"]
+    },
+    {
+      "root": "packages/xon-lib",
+      "include": ["**/*.ts"],
+      "exclude": ["**/*.test.ts"]
+    }
+  ]
+}
