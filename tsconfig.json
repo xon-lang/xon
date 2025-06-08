@@ -29,7 +29,6 @@
       "#grammar": ["packages/grammar/*", "packages/grammar/index"],
       "#typing": ["packages/typing/*", "packages/typing/index"],
       "#common": ["packages/common/*", "packages/common/index"],
-      "#diagnostic": ["packages/diagnostic/*", "packages/diagnostic/index"],
       "#analyzer": ["packages/analyzer/*", "packages/analyzer/index"],
       "#interpreter": ["packages/interpreter/*", "packages/interpreter/index"],
       "#translator": ["packages/translator/*", "packages/translator/index"],

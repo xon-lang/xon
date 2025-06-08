@@ -1,5 +1,5 @@
+import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#analyzer';
 import {ArrayData, newArrayData} from '#common';
-import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#diagnostic';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, xonToVsCodeRange} from '#vscode';
 import {
   Diagnostic,
@@ -48,7 +48,7 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
   const analyzer = newTextDocumentAnalyzer(document, channel);
 
   diagnostics.clear();
-  diagnostics.set(document.uri, convertDiagnostic(analyzer.getDiagnostics()).toNativeArray());
+  diagnostics.set(document.uri, convertDiagnostic(analyzer.diagnostics()).toNativeArray());
 }
 
 function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): ArrayData<Diagnostic> {

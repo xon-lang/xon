@@ -1,8 +1,8 @@
 import {
+  AnalyzerDiagnostic,
   HighlightToken,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  newDiagnosticService,
   newHighlightContext,
   newSemanticContext,
   Node,
@@ -10,7 +10,6 @@ import {
   StatementNode,
 } from '#analyzer';
 import {ArrayData, newText, newUri, nothing, Nothing, TextPosition, Uri} from '#common';
-import {AnalyzerDiagnostic} from '#diagnostic';
 import {Brand, Model} from '#typing';
 import {$VscodeType} from '#vscode';
 import {OutputChannel, TextDocument} from 'vscode';
@@ -26,7 +25,7 @@ export type TextDocumentAnalyzer = Model &
     ): T | Nothing;
     findNode(position: TextPosition): Node | Nothing;
     getHighlights(): ArrayData<HighlightToken>;
-    getDiagnostics(): ArrayData<AnalyzerDiagnostic>;
+    diagnostics(): ArrayData<AnalyzerDiagnostic>;
   };
 
 export const $TextDocumentAnalyzer = () => $VscodeType<TextDocumentAnalyzer>('TextDocumentAnalyzer');
@@ -72,7 +71,7 @@ export function newTextDocumentAnalyzer(
       return this.statements.firstMap((x) => findNode(x, position));
     },
 
-    getHighlights() {
+    getHighlights(): ArrayData<HighlightToken> {
       const highlightContext = newHighlightContext();
 
       for (const statement of this.statements) {
@@ -82,14 +81,8 @@ export function newTextDocumentAnalyzer(
       return highlightContext.highlights;
     },
 
-    getDiagnostics() {
-      const diagnosticContext = newDiagnosticService();
-
-      for (const statement of this.statements) {
-        statement.diagnose && statement.diagnose(diagnosticContext);
-      }
-
-      return diagnosticContext.items;
+    diagnostics(): ArrayData<AnalyzerDiagnostic> {
+      return context.diagnostic.items;
     },
   };
 }
