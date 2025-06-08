@@ -9,5 +9,5 @@ test('File resource', () => {
   expect(file.exists()).toBe(true);
   expect(file.basename.toNativeString()).toBe('file-resource.test.ts');
   expect(file.extension.toNativeString()).toBe('.ts');
-  expect(file.getDirectory().name.toNativeString()).toBe('file');
+  expect(file.directory().name.toNativeString()).toBe('file');
 });

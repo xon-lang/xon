@@ -49,7 +49,7 @@ function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
 
     const file = newFileResource(analyzer.documentUri);
     const destinationPath = file
-      .getDirectory()
+      .directory()
       .uri.resolve(newArrayData([file.name.addLastItems(newText('.ts'))]))
       .value.toNativeString();
 

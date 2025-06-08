@@ -9,7 +9,8 @@ export type FileResource = Resource &
     // todo move to 'FileURI' ???
     extension: Text;
 
-    getDirectory(): DirectoryResource;
+    read(): Buffer;
+    directory(): DirectoryResource;
     equals(other: FileResource): Boolean2;
   };
 

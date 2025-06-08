@@ -8,7 +8,7 @@ import {
   newUri,
   Uri,
 } from '#common';
-import {existsSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import {basename as base, dirname, extname} from 'node:path';
 
 export function newFileResource(uri: Uri): FileResource {
@@ -29,14 +29,18 @@ export function newFileResource(uri: Uri): FileResource {
     name,
     extension,
 
-    exists(): Boolean2 {
-      return existsSync(this.uri.value.toNativeString());
+    read(): Buffer {
+      return readFileSync(this.uri.value.toNativeString());
     },
 
-    getDirectory(): DirectoryResource {
+    directory(): DirectoryResource {
       const directoryUri = newUri(newText(dirname(this.uri.value.toNativeString())));
 
       return newDirectoryResource(directoryUri);
+    },
+
+    exists(): Boolean2 {
+      return existsSync(this.uri.value.toNativeString());
     },
 
     equals(other: FileResource): Boolean2 {
