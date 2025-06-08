@@ -1,7 +1,9 @@
 import {
   $SemanticContext,
   newNominalTypeDeclarationSemantic,
+  newSemanticProviderResolver,
   newSemanticScope,
+  Semantic,
   SemanticContext,
 } from '#analyzer';
 import {
@@ -24,6 +26,7 @@ export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
     $: $SemanticContext(),
     uri: sourceUri,
     scope: newSemanticScope(),
+    semanticProviderResolver: newSemanticProviderResolver(),
     literal: {
       // todo get declaration from source code ???
       stringDeclaration: newNominalTypeDeclarationSemantic(
@@ -44,6 +47,12 @@ export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
 
     getReference(range: TextRange): TextReference {
       return newTextReference(this.uri, range);
+    },
+
+    provideSemantic(uri: Uri): Semantic | Nothing {
+      const provider = this.semanticProviderResolver.resolve(uri);
+
+      return provider.provideSemantic(this, uri);
     },
   };
 }
