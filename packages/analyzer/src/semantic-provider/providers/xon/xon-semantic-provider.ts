@@ -10,7 +10,6 @@ import {
   newSemanticScope,
   parseStatements,
   Semantic,
-  SemanticContext,
   SemanticProvider,
 } from '#analyzer';
 import {newText, newTextFileResource, newUri, Nothing, Text, Uri} from '#common';
@@ -26,18 +25,18 @@ export function newXonSemanticProvider(): XonSemanticProvider {
   return {
     $: $XonSemanticProvider(),
 
-    provideSemantic(context: SemanticContext, uri: Uri, text?: Text | Nothing): Semantic | Nothing {
+    provideSemantic(contextUri: Uri, uri: Uri, text?: Text | Nothing): Semantic | Nothing {
       if (text) {
         return getSemanticFromText(uri, text);
       }
 
-      return getSemanticFromUri(context, uri);
+      return getSemanticFromUri(contextUri, uri);
     },
   };
 }
 
-function getSemanticFromUri(context: SemanticContext, importUri: Uri): Semantic | Nothing {
-  const uri = resolveFullUri(context.uri, importUri);
+function getSemanticFromUri(contextUri: Uri, importUri: Uri): Semantic | Nothing {
+  const uri = resolveFullUri(contextUri, importUri);
   const file = newTextFileResource(uri);
 
   return getSemanticFromText(uri, file.content());

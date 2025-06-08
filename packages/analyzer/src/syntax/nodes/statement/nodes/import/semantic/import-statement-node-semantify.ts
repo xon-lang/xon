@@ -39,16 +39,18 @@ function semantifyImportPath(node: StringNode, context: SemanticContext): Import
   }
 
   const uri = newUri(node.content.text);
-  const providedSemantic = context.provideSemantic(uri);
-  const semantic = newImportSemantic(node.content?.text, uri, providedSemantic);
-  node.semantic = semantic;
 
-  if (!semantic) {
+  try {
+    const providedSemantic = context.provideSemantic(uri);
+    node.semantic = newImportSemantic(node.content?.text, uri, providedSemantic);
+  } catch {}
+
+  if (!node.semantic) {
     // todo add provider info in error
     context.addError(node.range, newText(`Cannot find module "${uri.value}"`));
   }
 
-  return semantic;
+  return node.semantic as ImportSemantic;
 }
 
 function semantifyBodyNode(context: SemanticContext, node: BodyNode, importSemantic: ImportSemantic): void {

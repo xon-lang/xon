@@ -62,7 +62,7 @@ export function newSemanticContext(
     provideSemantic(uri: Uri): Semantic | Nothing {
       const provider = this.semanticProviderResolver.resolve(uri);
 
-      return provider.provideSemantic(this, uri);
+      return provider.provideSemantic(this.uri, uri);
     },
 
     addError(range: TextRange, text: Text): void {
