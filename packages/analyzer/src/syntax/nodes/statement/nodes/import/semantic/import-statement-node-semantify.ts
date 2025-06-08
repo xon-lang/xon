@@ -8,7 +8,6 @@ import {
   ImportSemantic,
   ImportStatementNode,
   newImportSemantic,
-  newSemanticProviderResolver,
   SemanticContext,
   StringNode,
 } from '#analyzer';
@@ -44,11 +43,9 @@ async function semantifyImportPath(
     return nothing;
   }
 
-  const importUri = newUri(node.content.text);
-  const importProvider = newSemanticProviderResolver().resolve(importUri);
-  const providedSemantic = await importProvider.provideSemantic(context.uri, importUri);
-
-  const semantic = newImportSemantic(node.content?.text, importUri, providedSemantic);
+  const uri = newUri(node.content.text);
+  const providedSemantic = context.provideSemantic(uri);
+  const semantic = newImportSemantic(node.content?.text, uri, providedSemantic);
   node.semantic = semantic;
 
   return semantic;

@@ -5,7 +5,7 @@ import {
   $StringTypeSemantic,
   AttributeDeclarationSemantic,
   IntegerTypeSemantic,
-  newSemanticProviderResolver,
+  newSemanticContext,
   ObjectTypeSemantic,
   StringTypeSemantic,
 } from '#analyzer';
@@ -17,9 +17,9 @@ import {expect, test} from 'vitest';
 test('Xon file import', async () => {
   const fileName = 'test-files/import-semantic-test-file.xon';
   const filePath = newText(resolve(__dirname, fileName));
-  const fileUri = newUri(filePath);
-  const semanticProvider = newSemanticProviderResolver().resolve(fileUri)!;
-  const semantic = (await semanticProvider.provideSemantic(newUri(newText()), fileUri)) as ObjectTypeSemantic;
+  const uri = newUri(filePath);
+  const semanticContext = newSemanticContext();
+  const semantic = semanticContext.provideSemantic(uri) as ObjectTypeSemantic;
 
   expect(semantic).toBeTruthy();
   expect(is(semantic, $ObjectTypeSemantic())).toBe(true);
@@ -30,9 +30,9 @@ test('Xon file import', async () => {
 test('Json file import', async () => {
   const fileName = 'test-files/import-semantic-test-file.json';
   const filePath = newText(resolve(__dirname, fileName));
-  const fileUri = newUri(filePath);
-  const semanticProvider = newSemanticProviderResolver().resolve(fileUri)!;
-  const semantic = (await semanticProvider.provideSemantic(newUri(newText()), fileUri)) as ObjectTypeSemantic;
+  const uri = newUri(filePath);
+  const semanticContext = newSemanticContext();
+  const semantic = semanticContext.provideSemantic(uri) as ObjectTypeSemantic;
 
   expect(semantic).toBeTruthy();
   expect(is(semantic, $ObjectTypeSemantic())).toBe(true);
