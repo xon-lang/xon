@@ -12,7 +12,7 @@ import {is} from '#typing';
 
 export function newTextRange(start?: TextPosition | Nothing, stop?: TextPosition | Nothing): TextRange {
   start ??= newTextPosition();
-  stop ??= newTextPosition();
+  stop ??= start.clone();
 
   return {
     $: $TextRange(),
