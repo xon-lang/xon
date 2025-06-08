@@ -1,5 +1,7 @@
 import {
   $NlNode,
+  $Node,
+  $StatementNode,
   AnalyzerContext,
   collapseStatements,
   newBodyNode,
@@ -15,7 +17,7 @@ import {
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Boolean2, Integer, newArrayData, newText, Nothing, nothing, TextPosition} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 
 export function parseStatements(
   context: AnalyzerContext,
@@ -25,9 +27,9 @@ export function parseStatements(
   breakNode?: Node | Nothing;
 } {
   let lastStatement: StatementNode | Nothing = nothing;
-  let statements = newArrayData<StatementNode>();
+  let statements = newArrayData<StatementNode>($StatementNode());
   let breakNode: Node | Nothing = nothing;
-  let nodes = newArrayData<Node>();
+  let nodes = newArrayData<Node>($Node(), []);
 
   const handle = () => {
     if (nodes.isEmpty()) {
@@ -35,7 +37,7 @@ export function parseStatements(
     }
 
     lastStatement = handleStatement(context, statements, lastStatement, nodes);
-    nodes = newArrayData();
+    nodes = newArrayData($Node());
   };
 
   for (const node of nodeGenerator(context)) {
@@ -74,7 +76,7 @@ export type StatementParserFunction<T extends StatementNode = StatementNode> = (
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
-  return newArrayData([
+  return newArrayData($Model(), [
     parseImportStatementNode,
     parseDeclarationStatementNode,
     parseIfStatementNode,
@@ -98,13 +100,13 @@ function handleStatement(
 
   if (!statement) {
     statement = newUnknownStatementNode(indent, nodes);
-    context.addError(statement.range, newText(`Syntax error`));
+    context.addError(statement.range, newText(`Unknown syntax expression`));
   }
 
   if (parent) {
     if (!parent.body) {
       parent.body = newBodyNode();
-      parent.children ??= newArrayData();
+      parent.children ??= newArrayData($Node());
       parent.children.addLastItem(parent.body);
       parent.body.parent = parent;
     }

@@ -1,5 +1,6 @@
 import {
   $AnalyzerType,
+  $IdTypeSemantic,
   $ValueDeclarationSemantic,
   DeclarationSemantic,
   TypeSemantic,
@@ -24,7 +25,7 @@ export function newVariableValueDeclarationSemantic(
   return {
     $: $VariableValueDeclarationSemantic(),
     reference,
-    usages: newArrayData(),
+    usages: newArrayData($IdTypeSemantic()),
     documentation,
     name,
     type,

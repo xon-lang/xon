@@ -8,7 +8,7 @@ import {
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {translateTypescriptReturnStatement} from '#translator';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Return statement with expression', () => {
@@ -30,7 +30,7 @@ test('Return statement without expression', () => {
 function getReturnStatementNode(text: Text): ReturnStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = parseReturnStatementNode(0, nodes) as ReturnStatementNode;
 
   expect(node).toBeTruthy();

@@ -10,8 +10,8 @@ import {
   nonHiddenNodeGenerator,
   PostfixNode,
 } from '#analyzer';
-import {newArrayData, newDictionary, newKeyValue, newText, Text} from '#common';
-import {is} from '#typing';
+import {$KeyValue, newArrayData, newDictionary, newKeyValue, newText, Text} from '#common';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Exclamation integer', () => {
@@ -27,9 +27,9 @@ test('Exclamation integer', () => {
 function getPostfixNode(text: Text): PostfixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const {collapse} = collapsePostfixNode(
-    newDictionary(newArrayData([newKeyValue(EXCLAMATION, $ExclamationPostfixNode())])),
+    newDictionary(newArrayData($KeyValue(), [newKeyValue(EXCLAMATION, $ExclamationPostfixNode())])),
     true,
   );
   const node = collapse(nodes, 0)?.node as PostfixNode;

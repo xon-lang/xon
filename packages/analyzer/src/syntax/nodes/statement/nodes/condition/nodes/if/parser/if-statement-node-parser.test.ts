@@ -10,7 +10,7 @@ import {
   parseIfStatementNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('If statement with errors', () => {
@@ -34,7 +34,7 @@ test('If statement without errors', () => {
 function getIfStatementNode(text: Text): IfStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = parseIfStatementNode(context, 0, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();
@@ -70,7 +70,7 @@ test('If statement has non condition expression', () => {
 function ifNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = parseIfStatementNode(context, 0, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();

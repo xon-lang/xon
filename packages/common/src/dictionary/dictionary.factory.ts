@@ -1,5 +1,6 @@
 import {
   $Dictionary,
+  $KeyValue,
   ArrayData,
   Boolean2,
   Dictionary,
@@ -12,7 +13,9 @@ import {
 } from '#common';
 import {$Model, is, modelEquals} from '#typing';
 
-export function newDictionary<K, V>(array: ArrayData<KeyValue<K, V>> = newArrayData()): Dictionary<K, V> {
+export function newDictionary<K, V>(
+  array: ArrayData<KeyValue<K, V>> = newArrayData($KeyValue()),
+): Dictionary<K, V> {
   const firstElement = array.first();
   const $KeyType = is(firstElement?.key, $Model()) ? firstElement.key.$ : $Model();
   const $ValueType = is(firstElement?.value, $Model()) ? firstElement.value.$ : $Model();

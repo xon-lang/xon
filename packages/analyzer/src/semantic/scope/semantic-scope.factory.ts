@@ -1,4 +1,4 @@
-import {$SemanticScope, DeclarationSemantic, SemanticScope} from '#analyzer';
+import {$DeclarationSemantic, $SemanticScope, DeclarationSemantic, SemanticScope} from '#analyzer';
 import {
   $Dictionary,
   ArrayData,
@@ -26,7 +26,7 @@ export function newSemanticScope(
 
     for (const declaration of declarations) {
       if (!_declarations.has(declaration.name)) {
-        _declarations.set(declaration.name, newArrayData());
+        _declarations.set(declaration.name, newArrayData($DeclarationSemantic()));
       }
 
       _declarations.get(declaration.name)!.addLastItem(declaration);
@@ -47,7 +47,7 @@ export function newSemanticScope(
       if (overloads) {
         overloads.addLastItem(declaration);
       } else {
-        this._declarations.set(declaration.name, newArrayData([declaration]));
+        this._declarations.set(declaration.name, newArrayData($DeclarationSemantic(), [declaration]));
       }
     },
 

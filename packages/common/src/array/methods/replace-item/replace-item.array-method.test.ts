@@ -1,8 +1,9 @@
 import {newArrayData} from '#common';
+import {$Model} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Replace item', () => {
-  const arr = newArrayData([0, 1, 2, -3, 5, 7, 3]);
+  const arr = newArrayData($Model(), [0, 1, 2, -3, 5, 7, 3]);
   const newArr = arr.replaceItem(2, 2, 0);
 
   expect(arr.count()).toBe(7);

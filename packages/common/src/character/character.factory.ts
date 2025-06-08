@@ -27,7 +27,10 @@ export function newCharacter(charString: string): Character {
     isLetter(): Boolean2 {
       const character = this._string.charCodeAt(0);
 
-      return (character >= UPPER_A_CODE && character <= UPPER_Z_CODE) || (character >= LOWER_A_CODE && character <= LOWER_Z_CODE);
+      return (
+        (character >= UPPER_A_CODE && character <= UPPER_Z_CODE) ||
+        (character >= LOWER_A_CODE && character <= LOWER_Z_CODE)
+      );
     },
 
     isDigit(): Boolean2 {
@@ -59,5 +62,5 @@ export function newCharacter(charString: string): Character {
 export function stringToCharArray(string: string): ArrayData<Character> {
   const characters = string.match(/.|\s/gu)?.map((x) => newCharacter(x)) ?? [];
 
-  return newArrayData(characters);
+  return newArrayData($Character(), characters);
 }

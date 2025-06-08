@@ -1,8 +1,9 @@
 import {newArrayData, nothing} from '#common';
+import {$Model} from '#typing';
 import {expect, test} from 'vitest';
 
 test('split by', () => {
-  const arr = newArrayData([1, 2, 3, 0, 5]);
+  const arr = newArrayData($Model(), [1, 2, 3, 0, 5]);
   const splitByResult = arr.splitBy((x) => x === 0);
 
   expect(splitByResult.count()).toBe(2);

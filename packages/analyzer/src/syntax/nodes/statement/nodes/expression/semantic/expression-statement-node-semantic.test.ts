@@ -1,4 +1,5 @@
 import {
+  $AttributeDeclarationSemantic,
   $IdTypeSemantic,
   $MemberNode,
   $StringTypeSemantic,
@@ -16,7 +17,7 @@ import {
   StringTypeSemantic,
 } from '#analyzer';
 import {newArrayData, newText, newTextRange, newTextReference, newUri, nothing, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Member node semantics', () => {
@@ -33,8 +34,8 @@ test('Member node semantics', () => {
 function getMemberNode(text: Text): MemberNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseMemberNode().collapse(nodes, 0)?.node as MemberNode;
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
+  const node = collapseMemberNode(context).collapse(nodes, 0)?.node as MemberNode;
   const semanticContext = newSemanticContext();
 
   semanticContext.scope.add(
@@ -43,7 +44,7 @@ function getMemberNode(text: Text): MemberNode {
       newText('user'),
       newObjectTypeSemantic(
         newSemanticScope(
-          newArrayData([
+          newArrayData($AttributeDeclarationSemantic(), [
             newAttributeDeclarationSemantic(
               newTextReference(newUri(newText('test')), newTextRange()),
               nothing,

@@ -23,12 +23,21 @@ import {
   TYPE,
   UNDERSCORE,
 } from '#analyzer';
-import {Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#common';
+import {
+  $KeyValue,
+  Dictionary,
+  newArrayData,
+  newDictionary,
+  newKeyValue,
+  nothing,
+  Nothing,
+  Text,
+} from '#common';
 import {$Type} from '#typing';
 
 function getTokenTypeMap(): Dictionary<Text, $Type> {
   return newDictionary(
-    newArrayData([
+    newArrayData($KeyValue(), [
       // declarations ???
       newKeyValue(TYPE, $TypeKeywordNode()),
       // modifiers

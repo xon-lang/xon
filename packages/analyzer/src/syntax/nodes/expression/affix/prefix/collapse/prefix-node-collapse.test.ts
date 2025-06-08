@@ -11,7 +11,7 @@ import {
   PrefixNode,
 } from '#analyzer';
 import {newArrayData, newDictionary, newKeyValue, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Plus integer', () => {
@@ -27,9 +27,9 @@ test('Plus integer', () => {
 function getPrefixNode(text: Text): PrefixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const {collapse} = collapsePrefixNode(
-    newDictionary(newArrayData([newKeyValue(PLUS, $PlusPrefixNode())])),
+    newDictionary(newArrayData($Model(), [newKeyValue(PLUS, $PlusPrefixNode())])),
     true,
   );
   const node = collapse(nodes, 0)?.node as PrefixNode;

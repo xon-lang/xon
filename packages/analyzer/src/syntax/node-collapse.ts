@@ -11,6 +11,7 @@ import {
   StatementNode,
 } from '#analyzer';
 import {ArrayData, Integer, newArrayData, Nothing} from '#common';
+import {$Model} from '#typing';
 
 export type NodeCollapseFn<T extends Node = Node> = {
   min: Integer;
@@ -24,30 +25,30 @@ export type NodeCollapseResult<T extends Node = Node> =
 function nodeCollapses(
   context: AnalyzerContext,
 ): ArrayData<{isLeftRecursive: boolean; collapses: ArrayData<NodeCollapseFn>}> {
-  return newArrayData([
+  return newArrayData($Model(), [
     {
       isLeftRecursive: true,
-      collapses: newArrayData([collapseMemberNode(context)]),
-    },
-    {
-      isLeftRecursive: true,
-      collapses: newArrayData([collapseInvokeNode()]),
+      collapses: newArrayData($Model(), [collapseMemberNode(context)]),
     },
     {
       isLeftRecursive: true,
-      collapses: newArrayData([collapsePlusInfixNode()]),
+      collapses: newArrayData($Model(), [collapseInvokeNode()]),
+    },
+    {
+      isLeftRecursive: true,
+      collapses: newArrayData($Model(), [collapsePlusInfixNode()]),
     },
     {
       isLeftRecursive: false,
-      collapses: newArrayData([collapseTypeNode()]),
+      collapses: newArrayData($Model(), [collapseTypeNode()]),
     },
     {
       isLeftRecursive: false,
-      collapses: newArrayData([collapseValueNode()]),
+      collapses: newArrayData($Model(), [collapseValueNode()]),
     },
     {
       isLeftRecursive: false,
-      collapses: newArrayData([collapseLambdaNode()]),
+      collapses: newArrayData($Model(), [collapseLambdaNode()]),
     },
   ]);
 }
@@ -116,7 +117,7 @@ export function collapseNodes(context: AnalyzerContext, nodes: ArrayData<Node>):
 
 // todo try to join with 'nodeCollapses'
 function statementCollapses(): ArrayData<NodeCollapseFn<StatementNode>> {
-  return newArrayData([collapseConditionStatementNode()]);
+  return newArrayData($Model(), [collapseConditionStatementNode()]);
 }
 
 // todo try to join with 'collapseNodes'

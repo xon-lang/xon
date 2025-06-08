@@ -2,6 +2,7 @@ import {
   $DeclarationStatementNode,
   $ExpressionStatementNode,
   $IdNode,
+  $Node,
   DeclarationStatementNode,
   StatementNode,
   TYPE,
@@ -35,7 +36,7 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
     return newText(`type ${node.id.text} = ${assignment}`);
   }
 
-  const body = translateAttributes(node.body?.children ?? newArrayData());
+  const body = translateAttributes(node.body?.children ?? newArrayData($Node()));
 
   return newText(`type ${node.id.text} = ${body}`);
 }
@@ -121,7 +122,7 @@ function translateToFunction(node: DeclarationStatementNode, declarationType: De
     return newText(`${keyword}${node.id.text}${value}`);
   }
 
-  const body = translateTypescriptBody(node.body?.children ?? newArrayData());
+  const body = translateTypescriptBody(node.body?.children ?? newArrayData($Node()));
 
   return newText(
     `${keyword}${node.id.text}${node.parameters.open.text}${parameters}${

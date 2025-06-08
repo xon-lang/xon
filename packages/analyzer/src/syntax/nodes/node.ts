@@ -43,6 +43,7 @@ export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node()
 export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'range'>): T {
   // todo optimize and simplify it
   const children = newArrayData(
+    $Node(),
     Object.entries(params)
       // todo remove 'parent' exception
       .filter(([key]) => key !== 'parent')

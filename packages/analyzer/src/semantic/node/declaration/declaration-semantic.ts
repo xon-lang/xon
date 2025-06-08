@@ -1,4 +1,4 @@
-import {$AnalyzerType, $Semantic, IdTypeSemantic, Semantic, SemanticScope} from '#analyzer';
+import {$AnalyzerType, $IdTypeSemantic, $Semantic, IdTypeSemantic, Semantic, SemanticScope} from '#analyzer';
 import {ArrayData, newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -22,7 +22,7 @@ export function newDeclarationSemantic(
 ): DeclarationSemantic {
   return {
     $: $DeclarationSemantic(),
-    usages: newArrayData(),
+    usages: newArrayData($IdTypeSemantic()),
     reference,
     documentation,
     name,

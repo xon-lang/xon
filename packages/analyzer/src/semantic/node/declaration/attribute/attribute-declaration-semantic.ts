@@ -1,4 +1,10 @@
-import {$AnalyzerType, $ValueDeclarationSemantic, DeclarationSemantic, TypeSemantic} from '#analyzer';
+import {
+  $AnalyzerType,
+  $IdTypeSemantic,
+  $ValueDeclarationSemantic,
+  DeclarationSemantic,
+  TypeSemantic,
+} from '#analyzer';
 import {newArrayData, Nothing, Text, TextReference} from '#common';
 
 export type AttributeDeclarationSemantic = DeclarationSemantic & {
@@ -19,7 +25,7 @@ export function newAttributeDeclarationSemantic(
 ): AttributeDeclarationSemantic {
   return {
     $: $AttributeDeclarationSemantic(),
-    usages: newArrayData(),
+    usages: newArrayData($IdTypeSemantic()),
     reference,
     name,
     type,

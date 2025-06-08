@@ -1,9 +1,9 @@
 import {$UniqueList, newArrayData, newUniqueList} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Unique list', () => {
-  const a = newUniqueList(newArrayData(['A', 'B', 'B']));
+  const a = newUniqueList($Model(), newArrayData($Model(), ['A', 'B', 'B']));
   a.addFirstItem('A');
 
   expect(is(a, $UniqueList())).toBe(true);

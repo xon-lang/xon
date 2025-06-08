@@ -1,4 +1,5 @@
 import {ArrayData, ArrayPredicate, newArrayData, Nothing, nothing} from '#common';
+import {$Model} from '#typing';
 
 // todo should we return new array/immutability ???
 export function removeArrayMethod<T>(
@@ -11,7 +12,7 @@ export function removeArrayMethod<T>(
     return nothing;
   }
 
-  const removedItems = newArrayData<T>();
+  const removedItems = newArrayData<T>($Model());
 
   for (let index = lastIndex; index >= 0; index--) {
     const item = this._items[index];

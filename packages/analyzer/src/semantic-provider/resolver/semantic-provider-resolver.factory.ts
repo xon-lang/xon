@@ -6,8 +6,9 @@ import {
   SemanticProviderResolver,
 } from '#analyzer';
 import {newArrayData, newText, Uri} from '#common';
+import {$Model} from '#typing';
 
-const providers = newArrayData([
+const providers = newArrayData($Model(), [
   {
     type: newText('json'),
     extension: newText('.json'),

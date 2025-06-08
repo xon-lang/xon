@@ -1,4 +1,5 @@
 import {
+  $Node,
   AnalyzerContext,
   newEofNode,
   Node,
@@ -18,9 +19,10 @@ import {
   parseWhitespaceNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newTextRange, Nothing} from '#common';
+import {$Model} from '#typing';
 
 function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> {
-  return newArrayData([
+  return newArrayData($Model(), [
     parseWhitespaceNode,
     parseNlNode,
     parseStringNode,
@@ -39,7 +41,7 @@ function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> 
 }
 
 export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
-  let hiddenNodes = newArrayData<Node>();
+  let hiddenNodes = newArrayData<Node>($Node());
 
   while (true) {
     const node = nodeParsers().firstMap((parse) => parse(context));
@@ -52,7 +54,7 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
       hiddenNodes.addLastItem(node);
     } else if (!hiddenNodes.isEmpty()) {
       node.hiddenNodes = hiddenNodes;
-      hiddenNodes = newArrayData();
+      hiddenNodes = newArrayData($Node());
     }
 
     yield node;

@@ -1,4 +1,5 @@
 import {
+  $DocumentationLabelNode,
   AnalyzerContext,
   DocumentationLabelNode,
   DocumentationNode,
@@ -18,7 +19,7 @@ export function parseDocumentationNode(context: AnalyzerContext): DocumentationN
   }
 
   const descriptionNode = parseDocumentationDescriptionNode(context);
-  const labels = newArrayData<DocumentationLabelNode>();
+  const labels = newArrayData<DocumentationLabelNode>($DocumentationLabelNode());
 
   while (true) {
     const node = parseDocumentationLabelNode(context);

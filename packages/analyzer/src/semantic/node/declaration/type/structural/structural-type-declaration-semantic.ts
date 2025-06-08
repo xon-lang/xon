@@ -1,4 +1,10 @@
-import {$AnalyzerType, $TypeDeclarationSemantic, TypeDeclarationSemantic, TypeSemantic} from '#analyzer';
+import {
+  $AnalyzerType,
+  $IdTypeSemantic,
+  $TypeDeclarationSemantic,
+  TypeDeclarationSemantic,
+  TypeSemantic,
+} from '#analyzer';
 import {newArrayData, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -21,7 +27,7 @@ export function structuralTypeDeclarationSemantic(
 ): StructuralTypeDeclarationSemantic {
   return {
     $: $StructuralTypeDeclarationSemantic(),
-    usages: newArrayData(),
+    usages: newArrayData($IdTypeSemantic()),
     name,
     type,
     documentation,

@@ -17,7 +17,7 @@ import {
   newTextRange,
   nothing,
 } from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, vsCodeToXonPosition, xonToVsCodeRange} from '#vscode';
 import {
   CancellationToken,
@@ -147,7 +147,7 @@ function navigateToLocation(
   const targetRange = xonToVsCodeRange(sourceRange);
   const originSelectionRange = xonToVsCodeRange(originalRange);
 
-  return newArrayData([
+  return newArrayData($Model(), [
     {
       targetUri,
       targetRange,

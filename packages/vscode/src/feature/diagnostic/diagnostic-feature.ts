@@ -1,5 +1,6 @@
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#analyzer';
 import {ArrayData, newArrayData} from '#common';
+import {$Model} from '#typing';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, xonToVsCodeRange} from '#vscode';
 import {
   Diagnostic,
@@ -52,7 +53,7 @@ function checkDocument(document: TextDocument, diagnostics: DiagnosticCollection
 }
 
 function convertDiagnostic(analyzerDiagnostics: ArrayData<AnalyzerDiagnostic>): ArrayData<Diagnostic> {
-  const diagnostics = newArrayData<Diagnostic>();
+  const diagnostics = newArrayData<Diagnostic>($Model());
 
   for (const analyzerDiagnostic of analyzerDiagnostics) {
     const range = xonToVsCodeRange(analyzerDiagnostic.range);

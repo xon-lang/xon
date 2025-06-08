@@ -1,5 +1,6 @@
 import {
   $AnalyzerType,
+  $IdTypeSemantic,
   $TypeDeclarationSemantic,
   DeclarationSemantic,
   ParameterTypeDeclarationSemantic,
@@ -29,7 +30,7 @@ export function newNominalTypeDeclarationSemantic(
   return {
     $: $NominalTypeDeclarationSemantic(),
     reference,
-    usages: newArrayData(),
+    usages: newArrayData($IdTypeSemantic()),
     name,
     parameters,
     extendsType,

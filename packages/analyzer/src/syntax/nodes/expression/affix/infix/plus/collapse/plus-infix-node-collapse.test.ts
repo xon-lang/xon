@@ -11,7 +11,7 @@ import {
   PlusInfixNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Plus two integers', () => {
@@ -27,7 +27,7 @@ test('Plus two integers', () => {
 function getPlusInfixNode(text: Text): PlusInfixNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = collapsePlusInfixNode().collapse(nodes, 0)?.node as PlusInfixNode;
 
   expect(node).toBeTruthy();

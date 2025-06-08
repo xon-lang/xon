@@ -9,7 +9,7 @@ import {
   parseExpressionStatementNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Expression statement with errors', () => {
@@ -33,7 +33,7 @@ test('Expression statement without errors', () => {
 function getExpressionStatementNode(text: Text): ExpressionStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = parseExpressionStatementNode(context, 0, nodes) as ExpressionStatementNode;
 
   expect(node).toBeTruthy();

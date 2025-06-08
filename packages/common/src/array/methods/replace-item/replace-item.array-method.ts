@@ -1,4 +1,5 @@
 import {ArrayData, Integer, newArrayData} from '#common';
+import {$Model} from '#typing';
 
 export function replaceItemArrayMethod<T>(
   this: ArrayData<T>,
@@ -9,5 +10,5 @@ export function replaceItemArrayMethod<T>(
   const items = [...this._items];
   items.splice(startIndex, deleteCount, newItem);
 
-  return newArrayData(items);
+  return newArrayData($Model(), items);
 }

@@ -1,6 +1,6 @@
 // todo rename file to lexical-tokens.ts
 
-import {newArrayData, newCharacter, newText} from '#common';
+import {$Text, newArrayData, newCharacter, newText} from '#common';
 
 export const COMMENT_LINE = newText('//');
 
@@ -42,13 +42,13 @@ export const PREFIX = newText('prefix');
 export const INFIX = newText('infix');
 export const POSTFIX = newText('postfix');
 
-export const TYPE_KEYWORDS = newArrayData([TYPE, PREFIX, INFIX, POSTFIX]).sort(
+export const TYPE_KEYWORDS = newArrayData($Text(), [TYPE, PREFIX, INFIX, POSTFIX]).sort(
   (a, b) => a.count() - b.count(),
 );
 
 export const PUBLIC = newText('public');
 
-export const MODIFIER_KEYWORDS = newArrayData([PUBLIC]).sort((a, b) => a.count() - b.count());
+export const MODIFIER_KEYWORDS = newArrayData($Text(), [PUBLIC]).sort((a, b) => a.count() - b.count());
 
 export const IF = newText('if');
 export const ELSE = newText('else');
@@ -59,9 +59,15 @@ export const IMPORT = newText('import');
 export const EXPORT = newText('export');
 export const RETURN = newText('return');
 
-export const CONTROL_KEYWORDS = newArrayData([IF, ELSE, BREAK, CONTINUE, IMPORT, RETURN, EXPORT]).sort(
-  (a, b) => a.count() - b.count(),
-);
+export const CONTROL_KEYWORDS = newArrayData($Text(), [
+  IF,
+  ELSE,
+  BREAK,
+  CONTINUE,
+  IMPORT,
+  RETURN,
+  EXPORT,
+]).sort((a, b) => a.count() - b.count());
 
 export const COLON = newText(':');
 export const ASSIGN = newText('=');
@@ -88,7 +94,7 @@ export const LESS_EQUALS = newText('<=');
 export const EQUALS = newText('==');
 export const NOT_EQUALS = newText('!=');
 
-export const SYMBOL_OPERATORS = newArrayData([
+export const SYMBOL_OPERATORS = newArrayData($Text(), [
   COLON,
   ASSIGN,
   POINT,
@@ -119,4 +125,4 @@ export const IS = newText('is');
 export const AS = newText('as');
 export const IN = newText('in');
 
-export const WORD_OPERATORS = newArrayData([IS, AS, IN]);
+export const WORD_OPERATORS = newArrayData($Text(), [IS, AS, IN]);

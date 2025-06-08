@@ -13,7 +13,7 @@ import {
   parseDeclarationStatementNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Value declaration statement with type and assign', () => {
@@ -68,7 +68,7 @@ test('Function declaration', () => {
 function getDeclarationStatementNode(text: Text): DeclarationStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = parseDeclarationStatementNode(context, 0, nodes)!;
 
   expect(node).toBeTruthy();

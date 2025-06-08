@@ -14,18 +14,15 @@ import {
 import {newText, newUri, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
-export async function semantifyImportStatementNode(
-  this: ImportStatementNode,
-  context: SemanticContext,
-): Promise<void> {
+export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
   if (!this.expression) {
     return;
   }
 
   if (is(this.expression, $StringNode())) {
-    this.semantic = await semantifyImportPath(this.expression, context);
+    this.semantic = semantifyImportPath(this.expression, context);
   } else if (is(this.expression, $AsInfixNode()) && is(this.expression.left, $StringNode())) {
-    this.semantic = await semantifyImportPath(this.expression.left, context);
+    this.semantic = semantifyImportPath(this.expression.left, context);
   }
 
   if (this.body?.children && this.semantic) {
@@ -66,12 +63,12 @@ function semantifyBodyNode(context: SemanticContext, node: BodyNode, importSeman
 
       if (!statement.expression.semantic) {
         context.addError(
-          node.range,
-          newText(`"${importSemantic.originalPath}' has no declaration named "${statement.expression.text}"`),
+          statement.range,
+          newText(`"${importSemantic.originalPath}' has no "${statement.expression.text}" member`),
         );
       }
     } else {
-      context.addError(node.range, newText(`Wrong import member expression`));
+      context.addError(statement.range, newText(`Wrong import member expression`));
     }
   }
 }

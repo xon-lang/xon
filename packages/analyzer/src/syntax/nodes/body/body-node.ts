@@ -1,5 +1,6 @@
 import {
   $AnalyzerType,
+  $Node,
   $SyntaxNode,
   FormatterContext,
   HighlightContext,
@@ -24,7 +25,7 @@ export function newBodyNode(): BodyNode {
   return {
     $: $BodyNode(),
     range: newTextRange(),
-    children: newArrayData(),
+    children: newArrayData($Node()),
 
     addStatement(statement: StatementNode): void {
       statement.parent = this;

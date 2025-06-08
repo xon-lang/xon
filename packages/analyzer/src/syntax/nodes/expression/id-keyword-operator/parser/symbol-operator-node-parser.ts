@@ -12,14 +12,23 @@ import {
   PLUS,
   SYMBOL_OPERATORS,
 } from '#analyzer';
-import {Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#common';
+import {
+  $KeyValue,
+  Dictionary,
+  newArrayData,
+  newDictionary,
+  newKeyValue,
+  nothing,
+  Nothing,
+  Text,
+} from '#common';
 import {$Type} from '#typing';
 
 export const OPERATORS = SYMBOL_OPERATORS.sort((a, b) => a.count() - b.count());
 
 function getTokenTypeMap(): Dictionary<Text, $Type> {
   return newDictionary(
-    newArrayData([
+    newArrayData($KeyValue(), [
       newKeyValue(PLUS, $PlusOperatorNode()),
       newKeyValue(ASSIGN, $AssignOperatorNode()),
       newKeyValue(COLON, $TypeOperatorNode()),

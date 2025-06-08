@@ -12,7 +12,7 @@ import {
   WhitespaceNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Member with id instance', () => {
@@ -32,8 +32,8 @@ test('Member with id instance', () => {
 function getMemberNode(text: Text): MemberNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseMemberNode().collapse(nodes, 0)?.node as MemberNode;
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
+  const node = collapseMemberNode(context).collapse(nodes, 0)?.node as MemberNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $MemberNode())).toBe(true);
@@ -60,7 +60,7 @@ test('Identifier expect', () => {
 function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = collapseMemberNode(context).collapse(nodes, 0)?.node as MemberNode;
 
   expect(node).toBeTruthy();

@@ -3,6 +3,7 @@ import {
   HighlightToken,
   newAnalyzerContext,
   newCharacterStreamFromText,
+  newDiagnosticService,
   newHighlightContext,
   newSemanticContext,
   Node,
@@ -37,10 +38,11 @@ export function newTextDocumentAnalyzer(
   const text = newText(document.getText());
   const uri = newUri(newText(document.uri.fsPath));
   const source = newCharacterStreamFromText(text);
-  const context = newAnalyzerContext(source);
+  const diagnosticService = newDiagnosticService();
+  const context = newAnalyzerContext(source, diagnosticService);
   const {statements} = parseStatements(context);
 
-  const semanticContext = newSemanticContext(uri);
+  const semanticContext = newSemanticContext(uri, diagnosticService);
 
   for (const statement of statements) {
     statement.semantify && statement.semantify(semanticContext);
@@ -82,7 +84,7 @@ export function newTextDocumentAnalyzer(
     },
 
     diagnostics(): ArrayData<AnalyzerDiagnostic> {
-      return context.diagnostic.items;
+      return diagnosticService.items;
     },
   };
 }

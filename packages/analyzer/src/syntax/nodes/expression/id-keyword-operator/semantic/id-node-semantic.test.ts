@@ -16,7 +16,7 @@ import {
   parseIdKeywordOperatorNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, newTextRange, newTextReference, newUri, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Id node semantics', () => {
@@ -63,7 +63,7 @@ test('Identifier expect', () => {
 function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = collapseMemberNode(context).collapse(nodes, 0)?.node as MemberNode;
 
   expect(node).toBeTruthy();

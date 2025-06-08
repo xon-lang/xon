@@ -1,4 +1,4 @@
-import {newArrayData, newDirectoryResource, newText, newUri} from '#common';
+import {$Resource, newArrayData, newDirectoryResource, newText, newUri} from '#common';
 import {resolve} from 'node:path';
 import {expect, test} from 'vitest';
 
@@ -8,5 +8,5 @@ test('Directory resource', () => {
 
   expect(directory.exists()).toBe(true);
   expect(directory.name.toNativeString()).toBe('directory');
-  expect(newArrayData(directory.getResources()).count()).toBe(3);
+  expect(newArrayData($Resource(), directory.getResources()).count()).toBe(3);
 });

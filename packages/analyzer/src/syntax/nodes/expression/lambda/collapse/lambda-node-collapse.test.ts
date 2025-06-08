@@ -11,7 +11,7 @@ import {
   nonHiddenNodeGenerator,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Lambda integer type and value', () => {
@@ -32,7 +32,7 @@ test('Lambda integer type and value', () => {
 function getLambdaNode(text: Text): LambdaNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = collapseNodes(context, nodes).first() as LambdaNode;
 
   expect(node).toBeTruthy();

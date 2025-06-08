@@ -1,5 +1,5 @@
 import {$ImportStatementNode} from '#analyzer';
-import {newArrayData, newFileResource, newText} from '#common';
+import {$Text, newArrayData, newFileResource, newText} from '#common';
 import {translateTypescriptStatement} from '#translator';
 import {is} from '#typing';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
@@ -50,7 +50,7 @@ function saveTranslatedFile(document: TextDocument, channel: OutputChannel) {
     const file = newFileResource(analyzer.documentUri);
     const destinationPath = file
       .directory()
-      .uri.resolve(newArrayData([file.name.addLastItems(newText('.ts'))]))
+      .uri.resolve(newArrayData($Text(), [file.name.addLastItems(newText('.ts'))]))
       .value.toNativeString();
 
     fs.writeFileSync(

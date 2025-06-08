@@ -22,7 +22,7 @@ export function parseExpressionStatementNode(
   }
 
   const errorNodes = nodes.slice(1);
-  errorNodes.forEach((x) => context.addError(x.range, newText(`Syntax error`)));
+  errorNodes.forEach((x) => context.addError(x.range, newText(`Expected single expression`)));
 
   return newExpressionStatementNode(indent, firstNode, errorNodes);
 }

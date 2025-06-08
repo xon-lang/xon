@@ -1,4 +1,4 @@
-import {ArrayData, Text, newArrayData, newText} from '#common';
+import {$Text, ArrayData, Text, newArrayData, newText} from '#common';
 
 export type SemanticAnalyzerConfig = {
   defaultImports: ArrayData<Text>;
@@ -17,7 +17,7 @@ export type SemanticAnalyzerConfig = {
 };
 
 export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
-  defaultImports: newArrayData(),
+  defaultImports: newArrayData($Text()),
   literalTypeNames: {
     unknownTypeName: newText('Unknown'),
     anythingTypeName: newText('Anything'),
@@ -34,5 +34,5 @@ export const DEFAULT_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
 
 export const TEST_SEMANTIC_CONFIG: SemanticAnalyzerConfig = {
   ...DEFAULT_SEMANTIC_CONFIG,
-  defaultImports: newArrayData([newText('xon/core')]),
+  defaultImports: newArrayData($Text(), [newText('xon/core')]),
 };

@@ -10,6 +10,7 @@ import {
   $BracketOpenNode,
   $CommaNode,
   $GroupCloseNode,
+  $GroupItemNode,
   $ParenCloseNode,
   $ParenGroupNode,
   $ParenOpenNode,
@@ -53,7 +54,7 @@ function groupNodeParseInner(
   openNode: GroupOpenNode,
   $closeNodeType: $Type,
 ): GroupNode {
-  const items = newArrayData<GroupItemNode>();
+  const items = newArrayData<GroupItemNode>($GroupItemNode());
 
   while (true) {
     const {breakNode, statements} = parseStatements(

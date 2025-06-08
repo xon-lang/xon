@@ -38,7 +38,7 @@ export function newText(
       array = value.flat();
     }
   } else {
-    array = value ?? newArrayData<Character>();
+    array = value ?? newArrayData<Character>($Character());
   }
 
   return {
@@ -91,6 +91,7 @@ export function newText(
     split(separator: Text): ArrayData<Text> {
       // todo don't use native split
       return newArrayData(
+        $Text(),
         this.toNativeString()
           .split(separator.toNativeString())
           .map((x) => newText(x)),

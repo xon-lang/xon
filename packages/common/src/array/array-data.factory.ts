@@ -17,16 +17,19 @@ import {
   replaceItemsArrayMethod,
   splitByArrayMethod,
 } from '#common';
-import {extractType, Model, modelEquals} from '#typing';
+import {$Type, extractType, Model, modelEquals} from '#typing';
 
-export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []): ArrayData<T> {
+export function newArrayData<T>(
+  $itemType: $Type,
+  array: ArrayLike<T> | IterableIterator<T> = [],
+): ArrayData<T> {
   // export function newArrayData<T>($itemType: $Type): ArrayData<T>
   // export function newArrayData<T>($itemType?: $Type  |  T[]): ArrayData<T> {
 
   const _items = Array.from(array);
 
   return {
-    $: $ArrayData(extractType(_items[0])),
+    $: $ArrayData($itemType ?? extractType(_items[0])),
     _items,
 
     [Symbol.iterator](): IterableIterator<T> {
@@ -92,7 +95,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     slice(startIndex: Integer, stopIndex?: Integer | Nothing): ArrayData<T> {
-      return newArrayData(this._items.slice(startIndex, stopIndex ?? undefined));
+      return newArrayData($itemType, this._items.slice(startIndex, stopIndex ?? undefined));
     },
 
     isEmpty(): Boolean2 {
@@ -253,14 +256,17 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
 
     filter<V extends T>(predicate?: ArraySafePredicate<T, V> | any): ArrayData<V> | any {
       if (!predicate) {
-        return newArrayData(this._items.filter((x) => !!x));
+        return newArrayData(
+          $itemType,
+          this._items.filter((x) => !!x),
+        );
       }
 
-      return newArrayData(this._items.filter(predicate));
+      return newArrayData($itemType, this._items.filter(predicate));
     },
 
     map<V>(select: ArraySelect<T, V>): ArrayData<V> {
-      return newArrayData(this._items.map(select));
+      return newArrayData($itemType, this._items.map(select));
     },
 
     hasItem(item: T): Boolean2 {
@@ -297,11 +303,11 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     removeFirst(length?: Integer | Nothing): ArrayData<T> {
-      return newArrayData([...this._items].splice(0, length ?? 1));
+      return newArrayData($itemType, [...this._items].splice(0, length ?? 1));
     },
 
     removeLast(length?: Integer | Nothing): ArrayData<T> {
-      return newArrayData([...this._items].splice(-1, length ?? 1));
+      return newArrayData($itemType, [...this._items].splice(-1, length ?? 1));
     },
 
     firstMap<V>(
@@ -359,7 +365,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
         }
       }
 
-      return newArrayData(newArray);
+      return newArrayData($itemType, newArray);
     },
 
     count(): Integer {
@@ -375,21 +381,27 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     minMax: minMaxArrayMethod,
 
     sort(compareFn?: (a: T, b: T) => number): ArrayData<T> {
-      return newArrayData([...this._items.sort(compareFn)]);
+      return newArrayData($itemType, [...this._items.sort(compareFn)]);
     },
 
     sortBy(select: (value: T) => Number2, ascending: Boolean2 = true): ArrayData<T> {
       if (ascending) {
-        return newArrayData([...this._items].sort((a, b) => select(a) - select(b)));
+        return newArrayData(
+          $itemType,
+          [...this._items].sort((a, b) => select(a) - select(b)),
+        );
       }
 
-      return newArrayData([...this._items].sort((a, b) => select(b) - select(a)));
+      return newArrayData(
+        $itemType,
+        [...this._items].sort((a, b) => select(b) - select(a)),
+      );
     },
 
     flat<A>(this: ArrayData<ArrayData<A>>): ArrayData<A> {
       const flatItems = this._items.flatMap((x) => x._items);
 
-      return newArrayData(flatItems);
+      return newArrayData($itemType, flatItems);
     },
 
     flatMap<V>(select: ArraySelect<T, ArrayData<V>>): ArrayData<V> {
@@ -414,7 +426,7 @@ export function newArrayData<T>(array: ArrayLike<T> | IterableIterator<T> = []):
     },
 
     clone(): ArrayData<T> {
-      return newArrayData([...this._items]);
+      return newArrayData($itemType, [...this._items]);
     },
 
     equals(other: ArrayData<T>): Boolean2 {

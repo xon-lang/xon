@@ -13,7 +13,7 @@ import {
   ValueNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Integer value', () => {
@@ -34,7 +34,7 @@ test('Integer value', () => {
 function getAssignNode(text: Text): ValueNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const {index, deleteCount, node} = collapseValueNode().collapse(nodes, nodes.lastIndex()!)!;
 
   expect(node).toBeTruthy();

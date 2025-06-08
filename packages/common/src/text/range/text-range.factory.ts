@@ -28,7 +28,7 @@ export function newTextRange(start?: TextPosition | Nothing, stop?: TextPosition
     },
 
     union(other: TextRange): TextRange {
-      const {min, max} = newArrayData([this.start, other.stop]).minMax((x) => x.index);
+      const {min, max} = newArrayData($TextPosition(), [this.start, other.stop]).minMax((x) => x.index);
 
       return newTextRange(min?.element!, max?.element!);
     },

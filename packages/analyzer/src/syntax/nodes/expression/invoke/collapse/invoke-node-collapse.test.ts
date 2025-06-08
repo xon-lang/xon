@@ -10,7 +10,7 @@ import {
   nonHiddenNodeGenerator,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
-import {is} from '#typing';
+import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Invoke with two arguments', () => {
@@ -26,7 +26,7 @@ test('Invoke with two arguments', () => {
 function getInvokeNode(text: Text): InvokeNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
-  const nodes = newArrayData(nonHiddenNodeGenerator(context));
+  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
   const node = collapseInvokeNode().collapse(nodes, 0)!.node;
 
   expect(node).toBeTruthy();
