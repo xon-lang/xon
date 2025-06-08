@@ -10,11 +10,11 @@ import {
   newSemanticScope,
   parseStatements,
   Semantic,
+  SemanticContext,
   SemanticProvider,
 } from '#analyzer';
-import {newText, newUri, Nothing, Text, Uri} from '#common';
+import {newText, newTextFileResource, newUri, Nothing, Text, Uri} from '#common';
 import {Brand, is} from '#typing';
-import {readFile} from 'node:fs/promises';
 import {dirname, resolve} from 'node:path';
 
 export type XonSemanticProvider = SemanticProvider & Brand<'Analyzer.XonSemanticProvider'>;
@@ -26,33 +26,21 @@ export function newXonSemanticProvider(): XonSemanticProvider {
   return {
     $: $XonSemanticProvider(),
 
-    async provideSemantic(
-      contextUri: Uri,
-      importUri: Uri,
-      text?: Text | Nothing,
-    ): Promise<Semantic | Nothing> {
-      const uri = resolveFullUri(contextUri, importUri);
-
+    provideSemantic(context: SemanticContext, uri: Uri, text?: Text | Nothing): Semantic | Nothing {
       if (text) {
         return getSemanticFromText(uri, text);
       }
 
-      return getSemanticFromUri(uri);
+      return getSemanticFromUri(context, uri);
     },
   };
 }
 
-function resolveFullUri(contextUri: Uri, importUri: Uri): Uri {
-  const contextDirPath = dirname(contextUri.value.toNativeString());
+function getSemanticFromUri(context: SemanticContext, importUri: Uri): Semantic | Nothing {
+  const uri = resolveFullUri(context.uri, importUri);
+  const file = newTextFileResource(uri);
 
-  return newUri(newText(resolve(contextDirPath, importUri.value.toNativeString())));
-}
-
-async function getSemanticFromUri(uri: Uri): Promise<Semantic> {
-  const buffer = await readFile(uri.value.toNativeString());
-  const text = newText(buffer.toString());
-
-  return getSemanticFromText(uri, text);
+  return getSemanticFromText(uri, file.content());
 }
 
 function getSemanticFromText(uri: Uri, text: Text): Semantic {
@@ -71,4 +59,10 @@ function getSemanticFromText(uri: Uri, text: Text): Semantic {
   }
 
   return newObjectTypeSemantic(semanticScope);
+}
+
+function resolveFullUri(contextUri: Uri, importUri: Uri): Uri {
+  const contextDirPath = dirname(contextUri.value.toNativeString());
+
+  return newUri(newText(resolve(contextDirPath, importUri.value.toNativeString())));
 }

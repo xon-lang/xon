@@ -1,4 +1,9 @@
-import {$ObjectTypeSemantic, newJsonSemanticProvider, ObjectTypeSemantic} from '#analyzer';
+import {
+  $ObjectTypeSemantic,
+  newJsonSemanticProvider,
+  newSemanticContext,
+  ObjectTypeSemantic,
+} from '#analyzer';
 import {newText, newUri} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,11 +11,11 @@ import {expect, test} from 'vitest';
 test('Json semantic', async () => {
   const text = newText('{"a": 1}');
   const provider = newJsonSemanticProvider();
-  const semantic = (await provider.provideSemantic(
+  const semantic = provider.provideSemantic(
+    newSemanticContext(),
     newUri(newText()),
-    newUri(newText('test')),
     text,
-  )) as ObjectTypeSemantic;
+  ) as ObjectTypeSemantic;
 
   expect(is(semantic, $ObjectTypeSemantic())).toBeTruthy();
   expect(semantic.scope?.count()).toBe(1);
