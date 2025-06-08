@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $StatementNode,
-  DiagnosticContext,
   ElseKeywordNode,
   FormatterContext,
   HighlightContext,
@@ -33,7 +32,6 @@ export function newElseStatementNode(
     errorNodes,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

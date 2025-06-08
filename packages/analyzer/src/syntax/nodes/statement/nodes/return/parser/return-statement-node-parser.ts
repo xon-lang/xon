@@ -1,6 +1,7 @@
 import {
   $ExpressionNode,
   $ReturnKeywordNode,
+  AnalyzerContext,
   collapseNodes,
   newReturnStatementNode,
   Node,
@@ -10,6 +11,7 @@ import {ArrayData, Integer, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function parseReturnStatementNode(
+  context: AnalyzerContext,
   indent: Integer,
   nodes: ArrayData<Node>,
 ): ReturnStatementNode | Nothing {
@@ -19,7 +21,7 @@ export function parseReturnStatementNode(
     return nothing;
   }
 
-  nodes = collapseNodes(nodes.slice(1));
+  nodes = collapseNodes(context, nodes.slice(1));
   const expressionNode = nodes.first();
 
   if (is(expressionNode, $ExpressionNode())) {

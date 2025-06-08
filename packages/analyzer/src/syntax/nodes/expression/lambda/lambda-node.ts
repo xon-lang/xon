@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $ExpressionNode,
-  diagnoseLambdaNode,
   ExpressionNode,
   FormatterContext,
   GroupNode,
@@ -35,7 +34,6 @@ export function newLambdaNode(
     value,
 
     semantify(context: SemanticContext): void {},
-    diagnose: diagnoseLambdaNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

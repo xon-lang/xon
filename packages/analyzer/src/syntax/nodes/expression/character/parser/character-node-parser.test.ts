@@ -1,11 +1,12 @@
 import {
   $CharacterNode,
+  AnalyzerDiagnostic,
   CharacterNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   parseCharacterNode,
 } from '#analyzer';
-import {newText, nothing, Text} from '#common';
+import {ArrayData, newText, nothing, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
@@ -74,4 +75,45 @@ function getCharacterNode(text: Text): CharacterNode {
   }
 
   return node;
+}
+
+// Diagnostics
+
+test('No errors', () => {
+  const text = newText("'a'");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(0);
+});
+
+test('Only character expect but empty', () => {
+  const text = newText("''");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Only character expect');
+});
+
+test('Only character expect but many', () => {
+  const text = newText("'abc'");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Only character expect');
+});
+
+test('Close token expect', () => {
+  const text = newText("'a");
+  const diagnostics = charNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Close token expect');
+});
+
+function charNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
+  const source = newCharacterStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  parseCharacterNode(context);
+
+  return context.diagnostic.items;
 }

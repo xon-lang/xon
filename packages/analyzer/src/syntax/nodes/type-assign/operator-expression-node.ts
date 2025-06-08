@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
-  DiagnosticContext,
   ExpressionNode,
   FormatterContext,
   HighlightContext,
@@ -32,7 +31,6 @@ export function newOperatorExpressionNode(
     expression,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

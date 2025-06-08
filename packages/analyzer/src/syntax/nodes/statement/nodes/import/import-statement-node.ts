@@ -2,7 +2,6 @@ import {
   $AnalyzerType,
   $StatementNode,
   AsInfixNode,
-  diagnoseImportStatementNode,
   FormatterContext,
   HighlightContext,
   ImportKeywordNode,
@@ -40,7 +39,6 @@ export function newImportStatementNode(
     errorNodes,
 
     semantify: semantifyImportStatementNode,
-    diagnose: diagnoseImportStatementNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

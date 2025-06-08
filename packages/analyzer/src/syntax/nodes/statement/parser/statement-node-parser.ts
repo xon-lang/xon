@@ -14,7 +14,7 @@ import {
   parseReturnStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Boolean2, Integer, newArrayData, Nothing, nothing, TextPosition} from '#common';
+import {ArrayData, Boolean2, Integer, newArrayData, newText, Nothing, nothing, TextPosition} from '#common';
 import {is} from '#typing';
 
 export function parseStatements(
@@ -34,7 +34,7 @@ export function parseStatements(
       return;
     }
 
-    lastStatement = handleStatement(statements, lastStatement, nodes);
+    lastStatement = handleStatement(context, statements, lastStatement, nodes);
     nodes = newArrayData();
   };
 
@@ -67,6 +67,7 @@ export function parseStatements(
 }
 
 export type StatementParserFunction<T extends StatementNode = StatementNode> = (
+  context: AnalyzerContext,
   indent: Integer,
   nodes: ArrayData<Node>,
   parent?: StatementNode | Nothing,
@@ -84,6 +85,7 @@ function statementParsers(): ArrayData<StatementParserFunction> {
 }
 
 function handleStatement(
+  context: AnalyzerContext,
   statements: ArrayData<StatementNode>,
   lastStatement: StatementNode | Nothing,
   nodes: ArrayData<Node>,
@@ -92,9 +94,12 @@ function handleStatement(
   const indent = (parent?.indent ?? -1) + 1;
   let statement: StatementNode | Nothing;
 
-  statement =
-    statementParsers().firstMap((parse) => parse(indent, nodes, parent)) ??
-    newUnknownStatementNode(indent, nodes);
+  statement = statementParsers().firstMap((parse) => parse(context, indent, nodes, parent));
+
+  if (!statement) {
+    statement = newUnknownStatementNode(indent, nodes);
+    context.addError(statement.range, newText(`Syntax error`));
+  }
 
   if (parent) {
     if (!parent.body) {

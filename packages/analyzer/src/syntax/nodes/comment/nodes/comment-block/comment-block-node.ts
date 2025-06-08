@@ -5,7 +5,6 @@ import {
   CommentBlockContentNode,
   CommentBlockOpenNode,
   CommentNode,
-  DiagnosticContext,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -35,7 +34,6 @@ export function newCommentBlockNode(
     closeNode,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

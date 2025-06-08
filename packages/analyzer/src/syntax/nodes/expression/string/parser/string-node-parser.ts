@@ -6,7 +6,7 @@ import {
   parseStringOpenNode,
   StringNode,
 } from '#analyzer';
-import {nothing, Nothing} from '#common';
+import {newText, nothing, Nothing} from '#common';
 
 export function parseStringNode(context: AnalyzerContext): StringNode | Nothing {
   const openNode = parseStringOpenNode(context);
@@ -17,6 +17,10 @@ export function parseStringNode(context: AnalyzerContext): StringNode | Nothing 
 
   const contentNode = parseStringContentNode(context);
   const closeNode = parseStringCloseNode(context);
+
+  if (!closeNode) {
+    context.addError(openNode.range, newText(`Close token expect`));
+  }
 
   return newStringNode(openNode, contentNode, closeNode);
 }

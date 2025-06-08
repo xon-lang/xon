@@ -28,7 +28,7 @@ function getElseStatementNode(text: Text): ElseStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseElseStatementNode(0, nodes) as ElseStatementNode;
+  const node = parseElseStatementNode(context, 0, nodes) as ElseStatementNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $ElseStatementNode())).toBe(true);

@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
-  DiagnosticContext,
   DocumentationCloseNode,
   DocumentationDescriptionNode,
   DocumentationLabelNode,
@@ -39,9 +38,8 @@ export function newDocumentationNode(
     labels,
     closeNode,
 
-    semantify(context: SemanticContext): void{},
-    diagnose(context: DiagnosticContext): void{},
-    format(context: FormatterContext): void{},
-    highlight(context: HighlightContext): void{},
+    semantify(context: SemanticContext): void {},
+    format(context: FormatterContext): void {},
+    highlight(context: HighlightContext): void {},
   });
 }

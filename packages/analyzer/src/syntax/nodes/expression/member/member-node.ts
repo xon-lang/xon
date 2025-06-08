@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $ExpressionNode,
-  diagnoseMemberNode,
   ExpressionNode,
   FormatterContext,
   HighlightContext,
@@ -34,7 +33,6 @@ export function newMemberNode(
     id,
 
     semantify: semantifyMemberNode,
-    diagnose: diagnoseMemberNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

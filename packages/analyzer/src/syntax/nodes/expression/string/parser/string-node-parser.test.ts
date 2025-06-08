@@ -1,5 +1,11 @@
-import {$StringNode, newAnalyzerContext, newCharacterStreamFromText, parseStringNode} from '#analyzer';
-import {newText, nothing} from '#common';
+import {
+  $StringNode,
+  AnalyzerDiagnostic,
+  newAnalyzerContext,
+  newCharacterStreamFromText,
+  parseStringNode,
+} from '#analyzer';
+import {ArrayData, newText, nothing, Text} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 
@@ -62,3 +68,28 @@ test('empty string double quote', () => {
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(2);
 });
+
+// Diagnostics
+
+test('String has no errors', () => {
+  const text = newText('"abc"');
+  const diagnostics = stringNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(0);
+});
+
+test('Close token expect', () => {
+  const text = newText('"abc');
+  const diagnostics = stringNodeDiagnostics(text);
+
+  expect(diagnostics.count()).toBe(1);
+  expect(diagnostics.first()?.message.toNativeString()).toBe('Close token expect');
+});
+
+function stringNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
+  const source = newCharacterStreamFromText(text);
+  const context = newAnalyzerContext(source);
+  parseStringNode(context);
+
+  return context.diagnostic.items;
+}

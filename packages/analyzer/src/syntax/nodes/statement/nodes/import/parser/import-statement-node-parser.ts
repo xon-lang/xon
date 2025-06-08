@@ -2,15 +2,17 @@ import {
   $AsInfixNode,
   $ImportKeywordNode,
   $StringNode,
+  AnalyzerContext,
   collapseNodes,
   ImportStatementNode,
   newImportStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing, nothing} from '#common';
+import {ArrayData, Integer, newText, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function parseImportStatementNode(
+  context: AnalyzerContext,
   indent: Integer,
   nodes: ArrayData<Node>,
 ): ImportStatementNode | Nothing {
@@ -20,12 +22,14 @@ export function parseImportStatementNode(
     return nothing;
   }
 
-  nodes = collapseNodes(nodes.slice(1));
+  nodes = collapseNodes(context, nodes.slice(1));
   const expression = nodes.first();
 
   if (is(expression, $StringNode()) || is(expression, $AsInfixNode())) {
     return newImportStatementNode(indent, keyword, expression, nodes.slice(1));
   }
+
+  context.addError((expression ?? keyword).range, newText(`Expression expect`));
 
   return newImportStatementNode(indent, keyword, nothing, nodes);
 }

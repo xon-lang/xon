@@ -1,6 +1,7 @@
 import {
   $IdNode,
   $TypeKeywordNode,
+  AnalyzerContext,
   collapseNodes,
   DeclarationStatementNode,
   extractDeclarationInfo,
@@ -11,6 +12,7 @@ import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
 export function parseDeclarationStatementNode(
+  context: AnalyzerContext,
   indent: Integer,
   nodes: ArrayData<Node>,
 ): DeclarationStatementNode | Nothing {
@@ -21,7 +23,7 @@ export function parseDeclarationStatementNode(
     nodes = nodes.slice(1);
   }
 
-  nodes = collapseNodes(nodes);
+  nodes = collapseNodes(context, nodes);
   const {target, parameters, annotation, assignment} = extractDeclarationInfo(nodes.first());
 
   if (!is(target, $IdNode()) || (!annotation && !assignment && !keyword)) {

@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $StatementNode,
-  diagnoseReturnStatementNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -36,7 +35,6 @@ export function newReturnStatementNode(
     errorNodes,
 
     semantify(context: SemanticContext): void {},
-    diagnose: diagnoseReturnStatementNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

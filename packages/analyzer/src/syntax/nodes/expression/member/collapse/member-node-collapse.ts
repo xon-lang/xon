@@ -2,6 +2,7 @@ import {
   $ExpressionNode,
   $IdNode,
   $SymbolOperatorNode,
+  AnalyzerContext,
   MemberNode,
   newMemberNode,
   Node,
@@ -9,10 +10,10 @@ import {
   NodeCollapseResult,
   POINT,
 } from '#analyzer';
-import {ArrayData, Integer, nothing} from '#common';
+import {ArrayData, Integer, newText, nothing} from '#common';
 import {is} from '#typing';
 
-export function collapseMemberNode(): NodeCollapseFn<MemberNode> {
+export function collapseMemberNode(context: AnalyzerContext): NodeCollapseFn<MemberNode> {
   return {
     min: 2,
     collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<MemberNode> => {
@@ -29,6 +30,10 @@ export function collapseMemberNode(): NodeCollapseFn<MemberNode> {
 
         const rightNode = nodes.at(index + 1);
         const idNode = is(rightNode, $IdNode()) ? rightNode : nothing;
+
+        if (!idNode) {
+          context.addError(instanceNode.range, newText(`Identifier expect`));
+        }
 
         return {
           node: newMemberNode(instanceNode, operatorNode, idNode),

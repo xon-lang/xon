@@ -1,5 +1,10 @@
 import {
   $SemanticContext,
+  AnalyzerDiagnosticSeverity,
+  AnalyzerDiagnosticType,
+  DiagnosticService,
+  newDiagnostic,
+  newDiagnosticService,
   newNominalTypeDeclarationSemantic,
   newSemanticProviderResolver,
   newSemanticScope,
@@ -14,18 +19,23 @@ import {
   newUri,
   nothing,
   Nothing,
+  Text,
   TextRange,
   TextReference,
   Uri,
 } from '#common';
 
-export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
+export function newSemanticContext(
+  sourceUri?: Uri | Nothing,
+  diagnostic: DiagnosticService = newDiagnosticService(),
+): SemanticContext {
   sourceUri ??= newUri(newText());
 
   return {
     $: $SemanticContext(),
     uri: sourceUri,
     scope: newSemanticScope(),
+    diagnostic,
     semanticProviderResolver: newSemanticProviderResolver(),
     literal: {
       // todo get declaration from source code ???
@@ -53,6 +63,17 @@ export function newSemanticContext(sourceUri?: Uri | Nothing): SemanticContext {
       const provider = this.semanticProviderResolver.resolve(uri);
 
       return provider.provideSemantic(this, uri);
+    },
+
+    addError(range: TextRange, text: Text): void {
+      const diagnostic = newDiagnostic(
+        range,
+        AnalyzerDiagnosticType.Semantic,
+        AnalyzerDiagnosticSeverity.Error,
+        text,
+      );
+
+      this.diagnostic.add(diagnostic);
     },
   };
 }

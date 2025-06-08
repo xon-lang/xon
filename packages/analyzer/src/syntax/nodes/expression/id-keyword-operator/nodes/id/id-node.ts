@@ -2,7 +2,6 @@ import {
   $AnalyzerType,
   $ExpressionNode,
   DeclarationSemantic,
-  diagnoseIdNode,
   ExpressionNode,
   FormatterContext,
   HighlightContext,
@@ -27,7 +26,6 @@ export function newIdNode(text: Text, range: TextRange): IdNode {
     text,
 
     semantify: semantifyIdNode,
-    diagnose: diagnoseIdNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   };

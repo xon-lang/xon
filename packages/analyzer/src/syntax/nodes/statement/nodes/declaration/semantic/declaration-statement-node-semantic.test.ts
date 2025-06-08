@@ -28,7 +28,7 @@ function getDeclarationStatementNode(text: Text): DeclarationStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = parseDeclarationStatementNode(0, nodes)!;
+  const node = parseDeclarationStatementNode(context, 0, nodes)!;
   const semanticContext = newSemanticContext();
 
   node.semantify!(semanticContext);

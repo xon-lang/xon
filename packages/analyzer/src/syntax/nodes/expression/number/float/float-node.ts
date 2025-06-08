@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $NumberNode,
-  DiagnosticContext,
   FormatterContext,
   HighlightContext,
   IntegerContentNode,
@@ -34,7 +33,6 @@ export function newFloatNode(
     fraction,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

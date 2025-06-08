@@ -2,7 +2,6 @@ import {
   $AffixNode,
   $AnalyzerType,
   AffixNode,
-  DiagnosticContext,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -26,7 +25,6 @@ export function postfixNode($: $Type, value: Node, operator: OperatorNode): Post
     operator,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

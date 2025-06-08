@@ -2,7 +2,7 @@ import {
   HighlightToken,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  newDiagnosticContext,
+  newDiagnosticService,
   newHighlightContext,
   newSemanticContext,
   Node,
@@ -44,7 +44,7 @@ export function newTextDocumentAnalyzer(
   const semanticContext = newSemanticContext(uri);
 
   for (const statement of statements) {
-    statement.semantify && statement.semantify(semanticContext); 
+    statement.semantify && statement.semantify(semanticContext);
   }
 
   channel.appendLine('Handled document: ' + document.uri.fsPath);
@@ -83,13 +83,13 @@ export function newTextDocumentAnalyzer(
     },
 
     getDiagnostics() {
-      const diagnosticContext = newDiagnosticContext();
+      const diagnosticContext = newDiagnosticService();
 
       for (const statement of this.statements) {
         statement.diagnose && statement.diagnose(diagnosticContext);
       }
 
-      return diagnosticContext.diagnostics;
+      return diagnosticContext.items;
     },
   };
 }

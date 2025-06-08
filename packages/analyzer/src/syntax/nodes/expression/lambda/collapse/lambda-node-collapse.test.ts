@@ -33,7 +33,7 @@ function getLambdaNode(text: Text): LambdaNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData(nonHiddenNodeGenerator(context));
-  const node = collapseNodes(nodes).first() as LambdaNode;
+  const node = collapseNodes(context, nodes).first() as LambdaNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $LambdaNode())).toBe(true);

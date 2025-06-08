@@ -2,7 +2,6 @@ import {
   $AnalyzerType,
   $InfixNode,
   AsOperatorNode,
-  DiagnosticContext,
   ExpressionNode,
   FormatterContext,
   HighlightContext,
@@ -33,7 +32,6 @@ export function newAsInfixNode(
     right,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

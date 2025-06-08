@@ -1,4 +1,5 @@
 import {
+  AnalyzerContext,
   collapseConditionStatementNode,
   collapseInvokeNode,
   collapseLambdaNode,
@@ -20,11 +21,13 @@ export type NodeCollapseResult<T extends Node = Node> =
   | {index: Integer; deleteCount: Integer; node: T}
   | Nothing;
 
-function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayData<NodeCollapseFn>}> {
+function nodeCollapses(
+  context: AnalyzerContext,
+): ArrayData<{isLeftRecursive: boolean; collapses: ArrayData<NodeCollapseFn>}> {
   return newArrayData([
     {
       isLeftRecursive: true,
-      collapses: newArrayData([collapseMemberNode()]),
+      collapses: newArrayData([collapseMemberNode(context)]),
     },
     {
       isLeftRecursive: true,
@@ -71,12 +74,12 @@ function nodeCollapses(): ArrayData<{isLeftRecursive: boolean; collapses: ArrayD
 // {min: 1, parse: declarationNodeParse()},
 // {min: 3, parse: assignmentNodeParse()},
 
-export function collapseNodes(nodes: ArrayData<Node>): ArrayData<Node> {
+export function collapseNodes(context: AnalyzerContext, nodes: ArrayData<Node>): ArrayData<Node> {
   if (nodes.isEmpty()) {
     return nodes;
   }
 
-  for (const {isLeftRecursive, collapses} of nodeCollapses()) {
+  for (const {isLeftRecursive, collapses} of nodeCollapses(context)) {
     if (isLeftRecursive) {
       let index = 0;
 

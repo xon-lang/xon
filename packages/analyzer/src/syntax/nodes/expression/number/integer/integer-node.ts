@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $NumberNode,
-  DiagnosticContext,
   FormatterContext,
   HighlightContext,
   IntegerContentNode,
@@ -24,7 +23,6 @@ export function newIntegerNode(contentNode: IntegerContentNode): IntegerNode {
     contentNode,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

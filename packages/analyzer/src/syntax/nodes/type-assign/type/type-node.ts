@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $InfixNode,
-  DiagnosticContext,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -28,7 +27,6 @@ export function newTypeNode(target: Node | Nothing, type: OperatorExpressionNode
     type,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

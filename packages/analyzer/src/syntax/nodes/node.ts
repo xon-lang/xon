@@ -1,11 +1,4 @@
-import {
-  $AnalyzerType,
-  DiagnosticContext,
-  FormatterContext,
-  HighlightContext,
-  Semantic,
-  SemanticContext,
-} from '#analyzer';
+import {$AnalyzerType, FormatterContext, HighlightContext, Semantic, SemanticContext} from '#analyzer';
 import {
   $ArrayData,
   ArrayData,
@@ -41,7 +34,6 @@ export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Nod
 export type SyntaxNode = Node &
   Brand<'Analyzer.SyntaxNode'> & {
     semantify(context: SemanticContext): void;
-    diagnose(context: DiagnosticContext): void;
     format(context: FormatterContext): void;
     highlight(context: HighlightContext): void;
   };

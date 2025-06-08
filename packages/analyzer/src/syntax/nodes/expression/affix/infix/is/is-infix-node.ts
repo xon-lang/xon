@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $InfixNode,
-  DiagnosticContext,
   ExpressionNode,
   FormatterContext,
   HighlightContext,
@@ -33,7 +32,6 @@ export function newIsInfixNode(
     right,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

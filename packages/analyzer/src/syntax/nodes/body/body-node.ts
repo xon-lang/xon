@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
-  DiagnosticContext,
   FormatterContext,
   HighlightContext,
   SemanticContext,
@@ -47,7 +46,6 @@ export function newBodyNode(): BodyNode {
         statement.semantify(context);
       }
     },
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   };

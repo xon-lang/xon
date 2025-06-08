@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $StatementNode,
-  diagnoseConditionStatementNode,
   ElseStatementNode,
   FormatterContext,
   HighlightContext,
@@ -34,7 +33,6 @@ export function newConditionStatementNode(
     elseStatement,
 
     semantify(context: SemanticContext): void {},
-    diagnose: diagnoseConditionStatementNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

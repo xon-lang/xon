@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $ExpressionNode,
-  DiagnosticContext,
   ExpressionNode,
   FormatterContext,
   GroupNode,
@@ -26,7 +25,6 @@ export function invokeNode(instance: ExpressionNode, group: GroupNode): InvokeNo
     group,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

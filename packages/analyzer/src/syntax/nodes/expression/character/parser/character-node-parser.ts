@@ -6,7 +6,7 @@ import {
   parseCharacterContentNode,
   parseCharacterOpenNode,
 } from '#analyzer';
-import {nothing, Nothing} from '#common';
+import {newText, nothing, Nothing} from '#common';
 
 export function parseCharacterNode(context: AnalyzerContext): CharacterNode | Nothing {
   const openNode = parseCharacterOpenNode(context);
@@ -17,6 +17,14 @@ export function parseCharacterNode(context: AnalyzerContext): CharacterNode | No
 
   const contentNode = parseCharacterContentNode(context);
   const closeNode = parseCharacterCloseNode(context);
+
+  if (!contentNode || contentNode.text.count() > 1) {
+    context.addError(openNode.range, newText(`Only character expect`));
+  }
+
+  if (!closeNode) {
+    context.addError(openNode.range, newText(`Close token expect`));
+  }
 
   return newCharacterNode(openNode, contentNode, closeNode);
 }

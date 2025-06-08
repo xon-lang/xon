@@ -1,14 +1,14 @@
-import {ArrayData, Integer, Nothing, Text, TextRange} from '#common';
 import {
-  $DiagnosticType,
+  $AnalyzerType,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticTag,
   AnalyzerDiagnosticType,
-} from '#diagnostic';
+} from '#analyzer';
+import {ArrayData, Integer, Nothing, Text, TextRange} from '#common';
 import {Brand, Model} from '#typing';
 
 export type AnalyzerDiagnostic = Model &
-  Brand<'Diagnostic.AnalyzerDiagnostic'> & {
+  Brand<'Analyzer.AnalyzerDiagnostic'> & {
     range: TextRange;
     type: AnalyzerDiagnosticType;
     severity: AnalyzerDiagnosticSeverity;
@@ -19,7 +19,7 @@ export type AnalyzerDiagnostic = Model &
     // terminalFormat(): Text;
   };
 
-export const $AnalyzerDiagnostic = () => $DiagnosticType('AnalyzerDiagnostic');
+export const $AnalyzerDiagnostic = () => $AnalyzerType('AnalyzerDiagnostic');
 
 export function newDiagnostic(
   range: TextRange,

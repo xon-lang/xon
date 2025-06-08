@@ -1,7 +1,6 @@
 import {
   $AnalyzerType,
   $ExpressionNode,
-  DiagnosticContext,
   ExpressionNode,
   FormatterContext,
   GroupCloseNode,
@@ -37,7 +36,6 @@ export function newGroupNode(
     close,
 
     semantify(context: SemanticContext): void {},
-    diagnose(context: DiagnosticContext): void {},
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   });

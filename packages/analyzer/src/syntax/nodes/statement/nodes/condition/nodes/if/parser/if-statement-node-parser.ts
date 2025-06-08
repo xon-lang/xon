@@ -1,15 +1,17 @@
 import {
   $ExpressionNode,
   $IfKeywordNode,
+  AnalyzerContext,
   collapseNodes,
   IfStatementNode,
   newIfStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing, nothing} from '#common';
+import {ArrayData, Integer, newText, Nothing, nothing} from '#common';
 import {is} from '#typing';
 
 export function parseIfStatementNode(
+  context: AnalyzerContext,
   indentLevel: Integer,
   nodes: ArrayData<Node>,
 ): IfStatementNode | Nothing {
@@ -19,12 +21,14 @@ export function parseIfStatementNode(
     return nothing;
   }
 
-  nodes = collapseNodes(nodes.slice(1));
+  nodes = collapseNodes(context, nodes.slice(1));
   const conditionExpressionNode = nodes.first();
 
   if (is(conditionExpressionNode, $ExpressionNode())) {
     return newIfStatementNode(indentLevel, keywordNode, conditionExpressionNode, nodes.slice(1));
   }
+
+  context.addError(keywordNode.range, newText(`Expect expression`));
 
   return newIfStatementNode(indentLevel, keywordNode, nothing, nodes);
 }
