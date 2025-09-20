@@ -47,6 +47,7 @@ export function newBodyNode(): BodyNode {
         statement.semantify(context);
       }
     },
+
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},
   };

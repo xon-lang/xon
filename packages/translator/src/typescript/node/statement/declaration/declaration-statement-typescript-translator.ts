@@ -17,11 +17,7 @@ enum DeclarationType {
   Parameter,
 }
 
-export function translateTypescriptDeclarationStatement(node: StatementNode): Text {
-  if (!is(node, $DeclarationStatementNode())) {
-    return newText(`/* error type declaration */`);
-  }
-
+export function translateTypescriptDeclarationStatement(node: DeclarationStatementNode): Text {
   if (node.keyword?.text.equals(TYPE)) {
     return translateTypeDeclaration(node);
   }
