@@ -35,7 +35,7 @@
     {
       "root": "packages/translator",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts", "**/test/**/*.ts"]
     },
     {
       "root": "packages/typing",
