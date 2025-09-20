@@ -19,6 +19,7 @@ import {
 import {ArrayData, Boolean2, Integer, newArrayData, newText, Nothing, nothing, TextPosition} from '#common';
 import {$Model, is} from '#typing';
 
+
 export function parseStatements(
   context: AnalyzerContext,
   predicate?: ((node: Node) => Boolean2) | Nothing,
