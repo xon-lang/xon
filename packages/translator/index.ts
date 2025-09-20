@@ -2,6 +2,7 @@ export * from './package';
 export * from './src/json/json-translator';
 export * from './src/translate-result';
 export * from './src/translator';
+export * from './src/typescript/node/module/module-typescript-translate';
 export * from './src/typescript/node/statement/condition/condition-statement-typescript-translator';
 export * from './src/typescript/node/statement/declaration/declaration-statement-typescript-translator';
 export * from './src/typescript/node/statement/expression/expression-statement-typescript-translator';
