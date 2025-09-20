@@ -17,7 +17,7 @@ import {
   replaceItemsArrayMethod,
   splitByArrayMethod,
 } from '#common';
-import {$Type, extractType, Model, modelEquals} from '#typing';
+import {$Model, $Type, extractType, Model, modelEquals} from '#typing';
 
 export function newArrayData<T>(
   $itemType: $Type,
@@ -266,7 +266,10 @@ export function newArrayData<T>(
     },
 
     map<V>(select: ArraySelect<T, V>): ArrayData<V> {
-      return newArrayData($itemType, this._items.map(select));
+      const items = this._items.map(select);
+      // todo fix and remove 'as' expression
+      const $itemType = (items.at(0) as Model | Nothing)?.$ ?? $Model();
+      return newArrayData($itemType, items);
     },
 
     hasItem(item: T): Boolean2 {
