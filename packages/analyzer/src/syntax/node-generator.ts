@@ -46,6 +46,10 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
       break;
     }
 
+    if (node.isHidden) {
+      context.hiddenNodes.addLastItem(node);
+    }
+
     yield node;
   }
 }

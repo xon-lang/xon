@@ -2,3 +2,8 @@ type User
   name: String
   age: Integer
 
+
+type UserAlias = {
+  name: String
+  age: Integer
+}

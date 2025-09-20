@@ -19,7 +19,6 @@ export type Node = Model &
     children?: ArrayData<Node> | Nothing;
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
-    beforeHidden?: ArrayData<Node> | Nothing;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');
@@ -59,13 +58,9 @@ export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'rang
   const node: T = {
     range,
     children,
-    beforeHidden: first?.beforeHidden,
     ...params,
   } as T;
 
-  if (first) {
-    first.beforeHidden = nothing;
-  }
 
   children.forEach((x) => (x.parent = node));
 

@@ -1,7 +1,6 @@
 import {
   $IdNode,
   $MemberNode,
-  $WhitespaceNode,
   AnalyzerDiagnostic,
   collapseMemberNode,
   IdNode,
@@ -9,7 +8,6 @@ import {
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
-  WhitespaceNode,
 } from '#analyzer';
 import {ArrayData, newArrayData, newText, Text} from '#common';
 import {$Model, is} from '#typing';
@@ -21,11 +19,7 @@ test('Member with id instance', () => {
 
   expect(is(node.instance, $IdNode())).toBe(true);
   expect((node.instance as IdNode).text.toNativeString()).toBe('abc');
-  expect(node.instance.beforeHidden).toBeFalsy();
   expect(is(node.id, $IdNode())).toBe(true);
-  // expect(node.id?.beforeHidden?.count()).toBe(1);
-  // expect(is(node.id?.beforeHidden?.first(), $WhitespaceNode())).toBe(true);
-  // expect((node.id?.beforeHidden?.first() as WhitespaceNode).text.toNativeString()).toBe('   ');
   expect(node.id?.text.toNativeString()).toBe('def');
 });
 

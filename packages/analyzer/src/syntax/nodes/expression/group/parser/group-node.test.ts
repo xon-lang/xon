@@ -9,7 +9,6 @@ import {
   $ParenCloseNode,
   $ParenGroupNode,
   $ParenOpenNode,
-  $WhitespaceNode,
   ExpressionStatementNode,
   GroupNode,
   IdNode,
@@ -17,7 +16,6 @@ import {
   newAnalyzerContext,
   newCharacterStreamFromText,
   parseGroupNode,
-  WhitespaceNode,
 } from '#analyzer';
 import {newText, Text} from '#common';
 import {is} from '#typing';
@@ -147,9 +145,6 @@ test('Two numbers and comma with space at the end', () => {
     is((node.items.last()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
   ).toBeTruthy();
   expect(is(node.items.last()?.comma, $CommaNode())).toBeTruthy();
-  expect(node.close?.beforeHidden?.count()).toBe(1);
-  expect(is(node.close?.beforeHidden?.first(), $WhitespaceNode())).toBeTruthy();
-  expect((node.close?.beforeHidden?.first() as WhitespaceNode).text.toNativeString()).toBe(' ');
 });
 
 test('Items on several lines', () => {
@@ -170,7 +165,6 @@ test('Items on several lines', () => {
     is((node.items.last()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
   ).toBeTruthy();
   expect(node.items.last()?.comma).toBeFalsy();
-  expect(node.close?.beforeHidden?.count()).toBeFalsy();
   expect(
     is((node.items.at(3)?.statement as ExpressionStatementNode).expression, $IntegerNode()),
   ).toBeTruthy();

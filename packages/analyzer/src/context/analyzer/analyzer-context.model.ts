@@ -1,5 +1,5 @@
-import {$AnalyzerType, CharacterStream, DiagnosticService} from '#analyzer';
-import {Text, TextRange} from '#common';
+import {$AnalyzerType, CharacterStream, DiagnosticService, Node} from '#analyzer';
+import {ArrayData, Text, TextRange} from '#common';
 import {Brand, Model} from '#typing';
 
 export type AnalyzerContext = Model &
@@ -8,6 +8,7 @@ export type AnalyzerContext = Model &
     // isCancellationRequested: Boolean2;
     source: CharacterStream;
     diagnostic: DiagnosticService;
+    hiddenNodes: ArrayData<Node>;
 
     addError(range: TextRange, text: Text): void;
   };

@@ -8,7 +8,6 @@ export type StatementNode = SyntaxNode &
     errorNodes?: ArrayData<Node> | Nothing;
     parent?: BodyNode | Nothing;
     body?: BodyNode | Nothing;
-    afterHidden?: ArrayData<Node> | Nothing;
   };
 
 export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode', $SyntaxNode());

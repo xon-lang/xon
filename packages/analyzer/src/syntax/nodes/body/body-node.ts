@@ -31,7 +31,7 @@ export function newBodyNode(): BodyNode {
       statement.parent = this;
 
       if (this.children.isEmpty()) {
-        this.range.start = statement.beforeHidden?.first()?.range.start ?? statement.range.start;
+        this.range.start = statement.range.start;
       }
 
       if (this.parent) {

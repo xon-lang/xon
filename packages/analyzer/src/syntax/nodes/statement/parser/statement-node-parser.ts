@@ -30,7 +30,6 @@ export function parseStatements(
   let statements = newArrayData<StatementNode>($StatementNode());
   let breakNode: Node | Nothing = nothing;
   let nodes = newArrayData<Node>($Node(), []);
-  let hiddenNodes = newArrayData<Node>($Node(), []);
 
   const handle = () => {
     if (nodes.isEmpty()) {
@@ -38,16 +37,12 @@ export function parseStatements(
     }
 
     lastStatement = handleStatement(context, statements, lastStatement, nodes);
-    lastStatement.afterHidden = hiddenNodes;
-    hiddenNodes = newArrayData($Node());
     nodes = newArrayData($Node());
   };
 
   for (const node of nodeGenerator(context)) {
     if (predicate && predicate(node)) {
       breakNode = node;
-      node.beforeHidden = hiddenNodes;
-      hiddenNodes = newArrayData($Node());
 
       break;
     }
@@ -57,12 +52,7 @@ export function parseStatements(
         handle();
       }
 
-      hiddenNodes.addLastItem(node);
-
       continue;
-    } else if (!hiddenNodes.isEmpty()) {
-      node.beforeHidden = hiddenNodes;
-      hiddenNodes = newArrayData($Node());
     }
 
     nodes.addLastItem(node);

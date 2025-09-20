@@ -1,5 +1,6 @@
 import {
   $AnalyzerContext,
+  $Node,
   AnalyzerContext,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticType,
@@ -8,7 +9,7 @@ import {
   newDiagnostic,
   newDiagnosticService,
 } from '#analyzer';
-import {Text, TextRange} from '#common';
+import {newArrayData, Text, TextRange} from '#common';
 
 export function newAnalyzerContext(
   source: CharacterStream,
@@ -18,6 +19,7 @@ export function newAnalyzerContext(
     $: $AnalyzerContext(),
     source,
     diagnostic,
+    hiddenNodes: newArrayData($Node()),
 
     addError(range: TextRange, text: Text): void {
       const diagnostic = newDiagnostic(
