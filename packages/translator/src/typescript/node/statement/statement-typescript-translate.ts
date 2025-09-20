@@ -37,7 +37,7 @@ export function translateTypescriptStatement(node: StatementNode): Text {
     return translateTypescriptReturnStatement(node);
   }
 
-  return newText('/* error statement */');
+  return newText(`/* error statement ${node.$}*/`);
 }
 //   export function statementTypescriptTranslate(
 //   translator: TypescriptTranslator,

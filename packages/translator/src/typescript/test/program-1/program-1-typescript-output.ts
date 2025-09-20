@@ -1,7 +1,7 @@
 type User = {
-  name: String
-  age: Integer
-}
+  name: string;
+  age: number;
+};
 
 
-/* error statement */
+/* error statement Analyzer.UnknownStatementNode*/

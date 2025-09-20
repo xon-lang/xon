@@ -41,7 +41,7 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   if (is(node, $IdNode())) {
-    return node.text;
+    return typeMapping(node.text);
   }
 
   if (is(node, $MemberNode())) {
@@ -108,4 +108,19 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   return newText('/* error value */');
+}
+
+// todo think how to get mapping config
+function typeMapping(typeName: Text): Text {
+  switch (typeName.toNativeString()) {
+    case 'String':
+      return newText('string');
+    case 'Integer':
+      return newText('number');
+    case 'Float':
+      return newText('number');
+
+    default:
+      return typeName;
+  }
 }
