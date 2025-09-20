@@ -1,7 +1,5 @@
 import {
-  $Node,
   AnalyzerContext,
-  newEofNode,
   Node,
   parseCharacterNode,
   parseCommaNode,
@@ -18,7 +16,7 @@ import {
   parseUnknownNode,
   parseWhitespaceNode,
 } from '#analyzer';
-import {ArrayData, newArrayData, newTextRange, Nothing} from '#common';
+import {ArrayData, newArrayData, Nothing} from '#common';
 import {$Model} from '#typing';
 
 function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> {
@@ -41,8 +39,6 @@ function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> 
 }
 
 export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
-  let hiddenNodes = newArrayData<Node>($Node());
-
   while (true) {
     const node = nodeParsers().firstMap((parse) => parse(context));
 
@@ -50,24 +46,7 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
       break;
     }
 
-    if (node.isHidden) {
-      hiddenNodes.addLastItem(node);
-    } else if (!hiddenNodes.isEmpty()) {
-      node.hiddenNodes = hiddenNodes;
-      hiddenNodes = newArrayData($Node());
-    }
-
     yield node;
-  }
-
-  const lastNodePosition = hiddenNodes.last()?.range.stop;
-
-  if (lastNodePosition) {
-    const eofRange = newTextRange(lastNodePosition);
-    const eofNode = newEofNode(eofRange);
-    eofNode.hiddenNodes = hiddenNodes;
-
-    yield eofNode;
   }
 }
 

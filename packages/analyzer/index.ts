@@ -47,7 +47,6 @@ export * from './src/syntax/nodes/comment/comment-node-parse';
 export * from './src/syntax/nodes/comment/comment-node';
 export * from './src/syntax/nodes/documentation/documentation-node.parser';
 export * from './src/syntax/nodes/documentation/documentation-node';
-export * from './src/syntax/nodes/eof/eof-node';
 export * from './src/syntax/nodes/expression/expression-node';
 export * from './src/syntax/nodes/joining/joining-node.parser';
 export * from './src/syntax/nodes/joining/joining-node';
