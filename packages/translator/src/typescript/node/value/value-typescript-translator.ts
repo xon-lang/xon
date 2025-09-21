@@ -48,7 +48,7 @@ export function translateTypescriptValue(node: Node): Text {
 
   if (is(node, $MemberNode())) {
     const instance = translateTypescriptValue(node.instance);
-    const id = node.id ?? newText('/* error member id */');
+    const id = node.id?.text ?? newText('/* error member id */');
 
     return newText(`${instance}.${id}`);
   }
@@ -103,7 +103,7 @@ export function translateTypescriptValue(node: Node): Text {
     const left = translateTypescriptValue(node.left);
     const right = translateTypescriptValue(node.right);
 
-    return newText(`${left}${node.operator.text}${right}`);
+    return newText(`${left} ${node.operator.text} ${right}`);
   }
 
   if (is(node, $PostfixNode())) {

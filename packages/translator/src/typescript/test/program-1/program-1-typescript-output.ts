@@ -1,7 +1,7 @@
 export type User = {
   name: string;
   age: number;
-  fn(): number;
+  fn(p: number): number;
 };
 
 export type UserAlias = {
@@ -12,7 +12,11 @@ export type UserAlias = {
 export const a: User = {
   name: `John`,
   age: 12,
-  fn(): number {
-    return 123;
+  fn(p: number): number {
+    return 123 + p;
   },
-};
+}
+if ((a.age)) {
+  console.log(a.fn(a.age + 0.5));
+}
+

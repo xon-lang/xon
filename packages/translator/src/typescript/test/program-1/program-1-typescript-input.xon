@@ -2,7 +2,7 @@ type User
   name: String
   age: Integer
 
-  fn(): Integer
+  fn(p: Integer): Integer
 
 
 type UserAlias = {
@@ -15,6 +15,10 @@ a: User = {
   name: "John",
   age: 12,
 
-  fn(): Integer
-    return 123
+  fn(p: Integer): Integer
+    return 123 + p
 }
+
+
+if (a.age > 10)
+  console.log(a.fn(a.age + 0.5))
