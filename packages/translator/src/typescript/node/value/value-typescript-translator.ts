@@ -1,12 +1,13 @@
 import {
+  $BraceGroupNode,
   $CharacterNode,
   $FloatNode,
-  $GroupNode,
   $IdNode,
   $InfixNode,
   $IntegerNode,
   $InvokeNode,
   $MemberNode,
+  $ParenGroupNode,
   $PostfixNode,
   $PrefixNode,
   $StringNode,
@@ -14,6 +15,7 @@ import {
   Node,
 } from '#analyzer';
 import {newText, Text} from '#common';
+import {translateTypescriptAttributes} from '#translator';
 import {is} from '#typing';
 
 export function translateTypescriptValue(node: Node): Text {
@@ -65,7 +67,7 @@ export function translateTypescriptValue(node: Node): Text {
     return newText(`${instance}${node.group.open.text}${parameters}${node.group.close?.text ?? ''}`);
   }
 
-  if (is(node, $GroupNode())) {
+  if (is(node, $ParenGroupNode())) {
     if (node.items.count() !== 1 || !node.items.at(0)?.statement) {
       return newText('/* error group */');
     }
@@ -74,6 +76,13 @@ export function translateTypescriptValue(node: Node): Text {
     const translatedExpression = translateTypescriptValue(expression);
 
     return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
+  }
+
+  if (is(node, $BraceGroupNode())) {
+    return translateTypescriptAttributes(
+      node.items.filter((x) => !!x.statement).map((x) => x.statement!),
+      true,
+    );
   }
 
   if (is(node, $PrefixNode())) {

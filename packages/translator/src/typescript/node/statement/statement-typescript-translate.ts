@@ -105,5 +105,5 @@ export function translateTypescriptStatement(node: StatementNode): Text {
 export function translateTypescriptBody(body: ArrayData<StatementNode>): Text {
   const translatedBody = newText(body.map(translateTypescriptStatement), newText('\n'));
 
-  return newText(`{\n${translatedBody.margin(2)}\n}\n`);
+  return newText(`{\n${translatedBody.margin(2)}\n}`);
 }
