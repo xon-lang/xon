@@ -1,4 +1,5 @@
 import {
+  $BraceGroupNode,
   $DeclarationStatementNode,
   $ExpressionStatementNode,
   $IdNode,
@@ -25,23 +26,35 @@ export function translateTypescriptDeclarationStatement(node: DeclarationStateme
 }
 
 function translateTypeDeclaration(node: DeclarationStatementNode): Text {
-  if (node.assignment?.expression) {
-    const assignment = translateTypescriptValue(node.assignment.expression);
+  const expression = node.assignment?.expression;
 
-    return newText(`type ${node.id.text} = ${assignment};`);
+  if (expression) {
+    if (is(expression, $BraceGroupNode())) {
+      const body = translateAttributes(
+        expression.items.filter((x) => !!x.statement).map((x) => x.statement!),
+      );
+
+      return newText(`export type ${node.id.text} = ${body};\n`);
+    }
+
+    const assignment = translateTypescriptValue(expression);
+
+    return newText(`export type ${node.id.text} = ${assignment};`);
   }
 
   const body = translateAttributes(node.body?.children ?? newArrayData($Node()));
 
-  return newText(`type ${node.id.text} = ${body};\n`);
+  return newText(`export type ${node.id.text} = ${body};\n`);
 }
 
 function translateAttributes(attributes: ArrayData<StatementNode>, useComma = false): Text {
   const separator = useComma ? ',\n' : ';\n';
+
   const translatedAttributes = newText(
     attributes.map((x) => translateValueDeclaration(x, TypescriptDeclarationType.Attribute)),
     newText(separator),
   );
+
   const lastSeparator = translatedAttributes.count() > 0 ? separator : '\n';
 
   return newText(`{\n${translatedAttributes.margin(2)}${lastSeparator}}`);
@@ -123,11 +136,15 @@ function translateToFunction(
     return newText(`${keyword}${node.id.text}${value}`);
   }
 
-  const body = translateTypescriptBody(node.body?.children ?? newArrayData($Node()));
+  let body = newText();
+
+  if (node.body) {
+    body = newText(` ${translateTypescriptBody(node.body.children)}`);
+  }
 
   return newText(
     `${keyword}${node.id.text}${node.parameters.open.text}${parameters}${
       node.parameters.close?.text ?? ''
-    }${type} ${body}`,
+    }${type}${body}`,
   );
 }

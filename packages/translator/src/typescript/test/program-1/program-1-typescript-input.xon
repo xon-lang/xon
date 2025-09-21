@@ -2,8 +2,19 @@ type User
   name: String
   age: Integer
 
+  fn(): Integer
+
 
 type UserAlias = {
-  name: String
+  name: String,
   age: Integer
+}
+
+
+a: User = {
+  name: "John",
+  age: 12,
+
+  fn(): Integer
+    return 123
 }

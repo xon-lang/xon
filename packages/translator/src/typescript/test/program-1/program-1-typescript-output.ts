@@ -1,7 +1,14 @@
-type User = {
+export type User = {
+  name: string;
+  age: number;
+  fn(): number;
+};
+
+
+export type UserAlias = {
   name: string;
   age: number;
 };
 
 
-type UserAlias = {/* error value */};
+let a: User = /* error group */
