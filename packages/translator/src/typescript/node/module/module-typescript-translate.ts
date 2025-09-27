@@ -1,9 +1,9 @@
 import {ModuleNode} from '#analyzer';
-import {newCharacter, newText, Text} from '#common';
-import {translateTypescriptStatement} from '#translator';
+import {newCharacter, Text} from '#common';
+import {translateTypescriptStatements, TypescriptStatementSeparator} from '#translator';
 
 export function translateTypescriptModule(node: ModuleNode): Text {
-  const body = newText(node.children.map(translateTypescriptStatement), newText('\n'));
+  const body = translateTypescriptStatements(node.children, TypescriptStatementSeparator.Semicolon);
 
   if (body.isEmpty()) {
     return body;

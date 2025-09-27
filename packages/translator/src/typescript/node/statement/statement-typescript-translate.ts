@@ -6,7 +6,7 @@ import {
   $ReturnStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, newText, Text} from '#common';
+import {ArrayData, newCharacter, newText, Text} from '#common';
 import {
   translateTypescriptConditionStatement,
   translateTypescriptDeclarationStatement,
@@ -16,13 +16,37 @@ import {
 } from '#translator';
 import {is} from '#typing';
 
-export function translateTypescriptStatement(node: StatementNode): Text {
+export enum TypescriptStatementSeparator {
+  None = 'None',
+  Comma = 'Comma',
+  Semicolon = 'Semicolon',
+}
+
+export function translateTypescriptStatements(
+  nodes: ArrayData<StatementNode>,
+  separator: TypescriptStatementSeparator = TypescriptStatementSeparator.None,
+): Text {
+  const statements = nodes
+    .map((x) => translateTypescriptStatement(x, separator))
+    .map((x, i) =>
+      i < nodes.count() - 1 && x.hasItem(newCharacter('\n')) ? x.addLastItem(newCharacter('\n')) : x,
+    );
+
+  return newText(statements, newText('\n'));
+}
+
+export function translateTypescriptStatement(
+  node: StatementNode,
+  separator: TypescriptStatementSeparator = TypescriptStatementSeparator.None,
+): Text {
+  const separatorText = getStatementSeparatorText(separator);
+
   if (is(node, $ExpressionStatementNode())) {
-    return translateTypescriptExpressionStatement(node);
+    return translateTypescriptExpressionStatement(node).addLastItems(separatorText);
   }
 
   if (is(node, $ImportStatementNode())) {
-    return translateTypescriptImportStatement(node);
+    return translateTypescriptImportStatement(node).addLastItems(separatorText);
   }
 
   if (is(node, $DeclarationStatementNode())) {
@@ -34,11 +58,28 @@ export function translateTypescriptStatement(node: StatementNode): Text {
   }
 
   if (is(node, $ReturnStatementNode())) {
-    return translateTypescriptReturnStatement(node);
+    return translateTypescriptReturnStatement(node).addLastItems(separatorText);
   }
 
   return newText(`/* error statement ${node.$}*/`);
 }
+
+function getStatementSeparatorText(separator: TypescriptStatementSeparator): Text {
+  switch (separator) {
+    case TypescriptStatementSeparator.None:
+      return newText('');
+
+    case TypescriptStatementSeparator.Comma:
+      return newText(',');
+
+    case TypescriptStatementSeparator.Semicolon:
+      return newText(';');
+
+    default:
+      throw separator satisfies never;
+  }
+}
+
 //   export function statementTypescriptTranslate(
 //   translator: TypescriptTranslator,
 //   statement: StatementNode,
@@ -101,9 +142,3 @@ export function translateTypescriptStatement(node: StatementNode): Text {
 
 //   return translator.error(semantic.nodeLink);
 // }
-
-export function translateTypescriptBody(body: ArrayData<StatementNode>): Text {
-  const translatedBody = newText(body.map(translateTypescriptStatement), newText('\n'));
-
-  return newText(`{\n${translatedBody.margin(2)}\n}`);
-}

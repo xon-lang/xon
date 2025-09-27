@@ -10,5 +10,5 @@ export function translateTypescriptImportStatement(node: ImportStatementNode): T
   // todo fix import path (should be provider related)
   const path = node.expression.content.text.toNativeString().replace(/^(.+?)(\.[^.]+)?$/, '$1.ts');
 
-  return newText(`import '${path}';`);
+  return newText(`import '${path}'`);
 }

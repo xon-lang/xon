@@ -25,7 +25,7 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
         expression.items.filter((x) => !!x.statement).map((x) => x.statement!),
       );
 
-      return newText(`export type ${node.id.text} = ${body};\n`);
+      return newText(`export type ${node.id.text} = ${body};`);
     }
 
     const assignment = translateTypescriptValue(expression);
@@ -35,5 +35,5 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
 
   const body = translateTypescriptAttributes(node.body?.children ?? newArrayData($Node()));
 
-  return newText(`export type ${node.id.text} = ${body};\n`);
+  return newText(`export type ${node.id.text} = ${body};`);
 }

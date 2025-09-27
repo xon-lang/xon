@@ -5,12 +5,13 @@ import {
   DeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {ArrayData, newText, Text} from '#common';
 import {
-  translateTypescriptBody,
+  translateTypescriptStatement,
   translateTypescriptType,
   translateTypescriptValue,
   TypescriptDeclarationType,
+  TypescriptStatementSeparator,
 } from '#translator';
 import {is} from '#typing';
 
@@ -98,7 +99,7 @@ function translateToFunction(
   let body = newText();
 
   if (node.body) {
-    body = newText(` ${translateTypescriptBody(node.body.children)}`);
+    body = newText(` ${translateTypescriptFunctionBody(node.body.children)}`);
   }
 
   return newText(
@@ -106,4 +107,13 @@ function translateToFunction(
       node.parameters.close?.text ?? ''
     }${type}${body}`,
   );
+}
+
+function translateTypescriptFunctionBody(body: ArrayData<StatementNode>): Text {
+  const translatedBody = newText(
+    body.map((x) => translateTypescriptStatement(x, TypescriptStatementSeparator.Semicolon)),
+    newText('\n'),
+  );
+
+  return newText(`{\n${translatedBody.margin(2)}\n}`);
 }

@@ -6,8 +6,8 @@ export function translateTypescriptReturnStatement(node: ReturnStatementNode): T
   if (node.expression) {
     const expression = translateTypescriptValue(node.expression);
 
-    return newText(`return ${expression};`);
+    return newText(`return ${expression}`);
   }
 
-  return newText(`return;`);
+  return newText(`return`);
 }
