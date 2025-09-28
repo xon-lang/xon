@@ -10,6 +10,8 @@ export const COMMENT_BLOCK_CLOSE = newText('---');
 export const DOCUMENTATION_OPEN = newText('===');
 export const DOCUMENTATION_CLOSE = newText('===');
 
+export const STRING_INTERPOLATION_OPEN = newText('$"');
+export const STRING_INTERPOLATION_CLOSE = newText('"');
 export const STRING_OPEN = newText('"');
 export const STRING_CLOSE = newText('"');
 
