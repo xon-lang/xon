@@ -1,0 +1,59 @@
+
+LogLevel = {
+  INFO = "info"
+  WARN = "warn"
+  ERROR = "error"
+}
+
+
+fn(level:...LogLevel): level
+  return level
+
+
+type User
+  id: Number
+  name: String
+  email: String | null
+
+type Input = String | Number | [Number, Number]
+
+type Result<:T:> = {
+  success: Boolean
+  data: T | null
+  message: String | null
+}
+
+processSomething<:T: User:>(
+  input: Input,
+  user: T,
+  logLevel: ...LogLevel = LogLevel.INFO
+): Result<:String:>
+  processed: String
+  
+  if input is String
+    processed = input.toUpperCase()
+  else if input is Number
+    processed = "Number: {input * 2}"
+  else
+    [a, b] = input
+    processed = "Tuple sum: {a + b}"
+
+  if logLevel === LogLevel.ERROR
+    console.error("ERROR:", processed)
+  else if logLevel === LogLevel.WARN
+    console.warn("WARN:", processed)
+  else
+    console.log("INFO:", processed)
+
+  return Result{
+    success: true,
+    data: "User {user.name} processed: {processed}",
+  }
+
+user: User = { id: 1, name: "Alice" }
+
+res1 = processSomething("hello", user)
+res2 = processSomething(42, user, LogLevel.WARN)
+res3 = processSomething([3, 7], user, LogLevel.ERROR)
+
+console.log(res1, res2, res3)

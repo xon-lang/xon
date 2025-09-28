@@ -1,0 +1,24 @@
+import {newAnalyzerContext, newCharacterStreamFromText, parseModule} from '#analyzer';
+import {newText} from '#common';
+import {newTypescriptTranslator} from '#translator';
+import {readFile, writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {expect, test} from 'vitest';
+
+test('program 1 typescript translator', async () => {
+  await getConditionStatementNode('program-1-typescript');
+});
+
+async function getConditionStatementNode(name: string): Promise<void> {
+  const input = newText((await readFile(resolve(__dirname, name + '-input.xon'))).toString());
+  const source = newCharacterStreamFromText(input);
+  const context = newAnalyzerContext(source);
+  const moduleNode = parseModule(context);
+  const translator = newTypescriptTranslator();
+  const translated = translator.translateModule(moduleNode).toNativeString();
+
+  const output = readFile(resolve(__dirname, name + '-etalon.ts'));
+  writeFile(resolve(__dirname, name + '-output.ts'), translated);
+
+  expect(translated).toBe((await output).toString());
+}
