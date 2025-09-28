@@ -1,22 +1,29 @@
+export const LogLevel = {
+  INFO = `info`,
+}
+
+function fn(level): level {
+  return level;
+}
+
 export type User = {
+  id: Number;
   name: string;
-  age: number;
-  fn(p: number): number;
+  email: string;
 };
 
-export type UserAlias = {
-  name: string;
-  age: number;
+export type Input = string;
+export type Result = {
+
 };
 
-export const a: User = {
-  name: `John`,
-  age: 12,
-  fn(p: number): number {
-    return 123 + p;
-  },
+processSomething;;
+export const user: User = {
+  id: 1,
+  name: `Alice`,
 }
 
-if ((a.age)) {
-  console.log(a.fn(a.age + 0.5));
-}
+export const res1 = processSomething(`hello`, user)
+export const res2 = processSomething(42, user, LogLevel.WARN)
+export const res3 = processSomething(/* error value */, user, LogLevel.ERROR)
+console.log(res1, res2, res3);;

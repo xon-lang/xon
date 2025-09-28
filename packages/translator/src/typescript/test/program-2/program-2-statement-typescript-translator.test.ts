@@ -5,8 +5,8 @@ import {readFile, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {expect, test} from 'vitest';
 
-test('program 1 typescript translator', async () => {
-  await getConditionStatementNode('program-1-typescript');
+test('program 2 typescript translator', async () => {
+  await getConditionStatementNode('program-2-typescript');
 });
 
 async function getConditionStatementNode(name: string): Promise<void> {
