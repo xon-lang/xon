@@ -18,8 +18,8 @@ import {
   GroupItemNode,
   GroupNode,
   GroupOpenNode,
+  newGroupItemNode,
   newGroupNode,
-  newItemNode,
   parseGroupOpenNode,
   parseStatements,
 } from '#analyzer';
@@ -67,14 +67,14 @@ function groupNodeParseInner(
     }
 
     if (is(breakNode, $CommaNode())) {
-      items.addLastItem(newItemNode(statements, breakNode));
+      items.addLastItem(newGroupItemNode(statements, breakNode));
 
       continue;
     }
 
     if (is(breakNode, $GroupCloseNode())) {
       if (!statements.isEmpty()) {
-        items.addLastItem(newItemNode(statements, nothing));
+        items.addLastItem(newGroupItemNode(statements, nothing));
       }
 
       return newGroupNode($groupType, openNode, items, breakNode);

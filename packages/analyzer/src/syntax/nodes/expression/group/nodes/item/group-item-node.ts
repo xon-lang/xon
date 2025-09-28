@@ -21,7 +21,7 @@ export type GroupItemNode = SyntaxNode &
 
 export const $GroupItemNode = () => $AnalyzerType<GroupItemNode>('GroupItemNode', $SyntaxNode());
 
-export function newItemNode(
+export function newGroupItemNode(
   statements: ArrayData<StatementNode>,
   comma?: CommaNode | Nothing,
 ): GroupItemNode {
