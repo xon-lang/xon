@@ -1,11 +1,10 @@
-import {$AffixNode, $AnalyzerType, AffixNode, ExpressionNode, Node} from '#analyzer';
-import {Nothing} from '#common';
+import {$AffixNode, $AnalyzerType, AffixNode, ExpressionNode} from '#analyzer';
 import {Brand} from '#typing';
 
 export type InfixNode = AffixNode &
   Brand<'Analyzer.InfixNode'> & {
-    left?: ExpressionNode | Nothing;
-    right?: ExpressionNode | Nothing;
+    left: ExpressionNode;
+    right: ExpressionNode;
   };
 
 export const $InfixNode = () => $AnalyzerType<InfixNode>('InfixNode', $AffixNode());
