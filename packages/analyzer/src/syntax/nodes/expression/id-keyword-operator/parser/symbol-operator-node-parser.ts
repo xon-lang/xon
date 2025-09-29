@@ -4,11 +4,13 @@ import {
   $PlusOperatorNode,
   $SymbolOperatorNode,
   $TypeOperatorNode,
+  $UnionOperatorNode,
   AnalyzerContext,
   ASSIGN,
   COLON,
   EXCLAMATION,
   OperatorNode,
+  OR,
   PLUS,
   SYMBOL_OPERATORS,
 } from '#analyzer';
@@ -30,6 +32,7 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
   return newDictionary(
     newArrayData($KeyValue(), [
       newKeyValue(PLUS, $PlusOperatorNode()),
+      newKeyValue(OR, $UnionOperatorNode()),
       newKeyValue(ASSIGN, $AssignOperatorNode()),
       newKeyValue(COLON, $TypeOperatorNode()),
       newKeyValue(EXCLAMATION, $ExclamationOperatorNode()),
