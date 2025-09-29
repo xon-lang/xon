@@ -1,3 +1,4 @@
+`abc = ${1 + 1}`;
 export const LogLevel = {
   INFO = `info`,
 }
@@ -9,15 +10,15 @@ function fn(level): level {
 export type User = {
   id: Number;
   name: string;
-  email: string;
+  email: string | null;
 };
 
-export type Input = string;
+export type Input = string | Number | [Number, Number];
 export type Result = {
 
 };
 
-processSomething;;
+processSomething;
 export const user: User = {
   id: 1,
   name: `Alice`,
@@ -25,5 +26,5 @@ export const user: User = {
 
 export const res1 = processSomething(`hello`, user)
 export const res2 = processSomething(42, user, LogLevel.WARN)
-export const res3 = processSomething(/* error value */, user, LogLevel.ERROR)
-console.log(res1, res2, res3);;
+export const res3 = processSomething([3, 7], user, LogLevel.ERROR)
+console.log(res1, res2, res3);

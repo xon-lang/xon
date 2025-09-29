@@ -1,5 +1,6 @@
 import {
   $BraceGroupNode,
+  $BracketGroupNode,
   $CharacterNode,
   $FloatNode,
   $IdNode,
@@ -10,12 +11,13 @@ import {
   $ParenGroupNode,
   $PostfixNode,
   $PrefixNode,
+  $StringInterpolationNode,
   $StringNode,
   ExpressionStatementNode,
   Node,
 } from '#analyzer';
 import {newText, Text} from '#common';
-import {translateTypescriptAttributes} from '#translator';
+import {translateTypescriptAttributes, translateTypescriptStatement} from '#translator';
 import {is} from '#typing';
 
 export function translateTypescriptValue(node: Node): Text {
@@ -40,6 +42,19 @@ export function translateTypescriptValue(node: Node): Text {
 
   if (is(node, $StringNode())) {
     return newText(`\`${node.content?.text ?? ''}\``);
+  }
+
+  if (is(node, $StringInterpolationNode())) {
+    const items = node.items.map((x) =>
+      newText(
+        x.statements.count() > 0
+          ? `${x.content?.text ?? ''}\${${translateTypescriptStatement(x.statements.at2(0))}}`
+          : `${x.content?.text ?? ''}`,
+      ),
+    );
+    const text = newText(items, newText(''));
+
+    return newText(`\`${text}\``);
   }
 
   if (is(node, $IdNode())) {
@@ -85,6 +100,15 @@ export function translateTypescriptValue(node: Node): Text {
     );
   }
 
+  if (is(node, $BracketGroupNode())) {
+    const items = node.items.map((x) =>
+      x.statement ? translateTypescriptValue((x.statement as ExpressionStatementNode).expression) : newText(),
+    );
+    const text = newText(items, newText(', '));
+
+    return newText(`[${text}]`);
+  }
+
   if (is(node, $PrefixNode())) {
     if (!node.expression) {
       return newText('/* error prefix */');
@@ -96,12 +120,9 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   if (is(node, $InfixNode())) {
-    if (!node.left || !node.right) {
-      return newText('/* error infix */');
-    }
-
     const left = translateTypescriptValue(node.left);
     const right = translateTypescriptValue(node.right);
+    console.log(JSON.stringify(node.operator.range));
 
     return newText(`${left} ${node.operator.text} ${right}`);
   }
