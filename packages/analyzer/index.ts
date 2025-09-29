@@ -141,6 +141,7 @@ export * from './src/syntax/nodes/documentation/nodes/documentation-label/docume
 export * from './src/syntax/nodes/documentation/nodes/documentation-label/documentation-label-node';
 export * from './src/syntax/nodes/documentation/nodes/documentation-open/documentation-open-node.parser';
 export * from './src/syntax/nodes/documentation/nodes/documentation-open/documentation-open-node';
+export * from './src/syntax/nodes/expression/affix/infix/infix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/infix/infix-node';
 export * from './src/syntax/nodes/expression/affix/postfix/postfix-node';
 export * from './src/syntax/nodes/expression/affix/prefix/prefix-node';
@@ -184,6 +185,7 @@ export * from './src/syntax/nodes/documentation/nodes/documentation-label/docume
 export * from './src/syntax/nodes/expression/affix/infix/as/as-infix-node';
 export * from './src/syntax/nodes/expression/affix/infix/is/is-infix-node';
 export * from './src/syntax/nodes/expression/affix/infix/plus/plus-infix-node';
+export * from './src/syntax/nodes/expression/affix/infix/union/union-infix-node';
 export * from './src/syntax/nodes/expression/affix/postfix/collapse/postfix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/prefix/collapse/prefix-node-collapse';
 export * from './src/syntax/nodes/expression/character/nodes/character-close/character-close-node.parser';
@@ -236,6 +238,7 @@ export * from './src/syntax/nodes/comment/nodes/comment-line/nodes/comment-line-
 export * from './src/syntax/nodes/expression/affix/infix/as/collapse/as-infix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/infix/is/collapse/is-infix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/infix/plus/collapse/plus-infix-node-collapse';
+export * from './src/syntax/nodes/expression/affix/infix/union/collapse/union-infix-node-collapse';
 export * from './src/syntax/nodes/expression/affix/postfix/nodes/exclamation/exclamation-postfix-node';
 export * from './src/syntax/nodes/expression/affix/prefix/nodes/plus/plus-prefix-node';
 export * from './src/syntax/nodes/expression/group/nodes/angle/angle-close/angle-close-node.parser';
@@ -274,6 +277,7 @@ export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/symbol/nodes/exclamation-operator-node';
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/symbol/nodes/plus-operator-node';
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/symbol/nodes/type-operator-node';
+export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/symbol/nodes/union-operator-node';
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/word/nodes/as-operator-node';
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/word/nodes/is-operator-node';
 export * from './src/syntax/nodes/statement/nodes/condition/nodes/else/parser/else-statement-node-parser';

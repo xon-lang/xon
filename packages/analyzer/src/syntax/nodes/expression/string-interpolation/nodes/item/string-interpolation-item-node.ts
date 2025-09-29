@@ -18,7 +18,7 @@ export type StringInterpolationItemNode = SyntaxNode &
   Brand<'Analyzer.StringInterpolationItemNode'> & {
     content?: StringInterpolationContentNode | Nothing;
     open?: BraceOpenNode | Nothing;
-    statements?: ArrayData<StatementNode> | Nothing;
+    statements: ArrayData<StatementNode>;
     close?: BraceCloseNode | Nothing;
   };
 
@@ -26,10 +26,10 @@ export const $StringInterpolationItemNode = () =>
   $AnalyzerType<StringInterpolationItemNode>('StringInterpolationItemNode', $SyntaxNode());
 
 export function newStringInterpolationItemNode(
-  content?: StringInterpolationContentNode | Nothing,
-  open?: BraceOpenNode | Nothing,
-  statements?: ArrayData<StatementNode> | Nothing,
-  close?: BraceCloseNode | Nothing,
+  content: StringInterpolationContentNode | Nothing,
+  open: BraceOpenNode | Nothing,
+  statements: ArrayData<StatementNode>,
+  close: BraceCloseNode | Nothing,
 ): StringInterpolationItemNode {
   return newSyntaxNode({
     $: $StringInterpolationItemNode(),

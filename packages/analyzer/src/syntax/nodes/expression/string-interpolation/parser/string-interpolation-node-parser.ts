@@ -1,5 +1,6 @@
 import {
   $BraceCloseNode,
+  $StatementNode,
   $StringInterpolationItemNode,
   AnalyzerContext,
   BraceCloseNode,
@@ -51,7 +52,12 @@ function parseInterpolationItem(context: AnalyzerContext): StringInterpolationIt
     return nothing;
   }
 
-  return newStringInterpolationItemNode(content, result?.open, result?.statements, result?.close);
+  return newStringInterpolationItemNode(
+    content,
+    result?.open,
+    result?.statements ?? newArrayData($StatementNode(), []),
+    result?.close,
+  );
 }
 
 function parseInterpolationStatements(
