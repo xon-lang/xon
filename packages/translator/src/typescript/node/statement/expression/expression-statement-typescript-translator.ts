@@ -5,5 +5,5 @@ import {translateTypescriptValue} from '#translator';
 export function translateTypescriptExpressionStatement(node: ExpressionStatementNode): Text {
   const expression = translateTypescriptValue(node.expression);
 
-  return newText(`${expression};`);
+  return newText(`${expression}`);
 }
