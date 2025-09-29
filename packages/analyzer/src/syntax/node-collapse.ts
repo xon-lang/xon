@@ -6,6 +6,7 @@ import {
   collapseMemberNode,
   collapsePlusInfixNode,
   collapseTypeNode,
+  collapseUnionInfixNode,
   collapseValueNode,
   Node,
   StatementNode,
@@ -37,6 +38,10 @@ function nodeCollapses(
     {
       isLeftRecursive: true,
       collapses: newArrayData($Model(), [collapsePlusInfixNode()]),
+    },
+    {
+      isLeftRecursive: true,
+      collapses: newArrayData($Model(), [collapseUnionInfixNode()]),
     },
     {
       isLeftRecursive: false,
@@ -94,7 +99,7 @@ export function collapseNodes(context: AnalyzerContext, nodes: ArrayData<Node>):
         }
 
         nodes = nodes.replaceItem(result.index, result.deleteCount, result.node);
-        index = result.index + 1;
+        index = result.index;
       }
     } else {
       let index = nodes.count() - 1;

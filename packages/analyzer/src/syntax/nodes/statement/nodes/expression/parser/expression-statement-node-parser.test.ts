@@ -1,12 +1,14 @@
 import {
   $ExpressionStatementNode,
   $IntegerNode,
+  $UnionInfixNode,
   ExpressionStatementNode,
   IntegerNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
   parseExpressionStatementNode,
+  UnionInfixNode,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
 import {$Model, is} from '#typing';
@@ -28,6 +30,16 @@ test('Expression statement without errors', () => {
   expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $IntegerNode())).toBeTruthy();
   expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+});
+
+test('Union expression', () => {
+  const text = newText('1 | 2 | 3');
+  const node = getExpressionStatementNode(text);
+
+  expect(node.errorNodes?.count()).toBe(0);
+  expect(is(node.expression, $UnionInfixNode())).toBe(true);
+  expect(is((node.expression as UnionInfixNode).left, $UnionInfixNode())).toBe(true);
+  expect(((node.expression as UnionInfixNode).right as IntegerNode).contentNode.text.toNativeString()).toBe('3');
 });
 
 function getExpressionStatementNode(text: Text): ExpressionStatementNode {
