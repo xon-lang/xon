@@ -17,22 +17,22 @@ export const $ParameterValueDeclarationSemantic = () =>
     $ValueDeclarationSemantic(),
   );
 
-export function parameterValueDeclarationSemantic(
-  name: Text,
-  type?: TypeSemantic | Nothing,
-  documentation?: Text | Nothing,
-  reference?: TextReference | Nothing,
-): ParameterValueDeclarationSemantic {
-  return {
-    $: $ParameterValueDeclarationSemantic(),
-    usages: newArrayData(),
-    documentation,
-    name,
-    type,
-    reference,
+// export function parameterValueDeclarationSemantic(
+//   name: Text,
+//   type?: TypeSemantic | Nothing,
+//   documentation?: Text | Nothing,
+//   reference?: TextReference | Nothing,
+// ): ParameterValueDeclarationSemantic {
+//   return {
+//     $: $ParameterValueDeclarationSemantic(),
+//     usages: newArrayData(),
+//     documentation,
+//     name,
+//     type,
+//     reference,
 
-    equals(other: DeclarationSemantic): Boolean2 {
-      return false;
-    },
-  };
-}
+//     equals(other: DeclarationSemantic): Boolean2 {
+//       return false;
+//     },
+//   };
+// }

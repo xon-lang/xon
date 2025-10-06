@@ -10,39 +10,38 @@ import {
   parseExpressionStatementNode,
   UnionInfixNode,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#common';
+import {Integer, newArrayData, newText, Text} from '#common';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Expression statement with errors', () => {
   const text = newText('7 17 37');
-  const node = getExpressionStatementNode(text);
+  const node = getExpressionStatementNode(text, 2);
 
-  expect(node.errorNodes?.count()).toBe(2);
   expect(is(node.expression, $IntegerNode())).toBeTruthy();
   expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
 test('Expression statement without errors', () => {
   const text = newText('7');
-  const node = getExpressionStatementNode(text);
+  const node = getExpressionStatementNode(text, 0);
 
-  expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $IntegerNode())).toBeTruthy();
   expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
 test('Union expression', () => {
   const text = newText('1 | 2 | 3');
-  const node = getExpressionStatementNode(text);
+  const node = getExpressionStatementNode(text, 0);
 
-  expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $UnionInfixNode())).toBe(true);
   expect(is((node.expression as UnionInfixNode).left, $UnionInfixNode())).toBe(true);
-  expect(((node.expression as UnionInfixNode).right as IntegerNode).contentNode.text.toNativeString()).toBe('3');
+  expect(((node.expression as UnionInfixNode).right as IntegerNode).contentNode.text.toNativeString()).toBe(
+    '3',
+  );
 });
 
-function getExpressionStatementNode(text: Text): ExpressionStatementNode {
+function getExpressionStatementNode(text: Text, extraNodesCount: Integer): ExpressionStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
@@ -50,6 +49,7 @@ function getExpressionStatementNode(text: Text): ExpressionStatementNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $ExpressionStatementNode())).toBe(true);
+  expect(context.extraNodes.count()).toBe(extraNodesCount);
 
   return node;
 }

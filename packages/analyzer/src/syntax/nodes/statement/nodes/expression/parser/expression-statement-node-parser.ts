@@ -6,7 +6,7 @@ import {
   newExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, newText, nothing, Nothing} from '#common';
+import {ArrayData, Integer, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
 export function parseExpressionStatementNode(
@@ -21,8 +21,7 @@ export function parseExpressionStatementNode(
     return nothing;
   }
 
-  const errorNodes = nodes.slice(1);
-  errorNodes.forEach((x) => context.addError(x.range, newText(`Expected single expression`)));
+  context.extraNodes.addLastItems(nodes.slice(1));
 
-  return newExpressionStatementNode(indent, firstNode, errorNodes);
+  return newExpressionStatementNode(indent, firstNode);
 }

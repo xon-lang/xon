@@ -18,5 +18,5 @@ export const a: User = {
 }
 
 if ((a.age)) {
-  console.log(a.fn(a.age + 0.5));
+  console.log(a.fn(a.age + 0.5))
 }

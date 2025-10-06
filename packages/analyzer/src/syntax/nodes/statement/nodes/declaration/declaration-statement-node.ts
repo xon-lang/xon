@@ -7,12 +7,11 @@ import {
   IdNode,
   KeywordNode,
   newSyntaxNode,
-  Node,
   OperatorExpressionNode,
   semantifyDeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Boolean2, Integer, Nothing} from '#common';
+import {Boolean2, Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationStatementNode = StatementNode &
@@ -35,7 +34,6 @@ export function newDeclarationStatementNode(
   parameters?: GroupNode | Nothing,
   annotation?: OperatorExpressionNode | Nothing,
   assignment?: OperatorExpressionNode | Nothing,
-  errorNodes?: ArrayData<Node> | Nothing,
 ): DeclarationStatementNode {
   return newSyntaxNode<DeclarationStatementNode>({
     $: $DeclarationStatementNode(),
@@ -46,7 +44,6 @@ export function newDeclarationStatementNode(
     parameters,
     annotation,
     assignment,
-    errorNodes,
 
     semantify: semantifyDeclarationStatementNode,
     format(context: FormatterContext): void {},

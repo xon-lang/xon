@@ -1,10 +1,10 @@
 import {ReturnStatementNode} from '#analyzer';
 import {newText, Text} from '#common';
-import {translateTypescriptValue} from '#translator';
+import {translateTypescriptExpression} from '#translator';
 
 export function translateTypescriptReturnStatement(node: ReturnStatementNode): Text {
   if (node.expression) {
-    const expression = translateTypescriptValue(node.expression);
+    const expression = translateTypescriptExpression(node.expression);
 
     return newText(`return ${expression}`);
   }

@@ -26,10 +26,13 @@ export function parseImportStatementNode(
   const expression = nodes.first();
 
   if (is(expression, $StringNode()) || is(expression, $AsInfixNode())) {
-    return newImportStatementNode(indent, keyword, expression, nodes.slice(1));
+    context.extraNodes.addLastItems(nodes.slice(1));
+
+    return newImportStatementNode(indent, keyword, expression);
   }
 
+  context.extraNodes.addLastItems(nodes);
   context.addError((expression ?? keyword).range, newText(`Expression expect`));
 
-  return newImportStatementNode(indent, keyword, nothing, nodes);
+  return newImportStatementNode(indent, keyword, nothing);
 }

@@ -25,10 +25,12 @@ export function parseIfStatementNode(
   const conditionExpressionNode = nodes.first();
 
   if (is(conditionExpressionNode, $ExpressionNode())) {
-    return newIfStatementNode(indentLevel, keywordNode, conditionExpressionNode, nodes.slice(1));
+    context.extraNodes.addLastItems(nodes.slice(1));
+    return newIfStatementNode(indentLevel, keywordNode, conditionExpressionNode);
   }
 
+  context.extraNodes.addLastItems(nodes);
   context.addError(keywordNode.range, newText(`Expect expression`));
 
-  return newIfStatementNode(indentLevel, keywordNode, nothing, nodes);
+  return newIfStatementNode(indentLevel, keywordNode, nothing);
 }

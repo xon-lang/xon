@@ -9,22 +9,19 @@ import {
   parseStatements,
   StringNode,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#common';
+import {Integer, newArrayData, newText, Text} from '#common';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Import statement with errors', () => {
   const text = newText('import 7 17 37');
-  const node = getImportStatementNode(text);
-
-  expect(node.errorNodes?.count()).toBe(3);
+  const node = getImportStatementNode(text, 3);
 });
 
 test('Import statement without errors', () => {
   const text = newText('import "@xon/core"');
-  const node = getImportStatementNode(text);
+  const node = getImportStatementNode(text, 0);
 
-  expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $StringNode())).toBe(true);
   expect((node.expression as StringNode).content?.text.toNativeString()).toBe('@xon/core');
 });
@@ -38,18 +35,18 @@ test('Import statement with body', () => {
   const context = newAnalyzerContext(source);
   const {statements} = parseStatements(context);
 
+  expect(context.extraNodes.count()).toBe(0);
   expect(statements.count()).toBe(1);
   expect(is(statements.first(), $ImportStatementNode())).toBe(true);
 
   const node = statements.first() as ImportStatementNode;
 
-  expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $StringNode())).toBe(true);
   expect((node.expression as StringNode).content?.text.toNativeString()).toBe('abc');
   expect(node.body?.children.count()).toBe(2);
 });
 
-function getImportStatementNode(text: Text): ImportStatementNode {
+function getImportStatementNode(text: Text, extraNodesCount: Integer): ImportStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
@@ -57,6 +54,7 @@ function getImportStatementNode(text: Text): ImportStatementNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $ImportStatementNode())).toBe(true);
+  expect(context.extraNodes.count()).toBe(extraNodesCount);
 
   return node;
 }

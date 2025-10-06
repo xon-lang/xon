@@ -34,7 +34,7 @@ export function newNominalTypeDeclarationSemantic(
     name,
     parameters,
     extendsType,
-    scope: scope,
+scope,
     documentation,
 
     // getType(): TypeSemantic | Nothing {

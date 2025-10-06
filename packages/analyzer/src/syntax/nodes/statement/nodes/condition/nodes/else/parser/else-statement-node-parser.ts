@@ -13,5 +13,7 @@ export function parseElseStatementNode(
     return nothing;
   }
 
-  return newElseStatementNode(indentLevel, keywordNode, nodes.slice(1));
+  context.extraNodes.addLastItems(nodes.slice(1));
+
+  return newElseStatementNode(indentLevel, keywordNode);
 }

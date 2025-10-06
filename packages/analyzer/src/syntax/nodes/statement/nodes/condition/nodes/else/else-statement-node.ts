@@ -5,11 +5,10 @@ import {
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
-  Node,
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing} from '#common';
+import {Integer} from '#common';
 import {Brand} from '#typing';
 
 export type ElseStatementNode = StatementNode &
@@ -20,16 +19,11 @@ export type ElseStatementNode = StatementNode &
 export const $ElseStatementNode = () =>
   $AnalyzerType<ElseStatementNode>('ElseStatementNode', $StatementNode());
 
-export function newElseStatementNode(
-  indent: Integer,
-  keyword: ElseKeywordNode,
-  errorNodes?: ArrayData<Node> | Nothing,
-): ElseStatementNode {
+export function newElseStatementNode(indent: Integer, keyword: ElseKeywordNode): ElseStatementNode {
   return newSyntaxNode<ElseStatementNode>({
     $: $ElseStatementNode(),
     indent,
     keyword,
-    errorNodes,
 
     semantify(context: SemanticContext): void {},
     format(context: FormatterContext): void {},

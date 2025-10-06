@@ -1,15 +1,5 @@
 import {$AnalyzerType, FormatterContext, HighlightContext, Semantic, SemanticContext} from '#analyzer';
-import {
-  $ArrayData,
-  ArrayData,
-  Boolean2,
-  newArrayData,
-  newTextRange,
-  nothing,
-  Nothing,
-  Text,
-  TextRange,
-} from '#common';
+import {$ArrayData, ArrayData, Boolean2, newArrayData, newTextRange, Nothing, Text, TextRange} from '#common';
 import {Brand, is, Model} from '#typing';
 
 export type Node = Model &
@@ -60,7 +50,6 @@ export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'rang
     children,
     ...params,
   } as T;
-
 
   children.forEach((x) => (x.parent = node));
 

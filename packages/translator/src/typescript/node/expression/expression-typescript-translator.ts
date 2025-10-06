@@ -4,6 +4,7 @@ import {
   $CharacterNode,
   $FloatNode,
   $IdNode,
+  $IdValueSemantic,
   $InfixNode,
   $IntegerNode,
   $InvokeNode,
@@ -16,11 +17,11 @@ import {
   ExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {Boolean2, newText, Text} from '#common';
 import {translateTypescriptAttributes, translateTypescriptStatement} from '#translator';
 import {is} from '#typing';
 
-export function translateTypescriptValue(node: Node): Text {
+export function translateTypescriptExpression(node: Node, isType: Boolean2): Text {
   if (is(node, $IntegerNode())) {
     return node.contentNode.text;
   }
@@ -58,22 +59,26 @@ export function translateTypescriptValue(node: Node): Text {
   }
 
   if (is(node, $IdNode())) {
+    if (is(node.semantic, $IdValueSemantic())) {
+      return newText(`typeof ${node.text}`);
+    }
+
     return typeMapping(node.text);
   }
 
   if (is(node, $MemberNode())) {
-    const instance = translateTypescriptValue(node.instance);
+    const instance = translateTypescriptExpression(node.instance, isType);
     const id = node.id?.text ?? newText('/* error member id */');
 
     return newText(`${instance}.${id}`);
   }
 
   if (is(node, $InvokeNode())) {
-    const instance = translateTypescriptValue(node.instance);
+    const instance = translateTypescriptExpression(node.instance, isType);
     const parameters = newText(
       node.group.items.map((x) =>
         x.statement
-          ? translateTypescriptValue((x.statement as ExpressionStatementNode).expression)
+          ? translateTypescriptExpression((x.statement as ExpressionStatementNode).expression, isType)
           : newText(),
       ),
       newText(', '),
@@ -88,7 +93,7 @@ export function translateTypescriptValue(node: Node): Text {
     }
 
     const expression = (node.items.at(0)?.statement as ExpressionStatementNode).expression;
-    const translatedExpression = translateTypescriptValue(expression);
+    const translatedExpression = translateTypescriptExpression(expression, isType);
 
     return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
   }
@@ -102,7 +107,9 @@ export function translateTypescriptValue(node: Node): Text {
 
   if (is(node, $BracketGroupNode())) {
     const items = node.items.map((x) =>
-      x.statement ? translateTypescriptValue((x.statement as ExpressionStatementNode).expression) : newText(),
+      x.statement
+        ? translateTypescriptExpression((x.statement as ExpressionStatementNode).expression, isType)
+        : newText(),
     );
     const text = newText(items, newText(', '));
 
@@ -114,15 +121,14 @@ export function translateTypescriptValue(node: Node): Text {
       return newText('/* error prefix */');
     }
 
-    const value = translateTypescriptValue(node.expression);
+    const value = translateTypescriptExpression(node.expression, isType);
 
     return newText(`${node.operator.text}${value}`);
   }
 
   if (is(node, $InfixNode())) {
-    const left = translateTypescriptValue(node.left);
-    const right = translateTypescriptValue(node.right);
-    console.log(JSON.stringify(node.operator.range));
+    const left = translateTypescriptExpression(node.left, isType);
+    const right = translateTypescriptExpression(node.right, isType);
 
     return newText(`${left} ${node.operator.text} ${right}`);
   }
@@ -132,7 +138,7 @@ export function translateTypescriptValue(node: Node): Text {
       return newText('/* error postfix */');
     }
 
-    const value = translateTypescriptValue(node.value);
+    const value = translateTypescriptExpression(node.value, isType);
 
     return newText(`${value}${node.operator.text}`);
   }

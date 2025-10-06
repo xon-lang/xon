@@ -1,6 +1,7 @@
 export * from './package';
 export * from './src/json/json-translator';
 export * from './src/translator';
+export * from './src/typescript/node/expression/expression-typescript-translator';
 export * from './src/typescript/node/module/module-typescript-translate';
 export * from './src/typescript/node/statement/condition/condition-statement-typescript-translator';
 export * from './src/typescript/node/statement/declaration/attribute-typescript-translator';
@@ -11,6 +12,4 @@ export * from './src/typescript/node/statement/expression/expression-statement-t
 export * from './src/typescript/node/statement/import/import-statement-typescript-translator';
 export * from './src/typescript/node/statement/return/return-statement-typescript-translator';
 export * from './src/typescript/node/statement/statement-typescript-translate';
-export * from './src/typescript/node/type/type-typescript-translate';
-export * from './src/typescript/node/value/value-typescript-translator';
 export * from './src/typescript/typescript-translator';

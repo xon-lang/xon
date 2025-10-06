@@ -9,6 +9,7 @@ export type AnalyzerContext = Model &
     source: CharacterStream;
     diagnostic: DiagnosticService;
     hiddenNodes: ArrayData<Node>;
+    extraNodes: ArrayData<Node>;
 
     addError(range: TextRange, text: Text): void;
   };

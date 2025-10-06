@@ -1,11 +1,10 @@
-import {$AnalyzerType, $SyntaxNode, BodyNode, Node, SyntaxNode} from '#analyzer';
-import {ArrayData, Integer, Nothing} from '#common';
+import {$AnalyzerType, $SyntaxNode, BodyNode, SyntaxNode} from '#analyzer';
+import {Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type StatementNode = SyntaxNode &
   Brand<'Analyzer.StatementNode'> & {
     indent: Integer;
-    errorNodes?: ArrayData<Node> | Nothing;
     parent?: BodyNode | Nothing;
     body?: BodyNode | Nothing;
   };
@@ -14,12 +13,10 @@ export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode'
 
 // export function newStatementNode(
 //   indentLevel: Integer,
-//   errorNodes: ArrayData<Node> | Nothing,
 // ): StatementNode {
 //   const node = newSyntaxNode<StatementNode>({
 //     $: $StatementNode(),
 //     indentLevel,
-//     errorNodes,
 //   });
 
 //   return node;

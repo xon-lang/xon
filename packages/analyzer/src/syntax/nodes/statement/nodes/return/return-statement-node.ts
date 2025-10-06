@@ -9,7 +9,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing} from '#common';
+import {Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type ReturnStatementNode = StatementNode &
@@ -25,14 +25,12 @@ export function newReturnStatementNode(
   indent: Integer,
   keyword: ReturnKeywordNode,
   expression?: Node | Nothing,
-  errorNodes?: ArrayData<Node> | Nothing,
 ): ReturnStatementNode {
   return newSyntaxNode<ReturnStatementNode>({
     $: $ReturnStatementNode(),
     indent,
     keyword,
     expression,
-    errorNodes,
 
     semantify(context: SemanticContext): void {},
     format(context: FormatterContext): void {},

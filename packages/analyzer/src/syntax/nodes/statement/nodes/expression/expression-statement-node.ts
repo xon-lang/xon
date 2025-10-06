@@ -4,12 +4,11 @@ import {
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
-  Node,
   semantifyExpressionStatementNode,
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing} from '#common';
+import {Integer} from '#common';
 import {Brand} from '#typing';
 
 export type ExpressionStatementNode = StatementNode &
@@ -21,16 +20,11 @@ export type ExpressionStatementNode = StatementNode &
 export const $ExpressionStatementNode = () =>
   $AnalyzerType<ExpressionStatementNode>('ExpressionStatementNode', $StatementNode());
 
-export function newExpressionStatementNode(
-  indent: Integer,
-  expression: SyntaxNode,
-  errorNodes?: ArrayData<Node> | Nothing,
-): ExpressionStatementNode {
+export function newExpressionStatementNode(indent: Integer, expression: SyntaxNode): ExpressionStatementNode {
   return newSyntaxNode<ExpressionStatementNode>({
     $: $ExpressionStatementNode(),
     indent,
     expression,
-    errorNodes,
 
     semantify: semantifyExpressionStatementNode,
     format(context: FormatterContext): void {},

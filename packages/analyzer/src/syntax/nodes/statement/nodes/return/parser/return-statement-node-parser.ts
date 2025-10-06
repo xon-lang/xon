@@ -25,8 +25,12 @@ export function parseReturnStatementNode(
   const expressionNode = nodes.first();
 
   if (is(expressionNode, $ExpressionNode())) {
-    return newReturnStatementNode(indent, keywordNode, expressionNode, nodes.slice(1));
+    context.extraNodes.addLastItems(nodes.slice(1));
+
+    return newReturnStatementNode(indent, keywordNode, expressionNode);
   }
 
-  return newReturnStatementNode(indent, keywordNode, nothing, nodes);
+  context.extraNodes.addLastItems(nodes);
+
+  return newReturnStatementNode(indent, keywordNode, nothing);
 }

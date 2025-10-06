@@ -1,4 +1,4 @@
-import {newAnalyzerContext, newCharacterStreamFromText, parseModule} from '#analyzer';
+import {newAnalyzerContext, newCharacterStreamFromText, newSemanticContext, parseModule} from '#analyzer';
 import {newText} from '#common';
 import {newTypescriptTranslator} from '#translator';
 import {readFile, writeFile} from 'node:fs/promises';
@@ -12,8 +12,12 @@ test('program 2 typescript translator', async () => {
 async function getConditionStatementNode(name: string): Promise<void> {
   const input = newText((await readFile(resolve(__dirname, name + '-input.xon'))).toString());
   const source = newCharacterStreamFromText(input);
-  const context = newAnalyzerContext(source);
-  const moduleNode = parseModule(context);
+  const syntaxContext = newAnalyzerContext(source);
+  const moduleNode = parseModule(syntaxContext);
+
+  const semanticContext = newSemanticContext(null, syntaxContext.diagnostic);
+  moduleNode.semantify(semanticContext);
+
   const translator = newTypescriptTranslator();
   const translated = translator.translateModule(moduleNode).toNativeString();
 

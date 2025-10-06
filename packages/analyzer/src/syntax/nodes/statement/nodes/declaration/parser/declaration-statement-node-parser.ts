@@ -30,13 +30,7 @@ export function parseDeclarationStatementNode(
     return nothing;
   }
 
-  return newDeclarationStatementNode(
-    indent,
-    keyword,
-    target,
-    parameters,
-    annotation,
-    assignment,
-    nodes.slice(1),
-  );
+  context.extraNodes.addLastItems(nodes.slice(1));
+
+  return newDeclarationStatementNode(indent, keyword, target, parameters, annotation, assignment);
 }

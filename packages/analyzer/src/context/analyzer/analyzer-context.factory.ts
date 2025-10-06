@@ -20,6 +20,7 @@ export function newAnalyzerContext(
     source,
     diagnostic,
     hiddenNodes: newArrayData($Node()),
+    extraNodes: newArrayData($Node()),
 
     addError(range: TextRange, text: Text): void {
       const diagnostic = newDiagnostic(

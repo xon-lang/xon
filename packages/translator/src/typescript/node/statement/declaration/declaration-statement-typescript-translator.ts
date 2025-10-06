@@ -2,7 +2,7 @@ import {$BraceGroupNode, $Node, DeclarationStatementNode, TYPE} from '#analyzer'
 import {newArrayData, newText, Text} from '#common';
 import {
   translateTypescriptAttributes,
-  translateTypescriptValue,
+  translateTypescriptExpression,
   translateTypescriptValueDeclaration,
   TypescriptDeclarationType,
 } from '#translator';
@@ -28,7 +28,7 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
       return newText(`export type ${node.id.text} = ${body};`);
     }
 
-    const assignment = translateTypescriptValue(expression);
+    const assignment = translateTypescriptExpression(expression, true);
 
     return newText(`export type ${node.id.text} = ${assignment};`);
   }

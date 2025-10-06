@@ -9,29 +9,27 @@ import {
   nonHiddenNodeGenerator,
   parseIfStatementNode,
 } from '#analyzer';
-import {ArrayData, newArrayData, newText, Text} from '#common';
+import {ArrayData, Integer, newArrayData, newText, Text} from '#common';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('If statement with errors', () => {
   const text = newText('if 7 17 37');
-  const node = getIfStatementNode(text);
+  const node = getIfStatementNode(text, 2);
 
-  expect(node.errorNodes?.count()).toBe(2);
   expect(is(node.expression, $IntegerNode())).toBe(true);
   expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
 test('If statement without errors', () => {
   const text = newText('if 7');
-  const node = getIfStatementNode(text);
+  const node = getIfStatementNode(text, 0);
 
-  expect(node.errorNodes?.count()).toBe(0);
   expect(is(node.expression, $IntegerNode())).toBe(true);
   expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
 });
 
-function getIfStatementNode(text: Text): IfStatementNode {
+function getIfStatementNode(text: Text, extraNodesCount: Integer): IfStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
@@ -39,6 +37,7 @@ function getIfStatementNode(text: Text): IfStatementNode {
 
   expect(node).toBeTruthy();
   expect(is(node, $IfStatementNode())).toBe(true);
+  expect(context.extraNodes.count()).toBe(extraNodesCount);
 
   return node;
 }

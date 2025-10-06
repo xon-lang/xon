@@ -7,9 +7,8 @@ import {
 } from '#analyzer';
 import {ArrayData, newText, Text} from '#common';
 import {
+  translateTypescriptExpression,
   translateTypescriptStatement,
-  translateTypescriptType,
-  translateTypescriptValue,
   TypescriptDeclarationType,
   TypescriptStatementSeparator,
 } from '#translator';
@@ -45,13 +44,13 @@ export function translateTypescriptValueDeclaration(
   let type = newText();
 
   if (node.annotation?.expression) {
-    type = newText(`: ${translateTypescriptType(node.annotation.expression)}`);
+    type = newText(`: ${translateTypescriptExpression(node.annotation.expression, true)}`);
   }
 
   let value = newText();
 
   if (node.assignment?.expression) {
-    value = newText(` = ${translateTypescriptValue(node.assignment.expression)}`);
+    value = newText(` = ${translateTypescriptExpression(node.assignment.expression, false)}`);
   }
 
   return newText(`${keyword}${node.id.text}${type}${value}`);
@@ -83,14 +82,14 @@ function translateToFunction(
   let type = newText();
 
   if (node.annotation?.expression) {
-    type = newText(`: ${translateTypescriptType(node.annotation.expression)}`);
+    type = newText(`: ${translateTypescriptExpression(node.annotation.expression, true)}`);
   }
 
   if (node.assignment?.expression) {
     const value = newText(
       ` = ${node.parameters.open.text}${parameters}${
         node.parameters.close?.text ?? ''
-      }${type} => ${translateTypescriptType(node.assignment.expression)}`,
+      }${type} => ${translateTypescriptExpression(node.assignment.expression, false)}`,
     );
 
     return newText(`${keyword}${node.id.text}${value}`);

@@ -4,11 +4,10 @@ import {
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
-  Node,
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing} from '#common';
+import {Integer} from '#common';
 import {Brand} from '#typing';
 
 export type UnknownStatementNode = StatementNode & Brand<'Analyzer.UnknownStatementNode'> & {};
@@ -16,14 +15,10 @@ export type UnknownStatementNode = StatementNode & Brand<'Analyzer.UnknownStatem
 export const $UnknownStatementNode = () =>
   $AnalyzerType<UnknownStatementNode>('UnknownStatementNode', $StatementNode());
 
-export function newUnknownStatementNode(
-  indent: Integer,
-  errorNodes?: ArrayData<Node> | Nothing,
-): UnknownStatementNode {
+export function newUnknownStatementNode(indent: Integer): UnknownStatementNode {
   return newSyntaxNode<UnknownStatementNode>({
     $: $UnknownStatementNode(),
     indent,
-    errorNodes,
 
     semantify(context: SemanticContext): void {},
     format(context: FormatterContext): void {},

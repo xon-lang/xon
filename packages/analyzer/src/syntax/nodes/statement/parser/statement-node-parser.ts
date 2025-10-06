@@ -99,7 +99,8 @@ function handleStatement(
   statement = statementParsers().firstMap((parse) => parse(context, indent, nodes, parent));
 
   if (!statement) {
-    statement = newUnknownStatementNode(indent, nodes);
+    context.extraNodes.addLastItems(nodes);
+    statement = newUnknownStatementNode(indent);
     context.addError(statement.range, newText(`Unknown syntax expression`));
   }
 

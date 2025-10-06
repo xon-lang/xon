@@ -1,9 +1,9 @@
 import {ExpressionStatementNode} from '#analyzer';
 import {newText, Text} from '#common';
-import {translateTypescriptValue} from '#translator';
+import {translateTypescriptExpression} from '#translator';
 
 export function translateTypescriptExpressionStatement(node: ExpressionStatementNode): Text {
-  const expression = translateTypescriptValue(node.expression);
+  const expression = translateTypescriptExpression(node.expression, false);
 
   return newText(`${expression}`);
 }
