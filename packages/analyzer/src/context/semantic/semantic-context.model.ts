@@ -18,6 +18,7 @@ export type SemanticContext = Model &
 
     literal: {
       stringDeclaration: DeclarationSemantic;
+      arrayDeclaration: DeclarationSemantic;
     };
 
     pushScope(isType?: Boolean2): void;

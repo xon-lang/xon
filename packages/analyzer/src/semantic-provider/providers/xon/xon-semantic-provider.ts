@@ -5,7 +5,7 @@ import {
   $SemanticProvider,
   newAnalyzerContext,
   newCharacterStreamFromText,
-  newObjectTypeSemantic,
+  newObjectSemantic,
   newSemanticContext,
   newSemanticScope,
   parseStatements,
@@ -57,7 +57,7 @@ function getSemanticFromText(uri: Uri, text: Text): Semantic {
     }
   }
 
-  return newObjectTypeSemantic(semanticScope);
+  return newObjectSemantic(semanticScope);
 }
 
 function resolveFullUri(contextUri: Uri, importUri: Uri): Uri {

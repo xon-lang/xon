@@ -2,7 +2,7 @@ import {
   $AsInfixNode,
   $ExpressionStatementNode,
   $IdNode,
-  $ObjectTypeSemantic,
+  $ObjectSemantic,
   $StringNode,
   BodyNode,
   ImportSemantic,
@@ -51,7 +51,7 @@ function semantifyImportPath(node: StringNode, context: SemanticContext): Import
 }
 
 function semantifyBodyNode(context: SemanticContext, node: BodyNode, importSemantic: ImportSemantic): void {
-  if (!is(importSemantic.providedSemantic, $ObjectTypeSemantic())) {
+  if (!is(importSemantic.providedSemantic, $ObjectSemantic())) {
     return;
   }
 

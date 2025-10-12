@@ -5,13 +5,13 @@ import {
   parseStatements,
 } from '#analyzer';
 import {newText, Text} from '#common';
-import {translateTypescriptTypeDeclarationStatement} from '#translator';
+import {translateTypescriptDeclarationStatement} from '#translator';
 import {expect, test} from 'vitest';
 
 test('Nominal type statement', () => {
   const text = newText('type A');
   const node = getDeclarationStatementNode(text);
-  const translated = translateTypescriptTypeDeclarationStatement(node);
+  const translated = translateTypescriptDeclarationStatement(node);
 
   expect(translated.toNativeString()).toBe('type A = {}');
 });

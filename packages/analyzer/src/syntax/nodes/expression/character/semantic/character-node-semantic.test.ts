@@ -1,8 +1,8 @@
 import {
   $CharacterNode,
-  $CharacterTypeSemantic,
+  $CharacterSemantic,
   CharacterNode,
-  CharacterTypeSemantic,
+  CharacterSemantic,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
@@ -16,8 +16,8 @@ test('Character node semantics', () => {
   const text = newText("'A'");
   const node = getCharacterNode(text);
 
-  expect(is(node.semantic, $CharacterTypeSemantic())).toBe(true);
-  expect((node.semantic as CharacterTypeSemantic).value.toNativeString()).toBe('A');
+  expect(is(node.semantic, $CharacterSemantic())).toBe(true);
+  expect((node.semantic as CharacterSemantic).value.toNativeString()).toBe('A');
 });
 
 function getCharacterNode(text: Text): CharacterNode {

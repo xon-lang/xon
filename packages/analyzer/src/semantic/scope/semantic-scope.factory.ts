@@ -15,6 +15,7 @@ import {is} from '#typing';
 export function newSemanticScope(
   declarations?: Dictionary<Text, ArrayData<DeclarationSemantic>> | ArrayData<DeclarationSemantic> | Nothing,
   parent?: SemanticScope | Nothing,
+  // todo make Boolean only
   isTypeScope?: Boolean2 | Nothing,
 ): SemanticScope {
   let _declarations: Dictionary<Text, ArrayData<DeclarationSemantic>> | Nothing;

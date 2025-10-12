@@ -1,13 +1,12 @@
 import {
-  $FunctionTypeSemantic,
+  $FunctionSemantic,
   $MemberNode,
-  $TypeSemantic,
   $UsageSemantic,
-  AttributeDeclarationSemantic,
+  DeclarationSemantic,
   MemberNode,
   Semantic,
 } from '#analyzer';
-import {ArrayData, nothing, Nothing} from '#common';
+import {ArrayData, Nothing} from '#common';
 import {is} from '#typing';
 import {newTextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
 import {
@@ -51,19 +50,11 @@ export class DotCompletionProvider implements CompletionItemProvider {
   }
 }
 
-function getAttributes(semantic: Semantic): ArrayData<AttributeDeclarationSemantic> | Nothing {
-  if (is(semantic, $TypeSemantic())) {
-    return semantic.scope?.all();
-  }
-
-  // if (is(semantic, $ValueSemantic()) && semantic.type) {
-  //   return semantic.type.attributes().all();
-  // }
-
-  return nothing;
+function getAttributes(semantic: Semantic): ArrayData<DeclarationSemantic> | Nothing {
+  return semantic.scope?.all();
 }
 
-function createCompletionItem(semantic: AttributeDeclarationSemantic): CompletionItem {
+function createCompletionItem(semantic: DeclarationSemantic): CompletionItem {
   const item = new CompletionItem(semantic.name.toNativeString(), getCompletionItemKind(semantic));
 
   if (is(semantic.type, $UsageSemantic()) && semantic.type.declaration) {
@@ -73,8 +64,8 @@ function createCompletionItem(semantic: AttributeDeclarationSemantic): Completio
   return item;
 }
 
-export function getCompletionItemKind(semantic: AttributeDeclarationSemantic): CompletionItemKind {
-  if (is(semantic.type, $FunctionTypeSemantic())) {
+export function getCompletionItemKind(semantic: DeclarationSemantic): CompletionItemKind {
+  if (is(semantic.type, $FunctionSemantic())) {
     return CompletionItemKind.Method;
   }
 

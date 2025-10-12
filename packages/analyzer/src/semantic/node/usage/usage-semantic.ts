@@ -1,4 +1,4 @@
-import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic, TypeDeclarationSemantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic} from '#analyzer';
 import {Boolean2, Nothing, Text, TextReference} from '#common';
 import {Brand} from '#typing';
 
@@ -16,7 +16,7 @@ export function newUsageSemantic(
   isType: Boolean2,
   reference: TextReference,
   name: Text,
-  declaration?: TypeDeclarationSemantic | Nothing,
+  declaration?: DeclarationSemantic | Nothing,
 ): UsageSemantic {
   const usage: UsageSemantic = {
     $: $UsageSemantic(),

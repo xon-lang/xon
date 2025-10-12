@@ -1,12 +1,13 @@
 import {
   $AnalyzerType,
   $SemanticProvider,
-  newAttributeDeclarationSemantic,
-  newIntegerTypeSemantic,
-  newObjectTypeSemantic,
+  DeclarationType,
+  newDeclarationSemantic,
+  newIntegerSemantic,
+  newObjectSemantic,
   newSemanticScope,
   newStringSemantic,
-  ObjectTypeSemantic,
+  ObjectSemantic,
   Semantic,
   SemanticProvider,
 } from '#analyzer';
@@ -84,7 +85,7 @@ function parseJsonTree(uri: Uri, tree: Json5Context): Semantic | Nothing {
   return nothing;
 }
 
-function parseJsonObject(uri: Uri, object: ObjContext): ObjectTypeSemantic {
+function parseJsonObject(uri: Uri, object: ObjContext): ObjectSemantic {
   const scope = newSemanticScope();
 
   for (const pair of object.pair_list()) {
@@ -104,27 +105,30 @@ function parseJsonObject(uri: Uri, object: ObjContext): ObjectTypeSemantic {
     const range = antrlRangeToXonRange(key);
     const reference = newTextReference(uri, range);
 
-    const declaration = newAttributeDeclarationSemantic(
+    const declaration = newDeclarationSemantic(
+      false,
+      DeclarationType.Attribute,
       reference,
       nothing,
       newText(key.getText().replace(/^\"/, '').replace(/\"$/, '')),
-      valueType,
+      // todo uncomment it
+      // valueType,
     );
 
     scope.add(declaration);
   }
 
-  return newObjectTypeSemantic(scope);
+  return newObjectSemantic(scope);
 }
 
 function getValueType(valueContext: ValueContext): Semantic | Nothing {
   if (valueContext.STRING()) {
-    return newStringSemantic(newText(valueContext.getText().replace(/^\"/, '').replace(/\"$/, '')));
+    return newStringSemantic(true, newText(valueContext.getText().replace(/^\"/, '').replace(/\"$/, '')));
   }
 
   // todo use different semantics for each type of number (+1.e2, 1234, 1234.5, -.2e3, 0x12345678, Infinity, NaN, ...)
   if (valueContext.number_()) {
-    return newIntegerTypeSemantic(parseFloat(valueContext.number_().getText()));
+    return newIntegerSemantic(parseFloat(valueContext.number_().getText()));
   }
 
   return null;

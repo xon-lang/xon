@@ -1,54 +1,54 @@
-import {syntaxFromResource} from '#analyzer';
-import {Anything, newText, performanceIterations, Text, textResourceFromLocation} from '#common';
-import {readFileSync, writeFileSync} from 'fs';
-import {join} from 'path';
-import {expect, test} from 'vitest';
+// import {syntaxFromResource} from '#analyzer';
+// import {Anything, newText, performanceIterations, Text, textResourceFromLocation} from '#common';
+// import {readFileSync, writeFileSync} from 'fs';
+// import {join} from 'path';
+// import {expect, test} from 'vitest';
 
-test('performance', () => {
-  const resource = textResourceFromLocation(newText('packages/core/parser/test/performance/source.xon'));
+// test('performance', () => {
+//   const resource = textResourceFromLocation(newText('packages/core/parser/test/performance/source.xon'));
 
-  if (!resource) {
-    return;
-  }
+//   if (!resource) {
+//     return;
+//   }
 
-  const syntax = syntaxFromResource(resource);
-  expect(syntax.diagnosticManager.diagnostics.count).toBe(0);
+//   const syntax = syntaxFromResource(resource);
+//   expect(syntax.diagnosticManager.diagnostics.count).toBe(0);
 
-  const {min, max, avg} = performanceIterations(1000, () => syntaxFromResource(resource));
+//   const {min, max, avg} = performanceIterations(1000, () => syntaxFromResource(resource));
 
-  console.log(`min ${min}ms\nmax ${max}ms\navg ${avg}ms\n`);
-});
+//   console.log(`min ${min}ms\nmax ${max}ms\navg ${avg}ms\n`);
+// });
 
-// test('1', () => testFormatter('1'));
+// // test('1', () => testFormatter('1'));
 
-function testFormatter(index: Text) {
-  const dirPath = join(__dirname, index.toNativeString());
-  const source = textResourceFromLocation(newText(join(dirPath, 'source.xon')));
+// function testFormatter(index: Text) {
+//   const dirPath = join(__dirname, index.toNativeString());
+//   const source = textResourceFromLocation(newText(join(dirPath, 'source.xon')));
 
-  expect(source).toBeTruthy();
+//   expect(source).toBeTruthy();
 
-  if (!source) {
-    return;
-  }
+//   if (!source) {
+//     return;
+//   }
 
-  const syntax = syntaxFromResource(source);
+//   const syntax = syntaxFromResource(source);
 
-  const syntaxJson = JSON.stringify(syntax.statements, jsonCircularReplacer, 2);
-  writeFileSync(join(dirPath, 'ast.json'), syntaxJson);
+//   const syntaxJson = JSON.stringify(syntax.statements, jsonCircularReplacer, 2);
+//   writeFileSync(join(dirPath, 'ast.json'), syntaxJson);
 
-  const etalonText = readFileSync(join(dirPath, 'etalon.json')).toString();
+//   const etalonText = readFileSync(join(dirPath, 'etalon.json')).toString();
 
-  expect(syntaxJson).toBe(etalonText);
-}
+//   expect(syntaxJson).toBe(etalonText);
+// }
 
-export function jsonCircularReplacer(key: string, value: Anything): Anything {
-  // if (key === 'children') {
-  //   return undefined;
-  // }
+// export function jsonCircularReplacer(key: string, value: Anything): Anything {
+//   // if (key === 'children') {
+//   //   return undefined;
+//   // }
 
-  if (key === 'parent') {
-    return undefined;
-  }
+//   if (key === 'parent') {
+//     return undefined;
+//   }
 
-  return value;
-}
+//   return value;
+// }

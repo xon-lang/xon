@@ -1,14 +1,14 @@
 import {
   AnalyzerDiagnostic,
   HighlightToken,
+  ModuleNode,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newDiagnosticService,
   newHighlightContext,
   newSemanticContext,
   Node,
-  parseStatements,
-  StatementNode,
+  parseModule,
 } from '#analyzer';
 import {ArrayData, newText, newUri, nothing, Nothing, TextPosition, Uri} from '#common';
 import {Brand, Model} from '#typing';
@@ -18,7 +18,7 @@ import {OutputChannel, TextDocument} from 'vscode';
 export type TextDocumentAnalyzer = Model &
   Brand<'Analyzer.TextDocumentAnalyzer'> & {
     documentUri: Uri;
-    statements: ArrayData<StatementNode>;
+    module: ModuleNode;
 
     findClosestNode<T extends Node = Node>(
       predicate: (node: Node) => node is T,
@@ -40,11 +40,11 @@ export function newTextDocumentAnalyzer(
   const source = newCharacterStreamFromText(text);
   const diagnosticService = newDiagnosticService();
   const context = newAnalyzerContext(source, diagnosticService);
-  const {statements} = parseStatements(context);
+  const module = parseModule(context);
 
   const semanticContext = newSemanticContext(uri, diagnosticService);
 
-  for (const statement of statements) {
+  for (const statement of module.children) {
     statement.semantify && statement.semantify(semanticContext);
   }
 
@@ -53,7 +53,7 @@ export function newTextDocumentAnalyzer(
   return {
     $: $TextDocumentAnalyzer(),
     documentUri: newUri(newText(document.uri.fsPath)),
-    statements,
+    module,
 
     findClosestNode<T extends Node = Node>(
       predicate: (node: Node) => node is T,
@@ -70,13 +70,13 @@ export function newTextDocumentAnalyzer(
 
     findNode(position: TextPosition): Node | Nothing {
       // todo use body node
-      return this.statements.firstMap((x) => findNode(x, position));
+      return this.module.children.firstMap((x) => findNode(x, position));
     },
 
     getHighlights(): ArrayData<HighlightToken> {
       const highlightContext = newHighlightContext();
 
-      for (const statement of this.statements) {
+      for (const statement of this.module.children) {
         statement.highlight && statement.highlight(highlightContext);
       }
 

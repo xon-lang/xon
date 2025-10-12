@@ -1,4 +1,4 @@
-import {CharacterNode, newCharacterTypeSemantic, SemanticContext} from '#analyzer';
+import {CharacterNode, newCharacterSemantic, SemanticContext} from '#analyzer';
 
 export function semantifyCharacterNode(this: CharacterNode, context: SemanticContext): void {
   const character = this.content?.text.first();
@@ -7,5 +7,5 @@ export function semantifyCharacterNode(this: CharacterNode, context: SemanticCon
     return;
   }
 
-  this.semantic = newCharacterTypeSemantic(character);
+  this.semantic = newCharacterSemantic(character);
 }

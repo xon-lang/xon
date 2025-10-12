@@ -1,11 +1,4 @@
-import {
-  $TypeSemantic,
-  $ValueDeclarationSemantic,
-  MemberNode,
-  newUsageSemantic,
-  SemanticContext,
-} from '#analyzer';
-import {is} from '#typing';
+import {MemberNode, newUsageSemantic, SemanticContext} from '#analyzer';
 
 export function semantifyMemberNode(this: MemberNode, context: SemanticContext): void {
   // todo remove all 'semantify' checks for all nodes
@@ -17,7 +10,7 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
     return;
   }
 
-  if (!is(this.instance.semantic, $TypeSemantic())) {
+  if (!this.instance.semantic) {
     return;
   }
 
@@ -29,9 +22,7 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
   }
 
   const reference = context.getReference(this.id.range);
-  this.id.semantic = newUsageSemantic(reference, this.id.text, attribute);
-
-  if (is(attribute, $ValueDeclarationSemantic())) {
-    this.semantic = attribute.type;
-  }
+  // todo fix isType: false
+  this.id.semantic = newUsageSemantic(false, reference, this.id.text, attribute);
+  this.semantic = this.id.semantic;
 }

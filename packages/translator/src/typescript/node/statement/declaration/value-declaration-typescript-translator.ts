@@ -24,7 +24,7 @@ export function translateTypescriptValueDeclaration(
     is(node, $ExpressionStatementNode()) &&
     is(node.expression, $IdNode())
   ) {
-    return newText(`${node.expression.text}`);
+    return newText(`${node.expression.text}: unknown`);
   }
 
   if (!is(node, $DeclarationStatementNode()) || !node.id) {
@@ -73,7 +73,7 @@ function translateToFunction(
 
   const parameters = newText(
     node.parameters.items
-      .map((x) => x.statements.first())
+      .map((x) => x.statement)
       .map((x) =>
         x ? translateTypescriptValueDeclaration(x, TypescriptDeclarationType.Parameter) : newText(),
       ),

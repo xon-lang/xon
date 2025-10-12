@@ -107,8 +107,8 @@ function getImportDeclarationCompletions(
     return nothing;
   }
 
-  return importNode?.semantic?.providedSemantic
-    ?.keys()
-    .map((key) => new CompletionItem(key.toNativeString(), CompletionItemKind.Field))
+  return importNode?.semantic?.providedSemantic?.scope
+    ?.all()
+    ?.map((x) => new CompletionItem(x.name.toNativeString(), CompletionItemKind.Field))
     .toNativeArray();
 }

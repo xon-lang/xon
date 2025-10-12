@@ -59,8 +59,8 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   }
 
   if (is(node, $IdNode())) {
-    if (is(node.semantic, $UsageSemantic()) && !node.semantic.declaration?.isType) {
-      return newText(`typeof ${node.text}`);
+    if (isType && is(node.semantic, $UsageSemantic()) && !node.semantic.declaration?.isType) {
+      return newText(`typeof ${node.text} ${node.semantic.declaration?.isType}`);
     }
 
     return typeMapping(node.text);

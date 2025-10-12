@@ -1,55 +1,23 @@
-import {
-  $AnalyzerType,
-  $SetTypeSemantic,
-  $TypeSemantic,
-  $UsageSemantic,
-  isInSet,
-  NominalTypeDeclarationSemantic,
-  Semantic,
-} from '#analyzer';
-import {Boolean2, Character, Nothing} from '#common';
-import {Brand, is} from '#typing';
+import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic} from '#analyzer';
+import {Character, Nothing} from '#common';
+import {Brand} from '#typing';
 
-export type CharacterTypeSemantic = Semantic &
+export type CharacterSemantic = Semantic &
   Brand<'Analyzer.CharacterTypeSemantic'> & {
     value: Character;
-    declaration?: NominalTypeDeclarationSemantic | Nothing;
+    declaration?: DeclarationSemantic | Nothing;
   };
 
-export const $CharacterTypeSemantic = () =>
-  $AnalyzerType<CharacterTypeSemantic>('CharacterTypeSemantic', $TypeSemantic());
+export const $CharacterSemantic = () =>
+  $AnalyzerType<CharacterSemantic>('CharacterTypeSemantic', $Semantic());
 
-export function newCharacterTypeSemantic(
+export function newCharacterSemantic(
   value: Character,
-  declaration?: NominalTypeDeclarationSemantic | Nothing,
-): CharacterTypeSemantic {
+  declaration?: DeclarationSemantic | Nothing,
+): CharacterSemantic {
   return {
-    $: $CharacterTypeSemantic(),
+    $: $CharacterSemantic(),
     declaration,
     value,
-
-    is(other: Semantic): Boolean2 {
-      if (is(other, $SetTypeSemantic())) {
-        return isInSet(this, other);
-      }
-
-      if (this.equals(other)) {
-        return true;
-      }
-
-      if (is(other, $UsageSemantic()) && other.declaration) {
-        // return this.declaration.equals(other.declaration) || (this.declaration.type?.is(other) ?? false);
-      }
-
-      return false;
-    },
-
-    equals(other: Semantic): Boolean2 {
-      if (is(other, $CharacterTypeSemantic())) {
-        return this.value === other.value;
-      }
-
-      return false;
-    },
   };
 }

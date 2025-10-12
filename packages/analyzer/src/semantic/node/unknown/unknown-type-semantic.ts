@@ -1,21 +1,12 @@
-import {$AnalyzerType, $TypeSemantic, Semantic} from '#analyzer';
+import {$AnalyzerType, $Semantic, Semantic} from '#analyzer';
 import {Brand} from '#typing';
 
-export type UnknownTypeSemantic = Semantic & Brand<'Analyzer.UnknownTypeSemantic'>;
+export type UnknownSemantic = Semantic & Brand<'Analyzer.UnknownSemantic'>;
 
-export const $UnknownTypeSemantic = () =>
-  $AnalyzerType<UnknownTypeSemantic>('UnknownTypeSemantic', $TypeSemantic());
+export const $UnknownSemantic = () => $AnalyzerType<UnknownSemantic>('UnknownSemantic', $Semantic());
 
-export function newUnknownTypeSemantic(): UnknownTypeSemantic {
+export function newUnknownSemantic(): UnknownSemantic {
   return {
-    $: $UnknownTypeSemantic(),
-
-    equals(other) {
-      return false;
-    },
-
-    is(other) {
-      return false;
-    },
+    $: $UnknownSemantic(),
   };
 }

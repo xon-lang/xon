@@ -1,62 +1,17 @@
-import {
-  $AnalyzerType,
-  $NominalTypeDeclarationSemantic,
-  $TypeSemantic,
-  Node,
-  NominalTypeDeclarationSemantic,
-  Semantic,
-  SemanticAnalyzer,
-} from '#analyzer';
+import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic, SemanticContext} from '#analyzer';
 import {ArrayData, Nothing} from '#common';
 
-export type ArrayTypeSemantic = Semantic & {
-  declaration?: NominalTypeDeclarationSemantic | Nothing;
+export type ArraySemantic = Semantic & {
+  declaration?: DeclarationSemantic | Nothing;
   items: ArrayData<Semantic>;
 };
 
-export const $ArrayTypeSemantic = () =>
-  $AnalyzerType<ArrayTypeSemantic>('ArrayTypeSemantic', $TypeSemantic());
+export const $ArraySemantic = () => $AnalyzerType<ArraySemantic>('ArraySemantic', $Semantic());
 
-export function arrayTypeSemantic(
-  analyzer: SemanticAnalyzer,
-  nodeLink: Node,
-  items: ArrayData<Semantic>,
-): ArrayTypeSemantic {
+export function newArraySemantic(context: SemanticContext, items: ArrayData<Semantic>): ArraySemantic {
   return {
-    $: $ArrayTypeSemantic(),
-    nodeLink,
-    declaration: analyzer.declarationManager.find(
-      $NominalTypeDeclarationSemantic(),
-      analyzer.config.literalTypeNames.arrayTypeName,
-    ),
+    $: $ArraySemantic(),
+    declaration: context.literal.arrayDeclaration,
     items,
-
-    // is(other: Semantic): Boolean2 {
-    //   if (is(other, $SetTypeSemantic())) {
-    //     return isInSet(this, other);
-    //   }
-
-    //   if (this.equals(other)) {
-    //     return true;
-    //   }
-
-    //   if (is(other, $TypeDeclarationSemantic())) {
-    //     return this.declaration?.equals(other) || (this.declaration?.type?.is(other) ?? false);
-    //   }
-
-    //   return false;
-    // },
-
-    // equals(other: Semantic): Boolean2 {
-    //   if (is(other, $ArrayTypeSemantic())) {
-    //     return this.items === other.items;
-    //   }
-
-    //   return false;
-    // },
-
-    // scope(): SemanticScope {
-    //   throw new Error('Not implemented');
-    // },
   };
 }

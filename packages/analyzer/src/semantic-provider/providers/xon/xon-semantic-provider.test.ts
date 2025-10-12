@@ -1,4 +1,4 @@
-import {$ObjectTypeSemantic, newSemanticContext, newXonSemanticProvider, ObjectTypeSemantic} from '#analyzer';
+import {$ObjectSemantic, newXonSemanticProvider, ObjectSemantic} from '#analyzer';
 import {newText, newUri} from '#common';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
@@ -6,13 +6,9 @@ import {expect, test} from 'vitest';
 test('Xon semantic', async () => {
   const text = newText('type Point');
   const provider = newXonSemanticProvider();
-  const semantic = provider.provideSemantic(
-    newSemanticContext(),
-    newUri(newText()),
-    text,
-  ) as ObjectTypeSemantic;
+  const semantic = provider.provideSemantic(newUri(newText()), newUri(newText()), text) as ObjectSemantic;
 
-  expect(is(semantic, $ObjectTypeSemantic())).toBeTruthy();
+  expect(is(semantic, $ObjectSemantic())).toBeTruthy();
   expect(semantic.scope?.count()).toBe(1);
   expect(semantic.scope?.get(newText('Point'))?.first()?.name.toNativeString()).toBe('Point');
 });

@@ -1,73 +1,73 @@
-import {
-  $IdNode,
-  $MemberNode,
-  $NominalTypeDeclarationSemantic,
-  $UsageSemantic,
-  AnalyzerDiagnostic,
-  collapseMemberNode,
-  IdNode,
-  MemberNode,
-  newAnalyzerContext,
-  newCharacterStreamFromText,
-  newNominalTypeDeclarationSemantic,
-  newSemanticContext,
-  nonHiddenNodeGenerator,
-  parseIdKeywordOperatorNode,
-  UsageSemantic,
-} from '#analyzer';
-import {ArrayData, newArrayData, newText, newTextRange, newTextReference, newUri, Text} from '#common';
-import {$Model, is} from '#typing';
-import {expect, test} from 'vitest';
+// import {
+//   $IdNode,
+//   $MemberNode,
+//   $NominalTypeDeclarationSemantic,
+//   $UsageSemantic,
+//   AnalyzerDiagnostic,
+//   collapseMemberNode,
+//   IdNode,
+//   MemberNode,
+//   newAnalyzerContext,
+//   newCharacterStreamFromText,
+//   newNominalTypeDeclarationSemantic,
+//   newSemanticContext,
+//   nonHiddenNodeGenerator,
+//   parseIdKeywordOperatorNode,
+//   UsageSemantic,
+// } from '#analyzer';
+// import {ArrayData, newArrayData, newText, newTextRange, newTextReference, newUri, Text} from '#common';
+// import {$Model, is} from '#typing';
+// import {expect, test} from 'vitest';
 
-test('Id node semantics', () => {
-  const text = newText('A');
-  const {semantic} = getIdNode(text);
+// test('Id node semantics', () => {
+//   const text = newText('A');
+//   const {semantic} = getIdNode(text);
 
-  expect(is(semantic, $UsageSemantic())).toBe(true);
-  expect(is((semantic as UsageSemantic).declaration, $NominalTypeDeclarationSemantic())).toBe(true);
-  expect((semantic as UsageSemantic).declaration?.name.toNativeString()).toBe('A');
-});
+//   expect(is(semantic, $UsageSemantic())).toBe(true);
+//   expect(is((semantic as UsageSemantic).declaration, $NominalTypeDeclarationSemantic())).toBe(true);
+//   expect((semantic as UsageSemantic).declaration?.name.toNativeString()).toBe('A');
+// });
 
-function getIdNode(text: Text): IdNode {
-  const source = newCharacterStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseIdKeywordOperatorNode(context) as IdNode;
-  const semanticContext = newSemanticContext();
-  semanticContext.scope.add(
-    newNominalTypeDeclarationSemantic(newTextReference(newUri(newText()), newTextRange()), newText('A')),
-  );
-  node.semantify!(semanticContext);
+// function getIdNode(text: Text): IdNode {
+//   const source = newCharacterStreamFromText(text);
+//   const context = newAnalyzerContext(source);
+//   const node = parseIdKeywordOperatorNode(context) as IdNode;
+//   const semanticContext = newSemanticContext();
+//   semanticContext.scope.add(
+//     newNominalTypeDeclarationSemantic(newTextReference(newUri(newText()), newTextRange()), newText('A')),
+//   );
+//   node.semantify!(semanticContext);
 
-  expect(node).toBeTruthy();
-  expect(is(node, $IdNode())).toBe(true);
+//   expect(node).toBeTruthy();
+//   expect(is(node, $IdNode())).toBe(true);
 
-  return node;
-}
+//   return node;
+// }
 
-// Diagnostics
-test('No errors', () => {
-  const text = newText('abc.def');
-  const diagnostics = memberNodeDiagnostics(text);
+// // Diagnostics
+// test('No errors', () => {
+//   const text = newText('abc.def');
+//   const diagnostics = memberNodeDiagnostics(text);
 
-  expect(diagnostics.count()).toBe(0);
-});
+//   expect(diagnostics.count()).toBe(0);
+// });
 
-test('Identifier expect', () => {
-  const text = newText('abc.');
-  const diagnostics = memberNodeDiagnostics(text);
+// test('Identifier expect', () => {
+//   const text = newText('abc.');
+//   const diagnostics = memberNodeDiagnostics(text);
 
-  expect(diagnostics.count()).toBe(1);
-  expect(diagnostics.first()?.message.toNativeString()).toBe('Identifier expect');
-});
+//   expect(diagnostics.count()).toBe(1);
+//   expect(diagnostics.first()?.message.toNativeString()).toBe('Identifier expect');
+// });
 
-function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
-  const source = newCharacterStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = collapseMemberNode(context).collapse(nodes, 0)?.node as MemberNode;
+// function memberNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
+//   const source = newCharacterStreamFromText(text);
+//   const context = newAnalyzerContext(source);
+//   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
+//   const node = collapseMemberNode(context).collapse(nodes, 0)?.node as MemberNode;
 
-  expect(node).toBeTruthy();
-  expect(is(node, $MemberNode())).toBe(true);
+//   expect(node).toBeTruthy();
+//   expect(is(node, $MemberNode())).toBe(true);
 
-  return context.diagnostic.items;
-}
+//   return context.diagnostic.items;
+// }

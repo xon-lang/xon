@@ -4,7 +4,7 @@ import {Brand, Model} from '#typing';
 
 export type Semantic = Model &
   Brand<'Analyzer.Semantic'> & {
-    isType: Boolean2;
+    isType?: Boolean2;
     scope?: SemanticScope | Nothing;
 
     // equals(other: Semantic): Boolean2;
