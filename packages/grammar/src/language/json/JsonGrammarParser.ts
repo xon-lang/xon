@@ -1,4 +1,5 @@
-// Generated from packages/grammar/src/json/JsonGrammar.g4 by ANTLR 4.13.2
+// @ts-nocheck
+// Generated from packages/grammar/src/language/json/JsonGrammar.g4 by ANTLR 4.13.2
 // noinspection ES6UnusedImports,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 
 import {
