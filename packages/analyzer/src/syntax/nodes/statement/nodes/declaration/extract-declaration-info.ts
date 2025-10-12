@@ -35,7 +35,7 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
   if (is(node, $ValueNode())) {
     const {target, parameters, annotation} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, annotation: annotation, assignment: node.value};
+    return {target, parameters, annotation, assignment: node.value};
   }
 
   if (is(node, $LambdaNode())) {

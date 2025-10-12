@@ -11,14 +11,13 @@ import {
   semantifyDeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {Boolean2, Integer, Nothing} from '#common';
+import {Integer, Nothing} from '#common';
 import {Brand} from '#typing';
 
 export type DeclarationStatementNode = StatementNode &
   Brand<'Analyzer.DeclarationStatementNode'> & {
     keyword?: KeywordNode | Nothing;
     id: IdNode;
-    isMutable: Boolean2;
     parameters?: GroupNode | Nothing;
     annotation?: OperatorExpressionNode | Nothing;
     assignment?: OperatorExpressionNode | Nothing;
@@ -38,7 +37,6 @@ export function newDeclarationStatementNode(
   return newSyntaxNode<DeclarationStatementNode>({
     $: $DeclarationStatementNode(),
     indent,
-    isMutable: false,
     keyword,
     id,
     parameters,
