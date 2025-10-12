@@ -1,13 +1,13 @@
 import {
-  $IdTypeSemantic,
+  $UsageSemantic,
   $VariableValueDeclarationSemantic,
   DeclarationStatementNode,
-  IdTypeSemantic,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
   nonHiddenNodeGenerator,
   parseDeclarationStatementNode,
+  UsageSemantic,
   ValueDeclarationSemantic,
 } from '#analyzer';
 import {newArrayData, newText, Text} from '#common';
@@ -20,8 +20,8 @@ test('Value declaration', () => {
   const semantic = node.semantic as ValueDeclarationSemantic;
 
   expect(semantic.name.toNativeString()).toBe('a');
-  expect(is(semantic.type, $IdTypeSemantic())).toBe(true);
-  expect((semantic.type as IdTypeSemantic).name.toNativeString()).toBe('Number');
+  expect(is(semantic.type, $UsageSemantic())).toBe(true);
+  expect((semantic.type as UsageSemantic).name.toNativeString()).toBe('Number');
 });
 
 function getDeclarationStatementNode(text: Text): DeclarationStatementNode {

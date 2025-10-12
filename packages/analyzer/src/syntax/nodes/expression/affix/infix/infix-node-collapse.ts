@@ -11,7 +11,7 @@ import {
 import {ArrayData, Integer, nothing} from '#common';
 import {$Type, is} from '#typing';
 
-export function collapseInfixNode<T extends $Type<OperatorNode>, N extends $Type<InfixNode>>(
+export function collapseInfixNode<T extends $Type<OperatorNode>>(
   operatorType: T,
   construct: (left: ExpressionNode, operator: PlusOperatorNode, right: ExpressionNode) => InfixNode,
 ): NodeCollapseFn<InfixNode> {

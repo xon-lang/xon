@@ -1,8 +1,8 @@
 import {
   $FunctionTypeSemantic,
-  $IdTypeSemantic,
   $MemberNode,
   $TypeSemantic,
+  $UsageSemantic,
   AttributeDeclarationSemantic,
   MemberNode,
   Semantic,
@@ -66,7 +66,7 @@ function getAttributes(semantic: Semantic): ArrayData<AttributeDeclarationSemant
 function createCompletionItem(semantic: AttributeDeclarationSemantic): CompletionItem {
   const item = new CompletionItem(semantic.name.toNativeString(), getCompletionItemKind(semantic));
 
-  if (is(semantic.type, $IdTypeSemantic()) && semantic.type.declaration) {
+  if (is(semantic.type, $UsageSemantic()) && semantic.type.declaration) {
     item.detail = semantic.type.declaration.name.toNativeString();
   }
 

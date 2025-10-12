@@ -2,12 +2,12 @@ import {
   $AttributeDeclarationSemantic,
   $IntegerTypeSemantic,
   $ObjectTypeSemantic,
-  $StringTypeSemantic,
+  $StringSemantic,
   AttributeDeclarationSemantic,
   IntegerTypeSemantic,
   newSemanticContext,
   ObjectTypeSemantic,
-  StringTypeSemantic,
+  StringSemantic,
 } from '#analyzer';
 import {newText, newUri} from '#common';
 import {is} from '#typing';
@@ -42,8 +42,8 @@ test('Json file import', async () => {
 
   expect(is(widthProperty, $AttributeDeclarationSemantic())).toBe(true);
   expect(widthProperty.name.toNativeString()).toBe('width');
-  expect(is(widthProperty.type, $StringTypeSemantic())).toBe(true);
-  expect((widthProperty.type as StringTypeSemantic).value.toNativeString()).toBe('37px');
+  expect(is(widthProperty.type, $StringSemantic())).toBe(true);
+  expect((widthProperty.type as StringSemantic).value.toNativeString()).toBe('37px');
 
   const heightProperty = semantic.scope?.get(newText('height'))?.first() as AttributeDeclarationSemantic;
 

@@ -1,13 +1,13 @@
 $"abc = {1 + 1}"
 
 LogLevel = {
-  INFO = "info"
-  WARN = "warn"
-  ERROR = "error"
+  INFO = "info",
+  WARN = "warn",
+  ERROR = "error",
 }
 
 
-fn(level:...LogLevel): level
+fn(level:LogLevel): level
   return level
 
 

@@ -1,9 +1,12 @@
 import {
+  $LambdaNode,
   DeclarationStatementNode,
-  newVariableValueDeclarationSemantic,
+  DeclarationType,
+  newDeclarationSemantic,
   SemanticContext,
-  TypeSemantic,
 } from '#analyzer';
+import {nothing} from '#common';
+import {is} from '#typing';
 
 export function semantifyDeclarationStatementNode(
   this: DeclarationStatementNode,
@@ -21,14 +24,32 @@ export function semantifyDeclarationStatementNode(
     context.popScope();
   }
 
-  const semantic = newVariableValueDeclarationSemantic(
+  const declarationType = getDeclarationType(this);
+
+  const semantic = newDeclarationSemantic(
+    this.keyword?.text.toNativeString() === 'type',
+    declarationType,
     context.getReference(this.id.range),
+    nothing,
     this.id.text,
     // todo fix 'as TypeSemantic'
-    this.annotation?.expression?.semantic as TypeSemantic,
+    nothing,
+    this.annotation?.expression?.semantic?.scope,
   );
 
   context.scope.add(semantic);
   this.semantic = semantic;
   this.id.semantic = semantic;
+}
+
+function getDeclarationType(node: DeclarationStatementNode): DeclarationType {
+  if (node.keyword?.text.toNativeString() === 'type') {
+    return DeclarationType.Base;
+  }
+
+  if (is(node.parent, $LambdaNode())) {
+    return DeclarationType.Parameter;
+  }
+
+  return DeclarationType.Attribute;
 }

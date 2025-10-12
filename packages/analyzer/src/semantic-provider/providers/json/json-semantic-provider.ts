@@ -5,11 +5,10 @@ import {
   newIntegerTypeSemantic,
   newObjectTypeSemantic,
   newSemanticScope,
-  newStringTypeSemantic,
+  newStringSemantic,
   ObjectTypeSemantic,
   Semantic,
   SemanticProvider,
-  TypeSemantic,
 } from '#analyzer';
 import {newText, newTextFileResource, newTextReference, newUri, Nothing, nothing, Text, Uri} from '#common';
 import {
@@ -118,9 +117,9 @@ function parseJsonObject(uri: Uri, object: ObjContext): ObjectTypeSemantic {
   return newObjectTypeSemantic(scope);
 }
 
-function getValueType(valueContext: ValueContext): TypeSemantic | Nothing {
+function getValueType(valueContext: ValueContext): Semantic | Nothing {
   if (valueContext.STRING()) {
-    return newStringTypeSemantic(newText(valueContext.getText().replace(/^\"/, '').replace(/\"$/, '')));
+    return newStringSemantic(newText(valueContext.getText().replace(/^\"/, '').replace(/\"$/, '')));
   }
 
   // todo use different semantics for each type of number (+1.e2, 1234, 1234.5, -.2e3, 0x12345678, Infinity, NaN, ...)

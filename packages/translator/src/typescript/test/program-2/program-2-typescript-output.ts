@@ -1,9 +1,11 @@
 `abc = ${1 + 1}`;
 export const LogLevel = {
-  INFO = `info`,
+  INFO: `info`,
+  WARN: `warn`,
+  ERROR: `error`,
 }
 
-function fn(level): level {
+function fn(level: LogLevel): typeof level {
   return level;
 }
 
@@ -18,8 +20,8 @@ export type Result = {
 
 };
 
-processSomething;
-export const user: User = {
+typeof processSomething;
+export const user: typeof User = {
   id: 1,
   name: `Alice`,
 }

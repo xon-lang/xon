@@ -2,10 +2,11 @@ import {
   $SemanticContext,
   AnalyzerDiagnosticSeverity,
   AnalyzerDiagnosticType,
+  DeclarationType,
   DiagnosticService,
+  newDeclarationSemantic,
   newDiagnostic,
   newDiagnosticService,
-  newNominalTypeDeclarationSemantic,
   newSemanticProviderResolver,
   newSemanticScope,
   Semantic,
@@ -39,9 +40,14 @@ export function newSemanticContext(
     semanticProviderResolver: newSemanticProviderResolver(),
     literal: {
       // todo get declaration from source code ???
-      stringDeclaration: newNominalTypeDeclarationSemantic(
+      stringDeclaration: newDeclarationSemantic(
+        true,
+        DeclarationType.Base,
         newTextReference(sourceUri, newTextRange()),
+        nothing,
         newText('String'),
+        nothing,
+        nothing,
       ),
     },
 

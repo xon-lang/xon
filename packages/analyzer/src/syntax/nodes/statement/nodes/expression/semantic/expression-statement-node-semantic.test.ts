@@ -1,8 +1,8 @@
 import {
   $AttributeDeclarationSemantic,
-  $IdTypeSemantic,
   $MemberNode,
-  $StringTypeSemantic,
+  $StringSemantic,
+  $UsageSemantic,
   collapseMemberNode,
   MemberNode,
   newAnalyzerContext,
@@ -11,10 +11,10 @@ import {
   newObjectTypeSemantic,
   newSemanticContext,
   newSemanticScope,
-  newStringTypeSemantic,
+  newStringSemantic,
   newVariableValueDeclarationSemantic,
   nonHiddenNodeGenerator,
-  StringTypeSemantic,
+  StringSemantic,
 } from '#analyzer';
 import {newArrayData, newText, newTextRange, newTextReference, newUri, nothing, Text} from '#common';
 import {$Model, is} from '#typing';
@@ -24,11 +24,11 @@ test('Member node semantics', () => {
   const text = newText('user.name');
   const node = getMemberNode(text);
 
-  expect(is(node.instance.semantic, $IdTypeSemantic())).toBe(true);
+  expect(is(node.instance.semantic, $UsageSemantic())).toBe(true);
   expect(node.id?.semantic).toBeTruthy();
-  expect(is(node.id?.semantic, $IdTypeSemantic())).toBe(true);
-  expect(is(node.semantic, $StringTypeSemantic())).toBe(true);
-  expect((node.semantic as StringTypeSemantic).value.toNativeString()).toBe('John');
+  expect(is(node.id?.semantic, $UsageSemantic())).toBe(true);
+  expect(is(node.semantic, $StringSemantic())).toBe(true);
+  expect((node.semantic as StringSemantic).value.toNativeString()).toBe('John');
 });
 
 function getMemberNode(text: Text): MemberNode {
@@ -49,7 +49,7 @@ function getMemberNode(text: Text): MemberNode {
               newTextReference(newUri(newText('test')), newTextRange()),
               nothing,
               newText('name'),
-              newStringTypeSemantic(newText('John')),
+              newStringSemantic(newText('John')),
             ),
             newAttributeDeclarationSemantic(
               newTextReference(newUri(newText('test')), newTextRange()),

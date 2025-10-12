@@ -1,15 +1,7 @@
-import {
-  $AttributeDeclarationSemantic,
-  $FunctionTypeSemantic,
-  $IdTypeSemantic,
-  $NominalTypeDeclarationSemantic,
-  DeclarationSemantic,
-  TypeSemantic,
-} from '#analyzer';
-import {newText, Nothing, nothing, Text} from '#common';
-import {is} from '#typing';
+import {DeclarationSemantic, Semantic} from '#analyzer';
+import {Nothing, nothing, Text} from '#common';
 
-export function typeSemanticToString(semantic: TypeSemantic): Text | Nothing {
+export function typeSemanticToString(semantic: Semantic): Text | Nothing {
   // if (is(semantic, $IdTypeSemantic()) && semantic.declaration) {
   //   return semantic.declaration.name;
   // }

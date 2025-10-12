@@ -2,7 +2,7 @@ import {
   $TypeSemantic,
   $ValueDeclarationSemantic,
   MemberNode,
-  newIdTypeSemantic,
+  newUsageSemantic,
   SemanticContext,
 } from '#analyzer';
 import {is} from '#typing';
@@ -29,7 +29,7 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
   }
 
   const reference = context.getReference(this.id.range);
-  this.id.semantic = newIdTypeSemantic(reference, this.id.text, attribute);
+  this.id.semantic = newUsageSemantic(reference, this.id.text, attribute);
 
   if (is(attribute, $ValueDeclarationSemantic())) {
     this.semantic = attribute.type;

@@ -1,14 +1,14 @@
 import {
   $AttributeDeclarationSemantic,
-  $IdTypeSemantic,
   $NominalTypeDeclarationSemantic,
+  $UsageSemantic,
   $ValueDeclarationSemantic,
   AttributeDeclarationSemantic,
   createSemanticAnalyzer,
-  IdTypeSemantic,
   NominalTypeDeclarationSemantic,
   syntaxFromResource,
   TEST_SEMANTIC_CONFIG,
+  UsageSemantic,
 } from '#analyzer';
 import {newText, newTextResource, nothing} from '#common';
 import {expect, test} from 'vitest';
@@ -35,7 +35,7 @@ test('only a', () => {
   ) as AttributeDeclarationSemantic;
   expect(attributeP.$).toBe($AttributeDeclarationSemantic());
   expect(attributeP.name.toNativeString()).toBe('p');
-  expect((attributeP.type as IdTypeSemantic).declaration?.name.toNativeString()).toBe('A');
+  expect((attributeP.type as UsageSemantic).declaration?.name.toNativeString()).toBe('A');
 });
 
 test('declare b then a, a extends b', () => {
@@ -52,8 +52,8 @@ test('declare b then a, a extends b', () => {
   expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeA.modifier?.toNativeString()).toBe('type');
   expect(typeA.name.toNativeString()).toBe('A');
-  expect(typeA.extendsType?.$).toBe($IdTypeSemantic());
-  expect((typeA.extendsType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
+  expect(typeA.extendsType?.$).toBe($UsageSemantic());
+  expect((typeA.extendsType as UsageSemantic)?.declaration?.name.toNativeString()).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
     .get(newText('B'))
@@ -77,8 +77,8 @@ test('declare a then b, a extends b', () => {
   expect(typeA.$).toBe($NominalTypeDeclarationSemantic());
   expect(typeA.modifier?.toNativeString()).toBe('type');
   expect(typeA.name.toNativeString()).toBe('A');
-  expect(typeA.extendsType?.$).toBe($IdTypeSemantic());
-  expect((typeA.extendsType as IdTypeSemantic)?.declaration?.name.toNativeString()).toBe('B');
+  expect(typeA.extendsType?.$).toBe($UsageSemantic());
+  expect((typeA.extendsType as UsageSemantic)?.declaration?.name.toNativeString()).toBe('B');
 
   const typeB = semantic.declarationManager.declarations
     .get(newText('B'))

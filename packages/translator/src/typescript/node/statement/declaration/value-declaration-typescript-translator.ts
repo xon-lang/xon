@@ -50,7 +50,8 @@ export function translateTypescriptValueDeclaration(
   let value = newText();
 
   if (node.assignment?.expression) {
-    value = newText(` = ${translateTypescriptExpression(node.assignment.expression, false)}`);
+    const assignOperator = declarationType === TypescriptDeclarationType.Attribute ? ': ' : ' = ';
+    value = newText(`${assignOperator}${translateTypescriptExpression(node.assignment.expression, false)}`);
   }
 
   return newText(`${keyword}${node.id.text}${type}${value}`);

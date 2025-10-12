@@ -4,7 +4,6 @@ import {
   $CharacterNode,
   $FloatNode,
   $IdNode,
-  $IdValueSemantic,
   $InfixNode,
   $IntegerNode,
   $InvokeNode,
@@ -14,6 +13,7 @@ import {
   $PrefixNode,
   $StringInterpolationNode,
   $StringNode,
+  $UsageSemantic,
   ExpressionStatementNode,
   Node,
 } from '#analyzer';
@@ -59,7 +59,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   }
 
   if (is(node, $IdNode())) {
-    if (is(node.semantic, $IdValueSemantic())) {
+    if (is(node.semantic, $UsageSemantic()) && !node.semantic.declaration?.isType) {
       return newText(`typeof ${node.text}`);
     }
 

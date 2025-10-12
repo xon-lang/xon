@@ -1,0 +1,58 @@
+nominal Number
+  infix + (other: Number)
+
+type HasLessThan<T = Any> = {infix < (a: T, b: T)}
+
+
+
+meta unique<T: HasEquals>(items: T[]): T[]
+  result = []
+
+  for item in items
+    exists = false;
+
+    for existing in result
+      if existing === item
+        exists = true;
+        break;
+
+    if !exists
+      result.addLastItem(item)
+
+  return result;
+
+type Type
+  name: String
+  module: String
+
+type NominalType: Type
+  base: NominalType
+
+type StructuralType: Type
+  value: Type
+
+
+type One = 1
+
+type Union(...items: T[])
+  inDemand: // 1 | 2 | Integer (where 1 and 2 is in demand constant values)
+
+  // fold()
+  //   return unique(items)
+
+  // is(value)
+  //   items.some((x) = value is x)
+
+a: Union(Integer, String)
+
+min<T: Number>(item: T, ...items: T[]): T
+  result = item
+
+  for x in items
+    if x < result
+      result = x
+
+  return result
+
+
+num = #min(1, 2, 3) // 1

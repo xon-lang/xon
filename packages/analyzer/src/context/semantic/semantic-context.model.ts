@@ -1,7 +1,7 @@
 import {
   $AnalyzerType,
+  DeclarationSemantic,
   DiagnosticService,
-  NominalTypeDeclarationSemantic,
   Semantic,
   SemanticProviderResolver,
   SemanticScope,
@@ -17,7 +17,7 @@ export type SemanticContext = Model &
     semanticProviderResolver: SemanticProviderResolver;
 
     literal: {
-      stringDeclaration: NominalTypeDeclarationSemantic;
+      stringDeclaration: DeclarationSemantic;
     };
 
     pushScope(isType?: Boolean2): void;

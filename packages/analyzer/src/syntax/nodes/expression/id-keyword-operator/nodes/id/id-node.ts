@@ -5,7 +5,7 @@ import {
   ExpressionNode,
   FormatterContext,
   HighlightContext,
-  IdTypeSemantic,
+  UsageSemantic,
   semantifyIdNode,
 } from '#analyzer';
 import {Nothing, Text, TextRange} from '#common';
@@ -13,7 +13,7 @@ import {Brand} from '#typing';
 
 export type IdNode = ExpressionNode &
   Brand<'Analyzer.IdNode'> & {
-    semantic?: IdTypeSemantic | DeclarationSemantic | Nothing;
+    semantic?: UsageSemantic | DeclarationSemantic | Nothing;
     text: Text;
   };
 

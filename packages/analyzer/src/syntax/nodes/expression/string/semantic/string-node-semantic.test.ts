@@ -1,5 +1,5 @@
 import {
-  $StringTypeSemantic,
+  $StringSemantic,
   newAnalyzerContext,
   newCharacterStreamFromText,
   newSemanticContext,
@@ -24,7 +24,7 @@ function getStringNodeSemantics(text: Text): Semantic {
 
   node.semantify!(semanticContext);
 
-  expect(is(node.semantic, $StringTypeSemantic())).toBe(true);
+  expect(is(node.semantic, $StringSemantic())).toBe(true);
 
   return node.semantic!;
 }
