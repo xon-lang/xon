@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "dev": "tsc --noEmit --watch",
+    "dev": "npm run barrelize && tsc --noEmit --watch",
     "vscode:build": "cd packages/vscode && vite build",
     "grammar": "tsc -p scripts/tsconfig.json && node scripts/dist/grammar.script.js",
     "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/language/json/JsonGrammar.g4",
