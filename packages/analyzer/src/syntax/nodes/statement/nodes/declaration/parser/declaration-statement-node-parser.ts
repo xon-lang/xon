@@ -1,14 +1,16 @@
 import {
+  $DeclarationStatementNode,
   $IdNode,
   $TypeKeywordNode,
   AnalyzerContext,
   collapseNodes,
   DeclarationStatementNode,
   extractDeclarationInfo,
+  GroupNode,
   newDeclarationStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, nothing, Nothing} from '#common';
+import {ArrayData, Integer, newText, nothing, Nothing} from '#common';
 import {is} from '#typing';
 
 export function parseDeclarationStatementNode(
@@ -30,7 +32,24 @@ export function parseDeclarationStatementNode(
     return nothing;
   }
 
+  validateParameters(context, group);
   context.extraNodes.addLastItems(nodes.slice(1));
 
   return newDeclarationStatementNode(indent, keyword, target, group, annotation, assignment);
+}
+
+function validateParameters(context: AnalyzerContext, group: GroupNode | Nothing): void {
+  if (!group) {
+    return;
+  }
+
+  for (const item of group.items) {
+    if (is(item.statement, $DeclarationStatementNode())) {
+      continue;
+    }
+
+    if (item.statement || item.comma) {
+      context.addError((item.statement ?? item.comma)!.range, newText('Wrong declaration node'));
+    }
+  }
 }
