@@ -24,7 +24,7 @@ export function parseDeclarationStatementNode(
   }
 
   nodes = collapseNodes(context, nodes);
-  const {target, parameters, annotation, assignment} = extractDeclarationInfo(nodes.first());
+  const {target, group, annotation, assignment} = extractDeclarationInfo(nodes.first());
 
   if (!is(target, $IdNode()) || (!annotation && !assignment && !keyword)) {
     return nothing;
@@ -32,5 +32,5 @@ export function parseDeclarationStatementNode(
 
   context.extraNodes.addLastItems(nodes.slice(1));
 
-  return newDeclarationStatementNode(indent, keyword, target, parameters, annotation, assignment);
+  return newDeclarationStatementNode(indent, keyword, target, group, annotation, assignment);
 }

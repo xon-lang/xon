@@ -58,6 +58,7 @@ export * from './src/syntax/nodes/joining/joining-node';
 export * from './src/syntax/nodes/module/module-node';
 export * from './src/syntax/nodes/nl/nl-node.parser';
 export * from './src/syntax/nodes/nl/nl-node';
+export * from './src/syntax/nodes/parameters/parameters-node';
 export * from './src/syntax/nodes/statement/statement-node';
 export * from './src/syntax/nodes/type-assign/operator-expression-node';
 export * from './src/syntax/nodes/unknown/unknown-node';
@@ -107,6 +108,7 @@ export * from './src/syntax/nodes/expression/id-keyword-operator/semantic/id-nod
 export * from './src/syntax/nodes/expression/invoke/collapse/invoke-node-collapse';
 export * from './src/syntax/nodes/expression/lambda/collapse/lambda-node-collapse';
 export * from './src/syntax/nodes/expression/member/collapse/member-node-collapse';
+export * from './src/syntax/nodes/expression/member/semantic/member-node-semantic.test~';
 export * from './src/syntax/nodes/expression/member/semantic/member-node-semantic';
 export * from './src/syntax/nodes/expression/number/float/float-node';
 export * from './src/syntax/nodes/expression/number/integer-content/integer-content-node.parser';
@@ -185,6 +187,7 @@ export * from './src/syntax/nodes/statement/nodes/condition/collapse/condition-s
 export * from './src/syntax/nodes/statement/nodes/declaration/highlight/declaration-statement-node-highlight.test~';
 export * from './src/syntax/nodes/statement/nodes/declaration/highlight/declaration-statement-node-highlight';
 export * from './src/syntax/nodes/statement/nodes/declaration/parser/declaration-statement-node-parser';
+export * from './src/syntax/nodes/statement/nodes/declaration/semantic/declaration-statement-node-semantic.test~';
 export * from './src/syntax/nodes/statement/nodes/declaration/semantic/declaration-statement-node-semantic';
 export * from './src/syntax/nodes/statement/nodes/expression/parser/expression-statement-node-parser';
 export * from './src/syntax/nodes/statement/nodes/expression/semantic/expression-statement-node-semantic';

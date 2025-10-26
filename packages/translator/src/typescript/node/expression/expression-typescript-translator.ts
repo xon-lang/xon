@@ -74,7 +74,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   }
 
   if (is(node, $InvokeNode())) {
-    const instance = translateTypescriptExpression(node.instance, isType);
+    const instance = translateTypescriptExpression(node.target, isType);
     const parameters = newText(
       node.group.items.map((x) =>
         x.statement

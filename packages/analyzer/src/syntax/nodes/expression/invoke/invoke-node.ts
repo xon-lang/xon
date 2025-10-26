@@ -12,16 +12,16 @@ import {Brand} from '#typing';
 
 export type InvokeNode = ExpressionNode &
   Brand<'Analyzer.InvokeNode'> & {
-    instance: ExpressionNode;
+    target: ExpressionNode;
     group: GroupNode;
   };
 
 export const $InvokeNode = () => $AnalyzerType<InvokeNode>('InvokeNode', $ExpressionNode());
 
-export function invokeNode(instance: ExpressionNode, group: GroupNode): InvokeNode {
+export function invokeNode(target: ExpressionNode, group: GroupNode): InvokeNode {
   return newSyntaxNode({
     $: $InvokeNode(),
-    instance,
+    target,
     group,
 
     semantify(context: SemanticContext): void {},

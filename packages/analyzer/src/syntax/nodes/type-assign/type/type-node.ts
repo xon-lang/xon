@@ -1,6 +1,6 @@
 import {
   $AnalyzerType,
-  $InfixNode,
+  $SyntaxNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -18,7 +18,7 @@ export type TypeNode = SyntaxNode &
     type: OperatorExpressionNode;
   };
 
-export const $TypeNode = () => $AnalyzerType<TypeNode>('TypeNode', $InfixNode());
+export const $TypeNode = () => $AnalyzerType<TypeNode>('TypeNode', $SyntaxNode());
 
 export function newTypeNode(target: Node | Nothing, type: OperatorExpressionNode): TypeNode {
   return newSyntaxNode({

@@ -31,7 +31,7 @@ export function translateTypescriptValueDeclaration(
     return newText(`/* error value declaration */`);
   }
 
-  if (node.parameters) {
+  if (node.group) {
     return translateToFunction(node, declarationType);
   }
 
@@ -61,7 +61,7 @@ function translateToFunction(
   node: DeclarationStatementNode,
   declarationType: TypescriptDeclarationType,
 ): Text {
-  if (!node.parameters) {
+  if (!node.group) {
     return newText();
   }
 
@@ -72,7 +72,7 @@ function translateToFunction(
   }
 
   const parameters = newText(
-    node.parameters.items
+    node.group.items
       .map((x) => x.statement)
       .map((x) =>
         x ? translateTypescriptValueDeclaration(x, TypescriptDeclarationType.Parameter) : newText(),
@@ -88,8 +88,8 @@ function translateToFunction(
 
   if (node.assignment?.expression) {
     const value = newText(
-      ` = ${node.parameters.open.text}${parameters}${
-        node.parameters.close?.text ?? ''
+      ` = ${node.group.open.text}${parameters}${
+        node.group.close?.text ?? ''
       }${type} => ${translateTypescriptExpression(node.assignment.expression, false)}`,
     );
 
@@ -103,8 +103,8 @@ function translateToFunction(
   }
 
   return newText(
-    `${keyword}${node.id.text}${node.parameters.open.text}${parameters}${
-      node.parameters.close?.text ?? ''
+    `${keyword}${node.id.text}${node.group.open.text}${parameters}${
+      node.group.close?.text ?? ''
     }${type}${body}`,
   );
 }

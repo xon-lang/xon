@@ -12,7 +12,8 @@ import {is} from '#typing';
 
 export type ExtractedDeclarationInfo = {
   target?: Node | Nothing;
-  parameters?: GroupNode | Nothing;
+  group?: GroupNode | Nothing;
+  // groups?: ArrayData<GroupNode> | Nothing;
   annotation?: OperatorExpressionNode | Nothing;
   assignment?: OperatorExpressionNode | Nothing;
 };
@@ -23,23 +24,23 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
   }
 
   if (is(node, $InvokeNode())) {
-    return {target: node.instance, parameters: node.group};
+    return node;
   }
 
   if (is(node, $TypeNode())) {
-    const {target, parameters} = extractDeclarationInfo(node.target);
+    const {target, group: parameters} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, annotation: node.type};
+    return {target, group: parameters, annotation: node.type};
   }
 
   if (is(node, $ValueNode())) {
-    const {target, parameters, annotation} = extractDeclarationInfo(node.target);
+    const {target, group: group, annotation} = extractDeclarationInfo(node.target);
 
-    return {target, parameters, annotation, assignment: node.value};
+    return {target, group: group, annotation, assignment: node.value};
   }
 
   if (is(node, $LambdaNode())) {
-    const {parameters: group, type, value} = node;
+    const {group, type, value} = node;
 
     return {target: group, annotation: type, assignment: value};
   }

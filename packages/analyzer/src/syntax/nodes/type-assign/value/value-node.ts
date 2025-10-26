@@ -1,6 +1,6 @@
 import {
   $AnalyzerType,
-  $InfixNode,
+  $SyntaxNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
@@ -18,7 +18,7 @@ export type ValueNode = SyntaxNode &
     value: OperatorExpressionNode;
   };
 
-export const $ValueNode = () => $AnalyzerType<ValueNode>('ValueNode', $InfixNode());
+export const $ValueNode = () => $AnalyzerType<ValueNode>('ValueNode', $SyntaxNode());
 
 export function newValueNode(target: Node | Nothing, value: OperatorExpressionNode): ValueNode {
   return newSyntaxNode({

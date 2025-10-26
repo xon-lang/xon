@@ -18,7 +18,7 @@ export type DeclarationStatementNode = StatementNode &
   Brand<'Analyzer.DeclarationStatementNode'> & {
     keyword?: KeywordNode | Nothing;
     id: IdNode;
-    parameters?: GroupNode | Nothing;
+    group?: GroupNode | Nothing;
     annotation?: OperatorExpressionNode | Nothing;
     assignment?: OperatorExpressionNode | Nothing;
   };
@@ -39,7 +39,7 @@ export function newDeclarationStatementNode(
     indent,
     keyword,
     id,
-    parameters,
+    group: parameters,
     annotation,
     assignment,
 
