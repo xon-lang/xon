@@ -1,15 +1,5 @@
 {
-  "name": "xon",
-  "author": "nizami",
-  "type": "module",
-  "scripts": {
-    "test": "vitest run",
-    "dev": "npm run barrelize && tsc --noEmit --watch",
-    "vscode:build": "cd packages/vscode && vite build",
-    "grammar": "tsc -p scripts/tsconfig.json && node scripts/dist/grammar.script.js",
-    "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/language/json/JsonGrammar.g4",
-    "barrelize": "barrelize"
-  },
+  "author": "Nizami",
   "dependencies": {
     "antlr4": "^4.13.2"
   },
@@ -19,6 +9,18 @@
     "barrelize": "^1.6.6",
     "typescript": "5.9.3",
     "vite": "7.1.12",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "4.0.6"
-  }
+  },
+  "name": "xon",
+  "scripts": {
+    "barrelize": "barrelize",
+    "dev": "npm run barrelize && tsc --noEmit --watch",
+    "grammar": "tsc -p scripts/tsconfig.json && node scripts/dist/grammar.script.js",
+    "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/language/json/JsonGrammar.g4",
+    "test": "vitest run",
+    "vscode:build": "cd packages/vscode && vite build",
+    "analyzer:build": "vite build"
+  },
+  "type": "module"
 }

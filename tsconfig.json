@@ -44,5 +44,5 @@
     "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true
   },
-  "exclude": ["**/*.gen.ts", "**/dist/*.ts"]
+  "exclude": ["**/*.gen.ts", "**/dist/*.ts", "**/*output.ts", "vite.config.ts"]
 }

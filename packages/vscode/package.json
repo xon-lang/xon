@@ -2,7 +2,7 @@
   "name": "xon",
   "displayName": "XON",
   "description": "XON language support",
-  "author": "nizami",
+  "author": "Nizami",
   "publisher": "nizami",
   "version": "1.13.0",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/xon-lang/xon/issues"
   },
-  "homepage": "hhttps://github.com/xon-lang/xon/tree/main/packages/vscode#readme",
+  "homepage": "https://github.com/xon-lang/xon/tree/main/packages/vscode#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/xon-lang/xon.git"

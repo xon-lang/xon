@@ -1,27 +1,34 @@
 {
-  "name": "@xon/core",
-  "author": "nizami",
-  "version": "0.8.3",
-  "description": "xon core is an ast generator lib",
+  "author": "Nizami",
   "bugs": {
-    "url": "https://github.com/nizami/xon/issues"
+    "url": "https://github.com/xon-lang/xon/issues"
   },
-  "homepage": "https://github.com/nizami/xon/tree/main/packages/core#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nizami/xon.git"
+  "description": "xon core is an ast generator lib",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/xon-lang/xon/tree/main/packages/core#readme",
   "keywords": [
     "xon",
     "ast",
     "programming language"
   ],
   "license": "MIT",
-  "private": false,
   "main": "index.js",
-  "types": "index.d.ts",
-  "scripts": {
-    "version": "npm run build",
-    "postversion": "git push --tags && cd dist/core && npm publish --access public"
-  }
+  "name": "@xon/core",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xon-lang/xon.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "version": "0.0.0"
 }
