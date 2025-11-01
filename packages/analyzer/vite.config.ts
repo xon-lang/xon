@@ -48,7 +48,7 @@ export default defineConfig({
     dts({
       root: PROJECT_ROOT,
       entryRoot: PROJECT_ROOT,
-      include: ['src'],
+      include: [PROJECT_ROOT],
       exclude: ['**/*.gen.ts', '**/dist/*.ts', '**/*output.ts', 'vite.config.ts'],
       tsconfigPath: resolve(WORKSPACE_ROOT, 'tsconfig.json'),
     }),
