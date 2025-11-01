@@ -28,9 +28,9 @@ export function extractDeclarationInfo(node: Node | Nothing): ExtractedDeclarati
   }
 
   if (is(node, $TypeNode())) {
-    const {target, group: parameters} = extractDeclarationInfo(node.target);
+    const {target, group} = extractDeclarationInfo(node.target);
 
-    return {target, group: parameters, annotation: node.type};
+    return {target, group, annotation: node.type};
   }
 
   if (is(node, $ValueNode())) {

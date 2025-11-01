@@ -58,7 +58,6 @@ export * from './src/syntax/nodes/joining/joining-node';
 export * from './src/syntax/nodes/module/module-node';
 export * from './src/syntax/nodes/nl/nl-node.parser';
 export * from './src/syntax/nodes/nl/nl-node';
-export * from './src/syntax/nodes/parameters/parameters-node';
 export * from './src/syntax/nodes/statement/statement-node';
 export * from './src/syntax/nodes/type-assign/operator-expression-node';
 export * from './src/syntax/nodes/unknown/unknown-node';

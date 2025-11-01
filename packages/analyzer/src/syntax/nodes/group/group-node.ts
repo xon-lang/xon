@@ -1,6 +1,7 @@
 import {
   $AnalyzerType,
-  $SyntaxNode,
+  $ExpressionNode,
+  ExpressionNode,
   FormatterContext,
   GroupCloseNode,
   GroupItemNode,
@@ -8,19 +9,18 @@ import {
   HighlightContext,
   newSyntaxNode,
   SemanticContext,
-  SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Nothing} from '#common';
 import {$Type, Brand} from '#typing';
 
-export type GroupNode = SyntaxNode &
+export type GroupNode = ExpressionNode &
   Brand<'Analyzer.GroupNode'> & {
     open: GroupOpenNode;
     items: ArrayData<GroupItemNode>;
     close?: GroupCloseNode | Nothing;
   };
 
-export const $GroupNode = () => $AnalyzerType<GroupNode>('GroupNode', $SyntaxNode());
+export const $GroupNode = () => $AnalyzerType<GroupNode>('GroupNode', $ExpressionNode());
 
 export function newGroupNode(
   $type: $Type,
