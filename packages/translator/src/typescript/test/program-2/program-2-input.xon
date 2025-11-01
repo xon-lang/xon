@@ -7,7 +7,7 @@ LogLevel = {
 }
 
 
-fn(level:LogLevel): level
+fn(level:LogLevel): LogLevel
   return level
 
 

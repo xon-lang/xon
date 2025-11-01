@@ -2,15 +2,12 @@ import {newAnalyzerContext, newCharacterStreamFromText, newSemanticContext, pars
 import {newText} from '#common';
 import {newTypescriptTranslator} from '#translator';
 import {readFile, writeFile} from 'node:fs/promises';
-import {resolve} from 'node:path';
-import {expect, test} from 'vitest';
+import {join, resolve} from 'node:path';
+import {expect} from 'vitest';
 
-test('program 2 typescript translator', async () => {
-  await getConditionStatementNode('program-2-typescript');
-});
-
-async function getConditionStatementNode(name: string): Promise<void> {
-  const input = newText((await readFile(resolve(__dirname, name + '-input.xon'))).toString());
+export async function translateTestFile(name: string): Promise<void> {
+  const dirPath = join(__dirname, name);
+  const input = newText((await readFile(resolve(dirPath, name + '-input.xon'))).toString());
   const source = newCharacterStreamFromText(input);
   const syntaxContext = newAnalyzerContext(source);
   const moduleNode = parseModule(syntaxContext);
@@ -21,8 +18,8 @@ async function getConditionStatementNode(name: string): Promise<void> {
   const translator = newTypescriptTranslator();
   const translated = translator.translateModule(moduleNode).toNativeString();
 
-  const output = readFile(resolve(__dirname, name + '-etalon.ts'));
-  writeFile(resolve(__dirname, name + '-output.ts'), translated);
+  const output = readFile(resolve(dirPath, name + '-etalon.ts'));
+  writeFile(resolve(dirPath, name + '-output.ts'), translated);
 
   expect(translated).toBe((await output).toString());
 }

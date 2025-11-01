@@ -1,0 +1,10 @@
+
+
+LogLevel = {
+ 
+  INFO = "info",
+ 
+ 
+  WARN = "warn",
+ ERROR = "error",
+}
