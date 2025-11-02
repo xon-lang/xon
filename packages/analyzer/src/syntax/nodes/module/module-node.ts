@@ -7,7 +7,7 @@ import {
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, newTextRange, nothing, Nothing} from '#common';
+import {ArrayData, newTextRange, nothing, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type ModuleNode = SyntaxNode &

@@ -1,5 +1,5 @@
 import {$StringCloseNode, AnalyzerContext, STRING_CLOSE, StringCloseNode} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseStringCloseNode(context: AnalyzerContext): StringCloseNode | Nothing {
   return context.source.takeWhile(

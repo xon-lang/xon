@@ -6,7 +6,7 @@
 //   StringTypeSemantic,
 //   newStringTypeSemantic,
 // } from '#analyzer';
-// import {Nothing, nothing} from '#common';
+// import {Nothing, nothing} from '#core';
 // import {is} from '#typing';
 
 // export function stringTypeSemanticTryParse(

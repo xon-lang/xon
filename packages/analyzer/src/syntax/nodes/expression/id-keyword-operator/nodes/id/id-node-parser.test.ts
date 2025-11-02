@@ -1,5 +1,5 @@
 import {$IdNode, newAnalyzerContext, newCharacterStreamFromText, parseIdKeywordOperatorNode} from '#analyzer';
-import {newText, nothing} from '#common';
+import {newText, nothing} from '#core';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 

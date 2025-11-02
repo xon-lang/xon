@@ -1,5 +1,5 @@
 import {$UsageSemantic, IdNode, newUsageSemantic, SemanticContext} from '#analyzer';
-import {newText, newTextReference} from '#common';
+import {newText, newTextReference} from '#core';
 import {is} from '#typing';
 
 export function semantifyIdNode(this: IdNode, context: SemanticContext): void {

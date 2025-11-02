@@ -1,5 +1,5 @@
 import {$AnalyzerType} from '#analyzer';
-import {Text, TextRange} from '#common';
+import {Text, TextRange} from '#core';
 
 export type AnalyzerFormatter = {
   range: TextRange;

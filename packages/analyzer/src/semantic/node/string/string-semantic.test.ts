@@ -9,7 +9,7 @@
 //   TEST_SEMANTIC_CONFIG,
 //   typeNodeType,
 // } from '#analyzer';
-// import {newText, newTextResource, nothing} from '#common';
+// import {newText, newTextResource, nothing} from '#core';
 // import {expect, test} from 'vitest';
 
 // test('a is string value', () => {

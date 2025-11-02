@@ -6,7 +6,7 @@ import {
   parseIntegerContentNode,
   parseRadixPointNode,
 } from '#analyzer';
-import {nothing, Nothing} from '#common';
+import {nothing, Nothing} from '#core';
 
 export function parseNumberNode(context: AnalyzerContext): NumberNode | Nothing {
   const integerPartNode = parseIntegerContentNode(context);

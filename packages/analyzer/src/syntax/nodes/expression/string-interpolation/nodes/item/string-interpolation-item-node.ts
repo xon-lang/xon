@@ -11,7 +11,7 @@ import {
   StringInterpolationContentNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, Nothing} from '#common';
+import {ArrayData, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type StringInterpolationItemNode = SyntaxNode &

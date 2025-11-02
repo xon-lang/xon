@@ -6,7 +6,7 @@ import {
   parseCharacterContentNode,
   parseCharacterOpenNode,
 } from '#analyzer';
-import {newText, nothing, Nothing} from '#common';
+import {newText, nothing, Nothing} from '#core';
 
 export function parseCharacterNode(context: AnalyzerContext): CharacterNode | Nothing {
   const openNode = parseCharacterOpenNode(context);

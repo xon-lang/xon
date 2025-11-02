@@ -1,5 +1,5 @@
 import {$AnalyzerType, Semantic} from '#analyzer';
-import {Nothing, Uri} from '#common';
+import {Nothing, Uri} from '#core';
 import {Brand, Model} from '#typing';
 import {Text} from 'antlr4';
 

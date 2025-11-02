@@ -6,7 +6,7 @@ import {
   parseStringOpenNode,
   StringNode,
 } from '#analyzer';
-import {newText, nothing, Nothing} from '#common';
+import {newText, nothing, Nothing} from '#core';
 
 export function parseStringNode(context: AnalyzerContext): StringNode | Nothing {
   const openNode = parseStringOpenNode(context);

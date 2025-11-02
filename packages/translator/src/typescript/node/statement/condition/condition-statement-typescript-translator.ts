@@ -1,5 +1,5 @@
 import {ConditionStatementNode, ElseStatementNode, IfStatementNode, StatementNode} from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {translateTypescriptExpression, translateTypescriptStatement} from '#translator';
 
 export function translateTypescriptConditionStatement(node: ConditionStatementNode): Text {

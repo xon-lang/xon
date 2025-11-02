@@ -6,7 +6,7 @@ import {
   NodeCollapseResult,
   postfixNode,
 } from '#analyzer';
-import {ArrayData, Boolean2, Dictionary, Integer, nothing, Text} from '#common';
+import {ArrayData, Boolean2, Dictionary, Integer, nothing, Text} from '#core';
 import {$Type, is} from '#typing';
 
 export function collapsePostfixNode(

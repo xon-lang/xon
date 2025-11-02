@@ -1,5 +1,5 @@
 import {$BracketOpenNode, AnalyzerContext, BRACKET_OPEN, BracketOpenNode} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseBracketOpenNode(context: AnalyzerContext): BracketOpenNode | Nothing {
   return context.source.takeWhile(

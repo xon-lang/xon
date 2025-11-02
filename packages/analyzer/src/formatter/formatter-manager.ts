@@ -19,7 +19,7 @@
 //   newText,
 //   rangeFromNodes,
 //   rangeFromPosition,
-// } from '#common';
+// } from '#core';
 // import {is} from '#typing';
 
 // export type FormatterManager = {

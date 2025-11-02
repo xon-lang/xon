@@ -1,5 +1,5 @@
 // import {syntaxFromResource} from '#analyzer';
-// import {newText, Text, textResourceFromLocation} from '#common';
+// import {newText, Text, textResourceFromLocation} from '#core';
 // import {readFileSync, writeFileSync} from 'node:fs';
 // import {join} from 'node:path';
 // import {expect, test} from 'vitest';

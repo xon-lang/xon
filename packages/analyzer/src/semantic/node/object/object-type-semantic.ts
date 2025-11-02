@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, Semantic, SemanticScope} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type ObjectSemantic = Semantic & Brand<'Analyzer.ObjectSemantic'>;

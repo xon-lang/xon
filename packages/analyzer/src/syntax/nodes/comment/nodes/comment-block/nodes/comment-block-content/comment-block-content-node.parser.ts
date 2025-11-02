@@ -4,7 +4,7 @@ import {
   COMMENT_BLOCK_CLOSE,
   CommentBlockContentNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseCommentBlockContentNode(context: AnalyzerContext): CommentBlockContentNode | Nothing {
   return context.source.takeWhile(

@@ -9,7 +9,7 @@ import {
   parseStatements,
   StringNode,
 } from '#analyzer';
-import {Integer, newArrayData, newText, Text} from '#common';
+import {Integer, newArrayData, newText, Text} from '#core';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 

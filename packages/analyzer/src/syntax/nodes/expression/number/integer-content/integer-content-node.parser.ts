@@ -1,5 +1,5 @@
 import {$IntegerContentNode, AnalyzerContext, IntegerContentNode, UNDERSCORE} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseIntegerContentNode(context: AnalyzerContext): IntegerContentNode | Nothing {
   return context.source.takeWhile(

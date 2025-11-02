@@ -1,9 +1,9 @@
 import {LexicalNode} from '#analyzer';
-import {$CommonType, Boolean2, Character, Integer, Nothing, Text} from '#common';
+import {$CoreType, Boolean2, Character, Integer, Nothing, Text} from '#core';
 import {$Type, Brand, Model} from '#typing';
 
 export type CharacterStream = Model &
-  Brand<'Common.CharacterStream'> & {
+  Brand<'Core.CharacterStream'> & {
     takeWhile(
       $type: $Type,
       predicate: (character: Character, index: Integer, text: Text) => Boolean2 | Nothing,
@@ -11,4 +11,4 @@ export type CharacterStream = Model &
     ): LexicalNode | Nothing;
   };
 
-export const $CharacterStream = () => $CommonType<CharacterStream>('CharacterStream');
+export const $CharacterStream = () => $CoreType<CharacterStream>('CharacterStream');

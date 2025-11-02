@@ -9,7 +9,7 @@ export default defineConfig({
     alias: [
       {find: '#grammar', replacement: resolve(WORKSPACE_ROOT, 'packages/grammar/index.ts')},
       {find: '#typing', replacement: resolve(WORKSPACE_ROOT, 'packages/typing/index.ts')},
-      {find: '#common', replacement: resolve(WORKSPACE_ROOT, 'packages/common/index.ts')},
+      {find: '#core', replacement: resolve(WORKSPACE_ROOT, 'packages/core/index.ts')},
       {find: '#analyzer', replacement: resolve(WORKSPACE_ROOT, 'packages/analyzer/index.ts')},
       {find: '#interpreter', replacement: resolve(WORKSPACE_ROOT, 'packages/interpreter/index.ts')},
       {find: '#translator', replacement: resolve(WORKSPACE_ROOT, 'packages/translator/index.ts')},

@@ -1,5 +1,5 @@
 import {ModuleNode} from '#analyzer';
-import {newCharacter, Text} from '#common';
+import {newCharacter, Text} from '#core';
 import {translateTypescriptStatements, TypescriptStatementSeparator} from '#translator';
 
 export function translateTypescriptModule(node: ModuleNode): Text {

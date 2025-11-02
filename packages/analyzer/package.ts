@@ -1,4 +1,4 @@
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 import {$NewType, $Type, Model} from '#typing';
 
 export function $AnalyzerType<T extends Model>(

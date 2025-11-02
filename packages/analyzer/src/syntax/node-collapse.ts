@@ -11,7 +11,7 @@ import {
   Node,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, newArrayData, Nothing} from '#common';
+import {ArrayData, Integer, newArrayData, Nothing} from '#core';
 import {$Model} from '#typing';
 
 export type NodeCollapseFn<T extends Node = Node> = {

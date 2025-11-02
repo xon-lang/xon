@@ -1,5 +1,5 @@
 import {$AngleCloseNode, AnalyzerContext, ANGLE_CLOSE, AngleCloseNode} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseAngleCloseNode(context: AnalyzerContext): AngleCloseNode | Nothing {
   return context.source.takeWhile(

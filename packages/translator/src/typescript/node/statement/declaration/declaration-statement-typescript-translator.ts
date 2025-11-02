@@ -1,5 +1,5 @@
 import {$BraceGroupNode, $Node, DeclarationStatementNode, TYPE} from '#analyzer';
-import {newArrayData, newText, Text} from '#common';
+import {newArrayData, newText, Text} from '#core';
 import {
   translateTypescriptAttributes,
   translateTypescriptExpression,

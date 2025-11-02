@@ -4,7 +4,7 @@ import {
   DOCUMENTATION_CLOSE,
   DocumentationCloseNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseDocumentationCloseNode(context: AnalyzerContext): DocumentationCloseNode | Nothing {
   return context.source.takeWhile(

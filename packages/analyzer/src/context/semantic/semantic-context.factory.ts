@@ -24,7 +24,7 @@ import {
   TextRange,
   TextReference,
   Uri,
-} from '#common';
+} from '#core';
 
 export function newSemanticContext(
   sourceUri?: Uri | Nothing,

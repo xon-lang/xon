@@ -10,7 +10,7 @@ import {
   Node,
   parseModule,
 } from '#analyzer';
-import {ArrayData, newText, newUri, nothing, Nothing, TextPosition, Uri} from '#common';
+import {ArrayData, newText, newUri, nothing, Nothing, TextPosition, Uri} from '#core';
 import {Brand, Model} from '#typing';
 import {$VscodeType} from '#vscode';
 import {OutputChannel, TextDocument} from 'vscode';

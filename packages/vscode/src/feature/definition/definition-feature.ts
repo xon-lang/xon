@@ -7,16 +7,7 @@ import {
   IdNode,
   StringNode,
 } from '#analyzer';
-import {
-  ArrayData,
-  Nothing,
-  TextRange,
-  TextReference,
-  Uri,
-  newArrayData,
-  newTextRange,
-  nothing,
-} from '#common';
+import {ArrayData, Nothing, TextRange, TextReference, Uri, newArrayData, newTextRange, nothing} from '#core';
 import {$Model, is} from '#typing';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, vsCodeToXonPosition, xonToVsCodeRange} from '#vscode';
 import {

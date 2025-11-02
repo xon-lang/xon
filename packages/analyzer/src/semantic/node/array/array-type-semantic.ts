@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic, SemanticContext} from '#analyzer';
-import {ArrayData, Nothing} from '#common';
+import {ArrayData, Nothing} from '#core';
 
 export type ArraySemantic = Semantic & {
   declaration?: DeclarationSemantic | Nothing;

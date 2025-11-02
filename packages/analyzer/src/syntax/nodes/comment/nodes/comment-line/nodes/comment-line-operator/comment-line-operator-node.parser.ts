@@ -1,5 +1,5 @@
 import {$CommentLineOperatorNode, AnalyzerContext, COMMENT_LINE, CommentLineOperatorNode} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseCommentLineOperatorNode(context: AnalyzerContext): CommentLineOperatorNode | Nothing {
   return context.source.takeWhile(

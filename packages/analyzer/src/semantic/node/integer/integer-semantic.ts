@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic} from '#analyzer';
-import {Integer, Nothing} from '#common';
+import {Integer, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type IntegerSemantic = Semantic &

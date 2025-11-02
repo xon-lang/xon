@@ -10,7 +10,7 @@ import {
   PLUS,
   PrefixNode,
 } from '#analyzer';
-import {newArrayData, newDictionary, newKeyValue, newText, Text} from '#common';
+import {newArrayData, newDictionary, newKeyValue, newText, Text} from '#core';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 

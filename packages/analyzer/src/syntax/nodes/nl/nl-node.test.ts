@@ -1,5 +1,5 @@
 import {$NlNode, newAnalyzerContext, newCharacterStreamFromText, parseNlNode} from '#analyzer';
-import {newText} from '#common';
+import {newText} from '#core';
 import {is} from '#typing';
 import {describe, expect, test} from 'vitest';
 

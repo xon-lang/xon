@@ -1,4 +1,4 @@
-import {$Text, ArrayData, Text, newArrayData, newText} from '#common';
+import {$Text, ArrayData, Text, newArrayData, newText} from '#core';
 
 export type SemanticAnalyzerConfig = {
   defaultImports: ArrayData<Text>;

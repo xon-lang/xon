@@ -10,7 +10,7 @@ import {
   newDeclarationStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, newText, nothing, Nothing} from '#common';
+import {ArrayData, Integer, newText, nothing, Nothing} from '#core';
 import {is} from '#typing';
 
 export function parseDeclarationStatementNode(

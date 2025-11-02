@@ -1,5 +1,5 @@
 import {StatementNode} from '#analyzer';
-import {ArrayData, newText, Text} from '#common';
+import {ArrayData, newText, Text} from '#core';
 import {translateTypescriptValueDeclaration, TypescriptDeclarationType} from '#translator';
 
 export function translateTypescriptAttributes(attributes: ArrayData<StatementNode>, useComma = false): Text {

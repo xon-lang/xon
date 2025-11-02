@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, $UsageSemantic, Semantic, SemanticScope, UsageSemantic} from '#analyzer';
-import {ArrayData, Boolean2, newArrayData, Nothing, Text, TextReference} from '#common';
+import {ArrayData, Boolean2, newArrayData, Nothing, Text, TextReference} from '#core';
 import {Brand} from '#typing';
 
 export enum DeclarationType {

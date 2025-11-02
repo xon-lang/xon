@@ -1,5 +1,5 @@
 import {$AnalyzerType, AnalyzerFormatter} from '#analyzer';
-import {ArrayData} from '#common';
+import {ArrayData} from '#core';
 import {Brand, Model} from '#typing';
 
 export type FormatterContext = Model &

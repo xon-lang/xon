@@ -5,7 +5,7 @@ import {
   parseCommentLineContentNode,
   parseCommentLineOperatorNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseCommentLineNode(context: AnalyzerContext): CommentLineNode | Nothing {
   const operatorNode = parseCommentLineOperatorNode(context);

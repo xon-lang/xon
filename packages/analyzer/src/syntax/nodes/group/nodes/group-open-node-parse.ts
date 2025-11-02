@@ -6,7 +6,7 @@ import {
   parseBracketOpenNode,
   parseParenOpenNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseGroupOpenNode(context: AnalyzerContext): GroupOpenNode | Nothing {
   return (
@@ -16,4 +16,3 @@ export function parseGroupOpenNode(context: AnalyzerContext): GroupOpenNode | No
     parseParenOpenNode(context)
   );
 }
-  

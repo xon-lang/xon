@@ -5,7 +5,7 @@ import {
   SemanticProvider,
   SemanticProviderResolver,
 } from '#analyzer';
-import {newArrayData, newText, Uri} from '#common';
+import {newArrayData, newText, Uri} from '#core';
 import {$Model} from '#typing';
 
 const providers = newArrayData($Model(), [

@@ -12,7 +12,7 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {newText, newTextFileResource, newUri, Nothing, Text, Uri} from '#common';
+import {newText, newTextFileResource, newUri, Nothing, Text, Uri} from '#core';
 import {Brand, is} from '#typing';
 import {dirname, resolve} from 'node:path';
 

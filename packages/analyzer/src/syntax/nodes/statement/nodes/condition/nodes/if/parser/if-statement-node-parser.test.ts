@@ -9,7 +9,7 @@ import {
   nonHiddenNodeGenerator,
   parseIfStatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, newArrayData, newText, Text} from '#common';
+import {ArrayData, Integer, newArrayData, newText, Text} from '#core';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 

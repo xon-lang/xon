@@ -16,7 +16,7 @@ import {
   StringInterpolationItemNode,
   StringInterpolationNode,
 } from '#analyzer';
-import {ArrayData, newArrayData, nothing, Nothing} from '#common';
+import {ArrayData, newArrayData, nothing, Nothing} from '#core';
 import {is} from '#typing';
 
 export function parseStringInterpolationNode(context: AnalyzerContext): StringInterpolationNode | Nothing {

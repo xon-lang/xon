@@ -1,5 +1,5 @@
 import {$StringNode, ImportStatementNode} from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {is} from '#typing';
 
 export function translateTypescriptImportStatement(node: ImportStatementNode): Text {

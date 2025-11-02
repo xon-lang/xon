@@ -10,7 +10,7 @@
 //   StringContentNode,
 //   StringNode,
 // } from '#analyzer';
-// import {ArrayData, newText, newTextPosition, Text} from '#common';
+// import {ArrayData, newText, newTextPosition, Text} from '#core';
 // import {is} from '#typing';
 // import {findClosestNode, findNode, findStatementNode} from '#vscode';
 // import {expect, test} from 'vitest';

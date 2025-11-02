@@ -5,7 +5,7 @@ import {
   STRING_INTERPOLATION_CLOSE,
   StringInterpolationContentNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseInterpolationStringContentNode(
   context: AnalyzerContext,

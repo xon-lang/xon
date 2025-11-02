@@ -6,7 +6,7 @@ import {
   parseCommentBlockContentNode,
   parseCommentBlockOpenNode,
 } from '#analyzer';
-import {nothing, Nothing} from '#common';
+import {nothing, Nothing} from '#core';
 
 export function parseCommentBlockNode(context: AnalyzerContext): CommentBlockNode | Nothing {
   const openNode = parseCommentBlockOpenNode(context);

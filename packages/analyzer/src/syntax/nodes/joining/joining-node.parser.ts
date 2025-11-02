@@ -1,5 +1,5 @@
 import {$JoiningNode, AnalyzerContext, CR, JOINING, JoiningNode, LF, SPACE} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseJoiningNode(context: AnalyzerContext): JoiningNode | Nothing {
   const node = context.source.takeWhile(

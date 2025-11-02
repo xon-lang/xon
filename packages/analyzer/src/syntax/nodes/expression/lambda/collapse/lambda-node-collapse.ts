@@ -9,7 +9,7 @@ import {
   NodeCollapseFn,
   NodeCollapseResult,
 } from '#analyzer';
-import {ArrayData, Integer, nothing} from '#common';
+import {ArrayData, Integer, nothing} from '#core';
 import {is} from '#typing';
 
 export function collapseLambdaNode(): NodeCollapseFn<LambdaNode> {

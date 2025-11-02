@@ -7,7 +7,7 @@
 //   DeclarationSemantic,
 //   Semantic,
 // } from '#analyzer';
-// import {Nothing, Text, TextReference, newText, nothing} from '#common';
+// import {Nothing, Text, TextReference, newText, nothing} from '#core';
 // import {is} from '#typing';
 // import {LANGUAGE_NAME, convertRange, convertVscodePosition, getDocumentSemantic} from '#vscode';
 // import {

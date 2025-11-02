@@ -13,7 +13,7 @@
       ]
     },
     {
-      "root": "packages/common",
+      "root": "packages/core",
       "include": ["**/*.ts"],
       "exclude": ["**/*.test.ts"]
     },

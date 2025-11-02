@@ -6,7 +6,7 @@ import {
   parseReturnStatementNode,
   ReturnStatementNode,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#common';
+import {newArrayData, newText, Text} from '#core';
 import {translateTypescriptReturnStatement} from '#translator';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';

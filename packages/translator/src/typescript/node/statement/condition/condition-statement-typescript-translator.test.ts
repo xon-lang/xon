@@ -5,7 +5,7 @@ import {
   newCharacterStreamFromText,
   parseStatements,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {translateTypescriptConditionStatement} from '#translator';
 import {is} from '#typing';
 import {expect, test} from 'vitest';

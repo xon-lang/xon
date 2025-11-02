@@ -1,5 +1,5 @@
 import {$WhitespaceNode, AnalyzerContext, SPACE, WhitespaceNode} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseWhitespaceNode(context: AnalyzerContext): WhitespaceNode | Nothing {
   const node = context.source.takeWhile($WhitespaceNode(), (x) => x.equals(SPACE));

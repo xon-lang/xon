@@ -6,7 +6,7 @@ import {
   newExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, nothing, Nothing} from '#common';
+import {ArrayData, Integer, nothing, Nothing} from '#core';
 import {is} from '#typing';
 
 export function parseExpressionStatementNode(

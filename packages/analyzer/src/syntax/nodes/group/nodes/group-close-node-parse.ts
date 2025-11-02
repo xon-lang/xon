@@ -6,7 +6,7 @@ import {
   parseBracketCloseNode,
   parseParenCloseNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseGroupCloseNode(context: AnalyzerContext): GroupCloseNode | Nothing {
   return (

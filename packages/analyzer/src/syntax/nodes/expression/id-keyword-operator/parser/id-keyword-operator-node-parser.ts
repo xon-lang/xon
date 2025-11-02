@@ -23,16 +23,7 @@ import {
   TYPE,
   UNDERSCORE,
 } from '#analyzer';
-import {
-  $KeyValue,
-  Dictionary,
-  newArrayData,
-  newDictionary,
-  newKeyValue,
-  nothing,
-  Nothing,
-  Text,
-} from '#common';
+import {$KeyValue, Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#core';
 import {$Type} from '#typing';
 
 function getTokenTypeMap(): Dictionary<Text, $Type> {

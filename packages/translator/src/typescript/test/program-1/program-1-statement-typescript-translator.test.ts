@@ -1,5 +1,5 @@
 import {newAnalyzerContext, newCharacterStreamFromText, parseModule} from '#analyzer';
-import {newText} from '#common';
+import {newText} from '#core';
 import {newTypescriptTranslator} from '#translator';
 import {readFile, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';

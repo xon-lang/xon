@@ -1,5 +1,5 @@
 import {newStringSemantic, SemanticContext, StringNode} from '#analyzer';
-import {newText} from '#common';
+import {newText} from '#core';
 
 export function semantifyStringNode(this: StringNode, context: SemanticContext): void {
   this.semantic = newStringSemantic(

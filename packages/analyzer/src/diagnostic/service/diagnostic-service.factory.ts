@@ -1,5 +1,5 @@
 import {$AnalyzerDiagnostic, $DiagnosticService, AnalyzerDiagnostic, DiagnosticService} from '#analyzer';
-import {newArrayData} from '#common';
+import {newArrayData} from '#core';
 
 export function newDiagnosticService(): DiagnosticService {
   return {

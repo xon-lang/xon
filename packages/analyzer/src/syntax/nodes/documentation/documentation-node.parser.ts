@@ -9,7 +9,7 @@ import {
   parseDocumentationLabelNode,
   parseDocumentationOpenNode,
 } from '#analyzer';
-import {newArrayData, nothing, Nothing} from '#common';
+import {newArrayData, nothing, Nothing} from '#core';
 
 export function parseDocumentationNode(context: AnalyzerContext): DocumentationNode | Nothing {
   const openNode = parseDocumentationOpenNode(context);

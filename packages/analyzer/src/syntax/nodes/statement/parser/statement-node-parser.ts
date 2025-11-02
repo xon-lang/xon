@@ -16,7 +16,7 @@ import {
   parseReturnStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Boolean2, Integer, newArrayData, newText, Nothing, nothing, TextPosition} from '#common';
+import {ArrayData, Boolean2, Integer, newArrayData, newText, Nothing, nothing, TextPosition} from '#core';
 import {$Model, is} from '#typing';
 
 export function parseStatements(

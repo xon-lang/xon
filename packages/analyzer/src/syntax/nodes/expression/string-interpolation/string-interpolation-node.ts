@@ -10,7 +10,7 @@ import {
   StringInterpolationItemNode,
   StringInterpolationOpenNode,
 } from '#analyzer';
-import {ArrayData, Nothing} from '#common';
+import {ArrayData, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type StringInterpolationNode = ExpressionNode &

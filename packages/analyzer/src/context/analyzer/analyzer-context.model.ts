@@ -1,5 +1,5 @@
 import {$AnalyzerType, CharacterStream, DiagnosticService, Node} from '#analyzer';
-import {ArrayData, Text, TextRange} from '#common';
+import {ArrayData, Text, TextRange} from '#core';
 import {Brand, Model} from '#typing';
 
 export type AnalyzerContext = Model &

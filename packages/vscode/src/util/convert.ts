@@ -1,4 +1,4 @@
-import {newTextPosition, newTextRange, TextPosition, TextRange} from '#common';
+import {newTextPosition, newTextRange, TextPosition, TextRange} from '#core';
 import {Position, Range, TextDocument} from 'vscode';
 
 export function xonToVsCodeRange(range: TextRange): Range {

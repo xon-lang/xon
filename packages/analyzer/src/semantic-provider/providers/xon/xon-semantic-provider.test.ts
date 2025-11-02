@@ -1,5 +1,5 @@
 import {$ObjectSemantic, newXonSemanticProvider, ObjectSemantic} from '#analyzer';
-import {newText, newUri} from '#common';
+import {newText, newUri} from '#core';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 

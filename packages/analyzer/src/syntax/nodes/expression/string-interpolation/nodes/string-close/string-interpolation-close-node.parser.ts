@@ -4,7 +4,7 @@ import {
   STRING_INTERPOLATION_CLOSE,
   StringInterpolationCloseNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseStringInterpolationCloseNode(
   context: AnalyzerContext,

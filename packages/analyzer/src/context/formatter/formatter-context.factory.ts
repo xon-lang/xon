@@ -1,5 +1,5 @@
 import {$AnalyzerFormatter, $FormatterContext, AnalyzerFormatter, FormatterContext} from '#analyzer';
-import {newArrayData} from '#common';
+import {newArrayData} from '#core';
 
 export function newFormatterContext(): FormatterContext {
   return {

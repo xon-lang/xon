@@ -1,5 +1,5 @@
 import {DeclarationSemantic, Semantic} from '#analyzer';
-import {Nothing, nothing, Text} from '#common';
+import {Nothing, nothing, Text} from '#core';
 
 export function typeSemanticToString(semantic: Semantic): Text | Nothing {
   // if (is(semantic, $IdTypeSemantic()) && semantic.declaration) {

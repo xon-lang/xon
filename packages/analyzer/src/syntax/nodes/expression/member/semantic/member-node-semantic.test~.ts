@@ -16,7 +16,7 @@
 //   nonHiddenNodeGenerator,
 //   StringSemantic,
 // } from '#analyzer';
-// import {newArrayData, newText, newTextRange, newTextReference, newUri, nothing, Text} from '#common';
+// import {newArrayData, newText, newTextRange, newTextReference, newUri, nothing, Text} from '#core';
 // import {$Model, is} from '#typing';
 // import {expect, test} from 'vitest';
 

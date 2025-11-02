@@ -1,5 +1,5 @@
 import {newAnalyzerContext, newCharacterStreamFromText, parseModule} from '#analyzer';
-import {newText} from '#common';
+import {newText} from '#core';
 import {translateTypescriptModule} from '#translator';
 import {expect, test} from 'vitest';
 

@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic} from '#analyzer';
-import {ArrayData, Nothing} from '#common';
+import {ArrayData, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type FunctionSemantic = Semantic &

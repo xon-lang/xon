@@ -1,5 +1,5 @@
 import {$AnalyzerType, SemanticProvider} from '#analyzer';
-import {Uri} from '#common';
+import {Uri} from '#core';
 import {Brand, Model} from '#typing';
 
 export type SemanticProviderResolver = Model &

@@ -5,7 +5,7 @@ import {
   DeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, newText, Text} from '#common';
+import {ArrayData, newText, Text} from '#core';
 import {
   translateTypescriptExpression,
   translateTypescriptStatement,

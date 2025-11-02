@@ -4,7 +4,7 @@ import {
   newCharacterStreamFromText,
   parseDocumentationCloseNode,
 } from '#analyzer';
-import {newText} from '#common';
+import {newText} from '#core';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 

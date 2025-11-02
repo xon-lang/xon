@@ -1,5 +1,5 @@
 // import {newNominalTypeDeclarationSemantic, newSemanticScope} from '#analyzer';
-// import {newText, newTextRange, newTextReference, newUri, nothing} from '#common';
+// import {newText, newTextRange, newTextReference, newUri, nothing} from '#core';
 // import {expect, test} from 'vitest';
 
 // test('Semantic scope', () => {

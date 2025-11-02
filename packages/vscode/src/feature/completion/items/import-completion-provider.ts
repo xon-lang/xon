@@ -8,7 +8,7 @@ import {
   newUri,
   nothing,
   Nothing,
-} from '#common';
+} from '#core';
 import {is} from '#typing';
 import {newTextDocumentAnalyzer, TextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
 import {dirname, resolve} from 'node:path';

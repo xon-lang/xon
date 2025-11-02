@@ -6,7 +6,7 @@ import {
   SemanticProviderResolver,
   SemanticScope,
 } from '#analyzer';
-import {Boolean2, Nothing, Text, TextRange, TextReference, Uri} from '#common';
+import {Boolean2, Nothing, Text, TextRange, TextReference, Uri} from '#core';
 import {Brand, Model} from '#typing';
 
 export type SemanticContext = Model &

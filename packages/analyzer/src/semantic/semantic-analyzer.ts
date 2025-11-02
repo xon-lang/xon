@@ -10,7 +10,7 @@
 //   SyntaxAnalyzer,
 //   syntaxFromResource,
 // } from '#analyzer';
-// import {ArrayData, newArrayData, Nothing, nothing, TextResource} from '#common';
+// import {ArrayData, newArrayData, Nothing, nothing, TextResource} from '#core';
 // import {AnalyzerDiagnosticManager} from '#diagnostic';
 // import {Model} from '#typing';
 

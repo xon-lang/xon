@@ -1,5 +1,5 @@
 import {newAnalyzerContext, newCharacterStreamFromText, parseStatements} from '#analyzer';
-import {newText} from '#common';
+import {newText} from '#core';
 import {expect, test} from 'vitest';
 
 test('Statement with body', () => {

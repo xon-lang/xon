@@ -8,7 +8,7 @@ import {
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, newArrayData, newTextRange, Nothing} from '#common';
+import {ArrayData, newArrayData, newTextRange, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type BodyNode = SyntaxNode &

@@ -1,4 +1,4 @@
-import {TextPosition, TextRange, newTextPosition, newTextRange} from '#common';
+import {TextPosition, TextRange, newTextPosition, newTextRange} from '#core';
 import {ParserRuleContext, Token} from 'antlr4';
 
 export function antrlPositionToXonPosition(token: Token): TextPosition {

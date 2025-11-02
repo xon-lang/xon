@@ -23,7 +23,7 @@ import {
   parseGroupOpenNode,
   parseStatements,
 } from '#analyzer';
-import {newArrayData, Nothing, nothing} from '#common';
+import {newArrayData, Nothing, nothing} from '#core';
 import {$Type, is} from '#typing';
 
 export function parseGroupNode(context: AnalyzerContext): GroupNode | Nothing {

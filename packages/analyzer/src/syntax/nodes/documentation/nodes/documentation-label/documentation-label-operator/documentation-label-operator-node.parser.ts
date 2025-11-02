@@ -4,7 +4,7 @@ import {
   AT,
   DocumentationLabelOperatorNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseDocumentationLabelOperatorNode(
   context: AnalyzerContext,

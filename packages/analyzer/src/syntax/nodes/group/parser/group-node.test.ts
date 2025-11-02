@@ -17,7 +17,7 @@ import {
   newCharacterStreamFromText,
   parseGroupNode,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {is} from '#typing';
 import {expect, test} from 'vitest';
 

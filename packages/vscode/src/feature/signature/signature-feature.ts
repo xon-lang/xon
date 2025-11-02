@@ -16,7 +16,7 @@
 //   InvokeNode,
 //   Node,
 // } from '#analyzer';
-// import {Integer, nothing, Nothing} from '#common';
+// import {Integer, nothing, Nothing} from '#core';
 // import {is} from '#typing';
 // import {
 //   convertVscodePosition,

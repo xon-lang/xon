@@ -9,7 +9,7 @@ import {
   newDictionary,
   Nothing,
   Text,
-} from '#common';
+} from '#core';
 import {is} from '#typing';
 
 export function newSemanticScope(

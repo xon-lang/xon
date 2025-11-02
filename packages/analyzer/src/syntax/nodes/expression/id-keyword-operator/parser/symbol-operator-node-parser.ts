@@ -14,16 +14,7 @@ import {
   PLUS,
   SYMBOL_OPERATORS,
 } from '#analyzer';
-import {
-  $KeyValue,
-  Dictionary,
-  newArrayData,
-  newDictionary,
-  newKeyValue,
-  nothing,
-  Nothing,
-  Text,
-} from '#common';
+import {$KeyValue, Dictionary, newArrayData, newDictionary, newKeyValue, nothing, Nothing, Text} from '#core';
 import {$Type} from '#typing';
 
 export const OPERATORS = SYMBOL_OPERATORS.sort((a, b) => a.count() - b.count());

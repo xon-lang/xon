@@ -1,5 +1,5 @@
 import {$AnalyzerType, DeclarationSemantic} from '#analyzer';
-import {ArrayData, Boolean2, Dictionary, Integer, Nothing, Text} from '#common';
+import {ArrayData, Boolean2, Dictionary, Integer, Nothing, Text} from '#core';
 import {Brand, Model} from '#typing';
 
 export type SemanticScope = Model &

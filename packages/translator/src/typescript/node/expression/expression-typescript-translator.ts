@@ -17,7 +17,7 @@ import {
   ExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {Boolean2, newText, Text} from '#common';
+import {Boolean2, newText, Text} from '#core';
 import {translateTypescriptAttributes, translateTypescriptStatement} from '#translator';
 import {is} from '#typing';
 

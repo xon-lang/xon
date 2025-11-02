@@ -9,7 +9,7 @@ import {
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
 } from '#analyzer';
-import {ArrayData, newArrayData, newText, Text} from '#common';
+import {ArrayData, newArrayData, newText, Text} from '#core';
 import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 

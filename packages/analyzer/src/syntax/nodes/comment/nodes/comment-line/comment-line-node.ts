@@ -9,7 +9,7 @@ import {
   newSyntaxNode,
   SemanticContext,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type CommentLineNode = CommentNode &

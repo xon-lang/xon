@@ -1,5 +1,5 @@
 import {$HighlightContext, $HighlightToken, HighlightContext, HighlightTokenType} from '#analyzer';
-import {newArrayData, TextRange} from '#common';
+import {newArrayData, TextRange} from '#core';
 
 export function newHighlightContext(): HighlightContext {
   return {

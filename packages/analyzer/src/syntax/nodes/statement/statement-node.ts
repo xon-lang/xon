@@ -1,5 +1,5 @@
 import {$AnalyzerType, $SyntaxNode, BodyNode, SyntaxNode} from '#analyzer';
-import {Integer, Nothing} from '#common';
+import {Integer, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type StatementNode = SyntaxNode &

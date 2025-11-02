@@ -9,7 +9,7 @@ import {
   ExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {Anything, newText, Nothing, nothing, Something, Text} from '#common';
+import {Anything, newText, Nothing, nothing, Something, Text} from '#core';
 import {is} from '#typing';
 
 export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Something} = {}): Anything {

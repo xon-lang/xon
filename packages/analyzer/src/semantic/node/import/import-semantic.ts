@@ -1,5 +1,5 @@
 import {$AnalyzerType, $Semantic, Semantic} from '#analyzer';
-import {Nothing, Text, Uri} from '#common';
+import {Nothing, Text, Uri} from '#core';
 
 export type ImportSemantic = Semantic & {
   originalPath: Text;

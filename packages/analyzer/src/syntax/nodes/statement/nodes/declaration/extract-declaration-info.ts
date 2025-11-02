@@ -7,7 +7,7 @@ import {
   Node,
   OperatorExpressionNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 import {is} from '#typing';
 
 export type ExtractedDeclarationInfo = {

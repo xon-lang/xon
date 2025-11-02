@@ -8,7 +8,7 @@ import {
   UsageSemantic,
   semantifyIdNode,
 } from '#analyzer';
-import {Nothing, Text, TextRange} from '#common';
+import {Nothing, Text, TextRange} from '#core';
 import {Brand} from '#typing';
 
 export type IdNode = ExpressionNode &

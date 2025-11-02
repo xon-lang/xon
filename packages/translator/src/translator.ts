@@ -1,5 +1,5 @@
 import {ModuleNode} from '#analyzer';
-import {Text} from '#common';
+import {Text} from '#core';
 import {$TranslatorType} from '#translator';
 import {Brand, Model} from '#typing';
 

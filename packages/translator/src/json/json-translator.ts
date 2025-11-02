@@ -1,5 +1,5 @@
 import {ModuleNode} from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {$Translator, $TranslatorType, Translator} from '#translator';
 
 export type JsonTranslator = Translator & {};

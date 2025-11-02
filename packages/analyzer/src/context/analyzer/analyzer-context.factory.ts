@@ -9,7 +9,7 @@ import {
   newDiagnostic,
   newDiagnosticService,
 } from '#analyzer';
-import {newArrayData, Text, TextRange} from '#common';
+import {newArrayData, Text, TextRange} from '#core';
 
 export function newAnalyzerContext(
   source: CharacterStream,

@@ -11,7 +11,7 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {newText, newTextFileResource, newTextReference, newUri, Nothing, nothing, Text, Uri} from '#common';
+import {newText, newTextFileResource, newTextReference, newUri, Nothing, nothing, Text, Uri} from '#core';
 import {
   antrlRangeToXonRange,
   Json5Context,

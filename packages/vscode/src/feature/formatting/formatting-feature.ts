@@ -1,5 +1,5 @@
 // import {AnalyzerFormatter} from '#analyzer';
-// import {ArrayData} from '#common';
+// import {ArrayData} from '#core';
 // import {convertRange, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 // import {
 //   CancellationToken,

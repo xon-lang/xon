@@ -6,7 +6,7 @@ import {
   parseDocumentationLabelOperatorNode,
   parseIdKeywordOperatorNode,
 } from '#analyzer';
-import {Nothing, nothing} from '#common';
+import {Nothing, nothing} from '#core';
 
 export function parseDocumentationLabelNode(context: AnalyzerContext): DocumentationLabelNode | Nothing {
   const operatorNode = parseDocumentationLabelOperatorNode(context);

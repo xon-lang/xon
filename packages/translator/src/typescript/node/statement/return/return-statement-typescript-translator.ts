@@ -1,5 +1,5 @@
 import {ReturnStatementNode} from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {translateTypescriptExpression} from '#translator';
 
 export function translateTypescriptReturnStatement(node: ReturnStatementNode): Text {

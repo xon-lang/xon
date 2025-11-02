@@ -9,7 +9,7 @@ import {
   Nothing,
   Text,
   TextPosition,
-} from '#common';
+} from '#core';
 import {$Type} from '#typing';
 
 export function newCharacterStreamFromText(source: Text): CharacterStream {

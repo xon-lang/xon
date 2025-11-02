@@ -5,7 +5,7 @@ import {
   DOCUMENTATION_CLOSE,
   DocumentationDescriptionNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseDocumentationDescriptionNode(
   context: AnalyzerContext,

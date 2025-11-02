@@ -4,7 +4,7 @@ import {
   newCharacterStreamFromText,
   parseStatements,
 } from '#analyzer';
-import {newText, Text} from '#common';
+import {newText, Text} from '#core';
 import {translateTypescriptDeclarationStatement} from '#translator';
 import {expect, test} from 'vitest';
 

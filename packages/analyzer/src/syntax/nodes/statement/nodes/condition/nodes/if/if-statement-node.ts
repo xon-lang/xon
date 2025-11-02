@@ -9,7 +9,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {Integer, Nothing} from '#common';
+import {Integer, Nothing} from '#core';
 import {Brand} from '#typing';
 
 export type IfStatementNode = StatementNode &

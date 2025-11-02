@@ -4,7 +4,7 @@ import {
   STRING_INTERPOLATION_OPEN,
   StringInterpolationOpenNode,
 } from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseStringInterpolationOpenNode(
   context: AnalyzerContext,

@@ -1,4 +1,4 @@
-import {$Text, newArrayData, newFileResource, newText} from '#common';
+import {$Text, newArrayData, newFileResource, newText} from '#core';
 import {translateTypescriptModule} from '#translator';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer} from '#vscode';
 import * as fs from 'node:fs';

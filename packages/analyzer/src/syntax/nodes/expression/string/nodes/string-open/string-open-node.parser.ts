@@ -1,5 +1,5 @@
 import {$StringOpenNode, AnalyzerContext, STRING_OPEN, StringOpenNode} from '#analyzer';
-import {Nothing} from '#common';
+import {Nothing} from '#core';
 
 export function parseStringOpenNode(context: AnalyzerContext): StringOpenNode | Nothing {
   return context.source.takeWhile(

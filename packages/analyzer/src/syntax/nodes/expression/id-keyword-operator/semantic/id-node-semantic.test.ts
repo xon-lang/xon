@@ -15,7 +15,7 @@
 //   parseIdKeywordOperatorNode,
 //   UsageSemantic,
 // } from '#analyzer';
-// import {ArrayData, newArrayData, newText, newTextRange, newTextReference, newUri, Text} from '#common';
+// import {ArrayData, newArrayData, newText, newTextRange, newTextReference, newUri, Text} from '#core';
 // import {$Model, is} from '#typing';
 // import {expect, test} from 'vitest';
 

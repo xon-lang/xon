@@ -5,7 +5,7 @@ import {
   newDeclarationSemantic,
   SemanticContext,
 } from '#analyzer';
-import {nothing} from '#common';
+import {nothing} from '#core';
 import {is} from '#typing';
 
 export function semantifyDeclarationStatementNode(
