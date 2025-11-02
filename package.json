@@ -4,12 +4,13 @@
     "antlr4": "^4.13.2"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.53.3",
     "@types/node": "24.9.2",
     "@types/vscode": "1.105.0",
     "barrelize": "^1.6.6",
     "typescript": "5.9.3",
+    "unplugin-dts": "^1.0.0-beta.0",
     "vite": "7.1.12",
-    "vite-plugin-dts": "^4.5.4",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "4.0.6"
   },
@@ -21,7 +22,8 @@
     "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/language/json/JsonGrammar.g4",
     "test": "vitest run",
     "vscode:build": "cd packages/vscode && vite build",
-    "analyzer:build": "vite build"
+    "core:build": "cd packages/core && vite build",
+    "analyzer:build": "cd packages/analyzer && vite build"
   },
   "type": "module"
 }

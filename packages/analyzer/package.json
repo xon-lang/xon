@@ -1,0 +1,19 @@
+{
+  "author": "Nizami",
+  "name": "@xon/analyzer",
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.0.0",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "bin",
+    "lib",
+    "schema.json"
+  ],
+  "types": "./dist/index.d.ts"
+}
