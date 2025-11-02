@@ -11,8 +11,7 @@ import {
   StatementNode,
   StringNode,
 } from '#analyzer';
-import {Integer, Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Integer, Nothing} from '#core';
 
 export type ImportStatementNode = StatementNode &
   Brand<'Analyzer.ImportStatementNode'> & {

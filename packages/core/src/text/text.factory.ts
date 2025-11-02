@@ -11,12 +11,12 @@ import {
   Number2,
   Text,
   TextRange,
+  is,
   newArrayData,
   newCharacter,
   nothing,
   stringToCharArray,
 } from '#core';
-import {is} from '#typing';
 
 export function newText(strings: ArrayData<Text>, separator?: Text | Nothing): Text;
 export function newText(characters: ArrayData<Character>): Text;

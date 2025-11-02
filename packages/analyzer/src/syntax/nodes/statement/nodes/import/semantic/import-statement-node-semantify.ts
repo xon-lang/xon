@@ -11,8 +11,7 @@ import {
   SemanticContext,
   StringNode,
 } from '#analyzer';
-import {newText, newUri, Nothing, nothing} from '#core';
-import {is} from '#typing';
+import {is, newText, newUri, Nothing, nothing} from '#core';
 
 export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
   if (!this.expression) {

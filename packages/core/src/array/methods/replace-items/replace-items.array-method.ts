@@ -1,5 +1,4 @@
-import {ArrayData, Integer, newArrayData} from '#core';
-import {$Model} from '#typing';
+import {$Model, ArrayData, Integer, newArrayData} from '#core';
 
 export function replaceItemsArrayMethod<T>(
   this: ArrayData<T>,

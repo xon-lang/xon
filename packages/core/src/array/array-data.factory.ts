@@ -1,14 +1,19 @@
 import {
   $ArrayData,
+  $Model,
+  $Type,
   ArrayData,
   ArrayPredicate,
   ArraySafePredicate,
   ArraySelect,
   Boolean2,
+  extractType,
   Integer,
   maxArrayMethod,
   minArrayMethod,
   minMaxArrayMethod,
+  Model,
+  modelEquals,
   Nothing,
   nothing,
   Number2,
@@ -17,7 +22,6 @@ import {
   replaceItemsArrayMethod,
   splitByArrayMethod,
 } from '#core';
-import {$Model, $Type, extractType, Model, modelEquals} from '#typing';
 
 export function newArrayData<T>(
   $itemType: $Type,

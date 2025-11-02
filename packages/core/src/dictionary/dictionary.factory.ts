@@ -1,17 +1,19 @@
 import {
   $Dictionary,
   $KeyValue,
+  $Model,
   ArrayData,
   Boolean2,
   Dictionary,
   Integer,
+  is,
   KeyValue,
+  modelEquals,
   newArrayData,
   newKeyValue,
   Nothing,
   Number2,
 } from '#core';
-import {$Model, is, modelEquals} from '#typing';
 
 export function newDictionary<K, V>(
   array: ArrayData<KeyValue<K, V>> = newArrayData($KeyValue()),

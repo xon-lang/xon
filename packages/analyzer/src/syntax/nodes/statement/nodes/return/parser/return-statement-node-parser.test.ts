@@ -8,8 +8,7 @@ import {
   parseReturnStatementNode,
   ReturnStatementNode,
 } from '#analyzer';
-import {Integer, newArrayData, newText, Text} from '#core';
-import {$Model, is} from '#typing';
+import {$Model, Integer, is, newArrayData, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('Return statement with errors', () => {

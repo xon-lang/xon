@@ -8,8 +8,7 @@ import {
   newOperatorExpressionNode,
   newTypeNode,
 } from '#analyzer';
-import {ArrayData, Integer, nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, Integer, is, nothing} from '#core';
 
 export function collapseTypeNode(): NodeCollapseFn<TypeNode> {
   return {

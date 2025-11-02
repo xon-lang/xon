@@ -1,5 +1,4 @@
-import {$CoreType, $Resource, ArrayData, Boolean2, Text} from '#core';
-import {Brand, Model} from '#typing';
+import {$CoreType, $Resource, ArrayData, Boolean2, Brand, Model, Text} from '#core';
 
 export type Uri = Model &
   Brand<'Core.Uri'> & {

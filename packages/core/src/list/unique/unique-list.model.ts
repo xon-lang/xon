@@ -1,5 +1,4 @@
-import {$ArrayData, $CoreType, $KeyValue, ArrayData} from '#core';
-import {$Model, $Type} from '#typing';
+import {$ArrayData, $CoreType, $KeyValue, $Model, $Type, ArrayData} from '#core';
 
 export interface UniqueList<T> extends ArrayData<T> {
   _base: ArrayData<T>;

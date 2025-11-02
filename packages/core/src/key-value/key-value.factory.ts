@@ -1,5 +1,4 @@
-import {$KeyValue, Boolean2, KeyValue} from '#core';
-import {$Model, is} from '#typing';
+import {$KeyValue, $Model, Boolean2, is, KeyValue} from '#core';
 
 export function newKeyValue<K, V>(key: K, value: V): KeyValue<K, V> {
   return {

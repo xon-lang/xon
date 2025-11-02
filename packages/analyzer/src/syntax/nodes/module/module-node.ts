@@ -7,8 +7,7 @@ import {
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, newTextRange, nothing, Nothing} from '#core';
-import {Brand} from '#typing';
+import {ArrayData, Brand, newTextRange, nothing, Nothing} from '#core';
 
 export type ModuleNode = SyntaxNode &
   Brand<'Analyzer.ModuleNode'> & {

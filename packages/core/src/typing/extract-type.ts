@@ -1,4 +1,4 @@
-import {$Model, $Type, is} from '#typing';
+import {$Model, $Type, is} from '#core';
 
 // todo remove when all types will be models
 export function extractType(model: unknown): $Type {

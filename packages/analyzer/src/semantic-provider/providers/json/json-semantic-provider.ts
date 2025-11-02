@@ -11,7 +11,17 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {newText, newTextFileResource, newTextReference, newUri, Nothing, nothing, Text, Uri} from '#core';
+import {
+  Brand,
+  newText,
+  newTextFileResource,
+  newTextReference,
+  newUri,
+  Nothing,
+  nothing,
+  Text,
+  Uri,
+} from '#core';
 import {
   antrlRangeToXonRange,
   Json5Context,
@@ -20,7 +30,6 @@ import {
   ObjContext,
   ValueContext,
 } from '#grammar';
-import {Brand} from '#typing';
 import {CharStream, CommonTokenStream, ParserRuleContext} from 'antlr4';
 import {dirname, resolve} from 'node:path';
 

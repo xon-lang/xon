@@ -6,8 +6,7 @@ import {
   MemberNode,
   Semantic,
 } from '#analyzer';
-import {ArrayData, Nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, is, Nothing} from '#core';
 import {newTextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
 import {
   CancellationToken,

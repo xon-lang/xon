@@ -1,5 +1,4 @@
-import {$CoreType, Boolean2, Integer} from '#core';
-import {Model} from '#typing';
+import {$CoreType, Boolean2, Integer, Model} from '#core';
 
 // todo is MinMax a vector ???
 export type MinMax = Model & {

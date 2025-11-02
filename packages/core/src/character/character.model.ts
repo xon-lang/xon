@@ -1,5 +1,4 @@
-import {$CoreType, Boolean2} from '#core';
-import {Model} from '#typing';
+import {$CoreType, Boolean2, Model} from '#core';
 
 export interface Character extends Model {
   _string: string;

@@ -1,5 +1,4 @@
-import {$KeyValue, $Text, newKeyValue, newText} from '#core';
-import {is} from '#typing';
+import {$KeyValue, $Text, is, newKeyValue, newText} from '#core';
 import {expect, test} from 'vitest';
 
 test('key value', () => {

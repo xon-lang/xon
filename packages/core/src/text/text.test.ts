@@ -1,5 +1,4 @@
-import {$Text, newText} from '#core';
-import {is} from '#typing';
+import {$Text, is, newText} from '#core';
 import {expect, test} from 'vitest';
 
 test('text data', () => {

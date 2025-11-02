@@ -1,6 +1,5 @@
 import {$ObjectSemantic, newXonSemanticProvider, ObjectSemantic} from '#analyzer';
-import {newText, newUri} from '#core';
-import {is} from '#typing';
+import {is, newText, newUri} from '#core';
 import {expect, test} from 'vitest';
 
 test('Xon semantic', async () => {

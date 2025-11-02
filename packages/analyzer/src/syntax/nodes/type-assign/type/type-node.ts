@@ -9,8 +9,7 @@ import {
   SemanticContext,
   SyntaxNode,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type TypeNode = SyntaxNode &
   Brand<'Analyzer.TypeNode'> & {

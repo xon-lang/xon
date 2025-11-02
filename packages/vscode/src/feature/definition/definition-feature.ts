@@ -7,8 +7,18 @@ import {
   IdNode,
   StringNode,
 } from '#analyzer';
-import {ArrayData, Nothing, TextRange, TextReference, Uri, newArrayData, newTextRange, nothing} from '#core';
-import {$Model, is} from '#typing';
+import {
+  $Model,
+  ArrayData,
+  Nothing,
+  TextRange,
+  TextReference,
+  Uri,
+  is,
+  newArrayData,
+  newTextRange,
+  nothing,
+} from '#core';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, vsCodeToXonPosition, xonToVsCodeRange} from '#vscode';
 import {
   CancellationToken,

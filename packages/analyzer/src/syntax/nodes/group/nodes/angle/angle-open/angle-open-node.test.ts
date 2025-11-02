@@ -1,6 +1,5 @@
 import {$AngleOpenNode, newAnalyzerContext, newCharacterStreamFromText, parseAngleOpenNode} from '#analyzer';
-import {newText} from '#core';
-import {is} from '#typing';
+import {is, newText} from '#core';
 import {expect, test} from 'vitest';
 
 test('open angle', () => {

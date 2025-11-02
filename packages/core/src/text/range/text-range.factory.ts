@@ -5,10 +5,10 @@ import {
   Nothing,
   TextPosition,
   TextRange,
+  is,
   newArrayData,
   newTextPosition,
 } from '#core';
-import {is} from '#typing';
 
 export function newTextRange(start?: TextPosition | Nothing, stop?: TextPosition | Nothing): TextRange {
   start ??= newTextPosition();

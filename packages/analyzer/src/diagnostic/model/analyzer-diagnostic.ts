@@ -4,8 +4,7 @@ import {
   AnalyzerDiagnosticTag,
   AnalyzerDiagnosticType,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing, Text, TextRange} from '#core';
-import {Brand, Model} from '#typing';
+import {ArrayData, Brand, Integer, Model, Nothing, Text, TextRange} from '#core';
 
 export type AnalyzerDiagnostic = Model &
   Brand<'Analyzer.AnalyzerDiagnostic'> & {

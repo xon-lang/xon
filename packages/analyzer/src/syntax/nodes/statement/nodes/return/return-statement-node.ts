@@ -9,8 +9,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {Integer, Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Integer, Nothing} from '#core';
 
 export type ReturnStatementNode = StatementNode &
   Brand<'Analyzer.ReturnStatementNode'> & {

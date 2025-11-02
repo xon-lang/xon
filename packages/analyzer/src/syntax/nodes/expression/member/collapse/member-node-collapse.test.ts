@@ -9,8 +9,7 @@ import {
   newCharacterStreamFromText,
   nonHiddenNodeGenerator,
 } from '#analyzer';
-import {ArrayData, newArrayData, newText, Text} from '#core';
-import {$Model, is} from '#typing';
+import {$Model, ArrayData, is, newArrayData, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('Member with id instance', () => {

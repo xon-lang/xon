@@ -1,12 +1,11 @@
 import {$BraceGroupNode, $Node, DeclarationStatementNode, TYPE} from '#analyzer';
-import {newArrayData, newText, Text} from '#core';
+import {is, newArrayData, newText, Text} from '#core';
 import {
   translateTypescriptAttributes,
   translateTypescriptExpression,
   translateTypescriptValueDeclaration,
   TypescriptDeclarationType,
 } from '#translator';
-import {is} from '#typing';
 
 export function translateTypescriptDeclarationStatement(node: DeclarationStatementNode): Text {
   if (node.keyword?.text.equals(TYPE)) {

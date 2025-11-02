@@ -7,8 +7,7 @@ import {
   Node,
   ReturnStatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, Nothing, nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, Integer, is, Nothing, nothing} from '#core';
 
 export function parseReturnStatementNode(
   context: AnalyzerContext,

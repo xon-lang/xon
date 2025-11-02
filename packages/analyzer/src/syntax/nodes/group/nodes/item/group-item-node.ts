@@ -9,8 +9,7 @@ import {
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, Nothing} from '#core';
-import {Brand} from '#typing';
+import {ArrayData, Brand, Nothing} from '#core';
 
 export type GroupItemNode = SyntaxNode &
   Brand<'Analyzer.GroupItemNode'> & {

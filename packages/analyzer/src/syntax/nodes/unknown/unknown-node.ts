@@ -1,6 +1,5 @@
 import {$AnalyzerType, $LexicalNode, AnalyzerContext, LexicalNode} from '#analyzer';
-import {Text, TextRange} from '#core';
-import {Brand} from '#typing';
+import {Brand, Text, TextRange} from '#core';
 
 export type UnknownNode = LexicalNode & Brand<'Analyzer.UnknownNode'>;
 

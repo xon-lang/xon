@@ -1,5 +1,4 @@
-import {$UniqueList, newArrayData, newUniqueList} from '#core';
-import {$Model, is} from '#typing';
+import {$Model, $UniqueList, is, newArrayData, newUniqueList} from '#core';
 import {expect, test} from 'vitest';
 
 test('Unique list', () => {

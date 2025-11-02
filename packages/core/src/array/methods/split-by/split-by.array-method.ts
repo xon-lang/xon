@@ -1,5 +1,6 @@
 import {
   $ArraySplitByModel,
+  $Model,
   ArrayData,
   ArrayPredicate,
   ArraySplitByModel,
@@ -7,7 +8,6 @@ import {
   newArraySplitByModel,
   nothing,
 } from '#core';
-import {$Model} from '#typing';
 
 // [1, 2, 3, 0, 5].splitBy(x=>x===0) is [{splitter: nothing, items: [1, 2, 3]}, {splitter: 0, items: [5]}]
 export function splitByArrayMethod<T>(

@@ -1,6 +1,5 @@
 import {$AnalyzerType, SemanticScope} from '#analyzer';
-import {Boolean2, Nothing} from '#core';
-import {Brand, Model} from '#typing';
+import {Boolean2, Brand, Model, Nothing} from '#core';
 
 export type Semantic = Model &
   Brand<'Analyzer.Semantic'> & {

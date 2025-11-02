@@ -1,5 +1,4 @@
-import {$CoreType} from '#core';
-import {Model} from '#typing';
+import {$CoreType, Model} from '#core';
 
 export interface FunctionData<T extends Function = Function> extends Model {
   invoke: T;

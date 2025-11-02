@@ -2,15 +2,17 @@ import {
   $ArrayData,
   $CoreType,
   $KeyValue,
+  $Model,
+  $Type,
   Anything,
   ArrayData,
   Boolean2,
   Integer,
   KeyValue,
+  Model,
   Nothing,
   Number2,
 } from '#core';
-import {$Model, $Type, Model} from '#typing';
 
 export type Dictionary<K = Anything, V = Anything> = ArrayData<KeyValue<K, V>> & {
   // todo remove all inherited methods

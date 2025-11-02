@@ -17,8 +17,7 @@ import {
   parseUnknownNode,
   parseWhitespaceNode,
 } from '#analyzer';
-import {ArrayData, newArrayData, Nothing} from '#core';
-import {$Model} from '#typing';
+import {$Model, ArrayData, newArrayData, Nothing} from '#core';
 
 function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> {
   return newArrayData($Model(), [

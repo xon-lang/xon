@@ -1,6 +1,5 @@
 import {$IdNode, newAnalyzerContext, newCharacterStreamFromText, parseIdKeywordOperatorNode} from '#analyzer';
-import {newText, nothing} from '#core';
-import {is} from '#typing';
+import {is, newText, nothing} from '#core';
 import {expect, test} from 'vitest';
 
 test('underscore', () => {

@@ -1,5 +1,5 @@
 import {$AnalyzerType, $KeywordNode, KeywordNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type DeclarationKeywordNode = KeywordNode & Brand<'Analyzer.DeclarationKeywordNode'>;
 

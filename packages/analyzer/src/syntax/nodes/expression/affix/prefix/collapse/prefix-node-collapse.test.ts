@@ -10,8 +10,7 @@ import {
   PLUS,
   PrefixNode,
 } from '#analyzer';
-import {newArrayData, newDictionary, newKeyValue, newText, Text} from '#core';
-import {$Model, is} from '#typing';
+import {$Model, is, newArrayData, newDictionary, newKeyValue, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('Plus integer', () => {

@@ -1,5 +1,4 @@
-import {$CoreType, Anything, Boolean2} from '#core';
-import {$Model, Brand, Model} from '#typing';
+import {$CoreType, $Model, Anything, Boolean2, Brand, Model} from '#core';
 
 export type KeyValue<K = Anything, V = Anything> = Model &
   Brand<'Core.KeyValue'> & {

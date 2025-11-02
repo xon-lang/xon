@@ -1,5 +1,15 @@
-import {$CoreType, ArrayExtremumElement, ArraySplitByModel, Boolean2, Integer, Nothing, Number2} from '#core';
-import {$Model, $Type, Model} from '#typing';
+import {
+  $CoreType,
+  $Model,
+  $Type,
+  ArrayExtremumElement,
+  ArraySplitByModel,
+  Boolean2,
+  Integer,
+  Model,
+  Nothing,
+  Number2,
+} from '#core';
 
 export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   _items: T[];

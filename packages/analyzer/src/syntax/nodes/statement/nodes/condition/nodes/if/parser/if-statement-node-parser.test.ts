@@ -9,8 +9,7 @@ import {
   nonHiddenNodeGenerator,
   parseIfStatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, newArrayData, newText, Text} from '#core';
-import {$Model, is} from '#typing';
+import {$Model, ArrayData, Integer, is, newArrayData, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('If statement with errors', () => {

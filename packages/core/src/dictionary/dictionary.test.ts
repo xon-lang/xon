@@ -1,5 +1,4 @@
-import {$Dictionary, $KeyValue, newArrayData, newCharacter, newDictionary, newKeyValue} from '#core';
-import {is} from '#typing';
+import {$Dictionary, $KeyValue, is, newArrayData, newCharacter, newDictionary, newKeyValue} from '#core';
 import {expect, test} from 'vitest';
 
 test('dictionary', () => {

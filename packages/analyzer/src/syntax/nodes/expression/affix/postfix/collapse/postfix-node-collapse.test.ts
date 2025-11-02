@@ -10,8 +10,7 @@ import {
   nonHiddenNodeGenerator,
   PostfixNode,
 } from '#analyzer';
-import {$KeyValue, newArrayData, newDictionary, newKeyValue, newText, Text} from '#core';
-import {$Model, is} from '#typing';
+import {$KeyValue, $Model, is, newArrayData, newDictionary, newKeyValue, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('Exclamation integer', () => {

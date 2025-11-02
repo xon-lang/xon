@@ -10,8 +10,7 @@ import {
   StringContentNode,
   StringOpenNode,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type StringNode = ExpressionNode &
   Brand<'Analyzer.StringNode'> & {

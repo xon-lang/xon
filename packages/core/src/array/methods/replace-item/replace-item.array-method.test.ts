@@ -1,5 +1,4 @@
-import {newArrayData} from '#core';
-import {$Model} from '#typing';
+import {$Model, newArrayData} from '#core';
 import {expect, test} from 'vitest';
 
 test('Replace item', () => {

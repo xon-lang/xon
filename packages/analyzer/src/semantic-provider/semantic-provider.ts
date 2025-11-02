@@ -1,6 +1,5 @@
 import {$AnalyzerType, Semantic} from '#analyzer';
-import {Nothing, Uri} from '#core';
-import {Brand, Model} from '#typing';
+import {Brand, Model, Nothing, Uri} from '#core';
 import {Text} from 'antlr4';
 
 export type SemanticProvider = Model &

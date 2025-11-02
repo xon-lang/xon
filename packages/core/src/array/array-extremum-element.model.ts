@@ -1,5 +1,4 @@
-import {$CoreType, Integer, Number2} from '#core';
-import {$Model, $Type, extractType, Model} from '#typing';
+import {$CoreType, $Model, $Type, extractType, Integer, Model, Number2} from '#core';
 
 export type ArrayExtremumElement<T = unknown, V extends Number2 = Number2> = Model & {
   index: Integer;

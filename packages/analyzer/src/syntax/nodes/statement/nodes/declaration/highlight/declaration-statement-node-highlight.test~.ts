@@ -10,7 +10,7 @@
 //   DeclarationStatementNode,
 // } from '#analyzer';
 // import {ArrayData, newArrayData, newText, Text} from '#core';
-// import {is} from '#typing';
+// import {is} from '#core';
 // import {expect, test} from 'vitest';
 
 // test('Highlight id token', () => {

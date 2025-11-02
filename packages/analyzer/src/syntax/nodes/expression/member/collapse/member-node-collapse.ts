@@ -10,8 +10,7 @@ import {
   NodeCollapseResult,
   POINT,
 } from '#analyzer';
-import {ArrayData, Integer, newText, nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, Integer, is, newText, nothing} from '#core';
 
 export function collapseMemberNode(context: AnalyzerContext): NodeCollapseFn<MemberNode> {
   return {

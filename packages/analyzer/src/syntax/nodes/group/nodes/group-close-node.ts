@@ -1,5 +1,5 @@
 import {$AnalyzerType, $LexicalNode, LexicalNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type GroupCloseNode = LexicalNode & Brand<'Analyzer.GroupCloseNode'>;
 

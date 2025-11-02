@@ -1,5 +1,5 @@
 // import {$LexicalNode} from '#analyzer';
-// import {is} from '#typing';
+// import {is} from '#core';
 // import {convertVscodePosition, getDocumentSemantic} from '#vscode';
 // import {
 //   CancellationToken,

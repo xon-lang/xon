@@ -1,6 +1,5 @@
 import {$StringNode, ImportStatementNode} from '#analyzer';
-import {newText, Text} from '#core';
-import {is} from '#typing';
+import {is, newText, Text} from '#core';
 
 export function translateTypescriptImportStatement(node: ImportStatementNode): Text {
   if (!is(node.expression, $StringNode()) || !node.expression.content) {

@@ -10,8 +10,7 @@ import {
   StringInterpolationItemNode,
   StringInterpolationOpenNode,
 } from '#analyzer';
-import {ArrayData, Nothing} from '#core';
-import {Brand} from '#typing';
+import {ArrayData, Brand, Nothing} from '#core';
 
 export type StringInterpolationNode = ExpressionNode &
   Brand<'Analyzer.StringInterpolationNode'> & {

@@ -9,8 +9,7 @@ import {
   OperatorNode,
   semantifyMemberNode,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type MemberNode = ExpressionNode &
   Brand<'Analyzer.MemberNode'> & {

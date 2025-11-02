@@ -6,8 +6,7 @@ import {
   NodeCollapseFn,
   NodeCollapseResult,
 } from '#analyzer';
-import {ArrayData, Boolean2, Dictionary, Integer, nothing, Text} from '#core';
-import {$Type, is} from '#typing';
+import {$Type, ArrayData, Boolean2, Dictionary, Integer, is, nothing, Text} from '#core';
 
 export function collapsePrefixNode(
   similarPriorityOperators: Dictionary<Text, $Type>,

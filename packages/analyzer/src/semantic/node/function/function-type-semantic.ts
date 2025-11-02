@@ -1,6 +1,5 @@
 import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic} from '#analyzer';
-import {ArrayData, Nothing} from '#core';
-import {Brand} from '#typing';
+import {ArrayData, Brand, Nothing} from '#core';
 
 export type FunctionSemantic = Semantic &
   Brand<'Analyzer.FunctionSemantic'> & {

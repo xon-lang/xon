@@ -1,5 +1,17 @@
-import {$UniqueList, ArrayData, Boolean2, Integer, newArrayData, Nothing, Number2, UniqueList} from '#core';
-import {$Model, $Type, is, modelEquals} from '#typing';
+import {
+  $Model,
+  $Type,
+  $UniqueList,
+  ArrayData,
+  Boolean2,
+  Integer,
+  is,
+  modelEquals,
+  newArrayData,
+  Nothing,
+  Number2,
+  UniqueList,
+} from '#core';
 
 export function newUniqueList<T>(
   $itemType: $Type,

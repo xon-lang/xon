@@ -11,7 +11,7 @@
 //   StringNode,
 // } from '#analyzer';
 // import {ArrayData, newText, newTextPosition, Text} from '#core';
-// import {is} from '#typing';
+// import {is} from '#core';
 // import {findClosestNode, findNode, findStatementNode} from '#vscode';
 // import {expect, test} from 'vitest';
 

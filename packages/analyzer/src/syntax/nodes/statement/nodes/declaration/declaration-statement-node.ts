@@ -11,8 +11,7 @@ import {
   semantifyDeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {Integer, Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Integer, Nothing} from '#core';
 
 export type DeclarationStatementNode = StatementNode &
   Brand<'Analyzer.DeclarationStatementNode'> & {

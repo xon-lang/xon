@@ -9,7 +9,7 @@ import {
   newSyntaxNode,
   SemanticContext,
 } from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type UnionInfixNode = InfixNode &
   Brand<'Analyzer.PlusInfixNode'> & {

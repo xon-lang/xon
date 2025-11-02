@@ -1,5 +1,5 @@
 import {$AnalyzerType, $SymbolOperatorNode, SymbolOperatorNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type UnionOperatorNode = SymbolOperatorNode & Brand<'Analyzer.UnionOperatorNode'>;
 

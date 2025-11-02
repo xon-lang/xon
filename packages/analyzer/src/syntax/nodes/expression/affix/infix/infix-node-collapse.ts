@@ -8,8 +8,7 @@ import {
   OperatorNode,
   PlusOperatorNode,
 } from '#analyzer';
-import {ArrayData, Integer, nothing} from '#core';
-import {$Type, is} from '#typing';
+import {$Type, ArrayData, Integer, is, nothing} from '#core';
 
 export function collapseInfixNode<T extends $Type<OperatorNode>>(
   operatorType: T,

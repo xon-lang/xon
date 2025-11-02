@@ -1,6 +1,5 @@
 import {$AnalyzerType, AnalyzerDiagnostic} from '#analyzer';
-import {ArrayData} from '#core';
-import {Brand, Model} from '#typing';
+import {ArrayData, Brand, Model} from '#core';
 
 export type DiagnosticService = Model &
   Brand<'Diagnostic.DiagnosticService'> & {

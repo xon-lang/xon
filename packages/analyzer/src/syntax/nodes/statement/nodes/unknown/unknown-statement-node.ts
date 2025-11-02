@@ -7,8 +7,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {Integer} from '#core';
-import {Brand} from '#typing';
+import {Brand, Integer} from '#core';
 
 export type UnknownStatementNode = StatementNode & Brand<'Analyzer.UnknownStatementNode'> & {};
 

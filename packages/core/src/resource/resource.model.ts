@@ -1,5 +1,4 @@
-import {$CoreType, Boolean2, Uri} from '#core';
-import {Brand, Model} from '#typing';
+import {$CoreType, Boolean2, Brand, Model, Uri} from '#core';
 
 export type Resource = Model &
   Brand<'Core.Resource'> & {

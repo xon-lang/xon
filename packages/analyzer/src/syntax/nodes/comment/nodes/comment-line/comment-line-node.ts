@@ -9,8 +9,7 @@ import {
   newSyntaxNode,
   SemanticContext,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type CommentLineNode = CommentNode &
   Brand<'Analyzer.CommentLineNode'> & {

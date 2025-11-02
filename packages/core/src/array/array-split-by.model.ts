@@ -1,5 +1,4 @@
-import {$CoreType, ArrayData, Nothing} from '#core';
-import {$Model, $Type, extractType, Model} from '#typing';
+import {$CoreType, $Model, $Type, ArrayData, extractType, Model, Nothing} from '#core';
 
 export type ArraySplitByModel<T> = Model & {splitter: T | Nothing; items: ArrayData<T>};
 

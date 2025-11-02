@@ -9,8 +9,7 @@ import {
   SyntaxNode,
   TypeOperatorNode,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type OperatorExpressionNode = SyntaxNode &
   Brand<'Analyzer.OperatorExpressionNode'> & {

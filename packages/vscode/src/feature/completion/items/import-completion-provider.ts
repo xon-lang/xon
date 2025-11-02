@@ -2,6 +2,7 @@ import {$ImportStatementNode, $StringNode, StringNode} from '#analyzer';
 import {
   $DirectoryResource,
   $FileResource,
+  is,
   newCharacter,
   newDirectoryResource,
   newText,
@@ -9,7 +10,6 @@ import {
   nothing,
   Nothing,
 } from '#core';
-import {is} from '#typing';
 import {newTextDocumentAnalyzer, TextDocumentAnalyzer, vsCodeToXonPosition} from '#vscode';
 import {dirname, resolve} from 'node:path';
 import {

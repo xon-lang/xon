@@ -17,7 +17,7 @@
 //   Node,
 // } from '#analyzer';
 // import {Integer, nothing, Nothing} from '#core';
-// import {is} from '#typing';
+// import {is} from '#core';
 // import {
 //   convertVscodePosition,
 //   declarationSemanticHeaderToString,

@@ -1,7 +1,6 @@
 import {ModuleNode} from '#analyzer';
-import {Text} from '#core';
+import {Brand, Text} from '#core';
 import {$Translator, $TranslatorType, translateTypescriptModule, Translator} from '#translator';
-import {Brand} from '#typing';
 
 export type TypescriptTranslator = Translator & Brand<'Translator.TypescriptTranslator'> & {};
 

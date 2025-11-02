@@ -9,7 +9,7 @@ import {
   PlusOperatorNode,
   SemanticContext,
 } from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type PlusInfixNode = InfixNode &
   Brand<'Analyzer.PlusInfixNode'> & {

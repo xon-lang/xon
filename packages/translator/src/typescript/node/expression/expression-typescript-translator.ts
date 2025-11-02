@@ -17,9 +17,8 @@ import {
   ExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {Boolean2, newText, Text} from '#core';
+import {Boolean2, is, newText, Text} from '#core';
 import {translateTypescriptAttributes, translateTypescriptStatement} from '#translator';
-import {is} from '#typing';
 
 export function translateTypescriptExpression(node: Node, isType: Boolean2): Text {
   if (is(node, $IntegerNode())) {

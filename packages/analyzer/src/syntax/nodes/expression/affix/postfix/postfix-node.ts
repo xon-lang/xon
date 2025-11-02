@@ -9,7 +9,7 @@ import {
   OperatorNode,
   SemanticContext,
 } from '#analyzer';
-import {$Type, Brand} from '#typing';
+import {$Type, Brand} from '#core';
 
 export type PostfixNode = AffixNode &
   Brand<'Analyzer.PostfixNode'> & {

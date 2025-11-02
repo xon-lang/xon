@@ -1,5 +1,5 @@
 import {$AnalyzerType, $SyntaxNode, SyntaxNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type ExpressionNode = SyntaxNode & Brand<'Analyzer.ExpressionNode'> & {};
 

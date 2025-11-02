@@ -1,5 +1,4 @@
-import {$TextPosition, Boolean2, Integer, TextPosition} from '#core';
-import {is} from '#typing';
+import {$TextPosition, Boolean2, Integer, is, TextPosition} from '#core';
 
 export function newTextPosition(index: Integer = 0, line: Integer = 0, column: Integer = 0): TextPosition {
   return {

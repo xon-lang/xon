@@ -17,7 +17,7 @@
 //   StringSemantic,
 // } from '#analyzer';
 // import {newArrayData, newText, newTextRange, newTextReference, newUri, nothing, Text} from '#core';
-// import {$Model, is} from '#typing';
+// import {$Model, is} from '#core';
 // import {expect, test} from 'vitest';
 
 // test('Member node semantics', () => {

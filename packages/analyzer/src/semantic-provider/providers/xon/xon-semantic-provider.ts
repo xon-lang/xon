@@ -12,8 +12,7 @@ import {
   Semantic,
   SemanticProvider,
 } from '#analyzer';
-import {newText, newTextFileResource, newUri, Nothing, Text, Uri} from '#core';
-import {Brand, is} from '#typing';
+import {Brand, is, newText, newTextFileResource, newUri, Nothing, Text, Uri} from '#core';
 import {dirname, resolve} from 'node:path';
 
 export type XonSemanticProvider = SemanticProvider & Brand<'Analyzer.XonSemanticProvider'>;

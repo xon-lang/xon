@@ -8,8 +8,7 @@ import {
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {Integer} from '#core';
-import {Brand} from '#typing';
+import {Brand, Integer} from '#core';
 
 export type ExpressionStatementNode = StatementNode &
   Brand<'Analyzer.ExpressionStatementNode'> & {

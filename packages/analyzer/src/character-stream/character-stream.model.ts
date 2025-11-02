@@ -1,6 +1,5 @@
 import {LexicalNode} from '#analyzer';
-import {$CoreType, Boolean2, Character, Integer, Nothing, Text} from '#core';
-import {$Type, Brand, Model} from '#typing';
+import {$CoreType, $Type, Boolean2, Brand, Character, Integer, Model, Nothing, Text} from '#core';
 
 export type CharacterStream = Model &
   Brand<'Core.CharacterStream'> & {

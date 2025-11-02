@@ -1,7 +1,7 @@
 import {SemanticProvider} from '#analyzer';
+import {Brand, Model} from '#core';
 import {$LanguageAdapterType} from '#language-adapter';
 import {Translator} from '#translator';
-import {Brand, Model} from '#typing';
 
 export type LanguageAdapter = Model &
   Brand<'LanguageAdapter.LanguageAdapter'> & {

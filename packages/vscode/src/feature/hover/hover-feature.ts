@@ -9,7 +9,7 @@
 //   Semantic,
 // } from '#analyzer';
 // import {newText, Nothing, nothing, Text} from '#core';
-// import {is} from '#typing';
+// import {is} from '#core';
 // import {convertRange, convertVscodePosition, getDocumentSemantic, LANGUAGE_NAME} from '#vscode';
 // import {
 //   CancellationToken,

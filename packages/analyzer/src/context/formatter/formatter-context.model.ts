@@ -1,6 +1,5 @@
 import {$AnalyzerType, AnalyzerFormatter} from '#analyzer';
-import {ArrayData} from '#core';
-import {Brand, Model} from '#typing';
+import {ArrayData, Brand, Model} from '#core';
 
 export type FormatterContext = Model &
   Brand<'Formatter.FormatterContext'> & {

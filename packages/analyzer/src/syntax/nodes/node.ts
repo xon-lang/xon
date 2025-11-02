@@ -1,6 +1,17 @@
 import {$AnalyzerType, FormatterContext, HighlightContext, Semantic, SemanticContext} from '#analyzer';
-import {$ArrayData, ArrayData, Boolean2, newArrayData, newTextRange, Nothing, Text, TextRange} from '#core';
-import {Brand, is, Model} from '#typing';
+import {
+  $ArrayData,
+  ArrayData,
+  Boolean2,
+  Brand,
+  is,
+  Model,
+  newArrayData,
+  newTextRange,
+  Nothing,
+  Text,
+  TextRange,
+} from '#core';
 
 export type Node = Model &
   Brand<'Analyzer.Node'> & {

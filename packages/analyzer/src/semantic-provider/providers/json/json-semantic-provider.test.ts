@@ -1,6 +1,5 @@
 import {$ObjectSemantic, newJsonSemanticProvider, newSemanticContext, ObjectSemantic} from '#analyzer';
-import {newText, newUri} from '#core';
-import {is} from '#typing';
+import {is, newText, newUri} from '#core';
 import {expect, test} from 'vitest';
 
 test('Json semantic', async () => {

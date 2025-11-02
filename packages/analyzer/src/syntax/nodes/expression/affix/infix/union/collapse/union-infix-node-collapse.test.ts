@@ -10,8 +10,7 @@ import {
   nonHiddenNodeGenerator,
   UnionInfixNode,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#core';
-import {$Model, is} from '#typing';
+import {$Model, is, newArrayData, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('Union infix operator', () => {

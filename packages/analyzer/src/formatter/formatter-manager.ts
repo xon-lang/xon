@@ -20,7 +20,7 @@
 //   rangeFromNodes,
 //   rangeFromPosition,
 // } from '#core';
-// import {is} from '#typing';
+// import {is} from '#core';
 
 // export type FormatterManager = {
 //   resource: TextResource;

@@ -1,5 +1,4 @@
-import {ArrayData, ArrayPredicate, newArrayData, Nothing, nothing} from '#core';
-import {$Model} from '#typing';
+import {$Model, ArrayData, ArrayPredicate, newArrayData, Nothing, nothing} from '#core';
 
 // todo should we return new array/immutability ???
 export function removeArrayMethod<T>(

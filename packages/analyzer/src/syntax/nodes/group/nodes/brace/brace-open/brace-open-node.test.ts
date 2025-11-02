@@ -1,6 +1,5 @@
 import {$BraceOpenNode, newAnalyzerContext, newCharacterStreamFromText, parseBraceOpenNode} from '#analyzer';
-import {newText} from '#core';
-import {is} from '#typing';
+import {is, newText} from '#core';
 import {expect, test} from 'vitest';
 
 test('open brace', () => {

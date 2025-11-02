@@ -1,5 +1,4 @@
-import {$ArrayData, $Character, newArrayData, newCharacter} from '#core';
-import {$Model, is} from '#typing';
+import {$ArrayData, $Character, $Model, is, newArrayData, newCharacter} from '#core';
 import {expect, test} from 'vitest';
 
 test('array', () => {

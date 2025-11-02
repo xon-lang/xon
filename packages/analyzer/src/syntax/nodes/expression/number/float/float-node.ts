@@ -9,8 +9,7 @@ import {
   RadixPointNode,
   SemanticContext,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type FloatNode = NumberNode &
   Brand<'Analyzer.FloatNode'> & {

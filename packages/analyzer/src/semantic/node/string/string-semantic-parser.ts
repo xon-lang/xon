@@ -7,7 +7,7 @@
 //   newStringTypeSemantic,
 // } from '#analyzer';
 // import {Nothing, nothing} from '#core';
-// import {is} from '#typing';
+// import {is} from '#core';
 
 // export function stringTypeSemanticTryParse(
 //   analyzer: SemanticAnalyzer,

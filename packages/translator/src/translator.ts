@@ -1,7 +1,6 @@
 import {ModuleNode} from '#analyzer';
-import {Text} from '#core';
+import {Brand, Model, Text} from '#core';
 import {$TranslatorType} from '#translator';
-import {Brand, Model} from '#typing';
 
 export type Translator = Model &
   Brand<'Translator.Translator'> & {

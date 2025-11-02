@@ -1,5 +1,4 @@
-import {$Character, newCharacter} from '#core';
-import {is} from '#typing';
+import {$Character, is, newCharacter} from '#core';
 import {expect, test} from 'vitest';
 
 test('Character A', () => {

@@ -1,5 +1,5 @@
 import {$AnalyzerType, $GroupNode, GroupNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type AngleGroupNode = GroupNode & Brand<'Analyzer.AngleGroupNode'>;
 

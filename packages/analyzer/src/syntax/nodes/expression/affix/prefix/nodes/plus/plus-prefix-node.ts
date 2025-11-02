@@ -1,5 +1,5 @@
 import {$AnalyzerType, $PrefixNode, Node, OperatorNode, PrefixNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type PlusPrefixNode = PrefixNode &
   Brand<'Analyzer.PlusPrefixNode'> & {

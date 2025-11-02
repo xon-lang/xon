@@ -1,5 +1,5 @@
 import {$AnalyzerType, $ModifierKeywordNode, ModifierKeywordNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type PublicKeywordNode = ModifierKeywordNode & Brand<'Analyzer.PublicKeywordNode'>;
 

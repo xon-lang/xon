@@ -1,5 +1,4 @@
-import {$CoreType, Boolean2, TextRange, Uri} from '#core';
-import {Model} from '#typing';
+import {$CoreType, Boolean2, Model, TextRange, Uri} from '#core';
 
 export type TextReference = Model & {
   uri: Uri;

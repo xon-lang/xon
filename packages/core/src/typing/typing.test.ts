@@ -1,4 +1,4 @@
-import {$Model, $NewType, is, Model} from '#typing';
+import {$Model, $NewType, is, Model} from '#core';
 import {expect, test} from 'vitest';
 
 test('type', () => {

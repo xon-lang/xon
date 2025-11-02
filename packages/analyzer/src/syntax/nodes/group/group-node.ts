@@ -10,8 +10,7 @@ import {
   newSyntaxNode,
   SemanticContext,
 } from '#analyzer';
-import {ArrayData, Nothing} from '#core';
-import {$Type, Brand} from '#typing';
+import {$Type, ArrayData, Brand, Nothing} from '#core';
 
 export type GroupNode = ExpressionNode &
   Brand<'Analyzer.GroupNode'> & {

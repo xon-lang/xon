@@ -64,7 +64,7 @@ export interface Model {
   // is?<T extends $Type>($type: T): this is Exclude<T['type'], undefined>;
 }
 
-export const $Model = () => $NewType<Model>('Typing', 'Model');
+export const $Model = () => $NewType<Model>('Core', 'Model');
 
 // todo remove 'is' and use 'Model.is()'
 export function is<T extends $Type>(model: any, type: T): model is Exclude<T['type'], undefined> {

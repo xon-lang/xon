@@ -1,6 +1,5 @@
 import {$AnalyzerType, HighlightToken, HighlightTokenType} from '#analyzer';
-import {ArrayData, TextRange} from '#core';
-import {Brand, Model} from '#typing';
+import {ArrayData, Brand, Model, TextRange} from '#core';
 
 export type HighlightContext = Model &
   Brand<'Analyzer.HighlightContext'> & {

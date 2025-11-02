@@ -1,6 +1,5 @@
 import {$AnalyzerType, $Semantic, DeclarationSemantic, Semantic} from '#analyzer';
-import {Character, Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Character, Nothing} from '#core';
 
 export type CharacterSemantic = Semantic &
   Brand<'Analyzer.CharacterTypeSemantic'> & {

@@ -1,5 +1,6 @@
 import {$CharacterStream, CharacterStream, LexicalNode, NL} from '#analyzer';
 import {
+  $Type,
   Boolean2,
   Character,
   Integer,
@@ -10,7 +11,6 @@ import {
   Text,
   TextPosition,
 } from '#core';
-import {$Type} from '#typing';
 
 export function newCharacterStreamFromText(source: Text): CharacterStream {
   let sourcePosition = newTextPosition();

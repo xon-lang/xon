@@ -1,6 +1,5 @@
 import {$ElseKeywordNode, AnalyzerContext, ElseStatementNode, newElseStatementNode, Node} from '#analyzer';
-import {ArrayData, Integer, Nothing, nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, Integer, is, Nothing, nothing} from '#core';
 
 export function parseElseStatementNode(
   context: AnalyzerContext,

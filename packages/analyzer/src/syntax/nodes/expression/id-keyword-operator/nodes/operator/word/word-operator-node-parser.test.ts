@@ -6,8 +6,7 @@ import {
   OperatorNode,
   parseIdKeywordOperatorNode,
 } from '#analyzer';
-import {newText, Text} from '#core';
-import {is} from '#typing';
+import {is, newText, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('Word operator as', () => {

@@ -7,8 +7,7 @@ import {
   NodeCollapseResult,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, Integer, is, nothing} from '#core';
 
 export function collapseConditionStatementNode(): NodeCollapseFn<StatementNode> {
   return {

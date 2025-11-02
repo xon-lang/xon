@@ -27,7 +27,6 @@
     "outDir": "packages/vscode/dist",
     "paths": {
       "#grammar": ["packages/grammar/*", "packages/grammar/index"],
-      "#typing": ["packages/typing/*", "packages/typing/index"],
       "#core": ["packages/core/*", "packages/core/index"],
       "#analyzer": ["packages/analyzer/*", "packages/analyzer/index"],
       "#interpreter": ["packages/interpreter/*", "packages/interpreter/index"],

@@ -16,7 +16,7 @@
 //   UsageSemantic,
 // } from '#analyzer';
 // import {ArrayData, newArrayData, newText, newTextRange, newTextReference, newUri, Text} from '#core';
-// import {$Model, is} from '#typing';
+// import {$Model, is} from '#core';
 // import {expect, test} from 'vitest';
 
 // test('Id node semantics', () => {

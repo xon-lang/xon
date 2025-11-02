@@ -1,5 +1,4 @@
-import {Nothing} from '#core';
-import {$NewType, $Type, Model} from '#typing';
+import {$NewType, $Type, Model, Nothing} from '#core';
 
 export function $InterpreterType<T extends Model>(
   name: string,

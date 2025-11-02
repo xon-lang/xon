@@ -5,12 +5,12 @@ import {
   Boolean2,
   Dictionary,
   Integer,
+  is,
   newArrayData,
   newDictionary,
   Nothing,
   Text,
 } from '#core';
-import {is} from '#typing';
 
 export function newSemanticScope(
   declarations?: Dictionary<Text, ArrayData<DeclarationSemantic>> | ArrayData<DeclarationSemantic> | Nothing,

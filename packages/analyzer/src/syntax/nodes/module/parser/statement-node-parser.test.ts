@@ -1,6 +1,5 @@
 import {$ModuleNode, newAnalyzerContext, newCharacterStreamFromText, parseModule} from '#analyzer';
-import {newText} from '#core';
-import {is} from '#typing';
+import {is, newText} from '#core';
 import {expect, test} from 'vitest';
 
 test('Module node', () => {

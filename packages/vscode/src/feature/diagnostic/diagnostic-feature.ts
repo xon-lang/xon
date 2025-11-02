@@ -1,6 +1,5 @@
 import {AnalyzerDiagnostic, AnalyzerDiagnosticSeverity, AnalyzerDiagnosticTag} from '#analyzer';
-import {ArrayData, newArrayData} from '#core';
-import {$Model} from '#typing';
+import {$Model, ArrayData, newArrayData} from '#core';
 import {LANGUAGE_NAME, newTextDocumentAnalyzer, xonToVsCodeRange} from '#vscode';
 import {
   Diagnostic,

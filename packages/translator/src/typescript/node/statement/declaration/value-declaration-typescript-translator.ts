@@ -5,14 +5,13 @@ import {
   DeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, newText, Text} from '#core';
+import {ArrayData, is, newText, Text} from '#core';
 import {
   translateTypescriptExpression,
   translateTypescriptStatement,
   TypescriptDeclarationType,
   TypescriptStatementSeparator,
 } from '#translator';
-import {is} from '#typing';
 
 export function translateTypescriptValueDeclaration(
   node: StatementNode,

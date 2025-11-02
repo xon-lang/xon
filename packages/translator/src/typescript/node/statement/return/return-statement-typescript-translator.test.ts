@@ -6,9 +6,8 @@ import {
   parseReturnStatementNode,
   ReturnStatementNode,
 } from '#analyzer';
-import {newArrayData, newText, Text} from '#core';
+import {$Model, is, newArrayData, newText, Text} from '#core';
 import {translateTypescriptReturnStatement} from '#translator';
-import {$Model, is} from '#typing';
 import {expect, test} from 'vitest';
 
 test('Return statement with expression', () => {

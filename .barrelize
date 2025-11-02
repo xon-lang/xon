@@ -38,11 +38,6 @@
       "exclude": ["**/*.test.ts", "**/test/**/*.ts"]
     },
     {
-      "root": "packages/typing",
-      "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
-    },
-    {
       "root": "packages/vscode",
       "include": ["**/*.ts"],
       "exclude": ["**/*.test.ts", "test/**", "**/vite.config.ts"]

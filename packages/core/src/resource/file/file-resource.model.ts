@@ -1,5 +1,4 @@
-import {$CoreType, $Resource, Boolean2, DirectoryResource, Resource, Text} from '#core';
-import {Brand} from '#typing';
+import {$CoreType, $Resource, Boolean2, Brand, DirectoryResource, Resource, Text} from '#core';
 
 export type FileResource = Resource &
   Brand<'Core.FileResource'> & {

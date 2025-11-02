@@ -1,6 +1,5 @@
 import {$UsageSemantic, IdNode, newUsageSemantic, SemanticContext} from '#analyzer';
-import {newText, newTextReference} from '#core';
-import {is} from '#typing';
+import {is, newText, newTextReference} from '#core';
 
 export function semantifyIdNode(this: IdNode, context: SemanticContext): void {
   const declaration = context.scope.get(this.text)?.first();

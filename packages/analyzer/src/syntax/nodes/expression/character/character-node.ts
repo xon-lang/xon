@@ -10,8 +10,7 @@ import {
   newSyntaxNode,
   semantifyCharacterNode,
 } from '#analyzer';
-import {Nothing} from '#core';
-import {Brand} from '#typing';
+import {Brand, Nothing} from '#core';
 
 export type CharacterNode = ExpressionNode &
   Brand<'Analyzer.CharacterNode'> & {

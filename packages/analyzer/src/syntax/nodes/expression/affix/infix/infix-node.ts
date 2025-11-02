@@ -1,5 +1,5 @@
 import {$AffixNode, $AnalyzerType, AffixNode, ExpressionNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type InfixNode = AffixNode &
   Brand<'Analyzer.InfixNode'> & {

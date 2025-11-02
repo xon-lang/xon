@@ -1,5 +1,5 @@
 import {$AnalyzerType, $WordOperatorNode, WordOperatorNode} from '#analyzer';
-import {Brand} from '#typing';
+import {Brand} from '#core';
 
 export type AsOperatorNode = WordOperatorNode & Brand<'Analyzer.AsOperatorNode'>;
 

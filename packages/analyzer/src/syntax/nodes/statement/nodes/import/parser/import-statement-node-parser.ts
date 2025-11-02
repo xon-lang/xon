@@ -8,8 +8,7 @@ import {
   newImportStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, newText, Nothing, nothing} from '#core';
-import {is} from '#typing';
+import {ArrayData, Integer, is, newText, Nothing, nothing} from '#core';
 
 export function parseImportStatementNode(
   context: AnalyzerContext,

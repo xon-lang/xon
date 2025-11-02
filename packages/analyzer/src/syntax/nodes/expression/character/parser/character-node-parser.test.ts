@@ -6,8 +6,7 @@ import {
   newCharacterStreamFromText,
   parseCharacterNode,
 } from '#analyzer';
-import {ArrayData, newText, nothing, Text} from '#core';
-import {is} from '#typing';
+import {ArrayData, is, newText, nothing, Text} from '#core';
 import {expect, test} from 'vitest';
 
 test('character', () => {

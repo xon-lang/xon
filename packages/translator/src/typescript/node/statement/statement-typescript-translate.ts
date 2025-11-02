@@ -6,7 +6,7 @@ import {
   $ReturnStatementNode,
   StatementNode,
 } from '#analyzer';
-import {ArrayData, newCharacter, newText, Text} from '#core';
+import {ArrayData, is, newCharacter, newText, Text} from '#core';
 import {
   translateTypescriptConditionStatement,
   translateTypescriptDeclarationStatement,
@@ -14,7 +14,6 @@ import {
   translateTypescriptImportStatement,
   translateTypescriptReturnStatement,
 } from '#translator';
-import {is} from '#typing';
 
 export enum TypescriptStatementSeparator {
   None = 'None',

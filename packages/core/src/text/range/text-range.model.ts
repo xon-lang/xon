@@ -1,5 +1,4 @@
-import {$CoreType, Boolean2, TextPosition} from '#core';
-import {Model} from '#typing';
+import {$CoreType, Boolean2, Model, TextPosition} from '#core';
 
 export type TextRange = Model & {
   start: TextPosition;
