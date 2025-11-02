@@ -23,7 +23,8 @@
     "test": "vitest run",
     "vscode:build": "cd packages/vscode && vite build",
     "core:build": "cd packages/core && vite build",
-    "analyzer:build": "cd packages/analyzer && vite build"
+    "analyzer:build": "cd packages/analyzer && vite build",
+    "translator:build": "cd packages/translator && vite build"
   },
   "type": "module"
 }

@@ -270,9 +270,10 @@ export function newArrayData<T>(
     },
 
     map<V>(select: ArraySelect<T, V>): ArrayData<V> {
-      const items = this._items.map(select);
+      const items = this._items.map((x, i) => select(x, i));
       // todo fix and remove 'as' expression
       const $itemType = (items.at(0) as Model | Nothing)?.$ ?? $Model();
+
       return newArrayData($itemType, items);
     },
 
