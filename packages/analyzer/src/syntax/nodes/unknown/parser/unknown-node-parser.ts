@@ -8,5 +8,5 @@ export function parseUnknownNode(context: AnalyzerContext): UnknownNode | Nothin
     return nothing;
   }
 
-  return newUnknownNode(context, result.text, result.range);
+  return newUnknownNode(result.text, result.range);
 }

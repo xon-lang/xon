@@ -5,8 +5,9 @@ import {
   ExpressionNode,
   FormatterContext,
   HighlightContext,
-  UsageSemantic,
+  lexicalDebug,
   semantifyIdNode,
+  UsageSemantic,
 } from '#analyzer';
 import {Brand, Nothing, Text, TextRange} from '#core';
 
@@ -24,6 +25,7 @@ export function newIdNode(text: Text, range: TextRange): IdNode {
     range,
     text,
 
+    debug: lexicalDebug,
     semantify: semantifyIdNode,
     format(context: FormatterContext): void {},
     highlight(context: HighlightContext): void {},

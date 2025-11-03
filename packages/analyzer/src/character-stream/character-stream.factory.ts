@@ -1,4 +1,4 @@
-import {$CharacterStream, CharacterStream, LexicalNode, NL} from '#analyzer';
+import {$CharacterStream, CharacterStream, LexicalNode, newLexicalNode, NL} from '#analyzer';
 import {
   $Type,
   Boolean2,
@@ -45,7 +45,7 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
       const range = newTextRange(sourcePosition, getStopTextPosition(text, sourcePosition));
       sourcePosition = range.stop;
 
-      return {$: $type, text, range};
+      return newLexicalNode($type, range, text);
     },
   };
 }

@@ -6,6 +6,7 @@ import {
   HighlightContext,
   SemanticContext,
   StatementNode,
+  syntaxDebug,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Brand, newArrayData, newTextRange, Nothing} from '#core';
@@ -40,6 +41,8 @@ export function newBodyNode(): BodyNode {
       this.range.stop = statement.range.stop;
       this.children.addLastItem(statement);
     },
+
+    debug: syntaxDebug,
 
     semantify(context: SemanticContext): void {
       for (const statement of this.children) {
