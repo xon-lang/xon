@@ -85,7 +85,7 @@ export interface ArrayData<T = unknown> extends Model, Iterable<T> {
   // todo ??? map().first() how to optimize ast (C# linq/IQuerable ???)
   firstMap<V>(predicateSelect: ArrayPredicateSelect<T, V>, startIndex?: Integer | Nothing): V | Nothing;
   lastMap<V>(predicateSelect: ArrayPredicateSelect<T, V>, startIndex?: Integer | Nothing): V | Nothing;
-  filterMap<V extends Model>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
+  filterMap<V>(predicateSelect: ArrayPredicateSelect<T, V>): ArrayData<V>;
 
   sortBy(select: (value: T) => Number2, ascending?: Boolean2): this;
   // sortStrings(): ArrayData<T>;

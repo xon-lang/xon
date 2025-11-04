@@ -360,7 +360,7 @@ export function newArrayData<T>(
       return nothing;
     },
 
-    filterMap<V extends Model>(
+    filterMap<V>(
       predicateSelect: (value: T, index: Integer, array: ArrayData<T>) => V | Nothing,
     ): ArrayData<V> {
       const newArray: V[] = [];
@@ -373,7 +373,7 @@ export function newArrayData<T>(
         }
       }
 
-      return newArrayData($itemType, newArray);
+      return newArrayData((newArray.at(0) as Model)?.$ ?? $Model(), newArray);
     },
 
     count(): Integer {

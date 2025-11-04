@@ -89,9 +89,18 @@ export function lexicalDebug(this: LexicalNode): Text {
 }
 
 export function syntaxDebug(this: SyntaxNode): Text {
+  const entries: [string, Node][] = Object.entries(this);
+
   if (this.children?.some()) {
     const children = newText(
-      this.children.map((x) => x.debug()),
+      this.children.map((x) => {
+        const entry = entries.find(([, v]) => v === x);
+        if (entry) {
+          return newText(`${entry[0]}: ${x.debug()}`);
+        }
+
+        return x.debug();
+      }),
       newText('\n'),
     ).margin(2);
 
