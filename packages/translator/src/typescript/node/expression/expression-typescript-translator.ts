@@ -66,14 +66,14 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   }
 
   if (is(node, $MemberNode())) {
-    const instance = translateTypescriptExpression(node.instance, isType);
+    const target = translateTypescriptExpression(node.target, isType);
     const id = node.id?.text ?? newText('/* error member id */');
 
-    return newText(`${instance}.${id}`);
+    return newText(`${target}.${id}`);
   }
 
   if (is(node, $InvokeNode())) {
-    const instance = translateTypescriptExpression(node.target, isType);
+    const target = translateTypescriptExpression(node.target, isType);
     const parameters = newText(
       node.group.items.map((x) =>
         x.statement
@@ -83,7 +83,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
       newText(', '),
     );
 
-    return newText(`${instance}${node.group.open.text}${parameters}${node.group.close?.text ?? ''}`);
+    return newText(`${target}${node.group.open.text}${parameters}${node.group.close?.text ?? ''}`);
   }
 
   if (is(node, $ParenGroupNode())) {

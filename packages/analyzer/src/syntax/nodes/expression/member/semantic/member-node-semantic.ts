@@ -2,20 +2,20 @@ import {MemberNode, newUsageSemantic, SemanticContext} from '#analyzer';
 
 export function semantifyMemberNode(this: MemberNode, context: SemanticContext): void {
   // todo remove all 'semantify' checks for all nodes
-  if (this.instance.semantify) {
-    this.instance.semantify(context);
+  if (this.target.semantify) {
+    this.target.semantify(context);
   }
 
-  if (!this.instance.semantic || !this.id) {
+  if (!this.target.semantic || !this.id) {
     return;
   }
 
-  if (!this.instance.semantic) {
+  if (!this.target.semantic) {
     return;
   }
 
   // todo fix '.at(0)'
-  const attribute = this.instance.semantic.scope?.get(this.id.text)?.first();
+  const attribute = this.target.semantic.scope?.get(this.id.text)?.first();
 
   if (!attribute) {
     return;

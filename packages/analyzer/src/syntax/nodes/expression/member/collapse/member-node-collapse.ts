@@ -21,23 +21,23 @@ export function collapseMemberNode(context: AnalyzerContext): NodeCollapseFn<Mem
           return nothing;
         }
 
-        const instanceNode = nodes.at(index - 1);
+        const target = nodes.at(index - 1);
 
-        if (!is(instanceNode, $ExpressionNode())) {
+        if (!is(target, $ExpressionNode())) {
           return nothing;
         }
 
-        const rightNode = nodes.at(index + 1);
-        const idNode = is(rightNode, $IdNode()) ? rightNode : nothing;
+        const right = nodes.at(index + 1);
+        const id = is(right, $IdNode()) ? right : nothing;
 
-        if (!idNode) {
-          context.addError(instanceNode.range, newText(`Identifier expect`));
+        if (!id) {
+          context.addError(target.range, newText(`Identifier expect`));
         }
 
         return {
-          node: newMemberNode(instanceNode, operatorNode, idNode),
+          node: newMemberNode(target, operatorNode, id),
           index: index - 1,
-          deleteCount: idNode ? 3 : 2,
+          deleteCount: id ? 3 : 2,
         };
       }, startIndex);
     },

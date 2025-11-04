@@ -13,7 +13,7 @@ import {Brand, Nothing} from '#core';
 
 export type MemberNode = ExpressionNode &
   Brand<'Analyzer.MemberNode'> & {
-    instance: ExpressionNode;
+    target: ExpressionNode;
     operator: OperatorNode;
     id?: IdNode | Nothing;
   };
@@ -21,13 +21,13 @@ export type MemberNode = ExpressionNode &
 export const $MemberNode = () => $AnalyzerType<MemberNode>('MemberNode', $ExpressionNode());
 
 export function newMemberNode(
-  instance: ExpressionNode,
+  target: ExpressionNode,
   operator: OperatorNode,
   id?: IdNode | Nothing,
 ): MemberNode {
   return newSyntaxNode({
     $: $MemberNode(),
-    instance,
+    target,
     operator,
     id,
 

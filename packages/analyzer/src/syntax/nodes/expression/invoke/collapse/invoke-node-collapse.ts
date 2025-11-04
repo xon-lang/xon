@@ -18,16 +18,16 @@ export function collapseInvokeNode(): NodeCollapseFn<InvokeNode> {
           return nothing;
         }
 
-        const instanceNode = nodes.at(index - 1);
+        const target = nodes.at(index - 1);
 
-        if (!is(instanceNode, $ExpressionNode())) {
+        if (!is(target, $ExpressionNode())) {
           return nothing;
         }
 
         return {
           index: index - 1,
           deleteCount: 2,
-          node: invokeNode(instanceNode, groupNode),
+          node: invokeNode(target, groupNode),
         };
       }, startIndex);
     },

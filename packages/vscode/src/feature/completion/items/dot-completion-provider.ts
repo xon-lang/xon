@@ -37,13 +37,13 @@ export class DotCompletionProvider implements CompletionItemProvider {
       vsCodeToXonPosition(document, position.with({character: position.character - 1})),
     );
 
-    if (!node?.instance.semantic) {
+    if (!node?.target.semantic) {
       return;
     }
 
-    console.log(node?.instance.semantic);
+    console.log(node?.target.semantic);
 
-    const attributes = getAttributes(node.instance.semantic);
+    const attributes = getAttributes(node.target.semantic);
 
     return attributes?.map(createCompletionItem).toNativeArray();
   }
