@@ -6,7 +6,6 @@ import {
   HighlightContext,
   SemanticContext,
   StatementNode,
-  syntaxDebug,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Brand, newArrayData, newTextRange, Nothing} from '#core';
@@ -42,7 +41,11 @@ export function newBodyNode(): BodyNode {
       this.children.addLastItem(statement);
     },
 
-    debug: syntaxDebug,
+    debug() {
+      return {
+        [this.$.name]: this.children.map((x) => x.debug()).toNativeArray(),
+      };
+    },
 
     semantify(context: SemanticContext): void {
       for (const statement of this.children) {

@@ -10,5 +10,4 @@ test('Module node', () => {
 
   expect(is(node, $ModuleNode())).toBe(true);
   expect(node.children.count()).toBe(1);
-  expect(node.debug().toNativeString()).toBe('');
 });

@@ -5,7 +5,6 @@ import {
   HighlightContext,
   SemanticContext,
   StatementNode,
-  syntaxDebug,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Brand, newTextRange, nothing, Nothing} from '#core';
@@ -25,7 +24,12 @@ export function newModuleNode(statements: ArrayData<StatementNode>): ModuleNode 
     range: newTextRange(statements.first()?.range.start, statements.last()?.range.stop),
     children: statements,
 
-    debug: syntaxDebug,
+    debug() {
+      return {
+        [this.$.name]: this.children.map((x) => x.debug()).toNativeArray(),
+      };
+    },
+
     semantify(context: SemanticContext): void {
       for (const statement of this.children) {
         statement.semantify(context);

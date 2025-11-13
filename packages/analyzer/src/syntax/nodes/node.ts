@@ -8,7 +8,6 @@ import {
   is,
   Model,
   newArrayData,
-  newText,
   newTextRange,
   Nothing,
   Text,
@@ -23,7 +22,7 @@ export type Node = Model &
     semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
 
-    debug(): Text;
+    debug(): unknown;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');
@@ -84,28 +83,26 @@ export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'rang
   return node;
 }
 
-export function lexicalDebug(this: LexicalNode): Text {
-  return newText(`(${this.$.name.replace('Node', '')}, '${this.text}')`);
+export function lexicalDebug(this: LexicalNode): string {
+  return `${this.$.name}(${this.text})`;
 }
 
-export function syntaxDebug(this: SyntaxNode): Text {
+export function syntaxDebug(this: SyntaxNode): object {
   const entries: [string, Node][] = Object.entries(this);
 
   if (this.children?.some()) {
-    const children = newText(
-      this.children.map((x) => {
-        const entry = entries.find(([, v]) => v === x);
-        if (entry) {
-          return newText(`${entry[0]}: ${x.debug()}`);
-        }
+    const children = this.children.reduce((o, x) => {
+      const entry = entries.find(([, v]) => v === x);
 
-        return x.debug();
-      }),
-      newText('\n'),
-    ).margin(2);
+      if (entry) {
+        o[entry[0]] = x.debug();
+      }
 
-    return newText(`${this.$.name.replace('Node', '')}\n${children}`);
+      return o;
+    }, {} as Record<string, unknown>);
+
+    return {[this.$.name]: children};
   }
 
-  return newText(`${this.$.name.replace('Node', '')}`);
+  return {[this.$.name]: null};
 }
