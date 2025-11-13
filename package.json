@@ -16,16 +16,16 @@
   },
   "name": "xon",
   "scripts": {
-    "analyzer:build": "cd packages/analyzer && vite build",
     "barrelize": "barrelize",
-    "build": "npm run core:build && npm run analyzer:build && npm run translator:build",
-    "core:build": "cd packages/core && vite build",
+    "build": "npm run build:core && npm run build:analyzer && npm run build:translator",
+    "build:analyzer": "cd packages/analyzer && vite build",
+    "build:core": "cd packages/core && vite build",
+    "build:translator": "cd packages/translator && vite build",
+    "build:vscode": "cd packages/vscode && vite build",
     "dev": "npm run barrelize && tsc --noEmit --watch",
     "grammar": "tsc -p scripts/tsconfig.json && node scripts/dist/grammar.script.js",
     "grammar:json": "java -jar ./scripts/antlr/antlr-4.13.2-complete.jar -Dlanguage=TypeScript packages/grammar/src/language/json/JsonGrammar.g4",
-    "test": "vitest run",
-    "translator:build": "cd packages/translator && vite build",
-    "vscode:build": "cd packages/vscode && vite build"
+    "test": "vitest run"
   },
   "type": "module"
 }
