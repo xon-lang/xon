@@ -9,7 +9,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {Brand, Integer, Nothing} from '#core';
+import {Brand, Nothing} from '#core';
 
 export type ReturnStatementNode = StatementNode &
   Brand<'Analyzer.ReturnStatementNode'> & {
@@ -21,13 +21,11 @@ export const $ReturnStatementNode = () =>
   $AnalyzerType<ReturnStatementNode>('ReturnStatementNode', $StatementNode());
 
 export function newReturnStatementNode(
-  indent: Integer,
   keyword: ReturnKeywordNode,
   expression?: Node | Nothing,
 ): ReturnStatementNode {
   return newSyntaxNode<ReturnStatementNode>({
     $: $ReturnStatementNode(),
-    indent,
     keyword,
     expression,
 

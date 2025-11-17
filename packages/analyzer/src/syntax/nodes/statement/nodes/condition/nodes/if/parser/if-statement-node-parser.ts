@@ -7,11 +7,10 @@ import {
   newIfStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, is, newText, Nothing, nothing} from '#core';
+import {ArrayData, is, newText, Nothing, nothing} from '#core';
 
 export function parseIfStatementNode(
   context: AnalyzerContext,
-  indentLevel: Integer,
   nodes: ArrayData<Node>,
 ): IfStatementNode | Nothing {
   const keywordNode = nodes.first();
@@ -25,11 +24,11 @@ export function parseIfStatementNode(
 
   if (is(conditionExpressionNode, $ExpressionNode())) {
     context.extraNodes.addLastItems(nodes.slice(1));
-    return newIfStatementNode(indentLevel, keywordNode, conditionExpressionNode);
+    return newIfStatementNode(keywordNode, conditionExpressionNode);
   }
 
   context.extraNodes.addLastItems(nodes);
   context.addError(keywordNode.range, newText(`Expect expression`));
 
-  return newIfStatementNode(indentLevel, keywordNode, nothing);
+  return newIfStatementNode(keywordNode, nothing);
 }

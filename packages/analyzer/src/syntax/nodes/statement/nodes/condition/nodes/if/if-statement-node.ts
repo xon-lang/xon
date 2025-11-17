@@ -9,7 +9,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {Brand, Integer, Nothing} from '#core';
+import {Brand, Nothing} from '#core';
 
 export type IfStatementNode = StatementNode &
   Brand<'Analyzer.IfStatementNode'> & {
@@ -19,14 +19,9 @@ export type IfStatementNode = StatementNode &
 
 export const $IfStatementNode = () => $AnalyzerType<IfStatementNode>('IfStatementNode', $StatementNode());
 
-export function newIfStatementNode(
-  indent: Integer,
-  keyword: IfKeywordNode,
-  expression?: Node | Nothing,
-): IfStatementNode {
+export function newIfStatementNode(keyword: IfKeywordNode, expression?: Node | Nothing): IfStatementNode {
   return newSyntaxNode<IfStatementNode>({
     $: $IfStatementNode(),
-    indent,
     keyword,
     expression,
 

@@ -16,18 +16,7 @@ import {
   parseReturnStatementNode,
   StatementNode,
 } from '#analyzer';
-import {
-  $Model,
-  ArrayData,
-  Boolean2,
-  Integer,
-  is,
-  newArrayData,
-  newText,
-  Nothing,
-  nothing,
-  TextPosition,
-} from '#core';
+import {$Model, ArrayData, Boolean2, is, newArrayData, newText, Nothing, nothing, TextPosition} from '#core';
 
 export function parseStatements(
   context: AnalyzerContext,
@@ -80,7 +69,6 @@ export function parseStatements(
 
 export type StatementParserFunction<T extends StatementNode = StatementNode> = (
   context: AnalyzerContext,
-  indent: Integer,
   nodes: ArrayData<Node>,
   parent?: StatementNode | Nothing,
 ) => T | Nothing;
@@ -103,14 +91,13 @@ function handleStatement(
   nodes: ArrayData<Node>,
 ): StatementNode {
   const parent = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
-  const indent = (parent?.indent ?? -1) + 1;
   let statement: StatementNode | Nothing;
 
-  statement = statementParsers().firstMap((parse) => parse(context, indent, nodes, parent));
+  statement = statementParsers().firstMap((parse) => parse(context, nodes, parent));
 
   if (!statement) {
     context.extraNodes.addLastItems(nodes);
-    statement = newUnknownStatementNode(indent);
+    statement = newUnknownStatementNode();
     context.addError(statement.range, newText(`Unknown syntax expression`));
   }
 

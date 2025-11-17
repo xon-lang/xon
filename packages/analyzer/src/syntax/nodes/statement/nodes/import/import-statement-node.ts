@@ -11,7 +11,7 @@ import {
   StatementNode,
   StringNode,
 } from '#analyzer';
-import {Brand, Integer, Nothing} from '#core';
+import {Brand, Nothing} from '#core';
 
 export type ImportStatementNode = StatementNode &
   Brand<'Analyzer.ImportStatementNode'> & {
@@ -24,13 +24,11 @@ export const $ImportStatementNode = () =>
   $AnalyzerType<ImportStatementNode>('ImportStatementNode', $StatementNode());
 
 export function newImportStatementNode(
-  indent: Integer,
   keyword: ImportKeywordNode,
   expression?: StringNode | AsInfixNode | Nothing,
 ): ImportStatementNode {
   return newSyntaxNode<ImportStatementNode>({
     $: $ImportStatementNode(),
-    indent,
     keyword,
     expression,
 

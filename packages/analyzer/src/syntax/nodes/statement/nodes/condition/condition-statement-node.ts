@@ -26,7 +26,6 @@ export function newConditionStatementNode(
 ): ConditionStatementNode {
   return newSyntaxNode({
     $: $ConditionStatementNode(),
-    indent: ifStatement.indent,
     parent: ifStatement.parent,
     ifStatement,
     elseStatement,

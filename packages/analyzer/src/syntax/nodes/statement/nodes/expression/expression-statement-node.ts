@@ -8,7 +8,7 @@ import {
   StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {Brand, Integer} from '#core';
+import {Brand} from '#core';
 
 export type ExpressionStatementNode = StatementNode &
   Brand<'Analyzer.ExpressionStatementNode'> & {
@@ -19,10 +19,9 @@ export type ExpressionStatementNode = StatementNode &
 export const $ExpressionStatementNode = () =>
   $AnalyzerType<ExpressionStatementNode>('ExpressionStatementNode', $StatementNode());
 
-export function newExpressionStatementNode(indent: Integer, expression: SyntaxNode): ExpressionStatementNode {
+export function newExpressionStatementNode(expression: SyntaxNode): ExpressionStatementNode {
   return newSyntaxNode<ExpressionStatementNode>({
     $: $ExpressionStatementNode(),
-    indent,
     expression,
 
     semantify: semantifyExpressionStatementNode,

@@ -11,7 +11,7 @@ import {
   semantifyDeclarationStatementNode,
   StatementNode,
 } from '#analyzer';
-import {Brand, Integer, Nothing} from '#core';
+import {Brand, Nothing} from '#core';
 
 export type DeclarationStatementNode = StatementNode &
   Brand<'Analyzer.DeclarationStatementNode'> & {
@@ -26,7 +26,6 @@ export const $DeclarationStatementNode = () =>
   $AnalyzerType<DeclarationStatementNode>('DeclarationStatementNode', $StatementNode());
 
 export function newDeclarationStatementNode(
-  indent: Integer,
   keyword: KeywordNode | Nothing,
   id: IdNode, // todo in future {a, b, c}; [a, b, c]
   parameters?: GroupNode | Nothing,
@@ -35,7 +34,6 @@ export function newDeclarationStatementNode(
 ): DeclarationStatementNode {
   return newSyntaxNode<DeclarationStatementNode>({
     $: $DeclarationStatementNode(),
-    indent,
     keyword,
     id,
     group: parameters,

@@ -6,11 +6,10 @@ import {
   newExpressionStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, is, nothing, Nothing} from '#core';
+import {ArrayData, is, nothing, Nothing} from '#core';
 
 export function parseExpressionStatementNode(
   context: AnalyzerContext,
-  indent: Integer,
   nodes: ArrayData<Node>,
 ): ExpressionStatementNode | Nothing {
   nodes = collapseNodes(context, nodes);
@@ -22,5 +21,5 @@ export function parseExpressionStatementNode(
 
   context.extraNodes.addLastItems(nodes.slice(1));
 
-  return newExpressionStatementNode(indent, firstNode);
+  return newExpressionStatementNode(firstNode);
 }

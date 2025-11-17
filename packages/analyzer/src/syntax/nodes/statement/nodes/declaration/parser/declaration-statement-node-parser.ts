@@ -10,11 +10,10 @@ import {
   newDeclarationStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, is, newText, nothing, Nothing} from '#core';
+import {ArrayData, is, newText, nothing, Nothing} from '#core';
 
 export function parseDeclarationStatementNode(
   context: AnalyzerContext,
-  indent: Integer,
   nodes: ArrayData<Node>,
 ): DeclarationStatementNode | Nothing {
   const firstNode = nodes.first();
@@ -34,7 +33,7 @@ export function parseDeclarationStatementNode(
   validateParameters(context, group);
   context.extraNodes.addLastItems(nodes.slice(1));
 
-  return newDeclarationStatementNode(indent, keyword, target, group, annotation, assignment);
+  return newDeclarationStatementNode(keyword, target, group, annotation, assignment);
 }
 
 function validateParameters(context: AnalyzerContext, group: GroupNode | Nothing): void {

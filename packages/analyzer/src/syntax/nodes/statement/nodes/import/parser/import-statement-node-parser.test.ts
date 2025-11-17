@@ -49,7 +49,7 @@ function getImportStatementNode(text: Text, extraNodesCount: Integer): ImportSta
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = parseImportStatementNode(context, 0, nodes) as ImportStatementNode;
+  const node = parseImportStatementNode(context, nodes) as ImportStatementNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $ImportStatementNode())).toBe(true);

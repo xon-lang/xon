@@ -68,7 +68,7 @@ function getDeclarationStatementNode(text: Text): DeclarationStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = parseDeclarationStatementNode(context, 0, nodes)!;
+  const node = parseDeclarationStatementNode(context, nodes)!;
 
   expect(node).toBeTruthy();
   expect(is(node, $DeclarationStatementNode())).toBe(true);

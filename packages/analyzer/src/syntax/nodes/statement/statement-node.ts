@@ -1,9 +1,8 @@
 import {$AnalyzerType, $SyntaxNode, BodyNode, SyntaxNode} from '#analyzer';
-import {Brand, Integer, Nothing} from '#core';
+import {Brand, Nothing} from '#core';
 
 export type StatementNode = SyntaxNode &
   Brand<'Analyzer.StatementNode'> & {
-    indent: Integer;
     parent?: BodyNode | Nothing;
     body?: BodyNode | Nothing;
   };

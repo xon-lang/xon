@@ -44,7 +44,7 @@ function getExpressionStatementNode(text: Text, extraNodesCount: Integer): Expre
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = parseExpressionStatementNode(context, 0, nodes) as ExpressionStatementNode;
+  const node = parseExpressionStatementNode(context, nodes) as ExpressionStatementNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $ExpressionStatementNode())).toBe(true);

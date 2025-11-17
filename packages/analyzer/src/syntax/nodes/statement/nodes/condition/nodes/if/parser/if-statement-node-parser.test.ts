@@ -32,7 +32,7 @@ function getIfStatementNode(text: Text, extraNodesCount: Integer): IfStatementNo
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = parseIfStatementNode(context, 0, nodes) as IfStatementNode;
+  const node = parseIfStatementNode(context, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $IfStatementNode())).toBe(true);
@@ -69,7 +69,7 @@ function ifNodeDiagnostics(text: Text): ArrayData<AnalyzerDiagnostic> {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = parseIfStatementNode(context, 0, nodes) as IfStatementNode;
+  const node = parseIfStatementNode(context, nodes) as IfStatementNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $IfStatementNode())).toBe(true);

@@ -7,11 +7,10 @@ import {
   Node,
   ReturnStatementNode,
 } from '#analyzer';
-import {ArrayData, Integer, is, Nothing, nothing} from '#core';
+import {ArrayData, is, Nothing, nothing} from '#core';
 
 export function parseReturnStatementNode(
   context: AnalyzerContext,
-  indent: Integer,
   nodes: ArrayData<Node>,
 ): ReturnStatementNode | Nothing {
   const keywordNode = nodes.first();
@@ -26,10 +25,10 @@ export function parseReturnStatementNode(
   if (is(expressionNode, $ExpressionNode())) {
     context.extraNodes.addLastItems(nodes.slice(1));
 
-    return newReturnStatementNode(indent, keywordNode, expressionNode);
+    return newReturnStatementNode(keywordNode, expressionNode);
   }
 
   context.extraNodes.addLastItems(nodes);
 
-  return newReturnStatementNode(indent, keywordNode, nothing);
+  return newReturnStatementNode(keywordNode, nothing);
 }

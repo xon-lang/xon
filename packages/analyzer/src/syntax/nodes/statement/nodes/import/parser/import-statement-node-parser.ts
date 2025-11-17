@@ -8,11 +8,10 @@ import {
   newImportStatementNode,
   Node,
 } from '#analyzer';
-import {ArrayData, Integer, is, newText, Nothing, nothing} from '#core';
+import {ArrayData, is, newText, Nothing, nothing} from '#core';
 
 export function parseImportStatementNode(
   context: AnalyzerContext,
-  indent: Integer,
   nodes: ArrayData<Node>,
 ): ImportStatementNode | Nothing {
   const keyword = nodes.first();
@@ -27,11 +26,11 @@ export function parseImportStatementNode(
   if (is(expression, $StringNode()) || is(expression, $AsInfixNode())) {
     context.extraNodes.addLastItems(nodes.slice(1));
 
-    return newImportStatementNode(indent, keyword, expression);
+    return newImportStatementNode(keyword, expression);
   }
 
   context.extraNodes.addLastItems(nodes);
   context.addError((expression ?? keyword).range, newText(`Expression expect`));
 
-  return newImportStatementNode(indent, keyword, nothing);
+  return newImportStatementNode(keyword, nothing);
 }

@@ -8,7 +8,7 @@ import {
   SemanticContext,
   StatementNode,
 } from '#analyzer';
-import {Brand, Integer} from '#core';
+import {Brand} from '#core';
 
 export type ElseStatementNode = StatementNode &
   Brand<'Analyzer.ElseStatementNode'> & {
@@ -18,10 +18,9 @@ export type ElseStatementNode = StatementNode &
 export const $ElseStatementNode = () =>
   $AnalyzerType<ElseStatementNode>('ElseStatementNode', $StatementNode());
 
-export function newElseStatementNode(indent: Integer, keyword: ElseKeywordNode): ElseStatementNode {
+export function newElseStatementNode(keyword: ElseKeywordNode): ElseStatementNode {
   return newSyntaxNode<ElseStatementNode>({
     $: $ElseStatementNode(),
-    indent,
     keyword,
 
     semantify(context: SemanticContext): void {},
