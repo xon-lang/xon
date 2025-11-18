@@ -6,13 +6,13 @@
   "devDependencies": {
     "@microsoft/api-extractor": "^7.55.0",
     "@types/node": "24.10.1",
-    "@types/vscode": "1.106.0",
+    "@types/vscode": "1.106.1",
     "barrelize": "^1.6.6",
     "typescript": "5.9.3",
     "unplugin-dts": "^1.0.0-beta.6",
     "vite": "7.2.2",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "4.0.8"
+    "vitest": "4.0.10"
   },
   "name": "xon",
   "scripts": {
