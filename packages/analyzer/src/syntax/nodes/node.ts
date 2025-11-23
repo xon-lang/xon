@@ -1,4 +1,11 @@
-import {$AnalyzerType, FormatterContext, HighlightContext, Semantic, SemanticContext} from '#analyzer';
+import {
+  $AnalyzerType,
+  BodyNode,
+  FormatterContext,
+  HighlightContext,
+  Semantic,
+  SemanticContext,
+} from '#analyzer';
 import {
   $ArrayData,
   $Type,
@@ -17,9 +24,8 @@ import {
 export type Node = Model &
   Brand<'Analyzer.Node'> & {
     range: TextRange;
+    // todo remove parent and aggregate body
     parent?: Node | Nothing;
-    children?: ArrayData<Node> | Nothing;
-    semantic?: Semantic | Nothing;
     isHidden?: Boolean2;
 
     debug(): unknown;
@@ -46,6 +52,10 @@ export function newLexicalNode<T extends Model>($type: $Type<T>, range: TextRang
 
 export type SyntaxNode = Node &
   Brand<'Analyzer.SyntaxNode'> & {
+    children: ArrayData<Node>;
+    semantic?: Semantic | Nothing;
+    body?: BodyNode | Nothing;
+
     semantify(context: SemanticContext): void;
     format(context: FormatterContext): void;
     highlight(context: HighlightContext): void;
@@ -53,7 +63,9 @@ export type SyntaxNode = Node &
 
 export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
 
-export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'range' | 'debug'>): T {
+export function newSyntaxNode<T extends SyntaxNode>(
+  params: Omit<T, 'children' | 'range' | 'debug'> & Partial<Pick<T, 'children' | 'range' | 'debug'>>,
+): T {
   // todo optimize and simplify it
   const children = newArrayData(
     $Node(),
@@ -68,12 +80,13 @@ export function newSyntaxNode<T extends Node>(params: Omit<T, 'children' | 'rang
   const first = children.first();
   const last = children.last();
   // todo recheck - first always must be non nullable value
-  const range = first ? newTextRange(first!.range.start.clone(), last!.range.stop.clone()) : newTextRange();
+  const range =
+    first && last ? newTextRange(first.range.start.clone(), last.range.stop.clone()) : newTextRange();
 
   const node: T = {
+    ...params,
     range,
     children,
-    ...params,
 
     debug: syntaxDebug,
   } as T;

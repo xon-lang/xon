@@ -30,7 +30,7 @@ function getReturnStatementNode(text: Text): ReturnStatementNode {
   const source = newCharacterStreamFromText(text);
   const context = newAnalyzerContext(source);
   const nodes = newArrayData($Model(), nonHiddenNodeGenerator(context));
-  const node = parseReturnStatementNode(context, 0, nodes) as ReturnStatementNode;
+  const node = parseReturnStatementNode(context, nodes) as ReturnStatementNode;
 
   expect(node).toBeTruthy();
   expect(is(node, $ReturnStatementNode())).toBe(true);

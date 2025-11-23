@@ -29,11 +29,11 @@ test('String interpolation', () => {
   expect(node?.items.at(0)?.open?.text.toNativeString()).toBe('{');
   expect(node?.items.at(0)?.close?.text.toNativeString()).toBe('}');
   expect(node?.items.at(0)?.content?.text.toNativeString()).toBe('ab\n');
-  expect(node?.items.at(0)?.statements?.count()).toBe(1);
-  expect(is(node?.items.at(0)?.statements?.at(0), $ExpressionStatementNode())).toBe(true);
+  expect(node?.items.at(0)?.nodes?.count()).toBe(1);
+  expect(is(node?.items.at(0)?.nodes?.at(0), $ExpressionStatementNode())).toBe(true);
   expect(
     (
-      (node?.items.at(0)?.statements?.at(0) as ExpressionStatementNode).expression as IntegerNode
+      (node?.items.at(0)?.nodes?.at(0) as ExpressionStatementNode).expression as IntegerNode
     ).contentNode.text.toNativeString(),
   ).toBe('123');
 });

@@ -49,7 +49,7 @@ test('Single element', () => {
   expect(is(node.close, $ParenCloseNode())).toBe(true);
   expect(node.items.count()).toBe(1);
   expect(
-    ((node.items.first()?.statement as ExpressionStatementNode).expression as IdNode).text.toNativeString(),
+    ((node.items.first()?.node as ExpressionStatementNode).expression as IdNode).text.toNativeString(),
   ).toBe('a');
 });
 
@@ -63,7 +63,7 @@ test('Many elements with no comma', () => {
   expect(node.items.count()).toBe(1);
   expect(
     (
-      (node.items.first()?.statement as ExpressionStatementNode).expression as IntegerNode
+      (node.items.first()?.node as ExpressionStatementNode).expression as IntegerNode
     ).contentNode.text.toNativeString(),
   ).toBe('123');
 });
@@ -76,7 +76,7 @@ test('No elements but single comma', () => {
   expect(is(node.open, $BracketOpenNode())).toBe(true);
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(1);
-  expect(node.items.first()?.statement).toBeFalsy();
+  expect(node.items.first()?.node).toBeFalsy();
   expect(node.items.first()?.comma?.text.toNativeString()).toBe(',');
 });
 
@@ -89,11 +89,11 @@ test('Inner group', () => {
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(1);
   expect(
-    is((node.items.first()?.statement as ExpressionStatementNode).expression, $ParenGroupNode()),
+    is((node.items.first()?.node as ExpressionStatementNode).expression, $ParenGroupNode()),
   ).toBeTruthy();
-  expect(
-    ((node.items.first()?.statement as ExpressionStatementNode).expression as GroupNode).items.count(),
-  ).toBe(0);
+  expect(((node.items.first()?.node as ExpressionStatementNode).expression as GroupNode).items.count()).toBe(
+    0,
+  );
 });
 
 test('Two numbers', () => {
@@ -104,12 +104,8 @@ test('Two numbers', () => {
   expect(is(node.open, $BracketOpenNode())).toBe(true);
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(2);
-  expect(
-    is((node.items.first()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
-  expect(
-    is((node.items.last()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
+  expect(is((node.items.first()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
+  expect(is((node.items.last()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
 });
 
 test('Two numbers and comma at the end', () => {
@@ -120,12 +116,8 @@ test('Two numbers and comma at the end', () => {
   expect(is(node.open, $BracketOpenNode())).toBe(true);
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(2);
-  expect(
-    is((node.items.first()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
-  expect(
-    is((node.items.last()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
+  expect(is((node.items.first()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
+  expect(is((node.items.last()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
   expect(is(node.items.last()?.comma, $CommaNode())).toBeTruthy();
 });
 
@@ -137,12 +129,8 @@ test('Two numbers and comma with space at the end', () => {
   expect(is(node.open, $BracketOpenNode())).toBe(true);
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(2);
-  expect(
-    is((node.items.first()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
-  expect(
-    is((node.items.last()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
+  expect(is((node.items.first()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
+  expect(is((node.items.last()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
   expect(is(node.items.last()?.comma, $CommaNode())).toBeTruthy();
 });
 
@@ -157,19 +145,13 @@ test('Items on several lines', () => {
   expect(is(node.open, $BracketOpenNode())).toBe(true);
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(4);
-  expect(
-    is((node.items.first()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
-  expect(
-    is((node.items.last()?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
+  expect(is((node.items.first()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
+  expect(is((node.items.last()?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
   expect(node.items.last()?.comma).toBeFalsy();
-  expect(
-    is((node.items.at(3)?.statement as ExpressionStatementNode).expression, $IntegerNode()),
-  ).toBeTruthy();
+  expect(is((node.items.at(3)?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
   expect(
     (
-      (node.items.at(3)?.statement as ExpressionStatementNode).expression as IntegerNode
+      (node.items.at(3)?.node as ExpressionStatementNode).expression as IntegerNode
     ).contentNode.text.toNativeString(),
   ).toBe('5');
 });
@@ -182,7 +164,7 @@ test('Second empty item', () => {
   expect(is(node.open, $BracketOpenNode())).toBe(true);
   expect(is(node.close, $BracketCloseNode())).toBe(true);
   expect(node.items.count()).toBe(3);
-  expect(node.items.at(1)?.statement).toBeFalsy();
+  expect(node.items.at(1)?.node).toBeFalsy();
   expect(node.items.at(1)?.comma).toBeTruthy();
 });
 

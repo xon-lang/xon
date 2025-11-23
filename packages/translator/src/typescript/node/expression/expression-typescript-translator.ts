@@ -47,8 +47,8 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   if (is(node, $StringInterpolationNode())) {
     const items = node.items.map((x) =>
       newText(
-        x.statements.count() > 0
-          ? `${x.content?.text ?? ''}\${${translateTypescriptStatement(x.statements.at2(0))}}`
+        x.nodes.count() > 0
+          ? `${x.content?.text ?? ''}\${${translateTypescriptStatement(x.nodes.at2(0))}}`
           : `${x.content?.text ?? ''}`,
       ),
     );
@@ -76,8 +76,8 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
     const target = translateTypescriptExpression(node.target, isType);
     const parameters = newText(
       node.group.items.map((x) =>
-        x.statement
-          ? translateTypescriptExpression((x.statement as ExpressionStatementNode).expression, isType)
+        x.node
+          ? translateTypescriptExpression((x.node as ExpressionStatementNode).expression, isType)
           : newText(),
       ),
       newText(', '),
@@ -87,11 +87,11 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   }
 
   if (is(node, $ParenGroupNode())) {
-    if (node.items.count() !== 1 || !node.items.at(0)?.statement) {
+    if (node.items.count() !== 1 || !node.items.at(0)?.node) {
       return newText('/* error group */');
     }
 
-    const expression = (node.items.at(0)?.statement as ExpressionStatementNode).expression;
+    const expression = (node.items.at(0)?.node as ExpressionStatementNode).expression;
     const translatedExpression = translateTypescriptExpression(expression, isType);
 
     return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
@@ -99,15 +99,15 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
 
   if (is(node, $BraceGroupNode())) {
     return translateTypescriptAttributes(
-      node.items.filter((x) => !!x.statement).map((x) => x.statement!),
+      node.items.filter((x) => !!x.node).map((x) => x.node!),
       true,
     );
   }
 
   if (is(node, $BracketGroupNode())) {
     const items = node.items.map((x) =>
-      x.statement
-        ? translateTypescriptExpression((x.statement as ExpressionStatementNode).expression, isType)
+      x.node
+        ? translateTypescriptExpression((x.node as ExpressionStatementNode).expression, isType)
         : newText(),
     );
     const text = newText(items, newText(', '));

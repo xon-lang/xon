@@ -5,14 +5,14 @@ import {
   Node,
   NodeCollapseFn,
   NodeCollapseResult,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Integer, is, nothing} from '#core';
 
-export function collapseConditionStatementNode(): NodeCollapseFn<StatementNode> {
+export function collapseConditionStatementNode(): NodeCollapseFn<SyntaxNode> {
   return {
     min: 1,
-    collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<StatementNode> => {
+    collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<SyntaxNode> => {
       return nodes.firstMap((ifStatementNode, index) => {
         if (!is(ifStatementNode, $IfStatementNode())) {
           return nothing;

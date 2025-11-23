@@ -1,8 +1,8 @@
-import {StatementNode} from '#analyzer';
+import {Node} from '#analyzer';
 import {ArrayData, newText, Text} from '#core';
 import {translateTypescriptValueDeclaration, TypescriptDeclarationType} from '#translator';
 
-export function translateTypescriptAttributes(attributes: ArrayData<StatementNode>, useComma = false): Text {
+export function translateTypescriptAttributes(attributes: ArrayData<Node>, useComma = false): Text {
   const separator = useComma ? ',\n' : ';\n';
 
   const translatedAttributes = newText(

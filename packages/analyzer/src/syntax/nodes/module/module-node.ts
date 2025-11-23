@@ -3,8 +3,8 @@ import {
   $SyntaxNode,
   FormatterContext,
   HighlightContext,
+  Node,
   SemanticContext,
-  StatementNode,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Brand, newTextRange, nothing, Nothing} from '#core';
@@ -12,12 +12,12 @@ import {ArrayData, Brand, newTextRange, nothing, Nothing} from '#core';
 export type ModuleNode = SyntaxNode &
   Brand<'Analyzer.ModuleNode'> & {
     parent: Nothing;
-    children: ArrayData<StatementNode>;
+    children: ArrayData<SyntaxNode>;
   };
 
 export const $ModuleNode = () => $AnalyzerType<ModuleNode>('ModuleNode', $SyntaxNode());
 
-export function newModuleNode(statements: ArrayData<StatementNode>): ModuleNode {
+export function newModuleNode(statements: ArrayData<SyntaxNode>): ModuleNode {
   return {
     $: $ModuleNode(),
     parent: nothing,

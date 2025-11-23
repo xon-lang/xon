@@ -17,7 +17,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $ParenGroupNode())) {
-    return node.items.map((x) => evaluate((x.statement as ExpressionStatementNode).expression ?? nothing));
+    return node.items.map((x) => evaluate((x.node as ExpressionStatementNode).expression ?? nothing));
   }
 
   if (is(node, $IntegerNode())) {

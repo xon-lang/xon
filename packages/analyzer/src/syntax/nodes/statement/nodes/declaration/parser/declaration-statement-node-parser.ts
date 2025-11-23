@@ -42,12 +42,12 @@ function validateParameters(context: AnalyzerContext, group: GroupNode | Nothing
   }
 
   for (const item of group.items) {
-    if (is(item.statement, $DeclarationStatementNode())) {
+    if (is(item.node, $DeclarationStatementNode())) {
       continue;
     }
 
-    if (item.statement || item.comma) {
-      context.addError((item.statement ?? item.comma)!.range, newText('Wrong declaration node'));
+    if (item.node || item.comma) {
+      context.addError((item.node ?? item.comma)!.range, newText('Wrong declaration node'));
     }
   }
 }

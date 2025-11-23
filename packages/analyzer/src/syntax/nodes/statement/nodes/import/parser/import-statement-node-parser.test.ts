@@ -42,7 +42,7 @@ test('Import statement with body', () => {
 
   expect(is(node.expression, $StringNode())).toBe(true);
   expect((node.expression as StringNode).content?.text.toNativeString()).toBe('abc');
-  expect(node.body?.children.count()).toBe(2);
+  expect(node.body?.children?.count()).toBe(2);
 });
 
 function getImportStatementNode(text: Text, extraNodesCount: Integer): ImportStatementNode {

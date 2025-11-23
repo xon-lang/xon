@@ -1,18 +1,18 @@
 import {
   $BraceCloseNode,
-  $StatementNode,
+  $Node,
   $StringInterpolationItemNode,
   AnalyzerContext,
   BraceCloseNode,
   BraceOpenNode,
   newStringInterpolationItemNode,
   newStringInterpolationNode,
+  Node,
   parseBraceOpenNode,
   parseInterpolationStringContentNode,
   parseStatements,
   parseStringInterpolationCloseNode,
   parseStringInterpolationOpenNode,
-  StatementNode,
   StringInterpolationItemNode,
   StringInterpolationNode,
 } from '#analyzer';
@@ -54,14 +54,14 @@ function parseInterpolationItem(context: AnalyzerContext): StringInterpolationIt
   return newStringInterpolationItemNode(
     content,
     result?.open,
-    result?.statements ?? newArrayData($StatementNode(), []),
+    result?.nodes ?? newArrayData($Node(), []),
     result?.close,
   );
 }
 
 function parseInterpolationStatements(
   context: AnalyzerContext,
-): {open: BraceOpenNode; statements: ArrayData<StatementNode>; close?: BraceCloseNode | Nothing} | Nothing {
+): {open: BraceOpenNode; nodes: ArrayData<Node>; close?: BraceCloseNode | Nothing} | Nothing {
   const open = parseBraceOpenNode(context);
 
   if (!open) {
@@ -72,9 +72,9 @@ function parseInterpolationStatements(
     const {breakNode, statements} = parseStatements(context, (node) => is(node, $BraceCloseNode()));
 
     if (is(breakNode, $BraceCloseNode())) {
-      return {open, statements, close: breakNode};
+      return {open, nodes: statements, close: breakNode};
     }
 
-    return {open, statements, close: nothing};
+    return {open, nodes: statements, close: nothing};
   }
 }

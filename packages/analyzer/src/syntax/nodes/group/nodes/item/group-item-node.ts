@@ -5,28 +5,26 @@ import {
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
+  Node,
   SemanticContext,
-  StatementNode,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Brand, Nothing} from '#core';
 
 export type GroupItemNode = SyntaxNode &
   Brand<'Analyzer.GroupItemNode'> & {
-    statements: ArrayData<StatementNode>;
+    nodes: ArrayData<Node>;
     comma?: CommaNode | Nothing;
-    statement?: StatementNode | Nothing;
+    // todo remove node or nodes
+    node?: Node | Nothing;
   };
 
 export const $GroupItemNode = () => $AnalyzerType<GroupItemNode>('GroupItemNode', $SyntaxNode());
 
-export function newGroupItemNode(
-  statements: ArrayData<StatementNode>,
-  comma?: CommaNode | Nothing,
-): GroupItemNode {
+export function newGroupItemNode(statements: ArrayData<Node>, comma?: CommaNode | Nothing): GroupItemNode {
   const node: GroupItemNode = newSyntaxNode({
     $: $GroupItemNode(),
-    statements,
+    nodes: statements,
     comma,
 
     semantify(context: SemanticContext): void {},
@@ -34,7 +32,7 @@ export function newGroupItemNode(
     highlight(context: HighlightContext): void {},
   });
 
-  node.statement = statements.first();
+  node.node = statements.first();
 
   return node;
 }

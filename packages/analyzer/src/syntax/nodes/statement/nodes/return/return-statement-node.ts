@@ -1,24 +1,24 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
   Node,
   ReturnKeywordNode,
   SemanticContext,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type ReturnStatementNode = StatementNode &
+export type ReturnStatementNode = SyntaxNode &
   Brand<'Analyzer.ReturnStatementNode'> & {
     keyword: ReturnKeywordNode;
     expression?: Node | Nothing;
   };
 
 export const $ReturnStatementNode = () =>
-  $AnalyzerType<ReturnStatementNode>('ReturnStatementNode', $StatementNode());
+  $AnalyzerType<ReturnStatementNode>('ReturnStatementNode', $SyntaxNode());
 
 export function newReturnStatementNode(
   keyword: ReturnKeywordNode,

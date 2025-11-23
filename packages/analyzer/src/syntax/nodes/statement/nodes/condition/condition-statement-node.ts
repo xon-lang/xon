@@ -1,24 +1,24 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   ElseStatementNode,
   FormatterContext,
   HighlightContext,
   IfStatementNode,
   newSyntaxNode,
   SemanticContext,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type ConditionStatementNode = StatementNode &
+export type ConditionStatementNode = SyntaxNode &
   Brand<'Analyzer.ConditionStatementNode'> & {
     ifStatement: IfStatementNode;
     elseStatement?: ElseStatementNode | Nothing;
   };
 
 export const $ConditionStatementNode = () =>
-  $AnalyzerType<ConditionStatementNode>('ConditionStatementNode', $StatementNode());
+  $AnalyzerType<ConditionStatementNode>('ConditionStatementNode', $SyntaxNode());
 
 export function newConditionStatementNode(
   ifStatement: IfStatementNode,

@@ -1,23 +1,22 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
   semantifyExpressionStatementNode,
-  StatementNode,
   SyntaxNode,
 } from '#analyzer';
 import {Brand} from '#core';
 
-export type ExpressionStatementNode = StatementNode &
+export type ExpressionStatementNode = SyntaxNode &
   Brand<'Analyzer.ExpressionStatementNode'> & {
     // todo change to ExpressionNode
     expression: SyntaxNode;
   };
 
 export const $ExpressionStatementNode = () =>
-  $AnalyzerType<ExpressionStatementNode>('ExpressionStatementNode', $StatementNode());
+  $AnalyzerType<ExpressionStatementNode>('ExpressionStatementNode', $SyntaxNode());
 
 export function newExpressionStatementNode(expression: SyntaxNode): ExpressionStatementNode {
   return newSyntaxNode<ExpressionStatementNode>({

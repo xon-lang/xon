@@ -4,7 +4,7 @@
     {
       "root": "packages/analyzer",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"],
+      "exclude": ["**/*.test.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"],
       "order": [
         "package.ts",
         "src/syntax/tokens.ts",
@@ -15,37 +15,37 @@
     {
       "root": "packages/core",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     },
     {
       "root": "packages/grammar",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     },
     {
       "root": "packages/interpreter",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     },
     {
       "root": "packages/language-adapter",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     },
     {
       "root": "packages/translator",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts", "**/test/**/*.ts"]
+      "exclude": ["**/*.test.ts", "**/test/**/*.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     },
     {
       "root": "packages/vscode",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts", "test/**", "**/vite.config.ts"]
+      "exclude": ["**/*.test.ts", "test/**", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     },
     {
       "root": "packages/xon-lib",
       "include": ["**/*.ts"],
-      "exclude": ["**/*.test.ts"]
+      "exclude": ["**/*.test.ts", "**/vite.config.ts", "**/dist/*.ts", "**/dist/*.d.ts"]
     }
   ]
 }

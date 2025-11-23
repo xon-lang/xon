@@ -60,7 +60,7 @@ export interface Model {
   $: $Type;
 
   // todo remove 'equals' ???
-  equals?(other: this): boolean;
+  // equals?(other: this): boolean;
   // is?<T extends $Type>($type: T): this is Exclude<T['type'], undefined>;
 }
 

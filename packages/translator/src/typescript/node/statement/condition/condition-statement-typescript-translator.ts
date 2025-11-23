@@ -1,4 +1,4 @@
-import {ConditionStatementNode, ElseStatementNode, IfStatementNode, StatementNode} from '#analyzer';
+import {ConditionStatementNode, ElseStatementNode, IfStatementNode} from '#analyzer';
 import {newText, Text} from '#core';
 import {translateTypescriptExpression, translateTypescriptStatement} from '#translator';
 
@@ -16,11 +16,11 @@ export function translateTypescriptConditionStatement(node: ConditionStatementNo
 }
 
 function translateIfStatement(node: IfStatementNode): Text {
-  if (node.expression && node.body) {
+  if (node.expression && node.body?.children) {
     const expression = translateTypescriptExpression(node.expression, false);
 
     const body = newText(
-      node.body.children.map((x) => translateTypescriptStatement(x as StatementNode)),
+      node.body.children?.map((x) => translateTypescriptStatement(x)),
       newText(';\n'),
     ).margin(2);
 
@@ -31,9 +31,9 @@ function translateIfStatement(node: IfStatementNode): Text {
 }
 
 function translateElseStatement(node: ElseStatementNode): Text {
-  if (node.body) {
+  if (node.body?.children) {
     const body = newText(
-      node.body.children.map((x) => translateTypescriptStatement(x as StatementNode)),
+      node.body.children.map((x) => translateTypescriptStatement(x)),
       newText(';\n'),
     ).margin(2);
 

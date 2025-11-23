@@ -9,7 +9,7 @@ import {
   collapseUnionInfixNode,
   collapseValueNode,
   Node,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {$Model, ArrayData, Integer, newArrayData, Nothing} from '#core';
 
@@ -120,14 +120,14 @@ export function collapseNodes(context: AnalyzerContext, nodes: ArrayData<Node>):
 }
 
 // todo try to join with 'nodeCollapses'
-function statementCollapses(): ArrayData<NodeCollapseFn<StatementNode>> {
+function statementCollapses(): ArrayData<NodeCollapseFn<SyntaxNode>> {
   return newArrayData($Model(), [collapseConditionStatementNode()]);
 }
 
 // todo try to join with 'collapseNodes'
-export function collapseStatements(statements: ArrayData<StatementNode>): ArrayData<StatementNode> {
+export function collapseStatements(statements: ArrayData<SyntaxNode>): ArrayData<SyntaxNode> {
   for (const statement of statements) {
-    if (statement.body) {
+    if (statement.body?.children) {
       collapseStatements(statement.body.children);
     }
   }

@@ -50,7 +50,7 @@ function semantifyImportPath(node: StringNode, context: SemanticContext): Import
 }
 
 function semantifyBodyNode(context: SemanticContext, node: BodyNode, importSemantic: ImportSemantic): void {
-  if (!is(importSemantic.providedSemantic, $ObjectSemantic())) {
+  if (!is(importSemantic.providedSemantic, $ObjectSemantic()) || !node.children) {
     return;
   }
 

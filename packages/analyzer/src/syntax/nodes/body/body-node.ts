@@ -4,18 +4,15 @@ import {
   $SyntaxNode,
   FormatterContext,
   HighlightContext,
+  Node,
   SemanticContext,
-  StatementNode,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, Brand, newArrayData, newTextRange, Nothing} from '#core';
+import {Brand, is, newArrayData, newTextRange} from '#core';
 
 export type BodyNode = SyntaxNode &
   Brand<'Analyzer.BodyNode'> & {
-    parent?: StatementNode | Nothing;
-    children: ArrayData<StatementNode>;
-
-    addStatement(statement: StatementNode): void;
+    addNode(node: Node): void;
   };
 
 export const $BodyNode = () => $AnalyzerType<BodyNode>('BodyNode', $SyntaxNode());
@@ -26,30 +23,33 @@ export function newBodyNode(): BodyNode {
     range: newTextRange(),
     children: newArrayData($Node()),
 
-    addStatement(statement: StatementNode): void {
-      statement.parent = this;
+    addNode(node: SyntaxNode): void {
+      node.parent = this;
 
-      if (this.children.isEmpty()) {
-        this.range.start = statement.range.start;
+      if (!this.children || this.children?.isEmpty()) {
+        this.range.start = node.range.start;
       }
 
       if (this.parent) {
-        this.parent.range.stop = statement.range.stop;
+        this.parent.range.stop = node.range.stop;
       }
 
-      this.range.stop = statement.range.stop;
-      this.children.addLastItem(statement);
+      this.range.stop = node.range.stop;
+      this.children?.addLastItem(node);
     },
 
     debug() {
       return {
-        [this.$.name]: this.children.map((x) => x.debug()).toNativeArray(),
+        [this.$.name]: this.children?.map((x) => x.debug()).toNativeArray(),
       };
     },
 
     semantify(context: SemanticContext): void {
-      for (const statement of this.children) {
-        statement.semantify(context);
+      // todo fix '?? []'
+      for (const statement of this.children ?? []) {
+        if (is(statement, $SyntaxNode())) {
+          statement.semantify(context);
+        }
       }
     },
 

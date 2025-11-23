@@ -3,7 +3,7 @@ import {
   $ExpressionStatementNode,
   $IdNode,
   DeclarationStatementNode,
-  StatementNode,
+  Node,
 } from '#analyzer';
 import {ArrayData, is, newText, Text} from '#core';
 import {
@@ -14,7 +14,7 @@ import {
 } from '#translator';
 
 export function translateTypescriptValueDeclaration(
-  node: StatementNode,
+  node: Node,
   declarationType: TypescriptDeclarationType,
 ): Text {
   if (
@@ -72,7 +72,7 @@ function translateToFunction(
 
   const parameters = newText(
     node.group.items
-      .map((x) => x.statement)
+      .map((x) => x.node)
       .map((x) =>
         x ? translateTypescriptValueDeclaration(x, TypescriptDeclarationType.Parameter) : newText(),
       ),
@@ -97,7 +97,7 @@ function translateToFunction(
 
   let body = newText();
 
-  if (node.body) {
+  if (node.body?.children) {
     body = newText(` ${translateTypescriptFunctionBody(node.body.children)}`);
   }
 
@@ -108,7 +108,7 @@ function translateToFunction(
   );
 }
 
-function translateTypescriptFunctionBody(body: ArrayData<StatementNode>): Text {
+function translateTypescriptFunctionBody(body: ArrayData<Node>): Text {
   const translatedBody = newText(
     body.map((x) => translateTypescriptStatement(x, TypescriptStatementSeparator.Semicolon)),
     newText('\n'),

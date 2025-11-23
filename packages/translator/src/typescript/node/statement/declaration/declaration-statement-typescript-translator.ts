@@ -21,7 +21,7 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
   if (expression) {
     if (is(expression, $BraceGroupNode())) {
       const body = translateTypescriptAttributes(
-        expression.items.filter((x) => !!x.statement).map((x) => x.statement!),
+        expression.items.filter((x) => !!x.node).map((x) => x.node!),
       );
 
       return newText(`export type ${node.id.text} = ${body};`);

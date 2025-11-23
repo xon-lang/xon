@@ -1,22 +1,21 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   ElseKeywordNode,
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
   SemanticContext,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {Brand} from '#core';
 
-export type ElseStatementNode = StatementNode &
+export type ElseStatementNode = SyntaxNode &
   Brand<'Analyzer.ElseStatementNode'> & {
     keyword: ElseKeywordNode;
   };
 
-export const $ElseStatementNode = () =>
-  $AnalyzerType<ElseStatementNode>('ElseStatementNode', $StatementNode());
+export const $ElseStatementNode = () => $AnalyzerType<ElseStatementNode>('ElseStatementNode', $SyntaxNode());
 
 export function newElseStatementNode(keyword: ElseKeywordNode): ElseStatementNode {
   return newSyntaxNode<ElseStatementNode>({

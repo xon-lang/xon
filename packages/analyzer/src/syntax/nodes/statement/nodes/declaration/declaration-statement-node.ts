@@ -1,6 +1,6 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   FormatterContext,
   GroupNode,
   highlightDeclarationStatementNode,
@@ -9,11 +9,11 @@ import {
   newSyntaxNode,
   OperatorExpressionNode,
   semantifyDeclarationStatementNode,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type DeclarationStatementNode = StatementNode &
+export type DeclarationStatementNode = SyntaxNode &
   Brand<'Analyzer.DeclarationStatementNode'> & {
     keyword?: KeywordNode | Nothing;
     id: IdNode;
@@ -23,7 +23,7 @@ export type DeclarationStatementNode = StatementNode &
   };
 
 export const $DeclarationStatementNode = () =>
-  $AnalyzerType<DeclarationStatementNode>('DeclarationStatementNode', $StatementNode());
+  $AnalyzerType<DeclarationStatementNode>('DeclarationStatementNode', $SyntaxNode());
 
 export function newDeclarationStatementNode(
   keyword: KeywordNode | Nothing,

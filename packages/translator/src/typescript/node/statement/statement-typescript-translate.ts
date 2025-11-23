@@ -4,7 +4,7 @@ import {
   $ExpressionStatementNode,
   $ImportStatementNode,
   $ReturnStatementNode,
-  StatementNode,
+  Node,
 } from '#analyzer';
 import {ArrayData, is, newCharacter, newText, Text} from '#core';
 import {
@@ -22,7 +22,7 @@ export enum TypescriptStatementSeparator {
 }
 
 export function translateTypescriptStatements(
-  nodes: ArrayData<StatementNode>,
+  nodes: ArrayData<Node>,
   separator: TypescriptStatementSeparator = TypescriptStatementSeparator.None,
 ): Text {
   const statements = nodes
@@ -35,7 +35,7 @@ export function translateTypescriptStatements(
 }
 
 export function translateTypescriptStatement(
-  node: StatementNode,
+  node: Node,
   separator: TypescriptStatementSeparator = TypescriptStatementSeparator.None,
 ): Text {
   const separatorText = getStatementSeparatorText(separator);
@@ -60,7 +60,7 @@ export function translateTypescriptStatement(
     return translateTypescriptReturnStatement(node).addLastItems(separatorText);
   }
 
-  return newText(`/* error statement ${node.$}*/`);
+  return newText(`/* error statement ${(node as any)?.$}*/`);
 }
 
 function getStatementSeparatorText(separator: TypescriptStatementSeparator): Text {

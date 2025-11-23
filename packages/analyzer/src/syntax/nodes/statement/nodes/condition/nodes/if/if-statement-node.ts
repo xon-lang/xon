@@ -1,23 +1,23 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   FormatterContext,
   HighlightContext,
   IfKeywordNode,
   newSyntaxNode,
   Node,
   SemanticContext,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type IfStatementNode = StatementNode &
+export type IfStatementNode = SyntaxNode &
   Brand<'Analyzer.IfStatementNode'> & {
     keyword: IfKeywordNode;
     expression?: Node | Nothing;
   };
 
-export const $IfStatementNode = () => $AnalyzerType<IfStatementNode>('IfStatementNode', $StatementNode());
+export const $IfStatementNode = () => $AnalyzerType<IfStatementNode>('IfStatementNode', $SyntaxNode());
 
 export function newIfStatementNode(keyword: IfKeywordNode, expression?: Node | Nothing): IfStatementNode {
   return newSyntaxNode<IfStatementNode>({

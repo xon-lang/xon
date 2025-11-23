@@ -1,13 +1,24 @@
-import {$AnalyzerType, $SyntaxNode, BodyNode, SyntaxNode} from '#analyzer';
+import {
+  $AnalyzerType,
+  $SyntaxNode,
+  BodyNode,
+  FormatterContext,
+  HighlightContext,
+  newSyntaxNode,
+  Node,
+  SemanticContext,
+  SyntaxNode,
+} from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type StatementNode = SyntaxNode &
-  Brand<'Analyzer.StatementNode'> & {
-    parent?: BodyNode | Nothing;
-    body?: BodyNode | Nothing;
-  };
+// export type StatementNode = SyntaxNode &
+//   Brand<'Analyzer.StatementNode'> & {
+//     parent?: BodyNode | Nothing;
+//     value: Node;
+//     body?: BodyNode | Nothing;
+//   };
 
-export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode', $SyntaxNode());
+// export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode', $SyntaxNode());
 
 // export function newStatementNode(
 //   indentLevel: Integer,
@@ -89,5 +100,16 @@ export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode'
 //   formatterManager.addItem({
 //     range: rangeFromNodes(afterIndentHiddenNodes),
 //     text,
+//   });
+// }
+
+// export function newStatementNode(value: Node): StatementNode {
+//   return newSyntaxNode<StatementNode>({
+//     $: $StatementNode(),
+//     value,
+
+//     semantify(context: SemanticContext): void {},
+//     format(context: FormatterContext): void {},
+//     highlight(context: HighlightContext): void {},
 //   });
 // }

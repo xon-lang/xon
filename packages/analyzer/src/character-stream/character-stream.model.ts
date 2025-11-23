@@ -6,6 +6,7 @@ export type CharacterStream = Model &
     takeWhile(
       $type: $Type,
       predicate: (character: Character, index: Integer, text: Text) => Boolean2 | Nothing,
+      // todo remove length parameter if we check it in predicate
       length?: Integer | Nothing,
     ): LexicalNode | Nothing;
   };

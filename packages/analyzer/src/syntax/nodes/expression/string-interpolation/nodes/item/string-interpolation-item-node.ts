@@ -6,8 +6,8 @@ import {
   FormatterContext,
   HighlightContext,
   newSyntaxNode,
+  Node,
   SemanticContext,
-  StatementNode,
   StringInterpolationContentNode,
   SyntaxNode,
 } from '#analyzer';
@@ -17,7 +17,7 @@ export type StringInterpolationItemNode = SyntaxNode &
   Brand<'Analyzer.StringInterpolationItemNode'> & {
     content?: StringInterpolationContentNode | Nothing;
     open?: BraceOpenNode | Nothing;
-    statements: ArrayData<StatementNode>;
+    nodes: ArrayData<Node>;
     close?: BraceCloseNode | Nothing;
   };
 
@@ -27,14 +27,14 @@ export const $StringInterpolationItemNode = () =>
 export function newStringInterpolationItemNode(
   content: StringInterpolationContentNode | Nothing,
   open: BraceOpenNode | Nothing,
-  statements: ArrayData<StatementNode>,
+  nodes: ArrayData<Node>,
   close: BraceCloseNode | Nothing,
 ): StringInterpolationItemNode {
   return newSyntaxNode({
     $: $StringInterpolationItemNode(),
     content,
     open,
-    statements,
+    nodes,
     close,
 
     semantify(context: SemanticContext): void {},

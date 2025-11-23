@@ -1,11 +1,10 @@
 import {
   $NlNode,
   $Node,
-  $StatementNode,
   AnalyzerContext,
+  BodyNode,
   collapseStatements,
   newBodyNode,
-  newUnknownStatementNode,
   Node,
   nodeGenerator,
   parseDeclarationStatementNode,
@@ -14,19 +13,20 @@ import {
   parseIfStatementNode,
   parseImportStatementNode,
   parseReturnStatementNode,
-  StatementNode,
+  SyntaxNode,
 } from '#analyzer';
-import {$Model, ArrayData, Boolean2, is, newArrayData, newText, Nothing, nothing, TextPosition} from '#core';
+import {$Model, ArrayData, Boolean2, is, newArrayData, Nothing, nothing, TextPosition} from '#core';
 
 export function parseStatements(
   context: AnalyzerContext,
   predicate?: ((node: Node) => Boolean2) | Nothing,
 ): {
-  statements: ArrayData<StatementNode>;
+  // todo use BodyNode
+  statements: ArrayData<SyntaxNode>;
   breakNode?: Node | Nothing;
 } {
-  let lastStatement: StatementNode | Nothing = nothing;
-  let statements = newArrayData<StatementNode>($StatementNode());
+  let lastStatement: Node | Nothing = nothing;
+  let body = newBodyNode();
   let breakNode: Node | Nothing = nothing;
   let nodes = newArrayData<Node>($Node(), []);
 
@@ -35,7 +35,7 @@ export function parseStatements(
       return;
     }
 
-    lastStatement = handleStatement(context, statements, lastStatement, nodes);
+    lastStatement = handleStatement(context, body, lastStatement, nodes);
     nodes = newArrayData($Node());
   };
 
@@ -59,18 +59,19 @@ export function parseStatements(
 
   handle();
 
-  statements = collapseStatements(statements);
+  // todo can we remove it?
+  body.children = collapseStatements(body.children ?? newArrayData($Node()));
 
   return {
-    statements,
+    statements: body.children,
     breakNode,
   };
 }
 
-export type StatementParserFunction<T extends StatementNode = StatementNode> = (
+export type StatementParserFunction<T extends Node = Node> = (
   context: AnalyzerContext,
   nodes: ArrayData<Node>,
-  parent?: StatementNode | Nothing,
+  parent?: Node | Nothing,
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
@@ -86,20 +87,12 @@ function statementParsers(): ArrayData<StatementParserFunction> {
 
 function handleStatement(
   context: AnalyzerContext,
-  statements: ArrayData<StatementNode>,
-  lastStatement: StatementNode | Nothing,
+  body: BodyNode,
+  lastStatement: Node | Nothing,
   nodes: ArrayData<Node>,
-): StatementNode {
-  const parent = getParentStatementForIndent(lastStatement, nodes.first()!.range.start);
-  let statement: StatementNode | Nothing;
-
-  statement = statementParsers().firstMap((parse) => parse(context, nodes, parent));
-
-  if (!statement) {
-    context.extraNodes.addLastItems(nodes);
-    statement = newUnknownStatementNode();
-    context.addError(statement.range, newText(`Unknown syntax expression`));
-  }
+): Node {
+  const parent = lastStatement ? getParentNodeForIndent(lastStatement, nodes.first()!.range.start) : nothing;
+  const node = statementParsers().firstMap((parse) => parse(context, nodes, parent)) ?? nodes.at2(0);
 
   if (parent) {
     if (!parent.body) {
@@ -109,25 +102,22 @@ function handleStatement(
       parent.body.parent = parent;
     }
 
-    parent.body.addStatement(statement);
+    parent.body.addNode(node);
   } else {
-    statements.addLastItem(statement);
+    body.addNode(node);
   }
 
-  return statement;
+  return node;
 }
 
-function getParentStatementForIndent(
-  statement: StatementNode | Nothing,
-  indentPosition: TextPosition,
-): StatementNode | Nothing {
-  if (!statement) {
-    return nothing;
+function getParentNodeForIndent(parentNode: Node, childPosition: TextPosition): Node | Nothing {
+  if (childPosition.column > parentNode.range.start.column) {
+    return parentNode;
   }
 
-  if (indentPosition.column > statement.range.start.column) {
-    return statement;
+  if (parentNode.parent?.parent) {
+    return getParentNodeForIndent(parentNode.parent.parent, childPosition);
   }
 
-  return getParentStatementForIndent(statement.parent?.parent, indentPosition);
+  return nothing;
 }

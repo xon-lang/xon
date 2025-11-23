@@ -1,6 +1,6 @@
 import {
   $AnalyzerType,
-  $StatementNode,
+  $SyntaxNode,
   AsInfixNode,
   FormatterContext,
   HighlightContext,
@@ -8,12 +8,12 @@ import {
   ImportSemantic,
   newSyntaxNode,
   semantifyImportStatementNode,
-  StatementNode,
   StringNode,
+  SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type ImportStatementNode = StatementNode &
+export type ImportStatementNode = SyntaxNode &
   Brand<'Analyzer.ImportStatementNode'> & {
     keyword: ImportKeywordNode;
     expression?: StringNode | AsInfixNode | Nothing;
@@ -21,7 +21,7 @@ export type ImportStatementNode = StatementNode &
   };
 
 export const $ImportStatementNode = () =>
-  $AnalyzerType<ImportStatementNode>('ImportStatementNode', $StatementNode());
+  $AnalyzerType<ImportStatementNode>('ImportStatementNode', $SyntaxNode());
 
 export function newImportStatementNode(
   keyword: ImportKeywordNode,

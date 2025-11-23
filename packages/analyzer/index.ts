@@ -131,7 +131,6 @@ export * from './src/syntax/nodes/statement/nodes/declaration/extract-declaratio
 export * from './src/syntax/nodes/statement/nodes/expression/expression-statement-node';
 export * from './src/syntax/nodes/statement/nodes/import/import-statement-node';
 export * from './src/syntax/nodes/statement/nodes/return/return-statement-node';
-export * from './src/syntax/nodes/statement/nodes/unknown/unknown-statement-node';
 export * from './src/syntax/nodes/type-assign/type/collapse/type-node-collapse';
 export * from './src/syntax/nodes/type-assign/value/collapse/value-node-collapse';
 export * from './src/syntax/nodes/documentation/nodes/documentation-label/documentation-label-operator/documentation-label-operator-node.parser';
