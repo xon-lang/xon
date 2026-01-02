@@ -22,12 +22,12 @@ export function newAnalyzerContext(
     hiddenNodes: newArrayData($Node()),
     extraNodes: newArrayData($Node()),
 
-    addError(range: TextRange, text: Text): void {
+    addError(range: TextRange, message: Text): void {
       const diagnostic = newDiagnostic(
         range,
         AnalyzerDiagnosticType.Syntax,
         AnalyzerDiagnosticSeverity.Error,
-        text,
+        message,
       );
 
       this.diagnostic.add(diagnostic);

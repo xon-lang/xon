@@ -10,7 +10,7 @@ export type AnalyzerContext = Model &
     hiddenNodes: ArrayData<Node>;
     extraNodes: ArrayData<Node>;
 
-    addError(range: TextRange, text: Text): void;
+    addError(range: TextRange, message: Text): void;
   };
 
 export const $AnalyzerContext = () => $AnalyzerType('AnalyzerContext');

@@ -24,7 +24,7 @@ export type SemanticContext = Model &
     popScope(): void;
     getReference(range: TextRange): TextReference;
     provideSemantic(uri: Uri): Semantic | Nothing;
-    addError(range: TextRange, text: Text): void;
+    addError(range: TextRange, message: Text): void;
   };
 
 export const $SemanticContext = () => $AnalyzerType<SemanticContext>('SemanticContext');

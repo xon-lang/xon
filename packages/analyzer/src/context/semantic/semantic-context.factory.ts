@@ -80,12 +80,12 @@ export function newSemanticContext(
       return provider.provideSemantic(this.uri, uri);
     },
 
-    addError(range: TextRange, text: Text): void {
+    addError(range: TextRange, message: Text): void {
       const diagnostic = newDiagnostic(
         range,
         AnalyzerDiagnosticType.Semantic,
         AnalyzerDiagnosticSeverity.Error,
-        text,
+        message,
       );
 
       this.diagnostic.add(diagnostic);
