@@ -8,7 +8,7 @@ import {
   SemanticContext,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, Brand, is, newArrayData, newTextRange} from '#core';
+import {ArrayData, Brand, is, newArrayData, newText, newTextRange, Text} from '#core';
 
 export type BodyNode = SyntaxNode &
   Brand<'Analyzer.BodyNode'> & {
@@ -44,6 +44,12 @@ export function newBodyNode(): BodyNode {
       return {
         [this.$.name]: this.children?.map((x) => x.debug()).toNativeArray(),
       };
+    },
+
+    getText(): Text {
+      this._text ??= newText(this.children.map((x) => x.getText()));
+
+      return this._text;
     },
 
     semantify(context: SemanticContext): void {
