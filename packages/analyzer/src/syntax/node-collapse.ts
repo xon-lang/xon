@@ -1,5 +1,6 @@
 import {
   AnalyzerContext,
+  BodyNode,
   collapseConditionStatementNode,
   collapseInvokeNode,
   collapseLambdaNode,
@@ -125,10 +126,13 @@ function statementCollapses(): ArrayData<NodeCollapseFn<SyntaxNode>> {
 }
 
 // todo try to join with 'collapseNodes'
-export function collapseStatements(statements: ArrayData<SyntaxNode>): ArrayData<SyntaxNode> {
-  for (const statement of statements) {
+export function collapseBody(body: BodyNode): ArrayData<SyntaxNode> {
+  // todo remove 'as ArrayData<SyntaxNode>' and make const instead of 'let'
+  let statements = body.children as ArrayData<SyntaxNode>
+
+  for (const statement of body.children) {
     if (statement.body?.children) {
-      collapseStatements(statement.body.children);
+      collapseBody(statement.body);
     }
   }
 

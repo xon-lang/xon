@@ -22,7 +22,7 @@ import {translateTypescriptAttributes, translateTypescriptStatement} from '#tran
 
 export function translateTypescriptExpression(node: Node, isType: Boolean2): Text {
   if (is(node, $IntegerNode())) {
-    return node.contentNode.text;
+    return node.content.text;
   }
 
   if (is(node, $FloatNode())) {

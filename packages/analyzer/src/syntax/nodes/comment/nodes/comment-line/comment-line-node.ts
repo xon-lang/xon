@@ -13,20 +13,20 @@ import {Brand, Nothing} from '#core';
 
 export type CommentLineNode = CommentNode &
   Brand<'Analyzer.CommentLineNode'> & {
-    operatorNode: CommentLineOperatorNode;
-    contentNode?: CommentLineContentNode | Nothing;
+    operator: CommentLineOperatorNode;
+    content?: CommentLineContentNode | Nothing;
   };
 
 export const $CommentLineNode = () => $AnalyzerType<CommentLineNode>('CommentLineNode', $CommentNode());
 
 export function newCommentLineNode(
-  operatorNode: CommentLineOperatorNode,
-  contentNode?: CommentLineContentNode | Nothing,
+  operator: CommentLineOperatorNode,
+  content?: CommentLineContentNode | Nothing,
 ): CommentLineNode {
   return newSyntaxNode({
     $: $CommentLineNode(),
-    operatorNode,
-    contentNode,
+    operator,
+    content,
 
     semantify(context: SemanticContext): void {},
     format(context: FormatterContext): void {},

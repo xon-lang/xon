@@ -25,7 +25,7 @@ export type Node = Model &
   Brand<'Analyzer.Node'> & {
     range: TextRange;
     // todo remove parent and aggregate body
-    parent?: Node | Nothing;
+    parent?: SyntaxNode | Nothing;
     isHidden?: Boolean2;
 
     debug(): unknown;

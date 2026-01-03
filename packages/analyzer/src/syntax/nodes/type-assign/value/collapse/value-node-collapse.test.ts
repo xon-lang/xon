@@ -27,7 +27,7 @@ test('Integer value', () => {
 
   expect(is(node.value.expression, $ExpressionNode())).toBe(true);
   expect(is(node.value.expression, $IntegerNode())).toBe(true);
-  expect((node.value.expression as IntegerNode).contentNode.text.toNativeString()).toBe('1');
+  expect((node.value.expression as IntegerNode).content.text.toNativeString()).toBe('1');
 });
 
 function getAssignNode(text: Text): ValueNode {

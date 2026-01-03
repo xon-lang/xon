@@ -17,7 +17,7 @@ test('Condition without else', () => {
   expect(node.ifStatement.keyword.text.toNativeString()).toBe('if');
   expect(node.elseStatement).toBeFalsy();
   expect(is(node.ifStatement.expression, $IntegerNode())).toBeTruthy();
-  expect((node.ifStatement.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
+  expect((node.ifStatement.expression as IntegerNode).content.text.toNativeString()).toBe('0');
   expect(node.ifStatement.body?.children?.count()).toBe(2);
 });
 
@@ -28,7 +28,7 @@ test('Condition with else', () => {
   expect(node.ifStatement.keyword.text.toNativeString()).toBe('if');
   expect(node.elseStatement?.keyword.text.toNativeString()).toBe('else');
   expect(is(node.ifStatement.expression, $IntegerNode())).toBeTruthy();
-  expect((node.ifStatement.expression as IntegerNode).contentNode.text.toNativeString()).toBe('0');
+  expect((node.ifStatement.expression as IntegerNode).content.text.toNativeString()).toBe('0');
   expect(node.ifStatement.body?.children?.count()).toBe(2);
   expect(node.elseStatement?.body?.children?.count()).toBe(3);
 });

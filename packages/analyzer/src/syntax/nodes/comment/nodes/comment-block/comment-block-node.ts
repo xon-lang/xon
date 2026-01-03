@@ -14,23 +14,23 @@ import {Brand, Nothing} from '#core';
 
 export type CommentBlockNode = CommentNode &
   Brand<'Analyzer.CommentBlockNode'> & {
-    openNode: CommentBlockOpenNode;
-    contentNode?: CommentBlockContentNode | Nothing;
-    closeNode?: CommentBlockCloseNode | Nothing;
+    open: CommentBlockOpenNode;
+    content?: CommentBlockContentNode | Nothing;
+    close?: CommentBlockCloseNode | Nothing;
   };
 
 export const $CommentBlockNode = () => $AnalyzerType<CommentBlockNode>('CommentBlockNode', $CommentNode());
 
 export function newCommentBlockNode(
-  openNode: CommentBlockOpenNode,
-  contentNode?: CommentBlockContentNode | Nothing,
-  closeNode?: CommentBlockCloseNode | Nothing,
+  open: CommentBlockOpenNode,
+  content?: CommentBlockContentNode | Nothing,
+  close?: CommentBlockCloseNode | Nothing,
 ): CommentBlockNode {
   return newSyntaxNode({
     $: $CommentBlockNode(),
-    openNode,
-    contentNode,
-    closeNode,
+    open,
+    content,
+    close,
 
     semantify(context: SemanticContext): void {},
     format(context: FormatterContext): void {},

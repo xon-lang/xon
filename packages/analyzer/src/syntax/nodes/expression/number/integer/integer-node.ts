@@ -12,15 +12,15 @@ import {Brand} from '#core';
 
 export type IntegerNode = NumberNode &
   Brand<'Analyzer.IntegerNode'> & {
-    contentNode: IntegerContentNode;
+    content: IntegerContentNode;
   };
 
 export const $IntegerNode = () => $AnalyzerType<IntegerNode>('IntegerNode', $NumberNode());
 
-export function newIntegerNode(contentNode: IntegerContentNode): IntegerNode {
+export function newIntegerNode(content: IntegerContentNode): IntegerNode {
   return newSyntaxNode({
     $: $IntegerNode(),
-    contentNode,
+    content,
 
     semantify(context: SemanticContext): void {},
     format(context: FormatterContext): void {},

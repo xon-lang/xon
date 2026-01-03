@@ -17,7 +17,7 @@ test('If statement with errors', () => {
   const node = getIfStatementNode(text, 2);
 
   expect(is(node.expression, $IntegerNode())).toBe(true);
-  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+  expect((node.expression as IntegerNode).content.text.toNativeString()).toBe('7');
 });
 
 test('If statement without errors', () => {
@@ -25,7 +25,7 @@ test('If statement without errors', () => {
   const node = getIfStatementNode(text, 0);
 
   expect(is(node.expression, $IntegerNode())).toBe(true);
-  expect((node.expression as IntegerNode).contentNode.text.toNativeString()).toBe('7');
+  expect((node.expression as IntegerNode).content.text.toNativeString()).toBe('7');
 });
 
 function getIfStatementNode(text: Text, extraNodesCount: Integer): IfStatementNode {

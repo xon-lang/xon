@@ -64,7 +64,7 @@ test('Many elements with no comma', () => {
   expect(
     (
       (node.items.first()?.node as ExpressionStatementNode).expression as IntegerNode
-    ).contentNode.text.toNativeString(),
+    ).content.text.toNativeString(),
   ).toBe('123');
 });
 
@@ -152,7 +152,7 @@ test('Items on several lines', () => {
   expect(
     (
       (node.items.at(3)?.node as ExpressionStatementNode).expression as IntegerNode
-    ).contentNode.text.toNativeString(),
+    ).content.text.toNativeString(),
   ).toBe('5');
 });
 

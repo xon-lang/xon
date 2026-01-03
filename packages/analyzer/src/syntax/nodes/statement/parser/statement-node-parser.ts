@@ -3,7 +3,7 @@ import {
   $Node,
   AnalyzerContext,
   BodyNode,
-  collapseStatements,
+  collapseBody,
   newBodyNode,
   Node,
   nodeGenerator,
@@ -25,10 +25,10 @@ export function parseStatements(
   statements: ArrayData<SyntaxNode>;
   breakNode?: Node | Nothing;
 } {
-  let lastStatement: Node | Nothing = nothing;
+  let lastStatement: SyntaxNode | Nothing = nothing;
   let body = newBodyNode();
   let breakNode: Node | Nothing = nothing;
-  let nodes = newArrayData<Node>($Node(), []);
+  let nodes = newArrayData<SyntaxNode>($Node(), []);
 
   const handle = () => {
     if (nodes.isEmpty()) {
@@ -60,7 +60,7 @@ export function parseStatements(
   handle();
 
   // todo can we remove it?
-  body.children = collapseStatements(body.children ?? newArrayData($Node()));
+  body.children = collapseBody(body);
 
   return {
     statements: body.children,
@@ -68,10 +68,10 @@ export function parseStatements(
   };
 }
 
-export type StatementParserFunction<T extends Node = Node> = (
+export type StatementParserFunction<T extends SyntaxNode = SyntaxNode> = (
   context: AnalyzerContext,
-  nodes: ArrayData<Node>,
-  parent?: Node | Nothing,
+  nodes: ArrayData<SyntaxNode>,
+  parent?: SyntaxNode | Nothing,
 ) => T | Nothing;
 
 function statementParsers(): ArrayData<StatementParserFunction> {
@@ -88,9 +88,9 @@ function statementParsers(): ArrayData<StatementParserFunction> {
 function handleStatement(
   context: AnalyzerContext,
   body: BodyNode,
-  lastStatement: Node | Nothing,
-  nodes: ArrayData<Node>,
-): Node {
+  lastStatement: SyntaxNode | Nothing,
+  nodes: ArrayData<SyntaxNode>,
+): SyntaxNode {
   const parent = lastStatement ? getParentNodeForIndent(lastStatement, nodes.first()!.range.start) : nothing;
   const node = statementParsers().firstMap((parse) => parse(context, nodes, parent)) ?? nodes.at2(0);
 
@@ -110,7 +110,7 @@ function handleStatement(
   return node;
 }
 
-function getParentNodeForIndent(parentNode: Node, childPosition: TextPosition): Node | Nothing {
+function getParentNodeForIndent(parentNode: SyntaxNode, childPosition: TextPosition): SyntaxNode | Nothing {
   if (childPosition.column > parentNode.range.start.column) {
     return parentNode;
   }

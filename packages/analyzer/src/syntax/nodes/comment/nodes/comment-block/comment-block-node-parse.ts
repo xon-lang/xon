@@ -9,14 +9,14 @@ import {
 import {nothing, Nothing} from '#core';
 
 export function parseCommentBlockNode(context: AnalyzerContext): CommentBlockNode | Nothing {
-  const openNode = parseCommentBlockOpenNode(context);
+  const open = parseCommentBlockOpenNode(context);
 
-  if (!openNode) {
+  if (!open) {
     return nothing;
   }
 
-  const contentNode = parseCommentBlockContentNode(context);
-  const closeNode = parseCommentBlockCloseNode(context);
+  const content = parseCommentBlockContentNode(context);
+  const close = parseCommentBlockCloseNode(context);
 
-  return newCommentBlockNode(openNode, contentNode, closeNode);
+  return newCommentBlockNode(open, content, close);
 }

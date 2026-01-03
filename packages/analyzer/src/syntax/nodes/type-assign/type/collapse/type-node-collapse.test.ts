@@ -27,7 +27,7 @@ test('Integer type ', () => {
 
   expect(is(node.type.expression, $ExpressionNode())).toBe(true);
   expect(is(node.type.expression, $IntegerNode())).toBe(true);
-  expect((node.type.expression as IntegerNode).contentNode.text.toNativeString()).toBe('1');
+  expect((node.type.expression as IntegerNode).content.text.toNativeString()).toBe('1');
 });
 
 function getTypeNode(text: Text): TypeNode {

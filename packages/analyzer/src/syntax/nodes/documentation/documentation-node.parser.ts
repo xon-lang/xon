@@ -33,5 +33,8 @@ export function parseDocumentationNode(context: AnalyzerContext): DocumentationN
 
   const closeNodeNode = parseDocumentationCloseNode(context);
 
-  return newDocumentationNode(openNode, labels, descriptionNode, closeNodeNode);
+  const node = newDocumentationNode(openNode, labels, descriptionNode, closeNodeNode);
+  context.hiddenNodes.addLastItem(node);
+
+  return node;
 }

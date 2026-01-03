@@ -34,6 +34,6 @@ test('String interpolation', () => {
   expect(
     (
       (node?.items.at(0)?.nodes?.at(0) as ExpressionStatementNode).expression as IntegerNode
-    ).contentNode.text.toNativeString(),
+    ).content.text.toNativeString(),
   ).toBe('123');
 });

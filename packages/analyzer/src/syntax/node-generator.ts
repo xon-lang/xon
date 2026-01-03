@@ -16,6 +16,7 @@ import {
   parseSymbolOperatorNode,
   parseUnknownNode,
   parseWhitespaceNode,
+  SyntaxNode,
 } from '#analyzer';
 import {$Model, ArrayData, newArrayData, Nothing} from '#core';
 
@@ -39,7 +40,7 @@ function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> 
   ]);
 }
 
-export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
+export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode> {
   while (true) {
     const node = nodeParsers().firstMap((parse) => parse(context));
 
@@ -51,7 +52,8 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<Node> {
       context.hiddenNodes.addLastItem(node);
     }
 
-    yield node;
+    // todo remove 'as'
+    yield node as SyntaxNode;
   }
 }
 

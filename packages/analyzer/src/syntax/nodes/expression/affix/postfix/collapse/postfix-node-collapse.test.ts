@@ -20,7 +20,7 @@ test('Exclamation integer', () => {
   expect(is(node, $ExclamationPostfixNode())).toBe(true);
   expect(node.operator.text.toNativeString()).toBe('!');
   expect(is(node.value, $IntegerNode())).toBe(true);
-  expect((node.value as IntegerNode).contentNode.text.toNativeString()).toBe('1');
+  expect((node.value as IntegerNode).content.text.toNativeString()).toBe('1');
 });
 
 function getPostfixNode(text: Text): PostfixNode {

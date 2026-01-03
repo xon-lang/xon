@@ -14,7 +14,7 @@ import {Brand, Nothing} from '#core';
 export type FloatNode = NumberNode &
   Brand<'Analyzer.FloatNode'> & {
     integer: IntegerContentNode;
-    radixPoint?: RadixPointNode | Nothing;
+    radix?: RadixPointNode | Nothing;
     fraction?: IntegerContentNode | Nothing;
   };
 
@@ -22,13 +22,13 @@ export const $FloatNode = () => $AnalyzerType<FloatNode>('FloatNode', $NumberNod
 
 export function newFloatNode(
   integer: IntegerContentNode,
-  radixPoint?: RadixPointNode | Nothing,
+  radix?: RadixPointNode | Nothing,
   fraction?: IntegerContentNode | Nothing,
 ): FloatNode {
   return newSyntaxNode({
     $: $FloatNode(),
     integer,
-    radixPoint,
+    radix,
     fraction,
 
     semantify(context: SemanticContext): void {},

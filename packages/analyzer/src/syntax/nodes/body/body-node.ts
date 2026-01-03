@@ -8,10 +8,12 @@ import {
   SemanticContext,
   SyntaxNode,
 } from '#analyzer';
-import {Brand, is, newArrayData, newTextRange} from '#core';
+import {ArrayData, Brand, is, newArrayData, newTextRange} from '#core';
 
 export type BodyNode = SyntaxNode &
   Brand<'Analyzer.BodyNode'> & {
+    children: ArrayData<SyntaxNode>;
+
     addNode(node: Node): void;
   };
 
