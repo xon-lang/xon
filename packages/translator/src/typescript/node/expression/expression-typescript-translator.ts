@@ -22,34 +22,34 @@ import {translateTypescriptAttributes, translateTypescriptStatement} from '#tran
 
 export function translateTypescriptExpression(node: Node, isType: Boolean2): Text {
   if (is(node, $IntegerNode())) {
-    return node.content.text;
+    return node.content.getText();
   }
 
   if (is(node, $FloatNode())) {
-    const integer = node.integer.text;
-    const fractional = node.fraction?.text ?? 0;
+    const integer = node.integer.getText();
+    const fractional = node.fraction?.getText() ?? 0;
 
     return newText(`${integer}.${fractional}`);
   }
 
   if (is(node, $CharacterNode())) {
-    if (node.content && node.content.text.count() === 1) {
-      return newText(`'${node.content.text}'`);
+    if (node.content && node.content.getText().count() === 1) {
+      return newText(`'${node.content.getText()}'`);
     }
 
     return newText('/* error character */');
   }
 
   if (is(node, $StringNode())) {
-    return newText(`\`${node.content?.text ?? ''}\``);
+    return newText(`\`${node.content?.getText() ?? ''}\``);
   }
 
   if (is(node, $StringInterpolationNode())) {
     const items = node.items.map((x) =>
       newText(
         x.nodes.count() > 0
-          ? `${x.content?.text ?? ''}\${${translateTypescriptStatement(x.nodes.at2(0))}}`
-          : `${x.content?.text ?? ''}`,
+          ? `${x.content?.getText() ?? ''}\${${translateTypescriptStatement(x.nodes.at2(0))}}`
+          : `${x.content?.getText() ?? ''}`,
       ),
     );
     const text = newText(items, newText(''));
@@ -59,15 +59,15 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
 
   if (is(node, $IdNode())) {
     if (isType && is(node.semantic, $UsageSemantic()) && !node.semantic.declaration?.isType) {
-      return newText(`typeof ${node.text} ${node.semantic.declaration?.isType}`);
+      return newText(`typeof ${node.getText()} ${node.semantic.declaration?.isType}`);
     }
 
-    return typeMapping(node.text);
+    return typeMapping(node.getText());
   }
 
   if (is(node, $MemberNode())) {
     const target = translateTypescriptExpression(node.target, isType);
-    const id = node.id?.text ?? newText('/* error member id */');
+    const id = node.id?.getText() ?? newText('/* error member id */');
 
     return newText(`${target}.${id}`);
   }
@@ -83,7 +83,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
       newText(', '),
     );
 
-    return newText(`${target}${node.group.open.text}${parameters}${node.group.close?.text ?? ''}`);
+    return newText(`${target}${node.group.open.getText()}${parameters}${node.group.close?.getText() ?? ''}`);
   }
 
   if (is(node, $ParenGroupNode())) {
@@ -94,7 +94,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
     const expression = (node.items.at(0)?.node as ExpressionStatementNode).expression;
     const translatedExpression = translateTypescriptExpression(expression, isType);
 
-    return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
+    return newText(`${node.open.getText()}${translatedExpression}${node.close?.getText() ?? ''}`);
   }
 
   if (is(node, $BraceGroupNode())) {
@@ -122,14 +122,14 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
 
     const value = translateTypescriptExpression(node.expression, isType);
 
-    return newText(`${node.operator.text}${value}`);
+    return newText(`${node.operator.getText()}${value}`);
   }
 
   if (is(node, $InfixNode())) {
     const left = translateTypescriptExpression(node.left, isType);
     const right = translateTypescriptExpression(node.right, isType);
 
-    return newText(`${left} ${node.operator.text} ${right}`);
+    return newText(`${left} ${node.operator.getText()} ${right}`);
   }
 
   if (is(node, $PostfixNode())) {
@@ -139,7 +139,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
 
     const value = translateTypescriptExpression(node.value, isType);
 
-    return newText(`${value}${node.operator.text}`);
+    return newText(`${value}${node.operator.getText()}`);
   }
 
   return newText('/* error value */');

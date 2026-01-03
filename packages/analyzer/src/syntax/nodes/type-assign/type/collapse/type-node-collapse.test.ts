@@ -20,14 +20,14 @@ test('Integer type ', () => {
   const node = getTypeNode(text);
 
   expect(is(node.target, $IdNode())).toBe(true);
-  expect((node.target as IdNode).text.toNativeString()).toBe('a');
+  expect((node.target as IdNode).getText().toNativeString()).toBe('a');
 
   expect(is(node.type.operator, $TypeOperatorNode())).toBe(true);
-  expect(node.type.operator.text.toNativeString()).toBe(':');
+  expect(node.type.operator.getText().toNativeString()).toBe(':');
 
   expect(is(node.type.expression, $ExpressionNode())).toBe(true);
   expect(is(node.type.expression, $IntegerNode())).toBe(true);
-  expect((node.type.expression as IntegerNode).content.text.toNativeString()).toBe('1');
+  expect((node.type.expression as IntegerNode).content.getText().toNativeString()).toBe('1');
 });
 
 function getTypeNode(text: Text): TypeNode {

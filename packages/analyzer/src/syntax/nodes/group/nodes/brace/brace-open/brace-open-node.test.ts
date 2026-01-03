@@ -9,5 +9,5 @@ test('open brace', () => {
   const node = parseBraceOpenNode(context);
 
   expect(is(node, $BraceOpenNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('{');
+  expect(node?.getText().toNativeString()).toBe('{');
 });

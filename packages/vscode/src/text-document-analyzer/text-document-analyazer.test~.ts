@@ -31,7 +31,7 @@
 
 //   expect(node).toBeTruthy();
 //   expect(is(node, $StringContentNode())).toBe(true);
-//   expect((node as StringContentNode).text.toNativeString()).toBe('abc');
+//   expect((node as StringContentNode).getText().toNativeString()).toBe('abc');
 // });
 
 // test('Find closest node', () => {
@@ -44,7 +44,7 @@
 //   const node = findClosestNode((node) => is(node, $StringNode()), atPositionNode!);
 //   expect(node).toBeTruthy();
 //   expect(is(node, $StringNode())).toBe(true);
-//   expect(node!.content?.text.toNativeString()).toBe('abc');
+//   expect(node!.content?.getText().toNativeString()).toBe('abc');
 // });
 
 // test('Find closest node2', () => {

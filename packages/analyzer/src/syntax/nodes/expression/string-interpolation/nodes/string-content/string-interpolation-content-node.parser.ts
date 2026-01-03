@@ -12,6 +12,6 @@ export function parseInterpolationStringContentNode(
 ): StringInterpolationContentNode | Nothing {
   return context.source.takeWhile(
     $StringInterpolationContentNode(),
-    (_x, i, z) => !z.startsWith(STRING_INTERPOLATION_CLOSE, i) && !z.startsWith(BRACE_OPEN, i),
+    (x) => !x.equals(BRACE_OPEN) && !x.equals(STRING_INTERPOLATION_CLOSE),
   );
 }

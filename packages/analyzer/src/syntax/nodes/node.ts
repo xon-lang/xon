@@ -15,6 +15,7 @@ import {
   is,
   Model,
   newArrayData,
+  newText,
   newTextRange,
   Nothing,
   Text,
@@ -24,27 +25,31 @@ import {
 export type Node = Model &
   Brand<'Analyzer.Node'> & {
     range: TextRange;
+    _text?: Text | Nothing;
     // todo remove parent and aggregate body
     parent?: SyntaxNode | Nothing;
     isHidden?: Boolean2;
 
     debug(): unknown;
+
+    getText(): Text;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');
 
-export type LexicalNode = Node &
-  Brand<'Analyzer.LexicalNode'> & {
-    text: Text;
-  };
+export type LexicalNode = Node & Brand<'Analyzer.LexicalNode'> & {};
 
 export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Node());
 
 export function newLexicalNode<T extends Model>($type: $Type<T>, range: TextRange, text: Text): LexicalNode {
   return {
     $: $type,
-    text,
+    _text: text,
     range,
+
+    getText(): Text {
+      return this._text!;
+    },
 
     debug: lexicalDebug,
   };
@@ -64,7 +69,8 @@ export type SyntaxNode = Node &
 export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
 
 export function newSyntaxNode<T extends SyntaxNode>(
-  params: Omit<T, 'children' | 'range' | 'debug'> & Partial<Pick<T, 'children' | 'range' | 'debug'>>,
+  params: Omit<T, 'children' | 'range' | 'getText' | 'debug'> &
+    Partial<Pick<T, 'children' | 'range' | 'debug'>>,
 ): T {
   // todo optimize and simplify it
   const children = newArrayData(
@@ -88,6 +94,12 @@ export function newSyntaxNode<T extends SyntaxNode>(
     range,
     children,
 
+    getText(): Text {
+      this._text ??= newText(this.children.map((x) => x.getText()));
+
+      return this._text;
+    },
+
     debug: syntaxDebug,
   } as T;
 
@@ -97,7 +109,7 @@ export function newSyntaxNode<T extends SyntaxNode>(
 }
 
 export function lexicalDebug(this: LexicalNode): string {
-  return `${this.$.name}(${this.text})`;
+  return `${this.$.name}(${this.getText()})`;
 }
 
 export function syntaxDebug(this: SyntaxNode): object {

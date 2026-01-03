@@ -4,7 +4,7 @@ import {newText} from '#core';
 export function semantifyStringNode(this: StringNode, context: SemanticContext): void {
   this.semantic = newStringSemantic(
     context.scope.isTypeScope ?? false,
-    this.content?.text ?? newText(),
+    this.content?.getText() ?? newText(),
     context.literal.stringDeclaration,
   );
 }

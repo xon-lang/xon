@@ -23,7 +23,7 @@ export function collapsePostfixNode(
           return nothing;
         }
 
-        const operatorType = similarPriorityOperators.get(operatorNode.text);
+        const operatorType = similarPriorityOperators.get(operatorNode.getText());
 
         if (!operatorType) {
           return nothing;

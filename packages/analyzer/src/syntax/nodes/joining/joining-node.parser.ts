@@ -1,15 +1,22 @@
-import {$JoiningNode, AnalyzerContext, CR, JOINING, JoiningNode, LF, SPACE} from '#analyzer';
-import {Nothing} from '#core';
+import {
+  AnalyzerContext,
+  JoiningNode,
+  newJoiningNode,
+  parseJoiningStartNode,
+  parseJoiningWhitespaceNode,
+} from '#analyzer';
+import {nothing, Nothing} from '#core';
 
 export function parseJoiningNode(context: AnalyzerContext): JoiningNode | Nothing {
-  const node = context.source.takeWhile(
-    $JoiningNode(),
-    (x, i) => x.equals(JOINING) || (i > 0 && (x.equals(SPACE) || x.equals(CR) || x.equals(LF))),
-  );
+  const start = parseJoiningStartNode(context);
 
-  if (node) {
-    node.isHidden = true;
+  if (!start) {
+    return nothing;
   }
+
+  const whitespace = parseJoiningWhitespaceNode(context);
+  const node = newJoiningNode(start, whitespace);
+  context.hiddenNodes.addLastItem(node);
 
   return node;
 }

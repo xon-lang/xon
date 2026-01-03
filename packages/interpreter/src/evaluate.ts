@@ -21,17 +21,17 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $IntegerNode())) {
-    return +node.content.text.toNativeString();
+    return +node.content.getText().toNativeString();
   }
 
   if (is(node, $StringNode()) || is(node, $CharacterNode())) {
-    return node.content?.text.toNativeString();
+    return node.content?.getText().toNativeString();
   }
 
   if (is(node, $InfixNode())) {
     const a: Anything = evaluate(node.left, argsMap);
     const b: Anything = evaluate(node.right, argsMap);
-    const operator: Text = node.operator.text.equals('^') ? newText('**') : node.operator.text;
+    const operator: Text = node.operator.getText().equals('^') ? newText('**') : node.operator.getText();
 
     return customEval(newText(`${escapeToString(a)} ${operator} ${escapeToString(b)}`));
   }
@@ -39,12 +39,12 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   if (is(node, $PrefixNode())) {
     const a: Anything = evaluate(node.expression, argsMap);
 
-    return customEval(newText(`${node.operator.text.toNativeString()}${escapeToString(a)}`));
+    return customEval(newText(`${node.operator.getText().toNativeString()}${escapeToString(a)}`));
   }
 
   if (is(node, $IdNode())) {
-    if (argsMap[node.text.toNativeString()]) {
-      return argsMap[node.text.toNativeString()];
+    if (argsMap[node.getText().toNativeString()]) {
+      return argsMap[node.getText().toNativeString()];
     }
 
     throw new Error('Not implemented');

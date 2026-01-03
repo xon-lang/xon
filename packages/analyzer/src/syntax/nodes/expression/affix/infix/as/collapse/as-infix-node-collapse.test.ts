@@ -18,9 +18,9 @@ test('As xyz', () => {
   const node = getAsInfixNode(text);
 
   expect(is(node.left, $IdNode())).toBe(true);
-  expect((node.left as IdNode).text.toNativeString()).toBe('abc');
+  expect((node.left as IdNode).getText().toNativeString()).toBe('abc');
   expect(is(node.right, $IdNode())).toBe(true);
-  expect((node.right as IdNode).text.toNativeString()).toBe('xyz');
+  expect((node.right as IdNode).getText().toNativeString()).toBe('xyz');
 });
 
 function getAsInfixNode(text: Text): AsInfixNode {
@@ -32,7 +32,7 @@ function getAsInfixNode(text: Text): AsInfixNode {
   expect(node).toBeTruthy();
   expect(is(node, $AsInfixNode())).toBe(true);
   expect(is(node.operator, $AsOperatorNode())).toBe(true);
-  expect(node.operator.text.toNativeString()).toBe('as');
+  expect(node.operator.getText().toNativeString()).toBe('as');
   expect(is(node.left, $ExpressionNode())).toBe(true);
   expect(is(node.right, $ExpressionNode())).toBe(true);
 

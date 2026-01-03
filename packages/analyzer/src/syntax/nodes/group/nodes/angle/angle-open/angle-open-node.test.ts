@@ -9,5 +9,5 @@ test('open angle', () => {
   const node = parseAngleOpenNode(context);
 
   expect(is(node, $AngleOpenNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('<:');
+  expect(node?.getText().toNativeString()).toBe('<:');
 });

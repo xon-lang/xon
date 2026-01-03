@@ -14,7 +14,7 @@ test('Control operator return', () => {
   const node = operatorFromText(text);
 
   expect(is(node, $ControlKeywordNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('return');
+  expect(node?.getText().toNativeString()).toBe('return');
 });
 
 function operatorFromText(text: Text): OperatorNode {

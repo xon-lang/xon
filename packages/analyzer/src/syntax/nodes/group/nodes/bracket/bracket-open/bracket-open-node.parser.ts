@@ -2,9 +2,5 @@ import {$BracketOpenNode, AnalyzerContext, BRACKET_OPEN, BracketOpenNode} from '
 import {Nothing} from '#core';
 
 export function parseBracketOpenNode(context: AnalyzerContext): BracketOpenNode | Nothing {
-  return context.source.takeWhile(
-    $BracketOpenNode(),
-    (x, i) => BRACKET_OPEN.at2(i).equals(x),
-    BRACKET_OPEN.count(),
-  );
+  return context.source.takeCharacter($BracketOpenNode(), BRACKET_OPEN);
 }

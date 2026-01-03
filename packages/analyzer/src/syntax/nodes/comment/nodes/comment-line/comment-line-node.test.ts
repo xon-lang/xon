@@ -14,7 +14,7 @@ test('line comment', () => {
   const node = parseCommentLineNode(context);
 
   expect(is(node, $CommentLineNode())).toBe(true);
-  expect(node?.content?.text.toNativeString()).toBe(' abc ');
+  expect(node?.content?.getText().toNativeString()).toBe(' abc ');
   expect(node?.content?.range.start.index).toBe(2);
   expect(node?.content?.range.stop.index).toBe(7);
 });

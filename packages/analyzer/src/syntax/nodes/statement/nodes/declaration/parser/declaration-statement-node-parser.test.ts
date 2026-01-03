@@ -28,12 +28,12 @@ test('Type alias declaration statement with type and assign', () => {
   const text = newText('type Zero = 0');
   const node = getDeclarationStatementNode(text);
 
-  expect(node.keyword?.text.toNativeString()).toBe('type');
+  expect(node.keyword?.getText().toNativeString()).toBe('type');
   expect(is(node.id, $IdNode())).toBe(true);
-  expect(node.id.text.toNativeString()).toBe('Zero');
+  expect(node.id.getText().toNativeString()).toBe('Zero');
   expect(node.annotation).toBeFalsy();
   expect(is(node.assignment?.expression, $IntegerNode())).toBe(true);
-  expect((node.assignment?.expression as IntegerNode).content.text.toNativeString()).toBe('0');
+  expect((node.assignment?.expression as IntegerNode).content.getText().toNativeString()).toBe('0');
 });
 
 test('Type declaration id and base type', () => {
@@ -41,10 +41,10 @@ test('Type declaration id and base type', () => {
   const node = getDeclarationStatementNode(text) as DeclarationStatementNode;
 
   expect(is(node, $DeclarationStatementNode())).toBe(true);
-  expect(node.id.text.toNativeString()).toBe('Zero');
+  expect(node.id.getText().toNativeString()).toBe('Zero');
   expect(is(node.annotation, $OperatorExpressionNode())).toBe(true);
   expect(is(node.annotation?.expression, $IdNode())).toBe(true);
-  expect((node.annotation?.expression as IdNode).text.toNativeString()).toBe('Integer');
+  expect((node.annotation?.expression as IdNode).getText().toNativeString()).toBe('Integer');
 
   expect(is(node.id, $IdNode())).toBe(true);
 });
@@ -53,13 +53,13 @@ test('Function declaration', () => {
   const text = newText('f(a: Integer): Float');
   const node = getDeclarationStatementNode(text) as DeclarationStatementNode;
 
-  expect(node.id.text.toNativeString()).toBe('f');
+  expect(node.id.getText().toNativeString()).toBe('f');
   expect(is(node.group, $ParenGroupNode())).toBe(true);
   expect(node.group?.items.count()).toBe(1);
   expect(is(node.group?.items.at(0)?.node, $DeclarationStatementNode())).toBe(true);
   expect(is(node.annotation, $OperatorExpressionNode())).toBe(true);
   expect(is(node.annotation?.expression, $IdNode())).toBe(true);
-  expect((node.annotation?.expression as IdNode).text.toNativeString()).toBe('Float');
+  expect((node.annotation?.expression as IdNode).getText().toNativeString()).toBe('Float');
 
   expect(is(node.id, $IdNode())).toBe(true);
 });

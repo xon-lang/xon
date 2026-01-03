@@ -18,9 +18,9 @@ test('Union infix operator', () => {
   const node = getUnionInfixNode(text);
 
   expect(is(node.left, $IdNode())).toBe(true);
-  expect((node.left as IdNode).text.toNativeString()).toBe('abc');
+  expect((node.left as IdNode).getText().toNativeString()).toBe('abc');
   expect(is(node.right, $IdNode())).toBe(true);
-  expect((node.right as IdNode).text.toNativeString()).toBe('xyz');
+  expect((node.right as IdNode).getText().toNativeString()).toBe('xyz');
 });
 
 function getUnionInfixNode(text: Text): UnionInfixNode {
@@ -32,7 +32,7 @@ function getUnionInfixNode(text: Text): UnionInfixNode {
   expect(node).toBeTruthy();
   expect(is(node, $UnionInfixNode())).toBe(true);
   expect(is(node.operator, $UnionOperatorNode())).toBe(true);
-  expect(node.operator.text.toNativeString()).toBe('|');
+  expect(node.operator.getText().toNativeString()).toBe('|');
   expect(is(node.left, $ExpressionNode())).toBe(true);
   expect(is(node.right, $ExpressionNode())).toBe(true);
 

@@ -27,7 +27,7 @@
 //   expect(semantic.declarationManager.declarations.get(newText('a'))?.at2(0).name.toNativeString()).toBe('a');
 
 //   const constNode = syntax.statements.at(0)?.value as DeclarationStatementNode;
-//   expect(constNode.id?.text.toNativeString()).toBe('a');
+//   expect(constNode.id?.getText().toNativeString()).toBe('a');
 //   expect(constNode.id?.semantic?.$).toBe($AttributeDeclarationSemantic());
 
 //   const idSemantic = constNode.id?.semantic as AttributeDeclarationSemantic;

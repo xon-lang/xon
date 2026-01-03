@@ -19,11 +19,13 @@ test('Lambda integer type and value', () => {
 
   expect(node.group.items.count()).toBe(1);
   expect(
-    ((node.group.items.at(0)?.node as ExpressionStatementNode).expression as IdNode).text.toNativeString(),
+    ((node.group.items.at(0)?.node as ExpressionStatementNode).expression as IdNode)
+      .getText()
+      .toNativeString(),
   ).toBe('a');
 
-  expect((node.type?.expression as IntegerNode).content.text.toNativeString()).toBe('1');
-  expect((node.value?.expression as IntegerNode).content.text.toNativeString()).toBe('2');
+  expect((node.type?.expression as IntegerNode).content.getText().toNativeString()).toBe('1');
+  expect((node.value?.expression as IntegerNode).content.getText().toNativeString()).toBe('2');
 });
 
 function getLambdaNode(text: Text): LambdaNode {

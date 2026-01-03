@@ -41,15 +41,13 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
 }
 
 export function parseSymbolOperatorNode(context: AnalyzerContext): OperatorNode | Nothing {
-  const node = OPERATORS.lastMap((o) =>
-    context.source.takeWhile($SymbolOperatorNode(), (x, i) => o.at(i)?.equals(x), o.count()),
-  );
+  const node = OPERATORS.lastMap((operator) => context.source.takeText($SymbolOperatorNode(), operator));
 
   if (!node) {
     return nothing;
   }
 
-  const $Type = getTokenTypeMap().get(node.text);
+  const $Type = getTokenTypeMap().get(node.getText());
 
   if ($Type) {
     node.$ = $Type;

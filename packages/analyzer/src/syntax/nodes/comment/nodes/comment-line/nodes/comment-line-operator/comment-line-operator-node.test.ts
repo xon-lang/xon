@@ -5,28 +5,30 @@ import {
   parseCommentLineOperatorNode,
 } from '#analyzer';
 import {is, newText} from '#core';
-import {expect, test} from 'vitest';
+import {describe, expect, test} from 'vitest';
 
-test('no content', () => {
-  const text = newText('//');
-  const source = newCharacterStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseCommentLineOperatorNode(context);
+describe('comment line', () => {
+  test('no content', () => {
+    const text = newText('//');
+    const source = newCharacterStreamFromText(text);
+    const context = newAnalyzerContext(source);
+    const node = parseCommentLineOperatorNode(context);
 
-  expect(is(node, $CommentLineOperatorNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('//');
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(2);
-});
+    expect(is(node, $CommentLineOperatorNode())).toBe(true);
+    expect(node?.getText().toNativeString()).toBe('//');
+    expect(node?.range.start.index).toBe(0);
+    expect(node?.range.stop.index).toBe(2);
+  });
 
-test('with content', () => {
-  const text = newText('// comment');
-  const source = newCharacterStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseCommentLineOperatorNode(context);
+  test('with content', () => {
+    const text = newText('// comment');
+    const source = newCharacterStreamFromText(text);
+    const context = newAnalyzerContext(source);
+    const node = parseCommentLineOperatorNode(context);
 
-  expect(is(node, $CommentLineOperatorNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('//');
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(2);
+    expect(is(node, $CommentLineOperatorNode())).toBe(true);
+    expect(node?.getText().toNativeString()).toBe('//');
+    expect(node?.range.start.index).toBe(0);
+    expect(node?.range.stop.index).toBe(2);
+  });
 });

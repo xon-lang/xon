@@ -14,7 +14,7 @@ test('integer content', () => {
   const node = parseIntegerContentNode(context);
 
   expect(is(node, $IntegerContentNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('123');
+  expect(node?.getText().toNativeString()).toBe('123');
 });
 
 test('integer content underscore', () => {
@@ -24,7 +24,7 @@ test('integer content underscore', () => {
   const node = parseIntegerContentNode(context);
 
   expect(is(node, $IntegerContentNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('123_456');
+  expect(node?.getText().toNativeString()).toBe('123_456');
 });
 
 test('underscore digits', () => {

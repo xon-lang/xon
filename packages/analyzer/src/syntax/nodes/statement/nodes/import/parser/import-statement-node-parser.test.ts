@@ -22,7 +22,7 @@ test('Import statement without errors', () => {
   const node = getImportStatementNode(text, 0);
 
   expect(is(node.expression, $StringNode())).toBe(true);
-  expect((node.expression as StringNode).content?.text.toNativeString()).toBe('@xon/core');
+  expect((node.expression as StringNode).content?.getText().toNativeString()).toBe('@xon/core');
 });
 
 test('Import statement with body', () => {
@@ -41,7 +41,7 @@ test('Import statement with body', () => {
   const node = statements.first() as ImportStatementNode;
 
   expect(is(node.expression, $StringNode())).toBe(true);
-  expect((node.expression as StringNode).content?.text.toNativeString()).toBe('abc');
+  expect((node.expression as StringNode).content?.getText().toNativeString()).toBe('abc');
   expect(node.body?.children?.count()).toBe(2);
 });
 

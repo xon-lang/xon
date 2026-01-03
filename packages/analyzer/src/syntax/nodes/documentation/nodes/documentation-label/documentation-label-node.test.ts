@@ -27,8 +27,8 @@ test('at parameter', () => {
 
   expect(node).toBeTruthy();
   expect(is(node, $DocumentationLabelNode())).toBe(true);
-  expect(node?.operatorNode.text.toNativeString()).toBe('@');
-  expect(node?.idNode?.text.toNativeString()).toBe('param');
+  expect(node?.operatorNode.getText().toNativeString()).toBe('@');
+  expect(node?.idNode?.getText().toNativeString()).toBe('param');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(20);
 

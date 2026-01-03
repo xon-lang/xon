@@ -17,8 +17,8 @@ test('String interpolation', () => {
   const node = parseStringInterpolationNode(context);
 
   expect(is(node, $StringInterpolationNode())).toBe(true);
-  expect(node?.open.text.toNativeString()).toBe('$"');
-  expect(node?.close?.text.toNativeString()).toBe('"');
+  expect(node?.open.getText().toNativeString()).toBe('$"');
+  expect(node?.close?.getText().toNativeString()).toBe('"');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
   expect(node?.range.start.column).toBe(0);
@@ -26,14 +26,14 @@ test('String interpolation', () => {
   expect(node?.range.stop.line).toBe(2);
   expect(node?.range.stop.column).toBe(2);
   expect(node?.items.count()).toBe(2);
-  expect(node?.items.at(0)?.open?.text.toNativeString()).toBe('{');
-  expect(node?.items.at(0)?.close?.text.toNativeString()).toBe('}');
-  expect(node?.items.at(0)?.content?.text.toNativeString()).toBe('ab\n');
+  expect(node?.items.at(0)?.open?.getText().toNativeString()).toBe('{');
+  expect(node?.items.at(0)?.close?.getText().toNativeString()).toBe('}');
+  expect(node?.items.at(0)?.content?.getText().toNativeString()).toBe('ab\n');
   expect(node?.items.at(0)?.nodes?.count()).toBe(1);
   expect(is(node?.items.at(0)?.nodes?.at(0), $ExpressionStatementNode())).toBe(true);
   expect(
-    (
-      (node?.items.at(0)?.nodes?.at(0) as ExpressionStatementNode).expression as IntegerNode
-    ).content.text.toNativeString(),
+    ((node?.items.at(0)?.nodes?.at(0) as ExpressionStatementNode).expression as IntegerNode).content
+      .getText()
+      .toNativeString(),
   ).toBe('123');
 });

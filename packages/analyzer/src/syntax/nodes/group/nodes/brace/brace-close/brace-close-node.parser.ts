@@ -2,9 +2,5 @@ import {$BraceCloseNode, AnalyzerContext, BRACE_CLOSE, BraceCloseNode} from '#an
 import {Nothing} from '#core';
 
 export function parseBraceCloseNode(context: AnalyzerContext): BraceCloseNode | Nothing {
-  return context.source.takeWhile(
-    $BraceCloseNode(),
-    (x, i) => BRACE_CLOSE.at2(i).equals(x),
-    BRACE_CLOSE.count(),
-  );
+  return context.source.takeCharacter($BraceCloseNode(), BRACE_CLOSE);
 }

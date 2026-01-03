@@ -31,7 +31,7 @@ export function newPrefixNode($: $Type, operator: OperatorNode, expression: Node
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {
-//   const keepSingleWhitespace = node.operator.text.some(
+//   const keepSingleWhitespace = node.operator.getText().some(
 //     (x) => x.isLetter() || COLON.equals(x) || ASSIGN.equals(x),
 //   );
 //   analyzer.formatterManager.formatChildNode(node.value, keepSingleWhitespace);

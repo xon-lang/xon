@@ -11,7 +11,7 @@ describe('nl-node', () => {
 
     expect(node).toBeTruthy();
     expect(is(node, $NlNode())).toBe(true);
-    expect(node?.text.toNativeString()).toBe('\r\n');
+    expect(node?.getText().toNativeString()).toBe('\r\n');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.start.line).toBe(0);
     expect(node?.range.stop.index).toBe(2);
@@ -26,7 +26,7 @@ describe('nl-node', () => {
 
     expect(node).toBeTruthy();
     expect(is(node, $NlNode())).toBe(true);
-    expect(node?.text.toNativeString()).toBe('\n');
+    expect(node?.getText().toNativeString()).toBe('\n');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.start.line).toBe(0);
     expect(node?.range.stop.index).toBe(1);

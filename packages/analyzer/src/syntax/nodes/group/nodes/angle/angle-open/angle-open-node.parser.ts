@@ -2,9 +2,5 @@ import {$AngleOpenNode, AnalyzerContext, ANGLE_OPEN, AngleOpenNode} from '#analy
 import {Nothing} from '#core';
 
 export function parseAngleOpenNode(context: AnalyzerContext): AngleOpenNode | Nothing {
-  return context.source.takeWhile(
-    $AngleOpenNode(),
-    (x, i) => ANGLE_OPEN.at2(i).equals(x),
-    ANGLE_OPEN.count(),
-  );
+  return context.source.takeText($AngleOpenNode(), ANGLE_OPEN);
 }

@@ -14,7 +14,7 @@ test('String interpolation open', () => {
   const node = parseStringInterpolationOpenNode(context);
 
   expect(is(node, $StringInterpolationOpenNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('$"');
+  expect(node?.getText().toNativeString()).toBe('$"');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(2);
 });

@@ -9,9 +9,5 @@ import {Nothing} from '#core';
 export function parseStringInterpolationOpenNode(
   context: AnalyzerContext,
 ): StringInterpolationOpenNode | Nothing {
-  return context.source.takeWhile(
-    $StringInterpolationOpenNode(),
-    (x, i) => STRING_INTERPOLATION_OPEN.at2(i).equals(x),
-    STRING_INTERPOLATION_OPEN.count(),
-  );
+  return context.source.takeText($StringInterpolationOpenNode(), STRING_INTERPOLATION_OPEN);
 }

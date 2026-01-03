@@ -22,6 +22,7 @@ export interface Text extends ArrayData<Character> {
   endsWith(searchText: Text, startIndex?: Number2 | Nothing): Boolean2;
   lowerCase(): Text;
   upperCase(): Text;
+  concat(...texts: Text[]): Text;
   repeat(count: Integer): Text;
   equals(other: Character): Boolean2;
   equals(other: ArrayData<Character>): Boolean2;

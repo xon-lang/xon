@@ -6,6 +6,7 @@ export function parseWhitespaceNode(context: AnalyzerContext): WhitespaceNode | 
 
   if (node) {
     node.isHidden = true;
+    context.hiddenNodes.addLastItem(node);
   }
 
   return node;

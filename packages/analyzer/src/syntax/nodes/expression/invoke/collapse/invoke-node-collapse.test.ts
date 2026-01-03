@@ -17,7 +17,7 @@ test('Invoke with two arguments', () => {
   const node = getInvokeNode(text);
 
   expect(is(node.target, $IdNode())).toBe(true);
-  expect((node.target as IdNode).text.toNativeString()).toBe('f');
+  expect((node.target as IdNode).getText().toNativeString()).toBe('f');
   expect(is(node.group, $GroupNode())).toBe(true);
   expect(node.group.items.count()).toBe(2);
 });

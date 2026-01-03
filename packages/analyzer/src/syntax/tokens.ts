@@ -1,8 +1,6 @@
-// todo rename file to lexical-tokens.ts
-
 import {$Text, newArrayData, newCharacter, newText} from '#core';
 
-export const COMMENT_LINE = newText('//');
+export const COMMENT_LINE_START = newText('//');
 
 export const COMMENT_BLOCK_OPEN = newText('---');
 export const COMMENT_BLOCK_CLOSE = newText('---');
@@ -11,14 +9,14 @@ export const DOCUMENTATION_OPEN = newText('===');
 export const DOCUMENTATION_CLOSE = newText('===');
 
 export const STRING_INTERPOLATION_OPEN = newText('$"');
-export const STRING_INTERPOLATION_CLOSE = newText('"');
-export const STRING_OPEN = newText('"');
-export const STRING_CLOSE = newText('"');
+export const STRING_INTERPOLATION_CLOSE = newCharacter('"');
+export const STRING_OPEN = newCharacter('"');
+export const STRING_CLOSE = newCharacter('"');
 
-export const CHAR_OPEN = newText("'");
-export const CHAR_CLOSE = newText("'");
+export const CHAR_OPEN = newCharacter("'");
+export const CHAR_CLOSE = newCharacter("'");
 
-export const NL = newText('\n');
+export const NL = newCharacter('\n');
 export const CR = newCharacter('\r');
 export const LF = newCharacter('\n');
 export const CRLF = newText('\r\n');
@@ -27,15 +25,16 @@ export const JOINING = newCharacter('~');
 export const SPACE = newCharacter(' ');
 export const UNDERSCORE = newCharacter('_');
 
-export const PAREN_OPEN = newText('(');
-export const PAREN_CLOSE = newText(')');
+export const PAREN_OPEN = newCharacter('(');
+export const PAREN_CLOSE = newCharacter(')');
 
-export const BRACKET_OPEN = newText('[');
-export const BRACKET_CLOSE = newText(']');
+export const BRACKET_OPEN = newCharacter('[');
+export const BRACKET_CLOSE = newCharacter(']');
 
-export const BRACE_OPEN = newText('{');
-export const BRACE_CLOSE = newText('}');
+export const BRACE_OPEN = newCharacter('{');
+export const BRACE_CLOSE = newCharacter('}');
 
+// todo use other symbols for generics
 export const ANGLE_OPEN = newText('<:');
 export const ANGLE_CLOSE = newText(':>');
 

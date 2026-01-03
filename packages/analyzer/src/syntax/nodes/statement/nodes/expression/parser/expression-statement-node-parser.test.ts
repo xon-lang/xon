@@ -18,7 +18,7 @@ test('Expression statement with errors', () => {
   const node = getExpressionStatementNode(text, 2);
 
   expect(is(node.expression, $IntegerNode())).toBeTruthy();
-  expect((node.expression as IntegerNode).content.text.toNativeString()).toBe('7');
+  expect((node.expression as IntegerNode).content.getText().toNativeString()).toBe('7');
 });
 
 test('Expression statement without errors', () => {
@@ -26,7 +26,7 @@ test('Expression statement without errors', () => {
   const node = getExpressionStatementNode(text, 0);
 
   expect(is(node.expression, $IntegerNode())).toBeTruthy();
-  expect((node.expression as IntegerNode).content.text.toNativeString()).toBe('7');
+  expect((node.expression as IntegerNode).content.getText().toNativeString()).toBe('7');
 });
 
 test('Union expression', () => {
@@ -35,7 +35,9 @@ test('Union expression', () => {
 
   expect(is(node.expression, $UnionInfixNode())).toBe(true);
   expect(is((node.expression as UnionInfixNode).left, $UnionInfixNode())).toBe(true);
-  expect(((node.expression as UnionInfixNode).right as IntegerNode).content.text.toNativeString()).toBe('3');
+  expect(((node.expression as UnionInfixNode).right as IntegerNode).content.getText().toNativeString()).toBe(
+    '3',
+  );
 });
 
 function getExpressionStatementNode(text: Text, extraNodesCount: Integer): ExpressionStatementNode {

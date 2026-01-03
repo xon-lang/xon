@@ -112,7 +112,7 @@ export function newSemanticScope(
     //   // );
 
     //   if (filtered.count() !== 1) {
-    //     // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.text));
+    //     // diagnosticManager.addError(node, DIAGNOSTIC_MESSAGE.tooManyDeclarationsFoundWithName(node.getText()));
 
     //     return nothing;
     //   }

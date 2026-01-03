@@ -23,7 +23,7 @@ export function translateTypescriptValueDeclaration(
     is(node, $ExpressionStatementNode()) &&
     is(node.expression, $IdNode())
   ) {
-    return newText(`${node.expression.text}: unknown`);
+    return newText(`${node.expression.getText()}: unknown`);
   }
 
   if (!is(node, $DeclarationStatementNode()) || !node.id) {
@@ -35,7 +35,7 @@ export function translateTypescriptValueDeclaration(
   }
 
   const keyword = node.keyword
-    ? newText(`${node.keyword?.text} `)
+    ? newText(`${node.keyword?.getText()} `)
     : declarationType === TypescriptDeclarationType.Variable
     ? newText('export const ')
     : newText();
@@ -53,7 +53,7 @@ export function translateTypescriptValueDeclaration(
     value = newText(`${assignOperator}${translateTypescriptExpression(node.assignment.expression, false)}`);
   }
 
-  return newText(`${keyword}${node.id.text}${type}${value}`);
+  return newText(`${keyword}${node.id.getText()}${type}${value}`);
 }
 
 function translateToFunction(
@@ -87,12 +87,12 @@ function translateToFunction(
 
   if (node.assignment?.expression) {
     const value = newText(
-      ` = ${node.group.open.text}${parameters}${
-        node.group.close?.text ?? ''
+      ` = ${node.group.open.getText()}${parameters}${
+        node.group.close?.getText() ?? ''
       }${type} => ${translateTypescriptExpression(node.assignment.expression, false)}`,
     );
 
-    return newText(`${keyword}${node.id.text}${value}`);
+    return newText(`${keyword}${node.id.getText()}${value}`);
   }
 
   let body = newText();
@@ -102,8 +102,8 @@ function translateToFunction(
   }
 
   return newText(
-    `${keyword}${node.id.text}${node.group.open.text}${parameters}${
-      node.group.close?.text ?? ''
+    `${keyword}${node.id.getText()}${node.group.open.getText()}${parameters}${
+      node.group.close?.getText() ?? ''
     }${type}${body}`,
   );
 }

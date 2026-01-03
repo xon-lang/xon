@@ -17,9 +17,9 @@ test('Member with id instance', () => {
   const node = getMemberNode(text);
 
   expect(is(node.target, $IdNode())).toBe(true);
-  expect((node.target as IdNode).text.toNativeString()).toBe('abc');
+  expect((node.target as IdNode).getText().toNativeString()).toBe('abc');
   expect(is(node.id, $IdNode())).toBe(true);
-  expect(node.id?.text.toNativeString()).toBe('def');
+  expect(node.id?.getText().toNativeString()).toBe('def');
 });
 
 function getMemberNode(text: Text): MemberNode {

@@ -8,7 +8,7 @@ import {
 } from '#translator';
 
 export function translateTypescriptDeclarationStatement(node: DeclarationStatementNode): Text {
-  if (node.keyword?.text.equals(TYPE)) {
+  if (node.keyword?.getText().equals(TYPE)) {
     return translateTypeDeclaration(node);
   }
 
@@ -24,15 +24,15 @@ function translateTypeDeclaration(node: DeclarationStatementNode): Text {
         expression.items.filter((x) => !!x.node).map((x) => x.node!),
       );
 
-      return newText(`export type ${node.id.text} = ${body};`);
+      return newText(`export type ${node.id.getText()} = ${body};`);
     }
 
     const assignment = translateTypescriptExpression(expression, true);
 
-    return newText(`export type ${node.id.text} = ${assignment};`);
+    return newText(`export type ${node.id.getText()} = ${assignment};`);
   }
 
   const body = translateTypescriptAttributes(node.body?.children ?? newArrayData($Node()));
 
-  return newText(`export type ${node.id.text} = ${body};`);
+  return newText(`export type ${node.id.getText()} = ${body};`);
 }

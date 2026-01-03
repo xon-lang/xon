@@ -10,7 +10,7 @@ export type PlusPrefixNode = PrefixNode &
 export const $PlusPrefixNode = () => $AnalyzerType<PlusPrefixNode>('PlusPrefixNode', $PrefixNode());
 
 // function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {
-//   const keepSingleWhitespace = !node.operator.text.equals(RANGE);
+//   const keepSingleWhitespace = !node.operator.getText().equals(RANGE);
 //   analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
 //   analyzer.formatterManager.formatChildNode(node.right, keepSingleWhitespace);
 // }

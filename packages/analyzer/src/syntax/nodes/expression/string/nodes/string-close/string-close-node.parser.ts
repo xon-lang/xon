@@ -2,9 +2,5 @@ import {$StringCloseNode, AnalyzerContext, STRING_CLOSE, StringCloseNode} from '
 import {Nothing} from '#core';
 
 export function parseStringCloseNode(context: AnalyzerContext): StringCloseNode | Nothing {
-  return context.source.takeWhile(
-    $StringCloseNode(),
-    (x, i) => STRING_CLOSE.at2(i).equals(x),
-    STRING_CLOSE.count(),
-  );
+  return context.source.takeCharacter($StringCloseNode(), STRING_CLOSE);
 }

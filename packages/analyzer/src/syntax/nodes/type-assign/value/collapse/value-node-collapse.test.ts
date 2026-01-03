@@ -20,14 +20,14 @@ test('Integer value', () => {
   const node = getAssignNode(text);
 
   expect(is(node.target, $IdNode())).toBe(true);
-  expect((node.target as IdNode).text.toNativeString()).toBe('a');
+  expect((node.target as IdNode).getText().toNativeString()).toBe('a');
 
   expect(is(node.value.operator, $AssignOperatorNode())).toBe(true);
-  expect(node.value.operator.text.toNativeString()).toBe('=');
+  expect(node.value.operator.getText().toNativeString()).toBe('=');
 
   expect(is(node.value.expression, $ExpressionNode())).toBe(true);
   expect(is(node.value.expression, $IntegerNode())).toBe(true);
-  expect((node.value.expression as IntegerNode).content.text.toNativeString()).toBe('1');
+  expect((node.value.expression as IntegerNode).content.getText().toNativeString()).toBe('1');
 });
 
 function getAssignNode(text: Text): ValueNode {

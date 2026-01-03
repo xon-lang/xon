@@ -202,6 +202,10 @@ export function newText(
       return newText(this.toNativeString().toUpperCase());
     },
 
+    concat(...texts: Text[]): Text {
+      return newText(this.toNativeString().concat(...texts.map((x) => x.toNativeString())));
+    },
+
     repeat(count: Integer): Text {
       return newText(this.toNativeString().repeat(count));
     },

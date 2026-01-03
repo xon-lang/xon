@@ -31,7 +31,7 @@ export function postfixNode($: $Type, value: Node, operator: OperatorNode): Post
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {
-//   const keepSingleWhitespace = node.operator.text.some(
+//   const keepSingleWhitespace = node.operator.getText().some(
 //     (x) => x.isLetter() || COLON.equals(x) || ASSIGN.equals(x),
 //   );
 //   analyzer.formatterManager.formatChildNode(node.value, keepSingleWhitespace);

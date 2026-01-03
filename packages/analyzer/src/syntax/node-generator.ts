@@ -1,4 +1,6 @@
 import {
+  $NlNode,
+  $SyntaxNode,
   AnalyzerContext,
   Node,
   parseCharacterNode,
@@ -18,7 +20,7 @@ import {
   parseWhitespaceNode,
   SyntaxNode,
 } from '#analyzer';
-import {$Model, ArrayData, newArrayData, Nothing} from '#core';
+import {$Model, ArrayData, is, newArrayData, Nothing} from '#core';
 
 function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> {
   return newArrayData($Model(), [
@@ -40,7 +42,9 @@ function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> 
   ]);
 }
 
-export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode> {
+export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode[]> {
+  const nodes = newArrayData($SyntaxNode(), [])
+
   while (true) {
     const node = nodeParsers().firstMap((parse) => parse(context));
 
@@ -48,8 +52,10 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode> 
       break;
     }
 
-    if (node.isHidden) {
-      context.hiddenNodes.addLastItem(node);
+    nodes
+
+    if(is(node, $NlNode())){
+
     }
 
     // todo remove 'as'

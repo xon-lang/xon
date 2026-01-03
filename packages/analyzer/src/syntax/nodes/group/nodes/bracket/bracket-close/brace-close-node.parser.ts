@@ -2,9 +2,5 @@ import {$BracketCloseNode, AnalyzerContext, BRACKET_CLOSE, BracketCloseNode} fro
 import {Nothing} from '#core';
 
 export function parseBracketCloseNode(context: AnalyzerContext): BracketCloseNode | Nothing {
-  return context.source.takeWhile(
-    $BracketCloseNode(),
-    (x, i) => BRACKET_CLOSE.at2(i).equals(x),
-    BRACKET_CLOSE.count(),
-  );
+  return context.source.takeCharacter($BracketCloseNode(), BRACKET_CLOSE);
 }

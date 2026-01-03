@@ -14,7 +14,7 @@ test('description before close', () => {
   const node = parseDocumentationDescriptionNode(context);
 
   expect(is(node, $DocumentationDescriptionNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('abc');
+  expect(node?.getText().toNativeString()).toBe('abc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(3);
 });

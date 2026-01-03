@@ -9,5 +9,5 @@ test('open paren', () => {
   const node = parseParenOpenNode(context);
 
   expect(is(node, $ParenOpenNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('(');
+  expect(node?.getText().toNativeString()).toBe('(');
 });

@@ -15,7 +15,7 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
   }
 
   // todo fix '.at(0)'
-  const attribute = this.target.semantic.scope?.get(this.id.text)?.first();
+  const attribute = this.target.semantic.scope?.get(this.id.getText())?.first();
 
   if (!attribute) {
     return;
@@ -23,6 +23,6 @@ export function semantifyMemberNode(this: MemberNode, context: SemanticContext):
 
   const reference = context.getReference(this.id.range);
   // todo fix isType: false
-  this.id.semantic = newUsageSemantic(false, reference, this.id.text, attribute);
+  this.id.semantic = newUsageSemantic(false, reference, this.id.getText(), attribute);
   this.semantic = this.id.semantic;
 }

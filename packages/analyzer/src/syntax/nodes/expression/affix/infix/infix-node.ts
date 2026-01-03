@@ -10,7 +10,7 @@ export type InfixNode = AffixNode &
 export const $InfixNode = () => $AnalyzerType<InfixNode>('InfixNode', $AffixNode());
 
 // function format(analyzer: SyntaxAnalyzer, node: InfixNode): void {
-//   const keepSingleWhitespace = !node.operator.text.equals(RANGE);
+//   const keepSingleWhitespace = !node.operator.getText().equals(RANGE);
 //   analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
 //   analyzer.formatterManager.formatChildNode(node.right, keepSingleWhitespace);
 // }

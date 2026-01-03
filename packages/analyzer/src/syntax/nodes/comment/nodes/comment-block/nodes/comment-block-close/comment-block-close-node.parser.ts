@@ -2,9 +2,5 @@ import {$CommentBlockCloseNode, AnalyzerContext, COMMENT_BLOCK_CLOSE, CommentBlo
 import {Nothing} from '#core';
 
 export function parseCommentBlockCloseNode(context: AnalyzerContext): CommentBlockCloseNode | Nothing {
-  return context.source.takeWhile(
-    $CommentBlockCloseNode(),
-    (x, i) => COMMENT_BLOCK_CLOSE.at2(i).equals(x),
-    COMMENT_BLOCK_CLOSE.count(),
-  );
+  return context.source.takeText($CommentBlockCloseNode(), COMMENT_BLOCK_CLOSE);
 }

@@ -88,7 +88,7 @@ import {Brand, Nothing} from '#core';
 //   const text = indentText
 //     .addLastItems(
 //       newText(
-//         nonWhitespaceNodes.map((x) => x.text),
+//         nonWhitespaceNodes.map((x) => x.getText()),
 //         newText(' '),
 //       ),
 //     )

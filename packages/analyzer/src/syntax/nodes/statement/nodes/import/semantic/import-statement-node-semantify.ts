@@ -34,11 +34,11 @@ function semantifyImportPath(node: StringNode, context: SemanticContext): Import
     return nothing;
   }
 
-  const uri = newUri(node.content.text);
+  const uri = newUri(node.content.getText());
 
   try {
     const providedSemantic = context.provideSemantic(uri);
-    node.semantic = newImportSemantic(node.content?.text, uri, providedSemantic);
+    node.semantic = newImportSemantic(node.content?.getText(), uri, providedSemantic);
   } catch {}
 
   if (!node.semantic) {
@@ -57,13 +57,13 @@ function semantifyBodyNode(context: SemanticContext, node: BodyNode, importSeman
   for (const statement of node.children) {
     if (is(statement, $ExpressionStatementNode()) && is(statement.expression, $IdNode())) {
       statement.expression.semantic = importSemantic.providedSemantic?.scope
-        ?.get(statement.expression.text)
+        ?.get(statement.expression.getText())
         ?.first();
 
       if (!statement.expression.semantic) {
         context.addError(
           statement.range,
-          newText(`"${importSemantic.originalPath}' has no "${statement.expression.text}" member`),
+          newText(`"${importSemantic.originalPath}' has no "${statement.expression.getText()}" member`),
         );
       }
     } else {

@@ -9,6 +9,6 @@ import {Nothing} from '#core';
 export function parseCommentBlockContentNode(context: AnalyzerContext): CommentBlockContentNode | Nothing {
   return context.source.takeWhile(
     $CommentBlockContentNode(),
-    (_x, i, z) => !z.startsWith(COMMENT_BLOCK_CLOSE, i),
+    (_, i, z) => !z.startsWith(COMMENT_BLOCK_CLOSE, i),
   );
 }

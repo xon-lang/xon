@@ -2,9 +2,5 @@ import {$StringOpenNode, AnalyzerContext, STRING_OPEN, StringOpenNode} from '#an
 import {Nothing} from '#core';
 
 export function parseStringOpenNode(context: AnalyzerContext): StringOpenNode | Nothing {
-  return context.source.takeWhile(
-    $StringOpenNode(),
-    (x, i) => STRING_OPEN.at2(i).equals(x),
-    STRING_OPEN.count(),
-  );
+  return context.source.takeCharacter($StringOpenNode(), STRING_OPEN);
 }

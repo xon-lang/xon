@@ -62,7 +62,8 @@ function getImportPathCompletions(
   }
 
   const contentUntilPosition =
-    node.content?.text.slice(0, document.offsetAt(position) - node.content.range.start.index) ?? newText();
+    node.content?.getText().slice(0, document.offsetAt(position) - node.content.range.start.index) ??
+    newText();
   const lastSlashIndex = contentUntilPosition.lastItemIndex(newCharacter('/'));
   const contentUntilSlash = contentUntilPosition.slice(0, lastSlashIndex ?? 0).toNativeString();
 

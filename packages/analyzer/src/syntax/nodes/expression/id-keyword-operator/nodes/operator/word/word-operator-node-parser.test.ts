@@ -14,7 +14,7 @@ test('Word operator as', () => {
   const node = operatorFromText(text);
 
   expect(is(node, $WordOperatorNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('as');
+  expect(node?.getText().toNativeString()).toBe('as');
 });
 
 function operatorFromText(text: Text): OperatorNode {

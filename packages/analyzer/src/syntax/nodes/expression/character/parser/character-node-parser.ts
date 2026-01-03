@@ -18,7 +18,7 @@ export function parseCharacterNode(context: AnalyzerContext): CharacterNode | No
   const contentNode = parseCharacterContentNode(context);
   const closeNode = parseCharacterCloseNode(context);
 
-  if (!contentNode || contentNode.text.count() > 1) {
+  if (!contentNode || contentNode.getText().count() > 1) {
     context.addError(openNode.range, newText(`Only character expect`));
   }
 

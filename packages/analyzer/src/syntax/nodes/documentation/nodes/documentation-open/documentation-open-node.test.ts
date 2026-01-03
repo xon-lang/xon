@@ -5,16 +5,18 @@ import {
   parseDocumentationOpenNode,
 } from '#analyzer';
 import {is, newText} from '#core';
-import {expect, test} from 'vitest';
+import {describe, expect, test} from 'vitest';
 
-test('documentation open', () => {
-  const text = newText('===a');
-  const source = newCharacterStreamFromText(text);
-  const context = newAnalyzerContext(source);
-  const node = parseDocumentationOpenNode(context);
+describe('documentation', () => {
+  test('documentation open', () => {
+    const text = newText('===a');
+    const source = newCharacterStreamFromText(text);
+    const context = newAnalyzerContext(source);
+    const node = parseDocumentationOpenNode(context);
 
-  expect(is(node, $DocumentationOpenNode())).toBe(true);
-  expect(node?.text.toNativeString()).toBe('===');
-  expect(node?.range.start.index).toBe(0);
-  expect(node?.range.stop.index).toBe(3);
+    expect(is(node, $DocumentationOpenNode())).toBe(true);
+    expect(node?.getText().toNativeString()).toBe('===');
+    expect(node?.range.start.index).toBe(0);
+    expect(node?.range.stop.index).toBe(3);
+  });
 });

@@ -66,7 +66,7 @@ export function parseIdKeywordOperatorNode(
     return nothing;
   }
 
-  const $Type = getTokenTypeMap().get(node.text);
+  const $Type = getTokenTypeMap().get(node.getText());
 
   if ($Type) {
     node.$ = $Type;
@@ -75,7 +75,7 @@ export function parseIdKeywordOperatorNode(
   }
 
   if (node) {
-    return newIdNode(node.text, node.range);
+    return newIdNode(node.getText(), node.range);
   }
 
   return node;

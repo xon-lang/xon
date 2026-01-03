@@ -21,24 +21,16 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
 
     takeWhile(
       $type: $Type,
-      predicate: (character: Character, index: Integer, text: Text) => Boolean2 | Nothing,
-      length?: Integer | Nothing,
+      predicate: (character: Character, index: Integer, chunk: Text) => Boolean2,
     ): LexicalNode | Nothing {
       if (sourcePosition.index >= sourceLength) {
         return nothing;
       }
 
-      if (length && length + sourcePosition.index > sourceLength) {
-        return nothing;
-      }
+      const chunk = source.slice(sourcePosition.index);
+      const text = chunk.takeWhile((x, i) => predicate(x, i, chunk));
 
-      const chunkText = source.slice(sourcePosition.index);
-
-      const text = length
-        ? chunkText.takeWhile((x, i) => i < length && !!predicate(x, i, chunkText))
-        : chunkText.takeWhile((x, i) => !!predicate(x, i, chunkText));
-
-      if (text.isEmpty() || (!!length && text.count() !== length)) {
+      if (text.isEmpty()) {
         return nothing;
       }
 
@@ -46,6 +38,16 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
       sourcePosition = range.stop;
 
       return newLexicalNode($type, range, text);
+    },
+
+    takeText($type: $Type, text: Text): LexicalNode | Nothing {
+      const length = text.count();
+
+      return this.takeWhile($type, (x, i) => i < length && text.at2(i).equals(x));
+    },
+
+    takeCharacter($type: $Type, character: Character): LexicalNode | Nothing {
+      return this.takeWhile($type, (x, i) => i === 0 && character.equals(x));
     },
   };
 }

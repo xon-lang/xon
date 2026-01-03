@@ -1,6 +1,7 @@
 import {
   $AnalyzerType,
   $ExpressionNode,
+  $Node,
   DeclarationSemantic,
   ExpressionNode,
   FormatterContext,
@@ -9,12 +10,11 @@ import {
   semantifyIdNode,
   UsageSemantic,
 } from '#analyzer';
-import {Brand, Nothing, Text, TextRange} from '#core';
+import {Brand, newArrayData, Nothing, Text, TextRange} from '#core';
 
 export type IdNode = ExpressionNode &
   Brand<'Analyzer.IdNode'> & {
     semantic?: UsageSemantic | DeclarationSemantic | Nothing;
-    text: Text;
   };
 
 export const $IdNode = () => $AnalyzerType<IdNode>('IdNode', $ExpressionNode());
@@ -23,7 +23,11 @@ export function newIdNode(text: Text, range: TextRange): IdNode {
   return {
     $: $IdNode(),
     range,
-    text,
+    children: newArrayData($Node()),
+    // todo remove 'getText' and use newSyntaxNode
+    getText(): Text {
+      return text;
+    },
 
     debug: lexicalDebug,
     semantify: semantifyIdNode,

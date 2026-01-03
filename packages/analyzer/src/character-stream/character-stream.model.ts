@@ -5,10 +5,11 @@ export type CharacterStream = Model &
   Brand<'Core.CharacterStream'> & {
     takeWhile(
       $type: $Type,
-      predicate: (character: Character, index: Integer, text: Text) => Boolean2 | Nothing,
-      // todo remove length parameter if we check it in predicate
-      length?: Integer | Nothing,
+      predicate: (character: Character, index: Integer, chunk: Text) => Boolean2,
     ): LexicalNode | Nothing;
+
+    takeText($type: $Type, text: Text): LexicalNode | Nothing;
+    takeCharacter($type: $Type, character: Character): LexicalNode | Nothing;
   };
 
 export const $CharacterStream = () => $CoreType<CharacterStream>('CharacterStream');
