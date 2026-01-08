@@ -149,6 +149,7 @@ export * from './src/syntax/nodes/expression/affix/postfix/collapse/postfix-node
 export * from './src/syntax/nodes/expression/affix/prefix/collapse/prefix-node-collapse';
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/keyword/keyword-node';
 export * from './src/syntax/nodes/expression/id-keyword-operator/nodes/operator/operator-node';
+export * from './src/syntax/nodes/expression/string-interpolation/nodes/item/string-interpolation-item-node.parser';
 export * from './src/syntax/nodes/expression/string-interpolation/nodes/item/string-interpolation-item-node';
 export * from './src/syntax/nodes/group/nodes/angle/angle-close/angle-close-node.parser';
 export * from './src/syntax/nodes/group/nodes/angle/angle-close/angle-close-node';
