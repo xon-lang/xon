@@ -14,5 +14,5 @@ test('close bracket', () => {
   const node = parseBracketCloseNode(context);
 
   expect(is(node, $BracketCloseNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe(']');
+  expect(node?.text.toNativeString()).toBe(']');
 });

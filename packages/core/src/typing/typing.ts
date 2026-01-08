@@ -1,7 +1,7 @@
 export interface $Type<T = Model> {
   packageName: string;
   name: string;
-  type?: T;
+  type?: T | undefined;
   parent?: $Type | null | undefined;
   generics?: $Type[] | null | undefined;
 

@@ -5,6 +5,7 @@ import {
   formatStringNode,
   HighlightContext,
   newSyntaxNode,
+  nodesRange,
   semantifyStringNode,
   StringCloseNode,
   StringContentNode,
@@ -28,6 +29,7 @@ export function newStringNode(
 ): StringNode {
   return newSyntaxNode({
     $: $StringNode(),
+    range: nodesRange(open, content, close),
     open,
     content,
     close,

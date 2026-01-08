@@ -1,13 +1,4 @@
-import {
-  $AnalyzerType,
-  $NumberNode,
-  FormatterContext,
-  HighlightContext,
-  IntegerContentNode,
-  newSyntaxNode,
-  NumberNode,
-  SemanticContext,
-} from '#analyzer';
+import {$AnalyzerType, $NumberNode, IntegerContentNode, newSyntaxNode, nodesRange, NumberNode} from '#analyzer';
 import {Brand} from '#core';
 
 export type IntegerNode = NumberNode &
@@ -20,10 +11,7 @@ export const $IntegerNode = () => $AnalyzerType<IntegerNode>('IntegerNode', $Num
 export function newIntegerNode(content: IntegerContentNode): IntegerNode {
   return newSyntaxNode({
     $: $IntegerNode(),
+    range: nodesRange(content),
     content,
-
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
   });
 }

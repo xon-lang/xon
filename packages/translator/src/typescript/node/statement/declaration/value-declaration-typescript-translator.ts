@@ -35,7 +35,7 @@ export function translateTypescriptValueDeclaration(
   }
 
   const keyword = node.keyword
-    ? newText(`${node.keyword?.getText()} `)
+    ? newText(`${node.keyword?.text} `)
     : declarationType === TypescriptDeclarationType.Variable
     ? newText('export const ')
     : newText();
@@ -87,8 +87,8 @@ function translateToFunction(
 
   if (node.assignment?.expression) {
     const value = newText(
-      ` = ${node.group.open.getText()}${parameters}${
-        node.group.close?.getText() ?? ''
+      ` = ${node.group.open.text}${parameters}${
+        node.group.close?.text ?? ''
       }${type} => ${translateTypescriptExpression(node.assignment.expression, false)}`,
     );
 
@@ -102,8 +102,8 @@ function translateToFunction(
   }
 
   return newText(
-    `${keyword}${node.id.getText()}${node.group.open.getText()}${parameters}${
-      node.group.close?.getText() ?? ''
+    `${keyword}${node.id.getText()}${node.group.open.text}${parameters}${
+      node.group.close?.text ?? ''
     }${type}${body}`,
   );
 }

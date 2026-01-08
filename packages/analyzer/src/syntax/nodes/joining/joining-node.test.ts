@@ -11,7 +11,7 @@ describe('joining node', () => {
 
     expect(node).toBeTruthy();
     expect(is(node, $JoiningNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('~');
+    expect(node?.start.text.toNativeString()).toBe('~');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.start.line).toBe(0);
     expect(node?.range.stop.index).toBe(1);
@@ -26,7 +26,7 @@ describe('joining node', () => {
 
     expect(node).toBeTruthy();
     expect(is(node, $JoiningNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('~   ');
+    expect(node?.whitespace?.text.toNativeString()).toBe('   ');
     expect(node?.range.stop.index).toBe(4);
     expect(node?.range.stop.line).toBe(0);
   });
@@ -39,7 +39,7 @@ describe('joining node', () => {
 
     expect(node).toBeTruthy();
     expect(is(node, $JoiningNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('~   \n \r \n\n   ');
+    expect(node?.whitespace?.text.toNativeString()).toBe('   \n \r \n\n   ');
     expect(node?.range.stop.index).toBe(13);
     expect(node?.range.stop.line).toBe(3);
     expect(node?.range.stop.column).toBe(3);

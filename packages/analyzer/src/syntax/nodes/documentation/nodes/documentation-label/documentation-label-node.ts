@@ -3,40 +3,38 @@ import {
   $SyntaxNode,
   DocumentationDescriptionNode,
   DocumentationLabelOperatorNode,
-  FormatterContext,
-  HighlightContext,
   IdNode,
+  IdToken,
   KeywordNode,
   newSyntaxNode,
+  nodesRange,
   OperatorNode,
-  SemanticContext,
   SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
 export type DocumentationLabelNode = SyntaxNode &
   Brand<'Analyzer.DocumentationLabelNode'> & {
-    operatorNode: DocumentationLabelOperatorNode;
-    idNode?: IdNode | KeywordNode | OperatorNode | Nothing;
-    descriptionNode?: DocumentationDescriptionNode | Nothing;
+    operator: DocumentationLabelOperatorNode;
+    id?: IdToken | KeywordNode | OperatorNode | Nothing;
+    description?: DocumentationDescriptionNode | Nothing;
   };
 
 export const $DocumentationLabelNode = () =>
   $AnalyzerType<DocumentationLabelNode>('DocumentationLabelNode', $SyntaxNode());
 
 export function newDocumentationLabelNode(
-  operatorNode: DocumentationLabelOperatorNode,
-  idNode?: IdNode | KeywordNode | OperatorNode | Nothing,
-  descriptionNode?: DocumentationDescriptionNode | Nothing,
+  operator: DocumentationLabelOperatorNode,
+  id?: IdToken | KeywordNode | OperatorNode | Nothing,
+  description?: DocumentationDescriptionNode | Nothing,
 ): DocumentationLabelNode {
   return newSyntaxNode({
     $: $DocumentationLabelNode(),
-    operatorNode,
-    idNode,
-    descriptionNode,
+    isHidden: true,
+    range: nodesRange(operator, id, description),
 
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
+    operator,
+    id,
+    description,
   });
 }

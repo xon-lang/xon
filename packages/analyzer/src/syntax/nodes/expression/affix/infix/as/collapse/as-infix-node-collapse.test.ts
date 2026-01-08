@@ -32,7 +32,7 @@ function getAsInfixNode(text: Text): AsInfixNode {
   expect(node).toBeTruthy();
   expect(is(node, $AsInfixNode())).toBe(true);
   expect(is(node.operator, $AsOperatorNode())).toBe(true);
-  expect(node.operator.getText().toNativeString()).toBe('as');
+  expect(node.operator.text.toNativeString()).toBe('as');
   expect(is(node.left, $ExpressionNode())).toBe(true);
   expect(is(node.right, $ExpressionNode())).toBe(true);
 

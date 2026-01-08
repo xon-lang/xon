@@ -15,7 +15,7 @@ describe('at', () => {
     const node = parseDocumentationLabelOperatorNode(context);
 
     expect(is(node, $DocumentationLabelOperatorNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('@');
+    expect(node?.text.toNativeString()).toBe('@');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.stop.index).toBe(1);
   });
@@ -27,7 +27,7 @@ describe('at', () => {
     const node = parseDocumentationLabelOperatorNode(context);
 
     expect(is(node, $DocumentationLabelOperatorNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('@');
+    expect(node?.text.toNativeString()).toBe('@');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.stop.index).toBe(1);
   });

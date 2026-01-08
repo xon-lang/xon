@@ -47,7 +47,7 @@ export function parseSymbolOperatorNode(context: AnalyzerContext): OperatorNode 
     return nothing;
   }
 
-  const $Type = getTokenTypeMap().get(node.getText());
+  const $Type = getTokenTypeMap().get(node.text);
 
   if ($Type) {
     node.$ = $Type;

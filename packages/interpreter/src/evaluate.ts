@@ -21,25 +21,25 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $IntegerNode())) {
-    return +node.content.getText().toNativeString();
+    return +node.content.text.toNativeString();
   }
 
   if (is(node, $StringNode()) || is(node, $CharacterNode())) {
-    return node.content?.getText().toNativeString();
+    return node.content?.text.toNativeString();
   }
 
   if (is(node, $InfixNode())) {
     const a: Anything = evaluate(node.left, argsMap);
     const b: Anything = evaluate(node.right, argsMap);
-    const operator: Text = node.operator.getText().equals('^') ? newText('**') : node.operator.getText();
+    const operator: Text = node.operator.text.equals('^') ? newText('**') : node.operator.text;
 
     return customEval(newText(`${escapeToString(a)} ${operator} ${escapeToString(b)}`));
   }
 
   if (is(node, $PrefixNode())) {
-    const a: Anything = evaluate(node.expression, argsMap);
+    const a: Anything = evaluate(node.value, argsMap);
 
-    return customEval(newText(`${node.operator.getText().toNativeString()}${escapeToString(a)}`));
+    return customEval(newText(`${node.operator.text.toNativeString()}${escapeToString(a)}`));
   }
 
   if (is(node, $IdNode())) {

@@ -5,10 +5,8 @@ import {
   CommentBlockContentNode,
   CommentBlockOpenNode,
   CommentNode,
-  FormatterContext,
-  HighlightContext,
   newSyntaxNode,
-  SemanticContext,
+  nodesRange,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
@@ -28,12 +26,11 @@ export function newCommentBlockNode(
 ): CommentBlockNode {
   return newSyntaxNode({
     $: $CommentBlockNode(),
+    isHidden: true,
+    range: nodesRange(open, content, close),
+
     open,
     content,
     close,
-
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
   });
 }

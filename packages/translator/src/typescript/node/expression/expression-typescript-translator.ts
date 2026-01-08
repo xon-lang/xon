@@ -22,34 +22,34 @@ import {translateTypescriptAttributes, translateTypescriptStatement} from '#tran
 
 export function translateTypescriptExpression(node: Node, isType: Boolean2): Text {
   if (is(node, $IntegerNode())) {
-    return node.content.getText();
+    return node.content.text;
   }
 
   if (is(node, $FloatNode())) {
-    const integer = node.integer.getText();
-    const fractional = node.fraction?.getText() ?? 0;
+    const integer = node.integer.text;
+    const fractional = node.fraction?.text ?? 0;
 
     return newText(`${integer}.${fractional}`);
   }
 
   if (is(node, $CharacterNode())) {
-    if (node.content && node.content.getText().count() === 1) {
-      return newText(`'${node.content.getText()}'`);
+    if (node.content && node.content.text.count() === 1) {
+      return newText(`'${node.content.text}'`);
     }
 
     return newText('/* error character */');
   }
 
   if (is(node, $StringNode())) {
-    return newText(`\`${node.content?.getText() ?? ''}\``);
+    return newText(`\`${node.content?.text ?? ''}\``);
   }
 
   if (is(node, $StringInterpolationNode())) {
     const items = node.items.map((x) =>
       newText(
         x.nodes.count() > 0
-          ? `${x.content?.getText() ?? ''}\${${translateTypescriptStatement(x.nodes.at2(0))}}`
-          : `${x.content?.getText() ?? ''}`,
+          ? `${x.content?.text ?? ''}\${${translateTypescriptStatement(x.nodes.at2(0))}}`
+          : `${x.content?.text ?? ''}`,
       ),
     );
     const text = newText(items, newText(''));
@@ -83,7 +83,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
       newText(', '),
     );
 
-    return newText(`${target}${node.group.open.getText()}${parameters}${node.group.close?.getText() ?? ''}`);
+    return newText(`${target}${node.group.open.text}${parameters}${node.group.close?.text ?? ''}`);
   }
 
   if (is(node, $ParenGroupNode())) {
@@ -94,7 +94,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
     const expression = (node.items.at(0)?.node as ExpressionStatementNode).expression;
     const translatedExpression = translateTypescriptExpression(expression, isType);
 
-    return newText(`${node.open.getText()}${translatedExpression}${node.close?.getText() ?? ''}`);
+    return newText(`${node.open.text}${translatedExpression}${node.close?.text ?? ''}`);
   }
 
   if (is(node, $BraceGroupNode())) {
@@ -116,20 +116,20 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
   }
 
   if (is(node, $PrefixNode())) {
-    if (!node.expression) {
+    if (!node.value) {
       return newText('/* error prefix */');
     }
 
-    const value = translateTypescriptExpression(node.expression, isType);
+    const value = translateTypescriptExpression(node.value, isType);
 
-    return newText(`${node.operator.getText()}${value}`);
+    return newText(`${node.operator.text}${value}`);
   }
 
   if (is(node, $InfixNode())) {
     const left = translateTypescriptExpression(node.left, isType);
     const right = translateTypescriptExpression(node.right, isType);
 
-    return newText(`${left} ${node.operator.getText()} ${right}`);
+    return newText(`${left} ${node.operator.text} ${right}`);
   }
 
   if (is(node, $PostfixNode())) {
@@ -139,7 +139,7 @@ export function translateTypescriptExpression(node: Node, isType: Boolean2): Tex
 
     const value = translateTypescriptExpression(node.value, isType);
 
-    return newText(`${value}${node.operator.getText()}`);
+    return newText(`${value}${node.operator.text}`);
   }
 
   return newText('/* error value */');

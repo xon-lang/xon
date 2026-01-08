@@ -11,12 +11,12 @@ import {
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-// export type StatementNode = SyntaxNode &
-//   Brand<'Analyzer.StatementNode'> & {
-//     parent?: BodyNode | Nothing;
-//     value: Node;
-//     body?: BodyNode | Nothing;
-//   };
+export type StatementNode = SyntaxNode &
+  Brand<'Analyzer.StatementNode'> & {
+    parent?: BodyNode | Nothing;
+    value: Node;
+    body?: BodyNode | Nothing;
+  };
 
 // export const $StatementNode = () => $AnalyzerType<StatementNode>('StatementNode', $SyntaxNode());
 

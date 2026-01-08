@@ -24,8 +24,8 @@ test('Lambda integer type and value', () => {
       .toNativeString(),
   ).toBe('a');
 
-  expect((node.type?.expression as IntegerNode).content.getText().toNativeString()).toBe('1');
-  expect((node.value?.expression as IntegerNode).content.getText().toNativeString()).toBe('2');
+  expect((node.type?.expression as IntegerNode).content.text.toNativeString()).toBe('1');
+  expect((node.value?.expression as IntegerNode).content.text.toNativeString()).toBe('2');
 });
 
 function getLambdaNode(text: Text): LambdaNode {

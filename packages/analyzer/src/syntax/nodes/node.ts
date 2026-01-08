@@ -15,7 +15,6 @@ import {
   is,
   Model,
   newArrayData,
-  newText,
   newTextRange,
   Nothing,
   Text,
@@ -25,31 +24,24 @@ import {
 export type Node = Model &
   Brand<'Analyzer.Node'> & {
     range: TextRange;
-    _text?: Text | Nothing;
-    // todo remove parent and aggregate body
-    parent?: SyntaxNode | Nothing;
-    isHidden?: Boolean2;
 
     debug(): unknown;
-
-    getText(): Text;
   };
 
 export const $Node = () => $AnalyzerType<Node>('Node');
 
-export type LexicalNode = Node & Brand<'Analyzer.LexicalNode'> & {};
+export type LexicalNode = Node &
+  Brand<'Analyzer.LexicalNode'> & {
+    text: Text;
+  };
 
 export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Node());
 
 export function newLexicalNode<T extends Model>($type: $Type<T>, range: TextRange, text: Text): LexicalNode {
   return {
     $: $type,
-    _text: text,
+    text,
     range,
-
-    getText(): Text {
-      return this._text!;
-    },
 
     debug: lexicalDebug,
   };
@@ -57,30 +49,31 @@ export function newLexicalNode<T extends Model>($type: $Type<T>, range: TextRang
 
 export type SyntaxNode = Node &
   Brand<'Analyzer.SyntaxNode'> & {
-    children: ArrayData<Node>;
-    semantic?: Semantic | Nothing;
+    parent?: SyntaxNode | Nothing;
+    children?: ArrayData<SyntaxNode>;
     body?: BodyNode | Nothing;
+    semantic?: Semantic | Nothing;
+    isHidden?: Boolean2;
 
-    semantify(context: SemanticContext): void;
-    format(context: FormatterContext): void;
-    highlight(context: HighlightContext): void;
+    semantify?(context: SemanticContext): void;
+    format?(context: FormatterContext): void;
+    highlight?(context: HighlightContext): void;
   };
 
 export const $SyntaxNode = () => $AnalyzerType<SyntaxNode>('SyntaxNode', $Node());
 
 export function newSyntaxNode<T extends SyntaxNode>(
-  params: Omit<T, 'children' | 'range' | 'getText' | 'debug'> &
-    Partial<Pick<T, 'children' | 'range' | 'debug'>>,
+  params: Omit<T, 'children' | 'range' | 'debug'> & Partial<Pick<T, 'children' | 'range' | 'debug'>>,
 ): T {
   // todo optimize and simplify it
   const children = newArrayData(
-    $Node(),
+    $SyntaxNode(),
     Object.entries(params)
       // todo remove 'parent' exception
       .filter(([key]) => key !== 'parent')
       .map(([_, value]) => value)
-      .filter((value) => is(value, $Node()) || is(value, $ArrayData<Node>($Node())))
-      .flatMap((value) => (is(value, $Node()) ? value : value._items)),
+      .filter((value) => is(value, $SyntaxNode()) || is(value, $ArrayData<SyntaxNode>($SyntaxNode())))
+      .flatMap((value) => (is(value, $SyntaxNode()) ? value : value._items)),
   );
 
   const first = children.first();
@@ -91,14 +84,8 @@ export function newSyntaxNode<T extends SyntaxNode>(
 
   const node: T = {
     ...params,
-    range,
+    range: params.range ?? range,
     children,
-
-    getText(): Text {
-      this._text ??= newText(this.children.map((x) => x.getText()));
-
-      return this._text;
-    },
 
     debug: syntaxDebug,
   } as T;
@@ -109,7 +96,7 @@ export function newSyntaxNode<T extends SyntaxNode>(
 }
 
 export function lexicalDebug(this: LexicalNode): string {
-  return `${this.$.name}(${this.getText()})`;
+  return `${this.$.name}(${this.text})`;
 }
 
 export function syntaxDebug(this: SyntaxNode): object {
@@ -130,4 +117,11 @@ export function syntaxDebug(this: SyntaxNode): object {
   }
 
   return {[this.$.name]: null};
+}
+
+export function nodesRange(...tokens: (Node | Nothing)[]): TextRange {
+  const start = tokens.find((x) => x)?.range.start.clone();
+  const stop = tokens.findLast((x) => x)?.range.stop.clone();
+
+  return newTextRange(start, stop);
 }

@@ -15,7 +15,7 @@ describe('comment block open', () => {
     const node = parseCommentBlockOpenNode(context);
 
     expect(is(node, $CommentBlockOpenNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('---');
+    expect(node?.text.toNativeString()).toBe('---');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.stop.index).toBe(3);
   });

@@ -14,7 +14,7 @@ test('String interpolation content', () => {
   const node = parseInterpolationStringContentNode(context);
 
   expect(is(node, $StringInterpolationContentNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('a');
+  expect(node?.text.toNativeString()).toBe('a');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
   expect(node?.range.start.column).toBe(0);
@@ -30,7 +30,7 @@ test('String interpolation content with open brace', () => {
   const node = parseInterpolationStringContentNode(context);
 
   expect(is(node, $StringInterpolationContentNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('a\nc');
+  expect(node?.text.toNativeString()).toBe('a\nc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
   expect(node?.range.start.column).toBe(0);
@@ -46,7 +46,7 @@ test('String interpolation content with close quote', () => {
   const node = parseInterpolationStringContentNode(context);
 
   expect(is(node, $StringInterpolationContentNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('a\nc');
+  expect(node?.text.toNativeString()).toBe('a\nc');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
   expect(node?.range.start.column).toBe(0);

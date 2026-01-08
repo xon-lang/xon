@@ -1,4 +1,4 @@
-import {$ImportStatementNode, $StringNode, StringNode} from '#analyzer';
+import {$ImportNode, $StringNode, StringNode} from '#analyzer';
 import {
   $DirectoryResource,
   $FileResource,
@@ -53,7 +53,7 @@ function getImportPathCompletions(
 ): CompletionItem[] | Nothing {
   const node = analyzer.findClosestNode(
     (node): node is StringNode =>
-      is(node, $StringNode()) && is(node.parent, $ImportStatementNode()) && node === node.parent.expression,
+      is(node, $StringNode()) && is(node.parent, $ImportNode()) && node === node.parent.expression,
     vsCodeToXonPosition(document, position),
   );
 
@@ -62,8 +62,7 @@ function getImportPathCompletions(
   }
 
   const contentUntilPosition =
-    node.content?.getText().slice(0, document.offsetAt(position) - node.content.range.start.index) ??
-    newText();
+    node.content?.text.slice(0, document.offsetAt(position) - node.content.range.start.index) ?? newText();
   const lastSlashIndex = contentUntilPosition.lastItemIndex(newCharacter('/'));
   const contentUntilSlash = contentUntilPosition.slice(0, lastSlashIndex ?? 0).toNativeString();
 
@@ -100,7 +99,7 @@ function getImportDeclarationCompletions(
   position: Position,
 ): CompletionItem[] | Nothing {
   const importNode = analyzer.findClosestNode(
-    (node) => is(node, $ImportStatementNode()),
+    (node) => is(node, $ImportNode()),
     vsCodeToXonPosition(document, position),
   );
 

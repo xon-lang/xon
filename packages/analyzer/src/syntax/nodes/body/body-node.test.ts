@@ -10,7 +10,7 @@ test('cr lf', () => {
 
   expect(node).toBeTruthy();
   expect(is(node, $NlNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('\r\n');
+  expect(node?.text.toNativeString()).toBe('\r\n');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
   expect(node?.range.stop.index).toBe(2);

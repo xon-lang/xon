@@ -285,7 +285,7 @@ export function newArrayData<T>(
       return this.firstItemsIndex(items) != nothing;
     },
 
-    // todo should we return new array/immutability ???
+    // todo should we return new array/immutability ??? - yes
     addFirstItems(items: ArrayData<T>): ArrayData<T> {
       this._items.unshift(...items);
 

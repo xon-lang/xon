@@ -2,8 +2,6 @@ import {
   $AnalyzerType,
   $SyntaxNode,
   AsInfixNode,
-  FormatterContext,
-  HighlightContext,
   ImportKeywordNode,
   ImportSemantic,
   newSyntaxNode,
@@ -13,27 +11,24 @@ import {
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
-export type ImportStatementNode = SyntaxNode &
-  Brand<'Analyzer.ImportStatementNode'> & {
+export type ImportNode = SyntaxNode &
+  Brand<'Analyzer.ImportNode'> & {
     keyword: ImportKeywordNode;
     expression?: StringNode | AsInfixNode | Nothing;
     semantic?: ImportSemantic | Nothing;
   };
 
-export const $ImportStatementNode = () =>
-  $AnalyzerType<ImportStatementNode>('ImportStatementNode', $SyntaxNode());
+export const $ImportNode = () => $AnalyzerType<ImportNode>('ImportNode', $SyntaxNode());
 
-export function newImportStatementNode(
+export function newImportNode(
   keyword: ImportKeywordNode,
   expression?: StringNode | AsInfixNode | Nothing,
-): ImportStatementNode {
-  return newSyntaxNode<ImportStatementNode>({
-    $: $ImportStatementNode(),
+): ImportNode {
+  return newSyntaxNode<ImportNode>({
+    $: $ImportNode(),
     keyword,
     expression,
 
     semantify: semantifyImportStatementNode,
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
   });
 }

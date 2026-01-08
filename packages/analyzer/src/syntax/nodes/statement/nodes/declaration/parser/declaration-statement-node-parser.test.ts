@@ -28,12 +28,12 @@ test('Type alias declaration statement with type and assign', () => {
   const text = newText('type Zero = 0');
   const node = getDeclarationStatementNode(text);
 
-  expect(node.keyword?.getText().toNativeString()).toBe('type');
+  expect(node.keyword?.text.toNativeString()).toBe('type');
   expect(is(node.id, $IdNode())).toBe(true);
   expect(node.id.getText().toNativeString()).toBe('Zero');
   expect(node.annotation).toBeFalsy();
   expect(is(node.assignment?.expression, $IntegerNode())).toBe(true);
-  expect((node.assignment?.expression as IntegerNode).content.getText().toNativeString()).toBe('0');
+  expect((node.assignment?.expression as IntegerNode).content.text.toNativeString()).toBe('0');
 });
 
 test('Type declaration id and base type', () => {

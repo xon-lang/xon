@@ -42,8 +42,8 @@ function nodeParsers(): ArrayData<(context: AnalyzerContext) => Node | Nothing> 
   ]);
 }
 
-export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode[]> {
-  const nodes = newArrayData($SyntaxNode(), [])
+export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode> {
+  const nodes = newArrayData($SyntaxNode(), []);
 
   while (true) {
     const node = nodeParsers().firstMap((parse) => parse(context));
@@ -52,10 +52,9 @@ export function* nodeGenerator(context: AnalyzerContext): Generator<SyntaxNode[]
       break;
     }
 
-    nodes
+    nodes;
 
-    if(is(node, $NlNode())){
-
+    if (is(node, $NlNode())) {
     }
 
     // todo remove 'as'

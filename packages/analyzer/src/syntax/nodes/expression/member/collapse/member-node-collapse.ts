@@ -16,8 +16,8 @@ export function collapseMemberNode(context: AnalyzerContext): NodeCollapseFn<Mem
   return {
     min: 2,
     collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult<MemberNode> => {
-      return nodes.firstMap((operatorNode, index) => {
-        if (!is(operatorNode, $SymbolOperatorNode()) || !operatorNode.getText().equals(POINT)) {
+      return nodes.firstMap((operator, index) => {
+        if (!is(operator, $SymbolOperatorNode()) || !operator.text.equals(POINT)) {
           return nothing;
         }
 
@@ -35,7 +35,7 @@ export function collapseMemberNode(context: AnalyzerContext): NodeCollapseFn<Mem
         }
 
         return {
-          node: newMemberNode(target, operatorNode, id),
+          node: newMemberNode(target, operator, id),
           index: index - 1,
           deleteCount: id ? 3 : 2,
         };

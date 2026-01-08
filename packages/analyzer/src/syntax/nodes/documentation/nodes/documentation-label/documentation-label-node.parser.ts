@@ -15,6 +15,7 @@ export function parseDocumentationLabelNode(context: AnalyzerContext): Documenta
     return nothing;
   }
 
+  // todo check if is 'id'
   const idNode = parseIdKeywordOperatorNode(context);
   const descriptionNode = parseDocumentationDescriptionNode(context);
 

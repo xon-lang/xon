@@ -1,24 +1,21 @@
 import {
   $AsOperatorNode,
   $ElseKeywordNode,
-  $IdNode,
+  $IdToken,
   $IfKeywordNode,
   $ImportKeywordNode,
   $IsOperatorNode,
-  $PublicKeywordNode,
   $ReturnKeywordNode,
   $TypeKeywordNode,
   AnalyzerContext,
   AS,
   ELSE,
-  IdNode,
+  IdToken,
   IF,
   IMPORT,
   IS,
   KeywordNode,
-  newIdNode,
   OperatorNode,
-  PUBLIC,
   RETURN,
   TYPE,
   UNDERSCORE,
@@ -41,7 +38,7 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
       // declarations ???
       newKeyValue(TYPE, $TypeKeywordNode()),
       // modifiers
-      newKeyValue(PUBLIC, $PublicKeywordNode()),
+      // newKeyValue(PUBLIC, $PublicKeywordNode()),
       // controls
       newKeyValue(IMPORT, $ImportKeywordNode()),
       newKeyValue(IF, $IfKeywordNode()),
@@ -56,27 +53,21 @@ function getTokenTypeMap(): Dictionary<Text, $Type> {
 
 export function parseIdKeywordOperatorNode(
   context: AnalyzerContext,
-): IdNode | KeywordNode | OperatorNode | Nothing {
-  const node = context.source.takeWhile(
-    $IdNode(),
-    (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || UNDERSCORE.equals(x),
+): IdToken | KeywordNode | OperatorNode | Nothing {
+  const token = context.source.takeWhile(
+    $IdToken(),
+    (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || x.equals(UNDERSCORE),
   );
 
-  if (!node) {
+  if (!token) {
     return nothing;
   }
 
-  const $Type = getTokenTypeMap().get(node.getText());
+  const $type = getTokenTypeMap().get(token.text);
 
-  if ($Type) {
-    node.$ = $Type;
-
-    return node;
+  if ($type) {
+    token.$ = $type;
   }
 
-  if (node) {
-    return newIdNode(node.getText(), node.range);
-  }
-
-  return node;
+  return token;
 }

@@ -63,9 +63,9 @@ describe('group node', () => {
     expect(is(node.close, $BracketCloseNode())).toBe(true);
     expect(node.items.count()).toBe(1);
     expect(
-      ((node.items.first()?.node as ExpressionStatementNode).expression as IntegerNode).content
-        .getText()
-        .toNativeString(),
+      (
+        (node.items.first()?.node as ExpressionStatementNode).expression as IntegerNode
+      ).content.text.toNativeString(),
     ).toBe('123');
   });
 
@@ -78,7 +78,7 @@ describe('group node', () => {
     expect(is(node.close, $BracketCloseNode())).toBe(true);
     expect(node.items.count()).toBe(1);
     expect(node.items.first()?.node).toBeFalsy();
-    expect(node.items.first()?.comma?.getText().toNativeString()).toBe(',');
+    expect(node.items.first()?.comma?.text.toNativeString()).toBe(',');
   });
 
   test('Inner group', () => {
@@ -151,9 +151,9 @@ describe('group node', () => {
     expect(node.items.last()?.comma).toBeFalsy();
     expect(is((node.items.at(3)?.node as ExpressionStatementNode).expression, $IntegerNode())).toBeTruthy();
     expect(
-      ((node.items.at(3)?.node as ExpressionStatementNode).expression as IntegerNode).content
-        .getText()
-        .toNativeString(),
+      (
+        (node.items.at(3)?.node as ExpressionStatementNode).expression as IntegerNode
+      ).content.text.toNativeString(),
     ).toBe('5');
   });
 

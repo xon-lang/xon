@@ -5,15 +5,15 @@ import {
   $ObjectSemantic,
   $StringNode,
   BodyNode,
+  ImportNode,
   ImportSemantic,
-  ImportStatementNode,
   newImportSemantic,
   SemanticContext,
   StringNode,
 } from '#analyzer';
 import {is, newText, newUri, Nothing, nothing} from '#core';
 
-export function semantifyImportStatementNode(this: ImportStatementNode, context: SemanticContext): void {
+export function semantifyImportStatementNode(this: ImportNode, context: SemanticContext): void {
   if (!this.expression) {
     return;
   }
@@ -34,11 +34,11 @@ function semantifyImportPath(node: StringNode, context: SemanticContext): Import
     return nothing;
   }
 
-  const uri = newUri(node.content.getText());
+  const uri = newUri(node.content.text);
 
   try {
     const providedSemantic = context.provideSemantic(uri);
-    node.semantic = newImportSemantic(node.content?.getText(), uri, providedSemantic);
+    node.semantic = newImportSemantic(node.content?.text, uri, providedSemantic);
   } catch {}
 
   if (!node.semantic) {

@@ -1,6 +1,7 @@
 import {$AnalyzerType, $PrefixNode, Node, OperatorNode, PrefixNode} from '#analyzer';
 import {Brand} from '#core';
 
+// todo remove and use enum
 export type PlusPrefixNode = PrefixNode &
   Brand<'Analyzer.PlusPrefixNode'> & {
     operatorNode: OperatorNode;

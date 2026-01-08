@@ -1,12 +1,10 @@
 import {
   $AnalyzerType,
   $SyntaxNode,
-  FormatterContext,
-  HighlightContext,
   JoiningStartNode,
   JoiningWhitespaceNode,
   newSyntaxNode,
-  SemanticContext,
+  nodesRange,
   SyntaxNode,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
@@ -25,12 +23,10 @@ export function newJoiningNode(
 ): JoiningNode {
   return newSyntaxNode({
     $: $JoiningNode(),
+    isHidden: true,
+    range: nodesRange(start, whitespace),
+
     start,
     whitespace,
-    isHidden: true,
-
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
   });
 }

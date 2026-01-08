@@ -10,16 +10,18 @@ import {
   nonHiddenNodeGenerator,
 } from '#analyzer';
 import {$Model, is, newArrayData, newText, Text} from '#core';
-import {expect, test} from 'vitest';
+import {describe, expect, test} from 'vitest';
 
-test('Invoke with two arguments', () => {
-  const text = newText("f(3, 'str')");
-  const node = getInvokeNode(text);
+describe('invoke', () => {
+  test('Invoke with two arguments', () => {
+    const text = newText("f(3, 'str')");
+    const node = getInvokeNode(text);
 
-  expect(is(node.target, $IdNode())).toBe(true);
-  expect((node.target as IdNode).getText().toNativeString()).toBe('f');
-  expect(is(node.group, $GroupNode())).toBe(true);
-  expect(node.group.items.count()).toBe(2);
+    expect(is(node.target, $IdNode())).toBe(true);
+    expect((node.target as IdNode).getText().toNativeString()).toBe('f');
+    expect(is(node.group, $GroupNode())).toBe(true);
+    expect(node.group.items.count()).toBe(2);
+  });
 });
 
 function getInvokeNode(text: Text): InvokeNode {

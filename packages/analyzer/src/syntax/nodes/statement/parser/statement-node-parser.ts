@@ -11,7 +11,7 @@ import {
   parseElseStatementNode,
   parseExpressionStatementNode,
   parseIfStatementNode,
-  parseImportStatementNode,
+  parseImportNode_,
   parseReturnStatementNode,
   SyntaxNode,
 } from '#analyzer';
@@ -76,7 +76,7 @@ export type StatementParserFunction<T extends SyntaxNode = SyntaxNode> = (
 
 function statementParsers(): ArrayData<StatementParserFunction> {
   return newArrayData($Model(), [
-    parseImportStatementNode,
+    parseImportNode_,
     parseDeclarationStatementNode,
     parseIfStatementNode,
     parseElseStatementNode,

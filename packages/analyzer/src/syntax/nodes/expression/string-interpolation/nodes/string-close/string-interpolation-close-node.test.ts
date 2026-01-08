@@ -14,7 +14,7 @@ test('String interpolation close', () => {
   const node = parseStringInterpolationCloseNode(context);
 
   expect(is(node, $StringInterpolationCloseNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('"');
+  expect(node?.text.toNativeString()).toBe('"');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);
 });

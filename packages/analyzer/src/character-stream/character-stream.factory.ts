@@ -1,4 +1,4 @@
-import {$CharacterStream, CharacterStream, LexicalNode, newLexicalNode, NL} from '#analyzer';
+import {$CharacterStream, CharacterStream, LexicalNode, newLexicalNode, NL, UNDERSCORE} from '#analyzer';
 import {
   $Type,
   Boolean2,
@@ -15,15 +15,16 @@ import {
 export function newCharacterStreamFromText(source: Text): CharacterStream {
   let sourcePosition = newTextPosition();
   const sourceLength = source.count();
+  let lastWordToken: LexicalNode | Nothing = nothing;
 
   return {
     $: $CharacterStream(),
 
-    takeWhile(
+    takeWhile<T extends $Type>(
       $type: $Type,
       predicate: (character: Character, index: Integer, chunk: Text) => Boolean2,
-    ): LexicalNode | Nothing {
-      if (sourcePosition.index >= sourceLength) {
+    ): (T['type'] & LexicalNode) | Nothing {
+      if (lastWordToken || sourcePosition.index >= sourceLength) {
         return nothing;
       }
 
@@ -40,14 +41,31 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
       return newLexicalNode($type, range, text);
     },
 
-    takeText($type: $Type, text: Text): LexicalNode | Nothing {
+    takeText<T extends $Type>($type: $Type, text: Text): (T['type'] & LexicalNode) | Nothing {
       const length = text.count();
 
       return this.takeWhile($type, (x, i) => i < length && text.at2(i).equals(x));
     },
 
-    takeCharacter($type: $Type, character: Character): LexicalNode | Nothing {
+    takeCharacter<T extends $Type>($type: $Type, character: Character): (T['type'] & LexicalNode) | Nothing {
       return this.takeWhile($type, (x, i) => i === 0 && character.equals(x));
+    },
+
+    takeWord<T extends $Type>($type: T, word?: Text): (T['type'] & LexicalNode) | Nothing {
+      const token =
+        lastWordToken ??
+        this.takeWhile(
+          $type,
+          (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || x.equals(UNDERSCORE),
+        );
+
+      if ((!word && token) || (word && token?.text.equals(word))) {
+        lastWordToken = nothing;
+        return token;
+      }
+
+      lastWordToken = token;
+      return nothing;
     },
   };
 }

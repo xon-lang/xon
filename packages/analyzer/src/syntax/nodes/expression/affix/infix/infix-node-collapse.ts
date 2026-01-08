@@ -29,7 +29,7 @@ export function collapseInfixNode<T extends $Type<OperatorNode>>(
           return nothing;
         }
 
-        return {
+        return  {
           index: index - 1,
           deleteCount: 3,
           node: construct(left, operator, right),

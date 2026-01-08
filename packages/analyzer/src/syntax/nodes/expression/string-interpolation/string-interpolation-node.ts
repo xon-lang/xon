@@ -5,6 +5,7 @@ import {
   formatStringNode,
   HighlightContext,
   newSyntaxNode,
+  nodesRange,
   semantifyStringNode,
   StringCloseNode,
   StringInterpolationItemNode,
@@ -29,6 +30,7 @@ export function newStringInterpolationNode(
 ): StringInterpolationNode {
   return newSyntaxNode({
     $: $StringInterpolationNode(),
+    range: nodesRange(open, ...items, close),
     open,
     items,
     close,

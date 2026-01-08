@@ -23,7 +23,7 @@ export function collapsePrefixNode(
           return nothing;
         }
 
-        const operatorType = similarPriorityOperators.get(operatorNode.getText());
+        const operatorType = similarPriorityOperators.get(operatorNode.text);
 
         if (!operatorType) {
           return nothing;

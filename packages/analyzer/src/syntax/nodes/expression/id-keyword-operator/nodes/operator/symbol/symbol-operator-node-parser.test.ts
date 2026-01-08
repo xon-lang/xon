@@ -15,7 +15,7 @@ describe('symbol operator', () => {
     const node = operatorFromText(text);
 
     expect(is(node, $SymbolOperatorNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('+');
+    expect(node?.text.toNativeString()).toBe('+');
   });
 
   test('Symbol operator exclamation', () => {
@@ -23,7 +23,7 @@ describe('symbol operator', () => {
     const node = operatorFromText(text);
 
     expect(is(node, $SymbolOperatorNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('!');
+    expect(node?.text.toNativeString()).toBe('!');
   });
 
   function operatorFromText(text: Text): OperatorNode {

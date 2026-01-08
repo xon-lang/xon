@@ -14,7 +14,7 @@ test('single point', () => {
   const node = parseRadixPointNode(context);
 
   expect(is(node, $RadixPointNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('.');
+  expect(node?.text.toNativeString()).toBe('.');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);
 });
@@ -26,7 +26,7 @@ test('point fractional', () => {
   const node = parseRadixPointNode(context);
 
   expect(is(node, $RadixPointNode())).toBe(true);
-  expect(node?.getText().toNativeString()).toBe('.');
+  expect(node?.text.toNativeString()).toBe('.');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(1);
 });

@@ -8,7 +8,7 @@ import {
 } from '#translator';
 
 export function translateTypescriptDeclarationStatement(node: DeclarationStatementNode): Text {
-  if (node.keyword?.getText().equals(TYPE)) {
+  if (node.keyword?.text.equals(TYPE)) {
     return translateTypeDeclaration(node);
   }
 

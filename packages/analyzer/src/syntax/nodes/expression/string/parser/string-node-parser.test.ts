@@ -15,9 +15,9 @@ test('string', () => {
   const node = parseStringNode(context);
 
   expect(is(node, $StringNode())).toBe(true);
-  expect(node?.open.getText().toNativeString()).toBe('"');
-  expect(node?.content?.getText().toNativeString()).toBe('ab\n\nc');
-  expect(node?.close?.getText().toNativeString()).toBe('"');
+  expect(node?.open.text.toNativeString()).toBe('"');
+  expect(node?.content?.text.toNativeString()).toBe('ab\n\nc');
+  expect(node?.close?.text.toNativeString()).toBe('"');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.start.line).toBe(0);
   expect(node?.range.start.column).toBe(0);
@@ -33,8 +33,8 @@ test('string only quote', () => {
   const node = parseStringNode(context);
 
   expect(is(node, $StringNode())).toBe(true);
-  expect(node?.open.getText().toNativeString()).toBe('"');
-  expect(node?.content?.getText().toNativeString()).toBe('a');
+  expect(node?.open.text.toNativeString()).toBe('"');
+  expect(node?.content?.text.toNativeString()).toBe('a');
   expect(node?.close).toBe(nothing);
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(2);
@@ -47,7 +47,7 @@ test('empty string single quote', () => {
   const node = parseStringNode(context);
 
   expect(is(node, $StringNode())).toBe(true);
-  expect(node?.open.getText().toNativeString()).toBe('"');
+  expect(node?.open.text.toNativeString()).toBe('"');
   expect(node?.content).toBe(nothing);
   expect(node?.close).toBe(nothing);
   expect(node?.range.start.index).toBe(0);
@@ -61,9 +61,9 @@ test('empty string double quote', () => {
   const node = parseStringNode(context);
 
   expect(is(node, $StringNode())).toBe(true);
-  expect(node?.open.getText().toNativeString()).toBe('"');
+  expect(node?.open.text.toNativeString()).toBe('"');
   expect(node?.content).toBe(nothing);
-  expect(node?.close?.getText().toNativeString()).toBe('"');
+  expect(node?.close?.text.toNativeString()).toBe('"');
   expect(node?.range.start.index).toBe(0);
   expect(node?.range.stop.index).toBe(2);
 });

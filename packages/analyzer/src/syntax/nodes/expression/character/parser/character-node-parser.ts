@@ -1,30 +1,30 @@
 import {
+  $LexicalNode,
   AnalyzerContext,
+  CHARACTER_CLOSE,
+  CHARACTER_OPEN,
   CharacterNode,
   newCharacterNode,
-  parseCharacterCloseNode,
-  parseCharacterContentNode,
-  parseCharacterOpenNode,
 } from '#analyzer';
 import {newText, nothing, Nothing} from '#core';
 
 export function parseCharacterNode(context: AnalyzerContext): CharacterNode | Nothing {
-  const openNode = parseCharacterOpenNode(context);
+  const open = context.source.takeCharacter($LexicalNode(), CHARACTER_OPEN);
 
-  if (!openNode) {
+  if (!open) {
     return nothing;
   }
 
-  const contentNode = parseCharacterContentNode(context);
-  const closeNode = parseCharacterCloseNode(context);
+  const content = context.source.takeWhile($LexicalNode(), (x) => !x.equals(CHARACTER_CLOSE));
+  const close = context.source.takeCharacter($LexicalNode(), CHARACTER_CLOSE);
 
-  if (!contentNode || contentNode.getText().count() > 1) {
-    context.addError(openNode.range, newText(`Only character expect`));
+  if (!content || content.text.count() > 1) {
+    context.addError(open.range, newText(`Only character expect`));
   }
 
-  if (!closeNode) {
-    context.addError(openNode.range, newText(`Close token expect`));
+  if (!close) {
+    context.addError(open.range, newText(`Close token expect`));
   }
 
-  return newCharacterNode(openNode, contentNode, closeNode);
+  return newCharacterNode(open, content, close);
 }

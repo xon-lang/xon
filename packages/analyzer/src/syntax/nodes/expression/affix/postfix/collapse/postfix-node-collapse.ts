@@ -18,12 +18,12 @@ export function collapsePostfixNode(
     collapse: (nodes: ArrayData<Node>, startIndex: Integer): NodeCollapseResult => {
       const method = isLeftRecursive ? 'firstMap' : 'lastMap';
 
-      return nodes[method]((operatorNode, index) => {
-        if (!is(operatorNode, $OperatorNode())) {
+      return nodes[method]((operator, index) => {
+        if (!is(operator, $OperatorNode())) {
           return nothing;
         }
 
-        const operatorType = similarPriorityOperators.get(operatorNode.getText());
+        const operatorType = similarPriorityOperators.get(operator.text);
 
         if (!operatorType) {
           return nothing;
@@ -35,7 +35,7 @@ export function collapsePostfixNode(
           return nothing;
         }
 
-        return {node: postfixNode(operatorType, valueNode, operatorNode), index: index - 1, deleteCount: 2};
+        return {node: postfixNode(operatorType, valueNode, operator), index: index - 1, deleteCount: 2};
       }, startIndex);
     },
   };

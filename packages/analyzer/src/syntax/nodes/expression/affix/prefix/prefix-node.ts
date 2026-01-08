@@ -1,37 +1,26 @@
-import {
-  $AffixNode,
-  $AnalyzerType,
-  AffixNode,
-  FormatterContext,
-  HighlightContext,
-  newSyntaxNode,
-  Node,
-  OperatorNode,
-  SemanticContext,
-} from '#analyzer';
+import {$AffixNode, $AnalyzerType, AffixNode, newSyntaxNode, Node, nodesRange, OperatorNode} from '#analyzer';
 import {$Type, Brand} from '#core';
 
 export type PrefixNode = AffixNode &
   Brand<'Analyzer.PrefixNode'> & {
-    expression: Node;
+    value: Node;
   };
 
 export const $PrefixNode = () => $AnalyzerType<PrefixNode>('PrefixNode', $AffixNode());
 
-export function newPrefixNode($: $Type, operator: OperatorNode, expression: Node): PrefixNode {
+export function newPrefixNode($: $Type, operator: OperatorNode, value: Node): PrefixNode {
   return newSyntaxNode({
     $,
-    operator,
-    expression,
+    isHidden: true,
+    range: nodesRange(operator, value),
 
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
+    operator,
+    value,
   });
 }
 
 // function format(analyzer: SyntaxAnalyzer, node: PrefixNode): void {
-//   const keepSingleWhitespace = node.operator.getText().some(
+//   const keepSingleWhitespace = node.operator.text.some(
 //     (x) => x.isLetter() || COLON.equals(x) || ASSIGN.equals(x),
 //   );
 //   analyzer.formatterManager.formatChildNode(node.value, keepSingleWhitespace);

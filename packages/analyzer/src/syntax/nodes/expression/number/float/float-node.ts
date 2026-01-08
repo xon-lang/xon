@@ -1,13 +1,11 @@
 import {
   $AnalyzerType,
   $NumberNode,
-  FormatterContext,
-  HighlightContext,
   IntegerContentNode,
   newSyntaxNode,
+  nodesRange,
   NumberNode,
   RadixPointNode,
-  SemanticContext,
 } from '#analyzer';
 import {Brand, Nothing} from '#core';
 
@@ -27,12 +25,10 @@ export function newFloatNode(
 ): FloatNode {
   return newSyntaxNode({
     $: $FloatNode(),
+    range: nodesRange(integer, radix, fraction),
+
     integer,
     radix,
     fraction,
-
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
   });
 }

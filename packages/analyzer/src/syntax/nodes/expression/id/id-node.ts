@@ -1,37 +1,39 @@
 import {
   $AnalyzerType,
   $ExpressionNode,
-  $Node,
   DeclarationSemantic,
   ExpressionNode,
-  FormatterContext,
-  HighlightContext,
   lexicalDebug,
+  LexicalNode,
+  newSyntaxNode,
+  nodesRange,
   semantifyIdNode,
   UsageSemantic,
 } from '#analyzer';
-import {Brand, newArrayData, Nothing, Text, TextRange} from '#core';
+import {Brand, Nothing, Text} from '#core';
 
 export type IdNode = ExpressionNode &
   Brand<'Analyzer.IdNode'> & {
     semantic?: UsageSemantic | DeclarationSemantic | Nothing;
+    token: LexicalNode;
+
+    getText(): Text;
   };
 
 export const $IdNode = () => $AnalyzerType<IdNode>('IdNode', $ExpressionNode());
 
-export function newIdNode(text: Text, range: TextRange): IdNode {
-  return {
+export function newIdNode(token: LexicalNode): IdNode {
+  return newSyntaxNode({
     $: $IdNode(),
-    range,
-    children: newArrayData($Node()),
-    // todo remove 'getText' and use newSyntaxNode
+    range: nodesRange(token),
+    token,
+
+    // todo remove 'getText'
     getText(): Text {
-      return text;
+      return this.token.text;
     },
 
     debug: lexicalDebug,
     semantify: semantifyIdNode,
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
-  };
+  });
 }

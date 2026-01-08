@@ -15,7 +15,7 @@ describe('string content', () => {
     const node = parseStringContentNode(context);
 
     expect(is(node, $StringContentNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('a');
+    expect(node?.text.toNativeString()).toBe('a');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.start.line).toBe(0);
     expect(node?.range.start.column).toBe(0);
@@ -31,7 +31,7 @@ describe('string content', () => {
     const node = parseStringContentNode(context);
 
     expect(is(node, $StringContentNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('a\nc');
+    expect(node?.text.toNativeString()).toBe('a\nc');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.start.line).toBe(0);
     expect(node?.range.start.column).toBe(0);

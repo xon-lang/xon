@@ -27,7 +27,7 @@
 //     const node = semantic.syntaxAnalyzer.findNodeAtPosition(convertVscodePosition(document, position));
 
 //     if (is(node, $LexicalNode())) {
-//       const item = new CompletionItem(node.getText().toNativeString(), CompletionItemKind.Property);
+//       const item = new CompletionItem(node.text.toNativeString(), CompletionItemKind.Property);
 //     }
 
 //     return [];

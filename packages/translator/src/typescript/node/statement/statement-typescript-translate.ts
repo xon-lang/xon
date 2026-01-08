@@ -2,7 +2,7 @@ import {
   $ConditionStatementNode,
   $DeclarationStatementNode,
   $ExpressionStatementNode,
-  $ImportStatementNode,
+  $ImportNode,
   $ReturnStatementNode,
   Node,
 } from '#analyzer';
@@ -44,7 +44,7 @@ export function translateTypescriptStatement(
     return translateTypescriptExpressionStatement(node).addLastItems(separatorText);
   }
 
-  if (is(node, $ImportStatementNode())) {
+  if (is(node, $ImportNode())) {
     return translateTypescriptImportStatement(node).addLastItems(separatorText);
   }
 

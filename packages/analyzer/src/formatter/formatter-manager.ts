@@ -92,7 +92,7 @@
 //           return;
 //         }
 
-//         if (whitespace.getText().equals(' ')) {
+//         if (whitespace.text.equals(' ')) {
 //           return;
 //         }
 
@@ -168,7 +168,7 @@
 //       const formatSplittedByNl = splittedByNl.map((x) => {
 //         const formattedSplitter = newText(this.formatNlNode(x.splitter));
 //         const formattedItems = newText(
-//           x.items.map((z) => z.getText()),
+//           x.items.map((z) => z.text),
 //           newText(' '),
 //         );
 

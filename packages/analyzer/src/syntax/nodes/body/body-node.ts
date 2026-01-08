@@ -8,7 +8,7 @@ import {
   SemanticContext,
   SyntaxNode,
 } from '#analyzer';
-import {ArrayData, Brand, is, newArrayData, newText, newTextRange, Text} from '#core';
+import {ArrayData, Brand, is, newArrayData, newTextRange} from '#core';
 
 export type BodyNode = SyntaxNode &
   Brand<'Analyzer.BodyNode'> & {
@@ -20,6 +20,7 @@ export type BodyNode = SyntaxNode &
 export const $BodyNode = () => $AnalyzerType<BodyNode>('BodyNode', $SyntaxNode());
 
 export function newBodyNode(): BodyNode {
+  // todo use newSyntaxNode
   return {
     $: $BodyNode(),
     range: newTextRange(),
@@ -46,17 +47,11 @@ export function newBodyNode(): BodyNode {
       };
     },
 
-    getText(): Text {
-      this._text ??= newText(this.children.map((x) => x.getText()));
-
-      return this._text;
-    },
-
     semantify(context: SemanticContext): void {
       // todo fix '?? []'
       for (const statement of this.children ?? []) {
         if (is(statement, $SyntaxNode())) {
-          statement.semantify(context);
+          statement.semantify?.(context);
         }
       }
     },

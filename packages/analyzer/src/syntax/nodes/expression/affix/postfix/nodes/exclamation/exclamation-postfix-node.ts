@@ -11,7 +11,7 @@ export const $ExclamationPostfixNode = () =>
   $AnalyzerType<ExclamationPostfixNode>('ExclamationPostfixNode', $PostfixNode());
 
 // function format(analyzer: SyntaxAnalyzer, node: PostfixNode): void {
-//   const keepSingleWhitespace = !node.operator.getText().equals(RANGE);
+//   const keepSingleWhitespace = !node.operator.text.equals(RANGE);
 //   analyzer.formatterManager.formatChildNode(node.operator, keepSingleWhitespace);
 //   analyzer.formatterManager.formatChildNode(node.right, keepSingleWhitespace);
 // }

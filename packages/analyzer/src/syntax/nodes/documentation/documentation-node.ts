@@ -5,10 +5,8 @@ import {
   DocumentationDescriptionNode,
   DocumentationLabelNode,
   DocumentationOpenNode,
-  FormatterContext,
-  HighlightContext,
   newSyntaxNode,
-  SemanticContext,
+  nodesRange,
   SyntaxNode,
 } from '#analyzer';
 import {ArrayData, Brand, Nothing} from '#core';
@@ -32,13 +30,11 @@ export function newDocumentationNode(
   return newSyntaxNode({
     $: $DocumentationNode(),
     isHidden: true,
+    range: nodesRange(openNode, ...labels, descriptionNode, closeNode),
+
     openNode,
     descriptionNode,
     labels,
     closeNode,
-
-    semantify(context: SemanticContext): void {},
-    format(context: FormatterContext): void {},
-    highlight(context: HighlightContext): void {},
   });
 }

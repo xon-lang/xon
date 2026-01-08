@@ -13,8 +13,8 @@ export const STRING_INTERPOLATION_CLOSE = newCharacter('"');
 export const STRING_OPEN = newCharacter('"');
 export const STRING_CLOSE = newCharacter('"');
 
-export const CHAR_OPEN = newCharacter("'");
-export const CHAR_CLOSE = newCharacter("'");
+export const CHARACTER_OPEN = newCharacter("'");
+export const CHARACTER_CLOSE = newCharacter("'");
 
 export const NL = newCharacter('\n');
 export const CR = newCharacter('\r');

@@ -1,8 +1,8 @@
 import {
   $DeclarationSemantic,
   $IdNode,
+  $ImportNode,
   $ImportSemantic,
-  $ImportStatementNode,
   $StringNode,
   IdNode,
   StringNode,
@@ -51,10 +51,10 @@ class LanguageDefinitionProvider implements DefinitionProvider {
     const analyzer = newTextDocumentAnalyzer(document, this.channel);
     const xonPosition = vsCodeToXonPosition(document, position);
 
-    const inImportNode = !!analyzer.findClosestNode((node) => is(node, $ImportStatementNode()), xonPosition);
+    const inImportNode = !!analyzer.findClosestNode((node) => is(node, $ImportNode()), xonPosition);
 
     const stringNode = analyzer.findClosestNode(
-      (node): node is StringNode => is(node, $StringNode()) && is(node.parent, $ImportStatementNode()),
+      (node): node is StringNode => is(node, $StringNode()) && is(node.parent, $ImportNode()),
       xonPosition,
     );
 

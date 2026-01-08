@@ -26,7 +26,7 @@ export function semantifyDeclarationStatementNode(
   const declarationType = getDeclarationType(this);
 
   const semantic = newDeclarationSemantic(
-    this.keyword?.getText().toNativeString() === 'type',
+    this.keyword?.text.toNativeString() === 'type',
     declarationType,
     context.getReference(this.id.range),
     nothing,
@@ -42,7 +42,7 @@ export function semantifyDeclarationStatementNode(
 }
 
 function getDeclarationType(node: DeclarationStatementNode): DeclarationType {
-  if (node.keyword?.getText().toNativeString() === 'type') {
+  if (node.keyword?.text.toNativeString() === 'type') {
     return DeclarationType.Base;
   }
 

@@ -15,7 +15,7 @@ describe('comment line', () => {
     const node = parseCommentLineOperatorNode(context);
 
     expect(is(node, $CommentLineOperatorNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('//');
+    expect(node?.text.toNativeString()).toBe('//');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.stop.index).toBe(2);
   });
@@ -27,7 +27,7 @@ describe('comment line', () => {
     const node = parseCommentLineOperatorNode(context);
 
     expect(is(node, $CommentLineOperatorNode())).toBe(true);
-    expect(node?.getText().toNativeString()).toBe('//');
+    expect(node?.text.toNativeString()).toBe('//');
     expect(node?.range.start.index).toBe(0);
     expect(node?.range.stop.index).toBe(2);
   });
