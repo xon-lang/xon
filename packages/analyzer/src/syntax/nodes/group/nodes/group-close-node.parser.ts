@@ -11,7 +11,7 @@ import {Nothing} from '#core';
 export function parseGroupCloseNode(context: AnalyzerContext): GroupCloseNode | Nothing {
   return (
     parseAngleCloseNode(context) ??
-    parseBraceCloseNode(context) ??
+    context.source.takeCharacter($BraceCloseNode(), BRACE_CLOSE) ??
     parseBracketCloseNode(context) ??
     parseParenCloseNode(context)
   );

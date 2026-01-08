@@ -21,7 +21,7 @@ export function evaluate(node: Node | Nothing, argsMap: {[key: string]: Somethin
   }
 
   if (is(node, $IntegerNode())) {
-    return +node.content.text.toNativeString();
+    return +node.token.text.toNativeString();
   }
 
   if (is(node, $StringNode()) || is(node, $CharacterNode())) {

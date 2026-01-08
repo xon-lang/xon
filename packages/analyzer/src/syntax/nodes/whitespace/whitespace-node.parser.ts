@@ -1,8 +1,9 @@
-import {$WhitespaceNode, AnalyzerContext, SPACE, WhitespaceNode} from '#analyzer';
+import {AnalyzerContext, LexicalNode, SPACE} from '#analyzer';
 import {Nothing} from '#core';
 
-export function parseWhitespaceNode(context: AnalyzerContext): WhitespaceNode | Nothing {
-  const node = context.source.takeWhile($WhitespaceNode(), (x) => x.equals(SPACE));
+// todo remove 'parseWhitespaceNode'
+export function parseWhitespaceNode(context: AnalyzerContext): LexicalNode | Nothing {
+  const node = context.source.takeWhile((x) => x.equals(SPACE));
 
   if (node) {
     context.hiddenNodes.addLastItem(node);

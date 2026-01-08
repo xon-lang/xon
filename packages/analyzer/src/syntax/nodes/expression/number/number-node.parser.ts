@@ -1,27 +1,20 @@
-import {
-  AnalyzerContext,
-  newFloatNode,
-  newIntegerNode,
-  NumberNode,
-  parseIntegerContentNode,
-  parseRadixPointNode,
-} from '#analyzer';
+import {AnalyzerContext, newFloatNode, newIntegerNode, NumberNode, POINT, UNDERSCORE} from '#analyzer';
 import {nothing, Nothing} from '#core';
 
 export function parseNumberNode(context: AnalyzerContext): NumberNode | Nothing {
-  const integerPartNode = parseIntegerContentNode(context);
+  const integer = context.source.takeWhile((x, i) => x.isDigit() || (i > 0 && x.equals(UNDERSCORE)));
 
-  if (!integerPartNode) {
+  if (!integer) {
     return nothing;
   }
 
-  const radixPointNode = parseRadixPointNode(context);
+  const radix = context.source.takeText(POINT);
 
-  if (!radixPointNode) {
-    return newIntegerNode(integerPartNode);
+  if (!radix) {
+    return newIntegerNode(integer);
   }
 
-  const fractionalPartNode = parseIntegerContentNode(context);
+  const fraction = context.source.takeWhile((x, i) => x.isDigit() || (i > 0 && x.equals(UNDERSCORE)));
 
-  return newFloatNode(integerPartNode, radixPointNode, fractionalPartNode);
+  return newFloatNode(integer, radix, fraction);
 }

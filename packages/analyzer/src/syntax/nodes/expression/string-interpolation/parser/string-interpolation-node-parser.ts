@@ -1,27 +1,23 @@
 import {
-  $BraceCloseNode,
-  $Node,
   $StringInterpolationItemNode,
   AnalyzerContext,
-  BraceCloseNode,
-  BraceOpenNode,
+  BRACE_CLOSE,
+  BRACE_OPEN,
   newStringInterpolationItemNode,
   newStringInterpolationNode,
-  Node,
-  parseBraceOpenNode,
-  parseInterpolationStringContentNode,
-  parseStatements,
-  parseStringInterpolationCloseNode,
-  parseStringInterpolationOpenNode,
+  parseExpression,
+  parseWhitespaceNode,
+  STRING_INTERPOLATION_CLOSE,
+  STRING_INTERPOLATION_OPEN,
   StringInterpolationItemNode,
   StringInterpolationNode,
 } from '#analyzer';
-import {ArrayData, is, newArrayData, nothing, Nothing} from '#core';
+import {newArrayData, nothing, Nothing} from '#core';
 
 export function parseStringInterpolationNode(context: AnalyzerContext): StringInterpolationNode | Nothing {
-  const openNode = parseStringInterpolationOpenNode(context);
+  const open = context.source.takeText(STRING_INTERPOLATION_OPEN);
 
-  if (!openNode) {
+  if (!open) {
     return nothing;
   }
 
@@ -37,44 +33,30 @@ export function parseStringInterpolationNode(context: AnalyzerContext): StringIn
     items.addLastItem(item);
   }
 
-  const closeNode = parseStringInterpolationCloseNode(context);
+  const close = context.source.takeCharacter(STRING_INTERPOLATION_CLOSE);
 
-  return newStringInterpolationNode(openNode, items, closeNode);
+  return newStringInterpolationNode(open, items, close);
 }
 
 function parseInterpolationItem(context: AnalyzerContext): StringInterpolationItemNode | Nothing {
-  const content = parseInterpolationStringContentNode(context);
+  const content = context.source.takeWhile(
+    (x) => !x.equals(BRACE_OPEN) && !x.equals(STRING_INTERPOLATION_CLOSE),
+  );
 
-  const result = parseInterpolationStatements(context);
+  const open = context.source.takeCharacter(BRACE_OPEN);
 
-  if (!content && !result) {
+  if (!open && !content) {
     return nothing;
   }
-
-  return newStringInterpolationItemNode(
-    content,
-    result?.open,
-    result?.nodes ?? newArrayData($Node(), []),
-    result?.close,
-  );
-}
-
-function parseInterpolationStatements(
-  context: AnalyzerContext,
-): {open: BraceOpenNode; nodes: ArrayData<Node>; close?: BraceCloseNode | Nothing} | Nothing {
-  const open = parseBraceOpenNode(context);
 
   if (!open) {
-    return nothing;
+    return newStringInterpolationItemNode(content, nothing, nothing, nothing);
   }
 
-  while (true) {
-    const {breakNode, statements} = parseStatements(context, (node) => is(node, $BraceCloseNode()));
+  parseWhitespaceNode(context);
+  const expression = parseExpression(context);
+  parseWhitespaceNode(context);
+  const close = context.source.takeCharacter(BRACE_CLOSE);
 
-    if (is(breakNode, $BraceCloseNode())) {
-      return {open, nodes: statements, close: breakNode};
-    }
-
-    return {open, nodes: statements, close: nothing};
-  }
+  return newStringInterpolationItemNode(content, open, expression, close);
 }

@@ -65,7 +65,7 @@ describe('group node', () => {
     expect(
       (
         (node.items.first()?.node as ExpressionStatementNode).expression as IntegerNode
-      ).content.text.toNativeString(),
+      ).token.text.toNativeString(),
     ).toBe('123');
   });
 
@@ -153,7 +153,7 @@ describe('group node', () => {
     expect(
       (
         (node.items.at(3)?.node as ExpressionStatementNode).expression as IntegerNode
-      ).content.text.toNativeString(),
+      ).token.text.toNativeString(),
     ).toBe('5');
   });
 

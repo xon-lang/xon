@@ -1,17 +1,17 @@
-import {$AnalyzerType, $NumberNode, IntegerContentNode, newSyntaxNode, nodesRange, NumberNode} from '#analyzer';
+import {$AnalyzerType, $NumberNode, LexicalNode, newSyntaxNode, NumberNode} from '#analyzer';
 import {Brand} from '#core';
 
 export type IntegerNode = NumberNode &
   Brand<'Analyzer.IntegerNode'> & {
-    content: IntegerContentNode;
+    token: LexicalNode;
   };
 
 export const $IntegerNode = () => $AnalyzerType<IntegerNode>('IntegerNode', $NumberNode());
 
-export function newIntegerNode(content: IntegerContentNode): IntegerNode {
+export function newIntegerNode(token: LexicalNode): IntegerNode {
   return newSyntaxNode({
     $: $IntegerNode(),
-    range: nodesRange(content),
-    content,
+    range: token.range,
+    token,
   });
 }

@@ -20,7 +20,7 @@ test('Plus integer', () => {
   expect(is(node, $PlusPrefixNode())).toBe(true);
   expect(node.operator.text.toNativeString()).toBe('+');
   expect(is(node.value, $IntegerNode())).toBe(true);
-  expect((node.value as IntegerNode).content.text.toNativeString()).toBe('1');
+  expect((node.value as IntegerNode).token.text.toNativeString()).toBe('1');
 });
 
 function getPrefixNode(text: Text): PrefixNode {

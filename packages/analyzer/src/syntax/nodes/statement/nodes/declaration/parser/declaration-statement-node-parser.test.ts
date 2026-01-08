@@ -33,7 +33,7 @@ test('Type alias declaration statement with type and assign', () => {
   expect(node.id.getText().toNativeString()).toBe('Zero');
   expect(node.annotation).toBeFalsy();
   expect(is(node.assignment?.expression, $IntegerNode())).toBe(true);
-  expect((node.assignment?.expression as IntegerNode).content.text.toNativeString()).toBe('0');
+  expect((node.assignment?.expression as IntegerNode).token.text.toNativeString()).toBe('0');
 });
 
 test('Type declaration id and base type', () => {

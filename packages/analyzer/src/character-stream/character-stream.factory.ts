@@ -1,6 +1,5 @@
 import {$CharacterStream, CharacterStream, LexicalNode, newLexicalNode, NL, UNDERSCORE} from '#analyzer';
 import {
-  $Type,
   Boolean2,
   Character,
   Integer,
@@ -20,10 +19,9 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
   return {
     $: $CharacterStream(),
 
-    takeWhile<T extends $Type>(
-      $type: $Type,
+    takeWhile(
       predicate: (character: Character, index: Integer, chunk: Text) => Boolean2,
-    ): (T['type'] & LexicalNode) | Nothing {
+    ): LexicalNode | Nothing {
       if (lastWordToken || sourcePosition.index >= sourceLength) {
         return nothing;
       }
@@ -38,28 +36,27 @@ export function newCharacterStreamFromText(source: Text): CharacterStream {
       const range = newTextRange(sourcePosition, getStopTextPosition(text, sourcePosition));
       sourcePosition = range.stop;
 
-      return newLexicalNode($type, range, text);
+      return newLexicalNode(range, text);
     },
 
-    takeText<T extends $Type>($type: $Type, text: Text): (T['type'] & LexicalNode) | Nothing {
+    takeText(text: Text): LexicalNode | Nothing {
       const length = text.count();
 
-      return this.takeWhile($type, (x, i) => i < length && text.at2(i).equals(x));
+      return this.takeWhile((x, i) => i < length && text.at2(i).equals(x));
     },
 
-    takeCharacter<T extends $Type>($type: $Type, character: Character): (T['type'] & LexicalNode) | Nothing {
-      return this.takeWhile($type, (x, i) => i === 0 && character.equals(x));
+    takeCharacter(character: Character): LexicalNode | Nothing {
+      return this.takeWhile((x, i) => i === 0 && character.equals(x));
     },
 
-    takeWord<T extends $Type>($type: T, word?: Text): (T['type'] & LexicalNode) | Nothing {
+    takeWord(exactWord?: Text): LexicalNode | Nothing {
       const token =
         lastWordToken ??
         this.takeWhile(
-          $type,
           (x, i) => (i === 0 && x.isLetter()) || (i > 0 && x.isLetterOrDigit()) || x.equals(UNDERSCORE),
         );
 
-      if ((!word && token) || (word && token?.text.equals(word))) {
+      if ((!exactWord && token) || (exactWord && token?.text.equals(exactWord))) {
         lastWordToken = nothing;
         return token;
       }

@@ -4,29 +4,28 @@ import {
   ExpressionNode,
   formatStringNode,
   HighlightContext,
+  LexicalNode,
   newSyntaxNode,
   nodesRange,
   semantifyStringNode,
-  StringCloseNode,
   StringInterpolationItemNode,
-  StringInterpolationOpenNode,
 } from '#analyzer';
 import {ArrayData, Brand, Nothing} from '#core';
 
 export type StringInterpolationNode = ExpressionNode &
   Brand<'Analyzer.StringInterpolationNode'> & {
-    open: StringInterpolationOpenNode;
+    open: LexicalNode;
     items: ArrayData<StringInterpolationItemNode>;
-    close?: StringCloseNode | Nothing;
+    close?: LexicalNode | Nothing;
   };
 
 export const $StringInterpolationNode = () =>
   $AnalyzerType<StringInterpolationNode>('StringInterpolationNode', $ExpressionNode());
 
 export function newStringInterpolationNode(
-  open: StringInterpolationOpenNode,
+  open: LexicalNode,
   items: ArrayData<StringInterpolationItemNode>,
-  close?: StringCloseNode | Nothing,
+  close?: LexicalNode | Nothing,
 ): StringInterpolationNode {
   return newSyntaxNode({
     $: $StringInterpolationNode(),
@@ -37,6 +36,5 @@ export function newStringInterpolationNode(
 
     semantify: semantifyStringNode,
     format: formatStringNode,
-    highlight(context: HighlightContext): void {},
   });
 }

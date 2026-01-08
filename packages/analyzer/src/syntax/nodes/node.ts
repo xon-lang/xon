@@ -8,7 +8,6 @@ import {
 } from '#analyzer';
 import {
   $ArrayData,
-  $Type,
   ArrayData,
   Boolean2,
   Brand,
@@ -37,9 +36,9 @@ export type LexicalNode = Node &
 
 export const $LexicalNode = () => $AnalyzerType<LexicalNode>('LexicalNode', $Node());
 
-export function newLexicalNode<T extends Model>($type: $Type<T>, range: TextRange, text: Text): LexicalNode {
+export function newLexicalNode(range: TextRange, text: Text): LexicalNode {
   return {
-    $: $type,
+    $: $LexicalNode(),
     text,
     range,
 

@@ -1,27 +1,19 @@
-import {
-  $AnalyzerType,
-  $NumberNode,
-  IntegerContentNode,
-  newSyntaxNode,
-  nodesRange,
-  NumberNode,
-  RadixPointNode,
-} from '#analyzer';
+import {$AnalyzerType, $NumberNode, LexicalNode, newSyntaxNode, nodesRange, NumberNode} from '#analyzer';
 import {Brand, Nothing} from '#core';
 
 export type FloatNode = NumberNode &
   Brand<'Analyzer.FloatNode'> & {
-    integer: IntegerContentNode;
-    radix?: RadixPointNode | Nothing;
-    fraction?: IntegerContentNode | Nothing;
+    integer: LexicalNode;
+    radix?: LexicalNode | Nothing;
+    fraction?: LexicalNode | Nothing;
   };
 
 export const $FloatNode = () => $AnalyzerType<FloatNode>('FloatNode', $NumberNode());
 
 export function newFloatNode(
-  integer: IntegerContentNode,
-  radix?: RadixPointNode | Nothing,
-  fraction?: IntegerContentNode | Nothing,
+  integer: LexicalNode,
+  radix?: LexicalNode | Nothing,
+  fraction?: LexicalNode | Nothing,
 ): FloatNode {
   return newSyntaxNode({
     $: $FloatNode(),
