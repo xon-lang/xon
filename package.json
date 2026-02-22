@@ -4,14 +4,14 @@
     "antlr4": "^4.13.2"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.56.3",
-    "@types/node": "25.2.2",
+    "@microsoft/api-extractor": "^7.57.2",
+    "@types/node": "25.3.0",
     "@types/vscode": "1.109.0",
-    "barrelize": "^1.7.3",
+    "barrelize": "^1.7.4",
     "typescript": "5.9.3",
     "unplugin-dts": "^1.0.0-beta.6",
     "vite": "7.3.1",
-    "vite-tsconfig-paths": "^6.1.0",
+    "vite-tsconfig-paths": "^6.1.1",
     "vitest": "4.0.18"
   },
   "name": "xon",
