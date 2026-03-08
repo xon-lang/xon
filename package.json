@@ -4,8 +4,8 @@
     "antlr4": "^4.13.2"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.57.2",
-    "@types/node": "25.3.0",
+    "@microsoft/api-extractor": "^7.57.6",
+    "@types/node": "25.3.5",
     "@types/vscode": "1.109.0",
     "barrelize": "^1.7.4",
     "typescript": "5.9.3",
